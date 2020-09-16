@@ -1,0 +1,5 @@
+.idea/
+coverage/
+dist/
+docs/typedoc/
+node_modules/
