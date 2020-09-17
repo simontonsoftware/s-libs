@@ -3,5 +3,11 @@
   "dest": "../../dist/ng-dev",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "eslint",
+    "tslint-config-prettier"
+  ]
 }

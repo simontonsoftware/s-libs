@@ -1,6 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    //
+    // from the Angular CLI
+    //
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -18,7 +21,13 @@
     "lib": ["es2018", "dom"],
     "paths": {
       "ng-dev": ["dist/ng-dev/ng-dev", "dist/ng-dev"]
-    }
+    },
+
+    //
+    // Simonton Software additions
+    //
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

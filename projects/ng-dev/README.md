@@ -1,25 +1,54 @@
-# NgDev
+[![Build Status](https://travis-ci.org/simontonsoftware/s-ng-dev-utils.svg?branch=master)](https://travis-ci.org/simontonsoftware/s-ng-dev-utils) [![Coverage Status](https://coveralls.io/repos/github/simontonsoftware/s-ng-dev-utils/badge.svg?branch=master)](https://coveralls.io/github/simontonsoftware/s-ng-dev-utils?branch=master)
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.14.
+## API Documentation
 
-## Code scaffolding
+To quickly see what is available, see the [api documentation](https://simontonsoftware.github.io/s-ng-dev-utils/typedoc).
 
-Run `ng generate component component-name --project ng-dev` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-dev`.
+## Installation
 
-> Note: Don't forget to add `--project ng-dev` or else it will be added to the default project in your `angular.json` file.
+```
+yarn add -D s-ng-dev-utils
+```
 
-## Build
+## TSLint Config
 
-Run `ng build ng-dev` to build the project. The build artifacts will be stored in the `dist/` directory.
+This library comes with a predefined `tslint.json` that track's the angular cli's config with these changes that we have found useful:
 
-## Publishing
+- Disables rules that conflict with Prettier (via [tslint-config-prettier](https://github.com/prettier/tslint-config-prettier))
+- Allows using the `Function` type. Some of our libraries deal a lot with utilities that operate on functions, and using this type is very handy.
+- Downgrades [no-any]() to a warning. While we try to avoid it, we find it a necessary evil at times (at least for our sanity).
+- Downgrades [no-non-null-assertion](https://palantir.github.io/tslint/rules/no-non-null-assertion/) to a warning. While we believe using `!` should be avoided when reasonable, we find that sometimes it just makes sense.
+- Allows prefixing variables with `_`. This is useful e.g. when overriding a method in a way that does not use all its parameters. We use typescript's "noUnusedParameters" option, which gives an error with unused parameters unless their names are prefixed with `_`.
 
-After building your library with `ng build ng-dev`, go to the dist folder `cd dist/ng-dev` and run `npm publish`.
+To use it, change your `tslint.json` to:
 
-## Running unit tests
+```json
+{
+  "extends": "s-ng-dev-utils/tslint"
+}
+```
 
-Run `ng test ng-dev` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## ESLint Config
 
-## Further help
+This library comes with configuration to lint code complexity and length using ESLint. Eventually we expect the Angular CLI to switch to ESLint because TSLint is deprecated. After that this should require less configuration to activate, but for now it requires all these steps:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+1. Add a file `.eslintrc.js` to your project root like this:
+   ```js
+   module.exports = require("s-ng-dev-utils/.eslintrc");
+   ```
+1. Add a file `.eslintignore` to your project root like this (and tweak to fit your needs):
+
+   ```
+   /.idea/
+   /coverage/
+   /dist/
+   /docs/
+   /node_modules/
+   karma.conf.js
+   *.spec.ts
+   ```
+
+1. Modify your `package.json`'s lint script to include ESLint:
+   ```
+   "lint": "ng lint && eslint . --ext .js,.jsx,.ts,.tsx",
+   ```
