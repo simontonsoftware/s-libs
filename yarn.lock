@@ -6276,6 +6276,14 @@ methods@~1.1.2:
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   integrity sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4=
 
+micro-dash@~8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/micro-dash/-/micro-dash-8.0.0.tgz#37c5fb3cc076a765e2dd5710e779a7be8d253b7d"
+  integrity sha512-tdRp4SwIpBtZBLP9qIdjn1KP4bhzLM6MRv6HlZy8X0tIsEjcpIPubX52pAMC1BglGt2ot9+6oXiYbdBJTSLx9w==
+  dependencies:
+    tslib "^2.0.0"
+    utility-types "~3.10.0"
+
 micromatch@^2.1.5:
   version "2.3.11"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-2.3.11.tgz#86677c97d1720b363431d04d0d15293bd38c1565"
@@ -9879,6 +9887,11 @@ util@^0.11.0:
   integrity sha512-HShAsny+zS2TZfaXxD9tYj4HQGlBezXZMZuM/S5PKLLoZkShZiGk9o5CzukI1LVHZvjdvZ2Sj1aW/Ndn2NB/HQ==
   dependencies:
     inherits "2.0.3"
+
+utility-types@~3.10.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/utility-types/-/utility-types-3.10.0.tgz#ea4148f9a741015f05ed74fd615e1d20e6bed82b"
+  integrity sha512-O11mqxmi7wMKCo6HKFt5AhO4BwY3VV68YU07tgxfz8zJTIxr4BpsezN49Ffwy9j3ZpwwJp4fkRwjRzq3uWE6Rg==
 
 utils-merge@1.0.1:
   version "1.0.1"
