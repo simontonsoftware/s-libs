@@ -10,7 +10,7 @@
     "lint": "ng lint && yarn eslint",
     "e2e": "ng e2e",
     "eslint": "eslint . --ext .ts,.tsx",
-    "dtslint": "dtslint --expectOnly --localTs node_modules/typescript/lib projects/ng-dev/src/typing-tests",
+    "dtslint": "dtslint --expectOnly --localTs node_modules/typescript/lib",
     "prettier-all": "prettier --write \"**/*.{html,js,json,md,scss,ts,yml}\""
   },
   "private": true,
