@@ -1,4 +1,4 @@
-import { expectSingleCallAndReset } from 's-ng-dev-utils';
+import { expectSingleCallAndReset } from 'ng-dev';
 import { MigrationManager, VersionedObject } from './migration-manager';
 import { Persistence } from './persistence';
 

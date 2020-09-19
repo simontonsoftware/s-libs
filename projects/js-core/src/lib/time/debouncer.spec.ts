@@ -1,5 +1,5 @@
 import { fakeAsync, tick } from '@angular/core/testing';
-import { expectSingleCallAndReset } from 's-ng-dev-utils';
+import { expectSingleCallAndReset } from 'ng-dev';
 import { Debouncer } from './debouncer';
 
 describe('Debouncer', () => {
