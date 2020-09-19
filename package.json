@@ -9,8 +9,9 @@
     "test": "ng test",
     "lint": "ng lint && yarn eslint",
     "e2e": "ng e2e",
-    "eslint": "eslint . --ext .ts,.tsx",
+    "docs": "typedoc",
     "dtslint": "dtslint --expectOnly --localTs node_modules/typescript/lib",
+    "eslint": "eslint . --ext .ts,.tsx",
     "prettier-all": "prettier --write \"**/*.{html,js,json,md,scss,ts,yml}\""
   },
   "private": true,
@@ -56,6 +57,7 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
+    "typedoc": "^0.19.1",
     "typescript": "~3.9.5"
   },
   "prettier": {
