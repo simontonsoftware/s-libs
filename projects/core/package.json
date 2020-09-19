@@ -1,11 +1,9 @@
 {
-  "name": "core",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/common": "^10.0.14",
-    "@angular/core": "^10.0.14"
-  },
-  "dependencies": {
-    "tslib": "^2.0.0"
-  }
+  "name": "s-js-utils",
+  "version": "7.0.1",
+  "author": "Simonton Software",
+  "license": "MIT",
+  "repository": "simontonsoftware/s-js-utils",
+  "peerDependencies": { "micro-dash": "^8.0.0" },
+  "dependencies": { "tslib": "^2.0.0" }
 }
