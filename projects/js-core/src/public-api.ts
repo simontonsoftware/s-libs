@@ -1,5 +1,5 @@
 /*
- * Public API Surface of core
+ * Public API Surface of js-core
  */
 
 export * from './lib/functions';

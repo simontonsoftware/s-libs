@@ -18,7 +18,7 @@ import {
 } from '@angular/core/testing';
 import { clone, forOwn, isFunction } from 'micro-dash';
 import { isArray } from 'rxjs/internal-compatibility';
-import { assert, convertTime } from 'core';
+import { assert, convertTime } from 'js-core';
 
 /** @hidden */
 export function extendMetadata(
