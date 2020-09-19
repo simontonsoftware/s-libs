@@ -6,6 +6,8 @@
       <sourceFolder url="file://$MODULE_DIR$/projects/ng-dev/src/typing-tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/docs/js-core" />
+      <excludeFolder url="file://$MODULE_DIR$/docs/ng-dev" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
     </content>
