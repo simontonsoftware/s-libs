@@ -1,5 +1,5 @@
 /*
- * Public API Surface of s-rxjs-utils
+ * Public API Surface of rxjs-core
  */
 
 export * from './lib';
