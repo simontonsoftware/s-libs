@@ -16,9 +16,9 @@ import {
   TestModuleMetadata,
   tick,
 } from '@angular/core/testing';
+import { assert } from 'js-core';
 import { clone, forOwn, isFunction } from 'micro-dash';
 import { isArray } from 'rxjs/internal-compatibility';
-import { assert } from 's-js-utils';
 
 export function extendMetadata(
   metadata: TestModuleMetadata,

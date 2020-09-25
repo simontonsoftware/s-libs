@@ -8,8 +8,8 @@ import {
   tick,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { convertTime } from 's-js-utils';
-import { trimLeftoverStyles } from 's-ng-dev-utils';
+import { convertTime } from 'js-core';
+import { trimLeftoverStyles } from 'ng-dev';
 import { AngularContext, extendMetadata } from './angular-context';
 
 export interface ComponentContextInitOptions<ComponentType> {

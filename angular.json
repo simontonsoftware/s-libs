@@ -68,7 +68,8 @@
           "options": {
             "main": "projects/ng-core/src/test.ts",
             "tsConfig": "projects/ng-core/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-core/karma.conf.js"
+            "karmaConfig": "projects/ng-core/karma.conf.js",
+            "polyfills": "projects/ng-core/src/test-polyfills.ts"
           }
         },
         "lint": {
