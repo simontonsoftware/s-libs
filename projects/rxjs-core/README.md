@@ -1,25 +1,27 @@
-# RxjsCore
+[![Build Status](https://travis-ci.org/simontonsoftware/s-rxjs-utils.svg?branch=master)](https://travis-ci.org/simontonsoftware/s-rxjs-utils) [![Coverage Status](https://coveralls.io/repos/github/simontonsoftware/s-rxjs-utils/badge.svg?branch=master)](https://coveralls.io/github/simontonsoftware/s-rxjs-utils?branch=master)
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.14.
+## Simonton Software Typescript Libraries
 
-## Code scaffolding
+`s-rxjs-utils` is one library in a suite that is available from Simonton Software. Each one builds on the last, organized by their dependencies:
 
-Run `ng generate component component-name --project rxjs-core` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project rxjs-core`.
+1. [`micro-dash`](https://github.com/simontonsoftware/micro-dash): A much smaller Lodash
+1. [`s-js-utils`](https://github.com/simontonsoftware/s-js-utils): Miscellaneous utilities written in TypeScript
+1. **`s-rxjs-utils`: Miscellaneous utilities for RxJS**
+1. [`s-ng-utils`](https://github.com/simontonsoftware/s-ng-utils): Miscellaneous utilities for Angular
+1. [`ng-app-state`](https://github.com/simontonsoftware/ng-app-state): Object-oriented wrapper around `@ngrx/store`
 
-> Note: Don't forget to add `--project rxjs-core` or else it will be added to the default project in your `angular.json` file.
+## API Documentation
 
-## Build
+To quickly see what is available, see the [api documentation](https://simontonsoftware.github.io/s-rxjs-utils/typedoc).
 
-Run `ng build rxjs-core` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Installation
 
-## Publishing
+Install along with its peer dependencies using:
 
-After building your library with `ng build rxjs-core`, go to the dist folder `cd dist/rxjs-core` and run `npm publish`.
+```shell script
+npm install --save s-rxjs-utils s-js-utils micro-dash
 
-## Running unit tests
+# OR
 
-Run `ng test rxjs-core` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+yarn add s-rxjs-utils s-js-utils micro-dash
+```
