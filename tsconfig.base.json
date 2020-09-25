@@ -21,7 +21,8 @@
     "lib": ["es2018", "dom"],
     "paths": {
       "js-core": ["dist/js-core/core", "dist/js-core"],
-      "ng-dev": ["dist/ng-dev/ng-dev", "dist/ng-dev"]
+      "ng-dev": ["dist/ng-dev/ng-dev", "dist/ng-dev"],
+      "rxjs-core": ["dist/rxjs-core/rxjs-core", "dist/rxjs-core"]
     },
 
     //

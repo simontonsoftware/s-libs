@@ -83,6 +83,44 @@
           }
         }
       }
+    },
+    "rxjs-core": {
+      "projectType": "library",
+      "root": "projects/rxjs-core",
+      "sourceRoot": "projects/rxjs-core/src",
+      "prefix": "s",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/rxjs-core/tsconfig.lib.json",
+            "project": "projects/rxjs-core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/rxjs-core/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/rxjs-core/src/test.ts",
+            "tsConfig": "projects/rxjs-core/tsconfig.spec.json",
+            "karmaConfig": "projects/rxjs-core/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/rxjs-core/tsconfig.lib.json",
+              "projects/rxjs-core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ng-dev"

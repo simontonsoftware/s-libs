@@ -4,6 +4,10 @@
   "author": "Simonton Software",
   "license": "MIT",
   "repository": "simontonsoftware/s-js-utils",
-  "peerDependencies": { "micro-dash": "^8.0.0" },
-  "dependencies": { "tslib": "^2.0.0" }
+  "peerDependencies": {
+    "micro-dash": "^8.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
 }
