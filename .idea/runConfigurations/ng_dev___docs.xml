@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="ng-dev test server" type="js.build_tools.npm">
+  <configuration default="false" name="ng-dev - docs" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="test" />
+      <script value="docs" />
     </scripts>
-    <arguments value="ng-dev" />
+    <arguments value="--tsconfig projects/ng-dev/tsconfig.lib.json --out docs/ng-dev projects/ng-dev/src/lib" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />

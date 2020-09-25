@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="js-core dtslint" type="js.build_tools.npm">
+  <configuration default="false" name="js-core - build" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="dtslint" />
+      <script value="build" />
     </scripts>
-    <arguments value="projects/js-core/src/typing-tests" />
+    <arguments value="--prod js-core" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />
