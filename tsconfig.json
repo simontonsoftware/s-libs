@@ -9,6 +9,8 @@
   "references": [
     { "path": "./projects/js-core/tsconfig.lib.json" },
     { "path": "./projects/js-core/tsconfig.spec.json" },
+    { "path": "./projects/ng-core/tsconfig.lib.json" },
+    { "path": "./projects/ng-core/tsconfig.spec.json" },
     { "path": "./projects/ng-dev/tsconfig.lib.json" },
     { "path": "./projects/ng-dev/tsconfig.spec.json" },
     { "path": "./projects/rxjs-core/tsconfig.lib.json" },

@@ -2,6 +2,7 @@
 - CI
 - coveralls
 - standard version
+  - get features added in the other repos since release in the changelog
 - release script
 - update links between readmes
 - rename in NPM? (and if so, publish)
@@ -12,6 +13,7 @@
 For an individual lib:
 
 - ng generate library --prefix-s <name>
+  - run prettier
 - copy in code & config from <name>
   - mark source root directories
 - fix build errors

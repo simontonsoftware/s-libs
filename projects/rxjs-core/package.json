@@ -9,5 +9,7 @@
     "rxjs": "^6.5.5",
     "s-js-utils": "^7.0.0"
   },
-  "dependencies": { "tslib": "^2.0.0" }
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
 }
