@@ -3,17 +3,20 @@ import { OperatorFunction } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /** @hidden */
+type BuildDownstreamItem<UpstreamType, DownstreamType> = (
+  upstreamItem: UpstreamType,
+  key: keyof any,
+) => DownstreamType;
+
+/** @hidden */
 export function mapAndCacheElements<UpstreamType, DownstreamType>(
   buildCacheKey: (upstreamItem: UpstreamType, key: keyof any) => any,
-  buildDownstreamItem: (
-    upstreamItem: UpstreamType,
-    key: keyof any,
-  ) => DownstreamType,
+  buildDownstreamItem: BuildDownstreamItem<UpstreamType, DownstreamType>,
 ): OperatorFunction<UpstreamType, DownstreamType[]> {
-  let cache: Map<any, DownstreamType> = new Map();
+  let cache = new Map<any, DownstreamType>();
 
   return map((upstreamItems: any) => {
-    const nextCache: Map<any, DownstreamType> = new Map();
+    const nextCache = new Map<any, DownstreamType>();
 
     const downstreamItems = _map(upstreamItems, (upstreamItem, key) => {
       const cacheKey = buildCacheKey(upstreamItem, key);
