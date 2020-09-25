@@ -1,7 +1,7 @@
+import { isSetEqual } from 'js-core';
 import { keys } from 'micro-dash';
 import { MonoTypeOperatorFunction } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { isSetEqual } from 's-js-utils';
 
 /**
  * Allows items through whose keys are distinct from the previous item.
