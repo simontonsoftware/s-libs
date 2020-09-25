@@ -23,3 +23,4 @@ For an individual lib:
   - launch config
 - get typedoc running
   - launch config
+  - mark the generated directory as excluded

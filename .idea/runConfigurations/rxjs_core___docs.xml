@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="rxjs-core - docs" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="docs" />
+    </scripts>
+    <arguments value="--tsconfig projects/rxjs-core/tsconfig.lib.json --out docs/rxjs-core projects/rxjs-core/src/lib" />
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>
