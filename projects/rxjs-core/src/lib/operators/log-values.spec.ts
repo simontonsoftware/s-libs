@@ -1,6 +1,6 @@
 import { noop } from 'micro-dash';
 import { of, throwError } from 'rxjs';
-import { expectCallsAndReset } from 's-ng-dev-utils';
+import { expectCallsAndReset } from 'ng-dev';
 import {
   testCompletionPropagation,
   testErrorPropagation,

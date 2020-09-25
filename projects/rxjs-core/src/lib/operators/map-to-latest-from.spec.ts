@@ -1,5 +1,5 @@
 import { NEVER } from 'rxjs';
-import { marbleTest } from 's-ng-dev-utils';
+import { marbleTest } from 'ng-dev';
 import {
   testCompletionPropagation,
   testErrorPropagation,
