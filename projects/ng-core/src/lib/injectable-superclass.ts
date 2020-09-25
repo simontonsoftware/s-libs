@@ -1,6 +1,6 @@
 import { OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { SubscriptionManager } from 's-rxjs-utils';
+import { SubscriptionManager } from 'rxjs-core';
 
 /**
  * Use as the superclass for anything managed by angular's dependency injection for care-free use of `subscribeTo()`. It simply calls `unsubscribe()` during `ngOnDestroy()`. If you override `ngOnDestroy()` in your subclass, be sure to invoke the super implementation.
