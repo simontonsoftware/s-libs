@@ -9,6 +9,7 @@
     "noEmit": true,
     "target": "es2015",
 
-    "baseUrl": "../lib"
+    "baseUrl": "../lib",
+    "paths": { "rxjs-core": ["../../../../dist/rxjs-core"] }
   }
 }
