@@ -1,0 +1,124 @@
+import {
+  assert,
+  convertTime,
+  createBuilder,
+  Debouncer,
+  Deferred,
+  elapsedToString,
+  isDefined,
+  isEqualAtDepth,
+  isSetEqual,
+  isSuperset,
+  mapAsKeys,
+  mapToObject,
+  MigrationManager,
+  Persistence,
+  roundToMultipleOf,
+  setDifference,
+  setIntersection,
+  setUnion,
+  sleep,
+  symmetricSetDifference,
+  TimeUnit,
+  toCsv,
+  wrapFunction,
+  wrapMethod,
+} from 'js-core';
+
+describe('js-core', () => {
+  it('has TimeUnit', () => {
+    expect(TimeUnit).toBeDefined();
+  });
+
+  it('has Debouncer', () => {
+    expect(Debouncer).toBeDefined();
+  });
+
+  it('has Deferred', () => {
+    expect(Deferred).toBeDefined();
+  });
+
+  it('has MigrationManager', () => {
+    expect(MigrationManager).toBeDefined();
+  });
+
+  it('has Persistence', () => {
+    expect(Persistence).toBeDefined();
+  });
+
+  it('has assert', () => {
+    expect(assert).toBeDefined();
+  });
+
+  it('has convertTime', () => {
+    expect(convertTime).toBeDefined();
+  });
+
+  it('has createBuilder', () => {
+    expect(createBuilder).toBeDefined();
+  });
+
+  it('has elapsedToString', () => {
+    expect(elapsedToString).toBeDefined();
+  });
+
+  it('has isDefined', () => {
+    expect(isDefined).toBeDefined();
+  });
+
+  it('has isEqualAtDepth', () => {
+    expect(isEqualAtDepth).toBeDefined();
+  });
+
+  it('has isSetEqual', () => {
+    expect(isSetEqual).toBeDefined();
+  });
+
+  it('has isSuperset', () => {
+    expect(isSuperset).toBeDefined();
+  });
+
+  it('has mapAsKeys', () => {
+    expect(mapAsKeys).toBeDefined();
+  });
+
+  it('has mapToObject', () => {
+    expect(mapToObject).toBeDefined();
+  });
+
+  it('has roundToMultipleOf', () => {
+    expect(roundToMultipleOf).toBeDefined();
+  });
+
+  it('has setDifference', () => {
+    expect(setDifference).toBeDefined();
+  });
+
+  it('has setIntersection', () => {
+    expect(setIntersection).toBeDefined();
+  });
+
+  it('has setUnion', () => {
+    expect(setUnion).toBeDefined();
+  });
+
+  it('has sleep', () => {
+    expect(sleep).toBeDefined();
+  });
+
+  it('has symmetricSetDifference', () => {
+    expect(symmetricSetDifference).toBeDefined();
+  });
+
+  it('has toCsv', () => {
+    expect(toCsv).toBeDefined();
+  });
+
+  it('has wrapFunction', () => {
+    expect(wrapFunction).toBeDefined();
+  });
+
+  it('has wrapMethod', () => {
+    expect(wrapMethod).toBeDefined();
+  });
+});
