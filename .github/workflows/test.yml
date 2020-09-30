@@ -3,7 +3,7 @@
 
 name: Node.js CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
@@ -11,6 +11,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: node-modules-cache-v1-${{ hashFiles('yarn.lock') }}
+
       - name: Use Node.js 10.x
         uses: actions/setup-node@v1
         with:
@@ -23,16 +28,16 @@ jobs:
       - run: yarn build --prod ng-dev
 
       - run: yarn test ng-dev --watch=false --progress=false --browsers=ChromeHeadlessCI
-      - run: yarn dtslint projects/js-core/src/ng-dev
+      - run: yarn dtslint projects/ng-dev/src/typing-tests
 
       - run: yarn test js-core --watch=false --progress=false --browsers=ChromeHeadlessCI
-      - run: yarn dtslint projects/js-core/src/js-core
+      - run: yarn dtslint projects/js-core/src/typing-tests
 
       - run: yarn test rxjs-core --watch=false --progress=false --browsers=ChromeHeadlessCI
-      - run: yarn dtslint projects/js-core/src/rxjs-core
+      - run: yarn dtslint projects/rxjs-core/src/typing-tests
 
       - run: yarn test ng-core --watch=false --progress=false --browsers=ChromeHeadlessCI
-      - run: yarn dtslint projects/js-core/src/ng-core
+      - run: yarn dtslint projects/ng-core/src/typing-tests
 
       - run: yarn test integration --watch=false --progress=false --browsers=ChromeHeadlessCI
       - run: yarn lint
