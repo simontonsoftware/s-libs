@@ -5,38 +5,38 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 10.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 10.x
-    - run: yarn
-      
-    - run: yarn build --prod ng-dev
-    - run: yarn test ng-dev
-    - run: yarn dtslint projects/js-core/src/ng-dev
+      - uses: actions/checkout@v2
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - run: yarn
 
-    - run: yarn build --prod js-core
-    - run: yarn test js-core
-    - run: yarn dtslint projects/js-core/src/js-core
+      - run: yarn build --prod js-core
+      - run: yarn build --prod rxjs-core
+      - run: yarn build --prod ng-core
+      - run: yarn build --prod ng-dev
 
-    - run: yarn build --prod rxjs-core
-    - run: yarn test rxjs-core
-    - run: yarn dtslint projects/js-core/src/rxjs-core
+      - run: yarn test ng-dev
+      - run: yarn dtslint projects/js-core/src/ng-dev
 
-    - run: yarn build --prod ng-core  
-    - run: yarn test ng-core
-    - run: yarn dtslint projects/js-core/src/ng-core
+      - run: yarn test js-core
+      - run: yarn dtslint projects/js-core/src/js-core
 
-    - run: yarn test integration
-    - run: yarn lint
+      - run: yarn test rxjs-core
+      - run: yarn dtslint projects/js-core/src/rxjs-core
+
+      - run: yarn test ng-core
+      - run: yarn dtslint projects/js-core/src/ng-core
+
+      - run: yarn test integration
+      - run: yarn lint
