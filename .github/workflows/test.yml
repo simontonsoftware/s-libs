@@ -27,22 +27,22 @@ jobs:
       - run: yarn build --prod ng-core
       - run: yarn build --prod ng-dev
 
-      - name: [ng-dev] test
+      - name: ng-dev test
         run: yarn test ng-dev --watch=false --progress=false --browsers=ChromeHeadlessCI
-      - name: [ng-dev] dtslint
+      - name: ng-dev dtslint
         run: yarn dtslint projects/ng-dev/src/typing-tests
 
-      - name: [js-core] test
+      - name: js-core test
         run: yarn test js-core --watch=false --progress=false --browsers=ChromeHeadlessCI
-      - name: [js-core] dtslint
+      - name: js-core dtslint
         run: yarn dtslint projects/js-core/src/typing-tests
 
-      - name: [rxjs-core] test
+      - name: rxjs-core test
         run: yarn test rxjs-core --watch=false --progress=false --browsers=ChromeHeadlessCI
-      - name: [rxjs-core] dtslint
+      - name: rxjs-core dtslint
         run: yarn dtslint projects/rxjs-core/src/typing-tests
 
-      - name: [ng-core] test
+      - name: ng-core test
         run: yarn test ng-core --watch=false --progress=false --browsers=ChromeHeadlessCI
       - name: [ng-core] dtslint
         run: yarn dtslint projects/ng-core/src/typing-tests
