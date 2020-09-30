@@ -1,3 +1,5 @@
+![Test Suite](https://github.com/simontonsoftware/s-libs/workflows/Test%20Suite/badge.svg)
+
 # SLibs
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.0.

@@ -1,5 +1,4 @@
 - copy in remaining libs
-- CI
 - coveralls
 - update "repository" in individual package.json
 - update links to API docs in readmes
