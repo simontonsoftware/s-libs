@@ -33,3 +33,4 @@
   - launch config
   - mark the generated directory as excluded
 - write integration specs
+- add to ci

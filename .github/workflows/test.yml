@@ -27,17 +27,26 @@ jobs:
       - run: yarn build --prod ng-core
       - run: yarn build --prod ng-dev
 
-      - run: yarn test ng-dev --watch=false --progress=false --browsers=ChromeHeadlessCI
-      - run: yarn dtslint projects/ng-dev/src/typing-tests
+      - name: [ng-dev] test
+        run: yarn test ng-dev --watch=false --progress=false --browsers=ChromeHeadlessCI
+      - name: [ng-dev] dtslint
+        run: yarn dtslint projects/ng-dev/src/typing-tests
 
-      - run: yarn test js-core --watch=false --progress=false --browsers=ChromeHeadlessCI
-      - run: yarn dtslint projects/js-core/src/typing-tests
+      - name: [js-core] test
+        run: yarn test js-core --watch=false --progress=false --browsers=ChromeHeadlessCI
+      - name: [js-core] dtslint
+        run: yarn dtslint projects/js-core/src/typing-tests
 
-      - run: yarn test rxjs-core --watch=false --progress=false --browsers=ChromeHeadlessCI
-      - run: yarn dtslint projects/rxjs-core/src/typing-tests
+      - name: [rxjs-core] test
+        run: yarn test rxjs-core --watch=false --progress=false --browsers=ChromeHeadlessCI
+      - name: [rxjs-core] dtslint
+        run: yarn dtslint projects/rxjs-core/src/typing-tests
 
-      - run: yarn test ng-core --watch=false --progress=false --browsers=ChromeHeadlessCI
-      - run: yarn dtslint projects/ng-core/src/typing-tests
+      - name: [ng-core] test
+        run: yarn test ng-core --watch=false --progress=false --browsers=ChromeHeadlessCI
+      - name: [ng-core] dtslint
+        run: yarn dtslint projects/ng-core/src/typing-tests
 
-      - run: yarn test integration --watch=false --progress=false --browsers=ChromeHeadlessCI
+      - name: integration test
+        run: yarn test integration --watch=false --progress=false --browsers=ChromeHeadlessCI
       - run: yarn lint
