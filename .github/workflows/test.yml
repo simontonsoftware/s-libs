@@ -11,15 +11,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+
       - uses: actions/cache@v2
         with:
           path: node_modules
           key: node-modules-cache-v1-${{ hashFiles('yarn.lock') }}
-
-      - name: Use Node.js 10.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 10.x
       - run: yarn
 
       - run: yarn build --prod js-core
