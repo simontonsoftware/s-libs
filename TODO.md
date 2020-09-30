@@ -1,5 +1,4 @@
 - copy in remaining libs
-- integration specs
 - CI
 - coveralls
 - update "repository" in individual package.json
@@ -33,3 +32,5 @@
 - get typedoc running
   - launch config
   - mark the generated directory as excluded
+- write integration specs
+- add to ci

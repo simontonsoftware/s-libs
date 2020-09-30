@@ -1,0 +1,51 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+
+      - uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: node-modules-cache-v1-${{ hashFiles('yarn.lock') }}
+      - run: yarn
+
+      - run: yarn build --prod js-core
+      - run: yarn build --prod rxjs-core
+      - run: yarn build --prod ng-core
+      - run: yarn build --prod ng-dev
+
+      - name: ng-dev test
+        run: yarn test ng-dev --watch=false --progress=false --browsers=ChromeHeadlessCI
+      - name: ng-dev dtslint
+        run: yarn dtslint projects/ng-dev/src/typing-tests
+
+      - name: js-core test
+        run: yarn test js-core --watch=false --progress=false --browsers=ChromeHeadlessCI
+      - name: js-core dtslint
+        run: yarn dtslint projects/js-core/src/typing-tests
+
+      - name: rxjs-core test
+        run: yarn test rxjs-core --watch=false --progress=false --browsers=ChromeHeadlessCI
+      - name: rxjs-core dtslint
+        run: yarn dtslint projects/rxjs-core/src/typing-tests
+
+      - name: ng-core test
+        run: yarn test ng-core --watch=false --progress=false --browsers=ChromeHeadlessCI
+      - name: ng-core dtslint
+        run: yarn dtslint projects/ng-core/src/typing-tests
+
+      - name: integration test
+        run: yarn test integration --watch=false --progress=false --browsers=ChromeHeadlessCI
+      - run: yarn lint
