@@ -22,17 +22,17 @@ jobs:
       - run: yarn build --prod ng-core
       - run: yarn build --prod ng-dev
 
-      - run: yarn test ng-dev
+      - run: yarn test ng-dev --watch=false --progress=false --browsers=ChromeHeadlessCI
       - run: yarn dtslint projects/js-core/src/ng-dev
 
-      - run: yarn test js-core
+      - run: yarn test js-core --watch=false --progress=false --browsers=ChromeHeadlessCI
       - run: yarn dtslint projects/js-core/src/js-core
 
-      - run: yarn test rxjs-core
+      - run: yarn test rxjs-core --watch=false --progress=false --browsers=ChromeHeadlessCI
       - run: yarn dtslint projects/js-core/src/rxjs-core
 
-      - run: yarn test ng-core
+      - run: yarn test ng-core --watch=false --progress=false --browsers=ChromeHeadlessCI
       - run: yarn dtslint projects/js-core/src/ng-core
 
-      - run: yarn test integration
+      - run: yarn test integration --watch=false --progress=false --browsers=ChromeHeadlessCI
       - run: yarn lint
