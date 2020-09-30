@@ -44,7 +44,7 @@ jobs:
 
       - name: ng-core test
         run: yarn test ng-core --watch=false --progress=false --browsers=ChromeHeadlessCI
-      - name: [ng-core] dtslint
+      - name: ng-core dtslint
         run: yarn dtslint projects/ng-core/src/typing-tests
 
       - name: integration test
