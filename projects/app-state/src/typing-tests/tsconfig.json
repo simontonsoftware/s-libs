@@ -10,7 +10,9 @@
     "target": "es2015",
 
     "baseUrl": "../lib",
-
-    "experimentalDecorators": true
+    "paths": {
+      "js-core": ["../../../../dist/js-core"],
+      "rxjs-core": ["../../../../dist/rxjs-core"]
+    }
   }
 }

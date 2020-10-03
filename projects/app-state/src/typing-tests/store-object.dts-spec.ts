@@ -9,13 +9,13 @@ class State {
 
 const store = new RootStore<State>(new State());
 
-// $ExpectType ChildStore<number>
+// $ExpectType Store<number>
 store('a');
-// $ExpectType ChildStore<{ c: Date; }>
+// $ExpectType Store<{ c: Date; }>
 store('obj');
-// $ExpectType ChildStore<Date>
+// $ExpectType Store<Date>
 store('obj')('c');
-// $ExpectType ChildStore<boolean[]>
+// $ExpectType Store<boolean[]>
 store('ary');
-// $ExpectType ChildStore<boolean>
+// $ExpectType Store<boolean>
 store('ary')(1);
