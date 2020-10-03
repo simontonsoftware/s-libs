@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/projects/app-state/src/test-helpers" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/docs/app-state" />
       <excludeFolder url="file://$MODULE_DIR$/docs/js-core" />
       <excludeFolder url="file://$MODULE_DIR$/docs/ng-core" />
       <excludeFolder url="file://$MODULE_DIR$/docs/ng-dev" />
