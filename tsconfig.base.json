@@ -20,6 +20,7 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
+      "app-state": ["dist/app-state/app-state", "dist/app-state"],
       "js-core": ["dist/js-core/core", "dist/js-core"],
       "ng-core": ["dist/ng-core/ng-core", "dist/ng-core"],
       "ng-dev": ["dist/ng-dev/ng-dev", "dist/ng-dev"],

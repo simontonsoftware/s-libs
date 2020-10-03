@@ -7,6 +7,8 @@
 {
   "files": [],
   "references": [
+    { "path": "./projects/app-state/tsconfig.lib.json" },
+    { "path": "./projects/app-state/tsconfig.spec.json" },
     { "path": "./projects/integration/tsconfig.app.json" },
     { "path": "./projects/integration/tsconfig.spec.json" },
     { "path": "./projects/js-core/tsconfig.lib.json" },

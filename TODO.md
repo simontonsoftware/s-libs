@@ -17,7 +17,7 @@
 
 # To add a lib lib
 
-- ng generate library --prefix-s <name>
+- ng generate library --prefix=s <name>
   - run prettier
 - copy in code & config from <name>
   - mark source root directories

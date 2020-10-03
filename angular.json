@@ -7,6 +7,44 @@
   },
   "newProjectRoot": "projects",
   "projects": {
+    "app-state": {
+      "projectType": "library",
+      "root": "projects/app-state",
+      "sourceRoot": "projects/app-state/src",
+      "prefix": "s",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/app-state/tsconfig.lib.json",
+            "project": "projects/app-state/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/app-state/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/app-state/src/test.ts",
+            "tsConfig": "projects/app-state/tsconfig.spec.json",
+            "karmaConfig": "projects/app-state/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/app-state/tsconfig.lib.json",
+              "projects/app-state/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
     "integration": {
       "projectType": "application",
       "schematics": {
