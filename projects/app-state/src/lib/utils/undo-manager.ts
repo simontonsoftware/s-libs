@@ -1,6 +1,6 @@
+import { Debouncer } from 'js-core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { Debouncer } from 's-js-utils';
 import { Store } from '../index';
 
 /** @hidden */
