@@ -2,6 +2,5 @@
  * Public API Surface of app-state
  */
 
-export * from './lib/app-state.service';
-export * from './lib/app-state.component';
-export * from './lib/app-state.module';
+export { Store, RootStore } from './lib/index';
+export * from './lib/utils';
