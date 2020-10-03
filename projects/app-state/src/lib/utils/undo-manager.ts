@@ -71,24 +71,9 @@ export abstract class UndoManager<StateType, UndoStateType> {
       return;
     }
 
-    if (collectKey && this.currentCollectKey === collectKey) {
-      --this.currentStateIndex;
-      this.dropRedoHistory();
-      if (!this.shouldPush(nextState)) {
-        return;
-      }
+    if (this.prepush(nextState, collectKey)) {
+      this.actuallyPush(nextState, collectKey, collectDebounce);
     }
-
-    ++this.currentStateIndex;
-    this.stack[this.currentStateIndex] = nextState;
-    this.dropRedoHistory();
-
-    while (this.stack.length > 1 && this.isOverSize(this.stack.length)) {
-      this.stack.shift();
-      --this.currentStateIndex;
-    }
-
-    this.emitUndoChanges(collectKey, collectDebounce);
   }
 
   /**
@@ -221,5 +206,37 @@ export abstract class UndoManager<StateType, UndoStateType> {
         this.currentCollectKey = undefined;
       }, collectDebounce);
     }
+  }
+
+  private prepush(
+    nextState: UndoStateType,
+    collectKey: string | undefined,
+  ): boolean {
+    if (collectKey && this.currentCollectKey === collectKey) {
+      --this.currentStateIndex;
+      this.dropRedoHistory();
+      if (!this.shouldPush(nextState)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  private actuallyPush(
+    nextState: UndoStateType,
+    collectKey: string | undefined,
+    collectDebounce: number | undefined,
+  ): void {
+    ++this.currentStateIndex;
+    this.stack[this.currentStateIndex] = nextState;
+    this.dropRedoHistory();
+
+    while (this.stack.length > 1 && this.isOverSize(this.stack.length)) {
+      this.stack.shift();
+      --this.currentStateIndex;
+    }
+
+    this.emitUndoChanges(collectKey, collectDebounce);
   }
 }

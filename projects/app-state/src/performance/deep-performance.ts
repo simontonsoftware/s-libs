@@ -27,11 +27,7 @@ export function subscribeDeep(
 
   console.log('ms to subscribe deep:', elapsed);
   console.log(' - per subscription:', elapsed / depth);
-  const subscription = new Subscription();
-  for (const s of subscriptions.reverse()) {
-    subscription.add(s);
-  }
-  return { elapsed, subscription };
+  return { elapsed, subscription: consolidateSubscriptions(subscriptions) };
 }
 
 export function runDeep(store: Store<DeepState>, iterations: number): number {
@@ -56,6 +52,14 @@ function analyze(
     store = store('next');
   }
   return { depth, leafStore: store };
+}
+
+function consolidateSubscriptions(subscriptions: Subscription[]): Subscription {
+  const subscription = new Subscription();
+  for (const s of subscriptions.reverse()) {
+    subscription.add(s);
+  }
+  return subscription;
 }
 
 function increment(n: number): number {
