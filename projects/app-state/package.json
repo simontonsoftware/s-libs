@@ -12,5 +12,7 @@
     "s-js-utils": "^7.0.0",
     "s-rxjs-utils": "^4.0.0"
   },
-  "dependencies": { "tslib": "^2.0.0" }
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
 }
