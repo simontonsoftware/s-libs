@@ -198,6 +198,44 @@
         }
       }
     },
+    "micro-dash": {
+      "projectType": "library",
+      "root": "projects/micro-dash",
+      "sourceRoot": "projects/micro-dash/src",
+      "prefix": "s",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/micro-dash/tsconfig.lib.json",
+            "project": "projects/micro-dash/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/micro-dash/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/micro-dash/src/test.ts",
+            "tsConfig": "projects/micro-dash/tsconfig.spec.json",
+            "karmaConfig": "projects/micro-dash/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/micro-dash/tsconfig.lib.json",
+              "projects/micro-dash/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
     "ng-app-state": {
       "projectType": "library",
       "root": "projects/ng-app-state",

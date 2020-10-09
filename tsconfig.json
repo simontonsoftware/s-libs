@@ -13,6 +13,8 @@
     { "path": "./projects/integration/tsconfig.spec.json" },
     { "path": "./projects/js-core/tsconfig.lib.json" },
     { "path": "./projects/js-core/tsconfig.spec.json" },
+    { "path": "./projects/micro-dash/tsconfig.lib.json" },
+    { "path": "./projects/micro-dash/tsconfig.spec.json" },
     { "path": "./projects/ng-app-state/tsconfig.lib.json" },
     { "path": "./projects/ng-app-state/tsconfig.spec.json" },
     { "path": "./projects/ng-core/tsconfig.lib.json" },
