@@ -1,6 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { RootStore } from '../lib/root-store';
+import { RootStore } from 'app-state';
 
 class StoreComponent<T extends object> {
   compareFn: (o1: any, o2: any) => boolean = (o1: any, o2: any) =>
