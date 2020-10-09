@@ -1,4 +1,4 @@
-import { expectCallsAndReset } from 's-ng-dev-utils';
+import { expectCallsAndReset } from 'ng-dev';
 import { stub } from 'sinon';
 import { identity } from '../util';
 import { map } from './map';

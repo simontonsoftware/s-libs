@@ -1,4 +1,4 @@
-import { expectCallsAndReset } from 's-ng-dev-utils';
+import { expectCallsAndReset } from 'ng-dev';
 import { filter } from './filter';
 
 describe('filter()', () => {

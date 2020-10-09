@@ -1,5 +1,5 @@
 import { matches } from 'lodash-es';
-import { expectSingleCallAndReset } from 's-ng-dev-utils';
+import { expectSingleCallAndReset } from 'ng-dev';
 import { findKey } from './find-key';
 
 describe('findKey()', () => {

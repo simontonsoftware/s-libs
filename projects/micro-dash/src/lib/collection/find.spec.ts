@@ -1,5 +1,5 @@
 import { matches } from 'lodash-es';
-import { expectCallsAndReset, expectSingleCallAndReset } from 's-ng-dev-utils';
+import { expectCallsAndReset, expectSingleCallAndReset } from 'ng-dev';
 import { find } from './find';
 
 describe('find()', () => {

@@ -1,5 +1,5 @@
 import { identity, range } from 'lodash';
-import { expectCallsAndReset } from 's-ng-dev-utils';
+import { expectCallsAndReset } from 'ng-dev';
 import { maxBy } from './max-by';
 
 describe('maxBy()', () => {

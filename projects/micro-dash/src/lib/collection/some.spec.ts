@@ -1,5 +1,5 @@
 import { identity } from 'lodash-es';
-import { expectCallsAndReset } from 's-ng-dev-utils';
+import { expectCallsAndReset } from 'ng-dev';
 import { every } from './every';
 import { some } from './some';
 

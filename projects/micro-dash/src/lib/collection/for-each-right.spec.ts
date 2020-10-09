@@ -1,5 +1,5 @@
 import { noop } from 'lodash';
-import { expectCallsAndReset } from 's-ng-dev-utils';
+import { expectCallsAndReset } from 'ng-dev';
 import { stub } from 'sinon';
 import { forEachRight } from './for-each-right';
 
