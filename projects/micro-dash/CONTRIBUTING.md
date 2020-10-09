@@ -16,8 +16,8 @@ So you want to contribute to Micro-dash? That's great! This guide shows everythi
    1. Run the tests with `yarn test micro-dash`.
 1. **Calculate the sizes.**
    1. Create 2 files:
-      1. `projects/calc-sizes/src/app/<category>/<function-name>.lodash.ts`
-      1. `projects/calc-sizes/src/app/<category>/<function-name>.microdash.ts`
+      1. `projects/micro-dash-sizes/src/app/<category>/<function-name>.lodash.ts`
+      1. `projects/micro-dash-sizes/src/app/<category>/<function-name>.microdash.ts`
    1. Add simple uses of the function to both files. The files should be identical except for the import lines (where one imports from `lodash-es`, and the other from `micro-dash`).
       - If the function returns a value, `console.log` the output to be sure tree shaking doesn't decide the whole thing is unnecessary.
    1. Run `yarn calc-sizes` and enter the function name in kebab-case.
