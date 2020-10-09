@@ -2,6 +2,7 @@
   - update install instructions in readmes
   - full search for text of old names
   - publish
+- switch from yarn to pnpm
 - look for more substantial integration tests to copy over
 - update "repository" in individual package.json
 - update links to API docs in readmes
@@ -14,3 +15,6 @@
 - add issue about UMD bundle names
 - coveralls
 - remove "to-relpace" things
+- landing page to link to all API docs
+- add instructions for logging app-state to redux devtools
+- add migration instructions for app-state

@@ -1,11 +1,11 @@
 ## API Documentation
 
-To quickly see what is available, see the [api documentation](https://simontonsoftware.github.io/s-ng-dev-utils/typedoc).
+To quickly see what is available, see the [api documentation](https://simontonsoftware.github.io/s-libs/ng-dev).
 
 ## Installation
 
 ```
-yarn add -D s-ng-dev-utils
+yarn add -D @s-libs/ng-dev @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
 ```
 
 ## TSLint Config
@@ -21,9 +21,7 @@ This library comes with a predefined `tslint.json` that track's the angular cli'
 To use it, change your `tslint.json` to:
 
 ```json
-{
-  "extends": "s-ng-dev-utils/tslint"
-}
+{ "extends": "s-ng-dev-utils/tslint" }
 ```
 
 ## ESLint Config

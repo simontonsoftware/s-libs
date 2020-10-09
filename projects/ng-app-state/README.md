@@ -1,31 +1,30 @@
-`ng-app-state` is built on top of [`ngrx/store`](https://github.com/ngrx/platform), bringing you the same help writing performant, consistent applications for Angular in a format more familiar for those not accustomed to functional programming.
-
-[![Build Status](https://travis-ci.org/simontonsoftware/ng-app-state.svg?branch=master)](https://travis-ci.org/simontonsoftware/ng-app-state) [![Coverage Status](https://coveralls.io/repos/github/simontonsoftware/ng-app-state/badge.svg?branch=master)](https://coveralls.io/github/simontonsoftware/ng-app-state?branch=master)
-
-## Simonton Software Typescript Libraries
-
-`ng-app-state` is one library in a suite that is available from Simonton Software. Each one builds on the last, organized by their dependencies:
-
-1. [`micro-dash`](https://github.com/simontonsoftware/micro-dash): A much smaller Lodash
-1. [`s-js-utils`](https://github.com/simontonsoftware/s-js-utils): Miscellaneous utilities written in TypeScript
-1. [`s-rxjs-utils`](https://github.com/simontonsoftware/s-rxjs-utils): Miscellaneous utilities for RxJS
-1. [`s-ng-utils`](https://github.com/simontonsoftware/s-ng-utils): Miscellaneous utilities for Angular
-1. **`ng-app-state`: Object-oriented wrapper around `@ngrx/store`**
-
-## API Documentation
-
-Once you are familiar with the basics, it may help to see the [api documentation](https://simontonsoftware.github.io/ng-app-state/typedoc).
+Painlessly integrate [`app-state`](https://github.com/simontonsoftware/s-libs/projects/app-state) into template-driven Angular forms.
 
 ## Installation
 
 Install along with its peer dependencies using:
 
 ```shell script
-npm install --save ng-app-state @ngrx/store s-ng-utils s-rxjs-utils s-js-utils micro-dash
+npm install --save @s-libs/ng-app-state @s-libs/app-state @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
 
 # OR
 
-yarn add ng-app-state @ngrx/store s-ng-utils s-rxjs-utils s-js-utils micro-dash
+yarn add @s-libs/ng-app-state @s-libs/app-state @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
+```
+
+## Setup
+
+In your module, import `NasModelModule`, e.g.:
+
+```ts
+// app.module.ts
+
+import { NasModelModule } from "ng-app-state";
+
+@NgModule({
+  imports: [NasModelModule],
+})
+export class AppModule {}
 ```
 
 ## Template Driven Forms
@@ -34,7 +33,7 @@ This library includes the `[nasModel]` directive that you can use in place of `[
 
 ```ts
 @Component({
-  template: ` <input [nasModel]="nameStore" /> `,
+  template: `<input [nasModel]="nameStore" />`,
 })
 class AccountSettingsComponent {
   nameStore: StoreObject<string>;
@@ -67,5 +66,3 @@ class AccountSettingsComponent {
 - `<select multiple>` - binds to `StoreObject<string[]>`
 - `<select>`
 - `<textarea>`
-
-To gain access to `[nasModel]`, add `NasModelModule` to the list of imports in your module.

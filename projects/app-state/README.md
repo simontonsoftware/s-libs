@@ -1,29 +1,19 @@
-`ng-app-state` is built on top of [`ngrx/store`](https://github.com/ngrx/platform), bringing you the same help writing performant, consistent applications for Angular in a format more familiar for those not accustomed to functional programming.
+`@s-libs/app-state` is an observable state management library. Think of it like Redux, but without actions or reducers. That makes it a natural fit for anyone who wants the benefits of centralized state management, without adopting a function style of programming.
 
 [![Build Status](https://travis-ci.org/simontonsoftware/ng-app-state.svg?branch=master)](https://travis-ci.org/simontonsoftware/ng-app-state) [![Coverage Status](https://coveralls.io/repos/github/simontonsoftware/ng-app-state/badge.svg?branch=master)](https://coveralls.io/github/simontonsoftware/ng-app-state?branch=master)
 
-## Simonton Software Typescript Libraries
-
-`ng-app-state` is one library in a suite that is available from Simonton Software. Each one builds on the last, organized by their dependencies:
-
-1. [`micro-dash`](https://github.com/simontonsoftware/micro-dash): A much smaller Lodash
-1. [`s-js-utils`](https://github.com/simontonsoftware/s-js-utils): Miscellaneous utilities written in TypeScript
-1. [`s-rxjs-utils`](https://github.com/simontonsoftware/s-rxjs-utils): Miscellaneous utilities for RxJS
-1. [`s-ng-utils`](https://github.com/simontonsoftware/s-ng-utils): Miscellaneous utilities for Angular
-1. **`ng-app-state`: Object-oriented wrapper around `@ngrx/store`**
-
 ## API Documentation
 
-Once you are familiar with the basics, it may help to see the [api documentation](https://simontonsoftware.github.io/ng-app-state/typedoc).
+Once you are familiar with the basics, it may help to see the [api documentation](https://simontonsoftware.github.io/s-libs/app-state).
 
 ## Introduction
 
-A basic idea behind this library (as well as the underlying `ngrx/store`, and `Redux` on which it is modeled) is to keep all the state of your app in one place, accessible for any component or service to access, modify and subscribe to changes. This has several benefits:
+A basic idea behind this library is to keep all the state of your app in one place, accessible for any component or service to access, modify and subscribe to changes. This has several benefits:
 
-- Components no longer need multiples inputs and outputs to route state and mutations to the proper components. Instead they can obtain the store via dependency injection.
-- During debugging you can look in one place to see the state of your entire app. Moreover, development tools can be used to see this information at a glance along with a full history of changes leading up to the current state, e.g. the [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en) or [ngrx-store-logger](https://github.com/btroncone/ngrx-store-logger).
+- Components no longer need multiple inputs and outputs to route state and mutations to the proper components. Instead they can obtain the store via dependency injection.
+- During debugging you can look in one place to see the state of your entire app. Moreover, development tools can be used to see this information at a glance along with a full history of changes leading up to the current state ([Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)).
 - The objects in the store are immutable (as long as you only modify the state via the store, as you should), which enables more benefits:
-  - Immutable objects all you to use Angular's on-push change detection, which can be a huge performance gain for apps with a large state.
+  - Immutable objects allow you to use Angular's on-push change detection, which can be a huge performance gain for apps with a large state.
   - Undo/redo features become very simple. This library includes a helper to make it even easier (more info below).
 - Every piece of state is observable. You can subscribe to the root of the store to get notified of every state change anywhere in the app, for a specific boolean buried deep within your state, or anywhere in between.
 
@@ -37,11 +27,11 @@ A basic idea behind this library (as well as the underlying `ngrx/store`, and `R
 Install along with its peer dependencies using:
 
 ```shell script
-npm install --save ng-app-state @ngrx/store s-ng-utils s-rxjs-utils s-js-utils micro-dash
+npm install --save @s-libs/app-state @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
 
 # OR
 
-yarn add ng-app-state @ngrx/store s-ng-utils s-rxjs-utils s-js-utils micro-dash
+yarn add @s-libs/app-state @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
 ```
 
 ## Setup
@@ -68,44 +58,21 @@ export class User {
 }
 ```
 
-Then create a subclass of `AppStore`. A single instance of that class will serve as the entry point to obtain and modify the state it holds. Most often you will make that class an Angular service that can be injected anywhere in your app. For example:
+Then create a subclass of `RootStore`. A single instance of that class will serve as the entry point to obtain and modify the state it holds. Most often you will make that class an Angular service that can be injected anywhere in your app. For example:
 
 ```ts
 // state/my-store.service.ts
 
 import { Injectable } from "@angular/core";
-import { Store } from "@ngrx/store";
-import { AppStore } from "ng-app-state";
+import { RootStore } from "@s-libs/app-state";
 import { MyState } from "./my-state";
 
-@Injectable()
-export class MyStore extends AppStore<MyState> {
-  constructor(store: Store<any>) {
-    super(store, "myState", new MyState());
+@Injectable({ providedIn: "root" })
+export class MyStore extends RootStore<MyState> {
+  constructor() {
+    super(new MyState());
   }
 }
-```
-
-The second argument to the constructor above, `"myState"`, must be unique for each store object you create. It becomes the top-level key of this store within the global `ngrx/store`. You can create multiple `AppStore` objects as long as each has a different key.
-
-Below is a common setup for your root module. Note that the only required part is importing `StoreModule.forRoot()` to initialize `ngrx/store`, and passing it `ngAppStateReducer` in the list of meta reducers.
-
-```ts
-// app.module.ts
-
-import { StoreModule } from "@ngrx/store";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { ngAppStateReducer } from "ng-app-state";
-import { MyStore } from "./state/my-store";
-
-@NgModule({
-  imports: [
-    StoreModule.forRoot({}, { metaReducers: [ngAppStateReducer] }),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-  ],
-  providers: [MyStore],
-})
-export class AppModule {}
 ```
 
 ## Usage
@@ -113,16 +80,16 @@ export class AppModule {}
 Consider this translation of the counter example from the `ngrx/store` readme:
 
 ```ts
-// counter-state.ts
-export class CounterState {
+// app-state.ts
+export class AppState {
   counter = 0;
 }
 
-// counter-store.ts
-@Injectable()
-export class CounterStore extends AppStore<CounterState> {
-  constructor(store: Store<any>) {
-    super(store, "counterState", new CounterState());
+// app-store.ts
+@Injectable({ providedIn: "root" })
+export class AppStore extends RootStore<AppState> {
+  constructor() {
+    super(new AppState());
   }
 }
 
@@ -140,7 +107,7 @@ export class CounterStore extends AppStore<CounterState> {
 export class MyAppComponent {
   counterStore: StoreObject<number>;
 
-  constructor(store: CounterStore) {
+  constructor(store: AppStore) {
     this.counterStore = store("counter");
   }
 
@@ -157,17 +124,6 @@ export class MyAppComponent {
   }
 }
 ```
-
-## Compatibility with `ngrx/store`
-
-`ng-app-state` is entirely compatible with all features of `ngrx/store`, `ngrx/store-devtools`, `ngrx/effects`, and any other libraries in the ecosystem. Both can even manage and access the same parts of the store.
-
-## Comparison to `ngrx/store`
-
-The main difference you'll see with `ng-app-state` is that you do not define reducers or actions (or the string constants to tie them together). For full examples:
-
-- View the [full diff](https://github.com/simontonsoftware/ng-app-state/compare/unmodified-counter-demo...b9c72c04767cc5b9bbcc90921d80230227ffae4c) of the Counter app between `ngrx/store` and `ng-app-state`.
-- For a meatier example, check out the [migrated example-app](https://github.com/simontonsoftware/ngrx-example-app-to-ng-app-state/blob/master/README.md). It shows 3 more migrations of differing complexities for each of the 3 modules in [ngrx's example-app](https://github.com/ngrx/platform/blob/master/example-app/README.md). Put together, the full diff sheds about 700 lines compared to the original.
 
 ## Style Guide
 
