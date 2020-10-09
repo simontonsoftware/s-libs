@@ -7,8 +7,8 @@ import {
   Self,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Store } from 'app-state';
 import { Subscription } from 'rxjs';
-import { Store } from '../index';
 
 @Directive({ selector: '[nasModel]' })
 export class NasModelDirective<T> implements AfterViewInit, OnDestroy {
