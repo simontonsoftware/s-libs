@@ -1,15 +1,19 @@
 {
-  "name": "s-ng-utils",
-  "version": "3.0.0",
+  "name": "@s-libs/ng-core",
+  "version": "0.0.0",
   "author": "Simonton Software",
-  "repository": "simontonsoftware/s-ng-utils",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simontonsoftware/s-libs.git",
+    "directory": "projects/ng-core"
+  },
   "peerDependencies": {
     "@angular/common": "^10.0.0",
     "@angular/core": "^10.0.0",
-    "micro-dash": "^8.0.0",
-    "s-js-utils": "^7.0.0",
-    "s-rxjs-utils": "^4.0.0"
+    "@s-libs/js-core": "^0.0.0",
+    "@s-libs/micro-dash": "^0.0.0",
+    "@s-libs/rxjs-core": "^0.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

@@ -443,5 +443,5 @@
       }
     }
   },
-  "defaultProject": "ng-dev"
+  "defaultProject": "integration"
 }

@@ -1,13 +1,17 @@
 {
-  "name": "s-rxjs-utils",
-  "version": "4.0.0",
+  "name": "@s-libs/rxjs-core",
+  "version": "0.0.0",
   "author": "Simonton Software",
-  "repository": "simontonsoftware/s-rxjs-utils",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simontonsoftware/s-libs.git",
+    "directory": "projects/rxjs-core"
+  },
   "peerDependencies": {
-    "micro-dash": "^8.0.0",
-    "rxjs": "^6.5.5",
-    "s-js-utils": "^7.0.0"
+    "@s-libs/js-core": "^0.0.0",
+    "@s-libs/micro-dash": "^0.0.0",
+    "rxjs": "^6.5.5"
   },
   "dependencies": {
     "tslib": "^2.0.0"

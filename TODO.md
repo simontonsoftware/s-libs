@@ -1,36 +1,16 @@
-- copy in remaining libs
+- rename in NPM? If so:
+  - update install instructions in readmes
+  - full search for text of old names
+  - publish
 - look for more substantial integration tests to copy over
-- coveralls
 - update "repository" in individual package.json
 - update links to API docs in readmes
 - standard version
   - get features added in the other repos since release in the changelog
 - release script
 - update links between readmes
-- rename in NPM? If so:
-  - update peer dependencies in individual package.json
-  - update install instructions in readmes
-  - full search for text of old names
-  - publish
 - update readmes in old repos
 - copy over issues
 - add issue about UMD bundle names
-
-# To add a lib lib
-
-- ng generate library --prefix=s <name>
-  - run prettier
-- copy in code & config from <name>
-  - mark test source directories
-- fix build errors
-  - launch config
-- get tests running
-  - launch config
-- see if eslint should be disabled?
-- get dtslint running
-  - launch config
-- get typedoc running
-  - launch config
-  - mark the generated directory as excluded
-- write integration spec
-- add to ci
+- coveralls
+- remove "to-relpace" things
