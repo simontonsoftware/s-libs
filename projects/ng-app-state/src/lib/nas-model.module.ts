@@ -20,8 +20,5 @@ const exportedDirectives = [
   SelectMultipleValueAccessorDirective,
 ];
 
-@NgModule({
-  declarations: exportedDirectives,
-  exports: exportedDirectives,
-})
+@NgModule({ declarations: exportedDirectives, exports: exportedDirectives })
 export class NasModelModule {}
