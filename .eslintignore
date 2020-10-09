@@ -6,3 +6,5 @@
 
 karma.conf.js
 *.spec.ts
+
+/projects/micro-dash/
