@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { ComponentContext } from 'ng-dev';
 import { click, find, findButton } from '../test-helpers';
-import { ComponentContext } from '../to-replace/component-context';
 import { DirectiveSuperclass } from './directive-superclass';
 import {
   FormControlSuperclass,

@@ -7,11 +7,10 @@ import {
 } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { expectSingleCallAndReset } from 'ng-dev';
+import { ComponentContext, expectSingleCallAndReset } from 'ng-dev';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { click, find, findButton } from '../test-helpers';
-import { ComponentContext } from '../to-replace/component-context';
 import { DirectiveSuperclass } from './directive-superclass';
 
 @Component({

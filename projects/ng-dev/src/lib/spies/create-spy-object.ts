@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { functions } from '../../to-replace/functions';
+import { functions } from 'micro-dash';
 
 // adapted from https://github.com/ngneat/spectator/blob/e13c9554778bdb179dfc7235aedb4b3b90302850/projects/spectator/src/lib/mock.ts
 

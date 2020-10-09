@@ -5,9 +5,8 @@
 - update readmes in old repos
 - copy over issues
 - add issue about UMD bundle names
-- coveralls
-- remove "to-replace" things
-- landing page to link to all API docs
 - add instructions for logging app-state to redux devtools
 - add migration instructions for app-state
 - switch from yarn to pnpm
+- landing page to link to all API docs
+- coveralls
