@@ -1,20 +1,13 @@
-- rename in NPM? If so:
-  - update install instructions in readmes
-  - full search for text of old names
-  - publish
-- switch from yarn to pnpm
-- look for more substantial integration tests to copy over
-- update "repository" in individual package.json
-- update links to API docs in readmes
 - standard version
   - get features added in the other repos since release in the changelog
 - release script
-- update links between readmes
+- look for more substantial integration tests to copy over
 - update readmes in old repos
 - copy over issues
 - add issue about UMD bundle names
 - coveralls
-- remove "to-relpace" things
+- remove "to-replace" things
 - landing page to link to all API docs
 - add instructions for logging app-state to redux devtools
 - add migration instructions for app-state
+- switch from yarn to pnpm

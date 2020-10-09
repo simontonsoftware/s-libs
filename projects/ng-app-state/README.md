@@ -19,7 +19,7 @@ In your module, import `NasModelModule`, e.g.:
 ```ts
 // app.module.ts
 
-import { NasModelModule } from "ng-app-state";
+import { NasModelModule } from "@s-libs/ng-app-state";
 
 @NgModule({
   imports: [NasModelModule],

@@ -1,6 +1,6 @@
 // There's no good way to make this type safe.
 
-// import { Function1 } from "s-ng-dev-utils";
+// import { Function1 } from "ng-dev";
 //
 // /**
 //  * Creates a function that returns the value at `path` of a given object.

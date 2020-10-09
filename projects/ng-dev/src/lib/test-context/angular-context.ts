@@ -150,7 +150,7 @@ export class AngularContext<InitOptions = {}> {
   /**
    * Advance time and trigger change detection. It is common to call this with no arguments to trigger change detection without advancing time.
    *
-   * @param unit The unit of time `amount` represents. Accepts anything described in `s-js-utils`'s [TimeUnit]{@linkcode https://simontonsoftware.github.io/s-js-utils/typedoc/enums/timeunit.html} enum.
+   * @param unit The unit of time `amount` represents. Accepts anything described in `@s-libs/s-core`'s [TimeUnit]{@linkcode https://simontonsoftware.github.io/s-js-utils/typedoc/enums/timeunit.html} enum.
    */
   tick(amount = 0, unit = 'ms'): void {
     // To simulate real life, trigger change detection before processing macro tasks. To further simulate real life, wait until the micro task queue is empty.

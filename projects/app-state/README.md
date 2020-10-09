@@ -1,6 +1,4 @@
-`@s-libs/app-state` is an observable state management library. Think of it like Redux, but without actions or reducers. That makes it a natural fit for anyone who wants the benefits of centralized state management, without adopting a function style of programming.
-
-[![Build Status](https://travis-ci.org/simontonsoftware/ng-app-state.svg?branch=master)](https://travis-ci.org/simontonsoftware/ng-app-state) [![Coverage Status](https://coveralls.io/repos/github/simontonsoftware/ng-app-state/badge.svg?branch=master)](https://coveralls.io/github/simontonsoftware/ng-app-state?branch=master)
+An observable state management library. Think of it like Redux, but without actions or reducers. That makes it a natural fit for anyone who wants the benefits of centralized state management, without adopting a function style of programming.
 
 ## API Documentation
 

@@ -21,7 +21,7 @@ This library comes with a predefined `tslint.json` that track's the angular cli'
 To use it, change your `tslint.json` to:
 
 ```json
-{ "extends": "s-ng-dev-utils/tslint" }
+{ "extends": "@s-libs/ng-dev/tslint" }
 ```
 
 ## ESLint Config
@@ -29,9 +29,11 @@ To use it, change your `tslint.json` to:
 This library comes with configuration to lint code complexity and length using ESLint. Eventually we expect the Angular CLI to switch to ESLint because TSLint is deprecated. After that this should require less configuration to activate, but for now it requires all these steps:
 
 1. Add a file `.eslintrc.js` to your project root like this:
+
    ```js
-   module.exports = require("s-ng-dev-utils/.eslintrc");
+   module.exports = require("@s-libs/ng-dev/.eslintrc");
    ```
+
 1. Add a file `.eslintignore` to your project root like this (and tweak to fit your needs):
 
    ```
