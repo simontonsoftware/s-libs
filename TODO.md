@@ -32,5 +32,5 @@
 - get typedoc running
   - launch config
   - mark the generated directory as excluded
-- write integration specs
+- write integration spec
 - add to ci

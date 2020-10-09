@@ -25,11 +25,13 @@ jobs:
       - run: yarn build --prod rxjs-core
       - run: yarn build --prod app-state
       - run: yarn build --prod ng-core
+      - run: yarn build --prod ng-app-state
       - run: yarn build --prod ng-dev
 
       - run: yarn test --watch=false --progress=false --browsers=ChromeHeadlessCI
 
       - run: yarn lint
+      - run: yarn eslint
       - run: yarn dtslint projects/app-state/src/typing-tests
       - run: yarn dtslint projects/js-core/src/typing-tests
       - run: yarn dtslint projects/ng-core/src/typing-tests

@@ -7,7 +7,7 @@
     "build": "ng build",
     "postbuild": "cpx \"{tslint*.json,.eslintrc.js}\" dist/ng-dev/",
     "test": "ng test",
-    "lint": "ng lint && yarn eslint",
+    "lint": "ng lint",
     "e2e": "ng e2e",
     "docs": "typedoc",
     "dtslint": "dtslint --expectOnly --localTs node_modules/typescript/lib",
