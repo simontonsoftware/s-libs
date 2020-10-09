@@ -1,4 +1,5 @@
 - copy in remaining libs
+- look for more substantial integration tests to copy over
 - coveralls
 - update "repository" in individual package.json
 - update links to API docs in readmes
@@ -20,7 +21,7 @@
 - ng generate library --prefix=s <name>
   - run prettier
 - copy in code & config from <name>
-  - mark source root directories
+  - mark test source directories
 - fix build errors
   - launch config
 - get tests running

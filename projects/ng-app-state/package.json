@@ -1,9 +1,16 @@
 {
   "name": "ng-app-state",
-  "version": "0.0.1",
+  "version": "13.0.0",
+  "author": "Simonton Software",
+  "license": "MIT",
+  "repository": "simontonsoftware/ng-app-state",
   "peerDependencies": {
-    "@angular/common": "^10.0.14",
-    "@angular/core": "^10.0.14"
+    "@angular/common": "^10.0.0",
+    "@angular/core": "^10.0.0",
+    "micro-dash": "^8.0.0",
+    "s-ng-utils": "^3.0.0",
+    "s-js-utils": "^7.0.0",
+    "s-rxjs-utils": "^4.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

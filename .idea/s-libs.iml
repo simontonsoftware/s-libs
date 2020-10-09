@@ -9,6 +9,7 @@
       <sourceFolder url="file://$MODULE_DIR$/projects/ng-core/src/typing-tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/projects/app-state/src/typing-tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/projects/app-state/src/test-helpers" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/projects/ng-app-state/src/test-helpers" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
