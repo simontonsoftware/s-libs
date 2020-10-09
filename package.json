@@ -13,7 +13,8 @@
     "dtslint": "dtslint --expectOnly --localTs node_modules/typescript/lib",
     "eslint": "eslint . --ext .ts,.tsx",
     "prettier-all": "prettier --write \"**/*.{html,js,json,md,scss,ts,yml}\"",
-    "calc-micro-dash-sizes": "ng build --prod micro-dash && cd projects/micro-dash-sizes && ts-node -O \"{\\\"module\\\": \\\"commonjs\\\"}\" calc-sizes"
+    "precalc-micro-dash-sizes": "ng build --prod micro-dash",
+    "calc-micro-dash-sizes": "cd projects/micro-dash-sizes && ts-node -O \"{\\\"module\\\": \\\"commonjs\\\"}\" calc-sizes"
   },
   "private": true,
   "dependencies": {

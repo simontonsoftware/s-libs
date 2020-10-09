@@ -5,14 +5,12 @@ import * as glob from 'glob';
 import * as path from 'path';
 import * as readline from 'readline';
 import { explore } from 'source-map-explorer';
-import { FileData } from 'source-map-explorer/dist/types';
 import { forEach } from '../micro-dash/src/lib/collection';
-import { ObjectWith } from '../micro-dash/src/lib/interfaces';
 
 const appDir = path.join(__dirname, 'src', 'app');
 const mainDir = path.join(__dirname, 'src');
 const rootDir = path.join(__dirname, '..', '..');
-const bundleDir = path.join(rootDir, 'dist', 'calc-sizes');
+const bundleDir = path.join(rootDir, 'dist', 'micro-dash-sizes');
 const sourceDir = path.join(rootDir, 'projects', 'micro-dash', 'src', 'lib');
 
 run();
@@ -71,12 +69,14 @@ async function build(inputPath: string): Promise<void> {
   }
 
   writeFileSync(path.join(mainDir, 'main.ts'), `import "${importPath}";`);
-  execSync('ng build --prod --sourceMap=true calc-sizes', { cwd: rootDir });
+  execSync('ng build --prod --sourceMap=true micro-dash-sizes', {
+    cwd: rootDir,
+  });
 }
 
 async function inspect(): Promise<string> {
   const res = await explore(path.join(bundleDir, 'main.*.js'));
-  const files: ObjectWith<FileData> = res.bundles[0].files;
+  const files = res.bundles[0].files;
 
   let lodash = 0;
   let microdash = 0;
