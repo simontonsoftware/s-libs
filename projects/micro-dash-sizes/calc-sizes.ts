@@ -76,11 +76,10 @@ async function build(inputPath: string): Promise<void> {
 
 async function inspect(): Promise<string> {
   const res = await explore(path.join(bundleDir, 'main.*.js'));
-  const files = res.bundles[0].files;
 
   let lodash = 0;
   let microdash = 0;
-  forEach(files, ({ size }, sourceFile) => {
+  forEach(res.bundles[0].files, ({ size }, sourceFile) => {
     if (sourceFile.includes('lodash')) {
       lodash += size;
     } else if (sourceFile.includes('micro-dash')) {
