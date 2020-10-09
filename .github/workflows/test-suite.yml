@@ -21,6 +21,7 @@ jobs:
           key: node-modules-cache-v1-${{ hashFiles('yarn.lock') }}
       - run: yarn
 
+      - run: yarn build --prod micro-dash
       - run: yarn build --prod js-core
       - run: yarn build --prod rxjs-core
       - run: yarn build --prod app-state
@@ -34,6 +35,7 @@ jobs:
       - run: yarn eslint
       - run: yarn dtslint projects/app-state/src/typing-tests
       - run: yarn dtslint projects/js-core/src/typing-tests
+      - run: yarn dtslint projects/micro-dash/src/typing-tests
       - run: yarn dtslint projects/ng-core/src/typing-tests
       - run: yarn dtslint projects/ng-dev/src/typing-tests
       - run: yarn dtslint projects/rxjs-core/src/typing-tests
