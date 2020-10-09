@@ -5,5 +5,8 @@
   "author": "Simonton Software",
   "repository": "simontonsoftware/micro-dash",
   "license": "MIT",
-  "dependencies": { "tslib": "^2.0.0", "utility-types": "~3.10.0" }
+  "dependencies": {
+    "tslib": "^2.0.0",
+    "utility-types": "~3.10.0"
+  }
 }
