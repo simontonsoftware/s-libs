@@ -12,6 +12,7 @@
     "baseUrl": "../lib",
     "paths": {
       "js-core": ["../../../../dist/js-core"],
+      "micro-dash": ["../../../../dist/micro-dash"],
       "rxjs-core": ["../../../../dist/rxjs-core"]
     }
   }

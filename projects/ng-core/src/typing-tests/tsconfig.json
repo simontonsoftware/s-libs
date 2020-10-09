@@ -10,6 +10,9 @@
     "target": "es2015",
 
     "baseUrl": "../lib",
-    "paths": { "rxjs-core": ["../../../../dist/rxjs-core"] }
+    "paths": {
+      "micro-dash": ["../../../../dist/micro-dash"],
+      "rxjs-core": ["../../../../dist/rxjs-core"]
+    }
   }
 }

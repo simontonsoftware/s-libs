@@ -10,6 +10,9 @@
     "target": "es2015",
 
     "baseUrl": "../lib",
-    "paths": { "js-core": ["../../../../dist/js-core"] }
+    "paths": {
+      "js-core": ["../../../../dist/js-core"],
+      "micro-dash": ["../../../../dist/micro-dash"]
+    }
   }
 }

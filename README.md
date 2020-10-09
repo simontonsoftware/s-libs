@@ -1,4 +1,4 @@
-![Test Suite](https://github.com/simontonsoftware/s-libs/workflows/Test%20Suite/badge.svg)
+[![Test Suite](https://github.com/simontonsoftware/s-libs/workflows/Test%20Suite/badge.svg)](https://github.com/simontonsoftware/s-libs/actions)
 
 # SLibs
 
