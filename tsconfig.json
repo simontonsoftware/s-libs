@@ -15,6 +15,7 @@
     { "path": "./projects/js-core/tsconfig.spec.json" },
     { "path": "./projects/micro-dash/tsconfig.lib.json" },
     { "path": "./projects/micro-dash/tsconfig.spec.json" },
+    { "path": "./projects/micro-dash-sizes/tsconfig.app.json" },
     { "path": "./projects/ng-app-state/tsconfig.lib.json" },
     { "path": "./projects/ng-app-state/tsconfig.spec.json" },
     { "path": "./projects/ng-core/tsconfig.lib.json" },
