@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
+import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ComponentContext } from 'ng-dev';
@@ -58,6 +59,8 @@ class TestComponentContext extends ComponentContext<TestComponent> {
     super({
       imports: [FormsModule],
       declarations: [CounterComponent, TestComponent],
+      // this can go away with component harnesses eventually
+      providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
     });
   }
 }
