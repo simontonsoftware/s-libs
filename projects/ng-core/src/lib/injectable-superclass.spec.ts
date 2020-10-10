@@ -1,5 +1,4 @@
 import { Component, Directive, Injectable } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ComponentContext, expectSingleCallAndReset } from 'ng-dev';
 import { Subject } from 'rxjs';
@@ -33,8 +32,10 @@ class TestComponentContext extends ComponentContext<TestComponent> {
   protected componentType = TestComponent;
 
   constructor() {
-    super({ declarations: [DestroyableDirective, TestComponent] });
-    TestBed.overrideProvider(Subject, { useValue: this.subject });
+    super({
+      declarations: [DestroyableDirective, TestComponent],
+      providers: [{ provide: Subject, useFactory: () => this.subject }],
+    });
   }
 }
 

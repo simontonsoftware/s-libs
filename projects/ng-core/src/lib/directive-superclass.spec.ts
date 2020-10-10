@@ -5,7 +5,7 @@ import {
   Injector,
   Input,
 } from '@angular/core';
-import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
+import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ComponentContext, expectSingleCallAndReset } from 'ng-dev';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
@@ -73,10 +73,12 @@ class TestComponentContext extends ComponentContext<TestComponent> {
   constructor() {
     super({
       declarations: [ColorTextComponent, TestComponent],
-      // this can go away with component harnesses eventually
-      providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
+      providers: [
+        { provide: 'color$', useFactory: () => this.color$ },
+        // this can go away with component harnesses eventually
+        { provide: ComponentFixtureAutoDetect, useValue: true },
+      ],
     });
-    TestBed.overrideProvider('color$', { useValue: this.color$ });
   }
 }
 
