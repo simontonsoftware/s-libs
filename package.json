@@ -1,11 +1,10 @@
 {
   "name": "s-libs",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "postbuild": "cpx \"{tslint*.json,.eslintrc.js}\" dist/ng-dev/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -13,10 +12,13 @@
     "dtslint": "dtslint --expectOnly --localTs node_modules/typescript/lib",
     "eslint": "eslint . --ext .ts,.tsx",
     "prettier-all": "prettier --write \"**/*.{html,js,json,md,scss,ts,yml}\"",
+    "pregit-publish": "ts-node scripts/docs-libs && git add docs/*",
+    "git-publish": "standard-version --commit-all",
+    "prenpm-publish": "ts-node scripts/build-libs",
+    "npm-publish": "ts-node scripts/publish-libs",
     "precalc-micro-dash-sizes": "ng build --prod micro-dash",
-    "calc-micro-dash-sizes": "cd projects/micro-dash-sizes && ts-node -O \"{\\\"module\\\": \\\"commonjs\\\"}\" calc-sizes"
+    "calc-micro-dash-sizes": "cd projects/micro-dash-sizes && ts-node calc-sizes"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~10.0.0",
     "@angular/common": "~10.0.0",
@@ -64,6 +66,7 @@
     "redux-devtools-extension": "^2.13.8",
     "sinon": "^9.0.2",
     "source-map-explorer": "^2.0.1",
+    "standard-version": "^9.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typedoc": "^0.19.1",
@@ -72,5 +75,42 @@
   "prettier": {
     "trailingComma": "all",
     "arrowParens": "always"
+  },
+  "standard-version": {
+    "postchangelog": "prettier --write CHANGELOG.md",
+    "bumpFiles": [
+      {
+        "filename": "package.json",
+        "type": "json"
+      },
+      {
+        "filename": "projects/app-state/package.json",
+        "type": "json"
+      },
+      {
+        "filename": "projects/js-core/package.json",
+        "type": "json"
+      },
+      {
+        "filename": "projects/micro-dash/package.json",
+        "type": "json"
+      },
+      {
+        "filename": "projects/ng-app-state/package.json",
+        "type": "json"
+      },
+      {
+        "filename": "projects/ng-core/package.json",
+        "type": "json"
+      },
+      {
+        "filename": "projects/ng-dev/package.json",
+        "type": "json"
+      },
+      {
+        "filename": "projects/rxjs-core/package.json",
+        "type": "json"
+      }
+    ]
   }
 }

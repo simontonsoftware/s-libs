@@ -1,11 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="ng-core - docs" type="js.build_tools.npm">
+  <configuration default="false" name="npm-publish" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="docs" />
+      <script value="npm-publish" />
     </scripts>
-    <arguments value="--tsconfig projects/ng-core/tsconfig.lib.json --out docs/ng-core projects/ng-core/src/lib" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />

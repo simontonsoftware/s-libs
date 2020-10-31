@@ -1,11 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="ng-app-state - docs" type="js.build_tools.npm">
+  <configuration default="false" name="git-publish" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="docs" />
+      <script value="git-publish" />
     </scripts>
-    <arguments value="--tsconfig projects/ng-app-state/tsconfig.lib.json --out docs/ng-app-state projects/ng-app-state/src/lib" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />
