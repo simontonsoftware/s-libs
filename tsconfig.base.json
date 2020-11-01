@@ -19,15 +19,7 @@
     "target": "es2015",
     "module": "es2020",
     "lib": ["es2018", "dom"],
-    "paths": {
-      "app-state": ["dist/app-state/app-state", "dist/app-state"],
-      "js-core": ["dist/js-core/js-core", "dist/js-core"],
-      "micro-dash": ["dist/micro-dash/micro-dash", "dist/micro-dash"],
-      "ng-app-state": ["dist/ng-app-state/ng-app-state", "dist/ng-app-state"],
-      "ng-core": ["dist/ng-core/ng-core", "dist/ng-core"],
-      "ng-dev": ["dist/ng-dev/ng-dev", "dist/ng-dev"],
-      "rxjs-core": ["dist/rxjs-core/rxjs-core", "dist/rxjs-core"]
-    },
+    "paths": { "@s-libs/*": ["dist/*"] },
 
     //
     // Simonton Software additions

@@ -1,4 +1,4 @@
-import { clone } from 'micro-dash';
+import { clone } from '@s-libs/micro-dash';
 
 clone('a');
 clone({});

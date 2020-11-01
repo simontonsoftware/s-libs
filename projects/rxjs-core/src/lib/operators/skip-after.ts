@@ -1,4 +1,4 @@
-import { bindKey } from 'micro-dash';
+import { bindKey } from '@s-libs/micro-dash';
 import { MonoTypeOperatorFunction, Observable } from 'rxjs';
 import { createOperatorFunction } from '../create-operator-function';
 

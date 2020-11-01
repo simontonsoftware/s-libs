@@ -1,3 +1,3 @@
-import { values } from 'micro-dash';
+import { values } from '@s-libs/micro-dash';
 
 values({ a: 1 });

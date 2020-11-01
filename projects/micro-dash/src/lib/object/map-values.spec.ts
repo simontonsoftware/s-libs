@@ -1,4 +1,4 @@
-import { expectCallsAndReset } from 'ng-dev';
+import { expectCallsAndReset } from '@s-libs/ng-dev';
 import { mapValues } from './map-values';
 
 describe('mapValues()', () => {

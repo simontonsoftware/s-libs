@@ -1,5 +1,5 @@
+import { marbleTest } from '@s-libs/ng-dev';
 import { OperatorFunction, Subject } from 'rxjs';
-import { marbleTest } from 'ng-dev';
 import {
   expectPipeResult,
   subscribeWithStubs,

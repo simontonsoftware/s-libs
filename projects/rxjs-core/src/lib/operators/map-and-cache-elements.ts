@@ -1,4 +1,4 @@
-import { map as _map } from 'micro-dash';
+import { map as _map } from '@s-libs/micro-dash';
 import { OperatorFunction } from 'rxjs';
 import { map } from 'rxjs/operators';
 

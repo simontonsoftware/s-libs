@@ -5,7 +5,7 @@ import {
   spreadObjectStore$,
   Store,
   UndoManager,
-} from 'app-state';
+} from '@s-libs/app-state';
 
 describe('app-state', () => {
   it('has RootStore', () => {

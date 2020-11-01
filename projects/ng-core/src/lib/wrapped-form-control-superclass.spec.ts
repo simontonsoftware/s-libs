@@ -5,7 +5,7 @@ import {
 } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ComponentContext } from 'ng-dev';
+import { ComponentContext } from '@s-libs/ng-dev';
 import { click, find, findButton, setValue } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
 import {

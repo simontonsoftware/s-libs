@@ -1,3 +1,3 @@
-import { partial } from 'micro-dash';
+import { partial } from '@s-libs/micro-dash';
 
 partial(() => 1)();

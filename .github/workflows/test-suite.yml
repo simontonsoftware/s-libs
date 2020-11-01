@@ -35,4 +35,6 @@ jobs:
 
       - run: npx ts-node scripts/build-libs
 
-      - run: npx ts-node scripts/lint-all
+      - run: yarn lint
+      - run: yarn eslint
+      - run: npx ts-node scripts/dtslint-all

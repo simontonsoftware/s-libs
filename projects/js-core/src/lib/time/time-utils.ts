@@ -1,4 +1,4 @@
-import { last } from 'micro-dash';
+import { last } from '@s-libs/micro-dash';
 import { mapAsKeys } from '../objects/map-as-keys';
 import { roundToMultipleOf } from '../round-to-multiple-of';
 

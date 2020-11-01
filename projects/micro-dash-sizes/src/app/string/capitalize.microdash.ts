@@ -1,3 +1,3 @@
-import { capitalize } from 'micro-dash';
+import { capitalize } from '@s-libs/micro-dash';
 
 capitalize('a string');

@@ -1,5 +1,5 @@
 import { identity } from 'lodash-es';
-import { expectCallsAndReset } from 'ng-dev';
+import { expectCallsAndReset } from '@s-libs/ng-dev';
 import { groupBy } from './group-by';
 
 describe('groupBy()', () => {

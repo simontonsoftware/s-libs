@@ -1,5 +1,5 @@
-import { cloneDeep, identity, noop, pick } from 'micro-dash';
-import { expectSingleCallAndReset } from 'ng-dev';
+import { cloneDeep, identity, noop, pick } from '@s-libs/micro-dash';
+import { expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { skip, take } from 'rxjs/operators';
 import { InnerState, TestState } from '../test-helpers/test-state';
 import { RootStore } from './root-store';

@@ -4,7 +4,7 @@ import {
   InjectableSuperclass,
   provideValueAccessor,
   WrappedFormControlSuperclass,
-} from 'ng-core';
+} from '@s-libs/ng-core';
 
 describe('ng-core', () => {
   it('has DirectiveSuperclass', () => {

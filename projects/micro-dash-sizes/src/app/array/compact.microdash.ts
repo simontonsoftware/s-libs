@@ -1,3 +1,3 @@
-import { compact } from 'micro-dash';
+import { compact } from '@s-libs/micro-dash';
 
 compact([]);

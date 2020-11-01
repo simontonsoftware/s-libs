@@ -1,5 +1,5 @@
 import { identity, range } from 'lodash';
-import { expectCallsAndReset } from 'ng-dev';
+import { expectCallsAndReset } from '@s-libs/ng-dev';
 import { minBy } from './min-by';
 
 describe('minBy()', () => {

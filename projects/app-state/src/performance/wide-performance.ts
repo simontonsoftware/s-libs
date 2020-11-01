@@ -1,4 +1,4 @@
-import { times } from 'micro-dash';
+import { times } from '@s-libs/micro-dash';
 import { Subscription } from 'rxjs';
 import { Store } from '../public-api';
 import { CounterState } from './counter-state';

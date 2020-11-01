@@ -1,6 +1,6 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { expectSingleCallAndReset, marbleTest } from 'ng-dev';
+import { expectSingleCallAndReset, marbleTest } from '@s-libs/ng-dev';
 import {
   testCompletionPropagation,
   testErrorPropagation,

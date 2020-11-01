@@ -1,4 +1,4 @@
-import { toString } from 'micro-dash';
+import { toString } from '@s-libs/micro-dash';
 
 /**
  * Converts a 2D array to a csv string. Values are converted using micro-dash's `toString()`.

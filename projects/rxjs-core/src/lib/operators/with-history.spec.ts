@@ -1,4 +1,4 @@
-import { marbleTest } from 'ng-dev';
+import { marbleTest } from '@s-libs/ng-dev';
 import {
   testCompletionPropagation,
   testErrorPropagation,

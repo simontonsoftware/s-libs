@@ -1,6 +1,6 @@
 import { Provider, Type } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { noop } from 'micro-dash';
+import { noop } from '@s-libs/micro-dash';
 import { DirectiveSuperclass } from './directive-superclass';
 
 /**

@@ -1,4 +1,4 @@
-import { clone, isEmpty, omit } from 'micro-dash';
+import { clone, isEmpty, omit } from '@s-libs/micro-dash';
 import { Client, Store } from './index';
 
 /** @hidden */

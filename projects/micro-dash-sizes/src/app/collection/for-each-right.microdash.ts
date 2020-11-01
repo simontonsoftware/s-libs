@@ -1,4 +1,4 @@
-import { forEachRight } from 'micro-dash';
+import { forEachRight } from '@s-libs/micro-dash';
 
 forEachRight([], () => {});
 forEachRight({}, () => {});

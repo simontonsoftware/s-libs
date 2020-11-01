@@ -1,4 +1,4 @@
-import { random } from 'micro-dash';
+import { random } from '@s-libs/micro-dash';
 
 console.log(
   random(),

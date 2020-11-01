@@ -1,3 +1,3 @@
-import { toPairs } from 'micro-dash';
+import { toPairs } from '@s-libs/micro-dash';
 
 console.log(toPairs({ a: 1, b: 2 }));

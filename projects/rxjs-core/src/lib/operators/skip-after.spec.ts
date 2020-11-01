@@ -1,4 +1,4 @@
-import { marbleTest } from 'ng-dev';
+import { marbleTest } from '@s-libs/ng-dev';
 import { skipAfter } from './skip-after';
 
 describe('skipAfter()', () => {

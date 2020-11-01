@@ -10,6 +10,6 @@
     "target": "es2015",
 
     "baseUrl": "../lib",
-    "paths": { "micro-dash": ["../../../../dist/micro-dash"] }
+    "paths": { "@s-libs/micro-dash": ["../../../../dist/micro-dash"] }
   }
 }

@@ -1,4 +1,4 @@
-import { keys } from 'micro-dash';
+import { keys } from '@s-libs/micro-dash';
 
 /**
  * Performs a deep comparison between two values to determine if they are equivalent, up to the given depth. Once that depth is reached, remaining values are compared using `Object.is()`.

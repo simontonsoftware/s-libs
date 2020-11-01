@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable, of, OperatorFunction } from 'rxjs';
 import { catchError, toArray } from 'rxjs/operators';
-import { marbleTest } from 'ng-dev';
+import { marbleTest } from '@s-libs/ng-dev';
 import { StubbedSubscriber } from './stubbed-subscriber';
 
 export async function expectPipeResult<I, O>(

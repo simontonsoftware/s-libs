@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
-import { isNil } from 'micro-dash';
-import { provideValueAccessor } from 'ng-core';
+import { isNil } from '@s-libs/micro-dash';
+import { provideValueAccessor } from '@s-libs/ng-core';
 import { AbstractInputValueAccessorDirective } from './abstract-input-value-accessor.directive';
 
 /** @hidden */

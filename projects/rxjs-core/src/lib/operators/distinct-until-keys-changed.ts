@@ -1,5 +1,5 @@
-import { isSetEqual } from 'js-core';
-import { keys } from 'micro-dash';
+import { isSetEqual } from '@s-libs/js-core';
+import { keys } from '@s-libs/micro-dash';
 import { MonoTypeOperatorFunction } from 'rxjs';
 import { filter } from 'rxjs/operators';
 

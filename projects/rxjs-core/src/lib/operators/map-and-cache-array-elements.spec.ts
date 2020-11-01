@@ -1,6 +1,6 @@
-import { identity } from 'micro-dash';
+import { identity } from '@s-libs/micro-dash';
+import { expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { Subject } from 'rxjs';
-import { expectSingleCallAndReset } from 'ng-dev';
 import {
   expectPipeResult,
   testCompletionPropagation,

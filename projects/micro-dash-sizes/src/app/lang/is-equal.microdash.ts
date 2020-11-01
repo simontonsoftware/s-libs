@@ -1,4 +1,4 @@
-import { isEqual } from 'micro-dash';
+import { isEqual } from '@s-libs/micro-dash';
 
 isEqual('a', []);
 isEqual({}, {});

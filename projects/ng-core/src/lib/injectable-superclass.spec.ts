@@ -1,6 +1,6 @@
 import { Component, Directive, Injectable } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ComponentContext, expectSingleCallAndReset } from 'ng-dev';
+import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { Subject } from 'rxjs';
 import { InjectableSuperclass } from './injectable-superclass';
 

@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import { provideValueAccessor } from 'ng-core';
+import { provideValueAccessor } from '@s-libs/ng-core';
 import { AbstractInputValueAccessorDirective } from './abstract-input-value-accessor.directive';
 
 /** @hidden */

@@ -1,4 +1,4 @@
-import { clamp } from 'micro-dash';
+import { clamp } from '@s-libs/micro-dash';
 
 console.log(clamp(1, 2, 3));
 console.log(clamp(2, 1, 3));

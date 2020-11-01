@@ -1,4 +1,4 @@
-import { flow } from 'micro-dash';
+import { flow } from '@s-libs/micro-dash';
 import { Observable, OperatorFunction } from 'rxjs';
 import { map, withLatestFrom } from 'rxjs/operators';
 

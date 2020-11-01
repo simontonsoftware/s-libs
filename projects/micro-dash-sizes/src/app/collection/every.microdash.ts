@@ -1,4 +1,4 @@
-import { every } from 'micro-dash';
+import { every } from '@s-libs/micro-dash';
 
 console.log(
   every([1], () => true),

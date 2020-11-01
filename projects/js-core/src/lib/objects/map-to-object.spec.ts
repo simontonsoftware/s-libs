@@ -1,4 +1,4 @@
-import { expectCallsAndReset } from 'ng-dev';
+import { expectCallsAndReset } from '@s-libs/ng-dev';
 import { mapToObject } from './map-to-object';
 
 describe('mapToObject()', () => {

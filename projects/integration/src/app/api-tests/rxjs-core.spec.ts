@@ -11,7 +11,7 @@ import {
   skipAfter,
   SubscriptionManager,
   withHistory,
-} from 'rxjs-core';
+} from '@s-libs/rxjs-core';
 
 describe('rxjs-core', () => {
   it('has SubscriptionManager', () => {

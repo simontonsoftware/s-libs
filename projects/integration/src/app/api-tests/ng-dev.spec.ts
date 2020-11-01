@@ -8,7 +8,7 @@ import {
   marbleTest,
   precompileForTests,
   trimLeftoverStyles,
-} from 'ng-dev';
+} from '@s-libs/ng-dev';
 
 describe('ng-dev', () => {
   it('has AngularContext', () => {

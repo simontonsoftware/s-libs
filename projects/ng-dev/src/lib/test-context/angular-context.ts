@@ -16,9 +16,8 @@ import {
   TestModuleMetadata,
   tick,
 } from '@angular/core/testing';
-import { assert, convertTime } from 'js-core';
-import { clone, forOwn, isFunction } from 'micro-dash';
-import { isArray } from 'rxjs/internal-compatibility';
+import { assert, convertTime } from '@s-libs/js-core';
+import { clone, forOwn, isFunction } from '@s-libs/micro-dash';
 
 /** @hidden */
 export function extendMetadata(
@@ -27,7 +26,7 @@ export function extendMetadata(
 ): TestModuleMetadata {
   const result: any = clone(metadata);
   forOwn(toAdd, (val, key) => {
-    result[key] = isArray(result[key]) ? result[key].concat(val) : val;
+    result[key] = Array.isArray(result[key]) ? result[key].concat(val) : val;
   });
   return result;
 }

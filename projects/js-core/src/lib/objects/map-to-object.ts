@@ -1,4 +1,4 @@
-import { transform } from 'micro-dash';
+import { transform } from '@s-libs/micro-dash';
 import { ArrayIteratee, Nil, ObjectIteratee } from '../interfaces';
 
 /**

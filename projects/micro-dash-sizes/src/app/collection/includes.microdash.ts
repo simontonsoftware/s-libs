@@ -1,4 +1,4 @@
-import { includes } from 'micro-dash';
+import { includes } from '@s-libs/micro-dash';
 
 console.log(
   includes([1, 2, 3], 2, 1),

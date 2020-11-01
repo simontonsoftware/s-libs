@@ -23,7 +23,7 @@ import {
   toCsv,
   wrapFunction,
   wrapMethod,
-} from 'js-core';
+} from '@s-libs/js-core';
 
 describe('js-core', () => {
   it('has TimeUnit', () => {

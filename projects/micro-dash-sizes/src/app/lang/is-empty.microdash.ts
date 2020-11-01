@@ -1,4 +1,4 @@
-import { isEmpty } from 'micro-dash';
+import { isEmpty } from '@s-libs/micro-dash';
 
 isEmpty([]);
 isEmpty({});

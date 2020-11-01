@@ -1,5 +1,5 @@
-import { CallableObject } from 'js-core';
-import { clone, every, forOwn } from 'micro-dash';
+import { CallableObject } from '@s-libs/js-core';
+import { clone, every, forOwn } from '@s-libs/micro-dash';
 import { Observable, Subscriber } from 'rxjs';
 import { ChildStore } from './index';
 

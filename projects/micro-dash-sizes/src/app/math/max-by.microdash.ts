@@ -1,3 +1,3 @@
-import { maxBy } from 'micro-dash';
+import { maxBy } from '@s-libs/micro-dash';
 
 console.log(maxBy([], () => 1));

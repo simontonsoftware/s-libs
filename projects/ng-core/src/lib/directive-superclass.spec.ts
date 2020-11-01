@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ComponentContext, expectSingleCallAndReset } from 'ng-dev';
+import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { click, find, findButton } from '../test-helpers';

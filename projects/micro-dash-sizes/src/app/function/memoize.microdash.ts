@@ -1,4 +1,4 @@
-import { memoize } from 'micro-dash';
+import { memoize } from '@s-libs/micro-dash';
 
 memoize((a: any) => a)('a');
 memoize(
