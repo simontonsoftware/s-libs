@@ -10,3 +10,4 @@
 - switch from yarn to pnpm
 - landing page to link to all API docs
 - coveralls
+- bump peerDependencies in each package along with version

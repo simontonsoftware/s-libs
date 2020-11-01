@@ -1,5 +1,5 @@
-import { EnhancerOptions } from 'redux-devtools-extension';
 import { Observable, Subscription } from 'rxjs';
+import { EnhancerOptions } from './enhancer-options';
 
 /** @hidden */
 export interface Connection {
