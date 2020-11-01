@@ -1,6 +1,6 @@
 {
   "name": "@s-libs/micro-dash",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Lightweight implementations of simplified lodash functions",
   "author": "Simonton Software",
   "license": "MIT",
