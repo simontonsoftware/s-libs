@@ -14,7 +14,7 @@ async function run(): Promise<void> {
 
   const otp = await getInput('Enter OTP: ');
   for (const project of libraries) {
-    runCommand(`npm publish dist/${project} --otp ${otp}`);
+    runCommand(`npm publish --access public --otp ${otp} dist/${project}`);
   }
 }
 
