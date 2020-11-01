@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SubscriptionManager | @s-libs/rxjs-core</title>
+	<title>ActionCreator | @s-libs/rxjs-core</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -874,25 +874,17 @@ img { max-width: 100%; }
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class="current tsd-kind-class">
-			<a href="subscriptionmanager.html" class="tsd-kind-icon">Subscription<wbr>Manager</a>
-			<ul>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="subscriptionmanager.html#subscribeto" class="tsd-kind-icon">subscribe<wbr>To</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="subscriptionmanager.html#unsubscribe" class="tsd-kind-icon">unsubscribe</a>
-				</li>
-			</ul>
+		<li class=" tsd-kind-class">
+			<a href="../classes/subscriptionmanager.html" class="tsd-kind-icon">Subscription<wbr>Manager</a>
 		</li>
 		<li class=" tsd-kind-interface tsd-has-type-parameter">
-			<a href="../interfaces/action.html" class="tsd-kind-icon">Action</a>
+			<a href="action.html" class="tsd-kind-icon">Action</a>
 		</li>
-		<li class=" tsd-kind-interface tsd-has-type-parameter">
-			<a href="../interfaces/actioncreator.html" class="tsd-kind-icon">Action<wbr>Creator</a>
+		<li class="current tsd-kind-interface tsd-has-type-parameter">
+			<a href="actioncreator.html" class="tsd-kind-icon">Action<wbr>Creator</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="../interfaces/enhanceroptions.html" class="tsd-kind-icon">Enhancer<wbr>Options</a>
+			<a href="enhanceroptions.html" class="tsd-kind-icon">Enhancer<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-variable">
 			<a href="../index.html#mapandcachearrayelements" class="tsd-kind-icon">map<wbr>And<wbr>Cache<wbr>Array<wbr>Elements</a>
@@ -937,85 +929,73 @@ img { max-width: 100%; }
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Tracks all subscriptions to easily unsubscribe from them all during cleanup. Also binds callbacks to <code>this</code> for convenient use as a superclass, e.g.:</p>
+					<p>An <em>action creator</em> is, quite simply, a function that creates an action. Do
+						not confuse the two terms—again, an action is a payload of information, and
+					an action creator is a factory that creates an action.</p>
 				</div>
-				<pre><code class="language-ts"><span class="hljs-keyword">class</span> EventLogger <span class="hljs-keyword">extends</span> SubscriptionManager {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> prefix: <span class="hljs-built_in">string</span>, event$: Observable&lt;<span class="hljs-built_in">string</span>&gt;</span>) {
-    <span class="hljs-built_in">super</span>();
-
-    <span class="hljs-comment">// you can pass in an instance method here and it will be bound to `this`</span>
-    <span class="hljs-built_in">this</span>.subscribeTo(event$, <span class="hljs-built_in">this</span>.log);
-  }
-
-  log(event: <span class="hljs-built_in">string</span>) {
-    <span class="hljs-comment">// even though this is used as a callback, you can still use `this`</span>
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.prefix + event);
-  }
-}</code></pre>
+				<p>Calling an action creator only produces an action, but does not dispatch
+					it. You need to call the store&#39;s <code>dispatch</code> function to actually cause the
+					mutation. Sometimes we say <em>bound action creators</em> to mean functions that
+					call an action creator and immediately dispatch its result to a specific
+				store instance.</p>
+				<p>If an action creator needs to read the current state, perform an API call,
+					or cause a side effect, like a routing transition, it should return an
+				async action instead of an action.</p>
 			</div>
+		</section>
+		<section class="tsd-panel tsd-type-parameters">
+			<h3>Type parameters</h3>
+			<ul class="tsd-type-parameters">
+				<li>
+					<h4>A</h4>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Returned action type.</p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<h4>P<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span> = <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
+				</li>
+			</ul>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">SubscriptionManager</span>
+					<span class="target">ActionCreator</span>
 				</li>
 			</ul>
 		</section>
 		<section class="tsd-panel">
-			<h3>Implements</h3>
-			<ul class="tsd-hierarchy">
-				<li><span class="tsd-signature-type">Unsubscribable</span></li>
+			<h3 class="tsd-before-signature">Callable</h3>
+			<ul class="tsd-signatures tsd-kind-interface tsd-has-type-parameter">
+				<li class="tsd-signature tsd-kind-icon">__call<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
 			</ul>
-		</section>
-		<section class="tsd-panel-group tsd-index-group">
-			<h2>Index</h2>
-			<section class="tsd-panel tsd-index-panel">
-				<div class="tsd-index-content">
-					<section class="tsd-index-section ">
-						<h3>Methods</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="subscriptionmanager.html#subscribeto" class="tsd-kind-icon">subscribe<wbr>To</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subscriptionmanager.html#unsubscribe" class="tsd-kind-icon">unsubscribe</a></li>
+			<ul class="tsd-descriptions">
+				<li class="tsd-description">
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/rxjs-core/src/lib/devtools/actions.ts#L43">projects/rxjs-core/src/lib/devtools/actions.ts:43</a></li>
 						</ul>
-					</section>
-				</div>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="subscribeto" class="tsd-anchor"></a>
-				<h3>subscribe<wbr>To</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">subscribe<wbr>To&lt;T&gt;<span class="tsd-signature-symbol">(</span>observable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, next<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span>, error<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span>, complete<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/rxjs-core/src/lib/subscription-manager.ts#L25">projects/rxjs-core/src/lib/subscription-manager.ts:25</a></li>
-							</ul>
-						</aside>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="unsubscribe" class="tsd-anchor"></a>
-				<h3>unsubscribe</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">unsubscribe<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/rxjs-core/src/lib/subscription-manager.ts#L40">projects/rxjs-core/src/lib/subscription-manager.ts:40</a></li>
-							</ul>
-						</aside>
-					</li>
-				</ul>
-			</section>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An <em>action creator</em> is, quite simply, a function that creates an action. Do
+								not confuse the two terms—again, an action is a payload of information, and
+							an action creator is a factory that creates an action.</p>
+						</div>
+						<p>Calling an action creator only produces an action, but does not dispatch
+							it. You need to call the store&#39;s <code>dispatch</code> function to actually cause the
+							mutation. Sometimes we say <em>bound action creators</em> to mean functions that
+							call an action creator and immediately dispatch its result to a specific
+						store instance.</p>
+						<p>If an action creator needs to read the current state, perform an API call,
+							or cause a side effect, like a routing transition, it should return an
+						async action instead of an action.</p>
+					</div>
+				</li>
+			</ul>
 		</section>
 		<footer class="with-border-bottom">
 			<div class="container">
