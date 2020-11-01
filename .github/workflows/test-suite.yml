@@ -1,7 +1,7 @@
 name: Test Suite
 on: [push]
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,5 +16,23 @@ jobs:
       - run: yarn
 
       - run: npx ts-node scripts/build-libs
+
       - run: yarn test --watch=false --progress=false --browsers=ChromeHeadlessCI
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+
+      - uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: node-modules-cache-v1-${{ hashFiles('yarn.lock') }}
+      - run: yarn
+
+      - run: npx ts-node scripts/build-libs
+
       - run: npx ts-node scripts/lint-all
