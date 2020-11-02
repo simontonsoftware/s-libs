@@ -160,7 +160,8 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
       }
     });
     forOwn(this.activeChildren, (children) => {
-      for (const child of children) {
+      // `children` can be undefined if emitting from a previous key caused removed all subscribers to this key
+      for (const child of children || []) {
         child.maybeEmit();
       }
     });

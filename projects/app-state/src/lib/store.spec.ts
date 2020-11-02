@@ -157,6 +157,19 @@ describe('Store', () => {
       store('counter').set(1);
       expectSingleCallAndReset(spy, 1);
     });
+
+    it('works when the last subscriber to a child store unsubscribes mid-emit (production bug)', () => {
+      store('counter')
+        .$.pipe(skip(1))
+        .subscribe(() => {
+          sub2.unsubscribe();
+        });
+      const sub2 = store('nested').$.subscribe();
+
+      expect(() => {
+        store('counter').set(1);
+      }).not.toThrowError();
+    });
   });
 
   describe('()', () => {
