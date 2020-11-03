@@ -6,6 +6,8 @@ import { Action, ActionCreator } from './actions';
 
 /**
  * Copied from `redux-devtools-extension`, to avoid requiring it as an installed dependency just for this interface.
+ *
+ * @hidden
  */
 export interface EnhancerOptions {
   /**

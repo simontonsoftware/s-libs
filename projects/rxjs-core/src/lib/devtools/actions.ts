@@ -18,6 +18,7 @@
  * how actions should be constructed.
  *
  * @template T the type of the action's `type` tag.
+ * @hidden
  */
 export interface Action<T = any> {
   type: T;
@@ -39,6 +40,7 @@ export interface Action<T = any> {
  * async action instead of an action.
  *
  * @template A Returned action type.
+ * @hidden
  */
 export interface ActionCreator<A, P extends any[] = any[]> {
   (...args: P): A;
