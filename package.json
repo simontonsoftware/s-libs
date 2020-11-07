@@ -75,7 +75,6 @@
     "arrowParens": "always"
   },
   "standard-version": {
-    "postchangelog": "prettier --write CHANGELOG.md",
     "bumpFiles": [
       {
         "filename": "package.json",
@@ -109,6 +108,10 @@
         "filename": "projects/rxjs-core/package.json",
         "type": "json"
       }
-    ]
+    ],
+    "scripts": {
+      "postbump": "ts-node scripts/bump-peer-dependencies",
+      "postchangelog": "prettier --write CHANGELOG.md"
+    }
   }
 }
