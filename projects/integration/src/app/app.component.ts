@@ -82,50 +82,61 @@ export class AppComponent {
     type: keyof IntegrationState,
     fn: (dest: Date) => void,
   ): void {
-    this.store.setUsing((state) => {
-      let datetime;
-      let date;
-      let month;
-      let week;
-      let time;
+    this.store.mutateUsing((state) => {
       if (state[type] === '') {
-        datetime = date = month = week = time = '';
+        state.datetime = state.date = state.month = state.week = state.time =
+          '';
       } else {
-        let d = dateParts(this.dateFromDatetime(), fn);
-        datetime = `${d.y}-${d.M}-${d.d}T${d.h}:${d.m}`;
-
-        d = dateParts(this.dateFromDate(state), fn);
-        date = `${d.y}-${d.M}-${d.d}`;
-
-        d = dateParts(this.dateFromMonth(state), fn);
-        month = `${d.y}-${d.M}`;
-
-        const dateObj = this.dateFromWeek(state);
-        fn(dateObj);
-        week = `${pad(getWeekYear(dateObj), 4)}-W${pad(getWeek(dateObj))}`;
-
-        d = dateParts(this.dateFromTime(state), fn);
-        time = `${d.h}:${d.m}`;
+        this.modDateTime(state, fn);
+        this.modDate(state, fn);
+        this.modMonth(state, fn);
+        this.modWeek(state, fn);
+        this.modTime(state, fn);
       }
-      return { ...state, datetime, date, month, week, time };
     });
+  }
+
+  private modDateTime(state: IntegrationState, fn: (dest: Date) => void): void {
+    const d = dateParts(this.dateFromDatetime(), fn);
+    state.datetime = `${d.y}-${d.M}-${d.d}T${d.h}:${d.m}`;
   }
 
   private dateFromDatetime(state = this.store.state()): Date {
     return new Date(state.datetime || '2000-01-01T00:00');
   }
 
+  private modDate(state: IntegrationState, fn: (dest: Date) => void): void {
+    const d = dateParts(this.dateFromDate(state), fn);
+    state.date = `${d.y}-${d.M}-${d.d}`;
+  }
+
   private dateFromDate(state = this.store.state()): Date {
     return new Date((state.date || '2000-01-01') + 'T00:00');
+  }
+
+  private modMonth(state: IntegrationState, fn: (dest: Date) => void): void {
+    const d = dateParts(this.dateFromMonth(state), fn);
+    state.month = `${d.y}-${d.M}`;
   }
 
   private dateFromMonth(state = this.store.state()): Date {
     return new Date((state.month || '2000-01') + '-01T00:00');
   }
 
+  private modWeek(state: IntegrationState, fn: (dest: Date) => void): void {
+    const dateObj = this.dateFromWeek(state);
+    fn(dateObj);
+    state.week = `${pad(getWeekYear(dateObj), 4)}-W${pad(getWeek(dateObj))}`;
+  }
+
   private dateFromWeek(state = this.store.state()): Date {
     const [year, week] = (state.week || '2000-W01').split('-W').map(Number);
     return weekToDate(year, week);
+  }
+
+  private modTime(state: IntegrationState, fn: (dest: Date) => void): void {
+    const d = dateParts(this.dateFromTime(state), fn);
+    state.time = `${d.h}:${d.m}`;
   }
 
   private dateFromTime(state = this.store.state()): Date {
