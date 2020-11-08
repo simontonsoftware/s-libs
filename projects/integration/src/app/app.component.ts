@@ -101,26 +101,14 @@ export class AppComponent {
     state.datetime = `${d.y}-${d.M}-${d.d}T${d.h}:${d.m}`;
   }
 
-  private dateFromDatetime(state = this.store.state()): Date {
-    return new Date(state.datetime || '2000-01-01T00:00');
-  }
-
   private modDate(state: IntegrationState, fn: (dest: Date) => void): void {
     const d = dateParts(this.dateFromDate(state), fn);
     state.date = `${d.y}-${d.M}-${d.d}`;
   }
 
-  private dateFromDate(state = this.store.state()): Date {
-    return new Date((state.date || '2000-01-01') + 'T00:00');
-  }
-
   private modMonth(state: IntegrationState, fn: (dest: Date) => void): void {
     const d = dateParts(this.dateFromMonth(state), fn);
     state.month = `${d.y}-${d.M}`;
-  }
-
-  private dateFromMonth(state = this.store.state()): Date {
-    return new Date((state.month || '2000-01') + '-01T00:00');
   }
 
   private modWeek(state: IntegrationState, fn: (dest: Date) => void): void {
@@ -129,14 +117,26 @@ export class AppComponent {
     state.week = `${pad(getWeekYear(dateObj), 4)}-W${pad(getWeek(dateObj))}`;
   }
 
-  private dateFromWeek(state = this.store.state()): Date {
-    const [year, week] = (state.week || '2000-W01').split('-W').map(Number);
-    return weekToDate(year, week);
-  }
-
   private modTime(state: IntegrationState, fn: (dest: Date) => void): void {
     const d = dateParts(this.dateFromTime(state), fn);
     state.time = `${d.h}:${d.m}`;
+  }
+
+  private dateFromDatetime(state = this.store.state()): Date {
+    return new Date(state.datetime || '2000-01-01T00:00');
+  }
+
+  private dateFromDate(state = this.store.state()): Date {
+    return new Date((state.date || '2000-01-01') + 'T00:00');
+  }
+
+  private dateFromMonth(state = this.store.state()): Date {
+    return new Date((state.month || '2000-01') + '-01T00:00');
+  }
+
+  private dateFromWeek(state = this.store.state()): Date {
+    const [year, week] = (state.week || '2000-W01').split('-W').map(Number);
+    return weekToDate(year, week);
   }
 
   private dateFromTime(state = this.store.state()): Date {

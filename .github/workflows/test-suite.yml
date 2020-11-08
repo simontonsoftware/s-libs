@@ -18,6 +18,7 @@ jobs:
       - run: npx ts-node scripts/build-libs
 
       - run: yarn test --watch=false --progress=false --browsers=ChromeHeadlessCI
+      - run: yarn e2e integration --protractor-config=projects/integration/e2e/protractor-ci.conf.js
 
   lint:
     runs-on: ubuntu-latest
