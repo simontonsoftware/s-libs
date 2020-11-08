@@ -5,6 +5,7 @@
 /node_modules/
 
 karma.conf.js
+*.e2e-spec.ts
 *.spec.ts
 *.js
 

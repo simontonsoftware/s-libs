@@ -1,6 +1,3 @@
-- standard version
-  - get features added in the other repos since release in the changelog
-- look for more substantial integration tests to copy over
 - update readmes in old repos
 - copy over issues
 - add issue about UMD bundle names
