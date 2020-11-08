@@ -4,6 +4,7 @@
   "description": "Lightweight implementations of simplified lodash functions",
   "author": "Simonton Software",
   "license": "MIT",
+  "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/micro-dash",
   "repository": {
     "type": "git",
     "url": "https://github.com/simontonsoftware/s-libs.git",

@@ -3,6 +3,7 @@
   "version": "0.0.7",
   "author": "Simonton Software",
   "license": "MIT",
+  "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/app-state",
   "repository": {
     "type": "git",
     "url": "https://github.com/simontonsoftware/s-libs.git",

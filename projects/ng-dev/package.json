@@ -3,6 +3,12 @@
   "version": "0.0.7",
   "author": "Simonton Software",
   "license": "MIT",
+  "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simontonsoftware/s-libs.git",
+    "directory": "projects/ng-dev"
+  },
   "peerDependencies": {
     "@angular/common": "^10.0.0",
     "@angular/core": "^10.0.0",
