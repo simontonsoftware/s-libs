@@ -237,6 +237,27 @@ describe('Store', () => {
       expect(store.state().counter).toBe(1);
     });
 
+    it("doesn't have that infinite loop with batches (production bug)", () => {
+      // https://github.com/simontonsoftware/ng-app-state/issues/29
+      class State {
+        version = 1;
+        looping = false;
+      }
+      const loopStore = new RootStore<State>(new State());
+      loopStore('version').$.subscribe(() => {
+        loopStore.batch(noop);
+      });
+      loopStore('looping').$.subscribe(() => {
+        loopStore('version').set(2);
+        loopStore('version').set(3);
+      });
+
+      loopStore('looping').set(true);
+      // the infinite loop was here
+
+      expect(loopStore.state().version).toBe(3);
+    });
+
     it('starts nested batches with the correct state (production bug)', () => {
       store.batch(() => {
         store('counter').set(1);
