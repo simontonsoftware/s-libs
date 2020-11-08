@@ -39,30 +39,7 @@ For most of them, upgrading simply requires:
    import { elpasedToString } from "@s-libs/js-core";
    ```
 
-However, the following features require a more complex upgrade path:
+However, there are extra steps to follow for these libraries, outlined in their separate readmes:
 
-### `s-ng-dev-utils` -> `@s-libs/ng-dev`
-
-- If you use the provided TSLint config, in open `tslint.json` and replace `s-ng-dev-utils/tslint` with `@s-libs/ng-dev/tslint`.
-- If you use the provided ESLint config, open `.eslintrc.js` and replace `s-ng-dev-utils/.eslintrc` with `@s-libs/ng-dev/.eslintrc`.
-
-### `ng-app-state` -> `@s-libs/app-state`
-
-App state no longer depends on `@ngrx/store`. Among other changes, it is now a standalone library, depending only on other packages in S-Libs. There are also some exciting performance improvements. In the end, you'll need to make these changes:
-
-- Remove `@ngrx/store` and `@ngrx/store-devtools` from your project, unless you are using them outside of `app-state`.
-- Remove `StoreModule.forRoot()`, `ngAppStateReducer`, and `StoreDevtoolsModule.instrument()` from `app.module.ts`.
-- To log state changes to the redux devtools extension, check out the new [`logToReduxDevtoolsExtension()`](file:///C:/Users/xemno/IdeaProjects/s-libs/docs/rxjs-core/index.html#logtoreduxdevtoolsextension) in `@s-libs/rxjs-core`. For example if you make your own subclass of `RootStore`, you could put this in its constructor:
-
-  ```ts
-  logToReduxDevtoolsExtension(this.$, {
-    name: "MyStore",
-    autoPause: true,
-  });
-  ```
-
-- Replace references to `StoreObject` with `Store`.
-- Replace references to `AppStore` with `RootStore`.
-- The constructor for `RootStore` takes only 1 argument: its starting state. When transitioning from `AppStore` to `RootStore`, remove the other 2 arguments.
-- Remove calls to `withCaching()`. The redesigned library comes with intelligent caching built in automatically.
-- Batches are no longer tied to a specific slice of the store, but always operate on the entire `RootStore`. Therefore the callback to `batch()` no longer receives a `Store` object and `.inBatch()` has been removed. Instead operate on the store using any existing store object and it will automatically be included in the batch.
+- `s-ng-dev-utils` -> `@s-libs/ng-dev`: check the upgrade guide [here](https://https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-dev#upgrading-from-the-non-s-libs-version).
+- `ng-app-state` -> `@s-libs/app-state`: check the upgrade guide [here](https://https://github.com/simontonsoftware/s-libs/tree/master/projects/app-state#upgrading-from-the-non-s-libs-version).

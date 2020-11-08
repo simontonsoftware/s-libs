@@ -50,3 +50,10 @@ This library comes with configuration to lint code complexity and length using E
    ```
    "lint": "ng lint && eslint . --ext .js,.jsx,.ts,.tsx",
    ```
+
+## Upgrading from the non-S-Libs version
+
+If you are upgrading from the loose version of [`s-ng-dev-utils`](https://github.com/simontonsoftware/s-ng-dev-utils), there are a couple changes to be aware of. In addition to the general guidlines [here](https://github.com/simontonsoftware/s-libs/#upgrading-from-the-loose-packages):
+
+- If you use the provided TSLint config, open `tslint.json` and replace `s-ng-dev-utils/tslint` with `@s-libs/ng-dev/tslint`.
+- If you use the provided ESLint config, open `.eslintrc.js` and replace `s-ng-dev-utils/.eslintrc` with `@s-libs/ng-dev/.eslintrc`.
