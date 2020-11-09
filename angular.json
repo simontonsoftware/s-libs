@@ -14,7 +14,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/app-state/tsconfig.lib.json",
             "project": "projects/app-state/ng-package.json"
@@ -167,7 +167,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/js-core/tsconfig.lib.json",
             "project": "projects/js-core/ng-package.json"
@@ -205,7 +205,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/micro-dash/tsconfig.lib.json",
             "project": "projects/micro-dash/ng-package.json"
@@ -295,7 +295,7 @@
       "prefix": "nas",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/ng-app-state/tsconfig.lib.json",
             "project": "projects/ng-app-state/ng-package.json"
@@ -333,7 +333,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/ng-core/tsconfig.lib.json",
             "project": "projects/ng-core/ng-package.json"
@@ -372,7 +372,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/ng-dev/tsconfig.lib.json",
             "project": "projects/ng-dev/ng-package.json"
@@ -411,7 +411,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/rxjs-core/tsconfig.lib.json",
             "project": "projects/rxjs-core/ng-package.json"
