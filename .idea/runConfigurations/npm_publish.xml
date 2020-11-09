@@ -6,7 +6,6 @@
       <script value="npm-publish" />
     </scripts>
     <node-interpreter value="project" />
-    <package-manager value="npm" />
     <envs />
     <method v="2" />
   </configuration>
