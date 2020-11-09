@@ -1,28 +1,34 @@
-/*
-  This is a "Solution Style" tsconfig.json file, and is used by editors and TypeScript’s language server to improve development experience.
-  It is not intended to be used to perform a compilation.
-
-  To learn more about this file see: https://angular.io/config/solution-tsconfig.
-*/
 {
-  "files": [],
-  "references": [
-    { "path": "./projects/app-state/tsconfig.lib.json" },
-    { "path": "./projects/app-state/tsconfig.spec.json" },
-    { "path": "./projects/integration/tsconfig.app.json" },
-    { "path": "./projects/integration/tsconfig.spec.json" },
-    { "path": "./projects/js-core/tsconfig.lib.json" },
-    { "path": "./projects/js-core/tsconfig.spec.json" },
-    { "path": "./projects/micro-dash/tsconfig.lib.json" },
-    { "path": "./projects/micro-dash/tsconfig.spec.json" },
-    { "path": "./projects/micro-dash-sizes/tsconfig.app.json" },
-    { "path": "./projects/ng-app-state/tsconfig.lib.json" },
-    { "path": "./projects/ng-app-state/tsconfig.spec.json" },
-    { "path": "./projects/ng-core/tsconfig.lib.json" },
-    { "path": "./projects/ng-core/tsconfig.spec.json" },
-    { "path": "./projects/ng-dev/tsconfig.lib.json" },
-    { "path": "./projects/ng-dev/tsconfig.spec.json" },
-    { "path": "./projects/rxjs-core/tsconfig.lib.json" },
-    { "path": "./projects/rxjs-core/tsconfig.spec.json" }
-  ]
+  "compileOnSave": false,
+  "compilerOptions": {
+    //
+    // from the Angular CLI
+    //
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": ["es2018", "dom"],
+    "paths": { "@s-libs/*": ["dist/*"] },
+
+    //
+    // Simonton Software additions
+    //
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "angularCompilerOptions": {
+    "strictInjectionParameters": true,
+    "strictTemplates": true
+  }
 }
