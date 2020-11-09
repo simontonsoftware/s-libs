@@ -15,7 +15,7 @@ jobs:
           key: node-modules-cache-v1-${{ hashFiles('yarn.lock') }}
       - run: yarn
 
-      - run: npx ts-node scripts/build-libs
+      - run: yarn build-libs
 
       - run: yarn test --watch=false --progress=false --browsers=ChromeHeadlessCI
       - run: yarn e2e integration --protractor-config=projects/integration/e2e/protractor-ci.conf.js
@@ -34,8 +34,8 @@ jobs:
           key: node-modules-cache-v1-${{ hashFiles('yarn.lock') }}
       - run: yarn
 
-      - run: npx ts-node scripts/build-libs
+      - run: yarn build-libs
 
       - run: yarn lint
       - run: yarn eslint
-      - run: npx ts-node scripts/dtslint-all
+      - run: yarn ts-node scripts/dtslint-all

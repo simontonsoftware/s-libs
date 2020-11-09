@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
-  parserOptions: { project: "tsconfig.base.json", sourceType: "module" },
+  parserOptions: { project: "tsconfig.json", sourceType: "module" },
   plugins: ["@typescript-eslint"],
   rules: {
     complexity: ["error", { max: 5 }],

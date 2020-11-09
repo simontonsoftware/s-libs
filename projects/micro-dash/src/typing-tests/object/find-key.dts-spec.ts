@@ -96,7 +96,7 @@ findKey(sOrU, isNumberOrString);
 // $ExpectType "a" | "b" | undefined
 findKey(sOrN, isNumberOrString);
 
-// $ExpectType "b" | "c"
+// $ExpectType PossibleValueMatches<S, string | Date>
 findKey(s, isDateOrString);
 // $ExpectType "b" | "c" | undefined
 findKey(sOrU, isDateOrString);
