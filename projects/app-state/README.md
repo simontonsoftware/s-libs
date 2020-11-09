@@ -196,4 +196,5 @@ If you are upgrading from the loose version of [`ng-app-state`](https://github.c
 - Replace references to `AppStore` with `RootStore`.
 - The constructor for `RootStore` takes only 1 argument: its starting state. When transitioning from `AppStore` to `RootStore`, remove the other 2 arguments.
 - Remove calls to `withCaching()`. The redesigned library comes with intelligent caching built in automatically.
-- Batches are no longer tied to a specific slice of the store, but always operate on the entire `RootStore`. Therefore the callback to `batch()` no longer receives a `Store` object and `.inBatch()` has been removed. Instead, operate on the store using any existing store object and it will automatically be included in the batch.
+- Batches are no longer tied to a specific slice of the store, but always operate on the entire `RootStore`. Therefore, the callback to `batch()` no longer receives a `Store` object and `.inBatch()` has been removed. Instead, operate on the store using any existing store object and it will automatically be included in the batch.
+- The `batch` parameter was removed from `UndoManager.applyUndoState()`. It still operates in a batch, but now you can use `this.store` in its place with no need for the additional argument.
