@@ -7,6 +7,7 @@ import {
   elapsedToString,
   isDefined,
   isEqualAtDepth,
+  isPromiseLike,
   isSetEqual,
   isSuperset,
   mapAsKeys,
@@ -68,6 +69,10 @@ describe('js-core', () => {
 
   it('has isEqualAtDepth', () => {
     expect(isEqualAtDepth).toBeDefined();
+  });
+
+  it('has isPromiseLike', () => {
+    expect(isPromiseLike).toBeDefined();
   });
 
   it('has isSetEqual', () => {

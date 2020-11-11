@@ -1,12 +1,11 @@
 import { isDefined } from './is-defined';
 
 describe('isDefined()', () => {
-  it('works', () => {
-    // tslint:disable-next-line:only-arrow-functions
-    const args = (function (..._: any[]): IArguments {
-      return arguments;
-    })([1, 2, 3]);
+  function getArguments(): IArguments {
+    return arguments;
+  }
 
+  it('works', () => {
     // falsey values
     expect(isDefined(undefined)).toBe(false);
     expect(isDefined(null)).toBe(true);
@@ -16,7 +15,7 @@ describe('isDefined()', () => {
     expect(isDefined('')).toBe(true);
 
     // all the other things
-    expect(isDefined(args)).toBe(true);
+    expect(isDefined(getArguments())).toBe(true);
     expect(isDefined([1, 2, 3])).toBe(true);
     expect(isDefined(true)).toBe(true);
     expect(isDefined(new Date())).toBe(true);
