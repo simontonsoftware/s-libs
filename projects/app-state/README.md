@@ -103,7 +103,7 @@ export class AppStore extends RootStore<AppState> {
   `,
 })
 export class MyAppComponent {
-  counterStore: StoreObject<number>;
+  counterStore: Store<number>;
 
   constructor(store: AppStore) {
     this.counterStore = store("counter");
@@ -162,12 +162,9 @@ class UndoService extends UndoManager<MyAppState, MyAppState> {
     return state;
   }
 
-  protected applyUndoState(
-    stateToApply: MyAppState,
-    batch: StoreObject<MyAppState>,
-  ) {
+  protected applyUndoState(stateToApply: MyAppState) {
     this.skipNextChange = true;
-    batch.set(stateToApply);
+    this.store.set(stateToApply);
   }
 }
 ```

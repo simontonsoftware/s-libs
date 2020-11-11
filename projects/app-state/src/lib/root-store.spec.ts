@@ -1,7 +1,7 @@
 import { InnerState, TestState } from '../test-helpers/test-state';
 import { RootStore } from './root-store';
 
-describe('AppStore', () => {
+describe('RootStore', () => {
   let store: RootStore<TestState>;
 
   beforeEach(() => {

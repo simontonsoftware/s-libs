@@ -36,7 +36,7 @@ This library includes the `[nasModel]` directive that you can use in place of `[
   template: `<input [nasModel]="nameStore" />`,
 })
 class AccountSettingsComponent {
-  nameStore: StoreObject<string>;
+  nameStore: Store<string>;
 
   constructor(myStore: MyStore) {
     this.nameStore = myStore("currentUser")("name");
@@ -44,18 +44,18 @@ class AccountSettingsComponent {
 }
 ```
 
-`[nasModel]` is tested to work with all standard form controls. Except where noted, they all bind to `StoreObject<string>` objects.
+`[nasModel]` is tested to work with all standard form controls. Except where noted, they all bind to `Store<string>` objects.
 
-- `<input type="checkbox">` - binds to `StoreObject<boolean>`
+- `<input type="checkbox">` - binds to `Store<boolean>`
 - `<input type="color">`
 - `<input type="date">`
 - `<input type="datetime-local">`
 - `<input type="email">`
 - `<input type="month">`
-- `<input type="number">` - binds to `StoreObject<number>`
+- `<input type="number">` - binds to `Store<number>`
 - `<input type="password">`
 - `<input type="radio">`
-- `<input type="range">` - binds to `StoreObject<number>`
+- `<input type="range">` - binds to `Store<number>`
 - `<input type="search">`
 - `<input type="tel">`
 - `<input type="text">`
@@ -63,6 +63,6 @@ class AccountSettingsComponent {
 - `<input type="url">`
 - `<input type="week">`
 - `<input>`
-- `<select multiple>` - binds to `StoreObject<string[]>`
+- `<select multiple>` - binds to `Store<string[]>`
 - `<select>`
 - `<textarea>`

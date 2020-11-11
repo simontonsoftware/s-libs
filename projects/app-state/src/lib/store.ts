@@ -14,7 +14,7 @@ type GetSlice<T> = <K extends keyof T>(attr: K) => Store<T[K]>;
 export interface Store<T> extends GetSlice<T> {
   // tslint:disable:callable-types
   /**
-   * Select a slice of the store to operate on. For example `store('currentUser')` will return a new `StoreObject` that represents the `currentUser` property.
+   * Select a slice of the store to operate on. For example `store('currentUser')` will return a new `Store` that represents the `currentUser` property.
    */
   <K extends keyof T, V extends T[K]>(attr: K): Store<V>;
 }
@@ -68,7 +68,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
   abstract delete(): void;
 
   /**
-   * @returns whether the given `StoreObject` operates on the same slice of the store as this object.
+   * @returns whether the given `Store` operates on the same slice of the store as this object.
    */
   abstract refersToSameStateAs(other: Store<T>): boolean;
 
