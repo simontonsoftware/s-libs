@@ -7,9 +7,9 @@ import * as readline from 'readline';
 import { explore } from 'source-map-explorer';
 import { forEach } from '../micro-dash/src/lib/collection';
 
-const appDir = path.join(__dirname, 'src', 'app');
-const mainDir = path.join(__dirname, 'src');
 const rootDir = path.join(__dirname, '..', '..');
+const mainDir = path.join(__dirname, 'src');
+const appDir = path.join(mainDir, 'app');
 const bundleDir = path.join(rootDir, 'dist', 'micro-dash-sizes');
 const sourceDir = path.join(rootDir, 'projects', 'micro-dash', 'src', 'lib');
 
@@ -74,7 +74,7 @@ async function build(inputPath: string): Promise<void> {
   });
 }
 
-async function inspect(): Promise<string> {
+async function inspect(): Promise<string | undefined> {
   const res = await explore(path.join(bundleDir, 'main.*.js'));
 
   let lodash = 0;
@@ -86,7 +86,7 @@ async function inspect(): Promise<string> {
       microdash += size;
     }
   });
-  let summary: string;
+  let summary: string | undefined;
   if (lodash > 0) {
     summary = ` * - Lodash: ${lodash.toLocaleString()} bytes`;
   } else if (microdash > 0) {

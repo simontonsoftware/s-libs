@@ -3,7 +3,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
-    "types": []
+    "types": [],
+
+    // Special just for micro-dash library functions, to reduce bundle size
+    "noImplicitReturns": false
   },
   "files": ["src/main.ts"],
   "include": ["src/**/*.d.ts"]
