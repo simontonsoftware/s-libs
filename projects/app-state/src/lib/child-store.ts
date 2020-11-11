@@ -1,10 +1,14 @@
 import { clone, isEmpty, omit } from '@s-libs/micro-dash';
-import { Client, Store } from './index';
+import { RootStore, Store } from './index';
 
 /** @hidden */
 export class ChildStore<T> extends Store<T> {
-  constructor(client: Client, private parent: Store<any>, private key: any) {
-    super(client);
+  constructor(
+    getRootStore: () => RootStore<object>,
+    private parent: Store<any>,
+    private key: any,
+  ) {
+    super(getRootStore);
   }
 
   set(value: T): void {
@@ -36,8 +40,8 @@ export class ChildStore<T> extends Store<T> {
   refersToSameStateAs(other: Store<T>): boolean {
     return (
       other instanceof ChildStore &&
-      this.key === (other as ChildStore<T>).key &&
-      this.parent.refersToSameStateAs((other as ChildStore<T>).parent)
+      this.key === other.key &&
+      this.parent.refersToSameStateAs(other.parent)
     );
   }
 

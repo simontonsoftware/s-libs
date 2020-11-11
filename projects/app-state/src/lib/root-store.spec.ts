@@ -1,3 +1,4 @@
+import { noop } from '@s-libs/micro-dash';
 import { InnerState, TestState } from '../test-helpers/test-state';
 import { RootStore } from './root-store';
 
@@ -58,6 +59,85 @@ describe('RootStore', () => {
       expect(store.state()).toEqual(new TestState());
       store('nested')('state').set(1);
       expect(store.state().nested.state).toBe(1);
+    });
+  });
+
+  describe('.batch()', () => {
+    it('causes a single update after multiple actions', () => {
+      const next = jasmine.createSpy();
+
+      store.$.subscribe(next);
+      expect(next).toHaveBeenCalledTimes(1);
+
+      store.batch(() => {
+        store('counter').set(3);
+        store('nested')('state').set(6);
+        expect(next).toHaveBeenCalledTimes(1);
+      });
+
+      expect(next).toHaveBeenCalledTimes(2);
+      expect(store.state()).toEqual({ counter: 3, nested: { state: 6 } });
+    });
+
+    it('works when nested', () => {
+      store.batch(() => {
+        store('counter').set(1);
+        store.batch(() => {
+          expect(store.state().counter).toBe(1);
+          store('counter').set(2);
+          expect(store.state().counter).toBe(2);
+        });
+        expect(store.state().counter).toBe(2);
+      });
+      expect(store.state().counter).toBe(2);
+    });
+
+    it("doesn't have that infinite loop with 2 stores (production bug)", () => {
+      // https://github.com/simontonsoftware/ng-app-state/issues/28
+      const store2 = new RootStore<{}>({});
+      store.$.subscribe(() => {
+        store2.batch(noop);
+      });
+      store2.$.subscribe();
+      store('counter').set(1);
+
+      // the infinite loop was here
+
+      expect(store.state().counter).toBe(1);
+    });
+
+    it("doesn't have that infinite loop with batches (production bug)", () => {
+      // https://github.com/simontonsoftware/ng-app-state/issues/29
+      class State {
+        version = 1;
+        looping = false;
+      }
+      const loopStore = new RootStore<State>(new State());
+      loopStore('version').$.subscribe(() => {
+        loopStore.batch(noop);
+      });
+      loopStore('looping').$.subscribe(() => {
+        loopStore('version').set(2);
+        loopStore('version').set(3);
+      });
+
+      loopStore('looping').set(true);
+      // the infinite loop was here
+
+      expect(loopStore.state().version).toBe(3);
+    });
+
+    it('starts nested batches with the correct state (production bug)', () => {
+      store.batch(() => {
+        store('counter').set(1);
+        store.batch(() => {
+          expect(store.state().counter).toBe(1);
+          store('nested')('state').set(2);
+        });
+      });
+      expect(store.state()).toEqual(
+        jasmine.objectContaining({ counter: 1, nested: { state: 2 } }),
+      );
     });
   });
 

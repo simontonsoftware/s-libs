@@ -189,7 +189,7 @@ export abstract class UndoManager<StateType, UndoStateType> {
     const stateToOverwrite = this.currentUndoState;
     this.currentStateIndex += change;
     const stateToApply = this.currentUndoState;
-    this.store.batch(() => {
+    this.store.getRootStore().batch(() => {
       this.applyUndoState(stateToApply, undoOrRedo, stateToOverwrite);
     });
     this.emitUndoChanges();

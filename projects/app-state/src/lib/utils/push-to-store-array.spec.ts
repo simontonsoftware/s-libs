@@ -36,7 +36,7 @@ describe('pushToStoreArray', () => {
     let so1: Store<number>;
     let so2: Store<number>;
 
-    store.batch(() => {
+    store.getRootStore().batch(() => {
       so1 = pushToStoreArray(store, 1);
       so2 = pushToStoreArray(store, 2);
 

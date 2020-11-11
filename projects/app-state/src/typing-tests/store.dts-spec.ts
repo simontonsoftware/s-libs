@@ -19,3 +19,8 @@ store('obj')('c');
 store('ary');
 // $ExpectType Store<boolean>
 store('ary')(1);
+
+// $ExpectType RootStore<object>
+store.getRootStore();
+// $ExpectType RootStore<object>
+store('obj')('c').getRootStore();

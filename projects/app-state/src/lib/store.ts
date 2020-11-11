@@ -1,12 +1,7 @@
 import { CallableObject } from '@s-libs/js-core';
 import { clone, every, forOwn } from '@s-libs/micro-dash';
 import { Observable, Subscriber } from 'rxjs';
-import { ChildStore } from './index';
-
-/** @hidden */
-export interface Client {
-  runInBatch(func: () => void): void;
-}
+import { ChildStore, RootStore } from './index';
 
 /** @hidden */
 type GetSlice<T> = <K extends keyof T>(attr: K) => Store<T[K]>;
@@ -35,16 +30,16 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
   });
 
   protected subscribers = new Map<Subscriber<T>, T | undefined>();
-  protected activeChildren: Record<string, Set<Store<any>>> = {};
+  protected activeChildren: Record<string, Set<Store<unknown>>> = {};
   protected lastKnownState?: T;
 
   private lastKnownStateChanged = false;
 
-  constructor(private client: Client) {
+  constructor(public getRootStore: () => RootStore<object>) {
     super(
       (childKey: any) =>
         this.activeChildren[childKey]?.values().next()?.value ||
-        new ChildStore(client, this, childKey),
+        new ChildStore(getRootStore, this, childKey),
     );
   }
 
@@ -71,24 +66,6 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
    * @returns whether the given `Store` operates on the same slice of the store as this object.
    */
   abstract refersToSameStateAs(other: Store<T>): boolean;
-
-  /**
-   * Allows batching multiple mutations on this store object so that observers only receive one event. The batch maintains its own fork of the full global state until it completes, then commits it to the store. Calls to `.state()` on the batch will fetch from the forked state.
-   *
-   * ```ts
-   * store.batch((batch) => {
-   *   batch.assign({ key1: value1 });
-   *   batch('key2').delete();
-   *   batch('key3').set({ key4: value4 });
-   *
-   *   batch('key1').state(); // returns `value1`
-   *   store('key1').state(); // don't do this. may not return `value1`
-   * });
-   * ```
-   */
-  batch(func: () => void): void {
-    this.client.runInBatch(func);
-  }
 
   /**
    * Assigns the given values to state of this store object. The resulting state will be like `Object.assign(store.state(), value)`.
