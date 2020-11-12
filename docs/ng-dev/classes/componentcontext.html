@@ -895,6 +895,15 @@ img { max-width: 100%; }
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 					<a href="componentcontext.html#cleanup" class="tsd-kind-icon">clean<wbr>Up</a>
 				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<a href="componentcontext.html#getallharnesses" class="tsd-kind-icon">get<wbr>All<wbr>Harnesses</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<a href="componentcontext.html#getharness" class="tsd-kind-icon">get<wbr>Harness</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<a href="componentcontext.html#getharnessforoptional" class="tsd-kind-icon">get<wbr>Harness<wbr>For<wbr>Optional</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 					<a href="componentcontext.html#init" class="tsd-kind-icon">init</a>
 				</li>
@@ -911,6 +920,9 @@ img { max-width: 100%; }
 					<a href="componentcontext.html#verifyposttestconditions" class="tsd-kind-icon">verify<wbr>Post<wbr>Test<wbr>Conditions</a>
 				</li>
 			</ul>
+		</li>
+		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+			<a href="../index.html#synchronized" class="tsd-kind-icon">Synchronized</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
 			<a href="../index.html#createspyobject" class="tsd-kind-icon">create<wbr>Spy<wbr>Object</a>
@@ -1012,6 +1024,9 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="componentcontext.html#cleanup" class="tsd-kind-icon">clean<wbr>Up</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="componentcontext.html#getallharnesses" class="tsd-kind-icon">get<wbr>All<wbr>Harnesses</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="componentcontext.html#getharness" class="tsd-kind-icon">get<wbr>Harness</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="componentcontext.html#getharnessforoptional" class="tsd-kind-icon">get<wbr>Harness<wbr>For<wbr>Optional</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="componentcontext.html#init" class="tsd-kind-icon">init</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="componentcontext.html#inject" class="tsd-kind-icon">inject</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="componentcontext.html#run" class="tsd-kind-icon">run</a></li>
@@ -1083,7 +1098,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#starttime">startTime</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L93">projects/ng-dev/src/lib/test-context/angular-context.ts:93</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L96">projects/ng-dev/src/lib/test-context/angular-context.ts:96</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1112,6 +1127,72 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Performs any cleanup needed at the end of each test. This implementation destroys <a href="componentcontext.html#fixture">fixture</a> and calls the super implementation.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+				<a name="getallharnesses" class="tsd-anchor"></a>
+				<h3>get<wbr>All<wbr>Harnesses</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>All<wbr>Harnesses&lt;T&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#synchronized" class="tsd-signature-type">Synchronized</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#getallharnesses">getAllHarnesses</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L175">projects/ng-dev/src/lib/test-context/angular-context.ts:175</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Gets all component harnesses that match the query, wrapped for use in a fakeAsync test so that you do not need to <code>await</code> its results.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+				<a name="getharness" class="tsd-anchor"></a>
+				<h3>get<wbr>Harness</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Harness&lt;T&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../index.html#synchronized" class="tsd-signature-type">Synchronized</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#getharness">getHarness</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L157">projects/ng-dev/src/lib/test-context/angular-context.ts:157</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to <code>await</code> its results. Throws an error if no match can be located.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+				<a name="getharnessforoptional" class="tsd-anchor"></a>
+				<h3>get<wbr>Harness<wbr>For<wbr>Optional</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Harness<wbr>For<wbr>Optional&lt;T&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../index.html#synchronized" class="tsd-signature-type">Synchronized</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#getharnessforoptional">getHarnessForOptional</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L166">projects/ng-dev/src/lib/test-context/angular-context.ts:166</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to <code>await</code> its results. Returns <code>null</code> if the harness cannot be located.</p>
 							</div>
 						</div>
 					</li>
@@ -1150,7 +1231,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#inject">inject</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L145">projects/ng-dev/src/lib/test-context/angular-context.ts:145</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L150">projects/ng-dev/src/lib/test-context/angular-context.ts:150</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1173,7 +1254,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#run">run</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L113">projects/ng-dev/src/lib/test-context/angular-context.ts:113</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L118">projects/ng-dev/src/lib/test-context/angular-context.ts:118</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1192,7 +1273,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#run">run</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L114">projects/ng-dev/src/lib/test-context/angular-context.ts:114</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L119">projects/ng-dev/src/lib/test-context/angular-context.ts:119</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1209,7 +1290,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#tick">tick</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L154">projects/ng-dev/src/lib/test-context/angular-context.ts:154</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L188">projects/ng-dev/src/lib/test-context/angular-context.ts:188</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1231,7 +1312,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#verifyposttestconditions">verifyPostTestConditions</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L175">projects/ng-dev/src/lib/test-context/angular-context.ts:175</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L209">projects/ng-dev/src/lib/test-context/angular-context.ts:209</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
