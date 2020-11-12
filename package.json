@@ -41,8 +41,10 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1002.0",
+    "@angular/cdk": "~10.2.7",
     "@angular/cli": "~10.2.0",
     "@angular/compiler-cli": "~10.2.2",
+    "@angular/material": "~10.2.7",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash-es": "^4.17.3",

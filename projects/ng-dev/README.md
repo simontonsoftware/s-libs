@@ -5,7 +5,7 @@ To quickly see what is available, see the [api documentation](https://simontonso
 ## Installation
 
 ```
-yarn add -D @s-libs/ng-dev @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
+yarn add -D @s-libs/ng-dev @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash @angular/cdk
 ```
 
 ## TSLint Config

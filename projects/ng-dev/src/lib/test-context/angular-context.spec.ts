@@ -1,3 +1,4 @@
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClient } from '@angular/common/http';
 import { HttpTestingController } from '@angular/common/http/testing';
 import {
@@ -10,14 +11,29 @@ import {
   Injector,
 } from '@angular/core';
 import { TestBed, tick } from '@angular/core/testing';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { noop, Observable } from 'rxjs';
 import { expectSingleCallAndReset } from '../spies';
 import { AngularContext } from './angular-context';
 
+class TestContext extends AngularContext {
+  constructor() {
+    super({ imports: [MatSnackBarModule, NoopAnimationsModule] });
+  }
+
+  protected cleanUp(): void {
+    this.inject(OverlayContainer).ngOnDestroy();
+    this.tick(5000);
+    super.cleanUp();
+  }
+}
+
 describe('AngularContext', () => {
   let ctx: AngularContext;
   beforeEach(() => {
-    ctx = new AngularContext();
+    ctx = new TestContext();
   });
 
   describe('.startTime', () => {
@@ -74,6 +90,40 @@ describe('AngularContext', () => {
     it('fetches from the root injector', () => {
       ctx.run(() => {
         expect(ctx.inject(Injector)).toBe(TestBed.inject(Injector));
+      });
+    });
+  });
+
+  describe('.getHarness()', () => {
+    it('returns a synchronized harness', () => {
+      ctx.run(() => {
+        ctx.inject(MatSnackBar).open('hi');
+        const bar = ctx.getHarness(MatSnackBarHarness);
+        expect(bar.getMessage()).toBe('hi');
+      });
+    });
+  });
+
+  describe('.getHarnessForOptional()', () => {
+    it('gets either the a synchronized harness or null', () => {
+      ctx.run(() => {
+        expect(ctx.getHarnessForOptional(MatSnackBarHarness)).toBeNull();
+        ctx.inject(MatSnackBar).open('hi');
+        const bar = ctx.getHarnessForOptional(MatSnackBarHarness);
+        expect(bar).not.toBeNull();
+        expect(bar!.getMessage()).toBe('hi');
+      });
+    });
+  });
+
+  describe('.getAllHarnesses()', () => {
+    it('gets an array of synchronized harnesses', () => {
+      ctx.run(() => {
+        expect(ctx.getAllHarnesses(MatSnackBarHarness).length).toBe(0);
+        ctx.inject(MatSnackBar).open('hi');
+        const bars = ctx.getAllHarnesses(MatSnackBarHarness);
+        expect(bars.length).toBe(1);
+        expect(bars[0].getMessage()).toBe('hi');
       });
     });
   });

@@ -1,3 +1,4 @@
+import { ComponentHarness, HarnessQuery } from '@angular/cdk/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -18,6 +19,8 @@ import {
 } from '@angular/core/testing';
 import { assert, convertTime } from '@s-libs/js-core';
 import { clone, forOwn, isFunction } from '@s-libs/micro-dash';
+import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
+import { Synchronized } from './synchronize';
 
 /** @hidden */
 export function extendMetadata(
@@ -92,6 +95,8 @@ export class AngularContext<InitOptions = {}> {
    */
   startTime = new Date();
 
+  private loader = FakeAsyncHarnessEnvironment.documentRootLoader(this);
+
   /**
    * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link HttpClientTestingModule} for you.
    */
@@ -144,6 +149,35 @@ export class AngularContext<InitOptions = {}> {
    */
   inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>): T {
     return TestBed.inject(token);
+  }
+
+  /**
+   * Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to `await` its results. Throws an error if no match can be located.
+   */
+  getHarness<T extends ComponentHarness>(
+    query: HarnessQuery<T>,
+  ): Synchronized<T> {
+    return this.loader.getHarness(query) as Synchronized<T>;
+  }
+
+  /**
+   * Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to `await` its results. Returns `null` if the harness cannot be located.
+   */
+  getHarnessForOptional<T extends ComponentHarness>(
+    query: HarnessQuery<T>,
+  ): Synchronized<T> | null {
+    return this.loader.locatorForOptional(query)() as Synchronized<T> | null;
+  }
+
+  /**
+   * Gets all component harnesses that match the query, wrapped for use in a fakeAsync test so that you do not need to `await` its results.
+   */
+  getAllHarnesses<T extends ComponentHarness>(
+    query: HarnessQuery<T>,
+  ): Array<Synchronized<T>> {
+    return (this.loader.getAllHarnesses(query) as unknown) as Array<
+      Synchronized<T>
+    >;
   }
 
   /**

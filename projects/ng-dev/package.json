@@ -10,6 +10,7 @@
     "directory": "projects/ng-dev"
   },
   "peerDependencies": {
+    "@angular/cdk": "^10.2.0",
     "@angular/common": "^10.2.0",
     "@angular/core": "^10.2.0",
     "@s-libs/js-core": "^0.2.0",
