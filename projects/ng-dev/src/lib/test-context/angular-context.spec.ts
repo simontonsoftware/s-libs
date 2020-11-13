@@ -201,6 +201,14 @@ describe('AngularContext', () => {
         expect(promiseResolvedBeforeChangeDetection).toBe(true);
       });
     });
+
+    it('advances `performance.now()` as well', () => {
+      ctx.run(() => {
+        const start = performance.now();
+        ctx.tick(10);
+        expect(performance.now()).toBe(start + 10);
+      });
+    });
   });
 
   describe('.init()', () => {

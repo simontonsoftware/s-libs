@@ -128,9 +128,7 @@ export class AngularContext<InitOptions = {}> {
       options = optionsOrTest;
     }
 
-    jasmine.clock().install();
-    fakeAsync(() => {
-      jasmine.clock().mockDate(this.startTime);
+    this.runWithMockedTime(() => {
       assert(test);
 
       this.init(options);
@@ -140,8 +138,7 @@ export class AngularContext<InitOptions = {}> {
       } finally {
         this.cleanUp();
       }
-    })();
-    jasmine.clock().uninstall();
+    });
   }
 
   /**
@@ -215,5 +212,20 @@ export class AngularContext<InitOptions = {}> {
    */
   protected cleanUp(): void {
     discardPeriodicTasks();
+  }
+
+  private runWithMockedTime(test: VoidFunction): void {
+    // https://github.com/angular/angular/issues/31677#issuecomment-573139551
+    const now = performance.now;
+    spyOn(performance, 'now').and.callFake(() => Date.now());
+
+    jasmine.clock().install();
+    fakeAsync(() => {
+      jasmine.clock().mockDate(this.startTime);
+      test();
+    })();
+    jasmine.clock().uninstall();
+
+    performance.now = now;
   }
 }

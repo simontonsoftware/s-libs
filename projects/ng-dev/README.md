@@ -10,7 +10,7 @@ yarn add -D @s-libs/ng-dev @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-
 
 ## TSLint Config
 
-This library comes with a predefined `tslint.json` that track's the angular cli's config with these changes that we have found useful:
+This library comes with a predefined `tslint.json` that tracks the angular cli's config with these changes that we have found useful:
 
 - Disables rules that conflict with Prettier (via [tslint-config-prettier](https://github.com/prettier/tslint-config-prettier))
 - Allows using the `Function` type. Some of our libraries deal a lot with utilities that operate on functions, and using this type is very handy.
