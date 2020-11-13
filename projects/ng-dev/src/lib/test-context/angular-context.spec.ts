@@ -154,12 +154,12 @@ describe('AngularContext', () => {
     });
 
     it('runs change detection even if no tasks are queued', () => {
-      let changeDetectionCount = 0;
+      let ranChangeDetection = false;
 
       @Component({ template: '' })
       class LocalComponent implements DoCheck {
         ngDoCheck(): void {
-          ++changeDetectionCount;
+          ranChangeDetection = true;
         }
       }
       TestBed.overrideComponent(LocalComponent, {});
@@ -170,20 +170,20 @@ describe('AngularContext', () => {
         const componentRef = factory.create(ctx.inject(Injector));
         ctx.inject(ApplicationRef).attachView(componentRef.hostView);
 
-        expect(changeDetectionCount).toBe(0);
+        expect(ranChangeDetection).toBe(false);
         ctx.tick();
-        expect(changeDetectionCount).toBe(1);
+        expect(ranChangeDetection).toBe(true);
       });
     });
 
     it('flushes micro tasks before running change detection', () => {
-      let promiseResolved = false;
-      let promiseResolvedBeforeChangeDetection = false;
+      let ranChangeDetection = false;
+      let flushedMicroTasksBeforeChangeDetection = false;
 
       @Component({ template: '' })
       class LocalComponent implements DoCheck {
         ngDoCheck(): void {
-          promiseResolvedBeforeChangeDetection = promiseResolved;
+          ranChangeDetection = true;
         }
       }
       TestBed.overrideComponent(LocalComponent, {});
@@ -195,14 +195,40 @@ describe('AngularContext', () => {
         ctx.inject(ApplicationRef).attachView(componentRef.hostView);
 
         Promise.resolve().then(() => {
-          promiseResolved = true;
+          flushedMicroTasksBeforeChangeDetection = !ranChangeDetection;
         });
         ctx.tick();
-        expect(promiseResolvedBeforeChangeDetection).toBe(true);
+        expect(flushedMicroTasksBeforeChangeDetection).toBe(true);
       });
     });
 
-    it('advances `performance.now()` as well', () => {
+    it('runs change detection after timeouts', () => {
+      let ranTimeout = false;
+      let ranChangeDetectionAfterTimeout = false;
+
+      @Component({ template: '' })
+      class LocalComponent implements DoCheck {
+        ngDoCheck(): void {
+          ranChangeDetectionAfterTimeout = ranTimeout;
+        }
+      }
+      TestBed.overrideComponent(LocalComponent, {});
+
+      ctx.run(() => {
+        const resolver = ctx.inject(ComponentFactoryResolver);
+        const factory = resolver.resolveComponentFactory(LocalComponent);
+        const componentRef = factory.create(ctx.inject(Injector));
+        ctx.inject(ApplicationRef).attachView(componentRef.hostView);
+
+        setTimeout(() => {
+          ranTimeout = true;
+        });
+        ctx.tick();
+        expect(ranChangeDetectionAfterTimeout).toBe(true);
+      });
+    });
+
+    it('advances `performance.now()`', () => {
       ctx.run(() => {
         const start = performance.now();
         ctx.tick(10);

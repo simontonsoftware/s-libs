@@ -188,6 +188,7 @@ export class AngularContext<InitOptions = {}> {
     this.runChangeDetection();
 
     tick(convertTime(amount, unit, 'ms'));
+    this.runChangeDetection();
   }
 
   /**

@@ -59,7 +59,7 @@ export abstract class ComponentContext<
   protected abstract componentType: Type<ComponentType>;
 
   /**
-   * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule} and {@link HttpClientTestingModule} for you.
+   * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContext}.
    */
   constructor(moduleMetadata: TestModuleMetadata = {}) {
     super(extendMetadata(moduleMetadata, { imports: [NoopAnimationsModule] }));
