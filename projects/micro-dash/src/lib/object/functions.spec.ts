@@ -13,6 +13,17 @@ describe('functions()', () => {
     expect(functions(MyClass.prototype)).toEqual(['b']);
   });
 
+  it("doesn't call getters", () => {
+    class Gotcha {
+      get error(): never {
+        throw new Error('called getter');
+      }
+    }
+    expect(() => {
+      functions(Gotcha.prototype);
+    }).not.toThrowError();
+  });
+
   //
   // stolen from https://github.com/lodash/lodash
   //

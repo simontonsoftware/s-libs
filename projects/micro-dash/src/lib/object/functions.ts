@@ -6,10 +6,12 @@ import { StringifiedKey } from '../interfaces';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 3,504 bytes
- * - Micro-dash: 225 bytes
+ * - Micro-dash: 310 bytes
  */
 export function functions<T extends object>(obj: T): Array<StringifiedKey<T>> {
   return keys(obj).filter(
-    (key) => key !== 'constructor' && isFunction(obj[key as keyof T]),
+    (key) =>
+      key !== 'constructor' &&
+      isFunction(Object.getOwnPropertyDescriptor(obj, key)?.value),
   );
 }
