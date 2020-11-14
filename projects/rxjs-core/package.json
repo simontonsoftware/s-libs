@@ -1,6 +1,6 @@
 {
   "name": "@s-libs/rxjs-core",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "author": "Simonton Software",
   "license": "MIT",
   "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/rxjs-core",
@@ -10,8 +10,8 @@
     "directory": "projects/rxjs-core"
   },
   "peerDependencies": {
-    "@s-libs/js-core": "^0.3.2",
-    "@s-libs/micro-dash": "^0.3.2",
+    "@s-libs/js-core": "^0.3.3",
+    "@s-libs/micro-dash": "^0.3.3",
     "rxjs": "^6.6.0"
   },
   "dependencies": { "tslib": "^2.0.0" }
