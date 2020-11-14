@@ -8,7 +8,7 @@ import { Nil, StringifiedKey } from '../interfaces';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 3,326 bytes
- * - Micro-dash: 148 bytes
+ * - Micro-dash: 135 bytes
  */
 
 export function keys<T>(object: T | Nil): Array<StringifiedKey<T>> {
@@ -21,9 +21,5 @@ export function keys<T>(object: T | Nil): Array<StringifiedKey<T>> {
 
 /** @hidden */
 export function keysOfNonArray<T>(object: T | Nil): Array<StringifiedKey<T>> {
-  let val: string[] = [];
-  if (object) {
-    val = Object.getOwnPropertyNames(object);
-  }
-  return val as any;
+  return object ? (Object.getOwnPropertyNames(object) as any) : [];
 }
