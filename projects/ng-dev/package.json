@@ -1,6 +1,6 @@
 {
   "name": "@s-libs/ng-dev",
-  "version": "0.3.3",
+  "version": "10.0.0",
   "author": "Simonton Software",
   "license": "MIT",
   "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-dev",
@@ -13,10 +13,10 @@
     "@angular/cdk": "^10.2.0",
     "@angular/common": "^10.2.0",
     "@angular/core": "^10.2.0",
-    "@s-libs/js-core": "^0.3.3",
-    "@s-libs/micro-dash": "^0.3.3",
-    "@s-libs/ng-core": "^0.3.3",
-    "@s-libs/rxjs-core": "^0.3.3",
+    "@s-libs/js-core": "^10.0.0",
+    "@s-libs/micro-dash": "^10.0.0",
+    "@s-libs/ng-core": "^10.0.0",
+    "@s-libs/rxjs-core": "^10.0.0",
     "jasmine-core": "^3.6.0"
   },
   "dependencies": {

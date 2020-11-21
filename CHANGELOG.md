@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.0.0](https://github.com/simontonsoftware/s-libs/compare/v0.3.3...v10.0.0) (2020-11-21)
+
+### Features
+
+- **app-state:** improve performance when unsubscribing ([6bdd873](https://github.com/simontonsoftware/s-libs/commit/6bdd873bcde607a64e21d7c8d3ff00358fa766fb))
+
 ### [0.3.3](https://github.com/simontonsoftware/s-libs/compare/v0.3.2...v0.3.3) (2020-11-14)
 
 ### Features
