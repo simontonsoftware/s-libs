@@ -5,6 +5,7 @@ import {
   runDeep,
   subscribeDeep,
 } from '../../../../app-state/src/performance/deep-performance';
+import { unsubscribe } from '../../../../app-state/src/performance/performance-utils';
 
 @Component({
   selector: 's-deep-performance',
@@ -17,7 +18,8 @@ export class DeepPerformanceComponent {
 
   run(): void {
     const store: any = new RootStore(new DeepState(this.depth));
-    subscribeDeep(store);
+    const { subscription } = subscribeDeep(store);
     runDeep(store, this.iterations);
+    unsubscribe(subscription, this.depth);
   }
 }
