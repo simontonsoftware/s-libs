@@ -1,19 +1,19 @@
-import { Subscription } from 'rxjs';
 import { RootStore } from '../lib/root-store';
 import { DeepState, runDeep, subscribeDeep } from './deep-performance';
+import { unsubscribe } from './performance-utils';
 import { runWide, subscribeWide, WideState } from './wide-performance';
 
 const depth = 1000;
 const deepIterations = 100;
-const msPerDeepSubscription = 1;
-const msPerDeepIteration = 5;
-const msPerDeepUnsubscribe = 1;
+const msPerDeepSubscription = 0.03;
+const msPerDeepIteration = 6;
+const msPerDeepUnsubscribe = 0.03;
 
 const width = 10000;
 const wideIterations = 100;
-const msPerWideSubscription = 1;
-const msPerWideIteration = 5;
-const msPerWideUnsubscribe = 1;
+const msPerWideSubscription = 0.05;
+const msPerWideIteration = 6;
+const msPerWideUnsubscribe = 0.02;
 
 describe('performance', () => {
   it('is good with a deep state', () => {
@@ -40,13 +40,3 @@ describe('performance', () => {
     expect(timeToUnsubscribe / width).toBeLessThan(msPerWideUnsubscribe);
   });
 });
-
-function unsubscribe(subscription: Subscription, count: number): number {
-  const start = new Date().getTime();
-  subscription.unsubscribe();
-  const elapsed = new Date().getTime() - start;
-
-  console.log('ms to unsubscribe', elapsed);
-  console.log(' - per subscription', elapsed / count);
-  return elapsed;
-}

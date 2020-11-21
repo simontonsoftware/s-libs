@@ -13,7 +13,7 @@ describe('functions()', () => {
     expect(functions(MyClass.prototype)).toEqual(['b']);
   });
 
-  it("doesn't call getters", () => {
+  it("doesn't call getters (production bug)", () => {
     class Gotcha {
       get error(): never {
         throw new Error('called getter');

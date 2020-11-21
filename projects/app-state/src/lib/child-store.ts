@@ -1,4 +1,4 @@
-import { clone, isEmpty, omit } from '@s-libs/micro-dash';
+import { clone, omit } from '@s-libs/micro-dash';
 import { RootStore, Store } from './index';
 
 /** @hidden */
@@ -59,7 +59,7 @@ export class ChildStore<T> extends Store<T> {
   }
 
   private shouldBeActive(): boolean {
-    return this.subscribers.size > 0 || !isEmpty(this.activeChildren);
+    return this.subscribers.size > 0 || this.activeChildren.size > 0;
   }
 
   private isActive(): boolean {

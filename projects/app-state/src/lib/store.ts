@@ -1,5 +1,5 @@
 import { CallableObject } from '@s-libs/js-core';
-import { clone, every, forOwn } from '@s-libs/micro-dash';
+import { clone, every } from '@s-libs/micro-dash';
 import { Observable, Subscriber } from 'rxjs';
 import { ChildStore, RootStore } from './index';
 
@@ -30,7 +30,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
   });
 
   protected subscribers = new Map<Subscriber<T>, T | undefined>();
-  protected activeChildren: Record<string, Set<Store<unknown>>> = {};
+  protected activeChildren = new Map<string, Set<Store<unknown>>>();
   protected lastKnownState?: T;
 
   private lastKnownStateChanged = false;
@@ -38,7 +38,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
   constructor(public getRootStore: () => RootStore<object>) {
     super(
       (childKey: any) =>
-        this.activeChildren[childKey]?.values().next()?.value ||
+        this.activeChildren.get(childKey)?.values().next()?.value ||
         new ChildStore(getRootStore, this, childKey),
     );
   }
@@ -117,7 +117,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
 
     this.lastKnownState = value;
     this.lastKnownStateChanged = true;
-    forOwn(this.activeChildren, (children, key) => {
+    this.activeChildren.forEach((children, key) => {
       for (const child of children) {
         child.updateState(value?.[key]);
       }
@@ -136,7 +136,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
         this.subscribers.set(subscriber, this.lastKnownState);
       }
     });
-    forOwn(this.activeChildren, (children) => {
+    this.activeChildren.forEach((children) => {
       // `children` can be undefined if emitting from a previous key caused removed all subscribers to this key
       for (const child of children || []) {
         child.maybeEmit();
@@ -149,7 +149,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     key: any,
     child: ChildStore<any>,
   ): boolean {
-    return parent.activeChildren[key]?.has(child);
+    return parent.activeChildren.get(key)?.has(child) || false;
   }
 
   protected activateChild(
@@ -157,9 +157,10 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     key: any,
     child: ChildStore<any>,
   ): void {
-    let set = parent.activeChildren[key];
+    let set = parent.activeChildren.get(key);
     if (!set) {
-      set = parent.activeChildren[key] = new Set<ChildStore<any>>();
+      set = new Set<ChildStore<any>>();
+      parent.activeChildren.set(key, set);
     }
     set.add(child);
     parent.maybeActivate();
@@ -170,10 +171,10 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     key: any,
     child: ChildStore<any>,
   ): void {
-    const set = parent.activeChildren[key];
+    const set = parent.activeChildren.get(key)!;
     set.delete(child);
     if (set.size === 0) {
-      delete parent.activeChildren[key];
+      parent.activeChildren.delete(key);
       parent.maybeDeactivate();
     }
   }

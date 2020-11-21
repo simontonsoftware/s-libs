@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RootStore } from '@s-libs/app-state';
+import { unsubscribe } from '../../../../app-state/src/performance/performance-utils';
 import {
   runWide,
   subscribeWide,
@@ -17,7 +18,8 @@ export class WidePerformanceComponent {
 
   run(): void {
     const store: any = new RootStore(new WideState(this.width));
-    subscribeWide(store);
+    const { subscription } = subscribeWide(store);
     runWide(store, this.iterations);
+    unsubscribe(subscription, this.width);
   }
 }
