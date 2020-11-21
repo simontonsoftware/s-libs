@@ -10,11 +10,13 @@
     "directory": "projects/ng-core"
   },
   "peerDependencies": {
-    "@angular/common": "^10.2.0",
-    "@angular/core": "^10.2.0",
+    "@angular/common": "^11.0.0",
+    "@angular/core": "^11.0.0",
     "@s-libs/js-core": "^10.0.0",
     "@s-libs/micro-dash": "^10.0.0",
     "@s-libs/rxjs-core": "^10.0.0"
   },
-  "dependencies": { "tslib": "^2.0.0" }
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
 }
