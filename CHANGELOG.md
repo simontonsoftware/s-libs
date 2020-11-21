@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v10.0.0...v11.0.0-next.0) (2020-11-21)
+
+### ⚠ BREAKING CHANGES
+
+- `ng-core` and `ng-app-state`, and `ng-dev` now require angular 11
+
+### Features
+
+- Update dependenices ([45eb28e](https://github.com/simontonsoftware/s-libs/commit/45eb28e26273110b21c7af6255986cb5d0b5e44f))
+
 ## [10.0.0](https://github.com/simontonsoftware/s-libs/compare/v0.3.3...v10.0.0) (2020-11-21)
 
 ### Features
