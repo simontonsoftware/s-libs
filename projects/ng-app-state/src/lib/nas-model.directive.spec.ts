@@ -1,12 +1,5 @@
 import { Type } from '@angular/core';
-import {
-  async,
-  ComponentFixture,
-  fakeAsync,
-  flushMicrotasks,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import {
@@ -605,7 +598,7 @@ describe('value accessors', () => {
 
   describe('custom value accessors', () => {
     describe('in template-driven forms', () => {
-      it('should support standard writing to view and model', async(() => {
+      it('should support standard writing to view and model', waitForAsync(() => {
         const store = initTest(NameComponent, NameStore, {
           extraDirectives: [InnerNameComponent],
         });
