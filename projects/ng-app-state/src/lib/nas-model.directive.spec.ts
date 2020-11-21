@@ -1,11 +1,11 @@
 import { Type } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   fakeAsync,
   flushMicrotasks,
   TestBed,
   tick,
+  waitForAsync,
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -605,29 +605,32 @@ describe('value accessors', () => {
 
   describe('custom value accessors', () => {
     describe('in template-driven forms', () => {
-      it('should support standard writing to view and model', async(() => {
-        const store = initTest(NameComponent, NameStore, {
-          extraDirectives: [InnerNameComponent],
-        });
+      it(
+        'should support standard writing to view and model',
+        waitForAsync(() => {
+          const store = initTest(NameComponent, NameStore, {
+            extraDirectives: [InnerNameComponent],
+          });
 
-        store('name').set('Nancy');
-        detectChanges();
-        fixture.whenStable().then(() => {
+          store('name').set('Nancy');
           detectChanges();
           fixture.whenStable().then(() => {
-            // model -> view
-            const customInput = query('[name="custom"]');
-            expect(customInput.value).toEqual('Nancy');
-
-            customInput.value = 'Carson';
-            dispatchEvent(customInput, 'input');
             detectChanges();
+            fixture.whenStable().then(() => {
+              // model -> view
+              const customInput = query('[name="custom"]');
+              expect(customInput.value).toEqual('Nancy');
 
-            // view -> model
-            expect(store.state().name).toEqual('Carson');
+              customInput.value = 'Carson';
+              dispatchEvent(customInput, 'input');
+              detectChanges();
+
+              // view -> model
+              expect(store.state().name).toEqual('Carson');
+            });
           });
-        });
-      }));
+        }),
+      );
     });
   });
 });

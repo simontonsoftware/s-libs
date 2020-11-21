@@ -3,9 +3,7 @@ import { AbstractValueAccessorDirective } from './abstract-value-accessor.direct
 
 /** @hidden */
 @Directive()
-export abstract class AbstractInputValueAccessorDirective extends AbstractValueAccessorDirective<
-  HTMLInputElement
-> {
+export abstract class AbstractInputValueAccessorDirective extends AbstractValueAccessorDirective<HTMLInputElement> {
   @HostListener('change')
   @HostListener('input')
   onChange(): void {

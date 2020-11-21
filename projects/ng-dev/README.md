@@ -14,7 +14,6 @@ This library comes with a predefined `tslint.json` that tracks the angular cli's
 
 - Disables rules that conflict with Prettier (via [tslint-config-prettier](https://github.com/prettier/tslint-config-prettier))
 - Allows using the `Function` type. Some of our libraries deal a lot with utilities that operate on functions, and using this type is very handy.
-- Downgrades [no-any]() to a warning. While we try to avoid it, we find it a necessary evil at times (at least for our sanity).
 - Downgrades [no-non-null-assertion](https://palantir.github.io/tslint/rules/no-non-null-assertion/) to a warning. While we believe using `!` should be avoided when reasonable, we find that sometimes it just makes sense.
 - Allows prefixing variables with `_`. This is useful e.g. when overriding a method in a way that does not use all its parameters. We use typescript's "noUnusedParameters" option, which gives an error with unused parameters unless their names are prefixed with `_`.
 
