@@ -1,4 +1,4 @@
-import { browser, element, by, ElementFinder, Key, logging } from 'protractor';
+import { browser, by, element, ElementFinder, Key, logging } from 'protractor';
 import { AppPage } from './app.po';
 
 const cities = ['San Francisco', 'Nairobi', 'Gulu'];
@@ -6,9 +6,9 @@ const cities = ['San Francisco', 'Nairobi', 'Gulu'];
 describe('integration App', () => {
   let page: AppPage;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     page = new AppPage();
-    page.navigateTo();
+    await page.navigateTo();
   });
 
   afterEach(async () => {
@@ -130,7 +130,7 @@ describe('integration App', () => {
 
       await browser
         .actions()
-        .dragAndDrop(getInput('range'), { x: -99, y: 0 })
+        .dragAndDrop(await getInput('range').getWebElement(), { x: -99, y: 0 })
         .perform();
       await expectValue('0');
     });

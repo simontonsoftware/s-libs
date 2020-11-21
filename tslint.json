@@ -11,7 +11,6 @@
         ["Symbol", "Avoid using the `Symbol` type. Did you mean `symbol`?"]
       ]
     },
-    "no-any": { "severity": "warning" },
     "no-non-null-assertion": { "severity": "warning" },
     // the same as tslint:recommended, but with "allow-leading-underscore"
     "variable-name": {
