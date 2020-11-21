@@ -15,5 +15,7 @@
     "@s-libs/ng-core": "^10.0.0",
     "@s-libs/rxjs-core": "^10.0.0"
   },
-  "dependencies": { "tslib": "^2.0.0" }
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
 }

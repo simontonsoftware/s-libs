@@ -44,9 +44,7 @@ export interface ComponentContextInit<ComponentType> {
  */
 export abstract class ComponentContext<
   ComponentType = unknown,
-  Init extends ComponentContextInit<ComponentType> = ComponentContextInit<
-    ComponentType
-  >
+  Init extends ComponentContextInit<ComponentType> = ComponentContextInit<ComponentType>
 > extends AngularContext<Init> {
   /**
    * The {@link ComponentFixture} for your component, provided by Angular's testing framework.
