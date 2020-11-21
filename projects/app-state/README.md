@@ -177,8 +177,9 @@ Consult the documentation in the source of `UndoState` for more options and info
 
 ## Upgrading from the non-S-Libs version
 
-If you are upgrading from the loose version of [`ng-app-state`](https://github.com/simontonsoftware/ng-app-state), there are a number of changes to be aware of. App state no longer depends on `@ngrx/store`. Among other changes, it is now a standalone library, depending only on other packages in S-Libs. There are also some exciting performance improvements. In the end, you'll need to make these changes: - Remove `@ngrx/store` and `@ngrx/store-devtools` from your project, unless you are using them outside of `app-state`.
+If you are upgrading from the loose version of [`ng-app-state`](https://github.com/simontonsoftware/ng-app-state), there are a number of changes to be aware of. App state no longer depends on `@ngrx/store`. Among other changes, it is now a standalone library, depending only on other packages in S-Libs. There are also some exciting performance improvements. In the end, you'll need to make these changes:
 
+- Remove `@ngrx/store` and `@ngrx/store-devtools` from your project, unless you are using them outside of `app-state`.
 - Remove `StoreModule.forRoot()`, `ngAppStateReducer`, and `StoreDevtoolsModule.instrument()` from `app.module.ts`.
 - To log state changes to the redux devtools extension, check out the new [`logToReduxDevtoolsExtension()`](file:///C:/Users/xemno/IdeaProjects/s-libs/docs/rxjs-core/index.html#logtoreduxdevtoolsextension) in `@s-libs/rxjs-core`. For example if you make your own subclass of `RootStore`, you could put this in its constructor:
 
