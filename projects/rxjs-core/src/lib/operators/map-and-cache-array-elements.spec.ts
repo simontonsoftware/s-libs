@@ -111,6 +111,14 @@ describe('mapAndCacheArrayElements()', () => {
     }
   });
 
+  it('treats null and undefined like the empty array', async () => {
+    await expectPipeResult<number[] | null | undefined, number[]>(
+      [null, [1, 2], undefined],
+      mapAndCacheArrayElements(identity, (item) => item * 3),
+      [[], [3, 6], []],
+    );
+  });
+
   it(
     'handles `buildCacheKey` throwing an error',
     testUserFunctionError(

@@ -28,4 +28,4 @@ export const mapAndCacheArrayElements = mapAndCacheElements as <
 >(
   buildCacheKey: ArrayIteratee<UpstreamType, any>,
   buildDownstreamItem: ArrayIteratee<UpstreamType, DownstreamType>,
-) => OperatorFunction<UpstreamType[], DownstreamType[]>;
+) => OperatorFunction<UpstreamType[] | null | undefined, DownstreamType[]>;
