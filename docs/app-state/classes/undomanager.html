@@ -1360,7 +1360,7 @@ img { max-width: 100%; }
 							<div class="lead">
 								<p>Used to determine whether <code>.pushCurrentState()</code> actually does anything. Override this e.g. to prevent pushing a duplicate undo state using something like this:</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">protected</span> shouldPush(state: UndoStateType) {
+							<pre><code class="language-ts"><span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-title">shouldPush</span>(<span class="hljs-params">state: UndoStateType</span>)</span> {
   <span class="hljs-keyword">return</span> equal(state, <span class="hljs-built_in">this</span>.currentUndoState);
 }</code></pre>
 						</div>

@@ -977,8 +977,8 @@ img { max-width: 100%; }
 							<div class="lead">
 								<p>Creates a new object with jasmine spies for each method in <code>type</code>.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">class</span> Greeter {
-  greet(name: <span class="hljs-built_in">string</span>) {
+							<pre><code class="language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Greeter</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">greet</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>)</span> {
     <span class="hljs-keyword">return</span> <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!`</span>;
   }
 }
@@ -1120,7 +1120,7 @@ precompileForTests([AppModule]);
 
 describe(<span class="hljs-string">&quot;AppComponent&quot;</span>, <span class="hljs-function">() =&gt;</span> {
   it(<span class="hljs-string">&quot;says hello&quot;</span>, <span class="hljs-keyword">async</span> () =&gt; {
-    TestBed.configureTestingModule({ declarations: [HelloWorldComponent] });
+    TestBed.configureTestingModule({ <span class="hljs-attr">declarations</span>: [HelloWorldComponent] });
     <span class="hljs-keyword">await</span> TestBed.compileComponents(); <span class="hljs-comment">// &lt;- this line is faster</span>
     <span class="hljs-keyword">const</span> fixture = TestBed.createComponent(HelloWorldComponent);
     expect(fixture.nativeElement.textContent).toContain(<span class="hljs-string">&quot;Hello, world!&quot;</span>);

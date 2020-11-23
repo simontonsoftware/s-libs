@@ -930,15 +930,15 @@ img { max-width: 100%; }
 				<div class="lead">
 					<p>Tracks all subscriptions to easily unsubscribe from them all during cleanup. Also binds callbacks to <code>this</code> for convenient use as a superclass, e.g.:</p>
 				</div>
-				<pre><code class="language-ts"><span class="hljs-keyword">class</span> EventLogger <span class="hljs-keyword">extends</span> SubscriptionManager {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> prefix: <span class="hljs-built_in">string</span>, event$: Observable&lt;<span class="hljs-built_in">string</span>&gt;</span>) {
+				<pre><code class="language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EventLogger</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">SubscriptionManager</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> prefix: <span class="hljs-built_in">string</span>, event$: Observable&lt;<span class="hljs-built_in">string</span>&gt;</span>)</span> {
     <span class="hljs-built_in">super</span>();
 
     <span class="hljs-comment">// you can pass in an instance method here and it will be bound to `this`</span>
     <span class="hljs-built_in">this</span>.subscribeTo(event$, <span class="hljs-built_in">this</span>.log);
   }
 
-  log(event: <span class="hljs-built_in">string</span>) {
+  <span class="hljs-function"><span class="hljs-title">log</span>(<span class="hljs-params">event: <span class="hljs-built_in">string</span></span>)</span> {
     <span class="hljs-comment">// even though this is used as a callback, you can still use `this`</span>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.prefix + event);
   }

@@ -1100,26 +1100,26 @@ convertTime(<span class="hljs-number">20</span>, TimeUnit.Decades, TimeUnit.Cent
 								<p>Creates a factory function for building objects of a given type. Commonly used to create test objects for use in specs.</p>
 							</div>
 							<pre><code class="language-ts"><span class="hljs-keyword">interface</span> Message {
-  id: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
   text: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">interface</span> Options {
-  cypherDistance: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">cypherDistance</span>: <span class="hljs-built_in">number</span>;
 }
 
 <span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shiftCharacters</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, distance: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span></span>;
 
 <span class="hljs-keyword">const</span> buildMessage = createBuilder&lt;Message, Options&gt;(
-  <span class="hljs-function">(<span class="hljs-params">seq</span>) =&gt;</span> ({ id: seq, text: <span class="hljs-string">`message <span class="hljs-subst">${seq}</span>`</span> }),
+  <span class="hljs-function">(<span class="hljs-params">seq</span>) =&gt;</span> ({ <span class="hljs-attr">id</span>: seq, <span class="hljs-attr">text</span>: <span class="hljs-string">`message <span class="hljs-subst">${seq}</span>`</span> }),
   <span class="hljs-function">(<span class="hljs-params">message, _seq, options</span>) =&gt;</span> {
     message.text = shiftCharacters(message.text, options.cypherDistance || <span class="hljs-number">0</span>);
   },
 );
 
 buildMessage(); <span class="hljs-comment">// { id: 1, text: &quot;message 1&quot; }</span>
-buildMessage({ text: <span class="hljs-string">&quot;Hello world!&quot;</span> }); <span class="hljs-comment">// { id: 2, text: &quot;Hello world!&quot; }</span>
-buildMessage({ text: <span class="hljs-string">&quot;abc&quot;</span> }, { cypherDistance: <span class="hljs-number">3</span> }); <span class="hljs-comment">// { id: 3, text: &quot;def&quot; }</span></code></pre>
+buildMessage({ <span class="hljs-attr">text</span>: <span class="hljs-string">&quot;Hello world!&quot;</span> }); <span class="hljs-comment">// { id: 2, text: &quot;Hello world!&quot; }</span>
+buildMessage({ <span class="hljs-attr">text</span>: <span class="hljs-string">&quot;abc&quot;</span> }, { <span class="hljs-attr">cypherDistance</span>: <span class="hljs-number">3</span> }); <span class="hljs-comment">// { id: 3, text: &quot;def&quot; }</span></code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1165,7 +1165,7 @@ elapsedToString(<span class="hljs-number">1</span>, [TimeUnit.Microseconds]); <s
 							<div class="lead">
 								<p>Checks if <code>value</code> is anything other than <code>undefined</code>.</p>
 							</div>
-							<pre><code class="language-ts">isDefined({ a: <span class="hljs-number">1</span> }); <span class="hljs-comment">// true</span>
+							<pre><code class="language-ts">isDefined({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> }); <span class="hljs-comment">// true</span>
 isDefined(<span class="hljs-literal">false</span>); <span class="hljs-comment">// true</span>
 isDefined(<span class="hljs-literal">null</span>); <span class="hljs-comment">// true</span>
 isDefined(<span class="hljs-literal">undefined</span>); <span class="hljs-comment">// false</span></code></pre>
@@ -1195,13 +1195,13 @@ isDefined(<span class="hljs-literal">undefined</span>); <span class="hljs-commen
 isEqualAtDepth(<span class="hljs-number">0</span>, object1, object2); <span class="hljs-comment">// true</span>
 isEqualAtDepth(<span class="hljs-number">1</span>, object1, object2); <span class="hljs-comment">// true</span>
 
-<span class="hljs-keyword">let</span> object1 = { a: <span class="hljs-number">1</span> };
-<span class="hljs-keyword">let</span> object2 = { a: <span class="hljs-number">1</span> };
+<span class="hljs-keyword">let</span> object1 = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> };
+<span class="hljs-keyword">let</span> object2 = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> };
 isEqualAtDepth(<span class="hljs-number">0</span>, object1, object2); <span class="hljs-comment">// false</span>
 isEqualAtDepth(<span class="hljs-number">1</span>, object1, object2); <span class="hljs-comment">// true</span>
 
-object1 = { a: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], d: { e: <span class="hljs-number">1</span> } };
-object2 = { a: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], d: { e: <span class="hljs-number">1</span> } };
+object1 = { <span class="hljs-attr">a</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-attr">d</span>: { <span class="hljs-attr">e</span>: <span class="hljs-number">1</span> } };
+object2 = { <span class="hljs-attr">a</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-attr">d</span>: { <span class="hljs-attr">e</span>: <span class="hljs-number">1</span> } };
 isEqualAtDepth(<span class="hljs-number">0</span>, object1, object2); <span class="hljs-comment">// false</span>
 isEqualAtDepth(<span class="hljs-number">1</span>, object1, object2); <span class="hljs-comment">// false</span>
 isEqualAtDepth(<span class="hljs-number">2</span>, object1, object2); <span class="hljs-comment">// true</span>
@@ -1298,7 +1298,7 @@ setUnion(setA, setB); <span class="hljs-comment">// true</span></code></pre>
 							<pre><code class="language-ts">mapAsKeys([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> item * item);
 <span class="hljs-comment">// result: { 1: 1, 2: 4, 3: 9 }</span>
 
-mapAsKeys({ a: <span class="hljs-string">&quot;foo&quot;</span>, b: <span class="hljs-string">&quot;bar&quot;</span> }, <span class="hljs-function">(<span class="hljs-params">_item, key</span>) =&gt;</span> key.toUpperCase());
+mapAsKeys({ <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;foo&quot;</span>, <span class="hljs-attr">b</span>: <span class="hljs-string">&quot;bar&quot;</span> }, <span class="hljs-function">(<span class="hljs-params">_item, key</span>) =&gt;</span> key.toUpperCase());
 <span class="hljs-comment">// result: { foo: &quot;A&quot;, bar: &quot;B&quot; }</span></code></pre>
 						</div>
 					</li>
@@ -1346,7 +1346,7 @@ mapAsKeys({ a: <span class="hljs-string">&quot;foo&quot;</span>, b: <span class=
 							<pre><code class="language-ts">mapToObject([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> [item, item * item]);
 <span class="hljs-comment">// result: { 1: 1, 2: 4, 3: 9 }</span>
 
-mapToObject({ a: <span class="hljs-string">&quot;foo&quot;</span>, b: <span class="hljs-string">&quot;bar&quot;</span> }, <span class="hljs-function">(<span class="hljs-params">item, key</span>) =&gt;</span> [item, key.toUpperCase()]);
+mapToObject({ <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;foo&quot;</span>, <span class="hljs-attr">b</span>: <span class="hljs-string">&quot;bar&quot;</span> }, <span class="hljs-function">(<span class="hljs-params">item, key</span>) =&gt;</span> [item, key.toUpperCase()]);
 <span class="hljs-comment">// result: { foo: &quot;A&quot;, bar: &quot;B&quot; }</span></code></pre>
 						</div>
 					</li>
@@ -1378,7 +1378,7 @@ mapToObject({ a: <span class="hljs-string">&quot;foo&quot;</span>, b: <span clas
 							</div>
 							<pre><code class="language-ts">roundToMultiple(<span class="hljs-number">5</span>, <span class="hljs-number">13</span>); <span class="hljs-comment">// 15</span>
 roundToMultiple(<span class="hljs-number">2</span>, <span class="hljs-number">4.8</span>); <span class="hljs-comment">// 4</span>
-roundToMultiple(<span class="hljs-number">3</span>, <span class="hljs-number">-4</span>); <span class="hljs-comment">// -3</span>
+roundToMultiple(<span class="hljs-number">3</span>, -<span class="hljs-number">4</span>); <span class="hljs-comment">// -3</span>
 roundToMultiple(<span class="hljs-number">0.5</span>, <span class="hljs-number">1.6</span>); <span class="hljs-comment">// 1.5</span></code></pre>
 						</div>
 					</li>
@@ -1527,7 +1527,7 @@ toCsv([
   [<span class="hljs-literal">undefined</span>, <span class="hljs-literal">null</span>],
   [<span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>],
   [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
-  [{}, { hi: <span class="hljs-string">&quot;there&quot;</span> }]
+  [{}, { <span class="hljs-attr">hi</span>: <span class="hljs-string">&quot;there&quot;</span> }]
 ]) <span class="hljs-comment">// &quot;a,,string\n,\ntrue,false\n1,2,3\n[object Object],[object Object]&quot;</span></code></pre>
 						</div>
 					</li>
@@ -1558,12 +1558,12 @@ toCsv([
 							</ol>
 							<pre><code class="language-ts"><span class="hljs-keyword">const</span> sum = <span class="hljs-function">(<span class="hljs-params">a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">number</span></span>) =&gt;</span> a + b;
 <span class="hljs-keyword">const</span> sumAndLog = wrapFunction(sum, {
-  after: <span class="hljs-function">(<span class="hljs-params">result, a, b</span>) =&gt;</span> {
+  <span class="hljs-attr">after</span>: <span class="hljs-function">(<span class="hljs-params">result, a, b</span>) =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(a, <span class="hljs-string">&#x27;+&#x27;</span>, b, <span class="hljs-string">&#x27;=&#x27;</span>, result);
   },
 }
 <span class="hljs-keyword">const</span> sumPlusOne = wrapFunction(sum, {
-  transform: <span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> result + <span class="hljs-number">1</span>,
+  <span class="hljs-attr">transform</span>: <span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> result + <span class="hljs-number">1</span>,
 });</code></pre>
 						</div>
 					</li>

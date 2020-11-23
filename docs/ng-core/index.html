@@ -934,8 +934,8 @@ img { max-width: 100%; }
 							<div class="lead">
 								<p>Use in the <code>providers</code> of a component that implements <code>ControlValueAccessor</code> to reduce some boilerplate.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-meta">@Component</span>({ providers: [provideValueAccessor(MyFormControl)] }
-<span class="hljs-keyword">class</span> MyFormControl <span class="hljs-keyword">extends</span> BaseFormControl {
+							<pre><code class="language-ts"><span class="hljs-meta">@Component</span>({ <span class="hljs-attr">providers</span>: [provideValueAccessor(MyFormControl)] }
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyFormControl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseFormControl</span> </span>{
   <span class="hljs-comment">// ...</span>
 }</code></pre>
 						</div>

@@ -965,23 +965,23 @@ img { max-width: 100%; }
 				</div>
 				<p>Example when you don&#39;t need to modify the wrapped control&#39;s value:</p>
 				<pre><code class="language-ts"><span class="hljs-meta">@Component</span>({
-  template: <span class="hljs-string">`&lt;input [formControl]=&quot;formControl&quot;&gt;`</span>,
-  providers: [provideValueAccessor(StringComponent)],
+  <span class="hljs-attr">template</span>: <span class="hljs-string">`&lt;input [formControl]=&quot;formControl&quot;&gt;`</span>,
+  <span class="hljs-attr">providers</span>: [provideValueAccessor(StringComponent)],
 })
-<span class="hljs-keyword">class</span> StringComponent <span class="hljs-keyword">extends</span> WrappedFormControlSuperclass&lt;<span class="hljs-built_in">string</span>&gt; {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StringComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WrappedFormControlSuperclass</span>&lt;<span class="hljs-title">string</span>&gt; </span>{
   <span class="hljs-comment">// This looks unnecessary, but is required for Angular to provide `Injector`</span>
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">injector: Injector</span>) {
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">injector: Injector</span>)</span> {
     <span class="hljs-built_in">super</span>(injector);
   }
 }</code></pre>
 				<p>Example when you need to modify the wrapped control&#39;s value:</p>
 				<pre><code class="language-ts"><span class="hljs-meta">@Component</span>({
-  template: <span class="hljs-string">`&lt;input type=&quot;datetime-local&quot; [formControl]=&quot;formControl&quot;&gt;`</span>,
-  providers: [provideValueAccessor(DateComponent)],
+  <span class="hljs-attr">template</span>: <span class="hljs-string">`&lt;input type=&quot;datetime-local&quot; [formControl]=&quot;formControl&quot;&gt;`</span>,
+  <span class="hljs-attr">providers</span>: [provideValueAccessor(DateComponent)],
 })
-<span class="hljs-keyword">class</span> DateComponent <span class="hljs-keyword">extends</span> WrappedFormControlSuperclass&lt;<span class="hljs-built_in">Date</span>, <span class="hljs-built_in">string</span>&gt; {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DateComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WrappedFormControlSuperclass</span>&lt;<span class="hljs-title">Date</span>, <span class="hljs-title">string</span>&gt; </span>{
   <span class="hljs-comment">// This looks unnecessary, but is required for Angular to provide `Injector`</span>
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">injector: Injector</span>) {
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">injector: Injector</span>)</span> {
     <span class="hljs-built_in">super</span>(injector);
   }
 
@@ -1103,7 +1103,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="directivesuperclass.html">DirectiveSuperclass</a>.<a href="directivesuperclass.html#changedetectorref">changeDetectorRef</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-core/src/lib/directive-superclass.ts#L56">projects/ng-core/src/lib/directive-superclass.ts:56</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-core/src/lib/directive-superclass.ts#L60">projects/ng-core/src/lib/directive-superclass.ts:60</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1161,7 +1161,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="directivesuperclass.html">DirectiveSuperclass</a>.<a href="directivesuperclass.html#inputchanges_">inputChanges$</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-core/src/lib/directive-superclass.ts#L54">projects/ng-core/src/lib/directive-superclass.ts:54</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-core/src/lib/directive-superclass.ts#L58">projects/ng-core/src/lib/directive-superclass.ts:58</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1216,7 +1216,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="directivesuperclass.html">DirectiveSuperclass</a>.<a href="directivesuperclass.html#bindtoinstance">bindToInstance</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-core/src/lib/directive-superclass.ts#L83">projects/ng-core/src/lib/directive-superclass.ts:83</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-core/src/lib/directive-superclass.ts#L87">projects/ng-core/src/lib/directive-superclass.ts:87</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1238,7 +1238,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="directivesuperclass.html">DirectiveSuperclass</a>.<a href="directivesuperclass.html#getinput_">getInput$</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-core/src/lib/directive-superclass.ts#L72">projects/ng-core/src/lib/directive-superclass.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-core/src/lib/directive-superclass.ts#L76">projects/ng-core/src/lib/directive-superclass.ts:76</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1300,7 +1300,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="directivesuperclass.html">DirectiveSuperclass</a>.<a href="directivesuperclass.html#ngonchanges">ngOnChanges</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-core/src/lib/directive-superclass.ts#L63">projects/ng-core/src/lib/directive-superclass.ts:63</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-core/src/lib/directive-superclass.ts#L67">projects/ng-core/src/lib/directive-superclass.ts:67</a></li>
 							</ul>
 						</aside>
 					</li>

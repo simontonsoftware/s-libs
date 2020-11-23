@@ -963,9 +963,9 @@ img { max-width: 100%; }
 					using <code>AngularContext</code> directly. More often <code>AngularContext</code> will be used a
 				super class. See <a href="componentcontext.html">ComponentContext</a> for more common use cases.</p>
 				<pre><code class="language-ts"> <span class="hljs-comment">// This is the class we will test.</span>
- <span class="hljs-meta">@Injectable</span>({ providedIn: <span class="hljs-string">&#x27;root&#x27;</span> })
- <span class="hljs-keyword">class</span> MemoriesService {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> httpClient: HttpClient</span>) {}
+ <span class="hljs-meta">@Injectable</span>({ <span class="hljs-attr">providedIn</span>: <span class="hljs-string">&#x27;root&#x27;</span> })
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MemoriesService</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> httpClient: HttpClient</span>)</span> {}
 
   getLastYearToday(): Observable&lt;<span class="hljs-built_in">any</span>&gt; {
     <span class="hljs-keyword">const</span> datetime = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();

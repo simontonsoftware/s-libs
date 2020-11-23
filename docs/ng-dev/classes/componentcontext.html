@@ -954,12 +954,12 @@ img { max-width: 100%; }
 				<div class="lead">
 					<p>A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in <a href="angularcontext.html">AngularContext</a>. A very simple example:</p>
 				</div>
-				<pre><code class="language-ts"><span class="hljs-meta">@Component</span>({ template: <span class="hljs-string">&#x27;Hello, {{name}}!&#x27;</span> })
-<span class="hljs-keyword">class</span> GreeterComponent {
+				<pre><code class="language-ts"><span class="hljs-meta">@Component</span>({ <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;Hello, {{name}}!&#x27;</span> })
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GreeterComponent</span> </span>{
   <span class="hljs-meta">@Input</span>() name!: <span class="hljs-built_in">string</span>;
 }
 
-<span class="hljs-keyword">class</span> GreeterComponentContext <span class="hljs-keyword">extends</span> ComponentContext {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GreeterComponentContext</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ComponentContext</span> </span>{
   <span class="hljs-keyword">protected</span> componentType = GreeterComponent;
 }
 
@@ -970,7 +970,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
   });
 
   it(<span class="hljs-string">&#x27;greets you by name&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
-    ctx.run({ input: { name: <span class="hljs-string">&#x27;World&#x27;</span> } }, <span class="hljs-function">() =&gt;</span> {
+    ctx.run({ <span class="hljs-attr">input</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;World&#x27;</span> } }, <span class="hljs-function">() =&gt;</span> {
       expect(ctx.fixture.nativeElement.textContent).toBe(<span class="hljs-string">&#x27;Hello, World!&#x27;</span>);
     });
   });
@@ -1050,7 +1050,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Overrides <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L59">projects/ng-dev/src/lib/test-context/component-context.ts:59</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L57">projects/ng-dev/src/lib/test-context/component-context.ts:57</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1067,7 +1067,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 				<div class="tsd-signature tsd-kind-icon">component<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Type</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L59">projects/ng-dev/src/lib/test-context/component-context.ts:59</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L57">projects/ng-dev/src/lib/test-context/component-context.ts:57</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1082,7 +1082,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 				<div class="tsd-signature tsd-kind-icon">fixture<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ComponentFixture</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L54">projects/ng-dev/src/lib/test-context/component-context.ts:54</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L52">projects/ng-dev/src/lib/test-context/component-context.ts:52</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1121,7 +1121,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Overrides <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#cleanup">cleanUp</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L88">projects/ng-dev/src/lib/test-context/component-context.ts:88</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L86">projects/ng-dev/src/lib/test-context/component-context.ts:86</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1209,7 +1209,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Overrides <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#init">init</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L71">projects/ng-dev/src/lib/test-context/component-context.ts:71</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L69">projects/ng-dev/src/lib/test-context/component-context.ts:69</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

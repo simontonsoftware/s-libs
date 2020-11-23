@@ -983,7 +983,7 @@ img { max-width: 100%; }
  persistence.get(); <span class="hljs-comment">// returns `undefined`</span>
 
  <span class="hljs-comment">// now you set it</span>
- persistence.put({ name: <span class="hljs-string">&#x27;Robert&#x27;</span> });
+ persistence.put({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Robert&#x27;</span> });
 
  <span class="hljs-comment">// this will work even after the app reloads (e.g. the next week)</span>
  persistence.get(); <span class="hljs-comment">// returns { name: &#x27;Robert&#x27; }</span></code></pre>

@@ -973,8 +973,8 @@ img { max-width: 100%; }
   <span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> item,
   <span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> item + <span class="hljs-number">1</span>
 )</code></pre>
-					<pre><code>source:         -[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]---[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]---[<span class="hljs-number">2</span>]--|
-mapWithCaching: -[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]---[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]---[<span class="hljs-number">3</span>]--|</code></pre>
+					<pre><code><span class="hljs-attribute">source</span>:         -[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]---[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]---[<span class="hljs-number">2</span>]--|
+<span class="hljs-attribute">mapWithCaching</span>: -[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]---[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]---[<span class="hljs-number">3</span>]--|</code></pre>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-variable">
@@ -996,8 +996,8 @@ mapWithCaching: -[<span class="hljs-number">2</span>, <span class="hljs-number">
   <span class="hljs-function">(<span class="hljs-params">item, key</span>) =&gt;</span> key,
   <span class="hljs-function">(<span class="hljs-params">item, key</span>) =&gt;</span> item + <span class="hljs-number">1</span>
 )</code></pre>
-					<pre><code><span class="hljs-attr">source:</span>         <span class="hljs-string">-{</span> <span class="hljs-attr">a:</span> <span class="hljs-number">1</span><span class="hljs-string">,</span> <span class="hljs-attr">b:</span> <span class="hljs-number">2</span> <span class="hljs-string">}---{</span> <span class="hljs-attr">a:</span> <span class="hljs-number">1</span><span class="hljs-string">,</span> <span class="hljs-attr">b:</span> <span class="hljs-number">2</span><span class="hljs-string">,</span> <span class="hljs-attr">c:</span> <span class="hljs-number">3</span> <span class="hljs-string">}---{</span> <span class="hljs-attr">b:</span> <span class="hljs-number">2</span> <span class="hljs-string">}--|</span>
-<span class="hljs-attr">mapWithCaching:</span> <span class="hljs-string">-[2,</span> <span class="hljs-number">3</span><span class="hljs-string">]-----------[2,</span> <span class="hljs-number">3</span><span class="hljs-string">,</span> <span class="hljs-number">4</span><span class="hljs-string">]--------------[3]--|</span></code></pre>
+					<pre><code><span class="hljs-attribute">source</span>:         -{ a: <span class="hljs-number">1</span>, b: <span class="hljs-number">2</span> }---{ a: <span class="hljs-number">1</span>, b: <span class="hljs-number">2</span>, c: <span class="hljs-number">3</span> }---{ b: <span class="hljs-number">2</span> }--|
+<span class="hljs-attribute">mapWithCaching</span>: -[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]-----------[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]--------------[<span class="hljs-number">3</span>]--|</code></pre>
 				</div>
 			</section>
 		</section>
@@ -1234,10 +1234,10 @@ throwError(<span class="hljs-string">&quot;boo&quot;</span>).pipe(logValues(<spa
 							<div class="lead">
 								<p>Causes the next value in the pipe to be skipped after <code>skip$</code> emits a value. For example:</p>
 							</div>
-							<pre><code>source: <span class="hljs-number">-1</span>----<span class="hljs-number">-2</span>----<span class="hljs-number">-3</span>----<span class="hljs-number">-4</span>----<span class="hljs-number">-5</span>-|
-skip$:  ---<span class="hljs-number">-0</span>---------<span class="hljs-number">-0</span><span class="hljs-number">-0</span>----------
+							<pre><code><span class="hljs-attribute">source</span>: -<span class="hljs-number">1</span>-----<span class="hljs-number">2</span>-----<span class="hljs-number">3</span>-----<span class="hljs-number">4</span>-----<span class="hljs-number">5</span>-|
+<span class="hljs-attribute">skip</span>$:  ----<span class="hljs-number">0</span>----------<span class="hljs-number">0</span>-<span class="hljs-number">0</span>----------
 
-result: <span class="hljs-number">-1</span>----------<span class="hljs-number">-3</span>----------<span class="hljs-number">-5</span>-|</code></pre>
+<span class="hljs-attribute">result</span>: -<span class="hljs-number">1</span>-----------<span class="hljs-number">3</span>-----------<span class="hljs-number">5</span>-|</code></pre>
 							<pre><code class="language-ts"><span class="hljs-keyword">const</span> source = <span class="hljs-keyword">new</span> Subject();
 <span class="hljs-keyword">const</span> skip$ = <span class="hljs-keyword">new</span> Subject();
 <span class="hljs-keyword">const</span> result = source.pipe(skipAfter(skip$));
@@ -1273,9 +1273,9 @@ source.next(<span class="hljs-number">5</span>); <span class="hljs-comment">// r
 							<div class="lead">
 								<p>Emits the upstream value as the first element in an array, followed by the last <code>count</code> values in reverse chronological order.</p>
 							</div>
-							<pre><code>source:         <span class="hljs-number">-1</span>---<span class="hljs-number">-2</span>-----<span class="hljs-number">-3</span>-------<span class="hljs-number">-4</span>-------<span class="hljs-number">-5</span>--------|
-withHistory(<span class="hljs-number">2</span>): -[<span class="hljs-number">1</span>]--[<span class="hljs-number">2</span>,<span class="hljs-number">1</span>]--[<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>]--[<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>]--[<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>]--|
-withHistory(<span class="hljs-number">0</span>): -[<span class="hljs-number">1</span>]--[<span class="hljs-number">2</span>]----[<span class="hljs-number">3</span>]------[<span class="hljs-number">4</span>]------[<span class="hljs-number">5</span>]------|</code></pre>
+							<pre><code><span class="hljs-attribute">source</span>:         -<span class="hljs-number">1</span>----<span class="hljs-number">2</span>------<span class="hljs-number">3</span>--------<span class="hljs-number">4</span>--------<span class="hljs-number">5</span>--------|
+<span class="hljs-attribute">withHistory</span>(<span class="hljs-number">2</span>): -[<span class="hljs-number">1</span>]--[<span class="hljs-number">2</span>,<span class="hljs-number">1</span>]--[<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>]--[<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>]--[<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>]--|
+<span class="hljs-attribute">withHistory</span>(<span class="hljs-number">0</span>): -[<span class="hljs-number">1</span>]--[<span class="hljs-number">2</span>]----[<span class="hljs-number">3</span>]------[<span class="hljs-number">4</span>]------[<span class="hljs-number">5</span>]------|</code></pre>
 						</div>
 					</li>
 				</ul>

@@ -919,13 +919,13 @@ img { max-width: 100%; }
 <span class="hljs-comment">// or @Component() (also consider DirectiveSuperclass)</span>
 <span class="hljs-comment">// or @Directive() (also consider DirectiveSuperclass)</span>
 <span class="hljs-comment">// or @Pipe()</span>
-<span class="hljs-keyword">class</span> MyThing <span class="hljs-keyword">extends</span> InjectableSuperclass {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">somethingObservable: Observable</span>) {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThing</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">InjectableSuperclass</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">somethingObservable: Observable</span>)</span> {
     <span class="hljs-built_in">super</span>();
     <span class="hljs-built_in">this</span>.subscribeTo(somethingObservable);
   }
 
-  ngOnDestroy() {
+  <span class="hljs-function"><span class="hljs-title">ngOnDestroy</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-comment">// if you override ngOnDestroy, be sure to call this too</span>
     <span class="hljs-built_in">super</span>.ngOnDestroy();
   }

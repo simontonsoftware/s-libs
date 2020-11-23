@@ -1203,9 +1203,9 @@ img { max-width: 100%; }
 								<p>Turns off this store&#39;s observables while <code>func</code> is executing, emitting only once afterward, if the store changed. This allows you to batch multiple mutations into a single update at the end.</p>
 							</div>
 							<pre><code class="language-ts">store.batch(<span class="hljs-function">() =&gt;</span> {
-  store.assign({ key1: value1 });
+  store.assign({ <span class="hljs-attr">key1</span>: value1 });
   store(<span class="hljs-string">&#x27;key2&#x27;</span>).delete();
-  store(<span class="hljs-string">&#x27;key3&#x27;</span>).set({ key4: value4 });
+  store(<span class="hljs-string">&#x27;key3&#x27;</span>).set({ <span class="hljs-attr">key4</span>: value4 });
 
   store(<span class="hljs-string">&#x27;key1&#x27;</span>).state(); <span class="hljs-comment">// returns `value1`</span>
 });</code></pre>

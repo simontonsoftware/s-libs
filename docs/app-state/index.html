@@ -963,18 +963,18 @@ added.set(<span class="hljs-number">17</span>); <span class="hljs-comment">// st
 								<p>Returns an observable that emits an array of store objects, one for each element in <code>source</code>&#39;s state. The resulting arrays will have references to the exact store objects included in the previous emission when possible, making them performant to use in <code>*ngFor</code> expressions without the need to use <code>trackBy</code>.</p>
 							</div>
 							<pre><code class="language-ts"><span class="hljs-meta">@Component</span>({
-  template: <span class="hljs-string">`
+  <span class="hljs-attr">template</span>: <span class="hljs-string">`
     &lt;hero
       *ngFor=&quot;let heroStore of heroStores$ | async&quot;
       [heroStore]=&quot;heroStore&quot;
     &gt;&lt;/hero&gt;
   `</span>,
 })
-<span class="hljs-keyword">class</span> HeroListComponent {
-  heroStores$: Observable&lt;<span class="hljs-built_in">Array</span>&lt;Store&lt;Hero&gt;&gt;&gt;;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeroListComponent</span> </span>{
+  <span class="hljs-attr">heroStores$</span>: Observable&lt;<span class="hljs-built_in">Array</span>&lt;Store&lt;Hero&gt;&gt;&gt;;
   <span class="hljs-meta">@Input</span>() <span class="hljs-keyword">private</span> heroesStore: Store&lt;<span class="hljs-built_in">Array</span>&lt;Hero&gt;&gt;;
 
-  ngOnChanges() {
+  <span class="hljs-function"><span class="hljs-title">ngOnChanges</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-built_in">this</span>.heroStores$ = spreadArrayStore(<span class="hljs-built_in">this</span>.heroesStore);
   }
 }</code></pre>
@@ -1004,18 +1004,18 @@ added.set(<span class="hljs-number">17</span>); <span class="hljs-comment">// st
 }
 
 <span class="hljs-meta">@Component</span>({
-  template: <span class="hljs-string">`
+  <span class="hljs-attr">template</span>: <span class="hljs-string">`
     &lt;hero
       *ngFor=&quot;let heroStore of heroStores$ | async&quot;
       [heroStore]=&quot;heroStore&quot;
     &gt;&lt;/hero&gt;
   `</span>,
 })
-<span class="hljs-keyword">class</span> HeroListComponent {
-  heroStores$: Observable&lt;<span class="hljs-built_in">Array</span>&lt;Store&lt;Hero&gt;&gt;&gt;;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeroListComponent</span> </span>{
+  <span class="hljs-attr">heroStores$</span>: Observable&lt;<span class="hljs-built_in">Array</span>&lt;Store&lt;Hero&gt;&gt;&gt;;
   <span class="hljs-meta">@Input</span>() <span class="hljs-keyword">private</span> heroesStore: Store&lt;HeroMap&gt;;
 
-  ngOnChanges() {
+  <span class="hljs-function"><span class="hljs-title">ngOnChanges</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-built_in">this</span>.heroStores$ = spreadObjectStore(<span class="hljs-built_in">this</span>.heroesStore);
   }
 }</code></pre>

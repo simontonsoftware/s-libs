@@ -980,20 +980,20 @@ img { max-width: 100%; }
 				</div>
 				<p>For example, say your app persists an object with the shape <code>{ _version: 3, key_1: string }</code>. You change your code to remove the underscore from <code>key_1</code>, so you want to migrate data on users&#39; machines accordingly. Bump your version to 4 and use <code>MigrationManager</code> like this:</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">interface</span> MyData <span class="hljs-keyword">extends</span> VersionedObject {
-  _version: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">_version</span>: <span class="hljs-built_in">number</span>;
   key1: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-comment">// simulate old data in the previous format</span>
 <span class="hljs-keyword">const</span> persistence = <span class="hljs-keyword">new</span> Persistence&lt;MyData&gt;(<span class="hljs-string">&#x27;my key&#x27;</span>);
-persistence.put({ _version: <span class="hljs-number">3</span>, key_1: <span class="hljs-string">&#x27;my string&#x27;</span> } <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>);
+persistence.put({ <span class="hljs-attr">_version</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">key_1</span>: <span class="hljs-string">&#x27;my string&#x27;</span> } <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>);
 
 <span class="hljs-keyword">const</span> migrater = <span class="hljs-keyword">new</span> MigrationManager&lt;MyData&gt;();
 migrater.registerMigration(<span class="hljs-number">3</span>, <span class="hljs-function">(<span class="hljs-params">oldObject: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
-  <span class="hljs-keyword">return</span> { _version: <span class="hljs-number">4</span>, key1: oldObject.key_1 };
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">_version</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">key1</span>: oldObject.key_1 };
 });
 
-<span class="hljs-keyword">const</span> defaultData = { _version: <span class="hljs-number">4</span>, key1: <span class="hljs-string">&#x27;default value&#x27;</span> };
+<span class="hljs-keyword">const</span> defaultData = { <span class="hljs-attr">_version</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">key1</span>: <span class="hljs-string">&#x27;default value&#x27;</span> };
 migrater.run(persistence, defaultData);
 <span class="hljs-comment">// ^ returns { _version: 4, key1: &#x27;my string&#x27; }</span>
 
@@ -1078,15 +1078,15 @@ migrater.run(persistence, defaultData);
 							</div>
 							<p>Use <code>undefined</code> as the <code>sourceVersion</code> to handle migrations from a legacy format that did not have the <code>_version</code> key.</p>
 							<p><code>migrateFunction</code> will be called with the migration manager itself as <code>this</code>. That allows subclasses to pass in methods as a migration function without any special binding. E.g.:</p>
-							<pre><code class="language-ts"><span class="hljs-keyword">class</span> MigrationService <span class="hljs-keyword">extends</span> MigrationManager&lt;MyState&gt; {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> messaging: MessagingService</span>) {
+							<pre><code class="language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MigrationService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">MigrationManager</span>&lt;<span class="hljs-title">MyState</span>&gt; </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> messaging: MessagingService</span>)</span> {
     <span class="hljs-built_in">super</span>();
     <span class="hljs-built_in">this</span>.registerMigration(<span class="hljs-number">1</span>, <span class="hljs-built_in">this</span>.migrateFrom1); <span class="hljs-comment">// no special binding</span>
   }
 
-  <span class="hljs-keyword">private</span> migrateFrom1(source: MyState) {
+  <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">migrateFrom1</span>(<span class="hljs-params">source: MyState</span>)</span> {
     <span class="hljs-built_in">this</span>.messaging.show(<span class="hljs-string">&quot;You&#x27;ve been upgraded!&quot;</span>); <span class="hljs-comment">// you can still use `this`</span>
-    <span class="hljs-keyword">return</span> { ...source, _version: <span class="hljs-number">2</span> };
+    <span class="hljs-keyword">return</span> { ...source, <span class="hljs-attr">_version</span>: <span class="hljs-number">2</span> };
   }
 }</code></pre>
 						</div>
