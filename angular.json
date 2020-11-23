@@ -131,7 +131,17 @@
               "projects/integration/src/assets"
             ],
             "styles": ["projects/integration/src/styles.scss"],
-            "scripts": []
+            "scripts": [
+              "node_modules/rxjs/bundles/rxjs.umd.js",
+              "node_modules/@angular/core/bundles/core.umd.js",
+              "node_modules/@angular/forms/bundles/forms.umd.js",
+              "dist/micro-dash/bundles/micro-dash.umd.js",
+              "dist/js-core/bundles/js-core.umd.js",
+              "dist/rxjs-core/bundles/rxjs-core.umd.js",
+              "dist/app-state/bundles/app-state.umd.js",
+              "dist/ng-core/bundles/ng-core.umd.js",
+              "dist/ng-app-state/bundles/ng-app-state.umd.js"
+            ]
           }
         },
         "lint": {

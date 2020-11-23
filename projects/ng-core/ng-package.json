@@ -2,6 +2,15 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/ng-core",
   "lib": {
-    "entryFile": "src/public-api.ts"
+    "entryFile": "src/public-api.ts",
+    "flatModuleFile": "ng-core",
+    "umdId": "sLibs.ngCore",
+    "umdModuleIds": {
+      "@angular/core": "ng.core",
+      "@angular/forms": "ng.forms",
+      "@s-libs/js-core": "sLibs.jsCore",
+      "@s-libs/micro-dash": "sLibs.microDash",
+      "@s-libs/rxjs-core": "sLibs.rxjsCore"
+    }
   }
 }
