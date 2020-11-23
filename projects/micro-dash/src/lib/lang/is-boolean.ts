@@ -3,8 +3,8 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 693 bytes
- * - Micro-dash: 62 bytes
+ * - Micro-dash: 56 bytes
  */
 export function isBoolean(value: any): value is boolean {
-  return value === true || value === false;
+  return value === !!value;
 }
