@@ -12,7 +12,7 @@ import { update } from './update';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 5,639 bytes
- * - Micro-dash: 178 bytes
+ * - Micro-dash: 192 bytes
  */
 export function set<T>(object: T, path: Array<string | number>, value: any): T {
   return update(object, path, constant(value));

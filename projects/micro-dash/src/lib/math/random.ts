@@ -9,7 +9,7 @@ import { isBoolean } from '../lang';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 2,258 bytes
- * - Micro-dash: 265 bytes
+ * - Micro-dash: 320 bytes
  */
 
 export function random(floating?: boolean): number;

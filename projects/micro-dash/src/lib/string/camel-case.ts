@@ -8,8 +8,8 @@ import { words } from './words';
  * - requires `string` to be a string
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 6,180 bytes
- * - Micro-dash: 322 bytes
+ * - Lodash: 6,097 bytes
+ * - Micro-dash: 344 bytes
  */
 // tslint:disable-next-line:variable-name
 export function camelCase(string: string): string {

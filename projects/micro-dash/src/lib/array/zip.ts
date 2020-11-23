@@ -5,8 +5,8 @@ import { times } from '../util';
  * Creates an array of grouped elements, the first of which contains the first elements of the given arrays, the second of which contains the second elements of the given arrays, and so on.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 2,861 bytes
- * - Micro-dash: 155 bytes
+ * - Lodash: 2,844 bytes
+ * - Micro-dash: 190 bytes
  */
 
 export function zip<T1, T2>(array1: T1[], array2: T2[]): Array<[T1, T2]>;

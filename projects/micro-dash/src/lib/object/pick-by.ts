@@ -15,8 +15,8 @@ import { forOwn } from './for-own';
  * - does not treat sparse arrays as dense
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 14,874 bytes
- * - Micro-dash: 307 bytes
+ * - Lodash: 14,767 bytes
+ * - Micro-dash: 328 bytes
  */
 
 export function pickBy<T, O>(

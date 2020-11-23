@@ -7,8 +7,8 @@ import { Nil } from '../interfaces';
  * - `paths` must be direct properties of `object` (they cannot references deep properties)
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 7,691 bytes
- * - Micro-dash: 77 bytes
+ * - Lodash: 7,718 bytes
+ * - Micro-dash: 142 bytes
  */
 export function pick<T, K extends keyof T>(
   object: T | Nil,

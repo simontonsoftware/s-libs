@@ -6,7 +6,7 @@ import { Nil } from '../interfaces';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 1,266 bytes
- * - Micro-dash: 239 bytes
+ * - Micro-dash: 277 bytes
  */
 export function sortedIndex<T>(array: T[] | Nil, value: T): number {
   let min = 0;

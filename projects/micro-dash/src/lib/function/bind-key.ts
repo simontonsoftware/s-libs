@@ -8,8 +8,8 @@ import { Drop1Arg, Drop2Args, Drop3Args, Drop4Args, Key } from '../interfaces';
  * - it will return plain functions; they will not inherit the prototype of `object[key]`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 9,121 bytes
- * - Micro-dash: 49 bytes
+ * - Lodash: 9,066 bytes
+ * - Micro-dash: 69 bytes
  */
 
 export function bindKey<

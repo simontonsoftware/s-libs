@@ -14,7 +14,7 @@ import { clone } from '../lang/clone';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 10,290 bytes
- * - Micro-dash: 409 bytes
+ * - Micro-dash: 412 bytes
  */
 
 export function merge<A extends object, B extends object>(

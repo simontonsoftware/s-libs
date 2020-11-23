@@ -5,8 +5,8 @@ import { clone } from './clone';
  * This method is like `clone` except that it recursively clones `value`.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 12,289 bytes
- * - Micro-dash: 397 bytes
+ * - Lodash: 12,221 bytes
+ * - Micro-dash: 405 bytes
  */
 export function cloneDeep<T>(value: T): T {
   if (value instanceof Object) {

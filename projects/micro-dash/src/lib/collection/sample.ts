@@ -6,8 +6,8 @@ import { random } from '../math';
  * Gets a random element from `collection`.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 3,655 bytes
- * - Micro-dash: 435 bytes
+ * - Lodash: 3,654 bytes
+ * - Micro-dash: 459 bytes
  */
 export function sample<T>(collection: T[] | ObjectWith<T>): T {
   collection = toArray(collection as any);

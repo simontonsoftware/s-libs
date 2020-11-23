@@ -11,7 +11,7 @@ import { times } from './times';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 2,020 bytes
- * - Micro-dash: 181 bytes
+ * - Micro-dash: 196 bytes
  */
 
 export function range(end: number): number[];

@@ -5,8 +5,8 @@ import { transform } from '../object';
  * This method is like `fromPairs` except that it accepts two arrays, one of property identifiers and one of corresponding values.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 1,835 bytes
- * - Micro-dash: 291 bytes
+ * - Lodash: 1,812 bytes
+ * - Micro-dash: 303 bytes
  */
 
 export function zipObject<K extends [Key], V extends [any, ...any[]]>(

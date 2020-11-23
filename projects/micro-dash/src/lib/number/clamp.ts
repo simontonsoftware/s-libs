@@ -7,7 +7,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 1,367 bytes
- * - Micro-dash: 51 bytes
+ * - Micro-dash: 119 bytes
  */
 // tslint:disable-next-line:variable-name
 export function clamp(number: number, lower: number, upper: number): number {

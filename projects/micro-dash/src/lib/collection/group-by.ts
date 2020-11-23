@@ -11,8 +11,8 @@ import { transform } from '../object/transform';
  * Creates an object composed of keys generated from the results of running each element of `collection` thru `iteratee`. The order of grouped values is determined by the order they occur in `collection`. The corresponding value of each key is an array of elements responsible for generating the key.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 14,388 bytes
- * - Micro-dash: 322 bytes
+ * - Lodash: 14,277 bytes
+ * - Micro-dash: 331 bytes
  */
 export function groupBy<T, K extends Key>(
   collection: T[] | ObjectWith<T> | Nil,

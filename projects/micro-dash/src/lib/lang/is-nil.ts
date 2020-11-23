@@ -5,7 +5,7 @@ import { Nil } from '../interfaces';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 78 bytes
- * - Micro-dash: 29 bytes
+ * - Micro-dash: 73 bytes
  */
 export function isNil(value: any): value is Nil {
   return value == null;

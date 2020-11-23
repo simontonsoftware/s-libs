@@ -3,7 +3,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 2,206 bytes
- * - Micro-dash: 129 bytes
+ * - Micro-dash: 177 bytes
  */
 export function chunk<T>(array: T[], size = 1): T[][] {
   size = Math.max(Math.trunc(size), 0);

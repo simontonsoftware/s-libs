@@ -3,7 +3,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 105 bytes
- * - Micro-dash: 41 bytes
+ * - Micro-dash: 67 bytes
  */
 export function isObject(value: any): value is object {
   return value instanceof Object;

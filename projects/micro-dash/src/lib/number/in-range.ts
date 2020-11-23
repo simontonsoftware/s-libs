@@ -7,7 +7,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 1,396 bytes
- * - Micro-dash: 59 bytes
+ * - Micro-dash: 127 bytes
  */
 // tslint:disable-next-line:variable-name
 export function inRange(number: number, start: number, end: number): boolean {

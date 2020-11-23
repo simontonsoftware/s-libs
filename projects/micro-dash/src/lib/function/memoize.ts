@@ -11,7 +11,7 @@ import { identity } from '../util/identity';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 3,852 bytes
- * - Micro-dash: 210 bytes
+ * - Micro-dash: 243 bytes
  *
  * @param resolver The function to resolve the cache key.
  */

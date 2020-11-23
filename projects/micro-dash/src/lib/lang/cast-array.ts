@@ -3,7 +3,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 128 bytes
- * - Micro-dash: 44 bytes
+ * - Micro-dash: 71 bytes
  */
 export function castArray<T>(value: T): T extends unknown[] ? T : T[] {
   return (Array.isArray(value) ? value : [value]) as any;
