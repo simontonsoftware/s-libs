@@ -11,26 +11,26 @@ describe('spreadArrayStore$()', () => {
 
   it('emits a separate store object for each element in the array', () => {
     store.set([1, 2]);
-    let emitted: Array<Store<number>>;
+    let emitted!: Array<Store<number>>;
     spreadArrayStore$(store).subscribe((stores) => {
       emitted = stores;
     });
-    expect(emitted!.length).toBe(2);
-    expect(emitted![0].state()).toBe(1);
-    expect(emitted![1].state()).toBe(2);
+    expect(emitted.length).toBe(2);
+    expect(emitted[0].state()).toBe(1);
+    expect(emitted[1].state()).toBe(2);
 
     store.set([3, 4, 5]);
-    expect(emitted!.length).toBe(3);
-    expect(emitted![0].state()).toBe(3);
-    expect(emitted![1].state()).toBe(4);
-    expect(emitted![2].state()).toBe(5);
+    expect(emitted.length).toBe(3);
+    expect(emitted[0].state()).toBe(3);
+    expect(emitted[1].state()).toBe(4);
+    expect(emitted[2].state()).toBe(5);
 
     store.set([6]);
-    expect(emitted!.length).toBe(1);
-    expect(emitted![0].state()).toBe(6);
+    expect(emitted.length).toBe(1);
+    expect(emitted[0].state()).toBe(6);
 
     store.set([]);
-    expect(emitted!.length).toBe(0);
+    expect(emitted.length).toBe(0);
   });
 
   it('only emits when the length of the array changes', () => {
@@ -62,5 +62,23 @@ describe('spreadArrayStore$()', () => {
 
     store.set([6]);
     expect(lastEmit![0]).toBe(previousEmit![0]);
+  });
+
+  it('treats null and undefined as empty arrays', () => {
+    interface State {
+      array?: number[] | null;
+    }
+    const arrayStore = new RootStore<State>({})('array');
+    let emitted!: Array<Store<number>>;
+    spreadArrayStore$(arrayStore).subscribe((stores) => {
+      emitted = stores;
+    });
+    expect(emitted.length).toBe(0);
+
+    arrayStore.set([1]);
+    expect(emitted.length).toBe(1);
+
+    arrayStore.delete();
+    expect(emitted.length).toBe(0);
   });
 });

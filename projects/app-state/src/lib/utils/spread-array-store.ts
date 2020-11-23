@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { distinctUntilKeyChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Store } from '../index';
 
 /**
@@ -25,18 +25,19 @@ import { Store } from '../index';
  * ```
  */
 export function spreadArrayStore$<T>(
-  source: Store<Array<T>>,
+  source: Store<Array<T> | null | undefined>,
 ): Observable<Array<Store<T>>> {
   let cache: Array<Store<T>> = [];
   return source.$.pipe(
-    distinctUntilKeyChanged('length'),
+    distinctUntilChanged((x, y) => (x?.length || 0) === (y?.length || 0)),
     map((array) => {
+      array ??= [];
       if (array.length < cache.length) {
         cache = cache.slice(0, array.length);
       } else {
         cache = cache.slice();
         for (let i = cache.length; i < array.length; ++i) {
-          cache[i] = source(i);
+          cache[i] = (source as Store<Array<T>>)(i);
         }
       }
       return cache;
