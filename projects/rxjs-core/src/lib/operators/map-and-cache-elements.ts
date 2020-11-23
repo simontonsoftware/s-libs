@@ -12,7 +12,7 @@ type BuildDownstreamItem<UpstreamType, DownstreamType> = (
 export function mapAndCacheElements<UpstreamType, DownstreamType>(
   buildCacheKey: (upstreamItem: UpstreamType, key: keyof any) => any,
   buildDownstreamItem: BuildDownstreamItem<UpstreamType, DownstreamType>,
-): OperatorFunction<UpstreamType, DownstreamType[]> {
+): OperatorFunction<UpstreamType | null | undefined, DownstreamType[]> {
   let cache = new Map<any, DownstreamType>();
 
   return map((upstreamItems: any) => {
@@ -23,10 +23,8 @@ export function mapAndCacheElements<UpstreamType, DownstreamType>(
 
       let downstreamItem: DownstreamType;
       if (cache.has(cacheKey)) {
-        // tslint:disable-next-line:no-non-null-assertion
         downstreamItem = cache.get(cacheKey)!;
       } else if (nextCache.has(cacheKey)) {
-        // tslint:disable-next-line:no-non-null-assertion
         downstreamItem = nextCache.get(cacheKey)!;
       } else {
         downstreamItem = buildDownstreamItem(upstreamItem, key);

@@ -31,4 +31,4 @@ export const mapAndCacheObjectElements = mapAndCacheElements as <
 >(
   buildCacheKey: ObjectIteratee<UpstreamType, any>,
   buildDownstreamItem: ObjectIteratee<UpstreamType, DownstreamType>,
-) => OperatorFunction<UpstreamType, DownstreamType[]>;
+) => OperatorFunction<UpstreamType | null | undefined, DownstreamType[]>;
