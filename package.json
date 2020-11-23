@@ -46,7 +46,6 @@
     "@angular/compiler-cli": "~11.0.2",
     "@angular/material": "~11.0.0",
     "@types/jasmine": "~3.6.0",
-    "@types/jasminewd2": "~2.0.3",
     "@types/lodash-es": "^4.17.3",
     "@types/node": "^12.11.1",
     "@types/prettier": "^2.0.1",

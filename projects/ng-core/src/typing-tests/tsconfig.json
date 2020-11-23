@@ -10,6 +10,7 @@
     "target": "es2015",
 
     "baseUrl": "../lib",
+    "experimentalDecorators": true,
     "paths": {
       "@s-libs/micro-dash": ["../../../../dist/micro-dash"],
       "@s-libs/rxjs-core": ["../../../../dist/rxjs-core"]

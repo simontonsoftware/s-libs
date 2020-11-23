@@ -1,5 +1,6 @@
 import {
   ChangeDetectorRef,
+  Directive,
   Injector,
   OnChanges,
   SimpleChanges,
@@ -45,6 +46,9 @@ import { InjectableSuperclass } from './injectable-superclass';
  * }
  * ```
  */
+// maybe this won't need the fake selector after https://github.com/angular/angular/issues/36427
+@Directive({ selector: '[sDirectiveSuperclass]' })
+// tslint:disable-next-line:directive-class-suffix
 export abstract class DirectiveSuperclass
   extends InjectableSuperclass
   implements OnChanges {

@@ -4,11 +4,17 @@ import {
   Inject,
   Injector,
   Input,
+  Pipe,
+  PipeTransform,
 } from '@angular/core';
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import {
+  AngularContext,
+  ComponentContext,
+  expectSingleCallAndReset,
+} from '@s-libs/ng-dev';
+import { BehaviorSubject, combineLatest, noop, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { click, find, findButton } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
@@ -114,6 +120,18 @@ describe('DirectiveSuperclass', () => {
   }
 
   /////////
+
+  it('can be used as the superclass to a pipe (production bug)', () => {
+    @Pipe({ name: 'not' })
+    class NotPipe extends DirectiveSuperclass implements PipeTransform {
+      transform(value: any): boolean {
+        return !value;
+      }
+    }
+    expect(() => {
+      new AngularContext({ declarations: [NotPipe] }).run(noop);
+    }).not.toThrowError();
+  });
 
   describe('.inputChanges$', () => {
     it('emits the keys that change', () => {
