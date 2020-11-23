@@ -32,7 +32,7 @@ import { Store } from '../index';
  * ```
  */
 export function spreadObjectStore$<T extends object>(
-  source: Store<T>,
+  source: Store<T | null | undefined>,
 ): Observable<Array<Store<T[keyof T]>>> {
   let lastKeySet: Set<string | keyof T> | undefined;
   return source.$.pipe(
@@ -47,7 +47,7 @@ export function spreadObjectStore$<T extends object>(
     }),
     mapAndCacheObjectElements(
       (_value, key) => key,
-      (_value, key) => source(key as keyof T),
+      (_value, key) => (source as Store<T>)(key as keyof T),
     ),
   );
 }

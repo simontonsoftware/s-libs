@@ -78,7 +78,7 @@ describe('spreadArrayStore$()', () => {
     arrayStore.set([1]);
     expect(emitted.length).toBe(1);
 
-    arrayStore.delete();
+    arrayStore.set(null);
     expect(emitted.length).toBe(0);
   });
 });

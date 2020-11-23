@@ -73,4 +73,22 @@ describe('spreadObjectStore$()', () => {
     store.set({ b: 6 });
     expect(lastEmit![0]).toBe(previousEmit![1]);
   });
+
+  it('treats null and undefined as empty objects', () => {
+    interface State {
+      object?: Record<string, number> | null;
+    }
+    const objectStore = new RootStore<State>({})('object');
+    let emitted!: Array<Store<number>>;
+    spreadObjectStore$(objectStore).subscribe((stores) => {
+      emitted = stores;
+    });
+    expect(emitted.length).toBe(0);
+
+    objectStore.set({ a: 1 });
+    expect(emitted.length).toBe(1);
+
+    objectStore.set(null);
+    expect(emitted.length).toBe(0);
+  });
 });
