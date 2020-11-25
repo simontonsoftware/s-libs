@@ -1,4 +1,4 @@
-import { Nil } from '../interfaces';
+import { IfCouldBe, Nil } from '../interfaces';
 
 /**
  * Creates an object composed of the picked `object` properties.
@@ -10,14 +10,14 @@ import { Nil } from '../interfaces';
  * - Lodash: 7,718 bytes
  * - Micro-dash: 142 bytes
  */
-export function pick<T, K extends keyof T>(
-  object: T | Nil,
-  ...paths: K[]
-): T extends Nil ? {} : Pick<T, K> {
+export function pick<T, P extends Array<keyof NonNullable<T>>>(
+  object: T,
+  ...paths: P
+): { [K in P[number]]: NonNullable<T>[K] } | IfCouldBe<T, Nil, {}> {
   const result: any = {};
   if (object != null) {
     for (const path of paths) {
-      result[path] = object[path];
+      result[path] = object[path as keyof T];
     }
   }
   return result;

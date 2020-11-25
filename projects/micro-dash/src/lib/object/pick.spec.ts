@@ -1,12 +1,6 @@
 import { pick } from './pick';
 
 describe('pick()', () => {
-  it('fancily narrows types', () => {
-    let picked: { a: number; b: string };
-    picked = pick({ a: 1, b: 'b', c: { d: 3 } }, 'a', 'b');
-    expect(picked).toEqual({ a: 1, b: 'b' });
-  });
-
   //
   // stolen from https://github.com/healthiers/mini-dash
   //
