@@ -33,8 +33,8 @@ describe('omit()', () => {
   });
 
   it('should return an empty object when `object` is nullish', () => {
-    expect(omit<any>(null, 'valueOf')).toEqual({});
-    expect(omit<any>(undefined, 'valueOf')).toEqual({});
+    expect(omit<any, any>(null, 'valueOf')).toEqual({});
+    expect(omit<any, any>(undefined, 'valueOf')).toEqual({});
   });
 
   it('should not mutate `object`', () => {

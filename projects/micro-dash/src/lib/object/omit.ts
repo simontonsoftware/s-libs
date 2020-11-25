@@ -1,6 +1,11 @@
 import { Nil } from '../interfaces';
 import { clone } from '../lang';
 
+/** @hidden */
+type RemainingKeys<T, Omits> =
+  | Exclude<keyof T, Omits>
+  | Extract<PropertyKey, keyof T>; // always include index properties
+
 /**
  * The opposite of `pick`; this method creates an object composed of the own enumerable string properties of object that are not omitted.
  *
@@ -12,10 +17,12 @@ import { clone } from '../lang';
  * - Lodash: 15,567 bytes
  * - Micro-dash: 155 bytes
  */
-export function omit<T extends object | Nil>(
+export function omit<T extends object | Nil, O extends Array<keyof T>>(
   object: T,
-  ...paths: Array<keyof T>
-): Partial<T> {
+  ...paths: O
+): {
+  [K in RemainingKeys<T, O[number]>]: T[K];
+} {
   const obj: any = clone(object) || {};
   for (const path of paths) {
     delete obj[path];

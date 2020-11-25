@@ -3,7 +3,7 @@ export type Nil = null | undefined;
 /** @hidden */
 export type Primitive = boolean | number | string;
 /** @hidden */
-export type Key = keyof any;
+export type Key = keyof any; // TODO: replace with built-in PropertyKey
 /** @hidden */
 export type Existent = Primitive | object;
 /** @hidden */
