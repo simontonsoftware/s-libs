@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.1.0](https://github.com/simontonsoftware/s-libs/compare/v11.0.0...v11.1.0) (2020-11-27)
+
+### Features
+
+- **app-state:** `spreadArrayStore$()` handles null and undefined ([16e0dce](https://github.com/simontonsoftware/s-libs/commit/16e0dcedf16f3c0d80f0d98b984b2c29ab798c28)), closes [#4](https://github.com/simontonsoftware/s-libs/issues/4)
+- **app-state:** `spreadObjectStore$()` handles null and undefined ([c15b653](https://github.com/simontonsoftware/s-libs/commit/c15b6535ce02ab0d0eeffa4fe98d7e5e0a964ed5))
+- **js-core:** add `Constructor` type to support the mixin pattern ([f39a6b9](https://github.com/simontonsoftware/s-libs/commit/f39a6b9acb1df9247e65b3b0340290c3ddac71f7))
+- **micro-dash:** improve the typing of `omit()` ([48d267b](https://github.com/simontonsoftware/s-libs/commit/48d267baee14702b74db7815c6888285c77dd77b))
+- **micro-dash:** improve the typing of `omitBy()` ([a2c4280](https://github.com/simontonsoftware/s-libs/commit/a2c42808c46ef6fbdac2f0f8bff9f50ed2d8dc6e))
+- **micro-dash:** improve the typing of `pick()` ([ecedb2e](https://github.com/simontonsoftware/s-libs/commit/ecedb2e02451fb18ade5888d24e09956754accea))
+- **micro-dash:** improve the typing of `pickBy()` ([bcf1824](https://github.com/simontonsoftware/s-libs/commit/bcf18241f14e40a7c763d7c21a2f8e3cb93f7e76))
+- **micro-dash:** reduce size of `isBoolean()` ([a57466a](https://github.com/simontonsoftware/s-libs/commit/a57466a75612292d33cf44f0ad9d39c5a1ad5a9a))
+- **ng-core:** add `mixInInjectableSuperclass()` ([e3cacf8](https://github.com/simontonsoftware/s-libs/commit/e3cacf83c54d370e7fcd5bc0240044cf70a126b6))
+- **rxjs-core:** `mapAndCacheArrayElements()` handles null and undefined ([7d19f47](https://github.com/simontonsoftware/s-libs/commit/7d19f477e6a5360541ba478b0aa808c16d323c21))
+- **rxjs-core:** `mapAndCacheObjectElements()` handles null and undefined ([7829d6b](https://github.com/simontonsoftware/s-libs/commit/7829d6b810fa5b9091573b5e39bcf79ce82b5cb0))
+- **rxjs-core:** add `mixInSubscriptionManager()` ([c173fa5](https://github.com/simontonsoftware/s-libs/commit/c173fa5f56956dc3fb762235fc983722e819a41e))
+- add support for all libraries to be consumed as UMD bundles ([8e9bec9](https://github.com/simontonsoftware/s-libs/commit/8e9bec97274418a5eb917fa2c8701e475c68080b)), closes [#7](https://github.com/simontonsoftware/s-libs/issues/7)
+
 ## [11.0.0](https://github.com/simontonsoftware/s-libs/compare/v11.0.0-next.0...v11.0.0) (2020-11-23)
 
 ### Bug Fixes
