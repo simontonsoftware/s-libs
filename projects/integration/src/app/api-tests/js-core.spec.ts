@@ -1,6 +1,7 @@
 import * as jsCore from '@s-libs/js-core';
 import {
   assert,
+  Constructor,
   convertTime,
   createBuilder,
   Debouncer,
@@ -30,6 +31,11 @@ import { keys } from '@s-libs/micro-dash';
 
 describe('js-core', () => {
   describe('public API', () => {
+    it('has Constructor', () => {
+      const constructor: Constructor<Date> = Date;
+      expect(constructor).toBeDefined();
+    });
+
     it('has TimeUnit', () => {
       expect(TimeUnit).toBeDefined();
     });
