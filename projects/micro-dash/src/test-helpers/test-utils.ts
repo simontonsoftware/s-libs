@@ -51,3 +51,7 @@ export function keyIsString(_: any, key: any): key is string {
 export function keyIsNumber(_: any, key: any): key is number {
   return isNumber(key);
 }
+
+export function keyIsDateOrString(_: any, key: any): key is string | Date {
+  return isString(key) || isDate(key);
+}

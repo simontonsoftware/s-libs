@@ -10,6 +10,7 @@ import {
   keyIsAorC,
   keyIsAorNumber,
   keyIsC,
+  keyIsDateOrString,
   keyIsNumber,
   keyIsString,
   keyIsString2,
@@ -86,14 +87,14 @@ interface O {
   2: string;
   c: Date | Document;
 }
-const o = { a: 1, 2: 'b', c: document } as O;
-const oOrU = o as O | undefined;
-const oOrN = o as O | null;
-// $ExpectType Partial<O>
+declare const o: O;
+declare const oOrU: O | undefined;
+declare const oOrN: O | null;
+// $ExpectType { 2?: string | undefined; a?: number | undefined; c?: Date | Document | undefined; }
 pickBy(o, () => true);
-// $ExpectType Partial<O>
+// $ExpectType { 2?: string | undefined; a?: number | undefined; c?: Date | Document | undefined; }
 pickBy(oOrU, () => true);
-// $ExpectType Partial<O>
+// $ExpectType { 2?: string | undefined; a?: number | undefined; c?: Date | Document | undefined; }
 pickBy(oOrN, () => true);
 
 // value narrowing
@@ -105,11 +106,11 @@ pickBy(oOrU, isString);
 // $ExpectType {} | { 2: string; }
 pickBy(oOrN, isString);
 
-// $ExpectType { c: Date | undefined; }
+// $ExpectType { c?: Date | undefined; }
 pickBy(o, isDate);
-// $ExpectType {} | { c: Date | undefined; }
+// $ExpectType {} | { c?: Date | undefined; }
 pickBy(oOrU, isDate);
-// $ExpectType {} | { c: Date | undefined; }
+// $ExpectType {} | { c?: Date | undefined; }
 pickBy(oOrN, isDate);
 
 // $ExpectType { 2: string; a: number; }
@@ -119,11 +120,11 @@ pickBy(oOrU, isNumberOrString);
 // $ExpectType {} | { 2: string; a: number; }
 pickBy(oOrN, isNumberOrString);
 
-// $ExpectType { 2: string; c: Date | undefined; }
+// $ExpectType { 2: string; c?: Date | undefined; }
 pickBy(o, isDateOrString);
-// $ExpectType {} | { 2: string; c: Date | undefined; }
+// $ExpectType {} | { 2: string; c?: Date | undefined; }
 pickBy(oOrU, isDateOrString);
-// $ExpectType {} | { 2: string; c: Date | undefined; }
+// $ExpectType {} | { 2: string; c?: Date | undefined; }
 pickBy(oOrN, isDateOrString);
 
 // $ExpectType {}
@@ -143,20 +144,20 @@ pickBy(oOrN, isMapOrString);
 interface S2 {
   a: 'a' | number;
 }
-const s2 = { a: 2 } as S2;
-const s2OrU = { a: 2 } as S2 | undefined;
-const s2OrN = { a: 2 } as S2 | null;
-// $ExpectType { a: "a" | undefined; }
+declare const s2: S2;
+declare const s2OrU: S2 | undefined;
+declare const s2OrN: S2 | null;
+// $ExpectType { a?: "a" | undefined; }
 pickBy(s2, isA);
-// $ExpectType {} | { a: "a" | undefined; }
+// $ExpectType {} | { a?: "a" | undefined; }
 pickBy(s2OrU, isA);
-// $ExpectType {} | { a: "a" | undefined; }
+// $ExpectType {} | { a?: "a" | undefined; }
 pickBy(s2OrN, isA);
-// $ExpectType { a: 2 | "a" | undefined; }
+// $ExpectType { a?: 2 | "a" | undefined; }
 pickBy(s2, isStringOr2);
-// $ExpectType {} | { a: 2 | "a" | undefined; }
+// $ExpectType {} | { a?: 2 | "a" | undefined; }
 pickBy(s2OrU, isStringOr2);
-// $ExpectType {} | { a: 2 | "a" | undefined; }
+// $ExpectType {} | { a?: 2 | "a" | undefined; }
 pickBy(s2OrN, isStringOr2);
 
 // key narrowing
@@ -202,11 +203,11 @@ pickBy(s, keyIsA);
 pickBy(sOrU, keyIsA);
 // $ExpectType {} | { a: number; }
 pickBy(sOrN, keyIsA);
-// $ExpectType { 2: string | undefined; a: number; }
+// $ExpectType { a: number; 2?: string | undefined; }
 pickBy(o, keyIsA);
-// $ExpectType {} | { 2: string | undefined; a: number; }
+// $ExpectType {} | { a: number; 2?: string | undefined; }
 pickBy(oOrU, keyIsA);
-// $ExpectType {} | { 2: string | undefined; a: number; }
+// $ExpectType {} | { a: number; 2?: string | undefined; }
 pickBy(oOrN, keyIsA);
 
 // $ExpectType {}
@@ -215,11 +216,11 @@ pickBy(s, keyIsString2);
 pickBy(sOrU, keyIsString2);
 // $ExpectType {} | {}
 pickBy(sOrN, keyIsString2);
-// $ExpectType { 2: string | undefined; }
+// $ExpectType { 2?: string | undefined; }
 pickBy(o, keyIsString2);
-// $ExpectType {} | { 2: string | undefined; }
+// $ExpectType {} | { 2?: string | undefined; }
 pickBy(oOrU, keyIsString2);
-// $ExpectType {} | { 2: string | undefined; }
+// $ExpectType {} | { 2?: string | undefined; }
 pickBy(oOrN, keyIsString2);
 
 // $ExpectType {}
@@ -228,11 +229,11 @@ pickBy(s, keyIsString3);
 pickBy(sOrU, keyIsString3);
 // $ExpectType {} | {}
 pickBy(sOrN, keyIsString3);
-// $ExpectType { 2: string | undefined; }
+// $ExpectType { 2?: string | undefined; }
 pickBy(o, keyIsString3);
-// $ExpectType {} | { 2: string | undefined; }
+// $ExpectType {} | { 2?: string | undefined; }
 pickBy(oOrU, keyIsString3);
-// $ExpectType {} | { 2: string | undefined; }
+// $ExpectType {} | { 2?: string | undefined; }
 pickBy(oOrN, keyIsString3);
 
 // $ExpectType { c: Date | Document; }
@@ -241,11 +242,11 @@ pickBy(s, keyIsC);
 pickBy(sOrU, keyIsC);
 // $ExpectType {} | { c: Date | Document; }
 pickBy(sOrN, keyIsC);
-// $ExpectType { 2: string | undefined; c: Date | Document; }
+// $ExpectType { c: Date | Document; 2?: string | undefined; }
 pickBy(o, keyIsC);
-// $ExpectType {} | { 2: string | undefined; c: Date | Document; }
+// $ExpectType {} | { c: Date | Document; 2?: string | undefined; }
 pickBy(oOrU, keyIsC);
-// $ExpectType {} | { 2: string | undefined; c: Date | Document; }
+// $ExpectType {} | { c: Date | Document; 2?: string | undefined; }
 pickBy(oOrN, keyIsC);
 
 // $ExpectType { a: number; c: Date | Document; }
@@ -254,11 +255,11 @@ pickBy(s, keyIsAorC);
 pickBy(sOrU, keyIsAorC);
 // $ExpectType {} | { a: number; c: Date | Document; }
 pickBy(sOrN, keyIsAorC);
-// $ExpectType { 2: string | undefined; a: number; c: Date | Document; }
+// $ExpectType { a: number; c: Date | Document; 2?: string | undefined; }
 pickBy(o, keyIsAorC);
-// $ExpectType {} | { 2: string | undefined; a: number; c: Date | Document; }
+// $ExpectType {} | { a: number; c: Date | Document; 2?: string | undefined; }
 pickBy(oOrU, keyIsAorC);
-// $ExpectType {} | { 2: string | undefined; a: number; c: Date | Document; }
+// $ExpectType {} | { a: number; c: Date | Document; 2?: string | undefined; }
 pickBy(oOrN, keyIsAorC);
 
 // $ExpectType { a: number; }
@@ -267,25 +268,50 @@ pickBy(s, keyIsAorNumber);
 pickBy(sOrU, keyIsAorNumber);
 // $ExpectType {} | { a: number; }
 pickBy(sOrN, keyIsAorNumber);
-// $ExpectType { 2: string | undefined; a: number; }
+// $ExpectType { a: number; 2?: string | undefined; }
 pickBy(o, keyIsAorNumber);
-// $ExpectType {} | { 2: string | undefined; a: number; }
+// $ExpectType {} | { a: number; 2?: string | undefined; }
 pickBy(oOrU, keyIsAorNumber);
-// $ExpectType {} | { 2: string | undefined; a: number; }
+// $ExpectType {} | { a: number; 2?: string | undefined; }
 pickBy(oOrN, keyIsAorNumber);
 
-const so = {} as { [key: string]: number | string };
-// $ExpectType { [x: string]: string | undefined; }
-pickBy(so, isString);
-// $ExpectType { [x: string]: number | undefined; }
-pickBy(so, isNumber);
+declare const record: Record<string, number>;
 // $ExpectType {}
-pickBy(so, isDate);
-// $ExpectType { [x: string]: string | undefined; }
-pickBy(so, isDateOrString);
-// $ExpectType { [x: string]: string | number; }
-pickBy(so, keyIsString);
-// $ExpectType { [x: string]: string | number | undefined; }
-pickBy(so, keyIsA);
+pickBy(record, isString);
+// $ExpectType { [x: string]: number; }
+pickBy(record, isNumber);
+// $ExpectType { [x: string]: number; }
+pickBy(record, keyIsString);
 // $ExpectType {}
-pickBy(so, keyIsNumber);
+pickBy(record, keyIsNumber);
+// $ExpectType { [x: string]: number; }
+pickBy(record, keyIsDateOrString);
+// $ExpectType { a: number; }
+pickBy(record, keyIsA);
+// $ExpectType { [x: string]: number; }
+pickBy(record, () => true);
+
+declare const composite: {
+  [k: number]: string | Date;
+  a: 'eh';
+};
+// $ExpectType { [x: number]: string | undefined; a: "eh"; }
+pickBy(composite, isString);
+// $ExpectType {}
+pickBy(composite, isNumber);
+// $ExpectType { [x: number]: Date | undefined; }
+pickBy(composite, isDate);
+// $ExpectType { [x: number]: string | Date; a: "eh"; }
+pickBy(composite, isDateOrString);
+// $ExpectType { [x: number]: string | Date; a: "eh"; }
+pickBy(composite, keyIsString);
+// $ExpectType { [x: number]: string | Date; a: "eh"; }
+pickBy(composite, keyIsA);
+// $ExpectType {}
+pickBy(composite, keyIsNumber);
+// $ExpectType { [x: number]: string | Date; a: "eh"; }
+pickBy(composite, keyIsAorC);
+// $ExpectType { [x: number]: string | Date; a: "eh"; }
+pickBy(composite, keyIsAorNumber);
+// $ExpectType { [x: number]: string | Date; a?: "eh" | undefined; }
+pickBy(composite, () => true);

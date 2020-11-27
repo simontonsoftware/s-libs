@@ -38,17 +38,26 @@ export type Cast<I, O> = Exclude<I, O> extends never ? I : O;
 /** @hidden */
 export type Narrow<I, O> = Extract<I, O> | Extract<O, I>;
 /** @hidden */
-export type IfCouldBe<T1, T2, If, Else = never> = Extract<T1, T2> extends never
-  ? Extract<T2, T1> extends never
-    ? Else
-    : If
+export type IfCouldBe<T1, T2, If, Else = never> = Narrow<T1, T2> extends never
+  ? Else
   : If;
 /** @hidden */
-export type IfIndexType<T extends Key, If, Else = never> = string extends T
+export type IfIndexType<T, If, Else = never> = string extends T
   ? If
   : number extends T
   ? If
   : Else;
+
+/** @hidden */
+type IndexKeys<T> = { [K in keyof T]: IfIndexType<K, K> }[keyof T];
+/** @hidden */
+type NonIndexKeys<T> = { [K in keyof T]: IfIndexType<K, never, K> }[keyof T];
+/** @hidden */
+export type PartialExceptIndexes<T> = { [K in IndexKeys<T>]: T[K] } &
+  { [K in NonIndexKeys<T>]?: T[K] };
+
+/** @hidden */
+export type Evaluate<T> = T extends infer I ? { [K in keyof I]: T[K] } : never;
 
 /** @hidden */
 export type Drop1Arg<T extends Function> = T extends (
