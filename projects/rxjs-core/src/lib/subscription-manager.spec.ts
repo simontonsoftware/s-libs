@@ -1,5 +1,9 @@
+import { expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { of, Subject, throwError } from 'rxjs';
-import { SubscriptionManager } from './subscription-manager';
+import {
+  mixInSubscriptionManager,
+  SubscriptionManager,
+} from './subscription-manager';
 
 describe('SubscriptionManager', () => {
   let next: jasmine.Spy;
@@ -130,5 +134,27 @@ describe('SubscriptionManager', () => {
       expect(error).not.toHaveBeenCalled();
       expect(complete).not.toHaveBeenCalled();
     });
+  });
+});
+
+describe('mixInSubscriptionManager()', () => {
+  it('add SubscriptionManager abilities to a subclass', () => {
+    class DateManager extends mixInSubscriptionManager(Date) {}
+    const spy = jasmine.createSpy();
+    const subject = new Subject();
+    const dateManager = new DateManager();
+
+    dateManager.subscribeTo(subject, spy);
+    subject.next('value');
+
+    expectSingleCallAndReset(spy, 'value');
+  });
+
+  it('retains the abilities of the other superclass', () => {
+    class DateManager extends mixInSubscriptionManager(Date) {}
+
+    const dateManager = new DateManager('2020-11-27');
+
+    expect(dateManager.getFullYear()).toBe(2020);
   });
 });

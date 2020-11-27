@@ -11,6 +11,7 @@ import {
   mapAndCacheArrayElements,
   mapAndCacheObjectElements,
   mapToLatestFrom,
+  mixInSubscriptionManager,
   skipAfter,
   SubscriptionManager,
   withHistory,
@@ -58,6 +59,10 @@ describe('rxjs-core', () => {
 
     it('has mapToLatestFrom', () => {
       expect(mapToLatestFrom).toBeDefined();
+    });
+
+    it('has mixInSubscriptionManager', () => {
+      expect(mixInSubscriptionManager).toBeDefined();
     });
 
     it('has skipAfter', () => {
