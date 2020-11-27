@@ -2,7 +2,10 @@ import { Component, Directive, Injectable } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { Subject } from 'rxjs';
-import { InjectableSuperclass } from './injectable-superclass';
+import {
+  InjectableSuperclass,
+  mixInInjectableSuperclass,
+} from './injectable-superclass';
 
 @Injectable()
 class DestroyableService extends InjectableSuperclass {}
@@ -70,5 +73,27 @@ describe('InjectableSuperclass', () => {
       expectSingleCallAndReset(next, undefined);
       expectSingleCallAndReset(complete);
     });
+  });
+});
+
+describe('mixInInjectableSuperclass()', () => {
+  it('add InjectableSuperclass abilities to a subclass', () => {
+    class InjectableDate extends mixInInjectableSuperclass(Date) {}
+    const spy = jasmine.createSpy();
+    const subject = new Subject();
+    const dateManager = new InjectableDate();
+
+    dateManager.subscribeTo(subject, spy);
+    subject.next('value');
+
+    expectSingleCallAndReset(spy, 'value');
+  });
+
+  it('retains the abilities of the other superclass', () => {
+    class InjectableDate extends mixInInjectableSuperclass(Date) {}
+
+    const dateManager = new InjectableDate('2020-11-27');
+
+    expect(dateManager.getFullYear()).toBe(2020);
   });
 });

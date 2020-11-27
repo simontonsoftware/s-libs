@@ -20,6 +20,7 @@ import {
   DirectiveSuperclass,
   FormControlSuperclass,
   InjectableSuperclass,
+  mixInInjectableSuperclass,
   provideValueAccessor,
   WrappedFormControlSuperclass,
 } from '@s-libs/ng-core';
@@ -43,6 +44,10 @@ describe('ng-core', () => {
 
     it('has WrappedFormControlSuperclass', () => {
       expect(WrappedFormControlSuperclass).toBeDefined();
+    });
+
+    it('has mixInInjectableSuperclass', () => {
+      expect(mixInInjectableSuperclass).toBeDefined();
     });
 
     it('has provideValueAccessor', () => {
