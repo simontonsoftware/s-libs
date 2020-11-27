@@ -14,5 +14,7 @@
     "@s-libs/micro-dash": "^11.0.0",
     "rxjs": "^6.6.0"
   },
-  "dependencies": { "tslib": "^2.0.0" }
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
 }
