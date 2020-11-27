@@ -10,6 +10,7 @@ import {
   keyIsAorC,
   keyIsAorNumber,
   keyIsC,
+  keyIsDateOrString,
   keyIsNumber,
   keyIsString,
   keyIsString2,
@@ -21,9 +22,9 @@ import {
 //
 
 type A = Array<string | number>;
-const a = [1, 'b'] as A;
-const aOrU = [1, 'b'] as A | undefined;
-const aOrN = [1, 'b'] as A | null;
+declare const a: A;
+declare const aOrU: A | undefined;
+declare const aOrN: A | null;
 
 // $ExpectType { [index: number]: string | number; }
 omitBy(a, () => true);
@@ -56,9 +57,9 @@ omitBy(aOrU, isA);
 omitBy(aOrN, isA);
 
 type AB = Array<'a' | 'b'>;
-const ab = ['a'] as AB;
-const abOrU = ['a'] as AB | undefined;
-const abOrN = ['a'] as AB | null;
+declare const ab: AB;
+declare const abOrU: AB | undefined;
+declare const abOrN: AB | null;
 // $ExpectType { [index: number]: "b"; }
 omitBy(ab, isA);
 // $ExpectType { [index: number]: "b"; }
@@ -67,9 +68,9 @@ omitBy(abOrU, isA);
 omitBy(abOrN, isA);
 
 type AN = Array<'a' | number>;
-const an = ['a'] as AN;
-const anOrU = ['a'] as AN | undefined;
-const anOrN = ['a'] as AN | null;
+declare const an: AN;
+declare const anOrU: AN | undefined;
+declare const anOrN: AN | null;
 // $ExpectType { [index: number]: number; }
 omitBy(an, isStringOr2);
 // $ExpectType { [index: number]: number; }
@@ -86,30 +87,30 @@ interface O {
   2: string;
   c: Date | Document;
 }
-const o = { a: 1, 2: 'b', c: document } as O;
-const oOrU = o as O | undefined;
-const oOrN = o as O | null;
-// $ExpectType Partial<O>
+declare const o: O;
+declare const oOrU: O | undefined;
+declare const oOrN: O | null;
+// $ExpectType { 2?: string | undefined; a?: number | undefined; c?: Date | Document | undefined; }
 omitBy(o, () => true);
-// $ExpectType Partial<O>
+// $ExpectType { 2?: string | undefined; a?: number | undefined; c?: Date | Document | undefined; }
 omitBy(oOrU, () => true);
-// $ExpectType Partial<O>
+// $ExpectType { 2?: string | undefined; a?: number | undefined; c?: Date | Document | undefined; }
 omitBy(oOrN, () => true);
 
 // value narrowing
 
 // $ExpectType { a: number; c: Date | Document; }
 omitBy(o, isString);
-// $ExpectType {} | { a: number; c: Date | Document; }
+// $ExpectType { a: number; c: Date | Document; } | {}
 omitBy(oOrU, isString);
-// $ExpectType {} | { a: number; c: Date | Document; }
+// $ExpectType { a: number; c: Date | Document; } | {}
 omitBy(oOrN, isString);
 
-// $ExpectType { 2: string; a: number; c: Document | undefined; }
+// $ExpectType { 2: string; a: number; c?: Document | undefined; }
 omitBy(o, isDate);
-// $ExpectType {} | { 2: string; a: number; c: Document | undefined; }
+// $ExpectType {} | { 2: string; a: number; c?: Document | undefined; }
 omitBy(oOrU, isDate);
-// $ExpectType {} | { 2: string; a: number; c: Document | undefined; }
+// $ExpectType {} | { 2: string; a: number; c?: Document | undefined; }
 omitBy(oOrN, isDate);
 
 // $ExpectType { c: Date | Document; }
@@ -119,11 +120,11 @@ omitBy(oOrU, isNumberOrString);
 // $ExpectType {} | { c: Date | Document; }
 omitBy(oOrN, isNumberOrString);
 
-// $ExpectType { a: number; c: Document | undefined; }
+// $ExpectType { a: number; c?: Document | undefined; }
 omitBy(o, isDateOrString);
-// $ExpectType {} | { a: number; c: Document | undefined; }
+// $ExpectType {} | { a: number; c?: Document | undefined; }
 omitBy(oOrU, isDateOrString);
-// $ExpectType {} | { a: number; c: Document | undefined; }
+// $ExpectType {} | { a: number; c?: Document | undefined; }
 omitBy(oOrN, isDateOrString);
 
 // $ExpectType { 2: string; a: number; c: Date | Document; }
@@ -143,20 +144,20 @@ omitBy(oOrN, isMapOrString);
 interface S2 {
   a: 'a' | number;
 }
-const s2 = { a: 2 } as S2;
-const s2OrU = { a: 2 } as S2 | undefined;
-const s2OrN = { a: 2 } as S2 | null;
-// $ExpectType { a: number | undefined; }
+declare const s2: S2;
+declare const s2OrU: S2 | undefined;
+declare const s2OrN: S2 | null;
+// $ExpectType { a?: number | undefined; }
 omitBy(s2, isA);
-// $ExpectType {} | { a: number | undefined; }
+// $ExpectType {} | { a?: number | undefined; }
 omitBy(s2OrU, isA);
-// $ExpectType {} | { a: number | undefined; }
+// $ExpectType {} | { a?: number | undefined; }
 omitBy(s2OrN, isA);
-// $ExpectType { a: number | undefined; }
+// $ExpectType { a?: number | undefined; }
 omitBy(s2, isStringOr2);
-// $ExpectType {} | { a: number | undefined; }
+// $ExpectType {} | { a?: number | undefined; }
 omitBy(s2OrU, isStringOr2);
-// $ExpectType {} | { a: number | undefined; }
+// $ExpectType {} | { a?: number | undefined; }
 omitBy(s2OrN, isStringOr2);
 
 // key narrowing
@@ -202,11 +203,11 @@ omitBy(s, keyIsA);
 omitBy(sOrU, keyIsA);
 // $ExpectType {} | { b: string; c: Date | Document; }
 omitBy(sOrN, keyIsA);
-// $ExpectType { 2: string | undefined; c: Date | Document; }
+// $ExpectType { c: Date | Document; 2?: string | undefined; }
 omitBy(o, keyIsA);
-// $ExpectType {} | { 2: string | undefined; c: Date | Document; }
+// $ExpectType {} | { c: Date | Document; 2?: string | undefined; }
 omitBy(oOrU, keyIsA);
-// $ExpectType {} | { 2: string | undefined; c: Date | Document; }
+// $ExpectType {} | { c: Date | Document; 2?: string | undefined; }
 omitBy(oOrN, keyIsA);
 
 // $ExpectType { a: number; b: string; c: Date | Document; }
@@ -215,11 +216,11 @@ omitBy(s, keyIsString2);
 omitBy(sOrU, keyIsString2);
 // $ExpectType {} | { a: number; b: string; c: Date | Document; }
 omitBy(sOrN, keyIsString2);
-// $ExpectType { 2: string | undefined; a: number; c: Date | Document; }
+// $ExpectType { a: number; c: Date | Document; 2?: string | undefined; }
 omitBy(o, keyIsString2);
-// $ExpectType {} | { 2: string | undefined; a: number; c: Date | Document; }
+// $ExpectType {} | { a: number; c: Date | Document; 2?: string | undefined; }
 omitBy(oOrU, keyIsString2);
-// $ExpectType {} | { 2: string | undefined; a: number; c: Date | Document; }
+// $ExpectType {} | { a: number; c: Date | Document; 2?: string | undefined; }
 omitBy(oOrN, keyIsString2);
 
 // $ExpectType { a: number; b: string; c: Date | Document; }
@@ -228,11 +229,11 @@ omitBy(s, keyIsString3);
 omitBy(sOrU, keyIsString3);
 // $ExpectType {} | { a: number; b: string; c: Date | Document; }
 omitBy(sOrN, keyIsString3);
-// $ExpectType { 2: string | undefined; a: number; c: Date | Document; }
+// $ExpectType { a: number; c: Date | Document; 2?: string | undefined; }
 omitBy(o, keyIsString3);
-// $ExpectType {} | { 2: string | undefined; a: number; c: Date | Document; }
+// $ExpectType {} | { a: number; c: Date | Document; 2?: string | undefined; }
 omitBy(oOrU, keyIsString3);
-// $ExpectType {} | { 2: string | undefined; a: number; c: Date | Document; }
+// $ExpectType {} | { a: number; c: Date | Document; 2?: string | undefined; }
 omitBy(oOrN, keyIsString3);
 
 // $ExpectType { a: number; b: string; }
@@ -241,11 +242,11 @@ omitBy(s, keyIsC);
 omitBy(sOrU, keyIsC);
 // $ExpectType {} | { a: number; b: string; }
 omitBy(sOrN, keyIsC);
-// $ExpectType { 2: string | undefined; a: number; }
+// $ExpectType { a: number; 2?: string | undefined; }
 omitBy(o, keyIsC);
-// $ExpectType {} | { 2: string | undefined; a: number; }
+// $ExpectType {} | { a: number; 2?: string | undefined; }
 omitBy(oOrU, keyIsC);
-// $ExpectType {} | { 2: string | undefined; a: number; }
+// $ExpectType {} | { a: number; 2?: string | undefined; }
 omitBy(oOrN, keyIsC);
 
 // $ExpectType { b: string; }
@@ -254,11 +255,11 @@ omitBy(s, keyIsAorC);
 omitBy(sOrU, keyIsAorC);
 // $ExpectType {} | { b: string; }
 omitBy(sOrN, keyIsAorC);
-// $ExpectType { 2: string | undefined; }
+// $ExpectType { 2?: string | undefined; }
 omitBy(o, keyIsAorC);
-// $ExpectType {} | { 2: string | undefined; }
+// $ExpectType {} | { 2?: string | undefined; }
 omitBy(oOrU, keyIsAorC);
-// $ExpectType {} | { 2: string | undefined; }
+// $ExpectType {} | { 2?: string | undefined; }
 omitBy(oOrN, keyIsAorC);
 
 // $ExpectType { b: string; c: Date | Document; }
@@ -267,25 +268,29 @@ omitBy(s, keyIsAorNumber);
 omitBy(sOrU, keyIsAorNumber);
 // $ExpectType {} | { b: string; c: Date | Document; }
 omitBy(sOrN, keyIsAorNumber);
-// $ExpectType { 2: string | undefined; c: Date | Document; }
+// $ExpectType { c: Date | Document; 2?: string | undefined; }
 omitBy(o, keyIsAorNumber);
-// $ExpectType {} | { 2: string | undefined; c: Date | Document; }
+// $ExpectType {} | { c: Date | Document; 2?: string | undefined; }
 omitBy(oOrU, keyIsAorNumber);
-// $ExpectType {} | { 2: string | undefined; c: Date | Document; }
+// $ExpectType {} | { c: Date | Document; 2?: string | undefined; }
 omitBy(oOrN, keyIsAorNumber);
 
-const so = {} as { [key: string]: number | string };
-// $ExpectType { [x: string]: number | undefined; }
-omitBy(so, isString);
+declare const record: Record<string, Date | string>;
+// $ExpectType { [x: string]: Date | undefined; }
+omitBy(record, isString);
+// $ExpectType { [x: string]: string | Date; }
+omitBy(record, isNumber);
 // $ExpectType { [x: string]: string | undefined; }
-omitBy(so, isNumber);
-// $ExpectType { [x: string]: string | number; }
-omitBy(so, isDate);
-// $ExpectType { [x: string]: number | undefined; }
-omitBy(so, isDateOrString);
+omitBy(record, isDate);
 // $ExpectType {}
-omitBy(so, keyIsString);
-// $ExpectType { [x: string]: string | number | undefined; }
-omitBy(so, keyIsA);
-// $ExpectType { [x: string]: string | number; }
-omitBy(so, keyIsNumber);
+omitBy(record, isDateOrString);
+// $ExpectType {}
+omitBy(record, keyIsString);
+// $ExpectType { [x: string]: string | Date; }
+omitBy(record, keyIsA);
+// $ExpectType { [x: string]: string | Date; }
+omitBy(record, keyIsNumber);
+// $ExpectType {}
+omitBy(record, keyIsDateOrString);
+// $ExpectType { [x: string]: string | Date; }
+omitBy(record, () => true);
