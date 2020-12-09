@@ -4,11 +4,10 @@
 
 export * from './lib/functions';
 export * from './lib/objects';
+export * from './lib/predicates';
 export * from './lib/sets';
 export * from './lib/time';
 export { assert } from './lib/assert';
-export { isDefined } from './lib/is-defined';
-export { isPromiseLike } from './lib/is-promise-like';
 export { MigrationManager } from './lib/migration-manager';
 export { Persistence } from './lib/persistence';
 export { roundToMultipleOf } from './lib/round-to-multiple-of';
