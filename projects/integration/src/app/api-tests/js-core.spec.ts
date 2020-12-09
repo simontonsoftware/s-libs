@@ -13,6 +13,7 @@ import {
   isPromiseLike,
   isSetEqual,
   isSuperset,
+  isTruthy,
   mapAsKeys,
   mapToObject,
   MigrationManager,
@@ -95,6 +96,10 @@ describe('js-core', () => {
 
     it('has isSuperset', () => {
       expect(isSuperset).toBeDefined();
+    });
+
+    it('has isTruthy', () => {
+      expect(isTruthy).toBeDefined();
     });
 
     it('has mapAsKeys', () => {
