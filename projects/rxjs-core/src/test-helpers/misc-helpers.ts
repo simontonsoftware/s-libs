@@ -61,6 +61,12 @@ export function testUnsubscribePropagation(
   });
 }
 
+export function testValuePropagation(
+  buildOperator: () => OperatorFunction<any, any>,
+): () => Promise<void> {
+  return () => expectPipeResult([1, 'b'], buildOperator(), [1, 'b']);
+}
+
 export function testErrorPropagation(
   buildOperator: () => OperatorFunction<any, any>,
 ): () => void {

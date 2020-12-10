@@ -1,10 +1,11 @@
 import { noop } from '@s-libs/micro-dash';
-import { of, throwError } from 'rxjs';
 import { expectCallsAndReset } from '@s-libs/ng-dev';
+import { of, throwError } from 'rxjs';
 import {
   testCompletionPropagation,
   testErrorPropagation,
   testUnsubscribePropagation,
+  testValuePropagation,
 } from '../../test-helpers/misc-helpers';
 import { logValues } from './log-values';
 
@@ -50,6 +51,11 @@ describe('logValue()', () => {
       .subscribe(noop, noop);
     expectCallsAndReset(consoleSpy.debug, ['[error]', 'an error']);
   });
+
+  it(
+    'passes along values',
+    testValuePropagation(() => logValues()),
+  );
 
   it(
     'passes along unsubscribes',
