@@ -1,4 +1,5 @@
 import { Deferred } from '@s-libs/js-core';
+import { pull } from '@s-libs/micro-dash';
 import { nth } from '../../to-replace/micro-dash/nth';
 import { TestCall } from './test-call';
 
@@ -21,8 +22,27 @@ export class AsyncMethodController<
     }) as any); // TODO: make this typing better (instead of using any)
   }
 
-  // TODO: match the type of the method for CallInfo
+  expectOne(
+    // TODO: make this typing better (instead of using any)
+    match: (callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean,
+    description?: string,
+  ): TestCall {
+    const matches = this.match(match);
+    if (matches.length !== 1) {
+      description ??= 'Match by function: ' + match.name;
+      const numMatches = matches.length || 'none';
+      throw new Error(
+        `Expected one matching request for criterion "${description}", found ${numMatches}`,
+      );
+    }
+
+    const testCall = matches[0];
+    pull(this.#testCalls, testCall);
+    return testCall;
+  }
+
   match(
+    // TODO: make this typing better (instead of using any)
     match: (callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean,
   ): TestCall[] {
     this.ensureCallInfoIsSet();
