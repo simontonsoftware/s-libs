@@ -1,5 +1,5 @@
 import { Deferred } from '@s-libs/js-core';
-import { pull } from '@s-libs/micro-dash';
+import { isEqual, pull } from '@s-libs/micro-dash';
 import { nth } from '../../to-replace/micro-dash/nth';
 import { TestCall } from './test-call';
 
@@ -24,15 +24,15 @@ export class AsyncMethodController<
 
   expectOne(
     // TODO: make this typing better (instead of using any)
-    match: (callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean,
+    match:
+      | any[]
+      | ((callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean),
     description?: string,
   ): TestCall {
     const matches = this.match(match);
     if (matches.length !== 1) {
-      description ??= 'Match by function: ' + match.name;
-      const numMatches = matches.length || 'none';
       throw new Error(
-        `Expected one matching request for criterion "${description}", found ${numMatches}`,
+        this.buildErrorMessage(match, description, 'one', matches),
       );
     }
 
@@ -41,12 +41,32 @@ export class AsyncMethodController<
     return testCall;
   }
 
+  expectNone(
+    // TODO: make this typing better (instead of using any)
+    match:
+      | any[]
+      | ((callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean),
+    description?: string,
+  ): void {
+    const matches = this.match(match);
+    if (matches.length > 0) {
+      throw new Error(
+        this.buildErrorMessage(match, description, 'zero', matches),
+      );
+    }
+  }
+
   match(
     // TODO: make this typing better (instead of using any)
-    match: (callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean,
+    match:
+      | any[]
+      | ((callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean),
   ): TestCall[] {
     this.ensureCallInfoIsSet();
-    return this.#testCalls.filter((testCall) => match(testCall.callInfo));
+    const filterFn = Array.isArray(match)
+      ? this.makeArgumentMatcher(match)
+      : match;
+    return this.#testCalls.filter((testCall) => filterFn(testCall.callInfo));
   }
 
   // TODO: when we have expectOne(), test that this works with mismatched arrays
@@ -59,5 +79,32 @@ export class AsyncMethodController<
 
       testCall.callInfo = nth(this.#spy.calls.all(), -i);
     }
+  }
+
+  // TODO: make this typing better (instead of using any)
+  private makeArgumentMatcher(
+    args: any[],
+  ): (callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean {
+    return (callInfo: jasmine.CallInfo<(...args: any[]) => any>) =>
+      isEqual(callInfo.args, args);
+  }
+
+  private buildErrorMessage(
+    // TODO: make this typing better (instead of using any)
+    match:
+      | any[]
+      | ((callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean),
+    description: string | undefined,
+    expectedMatchCount: string,
+    matches: TestCall[],
+  ): string {
+    if (!description) {
+      if (Array.isArray(match)) {
+        description = 'Match by arguments: ' + JSON.stringify(match);
+      } else {
+        description = 'Match by function: ' + match.name;
+      }
+    }
+    return `Expected ${expectedMatchCount} matching request(s) for criterion "${description}", found ${matches.length}`;
   }
 }

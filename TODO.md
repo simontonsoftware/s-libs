@@ -1,14 +1,15 @@
 # To finish AsyncMethodController
-- passing `ctx` to the controller to trigger change detection
-- expectNone()
-- match(<array of args>)
+
 - TestCall.call (at least needs a test still)
 - verify()
-- get `nth()` into `micro-dash`
+- passing `ctx` to the controller to trigger change detection
+- write docs
+- test that it's exposed in the public API
 - test all the typing
 - scour the branch for outstanding TODO comments
-- test that it's exposed in the public API
+- get `nth()` into `micro-dash`
 
+---
 
 - landing page to link to all API docs
 - coveralls
