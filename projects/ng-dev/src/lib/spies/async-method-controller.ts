@@ -1,6 +1,5 @@
 import { Deferred } from '@s-libs/js-core';
-import { isEqual, pull } from '@s-libs/micro-dash';
-import { nth } from '../../to-replace/micro-dash/nth';
+import { isEqual, nth, pull } from '@s-libs/micro-dash';
 import { TestCall } from './test-call';
 
 type AsyncFunc = (...args: any[]) => Promise<any>;
