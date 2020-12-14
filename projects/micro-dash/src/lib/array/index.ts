@@ -5,6 +5,7 @@ export { difference } from './difference';
 export { flatten } from './flatten';
 export { initial } from './initial';
 export { last } from './last';
+export { nth } from './nth';
 export { pull } from './pull';
 export { pullAll } from './pull-all';
 export { pullAt } from './pull-at';
