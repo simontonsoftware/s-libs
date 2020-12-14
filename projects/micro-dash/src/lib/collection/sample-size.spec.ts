@@ -2,6 +2,10 @@ import { difference } from 'lodash-es';
 import { sampleSize } from './sample-size';
 
 describe('sampleSize()', () => {
+  //
+  // stolen from https://github.com/lodash/lodash
+  //
+
   const array = [1, 2, 3];
 
   it('should return an array of random elements', () => {
