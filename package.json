@@ -17,7 +17,6 @@
     "git-publish": "standard-version --commit-all",
     "prenpm-publish": "yarn ts-node scripts/build-libs",
     "npm-publish": "yarn ts-node scripts/publish-libs",
-    "precalc-micro-dash-sizes": "ng build --prod micro-dash",
     "calc-micro-dash-sizes": "cd projects/micro-dash-sizes && ts-node --project tsconfig.app.json -O \"{ \\\"module\\\": \\\"CommonJS\\\" }\" calc-sizes",
     "ts-node": "ts-node -O \"{ \\\"module\\\": \\\"commonjs\\\" }\""
   },

@@ -17,16 +17,38 @@ run();
 
 async function run(): Promise<void> {
   while (true) {
-    const input = await getInput(
-      'Filename base (e.g. "map-values"), or "all" for all: ',
-    );
-
-    if (input === 'all') {
-      await buildAndExplore(`**/*.ts`);
-    } else {
-      await buildAndExplore(`**/${input}.*.ts`);
+    const base = await getFileBaseInput();
+    const library = await getLibraryInput();
+    if (library !== 'lodash') {
+      console.log('rebuilding micro-dash ...');
+      execSync('ng build --prod micro-dash', { cwd: rootDir });
     }
+    await buildAndExplore(`**/${base}.${library}.ts`);
   }
+}
+
+async function getFileBaseInput(): Promise<string> {
+  let base = await getInput(
+    'Filename base (e.g. "map-values"), or "all" for all: ',
+  );
+  if (base === 'all') {
+    base = '*';
+  }
+  return base;
+}
+
+async function getLibraryInput(): Promise<string> {
+  let library = await getInput(
+    'Which libraries ("m" for microdash, "l" for lodash, "ml" for both): ',
+  );
+  if (library.includes('m') && library.includes('l')) {
+    library = '*';
+  } else if (library.includes('l')) {
+    library = 'lodash';
+  } else {
+    library = 'microdash';
+  }
+  return library;
 }
 
 function getInput(text: string): Promise<string> {
