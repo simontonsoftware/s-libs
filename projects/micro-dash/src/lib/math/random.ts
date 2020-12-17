@@ -9,7 +9,7 @@ import { isBoolean } from '../lang';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 2,258 bytes
- * - Micro-dash: 320 bytes
+ * - Micro-dash: 347 bytes
  */
 
 export function random(floating?: boolean): number;
@@ -34,7 +34,14 @@ export function random(...args: any[]): number {
   if (!isBoolean(floating)) {
     floating = !Number.isInteger(lower) && !Number.isInteger(upper);
   }
+  return randomInt(lower, upper, floating);
+}
 
+export const randomInt = (
+  lower: number,
+  upper: number,
+  floating: boolean,
+): number => {
   let range = upper - lower;
   if (!floating) {
     ++range;
@@ -44,7 +51,7 @@ export function random(...args: any[]): number {
     result = Math.floor(result);
   }
   return result;
-}
+};
 
 // /**
 //  * Produces a random number between the inclusive `lower` and `upper` bounds. If only one argument is provided a number between `0` and the given number is returned. If `floating` is true, or either `lower` or `upper` are floats, a floating-point number is returned instead of an integer.

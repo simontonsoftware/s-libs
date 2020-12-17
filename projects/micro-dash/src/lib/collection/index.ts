@@ -11,6 +11,8 @@ export { map } from './map';
 export { reduce } from './reduce';
 export { reduceRight } from './reduce-right';
 export { sample } from './sample';
+export { sampleSize } from './sample-size';
+export { shuffle } from './shuffle';
 export { size } from './size';
 export { some } from './some';
 export { sortBy } from './sort-by';
