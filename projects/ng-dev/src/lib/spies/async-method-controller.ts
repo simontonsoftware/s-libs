@@ -4,6 +4,10 @@ import { TestCall } from './test-call';
 
 type AsyncFunc = (...args: any[]) => Promise<any>;
 
+type Match =
+  // TODO: make this typing better (instead of using any)
+  any[] | ((callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean);
+
 // TODO: put some effort into the DX to infer T
 export class AsyncMethodController<
   N extends PropertyKey,
@@ -21,17 +25,15 @@ export class AsyncMethodController<
     }) as any); // TODO: make this typing better (instead of using any)
   }
 
-  expectOne(
-    // TODO: make this typing better (instead of using any)
-    match:
-      | any[]
-      | ((callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean),
-    description?: string,
-  ): TestCall {
+  expectOne(match: Match, description?: string): TestCall {
     const matches = this.match(match);
     if (matches.length !== 1) {
       throw new Error(
-        this.buildErrorMessage(match, description, 'one', matches),
+        this.buildErrorMessage({
+          matchType: 'one matching',
+          matches,
+          stringifiedUserInput: this.stringifyUserInput(match, description),
+        }),
       );
     }
 
@@ -40,32 +42,40 @@ export class AsyncMethodController<
     return testCall;
   }
 
-  expectNone(
-    // TODO: make this typing better (instead of using any)
-    match:
-      | any[]
-      | ((callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean),
-    description?: string,
-  ): void {
+  expectNone(match: Match, description?: string): void {
     const matches = this.match(match);
     if (matches.length > 0) {
       throw new Error(
-        this.buildErrorMessage(match, description, 'zero', matches),
+        this.buildErrorMessage({
+          matchType: 'zero matching',
+          matches,
+          stringifiedUserInput: this.stringifyUserInput(match, description),
+        }),
       );
     }
   }
 
-  match(
-    // TODO: make this typing better (instead of using any)
-    match:
-      | any[]
-      | ((callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean),
-  ): TestCall[] {
+  match(match: Match): TestCall[] {
     this.ensureCallInfoIsSet();
     const filterFn = Array.isArray(match)
       ? this.makeArgumentMatcher(match)
       : match;
     return this.#testCalls.filter((testCall) => filterFn(testCall.callInfo));
+  }
+
+  verify(): void {
+    if (this.#testCalls.length) {
+      this.ensureCallInfoIsSet();
+      let message =
+        this.buildErrorMessage({
+          matchType: 'no open',
+          matches: this.#testCalls,
+        }) + ':';
+      for (const testCall of this.#testCalls) {
+        message += `\n  ${stringifyArgs(testCall.callInfo.args)}`;
+      }
+      throw new Error(message);
+    }
   }
 
   // TODO: when we have expectOne(), test that this works with mismatched arrays
@@ -90,20 +100,37 @@ export class AsyncMethodController<
 
   private buildErrorMessage(
     // TODO: make this typing better (instead of using any)
-    match:
-      | any[]
-      | ((callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean),
-    description: string | undefined,
-    expectedMatchCount: string,
-    matches: TestCall[],
+    {
+      stringifiedUserInput,
+      matchType,
+      matches,
+    }: {
+      stringifiedUserInput?: string;
+      matchType: string;
+      matches: TestCall[];
+    },
   ): string {
+    let message = `Expected ${matchType} call(s)`;
+    if (stringifiedUserInput) {
+      message += ` for criterion "${stringifiedUserInput}"`;
+    }
+    message += `, found ${matches.length}`;
+    return message;
+  }
+
+  private stringifyUserInput(match: Match, description?: string): string {
     if (!description) {
       if (Array.isArray(match)) {
-        description = 'Match by arguments: ' + JSON.stringify(match);
+        description = 'Match by arguments: ' + stringifyArgs(match);
       } else {
         description = 'Match by function: ' + match.name;
       }
     }
-    return `Expected ${expectedMatchCount} matching request(s) for criterion "${description}", found ${matches.length}`;
+    return description;
   }
+}
+
+// TODO: when we have expectOne(), test that this works with mismatched arrays
+function stringifyArgs(args: any[]): string {
+  return JSON.stringify(args);
 }

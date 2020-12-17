@@ -50,7 +50,7 @@ describe('AsyncMethodController', () => {
         expect(() => {
           controller.expectOne(() => false);
         }).toThrowError(
-          'Expected one matching request(s) for criterion "Match by function: ", found 0',
+          'Expected one matching call(s) for criterion "Match by function: ", found 0',
         );
       });
 
@@ -63,7 +63,7 @@ describe('AsyncMethodController', () => {
         expect(() => {
           controller.expectOne(() => true);
         }).toThrowError(
-          'Expected one matching request(s) for criterion "Match by function: ", found 0',
+          'Expected one matching call(s) for criterion "Match by function: ", found 0',
         );
       });
 
@@ -78,7 +78,7 @@ describe('AsyncMethodController', () => {
         expect(() => {
           controller.expectOne(() => true);
         }).toThrowError(
-          'Expected one matching request(s) for criterion "Match by function: ", found 2',
+          'Expected one matching call(s) for criterion "Match by function: ", found 2',
         );
       });
     });
@@ -96,7 +96,7 @@ describe('AsyncMethodController', () => {
       expect(() => {
         controller.expectNone((call) => call.args[0] === 'value 2');
       }).toThrowError(
-        'Expected zero matching request(s) for criterion "Match by function: ", found 1',
+        'Expected zero matching call(s) for criterion "Match by function: ", found 1',
       );
     });
 
@@ -204,6 +204,66 @@ describe('AsyncMethodController', () => {
       const matches = controller.match(() => false);
 
       expect(matches).toEqual([]);
+    });
+  });
+
+  describe('.verify()', () => {
+    it('does not throw an error when all calls have been expected', () => {
+      const controller = new AsyncMethodController(
+        navigator.clipboard,
+        'readText',
+      );
+
+      // no error when no calls were made at all
+      expect(() => {
+        controller.verify();
+      }).not.toThrowError();
+
+      // no error when a call was made, but also already expected
+      navigator.clipboard.readText();
+      controller.expectOne([]);
+      expect(() => {
+        controller.verify();
+      }).not.toThrowError();
+    });
+
+    it('throws an error if there is an outstanding call, including the number of open calls', () => {
+      const controller = new AsyncMethodController(
+        navigator.clipboard,
+        'writeText',
+      );
+
+      // when multiple calls have not been expected
+      navigator.clipboard.writeText('call 1');
+      navigator.clipboard.writeText('call 2');
+      expect(() => {
+        controller.verify();
+      }).toThrowMatching((error: Error) =>
+        error.message.includes('Expected no open call(s), found 2:'),
+      );
+
+      // when SOME calls have already been expected, but not all
+      controller.expectOne(['call 2']);
+      expect(() => {
+        controller.verify();
+      }).toThrowMatching((error: Error) =>
+        error.message.includes('Expected no open call(s), found 1:'),
+      );
+    });
+
+    it('includes a nice representation of the outstanding calls in the error message', () => {
+      const controller = new AsyncMethodController(
+        navigator.clipboard,
+        'writeText',
+      );
+      navigator.clipboard.writeText('call 1');
+      navigator.clipboard.writeText('call 2');
+
+      expect(() => {
+        controller.verify();
+      }).toThrowMatching((error: Error) =>
+        error.message.includes('\n  ["call 1"]\n  ["call 2"]'),
+      );
     });
   });
 
