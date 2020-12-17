@@ -1,6 +1,5 @@
 # To finish AsyncMethodController
 
-- TestCall.call (at least needs a test still)
 - verify()
 - passing `ctx` to the controller to trigger change detection
 - write docs
