@@ -1,8 +1,7 @@
 # To finish AsyncMethodController
 
-- write docs
-- test that it's exposed in the public API
 - test all the typing
+- write docs
 - scour the branch for outstanding TODO comments
 - get `nth()` into `micro-dash`
 
