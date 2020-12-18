@@ -1,8 +1,20 @@
+import { Component, Input } from '@angular/core';
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
+import { noop } from '@s-libs/micro-dash';
+import { ComponentContext } from '../test-context';
 import { AsyncMethodController } from './async-method-controller';
 import { expectSingleCallAndReset } from './expect-single-call-and-reset';
 
 describe('TestCall', () => {
+  @Component({ template: 'Hello, {{name}}!' })
+  class TestComponent {
+    @Input() name!: string;
+  }
+
+  class TestComponentContext extends ComponentContext<TestComponent> {
+    protected componentType = TestComponent;
+  }
+
   describe('.callInfo', () => {
     it('is populated with a jasmine.CallInfo object', () => {
       const controller = new AsyncMethodController(
@@ -34,6 +46,24 @@ describe('TestCall', () => {
 
       expectSingleCallAndReset(spy, 'the clipboard text');
     }));
+
+    it('triggers change detection if the AsyncMethodController was passed a context', () => {
+      const ctx = new TestComponentContext();
+      const controller = new AsyncMethodController(
+        navigator.clipboard,
+        'readText',
+        { context: ctx },
+      );
+
+      ctx.run(() => {
+        navigator.clipboard.readText();
+        const testCall = controller.expectOne([]);
+
+        ctx.fixture.componentInstance.name = 'Changed Guy';
+        testCall.flush('this is the clipboard content');
+        expect(ctx.fixture.nativeElement.textContent).toContain('Changed Guy');
+      });
+    });
   });
 
   describe('.error()', () => {
@@ -51,5 +81,23 @@ describe('TestCall', () => {
 
       expectSingleCallAndReset(spy, 'some problem');
     }));
+
+    it('triggers change detection if the AsyncMethodController was passed a context', () => {
+      const ctx = new TestComponentContext();
+      const controller = new AsyncMethodController(
+        navigator.clipboard,
+        'readText',
+        { context: ctx },
+      );
+
+      ctx.run(() => {
+        navigator.clipboard.readText().catch(noop);
+        const testCall = controller.expectOne([]);
+
+        ctx.fixture.componentInstance.name = 'Changed Guy';
+        testCall.error('permission denied');
+        expect(ctx.fixture.nativeElement.textContent).toContain('Changed Guy');
+      });
+    });
   });
 });

@@ -1,6 +1,5 @@
 # To finish AsyncMethodController
 
-- passing `ctx` to the controller to trigger change detection
 - write docs
 - test that it's exposed in the public API
 - test all the typing

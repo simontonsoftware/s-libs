@@ -1,5 +1,6 @@
 import { Deferred } from '@s-libs/js-core';
 import { isEqual, nth, pull } from '@s-libs/micro-dash';
+import { AngularContext } from '../test-context';
 import { TestCall } from './test-call';
 
 type AsyncFunc = (...args: any[]) => Promise<any>;
@@ -16,11 +17,18 @@ export class AsyncMethodController<
   #spy: jasmine.Spy<O[N]>;
   #testCalls: TestCall[] = [];
 
-  constructor(obj: O, methodName: N) {
+  /**
+   * @param context TODO: suggest users pass this in if the function they are stubbing can be found in https://github.com/angular/angular/blob/master/packages/zone.js/STANDARD-APIS.md
+   */
+  constructor(
+    obj: O,
+    methodName: N,
+    { context = undefined as AngularContext | undefined } = {},
+  ) {
     this.#spy = spyOn(obj, methodName as any) as any;
     this.#spy.and.callFake((() => {
       const deferred = new Deferred();
-      this.#testCalls.push(new TestCall(deferred));
+      this.#testCalls.push(new TestCall(deferred, context));
       return deferred.promise;
     }) as any); // TODO: make this typing better (instead of using any)
   }
