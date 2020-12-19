@@ -52,7 +52,7 @@ describe('TestCall', () => {
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'readText',
-        { context: ctx },
+        { ctx },
       );
 
       ctx.run(() => {
@@ -87,7 +87,7 @@ describe('TestCall', () => {
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'readText',
-        { context: ctx },
+        { ctx },
       );
 
       ctx.run(() => {

@@ -1,6 +1,5 @@
 # To finish AsyncMethodController
 
-- write docs
 - scour the branch for outstanding TODO comments
 
 ---

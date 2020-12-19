@@ -1,3 +1,4 @@
+import { AngularContext } from '../test-context';
 import { AsyncMethodController } from './async-method-controller';
 
 describe('AsyncMethodController', () => {
@@ -308,6 +309,33 @@ describe('AsyncMethodController', () => {
       expect(() => {
         controller.expectOne((call) => call.args[0] !== 'value 2');
       }).toThrowMatching((error: Error) => error.message.includes('found 2'));
+    });
+  });
+
+  describe('examples from the docs', () => {
+    it('can paste', () => {
+      const clipboard = navigator.clipboard;
+      const ctx = new AngularContext();
+
+      // mock the browser API for pasting
+      const controller = new AsyncMethodController(clipboard, 'readText', {
+        ctx,
+      });
+      ctx.run(() => {
+        // BEGIN production code that copies to the clipboard
+        let pastedText: string;
+        clipboard.readText().then((text) => {
+          pastedText = text;
+        });
+        // END production code that copies to the clipboard
+
+        // mock the behavior when the user denies access to the clipboard
+        controller.expectOne([]).flush('mock clipboard contents');
+
+        // BEGIN expect the correct results after a successful copy
+        expect(pastedText!).toBe('mock clipboard contents');
+        // END expect the correct results after a successful copy
+      });
     });
   });
 });
