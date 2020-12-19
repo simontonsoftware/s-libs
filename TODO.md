@@ -1,4 +1,4 @@
 - landing page to link to all API docs
 - coveralls
   - help may be here, to combine multiple coverage runs into one report: https://github.com/angular/angular-cli/issues/11268
-- see if typedoc can support that "lib" mode that would eliminate the need for @hidden yet
+- Watch for when typedoc can support that "lib" mode that would eliminate the need for @hidden
