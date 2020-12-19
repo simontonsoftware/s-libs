@@ -26,19 +26,6 @@ describe('AsyncMethodController', () => {
       expect(match.callInfo.args[0]).toEqual('value 2');
     });
 
-    it('removes the matching call from future matching', () => {
-      const controller = new AsyncMethodController(
-        navigator.clipboard,
-        'writeText',
-      );
-      navigator.clipboard.writeText('value 1');
-      navigator.clipboard.writeText('value 2');
-
-      controller.expectOne((call) => call.args[0] === 'value 2');
-
-      expect(controller.match(() => true).length).toBe(1);
-    });
-
     describe('error message', () => {
       it('throws an error when there is no match', () => {
         const controller = new AsyncMethodController(
@@ -171,18 +158,17 @@ describe('AsyncMethodController', () => {
       );
     });
 
-    it('does not remove the matching calls from future matching', () => {
+    it('remove the matching calls from future matching', () => {
       const controller = new AsyncMethodController(
         navigator.clipboard,
-        'readText',
+        'writeText',
       );
-      navigator.clipboard.readText();
-      navigator.clipboard.readText();
+      navigator.clipboard.writeText('value 1');
+      navigator.clipboard.writeText('value 2');
 
-      controller.match(() => true);
-      const matchesOnSecondTry = controller.match(() => true);
+      controller.match((call) => call.args[0] === 'value 2');
 
-      expect(matchesOnSecondTry.length).toEqual(2);
+      expect(controller.match(() => true).length).toBe(1);
     });
 
     it('returns an empty array when there have been no calls', () => {

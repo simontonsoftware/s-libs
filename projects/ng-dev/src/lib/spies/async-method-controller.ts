@@ -54,10 +54,7 @@ export class AsyncMethodController<
         }),
       );
     }
-
-    const testCall = matches[0];
-    pull(this.#testCalls, testCall);
-    return testCall;
+    return matches[0];
   }
 
   expectNone(
@@ -83,7 +80,7 @@ export class AsyncMethodController<
     const filterFn = Array.isArray(match)
       ? this.makeArgumentMatcher(match)
       : match;
-    return this.#testCalls.filter((testCall) => filterFn(testCall.callInfo));
+    return remove(this.#testCalls, (testCall) => filterFn(testCall.callInfo));
   }
 
   verify(): void {
