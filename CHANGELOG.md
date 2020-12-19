@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.2.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v11.1.0...v11.2.0-next.0) (2020-12-19)
+
+### Features
+
+- **js-core:** add `isFalsy()` ([62bd6da](https://github.com/simontonsoftware/s-libs/commit/62bd6da2905ba7e505da5d82bec658ed47475b36))
+- **js-core:** add `isTruthy()` ([ca38c5d](https://github.com/simontonsoftware/s-libs/commit/ca38c5d324cb867e6ad613cd09267ca1bd4ecaf6))
+- **micro-dash:** add `nth()` ([61a37b1](https://github.com/simontonsoftware/s-libs/commit/61a37b15cd1e7c0a806309691b4b86363d5d2cfb)), closes [#10](https://github.com/simontonsoftware/s-libs/issues/10)
+- **micro-dash:** add `sampleSize()` ([05bf741](https://github.com/simontonsoftware/s-libs/commit/05bf741365d897352c8469161ec1ab39fe4eb48f))
+- **micro-dash:** add `shuffle()` ([5e6f51a](https://github.com/simontonsoftware/s-libs/commit/5e6f51a466885c241cfecdf1b7dfbe90cdfd8914))
+- **ng-dev:** add `AsyncMethodController` ([a8eb567](https://github.com/simontonsoftware/s-libs/commit/a8eb56794ca818da2c9ca0e567b0a5d06e46ef6e)), closes [#9](https://github.com/simontonsoftware/s-libs/issues/9)
+
 ## [11.1.0](https://github.com/simontonsoftware/s-libs/compare/v11.0.0...v11.1.0) (2020-11-27)
 
 ### Features
