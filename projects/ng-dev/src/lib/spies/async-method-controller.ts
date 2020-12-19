@@ -143,7 +143,6 @@ export class AsyncMethodController<
     }
   }
 
-  // TODO: when we have expectOne(), test that this works with mismatched arrays
   private ensureCallInfoIsSet(): void {
     for (let i = 1; i <= this.#testCalls.length; ++i) {
       const testCall = nth(this.#testCalls, -i);
@@ -194,7 +193,6 @@ export class AsyncMethodController<
   }
 }
 
-// TODO: when we have expectOne(), test that this works with mismatched arrays
 /** @hidden */
 function stringifyArgs(args: any[]): string {
   return JSON.stringify(args);

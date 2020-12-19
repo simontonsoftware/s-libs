@@ -254,7 +254,35 @@ describe('AsyncMethodController', () => {
     });
   });
 
-  describe('.buildErrorMessage()', () => {
+  describe('.#ensureCallInfoIsSet()', () => {
+    it('correctly initializes TestCall objects even after others have been matched', () => {
+      const controller = new AsyncMethodController(
+        navigator.clipboard,
+        'writeText',
+      );
+
+      // make call1, causing:
+      // testCalls: [call1]
+      // spy.calls: [call1]
+      navigator.clipboard.writeText('call1');
+
+      // match call1, causing:
+      // testCalls: []
+      // spy.calls: [call1]
+      controller.expectOne(() => true);
+
+      // make call2, causing:
+      // testCalls: [call2]
+      // spy.calls: [call1, call2]
+      navigator.clipboard.writeText('call2');
+
+      // try matching call2
+      const testCall = controller.expectOne(() => true);
+      expect(testCall.callInfo.args[0]).toBe('call2');
+    });
+  });
+
+  describe('.#buildErrorMessage()', () => {
     it('includes the given description when throwing an error', () => {
       const controller = new AsyncMethodController(
         navigator.clipboard,
