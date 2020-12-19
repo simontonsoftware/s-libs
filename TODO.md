@@ -1,9 +1,7 @@
 # To finish AsyncMethodController
 
-- test all the typing
 - write docs
 - scour the branch for outstanding TODO comments
-- get `nth()` into `micro-dash`
 
 ---
 

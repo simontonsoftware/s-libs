@@ -1,23 +1,20 @@
 import { Deferred } from '@s-libs/js-core';
+import { PromiseType } from 'utility-types';
 import { AngularContext } from '../test-context';
 
-export class TestCall {
-  // TODO: make this typing better (instead of using any)
-  callInfo!: jasmine.CallInfo<any>;
+export class TestCall<F extends jasmine.Func> {
+  callInfo!: jasmine.CallInfo<F>;
 
-  // TODO: make this typing better (instead of using any)
   constructor(
-    private deferred: Deferred<any>,
+    private deferred: Deferred<PromiseType<ReturnType<F>>>,
     private context?: AngularContext,
   ) {}
 
-  // TODO: make this typing better (instead of using any)
-  flush(value: any): void {
+  flush(value: PromiseType<ReturnType<F>>): void {
     this.deferred.resolve(value);
     this.context?.tick();
   }
 
-  // TODO: make this typing better (instead of using any)
   error(reason: any): void {
     this.deferred.reject(reason);
     this.context?.tick();

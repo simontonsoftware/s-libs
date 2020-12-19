@@ -5,35 +5,45 @@ import { TestCall } from './test-call';
 
 type AsyncFunc = (...args: any[]) => Promise<any>;
 
-type Match =
-  // TODO: make this typing better (instead of using any)
-  any[] | ((callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean);
+type Match<
+  WrappingObject,
+  FunctionName extends AsyncMethodKeys<WrappingObject>
+> =
+  | Parameters<WrappingObject[FunctionName]>
+  | ((callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>) => boolean);
 
-// TODO: put some effort into the DX to infer T
+type AsyncMethodKeys<T> = {
+  [k in keyof T]: T[k] extends AsyncFunc ? k : never;
+}[keyof T];
+
 export class AsyncMethodController<
-  N extends PropertyKey,
-  O extends { [k in N]: AsyncFunc }
+  WrappingObject,
+  FunctionName extends AsyncMethodKeys<WrappingObject>
 > {
-  #spy: jasmine.Spy<O[N]>;
-  #testCalls: TestCall[] = [];
+  #spy: jasmine.Spy<WrappingObject[FunctionName]>;
+  #testCalls: TestCall<WrappingObject[FunctionName]>[] = [];
 
   /**
    * @param context TODO: suggest users pass this in if the function they are stubbing can be found in https://github.com/angular/angular/blob/master/packages/zone.js/STANDARD-APIS.md
    */
   constructor(
-    obj: O,
-    methodName: N,
+    obj: WrappingObject,
+    methodName: FunctionName,
     { context = undefined as AngularContext | undefined } = {},
   ) {
+    // Note: it wasn't immediately clear how avoid `any` in this constructor, and this will be invisible to users. So I gave up. (For now.)
     this.#spy = spyOn(obj, methodName as any) as any;
     this.#spy.and.callFake((() => {
-      const deferred = new Deferred();
+      const deferred = new Deferred<any>();
       this.#testCalls.push(new TestCall(deferred, context));
       return deferred.promise;
-    }) as any); // TODO: make this typing better (instead of using any)
+    }) as any);
   }
 
-  expectOne(match: Match, description?: string): TestCall {
+  expectOne(
+    match: Match<WrappingObject, FunctionName>,
+    description?: string,
+  ): TestCall<WrappingObject[FunctionName]> {
     const matches = this.match(match);
     if (matches.length !== 1) {
       throw new Error(
@@ -50,7 +60,10 @@ export class AsyncMethodController<
     return testCall;
   }
 
-  expectNone(match: Match, description?: string): void {
+  expectNone(
+    match: Match<WrappingObject, FunctionName>,
+    description?: string,
+  ): void {
     const matches = this.match(match);
     if (matches.length > 0) {
       throw new Error(
@@ -63,7 +76,9 @@ export class AsyncMethodController<
     }
   }
 
-  match(match: Match): TestCall[] {
+  match(
+    match: Match<WrappingObject, FunctionName>,
+  ): TestCall<WrappingObject[FunctionName]>[] {
     this.ensureCallInfoIsSet();
     const filterFn = Array.isArray(match)
       ? this.makeArgumentMatcher(match)
@@ -98,16 +113,14 @@ export class AsyncMethodController<
     }
   }
 
-  // TODO: make this typing better (instead of using any)
   private makeArgumentMatcher(
-    args: any[],
-  ): (callInfo: jasmine.CallInfo<(...args: any[]) => any>) => boolean {
-    return (callInfo: jasmine.CallInfo<(...args: any[]) => any>) =>
+    args: Parameters<WrappingObject[FunctionName]>,
+  ): (callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>) => boolean {
+    return (callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>) =>
       isEqual(callInfo.args, args);
   }
 
   private buildErrorMessage(
-    // TODO: make this typing better (instead of using any)
     {
       stringifiedUserInput,
       matchType,
@@ -115,7 +128,7 @@ export class AsyncMethodController<
     }: {
       stringifiedUserInput?: string;
       matchType: string;
-      matches: TestCall[];
+      matches: TestCall<WrappingObject[FunctionName]>[];
     },
   ): string {
     let message = `Expected ${matchType} call(s)`;
@@ -126,7 +139,10 @@ export class AsyncMethodController<
     return message;
   }
 
-  private stringifyUserInput(match: Match, description?: string): string {
+  private stringifyUserInput(
+    match: Match<WrappingObject, FunctionName>,
+    description?: string,
+  ): string {
     if (!description) {
       if (Array.isArray(match)) {
         description = 'Match by arguments: ' + stringifyArgs(match);
