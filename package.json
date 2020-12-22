@@ -9,16 +9,14 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-libs": "yarn ts-node scripts/build-libs",
-    "docs": "typedoc",
     "dtslint": "dtslint --expectOnly --localTs node_modules/typescript/lib",
     "eslint": "eslint . --ext .ts,.tsx",
     "prettier-all": "prettier --write \"**/*.{html,js,json,md,scss,ts,yml}\"",
-    "pregit-publish": "yarn ts-node scripts/docs-libs && git add docs/*",
+    "docs": "yarn ts-node scripts/docs-libs",
     "git-publish": "standard-version --commit-all",
-    "prenpm-publish": "yarn ts-node scripts/build-libs",
     "npm-publish": "yarn ts-node scripts/publish-libs",
     "calc-micro-dash-sizes": "cd projects/micro-dash-sizes && ts-node --project tsconfig.app.json -O \"{ \\\"module\\\": \\\"CommonJS\\\" }\" calc-sizes",
-    "ts-node": "ts-node -O \"{ \\\"module\\\": \\\"commonjs\\\" }\""
+    "ts-node": "ts-node --project scripts/tsconfig.json"
   },
   "dependencies": {
     "@angular/animations": "~11.0.2",
