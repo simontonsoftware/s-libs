@@ -5,6 +5,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { delayOnMicrotaskQueue } from '@s-libs/rxjs-core';
 import { Observable, Subject } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
 import { InjectableSuperclass } from './injectable-superclass';
@@ -77,6 +78,7 @@ export abstract class DirectiveSuperclass
     return this.inputChanges$.pipe(
       filter((keys) => keys.has(key)),
       startWith(undefined),
+      delayOnMicrotaskQueue(),
       map(() => this[key]),
     );
   }

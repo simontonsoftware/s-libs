@@ -1,3 +1,4 @@
+- add support/help for `--tag next` to `publish-libs.ts`
 - landing page to link to all API docs
 - coveralls
   - help may be here, to combine multiple coverage runs into one report: https://github.com/angular/angular-cli/issues/11268
