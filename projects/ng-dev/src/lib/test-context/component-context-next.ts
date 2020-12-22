@@ -41,10 +41,8 @@ export interface ComponentContextInit<ComponentType> {
  * ```
  *
  * This class integrates {@link trimLeftoverStyles} to speed up your test suite, as described in the docs for that function.
- *
- * @deprecated Use {@link ComponentContextNext}
  */
-export abstract class ComponentContext<
+export class ComponentContextNext<
   ComponentType = unknown,
   Init extends ComponentContextInit<ComponentType> = ComponentContextInit<ComponentType>
 > extends AngularContext<Init> {
@@ -53,16 +51,23 @@ export abstract class ComponentContext<
    */
   fixture!: ComponentFixture<ComponentType>;
 
-  /**
-   * `.run()` will create a component of this type before running the rest of your test.
-   */
-  protected abstract componentType: Type<ComponentType>;
+  #componentType: Type<ComponentType>;
 
   /**
+   * @param componentType `.run()` will create a component of this type before running the rest of your test.
    * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContext}.
    */
-  constructor(moduleMetadata: TestModuleMetadata = {}) {
-    super(extendMetadata(moduleMetadata, { imports: [NoopAnimationsModule] }));
+  constructor(
+    componentType: Type<ComponentType>,
+    moduleMetadata: TestModuleMetadata = {},
+  ) {
+    super(
+      extendMetadata(moduleMetadata, {
+        imports: [NoopAnimationsModule],
+        declarations: [componentType], // TODO: test this, or switch to wrapped
+      }),
+    );
+    this.#componentType = componentType;
   }
 
   /**
@@ -71,7 +76,7 @@ export abstract class ComponentContext<
   protected init(options: Partial<Init>): void {
     trimLeftoverStyles();
     super.init(options);
-    this.fixture = TestBed.createComponent(this.componentType);
+    this.fixture = TestBed.createComponent(this.#componentType);
     Object.assign(this.fixture.componentInstance, options.input);
     this.fixture.detectChanges();
     this.tick();
