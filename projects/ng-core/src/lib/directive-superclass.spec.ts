@@ -15,6 +15,7 @@ import { By } from '@angular/platform-browser';
 import {
   AngularContext,
   ComponentContext,
+  ComponentContextNext,
   expectSingleCallAndReset,
 } from '@s-libs/ng-dev';
 import { BehaviorSubject, combineLatest, noop, Observable } from 'rxjs';
@@ -178,42 +179,30 @@ describe('DirectiveSuperclass', () => {
 
     // https://github.com/simontonsoftware/s-ng-utils/issues/10
     it('emits `undefined` for unspecified inputs', () => {
-      @Directive({ selector: '[sTest]' })
+      @Component({ selector: 's-test', template: '' })
       class TestDirective extends DirectiveSuperclass {
-        @Input() myInput?: string;
+        @Input() unspecified?: string;
+        @Input() specified?: string;
         emittedValue? = 'initial value';
 
         constructor(injector: Injector) {
           super(injector);
-          this.getInput$('myInput').subscribe((value) => {
+          this.getInput$('unspecified').subscribe((value) => {
             this.emittedValue = value;
           });
         }
       }
 
-      @Component({ template: '<div sTest></div>' })
-      class WrapperComponent {}
-
-      class TestContext2 extends ComponentContext<WrapperComponent> {
-        componentType = WrapperComponent;
-
-        constructor() {
-          super({ declarations: [TestDirective, WrapperComponent] });
-        }
-      }
-
-      const ctx2 = new TestContext2();
-      ctx2.run(() => {
-        const testDirective = ctx2.fixture.debugElement
-          .query(By.directive(TestDirective))
-          .injector.get(TestDirective);
+      const ctx2 = new ComponentContextNext(TestDirective);
+      ctx2.run({ inputs: { specified: 'a value' } }, () => {
+        const testDirective = ctx2.getComponentInstance();
         expect(testDirective.emittedValue).toBe(undefined);
       });
     });
 
     // https://github.com/simontonsoftware/s-libs/issues/14
     it('emits immediately (only) if `ngOnChanges()` is called', () => {
-      @Directive({ selector: '[sTest]' })
+      @Component({ selector: 's-test', template: '' })
       class TestDirective extends DirectiveSuperclass implements OnChanges {
         @Input() myInput?: string;
         stage = 'before ngOnChanges';
@@ -234,29 +223,16 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      @Component({ template: '<div sTest myInput="value"></div>' })
-      class WrapperComponent {}
-
-      class TestContext2 extends ComponentContext<WrapperComponent> {
-        componentType = WrapperComponent;
-
-        constructor() {
-          super({ declarations: [TestDirective, WrapperComponent] });
-        }
-      }
-
-      const ctx2 = new TestContext2();
+      const ctx2 = new ComponentContextNext(TestDirective);
       ctx2.run(() => {
-        const testDirective = ctx2.fixture.debugElement
-          .query(By.directive(TestDirective))
-          .injector.get(TestDirective);
+        const testDirective = ctx2.getComponentInstance();
         expect(testDirective.emittedDuring).toBe('after ngOnChanges');
       });
     });
 
     it('emits even if no inputs are provided to the component', () => {
       @Directive({ selector: '[sTest]' })
-      class TestDirective extends DirectiveSuperclass implements OnChanges {
+      class TestDirective extends DirectiveSuperclass {
         @Input() myInput?: string;
         emitted = false;
 

@@ -2,6 +2,7 @@ import {
   AngularContext,
   AsyncMethodController,
   ComponentContext,
+  ComponentContextNext,
   TestCall,
   createSpyObject,
   expectCallsAndReset,
@@ -23,6 +24,10 @@ describe('ng-dev', () => {
 
   it('has ComponentContext', () => {
     expect(ComponentContext).toBeDefined();
+  });
+
+  it('has ComponentContextNext', () => {
+    expect(ComponentContextNext).toBeDefined();
   });
 
   it('has TestCall', () => {

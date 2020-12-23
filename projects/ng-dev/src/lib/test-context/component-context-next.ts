@@ -14,7 +14,7 @@ import { AngularContext, extendMetadata } from './angular-context';
 // TODO: separate feature: set width & height of the wrapper
 
 /** @hidden */
-export interface ComponentContextInit<ComponentType> {
+export interface ComponentContextNextInit<ComponentType> {
   inputs: Partial<ComponentType>;
 }
 
@@ -50,7 +50,7 @@ export interface ComponentContextInit<ComponentType> {
  */
 export class ComponentContextNext<
   ComponentType = unknown,
-  Init extends ComponentContextInit<ComponentType> = ComponentContextInit<ComponentType>
+  Init extends ComponentContextNextInit<ComponentType> = ComponentContextNextInit<ComponentType>
 > extends AngularContext<Init> {
   /**
    * The {@link ComponentFixture} for a synthetic wrapper around your component.
