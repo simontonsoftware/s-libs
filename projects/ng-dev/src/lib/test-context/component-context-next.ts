@@ -142,13 +142,12 @@ function getSelector(componentType: Type<unknown>): string {
   );
   assert(annotations, 'That does not appear to be a component');
 
-  const selector = annotations.value.find(
-    (decorator: any) => decorator.selector,
-  )?.selector;
-  assert(
-    isValidSelector(selector),
-    'Component must have a selector that matches a tag name',
-  );
+  let selector = annotations.value.find((decorator: any) => decorator.selector)
+    ?.selector;
+  if (!isValidSelector(selector)) {
+    selector = 's-libs-component-under-test';
+    TestBed.overrideComponent(componentType, { set: { selector } });
+  }
   return selector;
 }
 

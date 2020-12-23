@@ -9,6 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import {
   ANIMATION_MODULE_TYPE,
   BrowserAnimationsModule,
@@ -19,12 +20,12 @@ import { ComponentContextNext } from './component-context-next';
 describe('ComponentContextNext', () => {
   let ngOnChangesSpy: jasmine.Spy;
 
-  @Component({ selector: 's-test', template: 'Hello, {{name}}!' })
+  @Component({ template: 'Hello, {{name}}!' })
   class TestComponent {
     @Input() name!: string;
   }
 
-  @Component({ selector: 's-change-detecting', template: '' })
+  @Component({ template: '' })
   class ChangeDetectingComponent implements OnChanges {
     @Input() myInput?: string;
 
@@ -78,36 +79,40 @@ describe('ComponentContextNext', () => {
       });
     });
 
-    it('requires a tag selector on the component', () => {
-      @Component({ template: '' })
+    it('uses the components selector if it is a tag name', () => {
+      @Component({ selector: 's-tag-name', template: '' })
+      class TagNameComponent {}
+
+      const ctx = new ComponentContextNext(TagNameComponent);
+      ctx.run(() => {
+        expect(
+          ctx.fixture.debugElement.query(By.directive(TagNameComponent)).name,
+        ).toBe('s-tag-name');
+      });
+    });
+
+    it("can handle components that don't have a selector", () => {
+      @Component({ template: 'the template' })
       class NoSelectorComponent {}
-      expect(() => {
-        // tslint:disable-next-line:no-unused-expression
-        new ComponentContextNext(NoSelectorComponent);
-      }).toThrowError('Component must have a selector that matches a tag name');
 
+      const ctx = new ComponentContextNext(NoSelectorComponent);
+      ctx.run(() => {
+        expect(ctx.fixture.nativeElement.textContent).toContain('the template');
+      });
+    });
+
+    it('can handle components whose selectors are not tag names', () => {
       // tslint:disable-next-line:component-selector
-      @Component({ selector: '[myAttribute]', template: '' })
+      @Component({ selector: '[myAttribute]', template: 'the template' })
       class AttributeSelectorComponent {}
-      expect(() => {
-        // tslint:disable-next-line:no-unused-expression
-        new ComponentContextNext(AttributeSelectorComponent);
-      }).toThrowError('Component must have a selector that matches a tag name');
-
-      @Component({
-        // tslint:disable-next-line:component-selector
-        selector: 'tagName.withClass[andAttr="value"]',
-        template: '',
-      })
-      class FancySelectorComponent {}
-      expect(() => {
-        // tslint:disable-next-line:no-unused-expression
-        new ComponentContextNext(FancySelectorComponent);
-      }).toThrowError('Component must have a selector that matches a tag name');
+      const ctx = new ComponentContextNext(AttributeSelectorComponent);
+      ctx.run(() => {
+        expect(ctx.fixture.nativeElement.textContent).toContain('the template');
+      });
     });
 
     it('picks up inputs that are setters', () => {
-      @Component({ selector: 's-setter-input', template: '' })
+      @Component({ template: '' })
       class SetterInputComponent {
         receivedValue?: string;
 
@@ -123,7 +128,7 @@ describe('ComponentContextNext', () => {
     });
 
     it("can handle components that don't have inputs", () => {
-      @Component({ selector: 's-no-input', template: '' })
+      @Component({ template: '' })
       class NoInputComponent {}
 
       expect(() => {
@@ -132,7 +137,7 @@ describe('ComponentContextNext', () => {
     });
 
     it('can handle components that use ViewChild in tricky ways', () => {
-      @Component({ selector: 's-tricky-view-child', template: '' })
+      @Component({ template: '' })
       class TrickyViewChildComponent {
         @Input() tricky?: string;
         @ViewChild('tricky') trickyChild!: ElementRef;
@@ -179,10 +184,7 @@ describe('ComponentContextNext', () => {
     });
 
     it('can update renamed inputs', () => {
-      @Component({
-        selector: 's-renamed-input',
-        template: '{{ propertyName }}',
-      })
+      @Component({ template: '{{ propertyName }}' })
       class RenamedInputComponent {
         // tslint:disable-next-line:no-input-rename
         @Input('bindingName') propertyName?: string;
