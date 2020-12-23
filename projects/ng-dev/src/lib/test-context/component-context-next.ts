@@ -1,21 +1,27 @@
-import { Type } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   TestModuleMetadata,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { assert } from '@s-libs/js-core';
+import { flatten, map } from '@s-libs/micro-dash';
 import { trimLeftoverStyles } from '../trim-leftover-styles';
 import { AngularContext, extendMetadata } from './angular-context';
 
+// TODO: separate feature: set width & height of the wrapper
+
 /** @hidden */
 export interface ComponentContextInit<ComponentType> {
-  input: Partial<ComponentType>;
+  inputs: Partial<ComponentType>;
 }
 
 /**
  * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContext}. A very simple example:
  *
+ * TODO: update
  * ```ts
  * @Component({ template: 'Hello, {{name}}!' })
  * class GreeterComponent {
@@ -47,11 +53,13 @@ export class ComponentContextNext<
   Init extends ComponentContextInit<ComponentType> = ComponentContextInit<ComponentType>
 > extends AngularContext<Init> {
   /**
-   * The {@link ComponentFixture} for your component, provided by Angular's testing framework.
+   * The {@link ComponentFixture} for a synthetic wrapper around your component.
    */
-  fixture!: ComponentFixture<ComponentType>;
+  // TODO: test the typing here
+  fixture!: ComponentFixture<unknown>;
 
-  #componentType: Type<ComponentType>;
+  private componentType: Type<ComponentType>;
+  private wrapperComponentType: Type<ComponentType>;
 
   /**
    * @param componentType `.run()` will create a component of this type before running the rest of your test.
@@ -61,13 +69,25 @@ export class ComponentContextNext<
     componentType: Type<ComponentType>,
     moduleMetadata: TestModuleMetadata = {},
   ) {
+    const dynamicWrapper = createDynamicWrapper(componentType);
     super(
       extendMetadata(moduleMetadata, {
         imports: [NoopAnimationsModule],
-        declarations: [componentType], // TODO: test this, or switch to wrapped
+        declarations: [dynamicWrapper, componentType],
       }),
     );
-    this.#componentType = componentType;
+    this.componentType = componentType;
+    this.wrapperComponentType = dynamicWrapper;
+  }
+
+  updateInputs(inputs: Partial<ComponentType>): void {
+    Object.assign(this.fixture.componentInstance, inputs);
+    this.tick();
+  }
+
+  getComponentInstance(): ComponentType {
+    return this.fixture.debugElement.query(By.directive(this.componentType))
+      .componentInstance;
   }
 
   /**
@@ -76,8 +96,10 @@ export class ComponentContextNext<
   protected init(options: Partial<Init>): void {
     trimLeftoverStyles();
     super.init(options);
-    this.fixture = TestBed.createComponent(this.#componentType);
-    Object.assign(this.fixture.componentInstance, options.input);
+    this.fixture = TestBed.createComponent<ComponentType>(
+      this.wrapperComponentType,
+    );
+    Object.assign(this.fixture.componentInstance, options.inputs);
     this.fixture.detectChanges();
     this.tick();
   }
@@ -94,4 +116,79 @@ export class ComponentContextNext<
     this.fixture.destroy();
     super.cleanUp();
   }
+}
+
+function createDynamicWrapper<T>(componentType: Type<T>): Type<T> {
+  const selector = getSelector(componentType);
+  const inputs = getInputs(componentType);
+
+  const template = `
+    <div>
+      <${selector}
+        ${inputs
+          .map(({ binding, property }) => `[${binding}]="${property}"`)
+          .join(' ')}
+      ></${selector}>
+    </div>
+  `;
+
+  @Component({ template })
+  class DynamicWrapperComponent {}
+
+  return DynamicWrapperComponent as Type<T>;
+}
+
+function getSelector(componentType: Type<unknown>): string {
+  const annotations = Reflect.getOwnPropertyDescriptor(
+    componentType,
+    '__annotations__',
+  );
+  assert(annotations, 'That does not appear to be a component');
+
+  const selector = annotations.value.find(
+    (decorator: any) => decorator.selector,
+  )?.selector;
+  assert(
+    isValidSelector(selector),
+    'Component must have a selector that matches a tag name',
+  );
+  return selector;
+}
+
+function isValidSelector(selector: string): boolean {
+  if (!selector) {
+    return false;
+  }
+  try {
+    document.createElement(selector);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function getInputs(
+  componentType: Type<unknown>,
+): Array<{ binding: string; property: string }> {
+  const propDecorators = Reflect.getOwnPropertyDescriptor(
+    componentType,
+    'propDecorators',
+  );
+  if (!propDecorators) {
+    return [];
+  }
+
+  // TODO: make this hack at least LOOK less ugly
+  return flatten(
+    map(propDecorators.value, (decorators: any[], property: string) =>
+      decorators
+        .filter(
+          (decorator) => decorator.type.prototype.ngMetadataName === 'Input',
+        )
+        .map((decorator) => ({
+          property,
+          binding: decorator.args?.[0] || property,
+        })),
+    ),
+  );
 }
