@@ -5,6 +5,7 @@
     "noImplicitThis": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
+    "experimentalDecorators": true,
     "lib": ["es2018", "dom"],
     "noEmit": true,
     "target": "es2015",

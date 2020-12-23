@@ -11,8 +11,6 @@ import { flatten, map } from '@s-libs/micro-dash';
 import { trimLeftoverStyles } from '../trim-leftover-styles';
 import { AngularContext, extendMetadata } from './angular-context';
 
-// TODO: separate feature: set width & height of the wrapper
-
 /** @hidden */
 export interface ComponentContextNextInit<ComponentType> {
   inputs: Partial<ComponentType>;
@@ -50,12 +48,11 @@ export interface ComponentContextNextInit<ComponentType> {
  */
 export class ComponentContextNext<
   ComponentType = unknown,
-  Init extends ComponentContextNextInit<ComponentType> = ComponentContextNextInit<ComponentType>
-> extends AngularContext<Init> {
+  InitOptions extends ComponentContextNextInit<ComponentType> = ComponentContextNextInit<ComponentType>
+> extends AngularContext<InitOptions> {
   /**
    * The {@link ComponentFixture} for a synthetic wrapper around your component.
    */
-  // TODO: test the typing here
   fixture!: ComponentFixture<unknown>;
 
   private componentType: Type<ComponentType>;
@@ -93,7 +90,7 @@ export class ComponentContextNext<
   /**
    * Constructs and initializes your component. Called during `.run()` before it executes the rest of your test. Runs in the same `fakeAsync` zone as the rest of your test.
    */
-  protected init(options: Partial<Init>): void {
+  protected init(options: Partial<InitOptions>): void {
     trimLeftoverStyles();
     super.init(options);
     this.fixture = TestBed.createComponent<ComponentType>(
@@ -168,27 +165,17 @@ function isValidSelector(selector: string): boolean {
 }
 
 function getInputs(
-  componentType: Type<unknown>,
+  componentType: any,
 ): Array<{ binding: string; property: string }> {
-  const propDecorators = Reflect.getOwnPropertyDescriptor(
-    componentType,
-    'propDecorators',
-  );
-  if (!propDecorators) {
-    return [];
-  }
-
-  // TODO: make this hack at least LOOK less ugly
   return flatten(
-    map(propDecorators.value, (decorators: any[], property: string) =>
-      decorators
-        .filter(
-          (decorator) => decorator.type.prototype.ngMetadataName === 'Input',
-        )
-        .map((decorator) => ({
-          property,
-          binding: decorator.args?.[0] || property,
-        })),
-    ),
+    map(componentType.propDecorators, (decorators: any[], property: string) => {
+      const inputDecorators = decorators.filter(
+        (decorator) => decorator.type.prototype.ngMetadataName === 'Input',
+      );
+      return inputDecorators.map((decorator) => ({
+        property,
+        binding: decorator.args?.[0] || property,
+      }));
+    }),
   );
 }

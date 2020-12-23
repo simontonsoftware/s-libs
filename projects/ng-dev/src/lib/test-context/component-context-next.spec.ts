@@ -106,6 +106,31 @@ describe('ComponentContextNext', () => {
       }).toThrowError('Component must have a selector that matches a tag name');
     });
 
+    it('picks up inputs that are setters', () => {
+      @Component({ selector: 's-setter-input', template: '' })
+      class SetterInputComponent {
+        receivedValue?: string;
+
+        @Input() set setterInput(value: string) {
+          this.receivedValue = value;
+        }
+      }
+
+      const ctx = new ComponentContextNext(SetterInputComponent);
+      ctx.run({ inputs: { setterInput: 'sent value' } }, () => {
+        expect(ctx.getComponentInstance().receivedValue).toBe('sent value');
+      });
+    });
+
+    it("can handle components that don't have inputs", () => {
+      @Component({ selector: 's-no-input', template: '' })
+      class NoInputComponent {}
+
+      expect(() => {
+        new ComponentContextNext(NoInputComponent).run(noop);
+      }).not.toThrowError();
+    });
+
     it('can handle components that use ViewChild in tricky ways', () => {
       @Component({ selector: 's-tricky-view-child', template: '' })
       class TrickyViewChildComponent {

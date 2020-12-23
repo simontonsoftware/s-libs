@@ -201,7 +201,7 @@ describe('DirectiveSuperclass', () => {
     });
 
     // https://github.com/simontonsoftware/s-libs/issues/14
-    it('emits immediately (only) if `ngOnChanges()` is called', () => {
+    it('emits immediately (only) if `ngOnChanges()` was already called', () => {
       @Component({ selector: 's-test', template: '' })
       class TestDirective extends DirectiveSuperclass implements OnChanges {
         @Input() myInput?: string;
