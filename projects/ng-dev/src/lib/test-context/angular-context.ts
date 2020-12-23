@@ -48,7 +48,7 @@ export function extendMetadata(
  *
  * This example tests a simple service that uses HttpClient, and is tested by
  * using `AngularContext` directly. More often `AngularContext` will be used a
- * super class. See {@link ComponentContext} for more common use cases.
+ * super class. See {@link ComponentContextNext} for more common use cases.
  * ```ts
  *  // This is the class we will test.
  *  @Injectable({ providedIn: 'root' })

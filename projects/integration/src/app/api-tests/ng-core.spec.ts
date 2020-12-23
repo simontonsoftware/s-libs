@@ -24,7 +24,7 @@ import {
   provideValueAccessor,
   WrappedFormControlSuperclass,
 } from '@s-libs/ng-core';
-import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { ComponentContextNext, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -122,13 +122,12 @@ describe('ng-core', () => {
         }
       }
 
-      class TestComponentContext extends ComponentContext<TestComponent> {
+      class TestComponentContext extends ComponentContextNext<TestComponent> {
         color$ = new BehaviorSubject('Grey');
-        protected componentType = TestComponent;
 
         constructor() {
-          super({
-            declarations: [ColorTextComponent, TestComponent],
+          super(TestComponent, {
+            declarations: [ColorTextComponent],
             providers: [
               { provide: 'color$', useFactory: () => this.color$ },
               // this can go away with component harnesses eventually
@@ -212,8 +211,8 @@ describe('ng-core', () => {
         `,
       })
       class TestComponent {
+        @Input() string = '';
         emissions = 0;
-        string = '';
         date = new Date();
         shouldDisable = false;
       }
@@ -255,13 +254,11 @@ describe('ng-core', () => {
         }
       }
 
-      class TestComponentContext extends ComponentContext<TestComponent> {
-        protected componentType = TestComponent;
-
+      class TestComponentContext extends ComponentContextNext<TestComponent> {
         constructor() {
-          super({
+          super(TestComponent, {
             imports: [FormsModule, ReactiveFormsModule],
-            declarations: [DateComponent, StringComponent, TestComponent],
+            declarations: [DateComponent, StringComponent],
             // this can go away with component harnesses eventually
             providers: [
               { provide: ComponentFixtureAutoDetect, useValue: true },
@@ -294,11 +291,11 @@ describe('ng-core', () => {
         flushMicrotasks();
       }
 
-      ctx.run({ input: { string: 'initial value' } }, () => {
+      ctx.run({ inputs: { string: 'initial value' } }, () => {
         expect(stringInput().value).toBe('initial value');
 
         setValue(stringInput(), 'edited value');
-        expect(ctx.fixture.componentInstance.string).toBe('edited value');
+        expect(ctx.getComponentInstance().string).toBe('edited value');
       });
     });
 
@@ -319,8 +316,8 @@ describe('ng-core', () => {
         `,
       })
       class TestComponent {
-        value = 0;
-        shouldDisable = false;
+        @Input() value = 0;
+        @Input() shouldDisable = false;
       }
 
       @Component({
@@ -350,13 +347,11 @@ describe('ng-core', () => {
         }
       }
 
-      class TestComponentContext extends ComponentContext<TestComponent> {
-        protected componentType = TestComponent;
-
+      class TestComponentContext extends ComponentContextNext<TestComponent> {
         constructor() {
-          super({
+          super(TestComponent, {
             imports: [FormsModule],
-            declarations: [CounterComponent, TestComponent],
+            declarations: [CounterComponent],
             // this can go away with component harnesses eventually
             providers: [
               { provide: ComponentFixtureAutoDetect, useValue: true },
@@ -410,7 +405,7 @@ describe('ng-core', () => {
         flushMicrotasks();
       }
 
-      ctx.run({ input: { shouldDisable: true } }, () => {
+      ctx.run({ inputs: { shouldDisable: true } }, () => {
         expect(incrementButton().disabled).toBe(true);
 
         click(toggleDisabledButton());
@@ -445,14 +440,12 @@ describe('ng-core', () => {
         showThings = true;
       }
 
-      class TestComponentContext extends ComponentContext<TestComponent> {
+      class TestComponentContext extends ComponentContextNext<TestComponent> {
         subject = new Subject();
 
-        protected componentType = TestComponent;
-
         constructor() {
-          super({
-            declarations: [DestroyableDirective, TestComponent],
+          super(TestComponent, {
+            declarations: [DestroyableDirective],
             providers: [{ provide: Subject, useFactory: () => this.subject }],
           });
         }
@@ -461,7 +454,7 @@ describe('ng-core', () => {
       ctx.run(() => {
         expect(ctx.subject.observers.length).toBe(2);
 
-        ctx.fixture.componentInstance.showThings = false;
+        ctx.getComponentInstance().showThings = false;
         ctx.fixture.detectChanges();
         expect(ctx.subject.observers.length).toBe(0);
       });

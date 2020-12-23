@@ -1,11 +1,10 @@
 import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { Component } from '@angular/core';
 import { MatButtonHarness } from '@angular/material/button/testing';
-import { ComponentContext } from './component-context';
+import { ComponentContextNext } from './component-context-next';
 import { Synchronized } from './synchronize';
 
 @Component({
-  selector: 's-test-component',
   template: `
     <div class="wrapper">
       <button mat-button (click)="clicked = true">{{ clicked }}</button>
@@ -20,14 +19,10 @@ class WrapperHarness extends ContentContainerComponentHarness {
   static hostSelector = '.wrapper';
 }
 
-class TestContext extends ComponentContext {
-  protected componentType = TestComponent;
-}
-
 describe('FakeAsyncHarnessEnvironment', () => {
-  let ctx: TestContext;
+  let ctx: ComponentContextNext<TestComponent>;
   beforeEach(() => {
-    ctx = new TestContext();
+    ctx = new ComponentContextNext(TestComponent);
   });
 
   it('runs asynchronous events that are due automatically', () => {

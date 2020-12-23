@@ -1,6 +1,6 @@
 import { Component, Directive, Injectable } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { ComponentContextNext, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { Subject } from 'rxjs';
 import {
   InjectableSuperclass,
@@ -29,14 +29,12 @@ class TestComponent {
   showThings = true;
 }
 
-class TestComponentContext extends ComponentContext<TestComponent> {
+class TestComponentContext extends ComponentContextNext<TestComponent> {
   subject = new Subject();
 
-  protected componentType = TestComponent;
-
   constructor() {
-    super({
-      declarations: [DestroyableDirective, TestComponent],
+    super(TestComponent, {
+      declarations: [DestroyableDirective],
       providers: [{ provide: Subject, useFactory: () => this.subject }],
     });
   }
@@ -52,7 +50,7 @@ describe('InjectableSuperclass', () => {
     ctx.run(() => {
       expect(ctx.subject.observers.length).toBe(2);
 
-      ctx.fixture.componentInstance.showThings = false;
+      ctx.getComponentInstance().showThings = false;
       ctx.fixture.detectChanges();
       expect(ctx.subject.observers.length).toBe(0);
     });
@@ -68,7 +66,7 @@ describe('InjectableSuperclass', () => {
       const service = host.injector.get(DestroyableService);
       service.destruction$.subscribe({ next, complete });
 
-      ctx.fixture.componentInstance.showThings = false;
+      ctx.getComponentInstance().showThings = false;
       ctx.fixture.detectChanges();
       expectSingleCallAndReset(next, undefined);
       expectSingleCallAndReset(complete);

@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Directive,
   Inject,
   Injector,
   Input,
@@ -14,7 +13,6 @@ import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   AngularContext,
-  ComponentContext,
   ComponentContextNext,
   expectSingleCallAndReset,
 } from '@s-libs/ng-dev';
@@ -75,13 +73,12 @@ class ColorTextComponent extends DirectiveSuperclass {
   }
 }
 
-class TestComponentContext extends ComponentContext<TestComponent> {
+class TestComponentContext extends ComponentContextNext<TestComponent> {
   color$ = new BehaviorSubject('Grey');
-  protected componentType = TestComponent;
 
   constructor() {
-    super({
-      declarations: [ColorTextComponent, TestComponent],
+    super(TestComponent, {
+      declarations: [ColorTextComponent],
       providers: [
         { provide: 'color$', useFactory: () => this.color$ },
         // this can go away with component harnesses eventually
@@ -92,33 +89,28 @@ class TestComponentContext extends ComponentContext<TestComponent> {
 }
 
 describe('DirectiveSuperclass', () => {
-  let ctx: TestComponentContext;
-  beforeEach(() => {
-    ctx = new TestComponentContext();
-  });
-
-  function colorTextComponent(): ColorTextComponent {
+  function colorTextComponent(ctx: TestComponentContext): ColorTextComponent {
     return ctx.fixture.debugElement.query(By.directive(ColorTextComponent))
       .componentInstance;
   }
 
-  function darkButton(): HTMLButtonElement {
+  function darkButton(ctx: TestComponentContext): HTMLButtonElement {
     return findButton(ctx.fixture, 'Dark');
   }
 
-  function slateButton(): HTMLButtonElement {
+  function slateButton(ctx: TestComponentContext): HTMLButtonElement {
     return findButton(ctx.fixture, 'Slate');
   }
 
-  function bothButton(): HTMLButtonElement {
+  function bothButton(ctx: TestComponentContext): HTMLButtonElement {
     return findButton(ctx.fixture, 'Both');
   }
 
-  function hideButton(): HTMLButtonElement {
+  function hideButton(ctx: TestComponentContext): HTMLButtonElement {
     return findButton(ctx.fixture, 'Hide');
   }
 
-  function colorSpan(): HTMLSpanElement {
+  function colorSpan(ctx: TestComponentContext): HTMLSpanElement {
     return find<HTMLSpanElement>(ctx.fixture, 's-color-text span');
   }
 
@@ -138,18 +130,19 @@ describe('DirectiveSuperclass', () => {
 
   describe('.inputChanges$', () => {
     it('emits the keys that change', () => {
+      const ctx = new TestComponentContext();
       ctx.run(() => {
         const stub = jasmine.createSpy();
-        colorTextComponent().inputChanges$.subscribe(stub);
+        colorTextComponent(ctx).inputChanges$.subscribe(stub);
         expect(stub).not.toHaveBeenCalled();
 
-        click(darkButton());
+        click(darkButton(ctx));
         expectSingleCallAndReset(stub, new Set(['prefix']));
 
-        click(slateButton());
+        click(slateButton(ctx));
         expectSingleCallAndReset(stub, new Set(['prefix2']));
 
-        click(bothButton());
+        click(bothButton(ctx));
         expectSingleCallAndReset(stub, new Set(['prefix', 'prefix2']));
       });
     });
@@ -157,21 +150,22 @@ describe('DirectiveSuperclass', () => {
 
   describe('.getInput$()', () => {
     it('emits the value of an input when it changes', () => {
+      const ctx = new TestComponentContext();
       ctx.run(() => {
         const stub = jasmine.createSpy();
-        colorTextComponent().getInput$('prefix2').subscribe(stub);
+        colorTextComponent(ctx).getInput$('prefix2').subscribe(stub);
         ctx.tick();
         expect(stub).toHaveBeenCalledTimes(1);
         expect(stub.calls.argsFor(0)).toEqual([undefined]);
 
-        click(darkButton());
+        click(darkButton(ctx));
         expect(stub).toHaveBeenCalledTimes(1);
 
-        click(slateButton());
+        click(slateButton(ctx));
         expect(stub).toHaveBeenCalledTimes(2);
         expect(stub.calls.argsFor(1)).toEqual(['Slate']);
 
-        click(bothButton());
+        click(bothButton(ctx));
         expect(stub).toHaveBeenCalledTimes(3);
         expect(stub.calls.argsFor(2)).toEqual([undefined]);
       });
@@ -179,7 +173,7 @@ describe('DirectiveSuperclass', () => {
 
     // https://github.com/simontonsoftware/s-ng-utils/issues/10
     it('emits `undefined` for unspecified inputs', () => {
-      @Component({ selector: 's-test', template: '' })
+      @Component({ template: '' })
       class TestDirective extends DirectiveSuperclass {
         @Input() unspecified?: string;
         @Input() specified?: string;
@@ -202,7 +196,7 @@ describe('DirectiveSuperclass', () => {
 
     // https://github.com/simontonsoftware/s-libs/issues/14
     it('emits immediately (only) if `ngOnChanges()` was already called', () => {
-      @Component({ selector: 's-test', template: '' })
+      @Component({ template: '' })
       class TestDirective extends DirectiveSuperclass implements OnChanges {
         @Input() myInput?: string;
         stage = 'before ngOnChanges';
@@ -231,8 +225,8 @@ describe('DirectiveSuperclass', () => {
     });
 
     it('emits even if no inputs are provided to the component', () => {
-      @Directive({ selector: '[sTest]' })
-      class TestDirective extends DirectiveSuperclass {
+      @Component({ selector: 's-no-input', template: '' })
+      class NoInputComponent extends DirectiveSuperclass {
         @Input() myInput?: string;
         emitted = false;
 
@@ -244,22 +238,16 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      @Component({ template: '<div sTest></div>' })
+      @Component({ template: '<s-no-input></s-no-input>' })
       class WrapperComponent {}
 
-      class TestContext2 extends ComponentContext<WrapperComponent> {
-        componentType = WrapperComponent;
-
-        constructor() {
-          super({ declarations: [TestDirective, WrapperComponent] });
-        }
-      }
-
-      const ctx2 = new TestContext2();
+      const ctx2 = new ComponentContextNext(WrapperComponent, {
+        declarations: [NoInputComponent],
+      });
       ctx2.run(() => {
         const testDirective = ctx2.fixture.debugElement
-          .query(By.directive(TestDirective))
-          .injector.get(TestDirective);
+          .query(By.directive(NoInputComponent))
+          .injector.get(NoInputComponent);
         expect(testDirective.emitted).toBe(true);
       });
     });
@@ -267,44 +255,47 @@ describe('DirectiveSuperclass', () => {
 
   describe('.bindToInstance()', () => {
     it('sets the local value', () => {
+      const ctx = new TestComponentContext();
       ctx.run(() => {
-        expect(colorSpan().innerText).toBe('Grey');
-        expect(colorSpan().style.backgroundColor).toBe('grey');
+        expect(colorSpan(ctx).innerText).toBe('Grey');
+        expect(colorSpan(ctx).style.backgroundColor).toBe('grey');
 
-        click(darkButton());
-        expect(colorSpan().innerText).toBe('DarkGrey');
-        expect(colorSpan().style.backgroundColor).toBe('darkgrey');
+        click(darkButton(ctx));
+        expect(colorSpan(ctx).innerText).toBe('DarkGrey');
+        expect(colorSpan(ctx).style.backgroundColor).toBe('darkgrey');
 
-        click(slateButton());
-        expect(colorSpan().innerText).toBe('DarkSlateGrey');
-        expect(colorSpan().style.backgroundColor).toBe('darkslategrey');
+        click(slateButton(ctx));
+        expect(colorSpan(ctx).innerText).toBe('DarkSlateGrey');
+        expect(colorSpan(ctx).style.backgroundColor).toBe('darkslategrey');
 
-        click(bothButton());
-        expect(colorSpan().innerText).toBe('Grey');
-        expect(colorSpan().style.backgroundColor).toBe('grey');
+        click(bothButton(ctx));
+        expect(colorSpan(ctx).innerText).toBe('Grey');
+        expect(colorSpan(ctx).style.backgroundColor).toBe('grey');
       });
     });
 
     it('triggers change detection', () => {
+      const ctx = new TestComponentContext();
       ctx.run(() => {
         ctx.color$.next('Blue');
         ctx.fixture.detectChanges();
-        expect(colorSpan().innerText).toBe('Blue');
-        expect(colorSpan().style.backgroundColor).toBe('blue');
+        expect(colorSpan(ctx).innerText).toBe('Blue');
+        expect(colorSpan(ctx).style.backgroundColor).toBe('blue');
 
-        click(bothButton());
-        expect(colorSpan().innerText).toBe('DarkSlateBlue');
-        expect(colorSpan().style.backgroundColor).toBe('darkslateblue');
+        click(bothButton(ctx));
+        expect(colorSpan(ctx).innerText).toBe('DarkSlateBlue');
+        expect(colorSpan(ctx).style.backgroundColor).toBe('darkslateblue');
       });
     });
   });
 
   describe('.subscribeTo()', () => {
     it('cleans up subscriptions', () => {
+      const ctx = new TestComponentContext();
       ctx.run(() => {
         expect(ctx.color$.observers.length).toBe(1);
 
-        click(hideButton());
+        click(hideButton(ctx));
         expect(ctx.color$.observers.length).toBe(0);
       });
     });
