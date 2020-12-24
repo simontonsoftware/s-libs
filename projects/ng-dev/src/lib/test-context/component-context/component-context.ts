@@ -5,8 +5,8 @@ import {
   TestModuleMetadata,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { trimLeftoverStyles } from '../trim-leftover-styles';
-import { AngularContext, extendMetadata } from './angular-context';
+import { trimLeftoverStyles } from '../../trim-leftover-styles';
+import { AngularContext, extendMetadata } from '../angular-context';
 
 /** @hidden */
 export interface ComponentContextInit<ComponentType> {
