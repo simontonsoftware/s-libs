@@ -47,51 +47,46 @@ export interface ComponentContextNextInit<ComponentType> {
  * This class integrates {@link trimLeftoverStyles} to speed up your test suite, as described in the docs for that function.
  */
 export class ComponentContextNext<
-  ComponentType = unknown,
-  InitOptions extends ComponentContextNextInit<ComponentType> = ComponentContextNextInit<ComponentType>
+  ComponentUnderTest,
+  InitOptions extends ComponentContextNextInit<ComponentUnderTest> = ComponentContextNextInit<ComponentUnderTest>
 > extends AngularContext<InitOptions> {
   /**
    * The {@link ComponentFixture} for a synthetic wrapper around your component.
    */
   fixture!: ComponentFixture<unknown>;
 
-  private componentType: Type<ComponentType>;
-  private wrapperType: Type<ComponentType>;
-  private inputProperties: Set<string>;
+  private componentType: Type<ComponentUnderTest>;
+  private wrapperType: Type<ComponentUnderTest>;
+  private inputProperties: Set<keyof ComponentUnderTest>;
 
   /**
    * @param componentType `.run()` will create a component of this type before running the rest of your test.
    * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContext}.
    */
   constructor(
-    componentType: Type<ComponentType>,
+    componentType: Type<ComponentUnderTest>,
     moduleMetadata: TestModuleMetadata = {},
+    unboundInputs: Array<keyof ComponentUnderTest> = [],
   ) {
-    const { wrapperType, inputProperties } = createDynamicWrapper(
-      componentType,
-    );
+    const wrapper = createDynamicWrapper(componentType, unboundInputs);
     super(
       extendMetadata(moduleMetadata, {
         imports: [NoopAnimationsModule],
-        declarations: [wrapperType, componentType],
+        declarations: [wrapper.type, componentType],
       }),
     );
     this.componentType = componentType;
-    this.wrapperType = wrapperType;
-    this.inputProperties = new Set(inputProperties);
+    this.wrapperType = wrapper.type;
+    this.inputProperties = new Set(wrapper.inputProperties);
   }
 
-  updateInputs(inputs: Partial<ComponentType>): void {
-    for (const key of keys(inputs)) {
-      if (!this.inputProperties.has(key as string)) {
-        throw new Error(`"${key}" is not an input for this component`);
-      }
-    }
+  updateInputs(inputs: Partial<ComponentUnderTest>): void {
+    this.validateInputs(inputs);
     Object.assign(this.fixture.componentInstance, inputs);
     this.tick();
   }
 
-  getComponentInstance(): ComponentType {
+  getComponentInstance(): ComponentUnderTest {
     return this.fixture.debugElement.query(By.directive(this.componentType))
       .componentInstance;
   }
@@ -101,9 +96,15 @@ export class ComponentContextNext<
    */
   protected init(options: Partial<InitOptions>): void {
     trimLeftoverStyles();
-    super.init(options);
-    this.fixture = TestBed.createComponent<ComponentType>(this.wrapperType);
-    Object.assign(this.fixture.componentInstance, options.inputs);
+    super.init({});
+    this.fixture = TestBed.createComponent<ComponentUnderTest>(
+      this.wrapperType,
+    );
+
+    const inputs = options.inputs || {};
+    this.validateInputs(inputs);
+    Object.assign(this.fixture.componentInstance, inputs);
+
     this.fixture.detectChanges();
     this.tick();
   }
@@ -119,5 +120,15 @@ export class ComponentContextNext<
   protected cleanUp(): void {
     this.fixture.destroy();
     super.cleanUp();
+  }
+
+  private validateInputs(inputs: Partial<ComponentUnderTest>): void {
+    for (const key of keys(inputs)) {
+      if (!this.inputProperties.has(key as keyof ComponentUnderTest)) {
+        throw new Error(
+          `Cannot bind to "${key}" (it is not an input, or you passed it in \`unboundProperties\`)`,
+        );
+      }
+    }
   }
 }

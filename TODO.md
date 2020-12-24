@@ -1,4 +1,3 @@
-- Add a new feature to skip binding to specific inputs (or something like that)
 - Write migration guide from `ComponentContext` -> `ComponentContextNext`
   - Rename `input` to `inputs`
   - All variables set via `inputs` must be Angular `@Input()`s

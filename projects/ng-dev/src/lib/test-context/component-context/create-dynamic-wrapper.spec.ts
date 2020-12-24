@@ -86,19 +86,16 @@ describe('createDynamicWrapper()', () => {
     });
   });
 
-  it('errors with a nice message when given a non-input', () => {
+  it('allows using default values for inputs', () => {
     @Component({ template: '' })
-    class NonInputComponent {
-      nonInput?: string;
-      // tslint:disable-next-line:no-input-rename
-      @Input('nonInput') letsTryToTrickIt?: string;
+    class UnboundInputComponent {
+      @Input() doNotBind = 'default value';
     }
-
-    const ctx = new ComponentContextNext(NonInputComponent);
+    const ctx = new ComponentContextNext(UnboundInputComponent, {}, [
+      'doNotBind',
+    ]);
     ctx.run(() => {
-      expect(() => {
-        ctx.updateInputs({ nonInput: 'value' });
-      }).toThrowError('"nonInput" is not an input for this component');
+      expect(ctx.getComponentInstance().doNotBind).toBe('default value');
     });
   });
 

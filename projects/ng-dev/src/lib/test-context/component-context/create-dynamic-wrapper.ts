@@ -1,18 +1,26 @@
 import { Component, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { assert } from '@s-libs/js-core';
-import { flatten, map } from '@s-libs/micro-dash';
+import { flatMap } from '@s-libs/micro-dash';
 
-interface InputMeta {
+interface InputMeta<ComponentUnderTest> {
   binding: string;
-  property: string;
+  property: keyof ComponentUnderTest;
 }
 
-export function createDynamicWrapper<T>(
-  componentType: Type<T>,
-): { wrapperType: Type<T>; inputProperties: string[] } {
+interface DynamicWrapper<ComponentUnderTest> {
+  type: Type<ComponentUnderTest>;
+  inputProperties: Array<keyof ComponentUnderTest>;
+}
+
+export function createDynamicWrapper<ComponentUnderTest>(
+  componentType: Type<ComponentUnderTest>,
+  unboundInputs: Array<keyof ComponentUnderTest>,
+): DynamicWrapper<ComponentUnderTest> {
   const selector = getSelector(componentType);
-  const inputMetas = getInputMetas(componentType);
+  const inputMetas = getInputMetas(componentType).filter(
+    ({ property }) => !unboundInputs.includes(property),
+  );
 
   const template = `
     <div>
@@ -27,9 +35,9 @@ export function createDynamicWrapper<T>(
   @Component({ template })
   class DynamicWrapperComponent {}
 
-  const wrapperType = DynamicWrapperComponent as Type<T>;
+  const type = DynamicWrapperComponent as Type<ComponentUnderTest>;
   const inputProperties = inputMetas.map((meta) => meta.property);
-  return { wrapperType, inputProperties };
+  return { type, inputProperties };
 }
 
 function getSelector(componentType: Type<unknown>): string {
@@ -60,9 +68,12 @@ function isValidSelector(selector: string): boolean {
   }
 }
 
-function getInputMetas(componentType: any): InputMeta[] {
-  return flatten(
-    map(componentType.propDecorators, (decorators: any[], property: string) => {
+function getInputMetas<ComponentUnderTest>(
+  componentType: Type<ComponentUnderTest>,
+): Array<InputMeta<ComponentUnderTest>> {
+  return flatMap(
+    (componentType as any).propDecorators,
+    (decorators: any[], property: any) => {
       const inputDecorators = decorators.filter(
         (decorator) => decorator.type.prototype.ngMetadataName === 'Input',
       );
@@ -70,6 +81,6 @@ function getInputMetas(componentType: any): InputMeta[] {
         const binding = decorator.args?.[0] || property;
         return { property, binding };
       });
-    }),
+    },
   );
 }

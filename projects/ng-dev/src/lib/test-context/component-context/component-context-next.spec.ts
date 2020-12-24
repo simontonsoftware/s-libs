@@ -174,6 +174,41 @@ describe('ComponentContextNext', () => {
       expect().nothing();
     });
   });
+
+  describe('.validateInputs()', () => {
+    it('errors with a nice message when given a non-input', () => {
+      @Component({ template: '' })
+      class NonInputComponent {
+        nonInput?: string;
+        // tslint:disable-next-line:no-input-rename
+        @Input('nonInput') letsTryToTrickIt?: string;
+      }
+
+      const ctx = new ComponentContextNext(NonInputComponent);
+      ctx.run(() => {
+        expect(() => {
+          ctx.updateInputs({ nonInput: 'value' });
+        }).toThrowError(
+          'Cannot bind to "nonInput" (it is not an input, or you passed it in `unboundProperties`)',
+        );
+      });
+    });
+
+    it('errors with a nice message when given an unbound input', () => {
+      @Component({ template: '' })
+      class UnboundInputComponent {
+        @Input() doNotBind?: string;
+      }
+      const ctx = new ComponentContextNext(UnboundInputComponent, {}, [
+        'doNotBind',
+      ]);
+      expect(() => {
+        ctx.run({ inputs: { doNotBind: "I'll do what I want" } }, noop);
+      }).toThrowError(
+        'Cannot bind to "doNotBind" (it is not an input, or you passed it in `unboundProperties`)',
+      );
+    });
+  });
 });
 
 // describe('ComponentContextNext class-level doc example', () => {
