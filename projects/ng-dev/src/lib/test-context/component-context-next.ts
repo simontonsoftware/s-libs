@@ -7,7 +7,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { assert } from '@s-libs/js-core';
-import { flatten, map } from '@s-libs/micro-dash';
+import { flatten, keys, map } from '@s-libs/micro-dash';
 import { trimLeftoverStyles } from '../trim-leftover-styles';
 import { AngularContext, extendMetadata } from './angular-context';
 
@@ -78,6 +78,14 @@ export class ComponentContextNext<
   }
 
   updateInputs(inputs: Partial<ComponentType>): void {
+    const properties = new Set(
+      getInputs(this.componentType).map(({ binding }) => binding),
+    );
+    for (const key of keys(inputs)) {
+      if (!properties.has(key as string)) {
+        throw new Error(`"${key}" is not an input for this component`);
+      }
+    }
     Object.assign(this.fixture.componentInstance, inputs);
     this.tick();
   }
@@ -171,10 +179,10 @@ function getInputs(
       const inputDecorators = decorators.filter(
         (decorator) => decorator.type.prototype.ngMetadataName === 'Input',
       );
-      return inputDecorators.map((decorator) => ({
-        property,
-        binding: decorator.args?.[0] || property,
-      }));
+      return inputDecorators.map((decorator) => {
+        const binding = decorator.args?.[0] || property;
+        return { property, binding };
+      });
     }),
   );
 }

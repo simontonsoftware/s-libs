@@ -226,6 +226,21 @@ describe('ComponentContextNext', () => {
         expect(changes.myInput.currentValue).toBe('new value');
       });
     });
+
+    it('throws an error if given a non-input', () => {
+      @Component({ template: '' })
+      class NonInputComponent {
+        // tslint:disable-next-line:no-input-rename
+        @Input('nonInputBindingName') nonInput?: string;
+      }
+
+      const ctx = new ComponentContextNext(NonInputComponent);
+      ctx.run(() => {
+        expect(() => {
+          ctx.updateInputs({ nonInput: 'value' });
+        }).toThrowError('"nonInput" is not an input for this component');
+      });
+    });
   });
 
   describe('.runChangeDetection()', () => {
