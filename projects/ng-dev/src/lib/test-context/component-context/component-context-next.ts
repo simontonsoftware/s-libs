@@ -9,7 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { keys } from '@s-libs/micro-dash';
 import { trimLeftoverStyles } from '../../trim-leftover-styles';
 import { AngularContext, extendMetadata } from '../angular-context';
-import { createDynamicWrapper, getInputs } from './dynamic-wrapper.component';
+import { createDynamicWrapper } from './create-dynamic-wrapper';
 
 /** @hidden */
 export interface ComponentContextNextInit<ComponentType> {
@@ -56,7 +56,8 @@ export class ComponentContextNext<
   fixture!: ComponentFixture<unknown>;
 
   private componentType: Type<ComponentType>;
-  private wrapperComponentType: Type<ComponentType>;
+  private wrapperType: Type<ComponentType>;
+  private inputProperties: Set<string>;
 
   /**
    * @param componentType `.run()` will create a component of this type before running the rest of your test.
@@ -66,23 +67,23 @@ export class ComponentContextNext<
     componentType: Type<ComponentType>,
     moduleMetadata: TestModuleMetadata = {},
   ) {
-    const dynamicWrapper = createDynamicWrapper(componentType);
+    const { wrapperType, inputProperties } = createDynamicWrapper(
+      componentType,
+    );
     super(
       extendMetadata(moduleMetadata, {
         imports: [NoopAnimationsModule],
-        declarations: [dynamicWrapper, componentType],
+        declarations: [wrapperType, componentType],
       }),
     );
     this.componentType = componentType;
-    this.wrapperComponentType = dynamicWrapper;
+    this.wrapperType = wrapperType;
+    this.inputProperties = new Set(inputProperties);
   }
 
   updateInputs(inputs: Partial<ComponentType>): void {
-    const properties = new Set(
-      getInputs(this.componentType).map(({ binding }) => binding),
-    );
     for (const key of keys(inputs)) {
-      if (!properties.has(key as string)) {
+      if (!this.inputProperties.has(key as string)) {
         throw new Error(`"${key}" is not an input for this component`);
       }
     }
@@ -101,9 +102,7 @@ export class ComponentContextNext<
   protected init(options: Partial<InitOptions>): void {
     trimLeftoverStyles();
     super.init(options);
-    this.fixture = TestBed.createComponent<ComponentType>(
-      this.wrapperComponentType,
-    );
+    this.fixture = TestBed.createComponent<ComponentType>(this.wrapperType);
     Object.assign(this.fixture.componentInstance, options.inputs);
     this.fixture.detectChanges();
     this.tick();

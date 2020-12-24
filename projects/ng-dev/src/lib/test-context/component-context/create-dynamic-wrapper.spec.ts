@@ -3,8 +3,8 @@ import { By } from '@angular/platform-browser';
 import { noop } from '@s-libs/micro-dash';
 import { ComponentContextNext } from './component-context-next';
 
-describe('DynamicWrapperComponent', () => {
-  it('uses the components selector if it is a tag name', () => {
+describe('createDynamicWrapper()', () => {
+  it("uses the component's selector if it is a tag name", () => {
     @Component({ selector: 's-tag-name', template: '' })
     class TagNameComponent {}
 
@@ -86,11 +86,12 @@ describe('DynamicWrapperComponent', () => {
     });
   });
 
-  it('throws an error if given a non-input', () => {
+  it('errors with a nice message when given a non-input', () => {
     @Component({ template: '' })
     class NonInputComponent {
+      nonInput?: string;
       // tslint:disable-next-line:no-input-rename
-      @Input('nonInputBindingName') nonInput?: string;
+      @Input('nonInput') letsTryToTrickIt?: string;
     }
 
     const ctx = new ComponentContextNext(NonInputComponent);
@@ -99,5 +100,14 @@ describe('DynamicWrapperComponent', () => {
         ctx.updateInputs({ nonInput: 'value' });
       }).toThrowError('"nonInput" is not an input for this component');
     });
+  });
+
+  it('errors with a nice message when given a non-component', () => {
+    class NotAComponent {}
+
+    expect(() => {
+      // tslint:disable-next-line:no-unused-expression
+      new ComponentContextNext(NotAComponent);
+    }).toThrowError('That does not appear to be a component');
   });
 });

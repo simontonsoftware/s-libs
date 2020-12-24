@@ -3,14 +3,21 @@ import { TestBed } from '@angular/core/testing';
 import { assert } from '@s-libs/js-core';
 import { flatten, map } from '@s-libs/micro-dash';
 
-export function createDynamicWrapper<T>(componentType: Type<T>): Type<T> {
+interface InputMeta {
+  binding: string;
+  property: string;
+}
+
+export function createDynamicWrapper<T>(
+  componentType: Type<T>,
+): { wrapperType: Type<T>; inputProperties: string[] } {
   const selector = getSelector(componentType);
-  const inputs = getInputs(componentType);
+  const inputMetas = getInputMetas(componentType);
 
   const template = `
     <div>
       <${selector}
-        ${inputs
+        ${inputMetas
           .map(({ binding, property }) => `[${binding}]="${property}"`)
           .join(' ')}
       ></${selector}>
@@ -20,7 +27,9 @@ export function createDynamicWrapper<T>(componentType: Type<T>): Type<T> {
   @Component({ template })
   class DynamicWrapperComponent {}
 
-  return DynamicWrapperComponent as Type<T>;
+  const wrapperType = DynamicWrapperComponent as Type<T>;
+  const inputProperties = inputMetas.map((meta) => meta.property);
+  return { wrapperType, inputProperties };
 }
 
 function getSelector(componentType: Type<unknown>): string {
@@ -51,9 +60,7 @@ function isValidSelector(selector: string): boolean {
   }
 }
 
-export function getInputs(
-  componentType: any,
-): Array<{ binding: string; property: string }> {
+function getInputMetas(componentType: any): InputMeta[] {
   return flatten(
     map(componentType.propDecorators, (decorators: any[], property: string) => {
       const inputDecorators = decorators.filter(
