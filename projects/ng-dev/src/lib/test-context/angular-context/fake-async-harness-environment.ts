@@ -3,7 +3,7 @@ import { UnitTestElement } from '@angular/cdk/testing/testbed';
 import { flush } from '@angular/core/testing';
 import { bindKey } from '@s-libs/micro-dash';
 import { AngularContext } from './angular-context';
-import { synchronize, Synchronized } from './synchronize';
+import { synchronize, Synchronized } from '../synchronize';
 
 /** @hidden */
 export class FakeAsyncHarnessEnvironment extends HarnessEnvironment<Element> {
