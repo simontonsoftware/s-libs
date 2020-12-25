@@ -3,20 +3,23 @@ import { TestBed } from '@angular/core/testing';
 import { assert } from '@s-libs/js-core';
 import { flatMap } from '@s-libs/micro-dash';
 
-interface InputMeta<ComponentUnderTest> {
+/** @hidden */
+interface InputMeta<T> {
   binding: string;
-  property: keyof ComponentUnderTest;
+  property: keyof T;
 }
 
-interface DynamicWrapper<ComponentUnderTest> {
-  type: Type<ComponentUnderTest>;
-  inputProperties: Array<keyof ComponentUnderTest>;
+/** @hidden */
+interface DynamicWrapper<T> {
+  type: Type<T>;
+  inputProperties: Array<keyof T>;
 }
 
-export function createDynamicWrapper<ComponentUnderTest>(
-  componentType: Type<ComponentUnderTest>,
-  unboundInputs: Array<keyof ComponentUnderTest>,
-): DynamicWrapper<ComponentUnderTest> {
+/** @hidden */
+export function createDynamicWrapper<T>(
+  componentType: Type<T>,
+  unboundInputs: Array<keyof T>,
+): DynamicWrapper<T> {
   const selector = getSelector(componentType);
   const inputMetas = getInputMetas(componentType).filter(
     ({ property }) => !unboundInputs.includes(property),
@@ -35,11 +38,12 @@ export function createDynamicWrapper<ComponentUnderTest>(
   @Component({ template })
   class DynamicWrapperComponent {}
 
-  const type = DynamicWrapperComponent as Type<ComponentUnderTest>;
+  const type = DynamicWrapperComponent as Type<T>;
   const inputProperties = inputMetas.map((meta) => meta.property);
   return { type, inputProperties };
 }
 
+/** @hidden */
 function getSelector(componentType: Type<unknown>): string {
   const annotations = Reflect.getOwnPropertyDescriptor(
     componentType,
@@ -56,6 +60,7 @@ function getSelector(componentType: Type<unknown>): string {
   return selector;
 }
 
+/** @hidden */
 function isValidSelector(selector: string): boolean {
   if (!selector) {
     return false;
@@ -68,9 +73,8 @@ function isValidSelector(selector: string): boolean {
   }
 }
 
-function getInputMetas<ComponentUnderTest>(
-  componentType: Type<ComponentUnderTest>,
-): Array<InputMeta<ComponentUnderTest>> {
+/** @hidden */
+function getInputMetas<T>(componentType: Type<T>): Array<InputMeta<T>> {
   return flatMap(
     (componentType as any).propDecorators,
     (decorators: any[], property: any) => {

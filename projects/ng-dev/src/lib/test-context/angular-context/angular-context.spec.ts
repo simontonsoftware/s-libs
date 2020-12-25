@@ -15,7 +15,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { noop, Observable } from 'rxjs';
-import { expectSingleCallAndReset } from '../spies';
+import { expectSingleCallAndReset } from '../../spies';
 import { AngularContext } from './angular-context';
 
 class TestContext extends AngularContext {

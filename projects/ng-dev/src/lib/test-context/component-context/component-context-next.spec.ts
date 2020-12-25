@@ -211,20 +211,16 @@ describe('ComponentContextNext', () => {
   });
 });
 
-// describe('ComponentContextNext class-level doc example', () => {
-//   @Component({ template: 'Hello, {{name}}!' })
-//   class GreeterComponent {
-//     @Input() name!: string;
-//   }
-//
-//   let ctx: ComponentContextNext;
-//   beforeEach(() => {
-//     ctx = new ComponentContextNext(GreeterComponent);
-//   });
-//
-//   it('greets you by name', () => {
-//     ctx.run({ input: { name: 'World' } }, () => {
-//       expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
-//     });
-//   });
-// });
+describe('ComponentContextNext class-level doc example', () => {
+  @Component({ template: 'Hello, {{name}}!' })
+  class GreeterComponent {
+    @Input() name!: string;
+  }
+
+  it('greets you by name', () => {
+    const ctx = new ComponentContextNext(GreeterComponent);
+    ctx.run({ inputs: { name: 'World' } }, () => {
+      expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
+    });
+  });
+});

@@ -8,65 +8,58 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { keys } from '@s-libs/micro-dash';
 import { trimLeftoverStyles } from '../../trim-leftover-styles';
-import { AngularContext, extendMetadata } from '../angular-context';
+import {
+  AngularContext,
+  extendMetadata,
+} from '../angular-context/angular-context';
 import { createDynamicWrapper } from './create-dynamic-wrapper';
 
 /** @hidden */
-export interface ComponentContextNextInit<ComponentType> {
-  inputs: Partial<ComponentType>;
+export interface ComponentContextNextInit<T> {
+  inputs: Partial<T>;
 }
 
 /**
  * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContext}. A very simple example:
  *
- * TODO: update
  * ```ts
  * @Component({ template: 'Hello, {{name}}!' })
  * class GreeterComponent {
  *   @Input() name!: string;
  * }
  *
- * class GreeterComponentContext extends ComponentContext {
- *   protected componentType = GreeterComponent;
- * }
- *
- * describe('ComponentContext', () => {
- *   let ctx: GreeterComponentContext;
- *   beforeEach(() => {
- *     ctx = new GreeterComponentContext();
+ * it('greets you by name', () => {
+ *   const ctx = new ComponentContextNext(GreeterComponent);
+ *   ctx.run({ inputs: { name: 'World' } }, () => {
+ *     expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
  *   });
- *
- *   it('greets you by name', () => {
- *     ctx.run({ input: { name: 'World' } }, () => {
- *       expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
- *     });
- *   });
- * })
+ * });
  * ```
  *
  * This class integrates {@link trimLeftoverStyles} to speed up your test suite, as described in the docs for that function.
  */
 export class ComponentContextNext<
-  ComponentUnderTest,
-  InitOptions extends ComponentContextNextInit<ComponentUnderTest> = ComponentContextNextInit<ComponentUnderTest>
+  T,
+  InitOptions extends ComponentContextNextInit<T> = ComponentContextNextInit<T>
 > extends AngularContext<InitOptions> {
   /**
    * The {@link ComponentFixture} for a synthetic wrapper around your component.
    */
   fixture!: ComponentFixture<unknown>;
 
-  private componentType: Type<ComponentUnderTest>;
-  private wrapperType: Type<ComponentUnderTest>;
-  private inputProperties: Set<keyof ComponentUnderTest>;
+  private componentType: Type<T>;
+  private wrapperType: Type<T>;
+  private inputProperties: Set<keyof T>;
 
   /**
-   * @param componentType `.run()` will create a component of this type before running the rest of your test.
+   * @param componentType `run()` will create a component of this type before running the rest of your test.
    * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContext}.
+   * @param unboundInputs By default a synthetic parent component will be created that binds to all your component's inputs. Include inputs here that should NOT be bound. This is useful e.g. to test the default value of an input.
    */
   constructor(
-    componentType: Type<ComponentUnderTest>,
+    componentType: Type<T>,
     moduleMetadata: TestModuleMetadata = {},
-    unboundInputs: Array<keyof ComponentUnderTest> = [],
+    unboundInputs: Array<keyof T> = [],
   ) {
     const wrapper = createDynamicWrapper(componentType, unboundInputs);
     super(
@@ -80,26 +73,30 @@ export class ComponentContextNext<
     this.inputProperties = new Set(wrapper.inputProperties);
   }
 
-  updateInputs(inputs: Partial<ComponentUnderTest>): void {
+  /**
+   * Use within `run()` to update the inputs to your component and trigger all the appropriate change detection and lifecycle hooks.
+   */
+  updateInputs(inputs: Partial<T>): void {
     this.validateInputs(inputs);
     Object.assign(this.fixture.componentInstance, inputs);
     this.tick();
   }
 
-  getComponentInstance(): ComponentUnderTest {
+  /**
+   * Use within `run()` to get your instantiated component that is on the page.
+   */
+  getComponentInstance(): T {
     return this.fixture.debugElement.query(By.directive(this.componentType))
       .componentInstance;
   }
 
   /**
-   * Constructs and initializes your component. Called during `.run()` before it executes the rest of your test. Runs in the same `fakeAsync` zone as the rest of your test.
+   * Constructs and initializes your component. Called during `run()` before it executes the rest of your test. Runs in the same `fakeAsync` zone as the rest of your test.
    */
   protected init(options: Partial<InitOptions>): void {
     trimLeftoverStyles();
-    super.init({});
-    this.fixture = TestBed.createComponent<ComponentUnderTest>(
-      this.wrapperType,
-    );
+    super.init(options);
+    this.fixture = TestBed.createComponent(this.wrapperType);
 
     const inputs = options.inputs || {};
     this.validateInputs(inputs);
@@ -122,9 +119,9 @@ export class ComponentContextNext<
     super.cleanUp();
   }
 
-  private validateInputs(inputs: Partial<ComponentUnderTest>): void {
+  private validateInputs(inputs: Partial<T>): void {
     for (const key of keys(inputs)) {
-      if (!this.inputProperties.has(key as keyof ComponentUnderTest)) {
+      if (!this.inputProperties.has(key as keyof T)) {
         throw new Error(
           `Cannot bind to "${key}" (it is not an input, or you passed it in \`unboundProperties\`)`,
         );

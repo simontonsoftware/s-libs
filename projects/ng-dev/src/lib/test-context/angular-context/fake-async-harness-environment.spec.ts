@@ -1,7 +1,7 @@
 import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { Component } from '@angular/core';
 import { MatButtonHarness } from '@angular/material/button/testing';
-import { ComponentContextNext } from './component-context';
+import { ComponentContextNext } from '../component-context';
 import { Synchronized } from './synchronize';
 
 @Component({
