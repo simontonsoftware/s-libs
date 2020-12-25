@@ -20,8 +20,14 @@ export interface ComponentContextNextInit<T> {
 }
 
 /**
- * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContext}. A very simple example:
+ * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContext} plus:
  *
+ * - Automatically creates your component at the beginning of `run()`.
+ * - Wraps your component in a dynamically created parent component, so that Angular will call `ngOnChanges()` in your tests the same way it does in production.
+ * - Automatically disables animations.
+ * - Automatically integrates {@link trimLeftoverStyles} to speed up your test suite.
+ *
+ * A very simple example:
  * ```ts
  * @Component({ template: 'Hello, {{name}}!' })
  * class GreeterComponent {
@@ -36,7 +42,105 @@ export interface ComponentContextNextInit<T> {
  * });
  * ```
  *
- * This class integrates {@link trimLeftoverStyles} to speed up your test suite, as described in the docs for that function.
+ * A full example, with routing and a component harness. This is a fully functional Angular app:
+ * ```ts
+ * /////////////////
+ * // app-context.ts
+ *
+ * // To re-use your context setup, make a subclass of ComponentContext to
+ * // import into any spec
+ * class AppContext extends ComponentContextNext<AppComponent> {
+ *   constructor() {
+ *     super(AppComponent, {
+ *       imports: [
+ *         // This is your production `AppModule`. Make 1 tweak there:
+ *         // export `AppComponent`
+ *         AppModule,
+ *         // Import `routes` from your `app-routing.module.ts`
+ *         RouterTestingModule.withRoutes(routes),
+ *       ],
+ *     });
+ *   }
+ * }
+ *
+ * ////////////////////////
+ * // app.component.spec.ts
+ *
+ * describe('AppComponent', () => {
+ *   let ctx: AppContext;
+ *   beforeEach(() => {
+ *     ctx = new AppContext();
+ *   });
+ *
+ *   it('can navigate to the first page', () => {
+ *     ctx.run(() => {
+ *       ctx.getHarness(AppComponentHarness).navigateToFirstPage();
+ *       expect(ctx.fixture.nativeElement.textContent).toContain(
+ *         'First works!',
+ *       );
+ *     });
+ *   });
+ * });
+ *
+ * ///////////////////////////
+ * // app.component.harness.ts
+ *
+ * // A simple component harness to demonstrate its integration with component contexts
+ * class AppComponentHarness extends ComponentHarness {
+ *   static hostSelector = 'app-root';
+ *
+ *   private getFirstPageLink = this.locatorFor('a');
+ *
+ *   async navigateToFirstPage(): Promise<void> {
+ *     const link = await this.getFirstPageLink();
+ *     await link.click();
+ *   }
+ * }
+ *
+ * /////////////////////
+ * // first.component.ts
+ *
+ * // A minimal component for demonstration purposes
+ * @Component({ template: '<p>First works!</p>' })
+ * class FirstComponent {}
+ *
+ * ///////////////////
+ * // app.component.ts
+ *
+ * // A minimal app component with routing for demonstration purposes
+ * @Component({
+ *   selector: 'app-root',
+ *   template: `
+ *     <a routerLink="/first-page">First Page</a>
+ *     <router-outlet></router-outlet>
+ *   `,
+ * })
+ * class AppComponent {}
+ *
+ * ////////////////////////
+ * // app-routing.module.ts
+ *
+ * // exported for use in tests
+ * const routes: Routes = [{ path: 'first-page', component: FirstComponent }];
+ *
+ * @NgModule({
+ *   imports: [RouterModule.forRoot(routes)],
+ *   exports: [RouterModule],
+ * })
+ * class AppRoutingModule {}
+ *
+ * ////////////////
+ * // app.module.ts
+ *
+ * // A minimal app module. Notice the added export.
+ * @NgModule({
+ *   declarations: [AppComponent, FirstComponent],
+ *   imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule],
+ *   bootstrap: [AppComponent],
+ *   exports: [AppComponent], // exported for use in tests
+ * })
+ * class AppModule {}
+ * ```
  */
 export class ComponentContextNext<
   T,

@@ -42,7 +42,8 @@ export function extendMetadata(
  *   thrown away, so they cannot leak between tests.
  * - Clearly separates initialization code from the test itself.
  * - Gives control over the simulated date & time with a single line of code.
- * - Always verifies no un-expected http requests were made during a test.
+ * - Automatically includes {@link HttpClientTestingModule} to stub network requests without additional setup.
+ * - Always verifies no unexpected http requests were made during a test.
  * - Always discards periodic tasks at the end of each test to automatically
  *   avoid an error from the `fakeAsync` zone.
  *

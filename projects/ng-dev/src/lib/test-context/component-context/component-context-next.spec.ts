@@ -1,3 +1,4 @@
+import { ComponentHarness } from '@angular/cdk/testing';
 import {
   Component,
   InjectionToken,
@@ -7,10 +8,13 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
+import { BrowserModule } from '@angular/platform-browser';
 import {
   ANIMATION_MODULE_TYPE,
   BrowserAnimationsModule,
 } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { noop } from '@s-libs/micro-dash';
 import { ComponentContextNext } from './component-context-next';
 
@@ -211,16 +215,115 @@ describe('ComponentContextNext', () => {
   });
 });
 
-describe('ComponentContextNext class-level doc example', () => {
-  @Component({ template: 'Hello, {{name}}!' })
-  class GreeterComponent {
-    @Input() name!: string;
-  }
+describe('ComponentContextNext class-level doc examples', () => {
+  describe('simple example', () => {
+    @Component({ template: 'Hello, {{name}}!' })
+    class GreeterComponent {
+      @Input() name!: string;
+    }
 
-  it('greets you by name', () => {
-    const ctx = new ComponentContextNext(GreeterComponent);
-    ctx.run({ inputs: { name: 'World' } }, () => {
-      expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
+    it('greets you by name', () => {
+      const ctx = new ComponentContextNext(GreeterComponent);
+      ctx.run({ inputs: { name: 'World' } }, () => {
+        expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
+      });
     });
+  });
+
+  describe('full example with routing', () => {
+    /////////////////
+    // app-context.ts
+
+    // To re-use your context setup, make a subclass of ComponentContext to import into any spec
+    class AppContext extends ComponentContextNext<AppComponent> {
+      constructor() {
+        super(AppComponent, {
+          imports: [
+            // This is your production `AppModule`. Make 1 tweak there: export `AppComponent`
+            AppModule,
+            // Import `routes` from your `app-routing.module.ts`
+            RouterTestingModule.withRoutes(routes),
+          ],
+        });
+      }
+    }
+
+    ////////////////////////
+    // app.component.spec.ts
+
+    describe('AppComponent', () => {
+      let ctx: AppContext;
+      beforeEach(() => {
+        ctx = new AppContext();
+      });
+
+      it('can navigate to the first page', () => {
+        ctx.run(() => {
+          ctx.getHarness(AppComponentHarness).navigateToFirstPage();
+          expect(ctx.fixture.nativeElement.textContent).toContain(
+            'First works!',
+          );
+        });
+      });
+    });
+
+    ///////////////////////////
+    // app.component.harness.ts
+
+    // A simple component harness to demonstrate its integration with component contexts
+    class AppComponentHarness extends ComponentHarness {
+      static hostSelector = 'app-root';
+
+      private getFirstPageLink = this.locatorFor('a');
+
+      async navigateToFirstPage(): Promise<void> {
+        const link = await this.getFirstPageLink();
+        await link.click();
+      }
+    }
+
+    /////////////////////
+    // first.component.ts
+
+    // A minimal component for demonstration purposes
+    @Component({ template: '<p>First works!</p>' })
+    class FirstComponent {}
+
+    ///////////////////
+    // app.component.ts
+
+    // A minimal app component with routing for demonstration purposes
+    @Component({
+      selector: 'app-root',
+      template: `
+        <a routerLink="/first-page">First Page</a>
+        <router-outlet></router-outlet>
+      `,
+    })
+    class AppComponent {}
+
+    ////////////////////////
+    // app-routing.module.ts
+
+    // exported for use in tests
+    const routes: Routes = [{ path: 'first-page', component: FirstComponent }];
+
+    @NgModule({
+      imports: [RouterModule.forRoot(routes)],
+      exports: [RouterModule],
+    })
+    class AppRoutingModule {}
+
+    ////////////////
+    // app.module.ts
+
+    // A minimal app module. Notice the added export.
+    @NgModule({
+      declarations: [AppComponent, FirstComponent],
+      imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule],
+      bootstrap: [AppComponent],
+      exports: [AppComponent], // exported for use in tests
+    })
+    class AppModule {}
   });
 });
