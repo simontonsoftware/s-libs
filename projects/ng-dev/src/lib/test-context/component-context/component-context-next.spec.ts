@@ -19,8 +19,6 @@ import { noop } from '@s-libs/micro-dash';
 import { ComponentContextNext } from './component-context-next';
 
 describe('ComponentContextNext', () => {
-  let ngOnChangesSpy: jasmine.Spy;
-
   @Component({ template: 'Hello, {{name}}!' })
   class TestComponent {
     @Input() name!: string;
@@ -29,15 +27,12 @@ describe('ComponentContextNext', () => {
   @Component({ template: '' })
   class ChangeDetectingComponent implements OnChanges {
     @Input() myInput?: string;
+    ngOnChangesSpy = jasmine.createSpy();
 
     ngOnChanges(changes: SimpleChanges): void {
-      ngOnChangesSpy(changes);
+      this.ngOnChangesSpy(changes);
     }
   }
-
-  beforeEach(() => {
-    ngOnChangesSpy = jasmine.createSpy();
-  });
 
   describe('.fixture', () => {
     it('is provided', () => {
@@ -71,7 +66,7 @@ describe('ComponentContextNext', () => {
       });
     });
 
-    it('allows defaults to be overridden', () => {
+    it('allows default module metadata to be overridden', () => {
       const ctx = new ComponentContextNext(TestComponent, {
         imports: [BrowserAnimationsModule],
       });
@@ -111,7 +106,8 @@ describe('ComponentContextNext', () => {
     it('triggers ngOnChanges', () => {
       const ctx = new ComponentContextNext(ChangeDetectingComponent);
       ctx.run(() => {
-        expect(ngOnChangesSpy).toHaveBeenCalledTimes(1);
+        const spy = ctx.getComponentInstance().ngOnChangesSpy;
+        expect(spy).toHaveBeenCalledTimes(1);
       });
     });
   });
@@ -137,11 +133,11 @@ describe('ComponentContextNext', () => {
     it('triggers ngOnChanges() with the proper changes argument', () => {
       const ctx = new ComponentContextNext(ChangeDetectingComponent);
       ctx.run(() => {
-        ngOnChangesSpy.calls.reset();
+        const spy = ctx.getComponentInstance().ngOnChangesSpy;
+        spy.calls.reset();
         ctx.updateInputs({ myInput: 'new value' });
-        expect(ngOnChangesSpy).toHaveBeenCalledTimes(1);
-        const changes: SimpleChanges = ngOnChangesSpy.calls.mostRecent()
-          .args[0];
+        expect(spy).toHaveBeenCalledTimes(1);
+        const changes: SimpleChanges = spy.calls.mostRecent().args[0];
         expect(changes.myInput.currentValue).toBe('new value');
       });
     });
@@ -171,11 +167,14 @@ describe('ComponentContextNext', () => {
 
     it('does the superclass things', () => {
       const ctx = new ComponentContextNext(TestComponent);
-      ctx.run(() => {
-        setInterval(noop, 10);
-      });
-      // The test is that it does _not_ give the error: "1 periodic timer(s) still in the queue."
-      expect().nothing();
+      expect(() => {
+        ctx.run(() => {
+          setInterval(noop, 10);
+        });
+      })
+        .not.toThrowError
+        // No error: "1 periodic timer(s) still in the queue."
+        ();
     });
   });
 

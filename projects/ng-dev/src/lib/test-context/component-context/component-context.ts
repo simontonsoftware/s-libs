@@ -17,13 +17,13 @@ export interface ComponentContextInit<ComponentType> {
 }
 
 /**
- * @deprecated Use {@link ComponentContextNext} instead.
+ * @deprecated Use {@link ComponentContextNext} instead. This old version will be removed in a future version, and `ComponentContextNext` renamed to `ComponentContext`.
  *
  * Some notes to migrate to the new version:
- * - Change "input" to "inputs" in a call like `.run({ input: {...}}, ...)`
+ * - Change "input" to "inputs" in calls to `.run({ input: {...}}, ...)`
  * - Any variables you set in "inputs" must now be actual angular `@Input()`s
  * - `ctx.fixture` is now for a synthetic wrapper component, not your component. Change `ctx.fixture.componentInstance` to `ctx.getComponentInstance()`
- * - If your component has an input with a default value that you want to preserve, you'll need to pass it in the constructor's `unboundInputs` argument.
+ * - If your component has an input with a default value that you want to preserve, pass it in the constructor's `unboundInputs` argument.
  */
 export abstract class ComponentContext<
   ComponentType = unknown,

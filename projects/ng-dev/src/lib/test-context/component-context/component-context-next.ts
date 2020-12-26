@@ -23,9 +23,11 @@ export interface ComponentContextNextInit<T> {
  * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContext} plus:
  *
  * - Automatically creates your component at the beginning of `run()`.
- * - Wraps your component in a dynamically created parent component, so that Angular will call `ngOnChanges()` in your tests the same way it does in production.
+ * - Wraps your component in a dynamically created parent component. (This allows Angular to call `ngOnChanges()` in your tests the same way it does in production.)
  * - Automatically disables animations.
  * - Automatically integrates {@link trimLeftoverStyles} to speed up your test suite.
+ *
+ * Why does the class name end with "Next"? This replaces the old `ComponentContext`, but it's a breaking change so this gives people some time to transition over. Eventually the old one will be removed and this will be renamed to `ComponentContext`.
  *
  * A very simple example:
  * ```ts
@@ -42,7 +44,7 @@ export interface ComponentContextNextInit<T> {
  * });
  * ```
  *
- * A full example, with routing and a component harness. This is a fully functional Angular app:
+ * A full example, with routing and a component harness. This is the full code for a tiny Angular app:
  * ```ts
  * /////////////////
  * // app-context.ts
@@ -53,8 +55,7 @@ export interface ComponentContextNextInit<T> {
  *   constructor() {
  *     super(AppComponent, {
  *       imports: [
- *         // This is your production `AppModule`. Make 1 tweak there:
- *         // export `AppComponent`
+ *         // This is your production `AppModule`. Make sure it exports `AppComponent`
  *         AppModule,
  *         // Import `routes` from your `app-routing.module.ts`
  *         RouterTestingModule.withRoutes(routes),
@@ -85,7 +86,7 @@ export interface ComponentContextNextInit<T> {
  * ///////////////////////////
  * // app.component.harness.ts
  *
- * // A simple component harness to demonstrate its integration with component contexts
+ * // A simple component harness to demonstrate its integration with component contexts. Note that everything here is asynchronous, but is treated as synchronous in tests. This is a trick in AngularContexts so harnesses can be used in the fakeAsync zone.
  * class AppComponentHarness extends ComponentHarness {
  *   static hostSelector = 'app-root';
  *
@@ -158,7 +159,7 @@ export class ComponentContextNext<
   /**
    * @param componentType `run()` will create a component of this type before running the rest of your test.
    * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContext}.
-   * @param unboundInputs By default a synthetic parent component will be created that binds to all your component's inputs. Include inputs here that should NOT be bound. This is useful e.g. to test the default value of an input.
+   * @param unboundInputs By default a synthetic parent component will be created that binds to all your component's inputs. Pass input names here that should NOT be bound. This is useful e.g. to test the default value of an input.
    */
   constructor(
     componentType: Type<T>,
@@ -178,7 +179,7 @@ export class ComponentContextNext<
   }
 
   /**
-   * Use within `run()` to update the inputs to your component and trigger all the appropriate change detection and lifecycle hooks.
+   * Use within `run()` to update the inputs to your component and trigger all the appropriate change detection and lifecycle hooks. Only the inputs specified in `inputs` will be affected.
    */
   updateInputs(inputs: Partial<T>): void {
     this.validateInputs(inputs);

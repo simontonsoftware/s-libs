@@ -36,7 +36,7 @@ describe('createDynamicWrapper()', () => {
     });
   });
 
-  it('can update renamed inputs', () => {
+  it('can handle renamed inputs', () => {
     @Component({ template: '{{ propertyName }}' })
     class RenamedInputComponent {
       // tslint:disable-next-line:no-input-rename
@@ -49,7 +49,7 @@ describe('createDynamicWrapper()', () => {
     });
   });
 
-  it('picks up inputs that are setters', () => {
+  it('can handle inputs that are setters', () => {
     @Component({ template: '' })
     class SetterInputComponent {
       receivedValue?: string;
@@ -74,7 +74,7 @@ describe('createDynamicWrapper()', () => {
     }).not.toThrowError();
   });
 
-  it('can handle components that use ViewChild in tricky ways', () => {
+  it('can handle components that use non-Input annotations in tricky ways', () => {
     @Component({ template: '' })
     class TrickyViewChildComponent {
       @Input() tricky?: string;
