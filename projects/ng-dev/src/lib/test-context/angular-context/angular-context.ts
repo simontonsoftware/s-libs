@@ -20,7 +20,7 @@ import {
 import { assert, convertTime } from '@s-libs/js-core';
 import { clone, forOwn, isFunction } from '@s-libs/micro-dash';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
-import { Synchronized } from './synchronize';
+import { Synchronized } from '../synchronize';
 
 /** @hidden */
 export function extendMetadata(
@@ -42,13 +42,14 @@ export function extendMetadata(
  *   thrown away, so they cannot leak between tests.
  * - Clearly separates initialization code from the test itself.
  * - Gives control over the simulated date & time with a single line of code.
- * - Always verifies no un-expected http requests were made during a test.
+ * - Automatically includes {@link HttpClientTestingModule} to stub network requests without additional setup.
+ * - Always verifies no unexpected http requests were made during a test.
  * - Always discards periodic tasks at the end of each test to automatically
  *   avoid an error from the `fakeAsync` zone.
  *
  * This example tests a simple service that uses HttpClient, and is tested by
  * using `AngularContext` directly. More often `AngularContext` will be used a
- * super class. See {@link ComponentContext} for more common use cases.
+ * super class. See {@link ComponentContextNext} for more common use cases.
  * ```ts
  *  // This is the class we will test.
  *  @Injectable({ providedIn: 'root' })

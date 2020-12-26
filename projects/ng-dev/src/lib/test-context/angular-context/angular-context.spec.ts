@@ -15,7 +15,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { noop, Observable } from 'rxjs';
-import { expectSingleCallAndReset } from '../spies';
+import { expectSingleCallAndReset } from '../../spies';
 import { AngularContext } from './angular-context';
 
 class TestContext extends AngularContext {
@@ -260,11 +260,13 @@ describe('AngularContext', () => {
 
   describe('.cleanUp()', () => {
     it('discards periodic tasks', () => {
-      ctx.run(() => {
-        setInterval(noop, 10);
-      });
-      // The test is that it does _not_ give the error: "1 periodic timer(s) still in the queue."
-      expect().nothing();
+      expect(() => {
+        ctx.run(() => {
+          setInterval(noop, 10);
+        });
+      })
+        // No error: "1 periodic timer(s) still in the queue."
+        .not.toThrowError();
     });
   });
 });

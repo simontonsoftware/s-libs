@@ -1,8 +1,13 @@
-import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  Input,
+} from '@angular/core';
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ComponentContext } from '@s-libs/ng-dev';
+import { ComponentContextNext } from '@s-libs/ng-dev';
 import { click, find, findButton } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
 import {
@@ -23,8 +28,8 @@ import { InjectableSuperclass } from './injectable-superclass';
   `,
 })
 class TestComponent {
-  value = 0;
-  shouldDisable = false;
+  @Input() value = 0;
+  @Input() shouldDisable = false;
 }
 
 @Component({
@@ -52,23 +57,15 @@ class CounterComponent extends FormControlSuperclass<number> {
   }
 }
 
-class TestComponentContext extends ComponentContext<TestComponent> {
-  protected componentType = TestComponent;
-
-  constructor() {
-    super({
+describe('FormControlSuperclass', () => {
+  let ctx: ComponentContextNext<TestComponent>;
+  beforeEach(() => {
+    ctx = new ComponentContextNext(TestComponent, {
       imports: [FormsModule],
-      declarations: [CounterComponent, TestComponent],
+      declarations: [CounterComponent],
       // this can go away with component harnesses eventually
       providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
     });
-  }
-}
-
-describe('FormControlSuperclass', () => {
-  let ctx: TestComponentContext;
-  beforeEach(() => {
-    ctx = new TestComponentContext();
   });
 
   function incrementButton(): HTMLButtonElement {
@@ -82,12 +79,12 @@ describe('FormControlSuperclass', () => {
   ///////
 
   it('provides help for 2-way binding', () => {
-    ctx.run({ input: { value: 15 } }, () => {
-      expect(ctx.fixture.componentInstance.value).toBe(15);
+    ctx.run({ inputs: { value: 15 } }, () => {
+      expect(ctx.getComponentInstance().value).toBe(15);
       expect(ctx.fixture.nativeElement.innerText).toContain('15');
 
       click(incrementButton());
-      expect(ctx.fixture.componentInstance.value).toBe(16);
+      expect(ctx.getComponentInstance().value).toBe(16);
       expect(ctx.fixture.nativeElement.innerText).toContain('16');
     });
   });
@@ -101,7 +98,7 @@ describe('FormControlSuperclass', () => {
   });
 
   it('provides help for `[disabled]`', () => {
-    ctx.run({ input: { shouldDisable: true } }, () => {
+    ctx.run({ inputs: { shouldDisable: true } }, () => {
       expect(incrementButton().disabled).toBe(true);
 
       click(toggleDisabledButton());

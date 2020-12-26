@@ -5,8 +5,11 @@ import {
   TestModuleMetadata,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { trimLeftoverStyles } from '../trim-leftover-styles';
-import { AngularContext, extendMetadata } from './angular-context';
+import { trimLeftoverStyles } from '../../trim-leftover-styles';
+import {
+  AngularContext,
+  extendMetadata,
+} from '../angular-context/angular-context';
 
 /** @hidden */
 export interface ComponentContextInit<ComponentType> {
@@ -14,33 +17,13 @@ export interface ComponentContextInit<ComponentType> {
 }
 
 /**
- * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContext}. A very simple example:
+ * @deprecated Use {@link ComponentContextNext} instead. This old version will be removed in a future version, and `ComponentContextNext` will be renamed to `ComponentContext`.
  *
- * ```ts
- * @Component({ template: 'Hello, {{name}}!' })
- * class GreeterComponent {
- *   @Input() name!: string;
- * }
- *
- * class GreeterComponentContext extends ComponentContext {
- *   protected componentType = GreeterComponent;
- * }
- *
- * describe('ComponentContext', () => {
- *   let ctx: GreeterComponentContext;
- *   beforeEach(() => {
- *     ctx = new GreeterComponentContext();
- *   });
- *
- *   it('greets you by name', () => {
- *     ctx.run({ input: { name: 'World' } }, () => {
- *       expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
- *     });
- *   });
- * })
- * ```
- *
- * This class integrates {@link trimLeftoverStyles} to speed up your test suite, as described in the docs for that function.
+ * Some notes to migrate to the new version:
+ * - Change "input" to "inputs" in calls to `.run({ input: {...}}, ...)`
+ * - Any variables you set in "inputs" must now be actual angular `@Input()`s
+ * - `ctx.fixture` is now for a synthetic wrapper component, not your component. Change `ctx.fixture.componentInstance` to `ctx.getComponentInstance()`
+ * - If your component has an input with a default value that you want to preserve, pass it in the constructor's `unboundInputs` argument.
  */
 export abstract class ComponentContext<
   ComponentType = unknown,
