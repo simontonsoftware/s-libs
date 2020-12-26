@@ -265,9 +265,8 @@ describe('AngularContext', () => {
           setInterval(noop, 10);
         });
       })
-        .not.toThrowError
         // No error: "1 periodic timer(s) still in the queue."
-        ();
+        .not.toThrowError();
     });
   });
 });

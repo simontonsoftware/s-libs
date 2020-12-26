@@ -23,7 +23,7 @@ export interface ComponentContextNextInit<T> {
  * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContext} plus:
  *
  * - Automatically creates your component at the beginning of `run()`.
- * - Wraps your component in a dynamically created parent component. (This allows Angular to call `ngOnChanges()` in your tests the same way it does in production.)
+ * - Wraps your component in a dynamically created parent component. (This sets up Angular to call `ngOnChanges()` in your tests the same way it does in production.)
  * - Automatically disables animations.
  * - Automatically integrates {@link trimLeftoverStyles} to speed up your test suite.
  *

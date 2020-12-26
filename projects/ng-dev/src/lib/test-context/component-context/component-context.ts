@@ -17,7 +17,7 @@ export interface ComponentContextInit<ComponentType> {
 }
 
 /**
- * @deprecated Use {@link ComponentContextNext} instead. This old version will be removed in a future version, and `ComponentContextNext` renamed to `ComponentContext`.
+ * @deprecated Use {@link ComponentContextNext} instead. This old version will be removed in a future version, and `ComponentContextNext` will be renamed to `ComponentContext`.
  *
  * Some notes to migrate to the new version:
  * - Change "input" to "inputs" in calls to `.run({ input: {...}}, ...)`
