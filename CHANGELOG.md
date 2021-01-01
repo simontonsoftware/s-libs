@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.2.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v11.2.0-next.0...v11.2.0-next.1) (2021-01-01)
+
+### Features
+
+- **ng-core:** `DirectiveSuperclass.getInput$()` wait until the input is set before emitting. Before, if called e.g. from the directive's constructor, it would emit `undefined` immediately, then emit again during `ngOnChanges`. **Caveat:** all emissions are now delayed on the microtask queue. ([3b13611](https://github.com/simontonsoftware/s-libs/commit/3b13611044b28c9a00d07b0e73210831659f7f6d)), closes [#14](https://github.com/simontonsoftware/s-libs/issues/14)
+- **ng-dev:** add `ComponentContextNext`. This will replace `ComponentContext` in a future major version release. See migration notes in the class-level docs for `ComponentContext`. Closes [#15](https://github.com/simontonsoftware/s-libs/issues/15). ([90bc99f](https://github.com/simontonsoftware/s-libs/commit/90bc99f72995bd757e02eda7ec2bf3e51751c7d4))
+
 ## [11.2.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v11.1.0...v11.2.0-next.0) (2020-12-19)
 
 ### Features
