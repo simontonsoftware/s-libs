@@ -8,16 +8,9 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { keys } from '@s-libs/micro-dash';
 import { trimLeftoverStyles } from '../../trim-leftover-styles';
-import {
-  AngularContext,
-  extendMetadata,
-} from '../angular-context/angular-context';
+import { extendMetadata } from '../angular-context/angular-context';
+import { AngularContextNext } from '../angular-context/angular-context-next';
 import { createDynamicWrapper } from './create-dynamic-wrapper';
-
-/** @hidden */
-export interface ComponentContextNextInit<T> {
-  inputs: Partial<T>;
-}
 
 /**
  * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContext} plus:
@@ -143,10 +136,7 @@ export interface ComponentContextNextInit<T> {
  * class AppModule {}
  * ```
  */
-export class ComponentContextNext<
-  T,
-  InitOptions extends ComponentContextNextInit<T> = ComponentContextNextInit<T>
-> extends AngularContext<InitOptions> {
+export class ComponentContextNext<T> extends AngularContextNext {
   /**
    * The {@link ComponentFixture} for a synthetic wrapper around your component.
    */
@@ -155,6 +145,7 @@ export class ComponentContextNext<
   private componentType: Type<T>;
   private wrapperType: Type<T>;
   private inputProperties: Set<keyof T>;
+  private inputs: Partial<T>;
 
   /**
    * @param componentType `run()` will create a component of this type before running the rest of your test.
@@ -176,15 +167,26 @@ export class ComponentContextNext<
     this.componentType = componentType;
     this.wrapperType = wrapper.type;
     this.inputProperties = new Set(wrapper.inputProperties);
+    this.inputs = {};
   }
 
   /**
    * Use within `run()` to update the inputs to your component and trigger all the appropriate change detection and lifecycle hooks. Only the inputs specified in `inputs` will be affected.
    */
   updateInputs(inputs: Partial<T>): void {
-    this.validateInputs(inputs);
-    Object.assign(this.fixture.componentInstance, inputs);
-    this.tick();
+    for (const key of keys(inputs)) {
+      if (!this.inputProperties.has(key as keyof T)) {
+        throw new Error(
+          `Cannot bind to "${key}" (it is not an input, or you passed it in \`unboundProperties\`)`,
+        );
+      }
+    }
+
+    Object.assign(this.inputs, inputs);
+    if (this.isInitialized()) {
+      Object.assign(this.fixture.componentInstance, inputs);
+      this.tick();
+    }
   }
 
   /**
@@ -198,15 +200,12 @@ export class ComponentContextNext<
   /**
    * Constructs and initializes your component. Called during `run()` before it executes the rest of your test. Runs in the same `fakeAsync` zone as the rest of your test.
    */
-  protected init(options: Partial<InitOptions>): void {
+  protected init(): void {
     trimLeftoverStyles();
-    super.init(options);
+    super.init();
     this.fixture = TestBed.createComponent(this.wrapperType);
 
-    const inputs = options.inputs || {};
-    this.validateInputs(inputs);
-    Object.assign(this.fixture.componentInstance, inputs);
-
+    Object.assign(this.fixture.componentInstance, this.inputs);
     this.fixture.detectChanges();
     this.tick();
   }
@@ -224,13 +223,7 @@ export class ComponentContextNext<
     super.cleanUp();
   }
 
-  private validateInputs(inputs: Partial<T>): void {
-    for (const key of keys(inputs)) {
-      if (!this.inputProperties.has(key as keyof T)) {
-        throw new Error(
-          `Cannot bind to "${key}" (it is not an input, or you passed it in \`unboundProperties\`)`,
-        );
-      }
-    }
+  private isInitialized(): boolean {
+    return !!this.fixture;
   }
 }

@@ -1,6 +1,5 @@
 import { Deferred } from '@s-libs/js-core';
 import { isEqual, nth, remove } from '@s-libs/micro-dash';
-import { AngularContext } from '../test-context';
 import { TestCall } from './test-call';
 
 /** @hidden */
@@ -62,7 +61,7 @@ export class AsyncMethodController<
   constructor(
     obj: WrappingObject,
     methodName: FunctionName,
-    { ctx = undefined as AngularContext | undefined } = {},
+    { ctx = undefined as { tick(): void } | undefined } = {},
   ) {
     // Note: it wasn't immediately clear how avoid `any` in this constructor, and this will be invisible to users. So I gave up. (For now.)
     this.#spy = spyOn(obj, methodName as any) as any;

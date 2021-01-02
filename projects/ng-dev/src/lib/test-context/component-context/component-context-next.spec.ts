@@ -96,13 +96,6 @@ describe('ComponentContextNext', () => {
       });
     });
 
-    it('accepts component input', () => {
-      const ctx = new ComponentContextNext(TestComponent);
-      ctx.run({ inputs: { name: 'Default Guy' } }, () => {
-        expect(ctx.fixture.nativeElement.textContent).toContain('Default Guy');
-      });
-    });
-
     it('triggers ngOnChanges', () => {
       const ctx = new ComponentContextNext(ChangeDetectingComponent);
       ctx.run(() => {
@@ -115,7 +108,8 @@ describe('ComponentContextNext', () => {
   describe('.getComponentInstance()', () => {
     it('returns the instantiated component', () => {
       const ctx = new ComponentContextNext(TestComponent);
-      ctx.run({ inputs: { name: 'instantiated name' } }, () => {
+      ctx.updateInputs({ name: 'instantiated name' });
+      ctx.run(() => {
         expect(ctx.getComponentInstance().name).toBe('instantiated name');
       });
     });
@@ -205,7 +199,7 @@ describe('ComponentContextNext', () => {
         'doNotBind',
       ]);
       expect(() => {
-        ctx.run({ inputs: { doNotBind: "I'll do what I want" } }, noop);
+        ctx.updateInputs({ doNotBind: "I'll do what I want" });
       }).toThrowError(
         'Cannot bind to "doNotBind" (it is not an input, or you passed it in `unboundProperties`)',
       );
@@ -222,7 +216,8 @@ describe('ComponentContextNext class-level doc examples', () => {
 
     it('greets you by name', () => {
       const ctx = new ComponentContextNext(GreeterComponent);
-      ctx.run({ inputs: { name: 'World' } }, () => {
+      ctx.updateInputs({ name: 'World' });
+      ctx.run(() => {
         expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
       });
     });
