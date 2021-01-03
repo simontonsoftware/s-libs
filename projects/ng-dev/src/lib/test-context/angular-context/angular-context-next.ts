@@ -44,9 +44,9 @@ export function extendMetadata(
  * - Always discards periodic tasks at the end of each test to automatically
  *   avoid an error from the `fakeAsync` zone.
  *
- * This example tests a simple service that uses HttpClient, and is tested by
- * using `AngularContext` directly. More often `AngularContext` will be used a
- * super class. See {@link ComponentContextNext} for more common use cases.
+ * Why does the class name end with "Next"? This replaces the old `AngularContext`, but it's a breaking change so this gives people some time to transition over. Eventually the old one will be removed and this will be renamed to `AngularContext`.
+ *
+ * This example tests a simple service that uses HttpClient, and is tested by using `AngularContextNext` directly. More often `AngularContextNext` will be used a super class. See {@link ComponentContextNext} for more common use cases.
  *
  * ```ts
  * // This is the class we will test.
@@ -102,13 +102,14 @@ export class AngularContextNext {
   }
 
   /**
-   * Runs `test` in a `fakeAsync` zone. Also runs the following in this order, all within the same zone:
-   * 1. `init(options)`
-   * 2. `test()`
-   * 3. `verifyPostTestConditions()`
-   * 4. `cleanUp()`
+   * Runs `test` in a `fakeAsync` zone. It can use async/await, but be sure anything you `await` is already due to execute (e.g. if a timeout is due in 3 seconds, call `.tick(3000)` before `await`ing its result).
    *
-   * @param options Passed along to `init()`. Unused by `AngularContext`, but may be used by subclasses.
+   * Also runs the following in this order, all within the same zone:
+   *
+   * 1. `this.init()`
+   * 2. `test()`
+   * 3. `this.verifyPostTestConditions()`
+   * 4. `this.cleanUp()`
    */
   run(test: () => void | Promise<void>): void {
     this.runWithMockedTime(() => {

@@ -35,60 +35,10 @@ export function extendMetadata(
 }
 
 /**
- * Provides the foundation for an opinionated testing pattern.
- * - All test are run in the `fakeAsync` zone. This gives you full control over
- *   the timing of everything by default.
- * - Variables that are initialized for each test exist in a context that is
- *   thrown away, so they cannot leak between tests.
- * - Clearly separates initialization code from the test itself.
- * - Gives control over the simulated date & time with a single line of code.
- * - Automatically includes {@link HttpClientTestingModule} to stub network requests without additional setup.
- * - Always verifies no unexpected http requests were made during a test.
- * - Always discards periodic tasks at the end of each test to automatically
- *   avoid an error from the `fakeAsync` zone.
+ * @deprecated Use {@link AngularContextNext} instead. This old version will be removed in a future version, and `AngularContextNext` will be renamed to `AngularContext`.
  *
- * This example tests a simple service that uses HttpClient, and is tested by
- * using `AngularContext` directly. More often `AngularContext` will be used a
- * super class. See {@link ComponentContextNext} for more common use cases.
- * ```ts
- *  // This is the class we will test.
- *  @Injectable({ providedIn: 'root' })
- *  class MemoriesService {
- *   constructor(private httpClient: HttpClient) {}
- *
- *   getLastYearToday(): Observable<any> {
- *     const datetime = new Date();
- *     datetime.setFullYear(datetime.getFullYear() - 1);
- *     const date = datetime.toISOString().split('T')[0];
- *     return this.httpClient.get(`http://example.com/post-from/${date}`);
- *   }
- * }
- *
- *  describe('MemoriesService', () => {
- *
- *   // Tests should have exactly 1 variable outside an "it": `ctx`.
- *   let ctx: AngularContext;
- *   beforeEach(() => {
- *     ctx = new AngularContext();
- *   });
- *
- *   it('requests a post from 1 year ago', () => {
- *
- *     // Before calling `run`, set up any context variables this test needs.
- *     ctx.startTime = new Date('2004-02-16T10:15:00.000Z');
- *
- *     // Pass the test itself as a callback to `run()`.
- *     ctx.run(() => {
- *       const httpBackend = ctx.inject(HttpTestingController);
- *       const myService = ctx.inject(MemoriesService);
- *
- *       myService.getLastYearToday().subscribe();
- *
- *       httpBackend.expectOne('http://example.com/post-from/2003-02-16');
- *     });
- *   });
- * });
- * ```
+ * Some notes to migrate to the new version:
+ * - For any tests that were passing inputs to `.run()`, instead call `.assignInputs()` before `.run()`.
  */
 export class AngularContext<InitOptions = {}> {
   /**

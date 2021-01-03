@@ -19,10 +19,11 @@ import { FakeAsyncHarnessEnvironmentNext } from '../angular-context/fake-async-h
 import { createDynamicWrapper } from './create-dynamic-wrapper';
 
 /**
- * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContext} plus:
+ * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContextNext} plus:
  *
  * - Automatically creates your component at the beginning of `run()`.
  * - Wraps your component in a dynamically created parent component. (This sets up Angular to call `ngOnChanges()` in your tests the same way it does in production.)
+ * - Lets you use {@link https://material.angular.io/cdk/test-harnesses/overview|component harnesses} (which are normally not usable within a `fakeAsync` test).
  * - Automatically disables animations.
  * - Automatically integrates {@link trimLeftoverStyles} to speed up your test suite.
  *
@@ -37,7 +38,8 @@ import { createDynamicWrapper } from './create-dynamic-wrapper';
  *
  * it('greets you by name', () => {
  *   const ctx = new ComponentContextNext(GreeterComponent);
- *   ctx.run({ inputs: { name: 'World' } }, () => {
+ *   ctx.assignInputs({ name: 'World' });
+ *   ctx.run(() => {
  *     expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
  *   });
  * });
@@ -156,7 +158,7 @@ export class ComponentContextNext<T> extends AngularContextNext {
 
   /**
    * @param componentType `run()` will create a component of this type before running the rest of your test.
-   * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContext}.
+   * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContextNext}.
    * @param unboundInputs By default a synthetic parent component will be created that binds to all your component's inputs. Pass input names here that should NOT be bound. This is useful e.g. to test the default value of an input.
    */
   constructor(
@@ -180,7 +182,7 @@ export class ComponentContextNext<T> extends AngularContextNext {
   /**
    * Use within `run()` to update the inputs to your component and trigger all the appropriate change detection and lifecycle hooks. Only the inputs specified in `inputs` will be affected.
    */
-  updateInputs(inputs: Partial<T>): void {
+  assignInputs(inputs: Partial<T>): void {
     for (const key of keys(inputs)) {
       if (!this.inputProperties.has(key as keyof T)) {
         throw new Error(

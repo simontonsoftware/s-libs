@@ -1,5 +1,6 @@
 import {
   AngularContext,
+  AngularContextNext,
   AsyncMethodController,
   ComponentContext,
   ComponentContextNext,
@@ -16,6 +17,10 @@ import {
 describe('ng-dev', () => {
   it('has AngularContext', () => {
     expect(AngularContext).toBeDefined();
+  });
+
+  it('has AngularContextNext', () => {
+    expect(AngularContextNext).toBeDefined();
   });
 
   it('has AsyncMethodController', () => {

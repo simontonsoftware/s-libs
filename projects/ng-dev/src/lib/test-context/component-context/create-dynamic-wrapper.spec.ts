@@ -44,7 +44,7 @@ describe('createDynamicWrapper()', () => {
     }
 
     const ctx = new ComponentContextNext(RenamedInputComponent);
-    ctx.updateInputs({ propertyName: 'custom value' });
+    ctx.assignInputs({ propertyName: 'custom value' });
     ctx.run(() => {
       expect(ctx.fixture.nativeElement.textContent).toContain('custom value');
     });
@@ -61,7 +61,7 @@ describe('createDynamicWrapper()', () => {
     }
 
     const ctx = new ComponentContextNext(SetterInputComponent);
-    ctx.updateInputs({ setterInput: 'sent value' });
+    ctx.assignInputs({ setterInput: 'sent value' });
     ctx.run(() => {
       expect(ctx.getComponentInstance().receivedValue).toBe('sent value');
     });
@@ -83,7 +83,7 @@ describe('createDynamicWrapper()', () => {
       @ViewChild('tricky') trickyChild!: ElementRef;
     }
     const ctx = new ComponentContextNext(TrickyViewChildComponent);
-    ctx.updateInputs({ tricky: 'the value' });
+    ctx.assignInputs({ tricky: 'the value' });
     ctx.run(() => {
       expect(ctx.getComponentInstance().tricky).toBe('the value');
     });

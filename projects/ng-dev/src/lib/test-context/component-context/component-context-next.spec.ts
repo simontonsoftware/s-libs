@@ -94,11 +94,11 @@ describe('ComponentContextNext', () => {
     });
   });
 
-  describe('.updateInputs()', () => {
+  describe('.assignInputs()', () => {
     it('updates the inputs', () => {
       const ctx = new ComponentContextNext(TestComponent);
       ctx.run(() => {
-        ctx.updateInputs({ name: 'New Guy' });
+        ctx.assignInputs({ name: 'New Guy' });
         expect(ctx.fixture.nativeElement.textContent).toContain('New Guy');
       });
     });
@@ -108,7 +108,7 @@ describe('ComponentContextNext', () => {
       ctx.run(() => {
         const spy = ctx.getComponentInstance().ngOnChangesSpy;
         spy.calls.reset();
-        ctx.updateInputs({ myInput: 'new value' });
+        ctx.assignInputs({ myInput: 'new value' });
         expect(spy).toHaveBeenCalledTimes(1);
         const changes: SimpleChanges = spy.calls.mostRecent().args[0];
         expect(changes.myInput.currentValue).toBe('new value');
@@ -125,7 +125,7 @@ describe('ComponentContextNext', () => {
 
       const ctx = new ComponentContextNext(NonInputComponent);
       expect(() => {
-        ctx.updateInputs({ nonInput: 'value' });
+        ctx.assignInputs({ nonInput: 'value' });
       }).toThrowError(
         'Cannot bind to "nonInput" (it is not an input, or you passed it in `unboundProperties`)',
       );
@@ -140,7 +140,7 @@ describe('ComponentContextNext', () => {
         'doNotBind',
       ]);
       expect(() => {
-        ctx.updateInputs({ doNotBind: "I'll do what I want" });
+        ctx.assignInputs({ doNotBind: "I'll do what I want" });
       }).toThrowError(
         'Cannot bind to "doNotBind" (it is not an input, or you passed it in `unboundProperties`)',
       );
@@ -150,7 +150,7 @@ describe('ComponentContextNext', () => {
   describe('.getComponentInstance()', () => {
     it('returns the instantiated component', () => {
       const ctx = new ComponentContextNext(TestComponent);
-      ctx.updateInputs({ name: 'instantiated name' });
+      ctx.assignInputs({ name: 'instantiated name' });
       ctx.run(() => {
         expect(ctx.getComponentInstance().name).toBe('instantiated name');
       });
@@ -256,7 +256,7 @@ describe('ComponentContextNext class-level doc examples', () => {
 
     it('greets you by name', () => {
       const ctx = new ComponentContextNext(GreeterComponent);
-      ctx.updateInputs({ name: 'World' });
+      ctx.assignInputs({ name: 'World' });
       ctx.run(() => {
         expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
       });

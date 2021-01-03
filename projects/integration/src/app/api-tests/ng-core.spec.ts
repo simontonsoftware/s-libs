@@ -291,7 +291,8 @@ describe('ng-core', () => {
         flushMicrotasks();
       }
 
-      ctx.run({ inputs: { string: 'initial value' } }, () => {
+      ctx.assignInputs({ string: 'initial value' });
+      ctx.run(() => {
         expect(stringInput().value).toBe('initial value');
 
         setValue(stringInput(), 'edited value');
@@ -405,7 +406,8 @@ describe('ng-core', () => {
         flushMicrotasks();
       }
 
-      ctx.run({ inputs: { shouldDisable: true } }, () => {
+      ctx.assignInputs({ shouldDisable: true });
+      ctx.run(() => {
         expect(incrementButton().disabled).toBe(true);
 
         click(toggleDisabledButton());
