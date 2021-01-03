@@ -1,3 +1,8 @@
+import {
+  ComponentHarness,
+  HarnessLoader,
+  HarnessQuery,
+} from '@angular/cdk/testing';
 import { Type } from '@angular/core';
 import {
   ComponentFixture,
@@ -8,22 +13,17 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { keys } from '@s-libs/micro-dash';
 import { trimLeftoverStyles } from '../../trim-leftover-styles';
-import {
-  AngularContext,
-  extendMetadata,
-} from '../angular-context/angular-context';
+import { extendMetadata } from '../angular-context/angular-context';
+import { AngularContextNext } from '../angular-context/angular-context-next';
+import { FakeAsyncHarnessEnvironmentNext } from '../angular-context/fake-async-harness-environment-next';
 import { createDynamicWrapper } from './create-dynamic-wrapper';
 
-/** @hidden */
-export interface ComponentContextNextInit<T> {
-  inputs: Partial<T>;
-}
-
 /**
- * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContext} plus:
+ * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContextNext} plus:
  *
  * - Automatically creates your component at the beginning of `run()`.
  * - Wraps your component in a dynamically created parent component. (This sets up Angular to call `ngOnChanges()` in your tests the same way it does in production.)
+ * - Lets you use {@link https://material.angular.io/cdk/test-harnesses/overview|component harnesses} (which are normally not usable within a `fakeAsync` test).
  * - Automatically disables animations.
  * - Automatically integrates {@link trimLeftoverStyles} to speed up your test suite.
  *
@@ -38,7 +38,8 @@ export interface ComponentContextNextInit<T> {
  *
  * it('greets you by name', () => {
  *   const ctx = new ComponentContextNext(GreeterComponent);
- *   ctx.run({ inputs: { name: 'World' } }, () => {
+ *   ctx.assignInputs({ name: 'World' });
+ *   ctx.run(() => {
  *     expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
  *   });
  * });
@@ -143,22 +144,21 @@ export interface ComponentContextNextInit<T> {
  * class AppModule {}
  * ```
  */
-export class ComponentContextNext<
-  T,
-  InitOptions extends ComponentContextNextInit<T> = ComponentContextNextInit<T>
-> extends AngularContext<InitOptions> {
+export class ComponentContextNext<T> extends AngularContextNext {
   /**
-   * The {@link ComponentFixture} for a synthetic wrapper around your component.
+   * The {@link ComponentFixture} for a synthetic wrapper around your component. Available with the callback to `run()`.
    */
   fixture!: ComponentFixture<unknown>;
 
   private componentType: Type<T>;
   private wrapperType: Type<T>;
   private inputProperties: Set<keyof T>;
+  private loader!: HarnessLoader;
+  private inputs: Partial<T>;
 
   /**
    * @param componentType `run()` will create a component of this type before running the rest of your test.
-   * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContext}.
+   * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContextNext}.
    * @param unboundInputs By default a synthetic parent component will be created that binds to all your component's inputs. Pass input names here that should NOT be bound. This is useful e.g. to test the default value of an input.
    */
   constructor(
@@ -176,15 +176,26 @@ export class ComponentContextNext<
     this.componentType = componentType;
     this.wrapperType = wrapper.type;
     this.inputProperties = new Set(wrapper.inputProperties);
+    this.inputs = {};
   }
 
   /**
    * Use within `run()` to update the inputs to your component and trigger all the appropriate change detection and lifecycle hooks. Only the inputs specified in `inputs` will be affected.
    */
-  updateInputs(inputs: Partial<T>): void {
-    this.validateInputs(inputs);
-    Object.assign(this.fixture.componentInstance, inputs);
-    this.tick();
+  assignInputs(inputs: Partial<T>): void {
+    for (const key of keys(inputs)) {
+      if (!this.inputProperties.has(key as keyof T)) {
+        throw new Error(
+          `Cannot bind to "${key}" (it is not an input, or you passed it in \`unboundProperties\`)`,
+        );
+      }
+    }
+
+    Object.assign(this.inputs, inputs);
+    if (this.isInitialized()) {
+      Object.assign(this.fixture.componentInstance, inputs);
+      this.tick();
+    }
   }
 
   /**
@@ -196,17 +207,31 @@ export class ComponentContextNext<
   }
 
   /**
+   * Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to `await` its results. Throws an error if no match can be located.
+   */
+  getHarness<H extends ComponentHarness>(query: HarnessQuery<H>): Promise<H> {
+    return this.loader.getHarness(query);
+  }
+
+  /**
+   * Gets all component harnesses that match the query, wrapped for use in a fakeAsync test so that you do not need to `await` its results.
+   */
+  getAllHarnesses<H extends ComponentHarness>(
+    query: HarnessQuery<H>,
+  ): Promise<Array<H>> {
+    return this.loader.getAllHarnesses(query);
+  }
+
+  /**
    * Constructs and initializes your component. Called during `run()` before it executes the rest of your test. Runs in the same `fakeAsync` zone as the rest of your test.
    */
-  protected init(options: Partial<InitOptions>): void {
+  protected init(): void {
     trimLeftoverStyles();
-    super.init(options);
+    super.init();
     this.fixture = TestBed.createComponent(this.wrapperType);
+    this.loader = FakeAsyncHarnessEnvironmentNext.documentRootLoader(this);
 
-    const inputs = options.inputs || {};
-    this.validateInputs(inputs);
-    Object.assign(this.fixture.componentInstance, inputs);
-
+    Object.assign(this.fixture.componentInstance, this.inputs);
     this.fixture.detectChanges();
     this.tick();
   }
@@ -224,13 +249,7 @@ export class ComponentContextNext<
     super.cleanUp();
   }
 
-  private validateInputs(inputs: Partial<T>): void {
-    for (const key of keys(inputs)) {
-      if (!this.inputProperties.has(key as keyof T)) {
-        throw new Error(
-          `Cannot bind to "${key}" (it is not an input, or you passed it in \`unboundProperties\`)`,
-        );
-      }
-    }
+  private isInitialized(): boolean {
+    return !!this.fixture;
   }
 }

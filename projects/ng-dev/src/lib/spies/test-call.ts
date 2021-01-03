@@ -1,6 +1,5 @@
 import { Deferred } from '@s-libs/js-core';
 import { PromiseType } from 'utility-types';
-import { AngularContext } from '../test-context';
 
 /**
  * A mock method call that was made and is ready to be answered. This interface allows access to the underlying <code>jasmine.CallInfo</code>, and allows resolving or rejecting the asynchronous call's result.
@@ -11,7 +10,7 @@ export class TestCall<F extends jasmine.Func> {
 
   constructor(
     private deferred: Deferred<PromiseType<ReturnType<F>>>,
-    private ctx?: AngularContext,
+    private ctx?: { tick(): void },
   ) {}
 
   /**

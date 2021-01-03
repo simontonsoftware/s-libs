@@ -188,7 +188,8 @@ describe('DirectiveSuperclass', () => {
       }
 
       const ctx2 = new ComponentContextNext(TestDirective);
-      ctx2.run({ inputs: { specified: 'a value' } }, () => {
+      ctx2.assignInputs({ specified: 'a value' });
+      ctx2.run(() => {
         const testDirective = ctx2.getComponentInstance();
         expect(testDirective.emittedValue).toBe(undefined);
       });

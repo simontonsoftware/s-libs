@@ -79,7 +79,8 @@ describe('FormControlSuperclass', () => {
   ///////
 
   it('provides help for 2-way binding', () => {
-    ctx.run({ inputs: { value: 15 } }, () => {
+    ctx.assignInputs({ value: 15 });
+    ctx.run(() => {
       expect(ctx.getComponentInstance().value).toBe(15);
       expect(ctx.fixture.nativeElement.innerText).toContain('15');
 
@@ -98,7 +99,8 @@ describe('FormControlSuperclass', () => {
   });
 
   it('provides help for `[disabled]`', () => {
-    ctx.run({ inputs: { shouldDisable: true } }, () => {
+    ctx.assignInputs({ shouldDisable: true });
+    ctx.run(() => {
       expect(incrementButton().disabled).toBe(true);
 
       click(toggleDisabledButton());

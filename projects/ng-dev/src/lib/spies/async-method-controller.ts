@@ -1,6 +1,5 @@
 import { Deferred } from '@s-libs/js-core';
 import { isEqual, nth, remove } from '@s-libs/micro-dash';
-import { AngularContext } from '../test-context';
 import { TestCall } from './test-call';
 
 /** @hidden */
@@ -25,11 +24,11 @@ type AsyncMethodKeys<T> = {
  * ```ts
  *  it('can paste', () => {
  *   const clipboard = navigator.clipboard;
- *   const ctx = new AngularContext();
+ *   const ctx = new AngularContextNext();
  *
  *   // mock the browser API for pasting
  *   const controller = new AsyncMethodController(clipboard, 'readText', {
- *     context: ctx,
+ *     ctx,
  *   });
  *   ctx.run(() => {
  *     // BEGIN production code that copies to the clipboard
@@ -62,9 +61,9 @@ export class AsyncMethodController<
   constructor(
     obj: WrappingObject,
     methodName: FunctionName,
-    { ctx = undefined as AngularContext | undefined } = {},
+    { ctx = undefined as { tick(): void } | undefined } = {},
   ) {
-    // Note: it wasn't immediately clear how avoid `any` in this constructor, and this will be invisible to users. So I gave up. (For now.)
+    // Note: it wasn't immediately clear how avoid `any` in this constructor, and this will be invisible to users. So I gave up. (For now?)
     this.#spy = spyOn(obj, methodName as any) as any;
     this.#spy.and.callFake((() => {
       const deferred = new Deferred<any>();

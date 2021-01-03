@@ -1,4 +1,3 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClient } from '@angular/common/http';
 import { HttpTestingController } from '@angular/common/http/testing';
 import {
@@ -11,29 +10,14 @@ import {
   Injector,
 } from '@angular/core';
 import { TestBed, tick } from '@angular/core/testing';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { sleep } from '@s-libs/js-core';
 import { noop, Observable } from 'rxjs';
-import { expectSingleCallAndReset } from '../../spies';
-import { AngularContext } from './angular-context';
+import { AngularContextNext } from './angular-context-next';
 
-describe('AngularContext', () => {
-  class SnackBarContext extends AngularContext {
-    constructor() {
-      super({ imports: [MatSnackBarModule, NoopAnimationsModule] });
-    }
-
-    protected cleanUp(): void {
-      this.inject(OverlayContainer).ngOnDestroy();
-      this.tick(5000);
-      super.cleanUp();
-    }
-  }
-
+describe('AngularContextNext', () => {
   describe('.startTime', () => {
     it('controls the time at which the test starts', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       ctx.startTime = new Date('2012-07-14T21:42:17.523Z');
       ctx.run(() => {
         expect(new Date()).toEqual(new Date('2012-07-14T21:42:17.523Z'));
@@ -41,7 +25,7 @@ describe('AngularContext', () => {
     });
 
     it('defaults to the current time', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       const now = Date.now();
       ctx.run(() => {
         expect(Date.now()).toBeCloseTo(now, -1);
@@ -53,7 +37,7 @@ describe('AngularContext', () => {
     it('accepts module metadata to be bootstrapped', () => {
       const value = Symbol();
       const token = new InjectionToken<symbol>('tok');
-      const ctx = new AngularContext({
+      const ctx = new AngularContextNext({
         providers: [{ provide: token, useValue: value }],
       });
       ctx.run(() => {
@@ -62,7 +46,7 @@ describe('AngularContext', () => {
     });
 
     it('sets up HttpClientTestingModule', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       ctx.run(() => {
         expect(ctx.inject(HttpTestingController)).toBeDefined();
       });
@@ -71,70 +55,38 @@ describe('AngularContext', () => {
 
   describe('.run()', () => {
     it('uses the fakeAsync zone', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       ctx.run(() => {
         expect(tick).not.toThrow();
       });
     });
 
-    it('defaults options to `{}`', () => {
-      const ctx = new AngularContext();
-      const spy = spyOn(ctx as any, 'init');
-      ctx.run(() => {
-        expectSingleCallAndReset(spy, {});
+    it('can handle async tests that call tick', () => {
+      let completed = false;
+      const ctx = new AngularContextNext();
+      ctx.run(async () => {
+        await sleep(0);
+        setTimeout(() => {
+          completed = true;
+        }, 500);
+        ctx.tick(500);
       });
+      expect(completed).toBeTrue();
     });
   });
 
   describe('.inject()', () => {
     it('fetches from the root injector', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       ctx.run(() => {
         expect(ctx.inject(Injector)).toBe(TestBed.inject(Injector));
       });
     });
   });
 
-  describe('.getHarness()', () => {
-    it('returns a synchronized harness', () => {
-      const ctx = new SnackBarContext();
-      ctx.run(() => {
-        ctx.inject(MatSnackBar).open('hi');
-        const bar = ctx.getHarness(MatSnackBarHarness);
-        expect(bar.getMessage()).toBe('hi');
-      });
-    });
-  });
-
-  describe('.getHarnessForOptional()', () => {
-    it('gets either the a synchronized harness or null', () => {
-      const ctx = new SnackBarContext();
-      ctx.run(() => {
-        expect(ctx.getHarnessForOptional(MatSnackBarHarness)).toBeNull();
-        ctx.inject(MatSnackBar).open('hi');
-        const bar = ctx.getHarnessForOptional(MatSnackBarHarness);
-        expect(bar).not.toBeNull();
-        expect(bar!.getMessage()).toBe('hi');
-      });
-    });
-  });
-
-  describe('.getAllHarnesses()', () => {
-    it('gets an array of synchronized harnesses', () => {
-      const ctx = new SnackBarContext();
-      ctx.run(() => {
-        expect(ctx.getAllHarnesses(MatSnackBarHarness).length).toBe(0);
-        ctx.inject(MatSnackBar).open('hi');
-        const bars = ctx.getAllHarnesses(MatSnackBarHarness);
-        expect(bars.length).toBe(1);
-        expect(bars[0].getMessage()).toBe('hi');
-      });
-    });
-  });
-
   describe('.tick()', () => {
     it('defaults to not advance time', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       const start = ctx.startTime.getTime();
       ctx.run(() => {
         ctx.tick();
@@ -143,7 +95,7 @@ describe('AngularContext', () => {
     });
 
     it('defaults to advancing in milliseconds', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       const start = ctx.startTime.getTime();
       ctx.run(() => {
         ctx.tick(10);
@@ -152,7 +104,7 @@ describe('AngularContext', () => {
     });
 
     it('allows specifying the units to advance', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       const start = ctx.startTime.getTime();
       ctx.run(() => {
         ctx.tick(10, 'sec');
@@ -171,7 +123,7 @@ describe('AngularContext', () => {
       }
       TestBed.overrideComponent(LocalComponent, {});
 
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       ctx.run(() => {
         const resolver = ctx.inject(ComponentFactoryResolver);
         const factory = resolver.resolveComponentFactory(LocalComponent);
@@ -196,7 +148,7 @@ describe('AngularContext', () => {
       }
       TestBed.overrideComponent(LocalComponent, {});
 
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       ctx.run(() => {
         const resolver = ctx.inject(ComponentFactoryResolver);
         const factory = resolver.resolveComponentFactory(LocalComponent);
@@ -223,7 +175,7 @@ describe('AngularContext', () => {
       }
       TestBed.overrideComponent(LocalComponent, {});
 
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       ctx.run(() => {
         const resolver = ctx.inject(ComponentFactoryResolver);
         const factory = resolver.resolveComponentFactory(LocalComponent);
@@ -239,7 +191,7 @@ describe('AngularContext', () => {
     });
 
     it('advances `performance.now()`', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       ctx.run(() => {
         const start = performance.now();
         ctx.tick(10);
@@ -248,19 +200,9 @@ describe('AngularContext', () => {
     });
   });
 
-  describe('.init()', () => {
-    it('receives the options passed to .run()', () => {
-      const ctx = new AngularContext();
-      const spy = spyOn(ctx as any, 'init');
-      ctx.run({ thisIsTheOne: true }, () => {
-        expectSingleCallAndReset(spy, { thisIsTheOne: true });
-      });
-    });
-  });
-
   describe('.verifyPostTestConditions()', () => {
     it('errs if there are unexpected http requests', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       expect(() => {
         ctx.run(() => {
           ctx.inject(HttpClient).get('an unexpected URL').subscribe();
@@ -273,7 +215,7 @@ describe('AngularContext', () => {
 
   describe('.cleanUp()', () => {
     it('discards periodic tasks', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContextNext();
       expect(() => {
         ctx.run(() => {
           setInterval(noop, 10);
@@ -285,7 +227,7 @@ describe('AngularContext', () => {
   });
 });
 
-describe('AngularContext class-level doc example', () => {
+describe('AngularContextNext class-level doc example', () => {
   // This is the class we will test.
   @Injectable({ providedIn: 'root' })
   class MemoriesService {
@@ -301,9 +243,9 @@ describe('AngularContext class-level doc example', () => {
 
   describe('MemoriesService', () => {
     // Tests should have exactly 1 variable outside an "it": `ctx`.
-    let ctx: AngularContext;
+    let ctx: AngularContextNext;
     beforeEach(() => {
-      ctx = new AngularContext();
+      ctx = new AngularContextNext();
     });
 
     it('requests a post from 1 year ago', () => {
