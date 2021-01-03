@@ -246,7 +246,6 @@ describe('ComponentContextNext', () => {
   });
 });
 
-// TODO: update this in the actual documentation
 describe('ComponentContextNext class-level doc examples', () => {
   describe('simple example', () => {
     @Component({ template: 'Hello, {{name}}!' })
