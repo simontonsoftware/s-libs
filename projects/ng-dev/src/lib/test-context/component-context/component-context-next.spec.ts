@@ -1,3 +1,4 @@
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { ComponentHarness } from '@angular/cdk/testing';
 import {
   Component,
@@ -8,10 +9,13 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   ANIMATION_MODULE_TYPE,
   BrowserAnimationsModule,
+  NoopAnimationsModule,
 } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -31,6 +35,20 @@ describe('ComponentContextNext', () => {
 
     ngOnChanges(changes: SimpleChanges): void {
       this.ngOnChangesSpy(changes);
+    }
+  }
+
+  class SnackBarContext extends ComponentContextNext<TestComponent> {
+    constructor() {
+      super(TestComponent, {
+        imports: [MatSnackBarModule, NoopAnimationsModule],
+      });
+    }
+
+    protected cleanUp(): void {
+      this.inject(OverlayContainer).ngOnDestroy();
+      this.tick(5000);
+      super.cleanUp();
     }
   }
 
@@ -76,6 +94,94 @@ describe('ComponentContextNext', () => {
     });
   });
 
+  describe('.updateInputs()', () => {
+    it('updates the inputs', () => {
+      const ctx = new ComponentContextNext(TestComponent);
+      ctx.run(() => {
+        ctx.updateInputs({ name: 'New Guy' });
+        expect(ctx.fixture.nativeElement.textContent).toContain('New Guy');
+      });
+    });
+
+    it('triggers ngOnChanges() with the proper changes argument', () => {
+      const ctx = new ComponentContextNext(ChangeDetectingComponent);
+      ctx.run(() => {
+        const spy = ctx.getComponentInstance().ngOnChangesSpy;
+        spy.calls.reset();
+        ctx.updateInputs({ myInput: 'new value' });
+        expect(spy).toHaveBeenCalledTimes(1);
+        const changes: SimpleChanges = spy.calls.mostRecent().args[0];
+        expect(changes.myInput.currentValue).toBe('new value');
+      });
+    });
+
+    it('errors with a nice message when given a non-input', () => {
+      @Component({ template: '' })
+      class NonInputComponent {
+        nonInput?: string;
+        // tslint:disable-next-line:no-input-rename
+        @Input('nonInput') letsTryToTrickIt?: string;
+      }
+
+      const ctx = new ComponentContextNext(NonInputComponent);
+      expect(() => {
+        ctx.updateInputs({ nonInput: 'value' });
+      }).toThrowError(
+        'Cannot bind to "nonInput" (it is not an input, or you passed it in `unboundProperties`)',
+      );
+    });
+
+    it('errors with a nice message when given an unbound input', () => {
+      @Component({ template: '' })
+      class UnboundInputComponent {
+        @Input() doNotBind?: string;
+      }
+      const ctx = new ComponentContextNext(UnboundInputComponent, {}, [
+        'doNotBind',
+      ]);
+      expect(() => {
+        ctx.updateInputs({ doNotBind: "I'll do what I want" });
+      }).toThrowError(
+        'Cannot bind to "doNotBind" (it is not an input, or you passed it in `unboundProperties`)',
+      );
+    });
+  });
+
+  describe('.getComponentInstance()', () => {
+    it('returns the instantiated component', () => {
+      const ctx = new ComponentContextNext(TestComponent);
+      ctx.updateInputs({ name: 'instantiated name' });
+      ctx.run(() => {
+        expect(ctx.getComponentInstance().name).toBe('instantiated name');
+      });
+    });
+  });
+
+  describe('.getHarness()', () => {
+    it('returns a harness', () => {
+      const ctx = new SnackBarContext();
+      ctx.run(async () => {
+        ctx.inject(MatSnackBar).open('hi');
+        const bar = await ctx.getHarness(MatSnackBarHarness);
+        expect(await bar.getMessage()).toBe('hi');
+      });
+    });
+  });
+
+  describe('.getAllHarnesses()', () => {
+    it('gets an array of harnesses', () => {
+      const ctx = new SnackBarContext();
+      ctx.run(async () => {
+        let bars = await ctx.getAllHarnesses(MatSnackBarHarness);
+        expect(bars.length).toBe(0);
+        ctx.inject(MatSnackBar).open('hi');
+        bars = await ctx.getAllHarnesses(MatSnackBarHarness);
+        expect(bars.length).toBe(1);
+        expect(await bars[0].getMessage()).toBe('hi');
+      });
+    });
+  });
+
   describe('.init()', () => {
     it('creates a component of the type specified in the constructor', () => {
       const ctx = new ComponentContextNext(TestComponent);
@@ -101,38 +207,6 @@ describe('ComponentContextNext', () => {
       ctx.run(() => {
         const spy = ctx.getComponentInstance().ngOnChangesSpy;
         expect(spy).toHaveBeenCalledTimes(1);
-      });
-    });
-  });
-
-  describe('.getComponentInstance()', () => {
-    it('returns the instantiated component', () => {
-      const ctx = new ComponentContextNext(TestComponent);
-      ctx.updateInputs({ name: 'instantiated name' });
-      ctx.run(() => {
-        expect(ctx.getComponentInstance().name).toBe('instantiated name');
-      });
-    });
-  });
-
-  describe('.updateInputs()', () => {
-    it('updates the inputs', () => {
-      const ctx = new ComponentContextNext(TestComponent);
-      ctx.run(() => {
-        ctx.updateInputs({ name: 'New Guy' });
-        expect(ctx.fixture.nativeElement.textContent).toContain('New Guy');
-      });
-    });
-
-    it('triggers ngOnChanges() with the proper changes argument', () => {
-      const ctx = new ComponentContextNext(ChangeDetectingComponent);
-      ctx.run(() => {
-        const spy = ctx.getComponentInstance().ngOnChangesSpy;
-        spy.calls.reset();
-        ctx.updateInputs({ myInput: 'new value' });
-        expect(spy).toHaveBeenCalledTimes(1);
-        const changes: SimpleChanges = spy.calls.mostRecent().args[0];
-        expect(changes.myInput.currentValue).toBe('new value');
       });
     });
   });
@@ -170,43 +244,9 @@ describe('ComponentContextNext', () => {
         .not.toThrowError();
     });
   });
-
-  describe('.validateInputs()', () => {
-    it('errors with a nice message when given a non-input', () => {
-      @Component({ template: '' })
-      class NonInputComponent {
-        nonInput?: string;
-        // tslint:disable-next-line:no-input-rename
-        @Input('nonInput') letsTryToTrickIt?: string;
-      }
-
-      const ctx = new ComponentContextNext(NonInputComponent);
-      ctx.run(() => {
-        expect(() => {
-          ctx.updateInputs({ nonInput: 'value' });
-        }).toThrowError(
-          'Cannot bind to "nonInput" (it is not an input, or you passed it in `unboundProperties`)',
-        );
-      });
-    });
-
-    it('errors with a nice message when given an unbound input', () => {
-      @Component({ template: '' })
-      class UnboundInputComponent {
-        @Input() doNotBind?: string;
-      }
-      const ctx = new ComponentContextNext(UnboundInputComponent, {}, [
-        'doNotBind',
-      ]);
-      expect(() => {
-        ctx.updateInputs({ doNotBind: "I'll do what I want" });
-      }).toThrowError(
-        'Cannot bind to "doNotBind" (it is not an input, or you passed it in `unboundProperties`)',
-      );
-    });
-  });
 });
 
+// TODO: update this in the actual documentation
 describe('ComponentContextNext class-level doc examples', () => {
   describe('simple example', () => {
     @Component({ template: 'Hello, {{name}}!' })
@@ -251,8 +291,9 @@ describe('ComponentContextNext class-level doc examples', () => {
       });
 
       it('can navigate to the first page', () => {
-        ctx.run(() => {
-          ctx.getHarness(AppComponentHarness).navigateToFirstPage();
+        ctx.run(async () => {
+          const app = await ctx.getHarness(AppComponentHarness);
+          await app.navigateToFirstPage();
           expect(ctx.fixture.nativeElement.textContent).toContain(
             'First works!',
           );

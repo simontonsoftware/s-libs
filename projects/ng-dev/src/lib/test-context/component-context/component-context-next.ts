@@ -1,3 +1,8 @@
+import {
+  ComponentHarness,
+  HarnessLoader,
+  HarnessQuery,
+} from '@angular/cdk/testing';
 import { Type } from '@angular/core';
 import {
   ComponentFixture,
@@ -10,6 +15,7 @@ import { keys } from '@s-libs/micro-dash';
 import { trimLeftoverStyles } from '../../trim-leftover-styles';
 import { extendMetadata } from '../angular-context/angular-context';
 import { AngularContextNext } from '../angular-context/angular-context-next';
+import { FakeAsyncHarnessEnvironmentNext } from '../angular-context/fake-async-harness-environment-next';
 import { createDynamicWrapper } from './create-dynamic-wrapper';
 
 /**
@@ -138,13 +144,14 @@ import { createDynamicWrapper } from './create-dynamic-wrapper';
  */
 export class ComponentContextNext<T> extends AngularContextNext {
   /**
-   * The {@link ComponentFixture} for a synthetic wrapper around your component.
+   * The {@link ComponentFixture} for a synthetic wrapper around your component. Available with the callback to `run()`.
    */
   fixture!: ComponentFixture<unknown>;
 
   private componentType: Type<T>;
   private wrapperType: Type<T>;
   private inputProperties: Set<keyof T>;
+  private loader!: HarnessLoader;
   private inputs: Partial<T>;
 
   /**
@@ -198,12 +205,29 @@ export class ComponentContextNext<T> extends AngularContextNext {
   }
 
   /**
+   * Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to `await` its results. Throws an error if no match can be located.
+   */
+  getHarness<H extends ComponentHarness>(query: HarnessQuery<H>): Promise<H> {
+    return this.loader.getHarness(query);
+  }
+
+  /**
+   * Gets all component harnesses that match the query, wrapped for use in a fakeAsync test so that you do not need to `await` its results.
+   */
+  getAllHarnesses<H extends ComponentHarness>(
+    query: HarnessQuery<H>,
+  ): Promise<Array<H>> {
+    return this.loader.getAllHarnesses(query);
+  }
+
+  /**
    * Constructs and initializes your component. Called during `run()` before it executes the rest of your test. Runs in the same `fakeAsync` zone as the rest of your test.
    */
   protected init(): void {
     trimLeftoverStyles();
     super.init();
     this.fixture = TestBed.createComponent(this.wrapperType);
+    this.loader = FakeAsyncHarnessEnvironmentNext.documentRootLoader(this);
 
     Object.assign(this.fixture.componentInstance, this.inputs);
     this.fixture.detectChanges();

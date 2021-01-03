@@ -2,18 +2,20 @@ import { HarnessEnvironment } from '@angular/cdk/testing';
 import { UnitTestElement } from '@angular/cdk/testing/testbed';
 import { flush } from '@angular/core/testing';
 import { bindKey } from '@s-libs/micro-dash';
-import { AngularContext } from './angular-context';
-import { synchronize, Synchronized } from '../synchronize';
+import { AngularContextNext } from './angular-context-next';
 
 /** @hidden */
-export class FakeAsyncHarnessEnvironment extends HarnessEnvironment<Element> {
+export class FakeAsyncHarnessEnvironmentNext extends HarnessEnvironment<Element> {
   static documentRootLoader(
-    ctx: AngularContext,
-  ): Synchronized<FakeAsyncHarnessEnvironment> {
-    return synchronize(new FakeAsyncHarnessEnvironment(document.body, ctx));
+    ctx: AngularContextNext,
+  ): FakeAsyncHarnessEnvironmentNext {
+    return new FakeAsyncHarnessEnvironmentNext(document.body, ctx);
   }
 
-  protected constructor(rawRootElement: Element, private ctx: AngularContext) {
+  protected constructor(
+    rawRootElement: Element,
+    private ctx: AngularContextNext,
+  ) {
     super(rawRootElement);
   }
 
@@ -26,7 +28,7 @@ export class FakeAsyncHarnessEnvironment extends HarnessEnvironment<Element> {
   }
 
   protected createEnvironment(element: Element): HarnessEnvironment<Element> {
-    return new FakeAsyncHarnessEnvironment(element, this.ctx);
+    return new FakeAsyncHarnessEnvironmentNext(element, this.ctx);
   }
 
   protected createTestElement(element: Element): UnitTestElement {

@@ -1,4 +1,3 @@
-import { ComponentHarness, HarnessQuery } from '@angular/cdk/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -19,8 +18,6 @@ import {
 } from '@angular/core/testing';
 import { convertTime } from '@s-libs/js-core';
 import { clone, forOwn } from '@s-libs/micro-dash';
-import { Synchronized } from '../synchronize';
-import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
 
 /** @hidden */
 export function extendMetadata(
@@ -50,10 +47,11 @@ export function extendMetadata(
  * This example tests a simple service that uses HttpClient, and is tested by
  * using `AngularContext` directly. More often `AngularContext` will be used a
  * super class. See {@link ComponentContextNext} for more common use cases.
+ *
  * ```ts
- *  // This is the class we will test.
- *  @Injectable({ providedIn: 'root' })
- *  class MemoriesService {
+ * // This is the class we will test.
+ * @Injectable({ providedIn: 'root' })
+ * class MemoriesService {
  *   constructor(private httpClient: HttpClient) {}
  *
  *   getLastYearToday(): Observable<any> {
@@ -64,16 +62,14 @@ export function extendMetadata(
  *   }
  * }
  *
- *  describe('MemoriesService', () => {
- *
+ * describe('MemoriesService', () => {
  *   // Tests should have exactly 1 variable outside an "it": `ctx`.
- *   let ctx: AngularContext;
+ *   let ctx: AngularContextNext;
  *   beforeEach(() => {
- *     ctx = new AngularContext();
+ *     ctx = new AngularContextNext();
  *   });
  *
  *   it('requests a post from 1 year ago', () => {
- *
  *     // Before calling `run`, set up any context variables this test needs.
  *     ctx.startTime = new Date('2004-02-16T10:15:00.000Z');
  *
@@ -96,8 +92,6 @@ export class AngularContextNext {
    */
   startTime = new Date();
 
-  private loader = FakeAsyncHarnessEnvironment.documentRootLoader(this);
-
   /**
    * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link HttpClientTestingModule} for you.
    */
@@ -116,11 +110,12 @@ export class AngularContextNext {
    *
    * @param options Passed along to `init()`. Unused by `AngularContext`, but may be used by subclasses.
    */
-  run(test: () => void): void {
+  run(test: () => void | Promise<void>): void {
     this.runWithMockedTime(() => {
       this.init();
       try {
         test();
+        this.tick();
         this.verifyPostTestConditions();
       } finally {
         this.cleanUp();
@@ -133,35 +128,6 @@ export class AngularContextNext {
    */
   inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>): T {
     return TestBed.inject(token);
-  }
-
-  /**
-   * Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to `await` its results. Throws an error if no match can be located.
-   */
-  getHarness<T extends ComponentHarness>(
-    query: HarnessQuery<T>,
-  ): Synchronized<T> {
-    return this.loader.getHarness(query) as Synchronized<T>;
-  }
-
-  /**
-   * Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to `await` its results. Returns `null` if the harness cannot be located.
-   */
-  getHarnessForOptional<T extends ComponentHarness>(
-    query: HarnessQuery<T>,
-  ): Synchronized<T> | null {
-    return this.loader.locatorForOptional(query)() as Synchronized<T> | null;
-  }
-
-  /**
-   * Gets all component harnesses that match the query, wrapped for use in a fakeAsync test so that you do not need to `await` its results.
-   */
-  getAllHarnesses<T extends ComponentHarness>(
-    query: HarnessQuery<T>,
-  ): Array<Synchronized<T>> {
-    return (this.loader.getAllHarnesses(query) as unknown) as Array<
-      Synchronized<T>
-    >;
   }
 
   /**
