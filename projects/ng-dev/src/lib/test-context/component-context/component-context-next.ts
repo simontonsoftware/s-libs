@@ -151,7 +151,7 @@ export class ComponentContextNext<T> extends AngularContextNext {
   /**
    * The {@link ComponentFixture} for a synthetic wrapper around your component. Available with the callback to `run()`.
    */
-  fixture!: ComponentFixture<WrapperComponent<T>>;
+  fixture!: ComponentFixture<unknown>;
 
   private componentType: Type<T>;
   private wrapperType: Type<WrapperComponent<T>>;
@@ -282,10 +282,17 @@ export class ComponentContextNext<T> extends AngularContextNext {
   }
 
   private flushInputsToWrapper(): void {
-    Object.assign(this.fixture.componentInstance.inputs, this.inputs);
+    Object.assign(this.getWrapperComponentInstance().inputs, this.inputs);
   }
 
   private flushStylesToWrapper(): void {
-    Object.assign(this.fixture.componentInstance.styles, this.wrapperStyles);
+    Object.assign(
+      this.getWrapperComponentInstance().styles,
+      this.wrapperStyles,
+    );
+  }
+
+  private getWrapperComponentInstance(): WrapperComponent<T> {
+    return this.fixture.componentInstance as WrapperComponent<T>;
   }
 }
