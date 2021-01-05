@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.2.0-next.2](https://github.com/simontonsoftware/s-libs/compare/v11.2.0-next.1...v11.2.0-next.2) (2021-01-05)
+
+### Features
+
+- **ng-dev:** `ComponentContextNext` runs async tests and uses normal async component harnesses. Deprecate `AngularContext` in favor of the new `AngularContextNext` (which powers some of this new behavior). ([07cecef](https://github.com/simontonsoftware/s-libs/commit/07cecef9af41dfecb5787d403ce1a50973b94acf))
+- **ng-dev:** added `ComponentContextNext.assignWrapperStyles()` ([b3fc051](https://github.com/simontonsoftware/s-libs/commit/b3fc051a6b6b0fa9d142fe4a7abae029cb166ddc))
+
 ## [11.2.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v11.2.0-next.0...v11.2.0-next.1) (2021-01-01)
 
 ### Features
