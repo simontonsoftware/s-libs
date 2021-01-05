@@ -11,7 +11,7 @@ import {
 import { ComponentFixture } from '@angular/core/testing';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import {
   ANIMATION_MODULE_TYPE,
   BrowserAnimationsModule,
@@ -144,6 +144,38 @@ describe('ComponentContextNext', () => {
       }).toThrowError(
         'Cannot bind to "doNotBind" (it is not an input, or you passed it in `unboundProperties`)',
       );
+    });
+  });
+
+  describe('.assignWrapperStyles()', () => {
+    it('can be used before .run()', () => {
+      const ctx = new ComponentContextNext(TestComponent);
+      ctx.assignWrapperStyles({ border: '1px solid black' });
+      ctx.run(() => {
+        const wrapper = ctx.fixture.debugElement.query(
+          By.css('.s-libs-dynamic-wrapper'),
+        );
+        expect(wrapper.styles).toEqual(
+          jasmine.objectContaining({ border: '1px solid black' }),
+        );
+      });
+    });
+
+    it('changes (only) the passed-in styles', () => {
+      const ctx = new ComponentContextNext(TestComponent);
+      ctx.assignWrapperStyles({ border: '1px solid black' });
+      ctx.run(() => {
+        ctx.assignWrapperStyles({ 'background-color': 'blue' });
+        const wrapper = ctx.fixture.debugElement.query(
+          By.css('.s-libs-dynamic-wrapper'),
+        );
+        expect(wrapper.styles).toEqual(
+          jasmine.objectContaining({
+            border: '1px solid black',
+            'background-color': 'blue',
+          }),
+        );
+      });
     });
   });
 

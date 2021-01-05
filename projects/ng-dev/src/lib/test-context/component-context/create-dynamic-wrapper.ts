@@ -10,8 +10,14 @@ interface InputMeta<T> {
 }
 
 /** @hidden */
+export interface WrapperComponent<T> {
+  inputs: Partial<T>;
+  styles: { [klass: string]: any };
+}
+
+/** @hidden */
 interface DynamicWrapper<T> {
-  type: Type<T>;
+  type: Type<WrapperComponent<T>>;
   inputProperties: Array<keyof T>;
 }
 
@@ -25,20 +31,13 @@ export function createDynamicWrapper<T>(
     ({ property }) => !unboundInputs.includes(property),
   );
 
-  const template = `
-    <div>
-      <${selector}
-        ${inputMetas
-          .map(({ binding, property }) => `[${binding}]="${property}"`)
-          .join(' ')}
-      ></${selector}>
-    </div>
-  `;
+  @Component({ template: buildTemplate(selector, inputMetas) })
+  class DynamicWrapperComponent {
+    inputs: Partial<T> = {};
+    styles: { [klass: string]: any } = {};
+  }
 
-  @Component({ template })
-  class DynamicWrapperComponent {}
-
-  const type = DynamicWrapperComponent as Type<T>;
+  const type = DynamicWrapperComponent;
   const inputProperties = inputMetas.map((meta) => meta.property);
   return { type, inputProperties };
 }
@@ -75,6 +74,7 @@ function isValidSelector(selector: string): boolean {
 
 /** @hidden */
 function getInputMetas<T>(componentType: Type<T>): Array<InputMeta<T>> {
+  // I tried making this support inputs with special characters in their names, but it turns out that *Angular* can only support that when using AOT. So our *dynamic* wrapper cannot.
   return flatMap(
     (componentType as any).propDecorators,
     (decorators: any[], property: any) => {
@@ -87,4 +87,19 @@ function getInputMetas<T>(componentType: Type<T>): Array<InputMeta<T>> {
       });
     },
   );
+}
+
+/** @hidden */
+function buildTemplate<T>(
+  selector: string,
+  inputMetas: InputMeta<T>[],
+): string {
+  const bindingStrings = inputMetas.map(
+    ({ binding, property }) => `[${binding}]="inputs.${property}"`,
+  );
+  return `
+    <div class="s-libs-dynamic-wrapper" [ngStyle]="styles">
+      <${selector} ${bindingStrings.join(' ')}></${selector}>
+    </div>
+  `;
 }

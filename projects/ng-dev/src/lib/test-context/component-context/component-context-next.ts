@@ -16,7 +16,10 @@ import { trimLeftoverStyles } from '../../trim-leftover-styles';
 import { extendMetadata } from '../angular-context/angular-context';
 import { AngularContextNext } from '../angular-context/angular-context-next';
 import { FakeAsyncHarnessEnvironmentNext } from '../angular-context/fake-async-harness-environment-next';
-import { createDynamicWrapper } from './create-dynamic-wrapper';
+import {
+  createDynamicWrapper,
+  WrapperComponent,
+} from './create-dynamic-wrapper';
 
 /**
  * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContextNext} plus:
@@ -148,13 +151,15 @@ export class ComponentContextNext<T> extends AngularContextNext {
   /**
    * The {@link ComponentFixture} for a synthetic wrapper around your component. Available with the callback to `run()`.
    */
-  fixture!: ComponentFixture<unknown>;
+  fixture!: ComponentFixture<WrapperComponent<T>>;
 
   private componentType: Type<T>;
-  private wrapperType: Type<T>;
+  private wrapperType: Type<WrapperComponent<T>>;
   private inputProperties: Set<keyof T>;
   private loader!: HarnessLoader;
+
   private inputs: Partial<T>;
+  private wrapperStyles: { [klass: string]: any };
 
   /**
    * @param componentType `run()` will create a component of this type before running the rest of your test.
@@ -177,10 +182,32 @@ export class ComponentContextNext<T> extends AngularContextNext {
     this.wrapperType = wrapper.type;
     this.inputProperties = new Set(wrapper.inputProperties);
     this.inputs = {};
+    this.wrapperStyles = {};
   }
 
   /**
-   * Use within `run()` to update the inputs to your component and trigger all the appropriate change detection and lifecycle hooks. Only the inputs specified in `inputs` will be affected.
+   * Assign css styles to the div wrapping your component. Can be called before or during `run()`. Accepts an object with the same structure as the {@link https://angular.io/api/common/NgStyle|ngStyle directive}.
+   *
+   * ```ts
+   * ctx.assignWrapperStyles({
+   *   width: '400px',
+   *   height: '600px',
+   *   margin: '20px auto',
+   *   border: '1px solid',
+   * });
+   * ```
+   */
+  assignWrapperStyles(styles: { [klass: string]: any }): void {
+    Object.assign(this.wrapperStyles, styles);
+
+    if (this.isInitialized()) {
+      this.flushStylesToWrapper();
+      this.tick();
+    }
+  }
+
+  /**
+   * Assign inputs passed into your component. Can be called before `run()` to set the initial inputs, or within `run()` to update them and trigger all the appropriate change detection and lifecycle hooks.
    */
   assignInputs(inputs: Partial<T>): void {
     for (const key of keys(inputs)) {
@@ -193,7 +220,7 @@ export class ComponentContextNext<T> extends AngularContextNext {
 
     Object.assign(this.inputs, inputs);
     if (this.isInitialized()) {
-      Object.assign(this.fixture.componentInstance, inputs);
+      this.flushInputsToWrapper();
       this.tick();
     }
   }
@@ -231,7 +258,8 @@ export class ComponentContextNext<T> extends AngularContextNext {
     this.fixture = TestBed.createComponent(this.wrapperType);
     this.loader = FakeAsyncHarnessEnvironmentNext.documentRootLoader(this);
 
-    Object.assign(this.fixture.componentInstance, this.inputs);
+    this.flushStylesToWrapper();
+    this.flushInputsToWrapper();
     this.fixture.detectChanges();
     this.tick();
   }
@@ -251,5 +279,13 @@ export class ComponentContextNext<T> extends AngularContextNext {
 
   private isInitialized(): boolean {
     return !!this.fixture;
+  }
+
+  private flushInputsToWrapper(): void {
+    Object.assign(this.fixture.componentInstance.inputs, this.inputs);
+  }
+
+  private flushStylesToWrapper(): void {
+    Object.assign(this.fixture.componentInstance.styles, this.wrapperStyles);
   }
 }
