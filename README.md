@@ -41,5 +41,5 @@ For most of them, upgrading simply requires:
 
 However, there are extra steps to follow for these libraries, outlined in their separate readmes:
 
-- `s-ng-dev-utils` -> `@s-libs/ng-dev`: check the upgrade guide [here](https://https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-dev#upgrading-from-the-non-s-libs-version).
-- `ng-app-state` -> `@s-libs/app-state`: check the upgrade guide [here](https://https://github.com/simontonsoftware/s-libs/tree/master/projects/app-state#upgrading-from-the-non-s-libs-version).
+- `s-ng-dev-utils` -> `@s-libs/ng-dev`: check the upgrade guide [here](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-dev#upgrading-from-the-non-s-libs-version).
+- `ng-app-state` -> `@s-libs/app-state`: check the upgrade guide [here](https://github.com/simontonsoftware/s-libs/tree/master/projects/app-state#upgrading-from-the-non-s-libs-version).
