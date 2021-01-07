@@ -967,12 +967,14 @@ img { max-width: 100%; }
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in <a href="angularcontextnext.html">AngularContextNext</a> plus:</p>
+					<p>Provides the foundation for an opinionated pattern of component tests.</p>
 				</div>
 				<ul>
+					<li>Includes all features from <a href="angularcontextnext.html">AngularContextNext</a></li>
 					<li>Automatically creates your component at the beginning of <code>run()</code>.</li>
-					<li>Wraps your component in a dynamically created parent component. (This sets up Angular to call <code>ngOnChanges()</code> in your tests the same way it does in production.)</li>
-					<li>Lets you use <a href="https://material.angular.io/cdk/test-harnesses/overview" class="external">component harnesses</a> (which are normally not usable within a <code>fakeAsync</code> test).</li>
+					<li>Sets up Angular to call <code>ngOnChanges()</code> like it would in production (this is not the case if you use the standard <code>TestBed.createComponent()</code> directly).</li>
+					<li>Wraps your component in a dynamically created parent that you can style however you like.</li>
+					<li>Lets you use <a href="https://material.angular.io/cdk/test-harnesses/overview" class="external">component harnesses</a> in the <code>fakeAsync</code> zone (which is normally a challenge).</li>
 					<li>Automatically disables animations.</li>
 					<li>Automatically integrates <a href="../index.html#trimleftoverstyles">trimLeftoverStyles</a> to speed up your test suite.</li>
 				</ul>
@@ -1158,7 +1160,7 @@ describe(<span class="hljs-string">&#x27;AppComponent&#x27;</span>, <span class=
 						<aside class="tsd-sources">
 							<p>Overrides <a href="angularcontextnext.html">AngularContextNext</a>.<a href="angularcontextnext.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L155">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:155</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L157">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:157</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1175,7 +1177,7 @@ describe(<span class="hljs-string">&#x27;AppComponent&#x27;</span>, <span class=
 				<div class="tsd-signature tsd-kind-icon">fixture<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ComponentFixture</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L148">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:148</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L150">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:150</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1213,7 +1215,7 @@ describe(<span class="hljs-string">&#x27;AppComponent&#x27;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L205">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:205</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L207">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:207</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1234,7 +1236,7 @@ describe(<span class="hljs-string">&#x27;AppComponent&#x27;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L193">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:193</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L195">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:195</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1262,7 +1264,7 @@ describe(<span class="hljs-string">&#x27;AppComponent&#x27;</span>, <span class=
 						<aside class="tsd-sources">
 							<p>Overrides <a href="angularcontextnext.html">AngularContextNext</a>.<a href="angularcontextnext.html#cleanup">cleanUp</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L251">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:251</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L253">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:253</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1305,7 +1307,7 @@ describe(<span class="hljs-string">&#x27;AppComponent&#x27;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L224">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:224</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L226">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:226</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1349,7 +1351,7 @@ describe(<span class="hljs-string">&#x27;AppComponent&#x27;</span>, <span class=
 						<aside class="tsd-sources">
 							<p>Overrides <a href="angularcontextnext.html">AngularContextNext</a>.<a href="angularcontextnext.html#init">init</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L232">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:232</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts#L234">projects/ng-dev/src/lib/test-context/component-context/component-context-next.ts:234</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

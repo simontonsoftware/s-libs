@@ -16,11 +16,13 @@ import {
 } from './create-dynamic-wrapper';
 
 /**
- * A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in {@link AngularContextNext} plus:
+ * Provides the foundation for an opinionated pattern for component tests.
  *
+ * - Includes all features from {@link AngularContextNext}
  * - Automatically creates your component at the beginning of `run()`.
- * - Wraps your component in a dynamically created parent component. (This sets up Angular to call `ngOnChanges()` in your tests the same way it does in production.)
- * - Lets you use {@link https://material.angular.io/cdk/test-harnesses/overview|component harnesses} (which are normally not usable within a `fakeAsync` test).
+ * - Sets up Angular to call `ngOnChanges()` like it would in production. This is not the case if you use the standard `TestBed.createComponent()` directly.
+ * - Wraps your component in a dynamically created parent that you can easily style however you like.
+ * - Lets you use {@link https://material.angular.io/cdk/test-harnesses/overview|component harnesses} in the `fakeAsync` zone, which is normally a challenge.
  * - Automatically disables animations.
  * - Automatically integrates {@link trimLeftoverStyles} to speed up your test suite.
  *

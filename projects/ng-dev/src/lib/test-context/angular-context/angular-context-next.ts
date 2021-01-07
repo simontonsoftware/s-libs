@@ -42,13 +42,13 @@ export function extendMetadata(
  *   thrown away, so they cannot leak between tests.
  * - Clearly separates initialization code from the test itself.
  * - Gives control over the simulated date & time with a single line of code.
- * - Automatically includes {@link HttpClientTestingModule} to stub network requests without additional setup.
- * - Always verifies no unexpected http requests were made during a test.
- * - Always discards periodic tasks and flushes pending timers at the end of each test to automatically avoid the error "X timer(s) still in the queue".
+ * - Automatically includes {@link https://angular.io/api/common/http/testing/HttpClientTestingModule|HttpClientTestingModule} to stub network requests without additional setup.
+ * - Always verifies that no unexpected http requests were made.
+ * - Automatically discards periodic tasks and flushes pending timers at the end of each test to avoid the error "X timer(s) still in the queue".
  *
  * Why does the class name end with "Next"? This replaces the old `AngularContext`, but it's a breaking change so this gives people some time to transition over. Eventually the old one will be removed and this will be renamed to `AngularContext`.
  *
- * This example tests a simple service that uses HttpClient, and is tested by using `AngularContextNext` directly. More often `AngularContextNext` will be used a super class. See {@link ComponentContextNext} for more common use cases.
+ * This example tests a simple service that uses `HttpClient`, and is tested by using `AngularContextNext` directly. More often `AngularContextNext` will be used as a super class. See {@link ComponentContextNext} for more common use cases.
  *
  * ```ts
  * // This is the class we will test.
