@@ -10,3 +10,4 @@ for (const project of projects) {
     `npx typedoc --tsconfig projects/${project}/tsconfig.lib.json --out docs/${project} projects/${project}/src/lib`,
   );
 }
+runCommand('git add docs/*');

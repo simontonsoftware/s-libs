@@ -3,6 +3,8 @@ import { isPromiseLike } from '@s-libs/js-core';
 import { get, isObject } from '@s-libs/micro-dash';
 
 /**
+ * @deprecated This is no longer used with the new {@link AngularContextNext}, so it will be removed from this library at the same time as {@link AngularContext} in the future.
+ *
  * The type for component harness used in an `AngularContext`, which wraps the original harness in a proxy meant to be used in a `fakeAsync` test where one cannot `await` the results of an asynchronous call. The functions that would normally return a promise instead return their result immediately, calling `tick()` to flush it first.
  */
 export type Synchronized<O extends object> = {
