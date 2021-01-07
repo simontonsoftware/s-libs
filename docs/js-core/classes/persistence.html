@@ -931,6 +931,9 @@ img { max-width: 100%; }
 			<a href="../index.html#isequalatdepth" class="tsd-kind-icon">is<wbr>Equal<wbr>AtDepth</a>
 		</li>
 		<li class=" tsd-kind-function">
+			<a href="../index.html#isfalsy" class="tsd-kind-icon">is<wbr>Falsy</a>
+		</li>
+		<li class=" tsd-kind-function">
 			<a href="../index.html#ispromiselike" class="tsd-kind-icon">is<wbr>Promise<wbr>Like</a>
 		</li>
 		<li class=" tsd-kind-function">
@@ -938,6 +941,9 @@ img { max-width: 100%; }
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="../index.html#issuperset" class="tsd-kind-icon">is<wbr>Superset</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../index.html#istruthy" class="tsd-kind-icon">is<wbr>Truthy</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
 			<a href="../index.html#mapaskeys" class="tsd-kind-icon">map<wbr>AsKeys</a>
@@ -981,6 +987,7 @@ img { max-width: 100%; }
 				<div class="lead">
 					<p>Get and put objects from/to local storage. They will be (de)serialized as JSON, so be sure that&#39;s OK for your objects.</p>
 				</div>
+				<p>If localStorage is not available, all methods essentially act as noops.</p>
 				<pre><code class="language-ts"> <span class="hljs-comment">// if &#x27;my key&#x27; has never been used before</span>
  <span class="hljs-keyword">const</span> persistence = <span class="hljs-keyword">new</span> Persistence(<span class="hljs-string">&#x27;my key&#x27;</span>);
  persistence.get(); <span class="hljs-comment">// returns `undefined`</span>
@@ -1041,7 +1048,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L16">projects/js-core/src/lib/persistence.ts:16</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L18">projects/js-core/src/lib/persistence.ts:18</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1062,7 +1069,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L40">projects/js-core/src/lib/persistence.ts:40</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L42">projects/js-core/src/lib/persistence.ts:42</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1083,7 +1090,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L32">projects/js-core/src/lib/persistence.ts:32</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L34">projects/js-core/src/lib/persistence.ts:34</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1104,7 +1111,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L25">projects/js-core/src/lib/persistence.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L27">projects/js-core/src/lib/persistence.ts:27</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

@@ -1,6 +1,6 @@
 {
   "name": "@s-libs/ng-app-state",
-  "version": "11.2.0-next.2",
+  "version": "11.2.0",
   "author": "Simonton Software",
   "license": "MIT",
   "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-app-state",
@@ -12,10 +12,10 @@
   "peerDependencies": {
     "@angular/common": "^11.0.0",
     "@angular/core": "^11.0.0",
-    "@s-libs/js-core": "^11.2.0-next.2",
-    "@s-libs/micro-dash": "^11.2.0-next.2",
-    "@s-libs/ng-core": "^11.2.0-next.2",
-    "@s-libs/rxjs-core": "^11.2.0-next.2"
+    "@s-libs/js-core": "^11.2.0",
+    "@s-libs/micro-dash": "^11.2.0",
+    "@s-libs/ng-core": "^11.2.0",
+    "@s-libs/rxjs-core": "^11.2.0"
   },
   "dependencies": { "tslib": "^2.0.0" }
 }

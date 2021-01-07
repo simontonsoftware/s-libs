@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.2.0](https://github.com/simontonsoftware/s-libs/compare/v11.2.0-next.2...v11.2.0) (2021-01-07)
+
+### Features
+
+- **micro-dash:** improve typing of `reduce()` and `reduceRight()` ([6c5500d](https://github.com/simontonsoftware/s-libs/commit/6c5500d44116c5a866188904473d15f0c9be527b)), closes [#20](https://github.com/simontonsoftware/s-libs/issues/20)
+- **ng-dev:** `AngularContext` flushes pending timeouts automatically at the end of each test (instead of throwing the error "X timer(s) still in the queue.") ([33d890a](https://github.com/simontonsoftware/s-libs/commit/33d890a8260dc91e2e7392bd1a8dcfee50c946a7)), closes [#21](https://github.com/simontonsoftware/s-libs/issues/21)
+
+### Bug Fixes
+
+- **js-core:** no longer throw error when `localStorage` is not available ([06be1e5](https://github.com/simontonsoftware/s-libs/commit/06be1e531c277896b04031503bbec5ad71212bd3)), closes [#17](https://github.com/simontonsoftware/s-libs/issues/17)
+- **ng-core:** `DirectiveSuperclass.getInput$()` emits synchronously if `.ngOnChanges()` was already called ([466415c](https://github.com/simontonsoftware/s-libs/commit/466415c990f8b40c02eea40c3018b4afe1762d03))
+
 ## [11.2.0-next.2](https://github.com/simontonsoftware/s-libs/compare/v11.2.0-next.1...v11.2.0-next.2) (2021-01-05)
 
 ### Features

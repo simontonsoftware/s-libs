@@ -877,8 +877,20 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="classes/angularcontext.html" class="tsd-kind-icon">Angular<wbr>Context</a>
 		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/angularcontextnext.html" class="tsd-kind-icon">Angular<wbr>Context<wbr>Next</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="classes/asyncmethodcontroller.html" class="tsd-kind-icon">Async<wbr>Method<wbr>Controller</a>
+		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="classes/componentcontext.html" class="tsd-kind-icon">Component<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="classes/componentcontextnext.html" class="tsd-kind-icon">Component<wbr>Context<wbr>Next</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="classes/testcall.html" class="tsd-kind-icon">Test<wbr>Call</a>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 			<a href="index.html#synchronized" class="tsd-kind-icon">Synchronized</a>
@@ -916,7 +928,11 @@ img { max-width: 100%; }
 						<h3>Classes</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/angularcontext.html" class="tsd-kind-icon">Angular<wbr>Context</a></li>
+							<li class="tsd-kind-class"><a href="classes/angularcontextnext.html" class="tsd-kind-icon">Angular<wbr>Context<wbr>Next</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/asyncmethodcontroller.html" class="tsd-kind-icon">Async<wbr>Method<wbr>Controller</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/componentcontext.html" class="tsd-kind-icon">Component<wbr>Context</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/componentcontextnext.html" class="tsd-kind-icon">Component<wbr>Context<wbr>Next</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/testcall.html" class="tsd-kind-icon">Test<wbr>Call</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -948,13 +964,16 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Synchronized<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/synchronize.ts#L8">projects/ng-dev/src/lib/test-context/synchronize.ts:8</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/synchronize.ts#L10">projects/ng-dev/src/lib/test-context/synchronize.ts:10</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>The type for component harness used in an <code>AngularContext</code>, which wraps the original harness in a proxy meant to be used in a <code>fakeAsync</code> test where one cannot <code>await</code> the results of an asynchronous call. The functions that would normally return a promise instead return their result immediately, calling <code>tick()</code> to flush it first.</p>
-					</div>
+					<dl class="tsd-comment-tags">
+						<dt>deprecated</dt>
+						<dd><p>This is no longer used with the new <a href="classes/angularcontextnext.html">AngularContextNext</a>, so it will be removed from this library at the same time as <a href="classes/angularcontext.html">AngularContext</a> in the future.</p>
+							<p>The type for component harness used in an <code>AngularContext</code>, which wraps the original harness in a proxy meant to be used in a <code>fakeAsync</code> test where one cannot <code>await</code> the results of an asynchronous call. The functions that would normally return a promise instead return their result immediately, calling <code>tick()</code> to flush it first.</p>
+						</dd>
+					</dl>
 				</div>
 			</section>
 		</section>

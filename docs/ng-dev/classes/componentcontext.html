@@ -877,6 +877,12 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="angularcontext.html" class="tsd-kind-icon">Angular<wbr>Context</a>
 		</li>
+		<li class=" tsd-kind-class">
+			<a href="angularcontextnext.html" class="tsd-kind-icon">Angular<wbr>Context<wbr>Next</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="asyncmethodcontroller.html" class="tsd-kind-icon">Async<wbr>Method<wbr>Controller</a>
+		</li>
 		<li class="current tsd-kind-class tsd-has-type-parameter">
 			<a href="componentcontext.html" class="tsd-kind-icon">Component<wbr>Context</a>
 			<ul>
@@ -921,6 +927,12 @@ img { max-width: 100%; }
 				</li>
 			</ul>
 		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="componentcontextnext.html" class="tsd-kind-icon">Component<wbr>Context<wbr>Next</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="testcall.html" class="tsd-kind-icon">Test<wbr>Call</a>
+		</li>
 		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 			<a href="../index.html#synchronized" class="tsd-kind-icon">Synchronized</a>
 		</li>
@@ -951,31 +963,19 @@ img { max-width: 100%; }
 	<div class="content-wrap">
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
-				<div class="lead">
-					<p>A superclass to set up testing contexts for components. This is a foundation for an opinionated testing pattern, including everything described in <a href="angularcontext.html">AngularContext</a>. A very simple example:</p>
-				</div>
-				<pre><code class="language-ts"><span class="hljs-meta">@Component</span>({ <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;Hello, {{name}}!&#x27;</span> })
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GreeterComponent</span> </span>{
-  <span class="hljs-meta">@Input</span>() name!: <span class="hljs-built_in">string</span>;
-}
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GreeterComponentContext</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ComponentContext</span> </span>{
-  <span class="hljs-keyword">protected</span> componentType = GreeterComponent;
-}
-
-describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
-  <span class="hljs-keyword">let</span> ctx: GreeterComponentContext;
-  beforeEach(<span class="hljs-function">() =&gt;</span> {
-    ctx = <span class="hljs-keyword">new</span> GreeterComponentContext();
-  });
-
-  it(<span class="hljs-string">&#x27;greets you by name&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
-    ctx.run({ <span class="hljs-attr">input</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;World&#x27;</span> } }, <span class="hljs-function">() =&gt;</span> {
-      expect(ctx.fixture.nativeElement.textContent).toBe(<span class="hljs-string">&#x27;Hello, World!&#x27;</span>);
-    });
-  });
-})</code></pre>
-				<p>This class integrates <a href="../index.html#trimleftoverstyles">trimLeftoverStyles</a> to speed up your test suite, as described in the docs for that function.</p>
+				<dl class="tsd-comment-tags">
+					<dt>deprecated</dt>
+					<dd><p>Use <a href="componentcontextnext.html">ComponentContextNext</a> instead. This old version will be removed in a future version, and <code>ComponentContextNext</code> will be renamed to <code>ComponentContext</code>.</p>
+						<p>Some notes to migrate to the new version:</p>
+						<ul>
+							<li>Change &quot;input&quot; to &quot;inputs&quot; in calls to <code>.run({ input: {...}}, ...)</code></li>
+							<li>Any variables you set in &quot;inputs&quot; must now be actual angular <code>@Input()</code>s</li>
+							<li><code>ctx.fixture</code> is now for a synthetic wrapper component, not your component. Change <code>ctx.fixture.componentInstance</code> to <code>ctx.getComponentInstance()</code></li>
+							<li>If your component has an input with a default value that you want to preserve, pass it in the constructor&#39;s <code>unboundInputs</code> argument.</li>
+							<li>Additionally see all the notes in the superclass: <a href="angularcontext.html">AngularContext</a>.</li>
+						</ul>
+					</dd>
+				</dl>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-type-parameters">
@@ -1050,7 +1050,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Overrides <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L57">projects/ng-dev/src/lib/test-context/component-context.ts:57</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context.ts#L41">projects/ng-dev/src/lib/test-context/component-context/component-context.ts:41</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1067,7 +1067,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 				<div class="tsd-signature tsd-kind-icon">component<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Type</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L57">projects/ng-dev/src/lib/test-context/component-context.ts:57</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context.ts#L41">projects/ng-dev/src/lib/test-context/component-context/component-context.ts:41</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1082,7 +1082,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 				<div class="tsd-signature tsd-kind-icon">fixture<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ComponentFixture</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L52">projects/ng-dev/src/lib/test-context/component-context.ts:52</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context.ts#L36">projects/ng-dev/src/lib/test-context/component-context/component-context.ts:36</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1098,7 +1098,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#starttime">startTime</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L96">projects/ng-dev/src/lib/test-context/angular-context.ts:96</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L49">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:49</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1121,7 +1121,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Overrides <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#cleanup">cleanUp</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L86">projects/ng-dev/src/lib/test-context/component-context.ts:86</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context.ts#L70">projects/ng-dev/src/lib/test-context/component-context/component-context.ts:70</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1143,7 +1143,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#getallharnesses">getAllHarnesses</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L172">projects/ng-dev/src/lib/test-context/angular-context.ts:172</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L125">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:125</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1165,7 +1165,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#getharness">getHarness</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L154">projects/ng-dev/src/lib/test-context/angular-context.ts:154</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L107">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:107</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1187,7 +1187,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#getharnessforoptional">getHarnessForOptional</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L163">projects/ng-dev/src/lib/test-context/angular-context.ts:163</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L116">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:116</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1209,7 +1209,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Overrides <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#init">init</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context.ts#L69">projects/ng-dev/src/lib/test-context/component-context.ts:69</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context.ts#L53">projects/ng-dev/src/lib/test-context/component-context/component-context.ts:53</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1231,7 +1231,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#inject">inject</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L147">projects/ng-dev/src/lib/test-context/angular-context.ts:147</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L100">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:100</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1254,7 +1254,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#run">run</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L118">projects/ng-dev/src/lib/test-context/angular-context.ts:118</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L71">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:71</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1273,7 +1273,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#run">run</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L119">projects/ng-dev/src/lib/test-context/angular-context.ts:119</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L72">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:72</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1290,7 +1290,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#tick">tick</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L185">projects/ng-dev/src/lib/test-context/angular-context.ts:185</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L138">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:138</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1312,7 +1312,7 @@ describe(<span class="hljs-string">&#x27;ComponentContext&#x27;</span>, <span cl
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#verifyposttestconditions">verifyPostTestConditions</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L207">projects/ng-dev/src/lib/test-context/angular-context.ts:207</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L160">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:160</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

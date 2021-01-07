@@ -1049,6 +1049,9 @@ img { max-width: 100%; }
 			<a href="index.html#noop" class="tsd-kind-icon">noop</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
+			<a href="index.html#nth" class="tsd-kind-icon">nth</a>
+		</li>
+		<li class=" tsd-kind-function tsd-has-type-parameter">
 			<a href="index.html#omit" class="tsd-kind-icon">omit</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
@@ -1088,6 +1091,9 @@ img { max-width: 100%; }
 			<a href="index.html#random" class="tsd-kind-icon">random</a>
 		</li>
 		<li class=" tsd-kind-function">
+			<a href="index.html#randomint" class="tsd-kind-icon">random<wbr>Int</a>
+		</li>
+		<li class=" tsd-kind-function">
 			<a href="index.html#range" class="tsd-kind-icon">range</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
@@ -1109,7 +1115,13 @@ img { max-width: 100%; }
 			<a href="index.html#sample" class="tsd-kind-icon">sample</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
+			<a href="index.html#samplesize" class="tsd-kind-icon">sample<wbr>Size</a>
+		</li>
+		<li class=" tsd-kind-function tsd-has-type-parameter">
 			<a href="index.html#set" class="tsd-kind-icon">set</a>
+		</li>
+		<li class=" tsd-kind-function tsd-has-type-parameter">
+			<a href="index.html#shuffle" class="tsd-kind-icon">shuffle</a>
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="index.html#size" class="tsd-kind-icon">size</a>
@@ -1252,6 +1264,7 @@ img { max-width: 100%; }
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#merge" class="tsd-kind-icon">merge</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#minby" class="tsd-kind-icon">min<wbr>By</a></li>
 							<li class="tsd-kind-function"><a href="index.html#noop" class="tsd-kind-icon">noop</a></li>
+							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#nth" class="tsd-kind-icon">nth</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#omit" class="tsd-kind-icon">omit</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#omitby" class="tsd-kind-icon">omit<wbr>By</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#once" class="tsd-kind-icon">once</a></li>
@@ -1265,6 +1278,7 @@ img { max-width: 100%; }
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#pullall" class="tsd-kind-icon">pull<wbr>All</a></li>
 							<li class="tsd-kind-function"><a href="index.html#pullat" class="tsd-kind-icon">pull<wbr>At</a></li>
 							<li class="tsd-kind-function"><a href="index.html#random" class="tsd-kind-icon">random</a></li>
+							<li class="tsd-kind-function"><a href="index.html#randomint" class="tsd-kind-icon">random<wbr>Int</a></li>
 							<li class="tsd-kind-function"><a href="index.html#range" class="tsd-kind-icon">range</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#reduce" class="tsd-kind-icon">reduce</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#reduceright" class="tsd-kind-icon">reduce<wbr>Right</a></li>
@@ -1272,7 +1286,9 @@ img { max-width: 100%; }
 							<li class="tsd-kind-function"><a href="index.html#repeat" class="tsd-kind-icon">repeat</a></li>
 							<li class="tsd-kind-function"><a href="index.html#round" class="tsd-kind-icon">round</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#sample" class="tsd-kind-icon">sample</a></li>
+							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#samplesize" class="tsd-kind-icon">sample<wbr>Size</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#set" class="tsd-kind-icon">set</a></li>
+							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#shuffle" class="tsd-kind-icon">shuffle</a></li>
 							<li class="tsd-kind-function"><a href="index.html#size" class="tsd-kind-icon">size</a></li>
 							<li class="tsd-kind-function"><a href="index.html#snakecase" class="tsd-kind-icon">snake<wbr>Case</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#some" class="tsd-kind-icon">some</a></li>
@@ -3476,6 +3492,44 @@ img { max-width: 100%; }
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
+				<a name="nth" class="tsd-anchor"></a>
+				<h3>nth</h3>
+				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">nth&lt;T&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
+					<li class="tsd-signature tsd-kind-icon">nth&lt;T&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/array/nth.ts#L14">projects/micro-dash/src/lib/array/nth.ts:14</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Gets the element at index <code>n</code> of <code>array</code>. If <code>n</code> is negative, the nth element from the end is returned.</p>
+							</div>
+							<p>Differences from lodash:</p>
+							<ul>
+								<li>does not handle a fractional value for <code>index</code></li>
+							</ul>
+							<p>Contribution to minified bundle size, when it is the only function imported:</p>
+							<ul>
+								<li>Lodash: 1,533 bytes</li>
+								<li>Micro-dash: 96 bytes</li>
+							</ul>
+						</div>
+					</li>
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/array/nth.ts#L15">projects/micro-dash/src/lib/array/nth.ts:15</a></li>
+							</ul>
+						</aside>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
 				<a name="omit" class="tsd-anchor"></a>
 				<h3>omit</h3>
 				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
@@ -3946,7 +4000,7 @@ img { max-width: 100%; }
 							<p>Contribution to minified bundle size, when it is the only function imported:</p>
 							<ul>
 								<li>Lodash: 2,258 bytes</li>
-								<li>Micro-dash: 320 bytes</li>
+								<li>Micro-dash: 347 bytes</li>
 							</ul>
 						</div>
 					</li>
@@ -3961,6 +4015,22 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<ul>
 								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/math/random.ts#L17">projects/micro-dash/src/lib/math/random.ts:17</a></li>
+							</ul>
+						</aside>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="randomint" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagConst">Const</span> random<wbr>Int</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">random<wbr>Int<span class="tsd-signature-symbol">(</span>lower<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, upper<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, floating<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/math/random.ts#L40">projects/micro-dash/src/lib/math/random.ts:40</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -4009,16 +4079,16 @@ img { max-width: 100%; }
 				<a name="reduce" class="tsd-anchor"></a>
 				<h3>reduce</h3>
 				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">reduce&lt;E&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span></li>
-					<li class="tsd-signature tsd-kind-icon">reduce&lt;E, A&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, accumulator<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">A</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-					<li class="tsd-signature tsd-kind-icon">reduce&lt;E&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ObjectWith</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span></li>
-					<li class="tsd-signature tsd-kind-icon">reduce&lt;E, A&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ObjectWith</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, accumulator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
+					<li class="tsd-signature tsd-kind-icon">reduce&lt;T&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NonNullable&lt;T&gt;[number]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">IfCouldBe</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Nil</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">reduce&lt;E, A&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, accumulator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
+					<li class="tsd-signature tsd-kind-icon">reduce&lt;T&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NonNullable&lt;T&gt;[keyof NonNullable&lt;T&gt;]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">IfCouldBe</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Nil</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">reduce&lt;T, A&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, accumulator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce.ts#L12">projects/micro-dash/src/lib/collection/reduce.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce.ts#L13">projects/micro-dash/src/lib/collection/reduce.ts:13</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4035,13 +4105,6 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce.ts#L16">projects/micro-dash/src/lib/collection/reduce.ts:16</a></li>
-							</ul>
-						</aside>
-					</li>
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
 								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce.ts#L21">projects/micro-dash/src/lib/collection/reduce.ts:21</a></li>
 							</ul>
 						</aside>
@@ -4049,7 +4112,14 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce.ts#L25">projects/micro-dash/src/lib/collection/reduce.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce.ts#L26">projects/micro-dash/src/lib/collection/reduce.ts:26</a></li>
+							</ul>
+						</aside>
+					</li>
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce.ts#L34">projects/micro-dash/src/lib/collection/reduce.ts:34</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -4059,16 +4129,16 @@ img { max-width: 100%; }
 				<a name="reduceright" class="tsd-anchor"></a>
 				<h3>reduce<wbr>Right</h3>
 				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">reduce<wbr>Right&lt;E&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span></li>
-					<li class="tsd-signature tsd-kind-icon">reduce<wbr>Right&lt;E, A&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, accumulator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-					<li class="tsd-signature tsd-kind-icon">reduce<wbr>Right&lt;E&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ObjectWith</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span></li>
-					<li class="tsd-signature tsd-kind-icon">reduce<wbr>Right&lt;E, A&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ObjectWith</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, accumulator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
+					<li class="tsd-signature tsd-kind-icon">reduce<wbr>Right&lt;T&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NonNullable&lt;T&gt;[number]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">IfCouldBe</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Nil</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">reduce<wbr>Right&lt;E, A&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, accumulator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
+					<li class="tsd-signature tsd-kind-icon">reduce<wbr>Right&lt;T&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NonNullable&lt;T&gt;[keyof NonNullable&lt;T&gt;]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">IfCouldBe</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Nil</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">reduce<wbr>Right&lt;T, A&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, accumulator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce-right.ts#L12">projects/micro-dash/src/lib/collection/reduce-right.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce-right.ts#L13">projects/micro-dash/src/lib/collection/reduce-right.ts:13</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4085,13 +4155,6 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce-right.ts#L16">projects/micro-dash/src/lib/collection/reduce-right.ts:16</a></li>
-							</ul>
-						</aside>
-					</li>
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
 								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce-right.ts#L21">projects/micro-dash/src/lib/collection/reduce-right.ts:21</a></li>
 							</ul>
 						</aside>
@@ -4099,7 +4162,14 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce-right.ts#L25">projects/micro-dash/src/lib/collection/reduce-right.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce-right.ts#L26">projects/micro-dash/src/lib/collection/reduce-right.ts:26</a></li>
+							</ul>
+						</aside>
+					</li>
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/reduce-right.ts#L34">projects/micro-dash/src/lib/collection/reduce-right.ts:34</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -4233,6 +4303,44 @@ round(<span class="hljs-number">4060</span>, -<span class="hljs-number">2</span>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
+				<a name="samplesize" class="tsd-anchor"></a>
+				<h3>sample<wbr>Size</h3>
+				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">sample<wbr>Size&lt;T&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, n<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></li>
+					<li class="tsd-signature tsd-kind-icon">sample<wbr>Size&lt;T&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, n<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T[keyof T]</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/sample-size.ts#L18">projects/micro-dash/src/lib/collection/sample-size.ts:18</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Gets <code>n</code> random elements at unique keys from <code>collection</code> up to the size of <code>collection</code>.</p>
+							</div>
+							<p>Differences from lodash:</p>
+							<ul>
+								<li>no special treatment given to fraction values of <code>n</code></li>
+							</ul>
+							<p>Contribution to minified bundle size, when it is the only function imported:</p>
+							<ul>
+								<li>Lodash: 4,765 bytes</li>
+								<li>Micro-dash: 706 bytes</li>
+							</ul>
+						</div>
+					</li>
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/sample-size.ts#L19">projects/micro-dash/src/lib/collection/sample-size.ts:19</a></li>
+							</ul>
+						</aside>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
 				<a name="set" class="tsd-anchor"></a>
 				<h3>set</h3>
 				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
@@ -4261,6 +4369,40 @@ round(<span class="hljs-number">4060</span>, -<span class="hljs-number">2</span>
 								<li>Micro-dash: 192 bytes</li>
 							</ul>
 						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
+				<a name="shuffle" class="tsd-anchor"></a>
+				<h3>shuffle</h3>
+				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">shuffle&lt;T&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></li>
+					<li class="tsd-signature tsd-kind-icon">shuffle&lt;T&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T[keyof T]</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/shuffle.ts#L13">projects/micro-dash/src/lib/collection/shuffle.ts:13</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Creates an array of shuffled values, using a version of the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle</a>.</p>
+							</div>
+							<p>Contribution to minified bundle size, when it is the only function imported:</p>
+							<ul>
+								<li>Lodash: 3,846 bytes</li>
+								<li>Micro-dash: 842 bytes</li>
+							</ul>
+						</div>
+					</li>
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/collection/shuffle.ts#L14">projects/micro-dash/src/lib/collection/shuffle.ts:14</a></li>
+							</ul>
+						</aside>
 					</li>
 				</ul>
 			</section>

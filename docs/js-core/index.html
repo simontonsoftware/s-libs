@@ -917,6 +917,9 @@ img { max-width: 100%; }
 			<a href="index.html#isequalatdepth" class="tsd-kind-icon">is<wbr>Equal<wbr>AtDepth</a>
 		</li>
 		<li class=" tsd-kind-function">
+			<a href="index.html#isfalsy" class="tsd-kind-icon">is<wbr>Falsy</a>
+		</li>
+		<li class=" tsd-kind-function">
 			<a href="index.html#ispromiselike" class="tsd-kind-icon">is<wbr>Promise<wbr>Like</a>
 		</li>
 		<li class=" tsd-kind-function">
@@ -924,6 +927,9 @@ img { max-width: 100%; }
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="index.html#issuperset" class="tsd-kind-icon">is<wbr>Superset</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="index.html#istruthy" class="tsd-kind-icon">is<wbr>Truthy</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
 			<a href="index.html#mapaskeys" class="tsd-kind-icon">map<wbr>AsKeys</a>
@@ -1003,9 +1009,11 @@ img { max-width: 100%; }
 							<li class="tsd-kind-function"><a href="index.html#elapsedtostring" class="tsd-kind-icon">elapsed<wbr>ToString</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#isdefined" class="tsd-kind-icon">is<wbr>Defined</a></li>
 							<li class="tsd-kind-function"><a href="index.html#isequalatdepth" class="tsd-kind-icon">is<wbr>Equal<wbr>AtDepth</a></li>
+							<li class="tsd-kind-function"><a href="index.html#isfalsy" class="tsd-kind-icon">is<wbr>Falsy</a></li>
 							<li class="tsd-kind-function"><a href="index.html#ispromiselike" class="tsd-kind-icon">is<wbr>Promise<wbr>Like</a></li>
 							<li class="tsd-kind-function"><a href="index.html#issetequal" class="tsd-kind-icon">is<wbr>Set<wbr>Equal</a></li>
 							<li class="tsd-kind-function"><a href="index.html#issuperset" class="tsd-kind-icon">is<wbr>Superset</a></li>
+							<li class="tsd-kind-function"><a href="index.html#istruthy" class="tsd-kind-icon">is<wbr>Truthy</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#mapaskeys" class="tsd-kind-icon">map<wbr>AsKeys</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#maptoobject" class="tsd-kind-icon">map<wbr>ToObject</a></li>
 							<li class="tsd-kind-function"><a href="index.html#roundtomultipleof" class="tsd-kind-icon">round<wbr>ToMultiple<wbr>Of</a></li>
@@ -1177,7 +1185,7 @@ elapsedToString(<span class="hljs-number">1</span>, [TimeUnit.Microseconds]); <s
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/is-defined.ts#L13">projects/js-core/src/lib/is-defined.ts:13</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-defined.ts#L13">projects/js-core/src/lib/predicates/is-defined.ts:13</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1202,7 +1210,7 @@ isDefined(<span class="hljs-literal">undefined</span>); <span class="hljs-commen
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/is-equal-at-depth.ts#L25">projects/js-core/src/lib/objects/is-equal-at-depth.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-equal-at-depth.ts#L25">projects/js-core/src/lib/predicates/is-equal-at-depth.ts:25</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1230,6 +1238,27 @@ isEqualAtDepth(<span class="hljs-number">3</span>, object1, object2); <span clas
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="isfalsy" class="tsd-anchor"></a>
+				<h3>is<wbr>Falsy</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">is<wbr>Falsy<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-falsy.ts#L4">projects/js-core/src/lib/predicates/is-falsy.ts:4</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Checks if <code>value</code> is <a href="https://developer.mozilla.org/en-US/docs/Glossary/Falsy">falsy</a>.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
 				<a name="ispromiselike" class="tsd-anchor"></a>
 				<h3>is<wbr>Promise<wbr>Like</h3>
 				<ul class="tsd-signatures tsd-kind-function">
@@ -1239,7 +1268,7 @@ isEqualAtDepth(<span class="hljs-number">3</span>, object1, object2); <span clas
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/is-promise-like.ts#L11">projects/js-core/src/lib/is-promise-like.ts:11</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-promise-like.ts#L11">projects/js-core/src/lib/predicates/is-promise-like.ts:11</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1290,6 +1319,27 @@ isPromiseLike(<span class="hljs-literal">null</span>); <span class="hljs-comment
 							<pre><code class="language-ts"><span class="hljs-keyword">const</span> setA = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
 <span class="hljs-keyword">const</span> setB = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
 setUnion(setA, setB); <span class="hljs-comment">// true</span></code></pre>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="istruthy" class="tsd-anchor"></a>
+				<h3>is<wbr>Truthy</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">is<wbr>Truthy<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-truthy.ts#L4">projects/js-core/src/lib/predicates/is-truthy.ts:4</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Checks if <code>value</code> is <a href="https://developer.mozilla.org/en-US/docs/Glossary/Truthy">truthy</a>.</p>
+							</div>
 						</div>
 					</li>
 				</ul>

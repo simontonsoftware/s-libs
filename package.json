@@ -1,6 +1,6 @@
 {
   "name": "s-libs",
-  "version": "11.2.0-next.2",
+  "version": "11.2.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

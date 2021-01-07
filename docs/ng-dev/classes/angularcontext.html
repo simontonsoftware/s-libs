@@ -912,8 +912,20 @@ img { max-width: 100%; }
 				</li>
 			</ul>
 		</li>
+		<li class=" tsd-kind-class">
+			<a href="angularcontextnext.html" class="tsd-kind-icon">Angular<wbr>Context<wbr>Next</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="asyncmethodcontroller.html" class="tsd-kind-icon">Async<wbr>Method<wbr>Controller</a>
+		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="componentcontext.html" class="tsd-kind-icon">Component<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="componentcontextnext.html" class="tsd-kind-icon">Component<wbr>Context<wbr>Next</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="testcall.html" class="tsd-kind-icon">Test<wbr>Call</a>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 			<a href="../index.html#synchronized" class="tsd-kind-icon">Synchronized</a>
@@ -945,60 +957,17 @@ img { max-width: 100%; }
 	<div class="content-wrap">
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
-				<div class="lead">
-					<p>Provides the foundation for an opinionated testing pattern.</p>
-					<ul>
-						<li>All test are run in the <code>fakeAsync</code> zone. This gives you full control over
-						the timing of everything by default.</li>
-						<li>Variables that are initialized for each test exist in a context that is
-						thrown away, so they cannot leak between tests.</li>
-						<li>Clearly separates initialization code from the test itself.</li>
-						<li>Gives control over the simulated date &amp; time with a single line of code.</li>
-						<li>Always verifies no un-expected http requests were made during a test.</li>
-						<li>Always discards periodic tasks at the end of each test to automatically
-						avoid an error from the <code>fakeAsync</code> zone.</li>
-					</ul>
-				</div>
-				<p>This example tests a simple service that uses HttpClient, and is tested by
-					using <code>AngularContext</code> directly. More often <code>AngularContext</code> will be used a
-				super class. See <a href="componentcontext.html">ComponentContext</a> for more common use cases.</p>
-				<pre><code class="language-ts"> <span class="hljs-comment">// This is the class we will test.</span>
- <span class="hljs-meta">@Injectable</span>({ <span class="hljs-attr">providedIn</span>: <span class="hljs-string">&#x27;root&#x27;</span> })
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MemoriesService</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> httpClient: HttpClient</span>)</span> {}
-
-  getLastYearToday(): Observable&lt;<span class="hljs-built_in">any</span>&gt; {
-    <span class="hljs-keyword">const</span> datetime = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-    datetime.setFullYear(datetime.getFullYear() - <span class="hljs-number">1</span>);
-    <span class="hljs-keyword">const</span> date = datetime.toISOString().split(<span class="hljs-string">&#x27;T&#x27;</span>)[<span class="hljs-number">0</span>];
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.httpClient.get(<span class="hljs-string">`http://example.com/post-from/<span class="hljs-subst">${date}</span>`</span>);
-  }
-}
-
- describe(<span class="hljs-string">&#x27;MemoriesService&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
-
-  <span class="hljs-comment">// Tests should have exactly 1 variable outside an &quot;it&quot;: `ctx`.</span>
-  <span class="hljs-keyword">let</span> ctx: AngularContext;
-  beforeEach(<span class="hljs-function">() =&gt;</span> {
-    ctx = <span class="hljs-keyword">new</span> AngularContext();
-  });
-
-  it(<span class="hljs-string">&#x27;requests a post from 1 year ago&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
-
-    <span class="hljs-comment">// Before calling `run`, set up any context variables this test needs.</span>
-    ctx.startTime = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&#x27;2004-02-16T10:15:00.000Z&#x27;</span>);
-
-    <span class="hljs-comment">// Pass the test itself as a callback to `run()`.</span>
-    ctx.run(<span class="hljs-function">() =&gt;</span> {
-      <span class="hljs-keyword">const</span> httpBackend = ctx.inject(HttpTestingController);
-      <span class="hljs-keyword">const</span> myService = ctx.inject(MemoriesService);
-
-      myService.getLastYearToday().subscribe();
-
-      httpBackend.expectOne(<span class="hljs-string">&#x27;http://example.com/post-from/2003-02-16&#x27;</span>);
-    });
-  });
-});</code></pre>
+				<dl class="tsd-comment-tags">
+					<dt>deprecated</dt>
+					<dd><p>Use <a href="angularcontextnext.html">AngularContextNext</a> instead. This old version will be removed in a future version, and <code>AngularContextNext</code> will be renamed to <code>AngularContext</code>.</p>
+						<p>Some notes to migrate to the new version:</p>
+						<ul>
+							<li>Component harnesses from <code>.getHarness()</code> and <code>.getAllHarnesses()</code> are now asynchronous, like a normal harness you&#39;d use Outside <code>AngularContext</code>. You&#39;ll need to make the callback passed to <code>.run()</code> async, and <code>await</code> all the harness actions.</li>
+							<li><code>.getHarnessOptional()</code> is not available. Instead use <code>.getAllHarnesses()</code> and test the length of the resulting array.</li>
+							<li>For any tests that were passing inputs to <code>.run()</code>, instead call <code>.assignInputs()</code> before <code>.run()</code>.</li>
+						</ul>
+					</dd>
+				</dl>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-type-parameters">
@@ -1067,7 +1036,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L98">projects/ng-dev/src/lib/test-context/angular-context.ts:98</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L51">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:51</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1084,7 +1053,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">start<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol"> = new Date()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L96">projects/ng-dev/src/lib/test-context/angular-context.ts:96</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L49">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:49</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1106,7 +1075,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L214">projects/ng-dev/src/lib/test-context/angular-context.ts:214</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L167">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:167</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1127,7 +1096,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L172">projects/ng-dev/src/lib/test-context/angular-context.ts:172</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L125">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:125</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1148,7 +1117,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L154">projects/ng-dev/src/lib/test-context/angular-context.ts:154</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L107">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:107</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1169,7 +1138,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L163">projects/ng-dev/src/lib/test-context/angular-context.ts:163</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L116">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:116</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1190,7 +1159,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L197">projects/ng-dev/src/lib/test-context/angular-context.ts:197</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L150">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:150</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1211,7 +1180,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L147">projects/ng-dev/src/lib/test-context/angular-context.ts:147</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L100">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:100</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1233,7 +1202,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L118">projects/ng-dev/src/lib/test-context/angular-context.ts:118</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L71">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:71</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1251,7 +1220,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L119">projects/ng-dev/src/lib/test-context/angular-context.ts:119</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L72">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:72</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1267,7 +1236,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L185">projects/ng-dev/src/lib/test-context/angular-context.ts:185</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L138">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:138</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1288,7 +1257,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context.ts#L207">projects/ng-dev/src/lib/test-context/angular-context.ts:207</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L160">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:160</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
