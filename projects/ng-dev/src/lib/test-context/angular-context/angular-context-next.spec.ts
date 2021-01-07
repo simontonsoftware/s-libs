@@ -265,6 +265,17 @@ describe('AngularContextNext', () => {
         // No error: "1 periodic timer(s) still in the queue."
         .not.toThrowError();
     });
+
+    it('flushes pending timeouts', () => {
+      const ctx = new AngularContextNext();
+      expect(() => {
+        ctx.run(() => {
+          setTimeout(noop, 1);
+        });
+      })
+        // No error: "1 timer(s) still in the queue."
+        .not.toThrowError();
+    });
   });
 });
 

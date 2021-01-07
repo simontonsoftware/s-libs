@@ -12,6 +12,7 @@ import {
 import {
   discardPeriodicTasks,
   fakeAsync,
+  flush,
   flushMicrotasks,
   TestBed,
   TestModuleMetadata,
@@ -43,8 +44,7 @@ export function extendMetadata(
  * - Gives control over the simulated date & time with a single line of code.
  * - Automatically includes {@link HttpClientTestingModule} to stub network requests without additional setup.
  * - Always verifies no unexpected http requests were made during a test.
- * - Always discards periodic tasks at the end of each test to automatically
- *   avoid an error from the `fakeAsync` zone.
+ * - Always discards periodic tasks and flushes pending timers at the end of each test to automatically avoid the error "X timer(s) still in the queue".
  *
  * Why does the class name end with "Next"? This replaces the old `AngularContext`, but it's a breaking change so this gives people some time to transition over. Eventually the old one will be removed and this will be renamed to `AngularContext`.
  *
@@ -183,10 +183,11 @@ export class AngularContextNext {
   }
 
   /**
-   * Performs any cleanup needed at the end of each test. This base implementation calls [discardPeriodicTasks]{@linkcode https://angular.io/api/core/testing/discardPeriodicTasks} to avoid an error from the `fakeAsync` zone.
+   * Performs any cleanup needed at the end of each test. This base implementation calls {@linkcode https://angular.io/api/core/testing/discardPeriodicTasks|discardPeriodicTasks} and [flush]{https://angular.io/api/core/testing/flush|flush} to avoid an error from the `fakeAsync` zone.
    */
   protected cleanUp(): void {
     discardPeriodicTasks();
+    flush();
   }
 
   private runWithMockedTime(test: VoidFunction): void {
