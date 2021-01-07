@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [11.2.1](https://github.com/simontonsoftware/s-libs/compare/v11.2.0...v11.2.1) (2021-01-07)
+
+### Bug Fixes
+
+- **ng-core:** Fix for "Types of property 'ɵfac' are incompatible." ([06f89f9](https://github.com/simontonsoftware/s-libs/commit/06f89f9ba30544b1f3d913bbee9c37bb6072580e))
+
 ## [11.2.0](https://github.com/simontonsoftware/s-libs/compare/v11.2.0-next.2...v11.2.0) (2021-01-07)
 
 ### Features
