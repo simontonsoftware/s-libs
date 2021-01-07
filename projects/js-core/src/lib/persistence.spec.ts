@@ -6,7 +6,7 @@ describe('Persistence', () => {
     localStorage.removeItem(key);
   });
   afterEach(() => {
-    localStorage.removeItem(key);
+    localStorage?.removeItem(key);
   });
 
   it('works for the example in the docs', () => {
@@ -19,6 +19,22 @@ describe('Persistence', () => {
 
     // this will work even after the app reloads (e.g. the next week)
     expect(persistence.get()).toEqual({ name: 'Robert' });
+  });
+
+  // this can happen in android webviews, where it's up to the embedding app to call `.setDomStorageEnabled()`
+  it('gracefully handles when localStorage is null', () => {
+    spyOnProperty(window, 'localStorage').and.returnValue(null);
+    const persistence = new Persistence('my key');
+
+    expect(() => {
+      persistence.put('ignored');
+    }).not.toThrowError();
+
+    expect(persistence.get()).toBeUndefined();
+
+    expect(() => {
+      persistence.clear();
+    }).not.toThrowError();
   });
 
   describe('.put() & .get()', () => {

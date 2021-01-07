@@ -1,6 +1,8 @@
 /**
  * Get and put objects from/to local storage. They will be (de)serialized as JSON, so be sure that's OK for your objects.
  *
+ * If localStorage is not available, all methods essentially act as noops.
+ *
  * ```ts
  *  // if 'my key' has never been used before
  *  const persistence = new Persistence('my key');
@@ -23,21 +25,21 @@ export class Persistence<T> {
    * Serializes `obj` and saves it in local storage.
    */
   put(obj: T): void {
-    localStorage.setItem(this.key, JSON.stringify(obj));
+    localStorage?.setItem(this.key, JSON.stringify(obj));
   }
 
   /**
    * Retrieves a deserialized copy of the saved object, or `undefined` if it has not been set.
    */
   get(): T {
-    const savedStr = localStorage.getItem(this.key);
-    return savedStr === null ? undefined : JSON.parse(savedStr);
+    const savedStr = localStorage?.getItem(this.key);
+    return savedStr == null ? undefined : JSON.parse(savedStr);
   }
 
   /**
    * Deletes the saved item from local storage.
    */
   clear(): void {
-    localStorage.removeItem(this.key);
+    localStorage?.removeItem(this.key);
   }
 }
