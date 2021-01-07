@@ -22,7 +22,7 @@ export function provideValueAccessor(type: Type<any>): Provider {
 }
 
 /**
- * Extend this when creating a form control to reduce some boilerplate. **Warning:** You _must_ include a constructor in your subclass.
+ * Extend this when creating a form control to reduce some boilerplate.
  *
  * This example allows 2-way binding to a number via `[(ngModel)]`, `[formControl]`, or any other technique that leverages the `ControlValueAccessor` interface.
  * ```ts
@@ -34,11 +34,6 @@ export function provideValueAccessor(type: Type<any>): Provider {
  * })
  * class CounterComponent extends FormControlSuperclass<number> {
  *   counter = 0;
- *
- *   // This looks unnecessary, but is required for Angular to provide `Injector`
- *   constructor(injector: Injector) {
- *     super(injector);
- *   }
  *
  *   handleIncomingValue(value: number) {
  *     this.counter = value;

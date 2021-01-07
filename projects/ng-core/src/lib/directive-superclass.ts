@@ -28,7 +28,6 @@ import { InjectableSuperclass } from './injectable-superclass';
  *   @Input() prefix2?: string;
  *   color!: string;
  *
- *   // Even if you don't need extra arguments injector, you must still include a constructor. It is required for angular to provide `Injector`.
  *   constructor(
  *     @Inject("color$") color$: Observable<string>,
  *     injector: Injector,

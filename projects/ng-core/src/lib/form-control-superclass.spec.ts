@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  Input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -18,11 +13,11 @@ import { InjectableSuperclass } from './injectable-superclass';
 
 @Component({
   template: `
-    <s-counter-component
+    <s-counter
       [(ngModel)]="value"
       #counter="ngModel"
       [disabled]="shouldDisable"
-    ></s-counter-component>
+    ></s-counter>
     <div *ngIf="counter.touched">Touched!</div>
     <button (click)="shouldDisable = !shouldDisable">Toggle Disabled</button>
   `,
@@ -33,7 +28,7 @@ class TestComponent {
 }
 
 @Component({
-  selector: `s-counter-component`,
+  selector: `s-counter`,
   template: `
     <button (click)="increment()" [disabled]="isDisabled">{{ counter }}</button>
   `,
@@ -42,10 +37,6 @@ class TestComponent {
 })
 class CounterComponent extends FormControlSuperclass<number> {
   counter = 0;
-
-  constructor(injector: Injector) {
-    super(injector);
-  }
 
   handleIncomingValue(value: number): void {
     this.counter = value;
@@ -69,7 +60,7 @@ describe('FormControlSuperclass', () => {
   });
 
   function incrementButton(): HTMLButtonElement {
-    return find<HTMLButtonElement>(ctx.fixture, 's-counter-component button');
+    return find<HTMLButtonElement>(ctx.fixture, 's-counter button');
   }
 
   function toggleDisabledButton(): HTMLButtonElement {

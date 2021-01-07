@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   ComponentFixtureAutoDetect,
   flushMicrotasks,
@@ -42,11 +42,7 @@ class TestComponent {
   providers: [provideValueAccessor(StringComponent)],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-class StringComponent extends WrappedFormControlSuperclass<string> {
-  constructor(injector: Injector) {
-    super(injector);
-  }
-}
+class StringComponent extends WrappedFormControlSuperclass<string> {}
 
 @Component({
   selector: `s-date-component`,
@@ -55,10 +51,6 @@ class StringComponent extends WrappedFormControlSuperclass<string> {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class DateComponent extends WrappedFormControlSuperclass<Date, string> {
-  constructor(injector: Injector) {
-    super(injector);
-  }
-
   protected innerToOuter(value: string): Date {
     return new Date(value + 'Z');
   }
