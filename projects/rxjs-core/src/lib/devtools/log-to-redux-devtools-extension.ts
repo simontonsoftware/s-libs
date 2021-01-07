@@ -14,8 +14,6 @@ export interface Extension {
 /**
  * Log the values emitted from any observable to the [redux devtools extension](https://github.com/zalmoxisus/redux-devtools-extension).
  *
- * **NOTE:** To get the full typing for this function add `redux-devtools-extension` as a dev dependency for your project (which, depending on your configuration, may also require including `redux`).
- *
  * @param options These are passed along to the extension as is. See its documentation [here](http://extension.remotedev.io/docs/API/Arguments.html).
  */
 export function logToReduxDevtoolsExtension(
