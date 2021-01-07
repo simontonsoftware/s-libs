@@ -5,7 +5,12 @@ import { reduce } from './reduce';
 describe('reduce()', () => {
   it('works with `undefined`', () => {
     expect(reduce(undefined, () => 1, 2)).toEqual(2);
-    expect(reduce(undefined, () => 1)).toBeUndefined();
+    expect(reduce(undefined as any, () => 1)).toBeUndefined();
+  });
+
+  it('works with `null`', () => {
+    expect(reduce(null, () => 1, 2)).toEqual(2);
+    expect(reduce(null as any, () => 1)).toBeUndefined();
   });
 
   //

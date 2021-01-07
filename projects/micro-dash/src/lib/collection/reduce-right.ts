@@ -1,4 +1,4 @@
-import { ObjectWith } from '../interfaces';
+import { IfCouldBe, Nil } from '../interfaces';
 import { forEachRight } from './for-each-right';
 import { doReduce } from './reduce-utils';
 
@@ -9,22 +9,35 @@ import { doReduce } from './reduce-utils';
  * - Lodash: 14,053 bytes
  * - Micro-dash: 357 bytes
  */
-export function reduceRight<E>(
-  array: E[] | undefined,
-  iteratee: (accumulator: E, value: E, index: number) => E,
-): E;
+
+export function reduceRight<T extends any[] | Nil>(
+  array: T,
+  iteratee: (
+    accumulator: NonNullable<T>[number],
+    value: NonNullable<T>[number],
+    index: number,
+  ) => NonNullable<T>[number],
+): NonNullable<T>[number] | IfCouldBe<T, Nil, undefined>;
 export function reduceRight<E, A>(
-  array: E[] | undefined,
+  array: E[] | Nil,
   iteratee: (accumulator: A, value: E, index: number) => A,
   accumulator: A,
 ): A;
-export function reduceRight<E>(
-  array: ObjectWith<E> | undefined,
-  iteratee: (accumulator: E, value: E, key: keyof E) => E,
-): E;
-export function reduceRight<E, A>(
-  array: ObjectWith<E> | undefined,
-  iteratee: (accumulator: A, value: E, key: keyof E) => A,
+export function reduceRight<T>(
+  object: T,
+  iteratee: (
+    accumulator: NonNullable<T>[keyof NonNullable<T>],
+    value: NonNullable<T>[keyof NonNullable<T>],
+    key: keyof NonNullable<T>,
+  ) => NonNullable<T>[keyof NonNullable<T>],
+): NonNullable<T>[keyof NonNullable<T>] | IfCouldBe<T, Nil, undefined>;
+export function reduceRight<T, A>(
+  object: T,
+  iteratee: (
+    accumulator: A,
+    value: NonNullable<T>[keyof NonNullable<T>],
+    key: keyof NonNullable<T>,
+  ) => A,
   accumulator: A,
 ): A;
 

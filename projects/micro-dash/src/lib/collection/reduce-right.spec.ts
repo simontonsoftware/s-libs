@@ -5,7 +5,12 @@ import { reduceRight } from './reduce-right';
 describe('reduceRight()', () => {
   it('works with `undefined`', () => {
     expect(reduceRight(undefined, () => 1, 2)).toEqual(2);
-    expect(reduceRight(undefined, () => 1)).toBeUndefined();
+    expect(reduceRight(undefined as any, () => 1)).toBeUndefined();
+  });
+
+  it('works with `null`', () => {
+    expect(reduceRight(null, () => 1, 2)).toEqual(2);
+    expect(reduceRight(null as any, () => 1)).toBeUndefined();
   });
 
   //
