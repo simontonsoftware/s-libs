@@ -5,6 +5,7 @@ import {
   Injector,
   Input,
   OnChanges,
+  OnInit,
   Pipe,
   PipeTransform,
   SimpleChanges,
@@ -196,7 +197,7 @@ describe('DirectiveSuperclass', () => {
     });
 
     // https://github.com/simontonsoftware/s-libs/issues/14
-    it('emits immediately (only) if `ngOnChanges()` was already called', () => {
+    it('does not emit until ngOnChanges is called', () => {
       @Component({ template: '' })
       class TestDirective extends DirectiveSuperclass implements OnChanges {
         @Input() myInput?: string;
@@ -239,17 +240,60 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      @Component({ template: '<s-no-input></s-no-input>' })
-      class WrapperComponent {}
-
-      const ctx2 = new ComponentContextNext(WrapperComponent, {
-        declarations: [NoInputComponent],
-      });
+      const ctx2 = new ComponentContextNext(
+        NoInputComponent,
+        { declarations: [NoInputComponent] },
+        ['myInput'],
+      );
       ctx2.run(() => {
         const testDirective = ctx2.fixture.debugElement
           .query(By.directive(NoInputComponent))
           .injector.get(NoInputComponent);
         expect(testDirective.emitted).toBe(true);
+      });
+    });
+
+    it('emits immediately if ngOnChanges was already called (prerelease bug)', () => {
+      @Component({ template: `{{ boundValue.name }}` })
+      class InputBindingComponent
+        extends DirectiveSuperclass
+        implements OnInit {
+        @Input() inputValue!: { name: string };
+        boundValue!: { name: string };
+
+        constructor(injector: Injector) {
+          super(injector);
+          this.getInput$('inputValue').subscribe();
+        }
+
+        ngOnInit(): void {
+          this.bindToInstance('boundValue', this.getInput$('inputValue'));
+        }
+      }
+
+      const ctx2 = new ComponentContextNext(InputBindingComponent);
+      ctx2.assignInputs({ inputValue: { name: 'Techgeek19' } });
+      ctx2.run(() => {
+        expect(ctx2.fixture.nativeElement.textContent).toContain('Techgeek19');
+      });
+    });
+
+    it('emits immediately during the first call to ngOnChanges (prerelease bug) 2', () => {
+      @Component({ template: `{{ boundValue.name }}` })
+      class InputBindingComponent extends DirectiveSuperclass {
+        @Input() inputValue!: { name: string };
+        boundValue!: { name: string };
+
+        constructor(injector: Injector) {
+          super(injector);
+          this.bindToInstance('boundValue', this.getInput$('inputValue'));
+        }
+      }
+
+      const ctx2 = new ComponentContextNext(InputBindingComponent);
+      ctx2.assignInputs({ inputValue: { name: 'Techgeek19' } });
+      ctx2.run(() => {
+        expect(ctx2.fixture.nativeElement.textContent).toContain('Techgeek19');
       });
     });
   });

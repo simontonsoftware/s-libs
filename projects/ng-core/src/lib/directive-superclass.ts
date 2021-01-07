@@ -5,9 +5,10 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { isTruthy } from '@s-libs/js-core';
 import { delayOnMicrotaskQueue } from '@s-libs/rxjs-core';
-import { Observable, Subject } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
+import { BehaviorSubject, merge, Observable, of, Subject } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { InjectableSuperclass } from './injectable-superclass';
 
 /**
@@ -60,6 +61,8 @@ export abstract class DirectiveSuperclass
 
   protected changeDetectorRef: ChangeDetectorRef;
 
+  #onChangesRan$ = new BehaviorSubject(false);
+
   constructor(injector: Injector) {
     super();
     this.changeDetectorRef = injector.get(ChangeDetectorRef);
@@ -69,17 +72,25 @@ export abstract class DirectiveSuperclass
     this.inputChanges$.next(
       new Set(Object.getOwnPropertyNames(changes) as Array<keyof this>),
     );
+    this.#onChangesRan$.next(true);
   }
 
   /**
    * @return an observable of the values for one of this directive's `@Input()` properties
    */
   getInput$<K extends keyof this>(key: K): Observable<this[K]> {
-    return this.inputChanges$.pipe(
-      filter((keys) => keys.has(key)),
-      startWith(undefined),
-      delayOnMicrotaskQueue(),
+    // Should emit:
+    //   - immediately if ngOnChanges was already called
+    //   - on the first call to ngOnChanges
+    //   - after a delay if ngOnChanges is never called (when nothing is bound to the directive)
+    //   - when the value actually changes
+    return merge(
+      this.#onChangesRan$.pipe(filter(isTruthy), distinctUntilChanged()),
+      this.inputChanges$,
+      of(0).pipe(delayOnMicrotaskQueue()),
+    ).pipe(
       map(() => this[key]),
+      distinctUntilChanged(),
     );
   }
 
