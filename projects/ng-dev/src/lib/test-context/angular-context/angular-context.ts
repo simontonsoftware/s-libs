@@ -38,6 +38,8 @@ export function extendMetadata(
  * @deprecated Use {@link AngularContextNext} instead. This old version will be removed in a future version, and `AngularContextNext` will be renamed to `AngularContext`.
  *
  * Some notes to migrate to the new version:
+ * - Component harnesses from `.getHarness()` and `.getAllHarnesses()` are now asynchronous, like a normal harness you'd use Outside `AngularContext`. You'll need to make the callback passed to `.run()` async, and `await` all the harness actions.
+ * - `.getHarnessOptional()` is not available. Instead use `.getAllHarnesses()` and test the length of the resulting array.
  * - For any tests that were passing inputs to `.run()`, instead call `.assignInputs()` before `.run()`.
  */
 export class AngularContext<InitOptions = {}> {

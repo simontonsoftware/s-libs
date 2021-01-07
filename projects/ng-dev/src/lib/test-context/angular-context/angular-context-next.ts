@@ -1,3 +1,4 @@
+import { ComponentHarness, HarnessQuery } from '@angular/cdk/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -18,6 +19,7 @@ import {
 } from '@angular/core/testing';
 import { convertTime } from '@s-libs/js-core';
 import { clone, forOwn } from '@s-libs/micro-dash';
+import { FakeAsyncHarnessEnvironmentNext } from './fake-async-harness-environment-next';
 
 /** @hidden */
 export function extendMetadata(
@@ -92,6 +94,8 @@ export class AngularContextNext {
    */
   startTime = new Date();
 
+  private loader = FakeAsyncHarnessEnvironmentNext.documentRootLoader(this);
+
   /**
    * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link HttpClientTestingModule} for you.
    */
@@ -129,6 +133,22 @@ export class AngularContextNext {
    */
   inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>): T {
     return TestBed.inject(token);
+  }
+
+  /**
+   * Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to `await` its results. Throws an error if no match can be located.
+   */
+  getHarness<H extends ComponentHarness>(query: HarnessQuery<H>): Promise<H> {
+    return this.loader.getHarness(query);
+  }
+
+  /**
+   * Gets all component harnesses that match the query, wrapped for use in a fakeAsync test so that you do not need to `await` its results.
+   */
+  getAllHarnesses<H extends ComponentHarness>(
+    query: HarnessQuery<H>,
+  ): Promise<Array<H>> {
+    return this.loader.getAllHarnesses(query);
   }
 
   /**

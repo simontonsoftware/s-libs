@@ -1,3 +1,4 @@
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClient } from '@angular/common/http';
 import { HttpTestingController } from '@angular/common/http/testing';
 import {
@@ -9,12 +10,27 @@ import {
   InjectionToken,
   Injector,
 } from '@angular/core';
-import { TestBed, tick } from '@angular/core/testing';
+import { flush, TestBed, tick } from '@angular/core/testing';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { sleep } from '@s-libs/js-core';
 import { noop, Observable } from 'rxjs';
 import { AngularContextNext } from './angular-context-next';
 
 describe('AngularContextNext', () => {
+  class SnackBarContext extends AngularContextNext {
+    constructor() {
+      super({ imports: [MatSnackBarModule, NoopAnimationsModule] });
+    }
+
+    protected cleanUp(): void {
+      this.inject(OverlayContainer).ngOnDestroy();
+      flush();
+      super.cleanUp();
+    }
+  }
+
   describe('.startTime', () => {
     it('controls the time at which the test starts', () => {
       const ctx = new AngularContextNext();
@@ -80,6 +96,31 @@ describe('AngularContextNext', () => {
       const ctx = new AngularContextNext();
       ctx.run(() => {
         expect(ctx.inject(Injector)).toBe(TestBed.inject(Injector));
+      });
+    });
+  });
+
+  describe('.getHarness()', () => {
+    it('returns a harness', () => {
+      const ctx = new SnackBarContext();
+      ctx.run(async () => {
+        ctx.inject(MatSnackBar).open('hi');
+        const bar = await ctx.getHarness(MatSnackBarHarness);
+        expect(await bar.getMessage()).toBe('hi');
+      });
+    });
+  });
+
+  describe('.getAllHarnesses()', () => {
+    it('gets an array of harnesses', () => {
+      const ctx = new SnackBarContext();
+      ctx.run(async () => {
+        let bars = await ctx.getAllHarnesses(MatSnackBarHarness);
+        expect(bars.length).toBe(0);
+        ctx.inject(MatSnackBar).open('hi');
+        bars = await ctx.getAllHarnesses(MatSnackBarHarness);
+        expect(bars.length).toBe(1);
+        expect(await bars[0].getMessage()).toBe('hi');
       });
     });
   });

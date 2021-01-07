@@ -1,4 +1,3 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { ComponentHarness } from '@angular/cdk/testing';
 import {
   Component,
@@ -9,13 +8,10 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import {
   ANIMATION_MODULE_TYPE,
   BrowserAnimationsModule,
-  NoopAnimationsModule,
 } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -35,20 +31,6 @@ describe('ComponentContextNext', () => {
 
     ngOnChanges(changes: SimpleChanges): void {
       this.ngOnChangesSpy(changes);
-    }
-  }
-
-  class SnackBarContext extends ComponentContextNext<TestComponent> {
-    constructor() {
-      super(TestComponent, {
-        imports: [MatSnackBarModule, NoopAnimationsModule],
-      });
-    }
-
-    protected cleanUp(): void {
-      this.inject(OverlayContainer).ngOnDestroy();
-      this.tick(5000);
-      super.cleanUp();
     }
   }
 
@@ -185,31 +167,6 @@ describe('ComponentContextNext', () => {
       ctx.assignInputs({ name: 'instantiated name' });
       ctx.run(() => {
         expect(ctx.getComponentInstance().name).toBe('instantiated name');
-      });
-    });
-  });
-
-  describe('.getHarness()', () => {
-    it('returns a harness', () => {
-      const ctx = new SnackBarContext();
-      ctx.run(async () => {
-        ctx.inject(MatSnackBar).open('hi');
-        const bar = await ctx.getHarness(MatSnackBarHarness);
-        expect(await bar.getMessage()).toBe('hi');
-      });
-    });
-  });
-
-  describe('.getAllHarnesses()', () => {
-    it('gets an array of harnesses', () => {
-      const ctx = new SnackBarContext();
-      ctx.run(async () => {
-        let bars = await ctx.getAllHarnesses(MatSnackBarHarness);
-        expect(bars.length).toBe(0);
-        ctx.inject(MatSnackBar).open('hi');
-        bars = await ctx.getAllHarnesses(MatSnackBarHarness);
-        expect(bars.length).toBe(1);
-        expect(await bars[0].getMessage()).toBe('hi');
       });
     });
   });

@@ -24,6 +24,7 @@ export interface ComponentContextInit<ComponentType> {
  * - Any variables you set in "inputs" must now be actual angular `@Input()`s
  * - `ctx.fixture` is now for a synthetic wrapper component, not your component. Change `ctx.fixture.componentInstance` to `ctx.getComponentInstance()`
  * - If your component has an input with a default value that you want to preserve, pass it in the constructor's `unboundInputs` argument.
+ * - Additionally see all the notes in the superclass: {@link AngularContext}.
  */
 export abstract class ComponentContext<
   ComponentType = unknown,
