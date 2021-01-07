@@ -1,9 +1,9 @@
-import { Directive, Injector } from '@angular/core';
+import { Injector } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormControlSuperclass } from './form-control-superclass';
 
 /**
- * Extend this when creating a form control that simply wraps an existing form control, to reduce a lot of boilerplate.
+ * Extend this when creating a form control that simply wraps an existing form control, to reduce a lot of boilerplate. **Warning:** You _must_ include a constructor in your subclass.
  *
  * Example when you don't need to modify the wrapped control's value:
  * ```ts
@@ -11,7 +11,12 @@ import { FormControlSuperclass } from './form-control-superclass';
  *   template: `<input [formControl]="formControl">`,
  *   providers: [provideValueAccessor(StringComponent)],
  * })
- * class StringComponent extends WrappedFormControlSuperclass<string> {}
+ * class StringComponent extends WrappedFormControlSuperclass<string> {
+ *   // This looks unnecessary, but is required for Angular to provide `Injector`
+ *   constructor(injector: Injector) {
+ *     super(injector);
+ *   }
+ * }
  * ```
  *
  * Example when you need to modify the wrapped control's value:
@@ -21,6 +26,11 @@ import { FormControlSuperclass } from './form-control-superclass';
  *   providers: [provideValueAccessor(DateComponent)],
  * })
  * class DateComponent extends WrappedFormControlSuperclass<Date, string> {
+ *   // This looks unnecessary, but is required for Angular to provide `Injector`
+ *   constructor(injector: Injector) {
+ *     super(injector);
+ *   }
+ *
  *   protected innerToOuter(value: string): Date {
  *     return new Date(value + "Z");
  *   }
@@ -34,8 +44,6 @@ import { FormControlSuperclass } from './form-control-superclass';
  * }
  * ```
  */
-@Directive()
-// tslint:disable-next-line:directive-class-suffix
 export abstract class WrappedFormControlSuperclass<
   OuterType,
   InnerType = OuterType
