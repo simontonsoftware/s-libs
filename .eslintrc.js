@@ -15,6 +15,5 @@ module.exports = {
       { max: 25, skipBlankLines: true, skipComments: true },
     ],
     "max-nested-callbacks": ["error", { max: 2 }],
-    "max-statements": ["error"],
   },
 };
