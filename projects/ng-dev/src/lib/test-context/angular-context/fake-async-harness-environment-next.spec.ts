@@ -6,18 +6,18 @@ import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentContextNext } from '../component-context';
 
-@Component({
-  template: `
-    <button mat-button (click)="clicked = true">{{ clicked }}</button>
-  `,
-})
-class TestComponent {
-  clicked = false;
-}
-
 describe('FakeAsyncHarnessEnvironmentNext', () => {
+  @Component({
+    template: `
+      <button mat-button (click)="clicked = true">{{ clicked }}</button>
+    `,
+  })
+  class ClickableButtonComponent {
+    clicked = false;
+  }
+
   it('runs asynchronous events that are due automatically', () => {
-    const ctx = new ComponentContextNext(TestComponent);
+    const ctx = new ComponentContextNext(ClickableButtonComponent);
     ctx.run(async () => {
       const button = await ctx.getHarness(MatButtonHarness);
       await button.click();
@@ -26,9 +26,9 @@ describe('FakeAsyncHarnessEnvironmentNext', () => {
   });
 
   it('does not flush timeouts that are not yet due', () => {
-    class SnackBarContext extends ComponentContextNext<TestComponent> {
+    class SnackBarContext extends ComponentContextNext<ClickableButtonComponent> {
       constructor() {
-        super(TestComponent, {
+        super(ClickableButtonComponent, {
           imports: [MatSnackBarModule, NoopAnimationsModule],
         });
       }
