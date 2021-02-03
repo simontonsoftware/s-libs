@@ -93,6 +93,17 @@ describe('SubscriptionManager', () => {
     });
   });
 
+  describe('.manage()', () => {
+    it('causes the manager to manage the passed-in subscription', () => {
+      const subject = new Subject();
+      manager.manage(subject.subscribe(next));
+
+      manager.unsubscribe();
+      subject.next();
+      expect(next).not.toHaveBeenCalled();
+    });
+  });
+
   describe('.unsubscribe()', () => {
     it('stop callbacks', () => {
       const subject1 = new Subject();
