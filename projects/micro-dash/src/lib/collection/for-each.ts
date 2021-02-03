@@ -1,4 +1,4 @@
-import { ArrayIteratee, ObjectIteratee } from '../interfaces';
+import { ArrayIteratee, Nil, ObjectIteratee } from '../interfaces';
 import { forOwnOfNonArray } from '../object/for-own';
 
 /**
@@ -9,13 +9,13 @@ import { forOwnOfNonArray } from '../object/for-own';
  * - Micro-dash: 236 bytes
  */
 
-export function forEach<T>(
-  array: T[] | undefined,
-  iteratee: ArrayIteratee<T, void | boolean>,
-): T[];
+export function forEach<T extends any[] | Nil>(
+  array: T,
+  iteratee: ArrayIteratee<NonNullable<T>[number], void | boolean>,
+): T;
 export function forEach<T>(
   object: T,
-  iteratee: ObjectIteratee<T, void | boolean>,
+  iteratee: ObjectIteratee<NonNullable<T>, void | boolean>,
 ): T;
 
 export function forEach(collection: any, iteratee: any): any {
