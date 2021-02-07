@@ -7,6 +7,7 @@ import {
   delayOnMicrotaskQueue,
   distinctUntilKeysChanged,
   filterBehavior,
+  keepWakeLock$,
   logValues,
   mapAndCacheArrayElements,
   mapAndCacheObjectElements,
@@ -51,6 +52,10 @@ describe('rxjs-core', () => {
 
     it('has filterBehavior', () => {
       expect(filterBehavior).toBeDefined();
+    });
+
+    it('has keepWakeLock$', () => {
+      expect(keepWakeLock$).toBeDefined();
     });
 
     it('has logValues', () => {

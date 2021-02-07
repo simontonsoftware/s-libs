@@ -435,7 +435,8 @@
           "options": {
             "main": "projects/rxjs-core/src/test.ts",
             "tsConfig": "projects/rxjs-core/tsconfig.spec.json",
-            "karmaConfig": "projects/rxjs-core/karma.conf.js"
+            "karmaConfig": "projects/rxjs-core/karma.conf.js",
+            "polyfills": "projects/rxjs-core/src/test-polyfills.ts"
           }
         },
         "lint": {
