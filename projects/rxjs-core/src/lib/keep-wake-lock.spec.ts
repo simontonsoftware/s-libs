@@ -125,4 +125,13 @@ describe('keepWakeLock$()', () => {
       }).not.toThrowError();
     });
   });
+
+  it('gracefully handles a browser without navigator.wakelock', () => {
+    spyOnProperty(navigator as any, 'wakeLock').and.returnValue(undefined);
+    ctx.run(async () => {
+      expect(() => {
+        keepWakeLock$().subscribe();
+      }).not.toThrowError();
+    });
+  });
 });
