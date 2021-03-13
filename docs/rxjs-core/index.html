@@ -899,6 +899,9 @@ img { max-width: 100%; }
 			<a href="index.html#filterbehavior" class="tsd-kind-icon">filter<wbr>Behavior</a>
 		</li>
 		<li class=" tsd-kind-function">
+			<a href="index.html#keepwakelock_" class="tsd-kind-icon">keep<wbr>Wake<wbr>Lock$</a>
+		</li>
+		<li class=" tsd-kind-function">
 			<a href="index.html#logtoreduxdevtoolsextension" class="tsd-kind-icon">log<wbr>ToRedux<wbr>Devtools<wbr>Extension</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
@@ -945,6 +948,7 @@ img { max-width: 100%; }
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#delayonmicrotaskqueue" class="tsd-kind-icon">delay<wbr>OnMicrotask<wbr>Queue</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#distinctuntilkeyschanged" class="tsd-kind-icon">distinct<wbr>Until<wbr>Keys<wbr>Changed</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#filterbehavior" class="tsd-kind-icon">filter<wbr>Behavior</a></li>
+							<li class="tsd-kind-function"><a href="index.html#keepwakelock_" class="tsd-kind-icon">keep<wbr>Wake<wbr>Lock$</a></li>
 							<li class="tsd-kind-function"><a href="index.html#logtoreduxdevtoolsextension" class="tsd-kind-icon">log<wbr>ToRedux<wbr>Devtools<wbr>Extension</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#logvalues" class="tsd-kind-icon">log<wbr>Values</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#maptolatestfrom" class="tsd-kind-icon">map<wbr>ToLatest<wbr>From</a></li>
@@ -1140,6 +1144,28 @@ filter<span class="hljs-constructor">Behavior(<span class="hljs-params">identity
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="keepwakelock_" class="tsd-anchor"></a>
+				<h3>keep<wbr>Wake<wbr>Lock$</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">keep<wbr>Wake<wbr>Lock$<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/rxjs-core/src/lib/keep-wake-lock.ts#L24">projects/rxjs-core/src/lib/keep-wake-lock.ts:24</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Subscribe to the returned observable to acquire a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen_Wake_Lock_API" class="external">wake lock</a>. The wake lock will be re-acquired whenever the page is visible automatically. Unsubscribe to release it.</p>
+							</div>
+							<p>There are no guarantees about what or when the returned observable emits.</p>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
 				<a name="logtoreduxdevtoolsextension" class="tsd-anchor"></a>
 				<h3>log<wbr>ToRedux<wbr>Devtools<wbr>Extension</h3>
 				<ul class="tsd-signatures tsd-kind-function">
@@ -1230,7 +1256,7 @@ throwError(<span class="hljs-string">&quot;boo&quot;</span>).pipe(logValues(<spa
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/rxjs-core/src/lib/subscription-manager.ts#L16">projects/rxjs-core/src/lib/subscription-manager.ts:16</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/rxjs-core/src/lib/subscription-manager.ts#L17">projects/rxjs-core/src/lib/subscription-manager.ts:17</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

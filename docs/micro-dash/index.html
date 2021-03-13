@@ -1045,6 +1045,9 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-function tsd-has-type-parameter">
 			<a href="index.html#minby" class="tsd-kind-icon">min<wbr>By</a>
 		</li>
+		<li class=" tsd-kind-function tsd-has-type-parameter">
+			<a href="index.html#negate" class="tsd-kind-icon">negate</a>
+		</li>
 		<li class=" tsd-kind-function">
 			<a href="index.html#noop" class="tsd-kind-icon">noop</a>
 		</li>
@@ -1263,6 +1266,7 @@ img { max-width: 100%; }
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#memoize" class="tsd-kind-icon">memoize</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#merge" class="tsd-kind-icon">merge</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#minby" class="tsd-kind-icon">min<wbr>By</a></li>
+							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#negate" class="tsd-kind-icon">negate</a></li>
 							<li class="tsd-kind-function"><a href="index.html#noop" class="tsd-kind-icon">noop</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#nth" class="tsd-kind-icon">nth</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#omit" class="tsd-kind-icon">omit</a></li>
@@ -2332,8 +2336,8 @@ img { max-width: 100%; }
 				<a name="foreach" class="tsd-anchor"></a>
 				<h3>for<wbr>Each</h3>
 				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">for<wbr>Each&lt;T&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></li>
-					<li class="tsd-signature tsd-kind-icon">for<wbr>Each&lt;T&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ObjectIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
+					<li class="tsd-signature tsd-kind-icon">for<wbr>Each&lt;T&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NonNullable&lt;T&gt;[number]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
+					<li class="tsd-signature tsd-kind-icon">for<wbr>Each&lt;T&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ObjectIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NonNullable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -3460,6 +3464,32 @@ img { max-width: 100%; }
 							<ul>
 								<li>Lodash: 8,302 bytes</li>
 								<li>Micro-dash: 165 bytes</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
+				<a name="negate" class="tsd-anchor"></a>
+				<h3>negate</h3>
+				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">negate&lt;F&gt;<span class="tsd-signature-symbol">(</span>predicate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/micro-dash/src/lib/function/negate.ts#L8">projects/micro-dash/src/lib/function/negate.ts:8</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Creates a function that negates the result of the predicate <code>func</code>. The <code>func</code> predicate is invoked with the <code>this</code> binding and arguments of the created function.</p>
+							</div>
+							<p>Contribution to minified bundle size, when it is the only function imported:</p>
+							<ul>
+								<li>Lodash: 342 bytes</li>
+								<li>Micro-dash: 97 bytes</li>
 							</ul>
 						</div>
 					</li>

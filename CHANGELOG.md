@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.3.0](https://github.com/simontonsoftware/s-libs/compare/v11.2.1...v11.3.0) (2021-03-13)
+
+### Features
+
+- **micro-dash:** add `negate()` ([1056836](https://github.com/simontonsoftware/s-libs/commit/1056836fac5428601e76ebcf6f58ff3ca530e821)), closes [#26](https://github.com/simontonsoftware/s-libs/issues/26)
+- **micro-dash:** improve typing of `forEach` ([74dbdbf](https://github.com/simontonsoftware/s-libs/commit/74dbdbf7428bb3501b830f4eb649a58d5c796c35)), closes [#22](https://github.com/simontonsoftware/s-libs/issues/22)
+- **ng-dev:** remove the ESLint rule `max-statements`. It did not lead to better code. ([339ab7f](https://github.com/simontonsoftware/s-libs/commit/339ab7f201872aa9113f838f3d23827ced0fbeea))
+- **rxjs-core:** add `keepWakeLock$()` ([4a58461](https://github.com/simontonsoftware/s-libs/commit/4a5846167108031d3f0249f970ae692b0ca8dd06))
+- **rxjs-core:** add `SubscriptionManager.manage()` ([4b1aad6](https://github.com/simontonsoftware/s-libs/commit/4b1aad6379411a6d52c85b65a6edecca19bc7bb4))
+
 ### [11.2.1](https://github.com/simontonsoftware/s-libs/compare/v11.2.0...v11.2.1) (2021-01-07)
 
 ### Bug Fixes
