@@ -8,6 +8,6 @@
  * - Lodash: 68 bytes
  * - Micro-dash: 43 bytes
  */
-export function last<T>(array: T[]): T {
+export function last<T>(array: readonly T[]): T {
   return array[array.length - 1];
 }

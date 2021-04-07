@@ -10,8 +10,8 @@ import { keys } from '../object';
 
 export function size(collection: object): number;
 // tslint:disable-next-line:unified-signatures
-export function size(collection: any[] | string): number;
+export function size(collection: readonly any[] | string): number;
 
-export function size(collection: object | any[] | string): number {
+export function size(collection: object | readonly any[] | string): number {
   return keys(collection).length;
 }

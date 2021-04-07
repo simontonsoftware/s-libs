@@ -7,7 +7,10 @@ import { ValueIteratee } from '../interfaces';
  * - Lodash: 8,958 bytes
  * - Micro-dash: 115 bytes
  */
-export function uniqBy<T>(array: T[], iteratee: ValueIteratee<T, any>): T[] {
+export function uniqBy<T>(
+  array: readonly T[],
+  iteratee: ValueIteratee<T, any>,
+): T[] {
   const seen = new Set<T>();
   return array.filter((element) => {
     const key = iteratee(element);

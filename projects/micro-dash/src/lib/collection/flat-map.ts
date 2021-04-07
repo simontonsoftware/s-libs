@@ -11,7 +11,7 @@ import { map } from './map';
  */
 
 export function flatMap<I, O>(
-  array: I[] | Nil,
+  array: readonly I[] | Nil,
   iteratee: ArrayIteratee<I, O | O[]>,
 ): O[];
 export function flatMap<T, O>(

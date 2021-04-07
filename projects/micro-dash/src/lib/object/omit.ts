@@ -17,7 +17,7 @@ type RemainingKeys<T, Omits> =
  * - Lodash: 15,567 bytes
  * - Micro-dash: 155 bytes
  */
-export function omit<T extends object | Nil, O extends Array<keyof T>>(
+export function omit<T extends object | Nil, O extends ReadonlyArray<keyof T>>(
   object: T,
   ...paths: O
 ): {

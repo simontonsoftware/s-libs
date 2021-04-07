@@ -10,7 +10,7 @@ import { size } from './size';
  * - Micro-dash: 842 bytes
  */
 
-export function shuffle<T>(array: T[] | Nil): T[];
+export function shuffle<T>(array: readonly T[] | Nil): T[];
 export function shuffle<T>(object: T | Nil): Array<T[keyof T]>;
 
 export function shuffle(collection: any): any {

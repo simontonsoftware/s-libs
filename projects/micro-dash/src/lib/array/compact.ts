@@ -8,6 +8,6 @@ import { identity } from '../util';
  * - Lodash: 96 bytes
  * - Micro-dash: 35 bytes
  */
-export function compact<T>(array: Array<T>): Array<Exclude<T, Falsey>> {
+export function compact<T>(array: readonly T[]): Array<Exclude<T, Falsey>> {
   return array.filter(identity) as Array<Exclude<T, Falsey>>;
 }

@@ -5,6 +5,6 @@
  * - Lodash: 4,573 bytes
  * - Micro-dash: 40 bytes
  */
-export function uniq<T>(array: T[]): T[] {
+export function uniq<T>(array: readonly T[]): T[] {
   return Array.from(new Set(array));
 }

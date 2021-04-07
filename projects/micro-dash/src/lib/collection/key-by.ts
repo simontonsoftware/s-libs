@@ -10,7 +10,7 @@ import { forEach } from './for-each';
  */
 
 export function keyBy<T, K extends Key>(
-  array: T[] | Nil,
+  array: readonly T[] | Nil,
   iteratee: ValueIteratee<T, K>,
 ): IfIndexType<K, { [key in K]: T }, { [key in K]?: T }>;
 export function keyBy<T, K extends Key>(

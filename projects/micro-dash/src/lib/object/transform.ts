@@ -14,7 +14,7 @@ import { ObjectWith } from '../interfaces';
  */
 
 export function transform<E, A>(
-  array: E[] | undefined,
+  array: readonly E[] | undefined,
   iteratee: (accumulator: A, value: E, index: number) => void | boolean,
   accumulator?: A,
 ): A;

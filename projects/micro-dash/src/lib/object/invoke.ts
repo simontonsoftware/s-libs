@@ -107,7 +107,7 @@ export function invoke<
   T extends Obj3<K1, K2, K3, Fn> | Nil
 >(
   object: T,
-  path: [K1, K2, K3],
+  path: readonly [K1, K2, K3],
   ...args: Parameters<DefinedPath3<K1, K2, K3, T>>
 ): Path3<K1, K2, K3, T> extends DefinedPath3<K1, K2, K3, T>
   ? ReturnType<DefinedPath3<K1, K2, K3, T>>
@@ -120,7 +120,7 @@ export function invoke<
   T extends Obj2<K1, K2, Fn> | Nil
 >(
   object: T,
-  path: [K1, K2],
+  path: readonly [K1, K2],
   ...args: Parameters<DefinedPath2<K1, K2, T>>
 ): Path2<K1, K2, T> extends DefinedPath2<K1, K2, T>
   ? ReturnType<DefinedPath2<K1, K2, T>>
@@ -129,22 +129,26 @@ export function invoke<
 // 1 element path
 export function invoke<K1 extends Key, T extends Obj1<K1, Fn> | Nil>(
   object: T,
-  path: [K1],
+  path: readonly [K1],
   ...args: Parameters<DefinedPath1<K1, T>>
 ): Path1<K1, T> extends DefinedPath1<K1, T>
   ? ReturnType<DefinedPath1<K1, T>>
   : ReturnType<DefinedPath1<K1, T>> | undefined;
 
 // empty path
-export function invoke(object: object | Nil, path: []): undefined;
+export function invoke(object: object | Nil, path: readonly []): undefined;
 
 // TODO: limit this so it doesn't apply to 1-4 element paths with bad parameters
 // fallback: n element path
-export function invoke(object: object | Nil, path: Key[], ...args: any[]): any;
+export function invoke(
+  object: object | Nil,
+  path: readonly Key[],
+  ...args: any[]
+): any;
 
 export function invoke<T extends object | Nil>(
   object: T,
-  path: Key[],
+  path: readonly Key[],
   ...args: any[]
 ): any {
   const fn = get(object, path);

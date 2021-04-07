@@ -5,7 +5,7 @@
  * - Lodash: 2,206 bytes
  * - Micro-dash: 177 bytes
  */
-export function chunk<T>(array: T[], size = 1): T[][] {
+export function chunk<T>(array: readonly T[], size = 1): T[][] {
   size = Math.max(Math.trunc(size), 0);
   const chunks = [];
   for (let i = 0; i < array.length; i += Math.max(1, size)) {

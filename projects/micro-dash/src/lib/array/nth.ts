@@ -11,14 +11,11 @@ import { Nil } from '../interfaces';
  * - Micro-dash: 96 bytes
  */
 
-export function nth<T>(array: ReadonlyArray<T>, index: number): T;
-export function nth<T>(
-  array: ReadonlyArray<T> | Nil,
-  index: number,
-): T | undefined;
+export function nth<T>(array: readonly T[], index: number): T;
+export function nth<T>(array: readonly T[] | Nil, index: number): T | undefined;
 
 export function nth<T>(
-  array: ReadonlyArray<T> | Nil,
+  array: readonly T[] | Nil,
   index: number,
 ): T | undefined {
   if (array) {

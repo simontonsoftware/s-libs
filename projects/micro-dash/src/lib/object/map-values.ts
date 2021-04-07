@@ -9,7 +9,7 @@ import { forOwn } from './for-own';
  * - Micro-dash: 280 bytes
  */
 
-export function mapValues<A extends any[] | Nil, O>(
+export function mapValues<A extends readonly any[] | Nil, O>(
   array: A,
   iteratee: (item: NonNullable<A>[number], index: number) => O,
 ): { [index: number]: O } | IfCouldBe<A, Nil, {}>;

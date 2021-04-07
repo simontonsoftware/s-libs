@@ -10,7 +10,7 @@ import { forEach } from './for-each';
  */
 
 export function map<I, O>(
-  array: I[] | undefined,
+  array: readonly I[] | undefined,
   iteratee: ArrayIteratee<I, O>,
 ): O[];
 export function map<T, O>(

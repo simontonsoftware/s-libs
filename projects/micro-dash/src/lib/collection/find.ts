@@ -39,14 +39,14 @@ type PossibleKeyMatches<T, O> = {
 
 // array: value narrowing
 export function find<I, O>(
-  array: I[] | Nil,
+  array: readonly I[] | Nil,
   predicate: ArrayNarrowingIteratee<O>,
   fromIndex?: number,
 ): Extract<I, O> | Extract<O, I> | undefined;
 
 // array
 export function find<T>(
-  array: T[] | Nil,
+  array: readonly T[] | Nil,
   predicate: ArrayIteratee<T, boolean>,
   fromIndex?: number,
 ): T | undefined;

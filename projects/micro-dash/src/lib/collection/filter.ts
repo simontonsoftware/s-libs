@@ -19,11 +19,11 @@ import { forEach } from './for-each';
  */
 
 export function filter<I, O>(
-  array: I[] | Nil,
+  array: readonly I[] | Nil,
   predicate: ArrayNarrowingIteratee<O>,
 ): Array<Extract<I, O> | Extract<O, I>>;
 export function filter<T>(
-  array: T[] | Nil,
+  array: readonly T[] | Nil,
   predicate: ArrayIteratee<T, boolean>,
 ): T[];
 

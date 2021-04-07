@@ -96,9 +96,11 @@ export function flowRight<A1, R1, R2, R3, R4, R5, R6, R7>(
 // export function flowRight<TResult extends Function>(...funcs: Function[]): TResult;
 // export function flowRight<TResult extends Function>(funcs: Function[]): TResult;
 
-export function flowRight<T>(...funcs: Array<(val: T) => T>): (val: T) => T;
+export function flowRight<T>(
+  ...funcs: ReadonlyArray<(val: T) => T>
+): (val: T) => T;
 
-export function flowRight(...funcs: Function[]): Function {
+export function flowRight(...funcs: readonly Function[]): Function {
   if (funcs.length) {
     return funcs.reduce((result, func) => (input: unknown) =>
       result(func(input)),

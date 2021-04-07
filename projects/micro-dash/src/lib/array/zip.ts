@@ -9,22 +9,29 @@ import { times } from '../util';
  * - Micro-dash: 190 bytes
  */
 
-export function zip<T1, T2>(array1: T1[], array2: T2[]): Array<[T1, T2]>;
+export function zip<T1, T2>(
+  array1: readonly T1[],
+  array2: readonly T2[],
+): Array<[T1, T2]>;
 export function zip<T1, T2, T3>(
-  array1: T1[],
-  array2: T2[],
-  array3: T3[],
+  array1: readonly T1[],
+  array2: readonly T2[],
+  array3: readonly T3[],
 ): Array<[T1, T2, T3]>;
 export function zip<T1, T2, T3, T4>(
-  array1: T1[],
-  array2: T2[],
-  array3: T3[],
-  array4: T4[],
+  array1: readonly T1[],
+  array2: readonly T2[],
+  array3: readonly T3[],
+  array4: readonly T4[],
 ): Array<[T1, T2, T3, T4]>;
-export function zip<T>(...arrays: Array<T[]>): T[][];
-export function zip<T>(...arrays: Array<T[] | Nil>): Array<Array<T | Nil>>;
+export function zip<T>(...arrays: readonly T[][]): T[][];
+export function zip<T>(
+  ...arrays: ReadonlyArray<readonly T[] | Nil>
+): Array<Array<T | Nil>>;
 
-export function zip<T>(...arrays: Array<T[] | Nil>): Array<Array<T | Nil>> {
+export function zip<T>(
+  ...arrays: ReadonlyArray<readonly T[] | Nil>
+): Array<Array<T | Nil>> {
   const length = Math.max(0, ...arrays.map((a) => (a ? a.length : 0)));
   return times(length, (i) => arrays.map((a) => (a ? a[i] : undefined)));
 }

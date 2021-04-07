@@ -5,6 +5,6 @@
  * - Lodash: 128 bytes
  * - Micro-dash: 71 bytes
  */
-export function castArray<T>(value: T): T extends unknown[] ? T : T[] {
+export function castArray<T>(value: T): T extends readonly unknown[] ? T : T[] {
   return (Array.isArray(value) ? value : [value]) as any;
 }

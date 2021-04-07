@@ -5,6 +5,6 @@
  * - Lodash: 1,183 bytes
  * - Micro-dash: 29 bytes
  */
-export function flatten<T>(array: Array<T | T[]>): T[] {
+export function flatten<T>(array: ReadonlyArray<T | readonly T[]>): T[] {
   return ([] as T[]).concat(...array);
 }

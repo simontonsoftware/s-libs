@@ -9,7 +9,7 @@ import { findExtreme } from './extreme-utils';
  * - Micro-dash: 165 bytes
  */
 export function maxBy<T extends Existent>(
-  array: T[],
+  array: readonly T[],
   iteratee: ValueIteratee<T, Primitive>,
 ): T {
   return findExtreme(

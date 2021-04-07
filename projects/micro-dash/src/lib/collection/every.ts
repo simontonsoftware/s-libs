@@ -12,7 +12,7 @@ import { forEach } from './for-each';
  */
 
 export function every<T>(
-  array: T[] | undefined,
+  array: readonly T[] | undefined,
   predicate: ArrayIteratee<T, any>,
 ): boolean;
 export function every<T>(

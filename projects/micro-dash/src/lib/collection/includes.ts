@@ -7,9 +7,13 @@ import { isString, toArray } from '../lang';
  * - Lodash: 4,546 bytes
  * - Micro-dash: 319 bytes
  */
-export function includes<T extends any[] | object | string>(
+export function includes<T extends readonly any[] | object | string>(
   collection: T,
-  value: T extends any[] ? T[0] : T extends string ? string : T[keyof T],
+  value: T extends readonly any[]
+    ? T[0]
+    : T extends string
+    ? string
+    : T[keyof T],
   fromIndex = 0,
 ): boolean {
   if (isString(collection)) {

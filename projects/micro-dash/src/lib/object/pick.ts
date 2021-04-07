@@ -10,7 +10,7 @@ import { IfCouldBe, Nil } from '../interfaces';
  * - Lodash: 7,718 bytes
  * - Micro-dash: 142 bytes
  */
-export function pick<T, P extends Array<keyof NonNullable<T>>>(
+export function pick<T, P extends ReadonlyArray<keyof NonNullable<T>>>(
   object: T,
   ...paths: P
 ): { [K in P[number]]: NonNullable<T>[K] } | IfCouldBe<T, Nil, {}> {

@@ -10,7 +10,7 @@ import { forEach } from './for-each';
  */
 
 export function some<T>(
-  array: T[] | undefined,
+  array: readonly T[] | undefined,
   predicate: ArrayIteratee<T, any>,
 ): boolean;
 export function some<T>(

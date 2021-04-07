@@ -30,7 +30,7 @@ export function get<D = undefined>(
 ): D;
 export function get<T, K1 extends keyof NonNullable<T>, D = undefined>(
   object: T,
-  path: [K1],
+  path: readonly [K1],
   defaultValue?: D,
 ): WithDefault<NonNullable<T>[K1], D> | IfCouldBe<T, Nil, D>;
 export function get<
@@ -40,7 +40,7 @@ export function get<
   D = undefined
 >(
   object: T,
-  path: [K1, K2],
+  path: readonly [K1, K2],
   defaultValue?: D,
 ): WithDefault<NonNullable<T>[K1][K2], D> | IfCouldBe<T, Nil, D>;
 export function get<
@@ -51,7 +51,7 @@ export function get<
   D = undefined
 >(
   object: T,
-  path: [K1, K2, K3],
+  path: readonly [K1, K2, K3],
   defaultValue?: D,
 ): WithDefault<NonNullable<T>[K1][K2][K3], D> | IfCouldBe<T, Nil, D>;
 export function get<
@@ -63,13 +63,21 @@ export function get<
   D = undefined
 >(
   object: T,
-  path: [K1, K2, K3, K4],
+  path: readonly [K1, K2, K3, K4],
   defaultValue?: D,
 ): WithDefault<NonNullable<T>[K1][K2][K3][K4], D> | IfCouldBe<T, Nil, D>;
 
-export function get(object: object | Nil, path: Key[], defaultValue?: any): any;
+export function get(
+  object: object | Nil,
+  path: readonly Key[],
+  defaultValue?: any,
+): any;
 
-export function get(object: any, path: Key | Key[], defaultValue?: any): any {
+export function get(
+  object: any,
+  path: Key | readonly Key[],
+  defaultValue?: any,
+): any {
   // const val = property(path)(object);
   // return isUndefined(val) ? defaultValue : val;
   path = castArray(path);

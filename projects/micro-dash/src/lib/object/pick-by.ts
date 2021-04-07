@@ -56,11 +56,11 @@ type MaybeIncludedKeys<T, O> = {
  */
 
 export function pickBy<T, O>(
-  object: T[] | Nil,
+  object: readonly T[] | Nil,
   predicate: ValueNarrowingIteratee<T[], O>,
 ): { [index: number]: Narrow<T, O> };
 export function pickBy<T>(
-  object: T[] | Nil,
+  object: readonly T[] | Nil,
   predicate: ObjectIteratee<T, boolean>,
 ): { [index: number]: T };
 

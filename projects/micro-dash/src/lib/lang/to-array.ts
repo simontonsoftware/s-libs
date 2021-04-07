@@ -10,7 +10,7 @@ import { valuesOfNonArray } from '../object/values';
  */
 
 export function toArray(value: string): string[];
-export function toArray<T extends any[]>(value: T): T;
+export function toArray<T extends readonly any[]>(value: T): T;
 export function toArray<T extends object>(value: T): Array<T[keyof T]>;
 export function toArray(value: Primitive | Nil): [];
 export function toArray(value: any): any[];

@@ -53,11 +53,11 @@ type MaybeIncludedKeys<T, O> = {
  */
 
 export function omitBy<T, O>(
-  object: T[] | Nil,
+  object: readonly T[] | Nil,
   predicate: ValueNarrowingIteratee<T[], O>,
 ): { [index: number]: Exclude<T, O> };
 export function omitBy<T>(
-  object: T[] | Nil,
+  object: readonly T[] | Nil,
   predicate: ObjectIteratee<T, boolean>,
 ): { [index: number]: T };
 

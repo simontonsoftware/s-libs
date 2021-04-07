@@ -14,6 +14,10 @@ import { update } from './update';
  * - Lodash: 5,639 bytes
  * - Micro-dash: 192 bytes
  */
-export function set<T>(object: T, path: Array<string | number>, value: any): T {
+export function set<T>(
+  object: T,
+  path: ReadonlyArray<string | number>,
+  value: any,
+): T {
   return update(object, path, constant(value));
 }

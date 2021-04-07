@@ -15,7 +15,7 @@ import { transform } from '../object/transform';
  * - Micro-dash: 331 bytes
  */
 export function groupBy<T, K extends Key>(
-  collection: T[] | ObjectWith<T> | Nil,
+  collection: readonly T[] | ObjectWith<T> | Nil,
   iteratee: ValueIteratee<T, K>,
 ): { [k in K]: IfIndexType<K, T[], T[] | undefined> } {
   return transform(

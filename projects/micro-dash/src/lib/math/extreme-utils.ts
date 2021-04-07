@@ -3,7 +3,7 @@ import { Existent, Primitive, ValueIteratee } from '../interfaces';
 
 /** @hidden */
 export function findExtreme<T extends Existent>(
-  array: T[],
+  array: readonly T[],
   iteratee: ValueIteratee<T, Primitive>,
   shouldReplace: (candidate: Primitive, current: Primitive) => boolean,
 ): T {
