@@ -1,5 +1,6 @@
 import { Injector } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { wrapMethod } from '@s-libs/js-core';
 import { FormControlSuperclass } from './form-control-superclass';
 
 /**
@@ -56,9 +57,11 @@ export abstract class WrappedFormControlSuperclass<
     this.subscribeTo(this.formControl.valueChanges, (value) => {
       this.emitOutgoingValue(this.innerToOuter(value));
     });
-    this.formControl.markAsTouched = () => {
-      this.onTouched();
-    };
+    wrapMethod(this.formControl, 'markAsTouched', {
+      after: () => {
+        this.onTouched();
+      },
+    });
   }
 
   /** Called as angular propagates values changes to this `ControlValueAccessor`. You normally do not need to use it. */

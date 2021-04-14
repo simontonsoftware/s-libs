@@ -5,7 +5,7 @@ import {
 } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ComponentContext } from '@s-libs/ng-dev';
+import { ComponentContext, ComponentContextNext } from '@s-libs/ng-dev';
 import { click, find, findButton, setValue } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
 import {
@@ -85,55 +85,60 @@ class TestComponentContext extends ComponentContext<TestComponent> {
 }
 
 describe('WrappedFormControlSuperclass', () => {
-  let ctx: TestComponentContext;
+  let masterCtx: TestComponentContext;
   beforeEach(() => {
-    ctx = new TestComponentContext();
+    masterCtx = new TestComponentContext();
   });
 
   function stringInput(): HTMLInputElement {
-    return find<HTMLInputElement>(ctx.fixture, 's-string-component input');
+    return find<HTMLInputElement>(
+      masterCtx.fixture,
+      's-string-component input',
+    );
   }
 
   function dateInput(): HTMLInputElement {
-    return find<HTMLInputElement>(ctx.fixture, 's-date-component input');
+    return find<HTMLInputElement>(masterCtx.fixture, 's-date-component input');
   }
 
   function toggleDisabledButton(): HTMLButtonElement {
-    return findButton(ctx.fixture, 'Toggle Disabled');
+    return findButton(masterCtx.fixture, 'Toggle Disabled');
   }
 
   ///////
 
   it('provides help for 2-way binding', () => {
-    ctx.run({ input: { string: 'initial value' } }, () => {
+    masterCtx.run({ input: { string: 'initial value' } }, () => {
       expect(stringInput().value).toBe('initial value');
 
       setValue(stringInput(), 'edited value');
-      expect(ctx.fixture.componentInstance.string).toBe('edited value');
+      expect(masterCtx.fixture.componentInstance.string).toBe('edited value');
     });
   });
 
   it('can translate between inner and outer values', () => {
-    ctx.run({ input: { date: new Date('2018-09-03T21:00Z') } }, () => {
+    masterCtx.run({ input: { date: new Date('2018-09-03T21:00Z') } }, () => {
       expect(dateInput().value).toBe('2018-09-03T21:00');
 
       setValue(dateInput(), '1980-11-04T10:00');
-      expect(ctx.fixture.componentInstance.date).toEqual(
+      expect(masterCtx.fixture.componentInstance.date).toEqual(
         new Date('1980-11-04T10:00Z'),
       );
     });
   });
 
   it('provides help for `onTouched`', () => {
-    ctx.run(() => {
-      expect(ctx.fixture.nativeElement.innerText).not.toContain('Touched!');
+    masterCtx.run(() => {
+      expect(masterCtx.fixture.nativeElement.innerText).not.toContain(
+        'Touched!',
+      );
       stringInput().dispatchEvent(new Event('blur'));
-      expect(ctx.fixture.nativeElement.innerText).toContain('Touched!');
+      expect(masterCtx.fixture.nativeElement.innerText).toContain('Touched!');
     });
   });
 
   it('provides help for `[disabled]`', () => {
-    ctx.run({ input: { shouldDisable: true } }, () => {
+    masterCtx.run({ input: { shouldDisable: true } }, () => {
       expect(stringInput().disabled).toBe(true);
 
       click(toggleDisabledButton());
@@ -145,31 +150,49 @@ describe('WrappedFormControlSuperclass', () => {
   });
 
   it('does not emit after an incoming change', () => {
-    ctx.run(() => {
-      expect(ctx.fixture.componentInstance.emissions).toBe(0);
+    masterCtx.run(() => {
+      expect(masterCtx.fixture.componentInstance.emissions).toBe(0);
 
       setValue(stringInput(), 'changed from within');
-      expect(ctx.fixture.componentInstance.emissions).toBe(1);
+      expect(masterCtx.fixture.componentInstance.emissions).toBe(1);
 
-      ctx.fixture.componentInstance.string = 'changed from without';
-      ctx.fixture.detectChanges();
+      masterCtx.fixture.componentInstance.string = 'changed from without';
+      masterCtx.fixture.detectChanges();
       flushMicrotasks();
-      expect(ctx.fixture.componentInstance.emissions).toBe(1);
+      expect(masterCtx.fixture.componentInstance.emissions).toBe(1);
 
       click(toggleDisabledButton());
       click(toggleDisabledButton());
-      expect(ctx.fixture.componentInstance.emissions).toBe(1);
+      expect(masterCtx.fixture.componentInstance.emissions).toBe(1);
     });
   });
 
   it('has the right class hierarchy', () => {
-    ctx.run(() => {
-      const component = ctx.fixture.debugElement.query(
+    masterCtx.run(() => {
+      const component = masterCtx.fixture.debugElement.query(
         By.directive(StringComponent),
       ).componentInstance;
       expect(component instanceof InjectableSuperclass).toBe(true);
       expect(component instanceof DirectiveSuperclass).toBe(true);
       expect(component instanceof FormControlSuperclass).toBe(true);
+    });
+  });
+
+  it('adds ng-touched to the inner form control at the right time', () => {
+    @Component({ template: `<input [formControl]="formControl" />` })
+    class NgTouchedComponent extends WrappedFormControlSuperclass<string> {
+      constructor(injector: Injector) {
+        super(injector);
+      }
+    }
+
+    const ctx = new ComponentContextNext(NgTouchedComponent);
+    ctx.run(() => {
+      const debugElement = ctx.fixture.debugElement.query(By.css('input'));
+      debugElement.triggerEventHandler('blur', {});
+      ctx.tick();
+
+      expect(debugElement.classes['ng-touched']).toBe(true);
     });
   });
 });
