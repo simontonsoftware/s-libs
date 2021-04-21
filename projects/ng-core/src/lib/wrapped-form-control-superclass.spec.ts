@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  Input,
+} from '@angular/core';
 import {
   ComponentFixtureAutoDetect,
   flushMicrotasks,
@@ -6,6 +11,8 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ComponentContext, ComponentContextNext } from '@s-libs/ng-dev';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { click, find, findButton, setValue } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
 import {
@@ -124,6 +131,68 @@ describe('WrappedFormControlSuperclass', () => {
       expect(masterCtx.fixture.componentInstance.date).toEqual(
         new Date('1980-11-04T10:00Z'),
       );
+    });
+  });
+
+  it('allows setting up an observable to translate between inner and outer values', () => {
+    @Component({
+      selector: 's-observable-translation',
+      template: `<input [formControl]="formControl" />`,
+      providers: [provideValueAccessor(ObservableTranslationComponent)],
+    })
+    class ObservableTranslationComponent extends WrappedFormControlSuperclass<
+      number,
+      string
+    > {
+      constructor(injector: Injector) {
+        super(injector);
+      }
+
+      protected setUpOuterToInner$(
+        value$: Observable<number>,
+      ): Observable<string> {
+        return value$.pipe(map((outer) => String(outer / 2)));
+      }
+
+      protected setUpInnerToOuter$(
+        value$: Observable<string>,
+      ): Observable<number> {
+        return value$.pipe(
+          map((inner) => +inner * 2),
+          filter((val) => !isNaN(val)),
+        );
+      }
+    }
+
+    @Component({
+      template: `
+        <s-observable-translation
+          [(ngModel)]="outerValue"
+        ></s-observable-translation>
+      `,
+    })
+    class WrapperComponent {
+      @Input() outerValue!: number;
+    }
+
+    const ctx = new ComponentContextNext(WrapperComponent, {
+      imports: [FormsModule, ReactiveFormsModule],
+      declarations: [ObservableTranslationComponent],
+    });
+    ctx.assignInputs({ outerValue: 38 });
+    ctx.run(() => {
+      const input: HTMLInputElement = ctx.fixture.debugElement.query(
+        By.css('input'),
+      ).nativeElement;
+      expect(input.value).toBe('19');
+
+      setValue(input, '6');
+      ctx.tick();
+      expect(ctx.getComponentInstance().outerValue).toBe(12);
+
+      setValue(input, "you can't double me");
+      ctx.tick();
+      expect(ctx.getComponentInstance().outerValue).toBe(12);
     });
   });
 

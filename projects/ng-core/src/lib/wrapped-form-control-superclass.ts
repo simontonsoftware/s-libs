@@ -1,6 +1,8 @@
 import { Injector } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { wrapMethod } from '@s-libs/js-core';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { FormControlSuperclass } from './form-control-superclass';
 
 /**
@@ -32,15 +34,15 @@ import { FormControlSuperclass } from './form-control-superclass';
  *     super(injector);
  *   }
  *
- *   protected innerToOuter(value: string): Date {
- *     return new Date(value + "Z");
+ *   protected innerToOuter(inner: string): Date {
+ *     return new Date(inner + "Z");
  *   }
  *
- *   protected outerToInner(value: Date): string {
- *     if (value === null) {
+ *   protected outerToInner(outer: Date): string {
+ *     if (outer === null) {
  *       return ""; // happens during initialization
  *     }
- *     return value.toISOString().substr(0, 16);
+ *     return outer.toISOString().substr(0, 16);
  *   }
  * }
  * ```
@@ -52,11 +54,19 @@ export abstract class WrappedFormControlSuperclass<
   /** Bind this to your inner form control to make all the magic happen. */
   formControl = new FormControl();
 
+  private incomingValues$ = new Subject<OuterType>();
+
   constructor(injector: Injector) {
     super(injector);
-    this.subscribeTo(this.formControl.valueChanges, (value) => {
-      this.emitOutgoingValue(this.innerToOuter(value));
+    this.subscribeTo(this.setUpOuterToInner$(this.incomingValues$), (inner) => {
+      this.formControl.setValue(inner, { emitEvent: false });
     });
+    this.subscribeTo(
+      this.setUpInnerToOuter$(this.formControl.valueChanges),
+      (outer) => {
+        this.emitOutgoingValue(outer);
+      },
+    );
     wrapMethod(this.formControl, 'markAsTouched', {
       after: () => {
         this.onTouched();
@@ -65,8 +75,8 @@ export abstract class WrappedFormControlSuperclass<
   }
 
   /** Called as angular propagates values changes to this `ControlValueAccessor`. You normally do not need to use it. */
-  handleIncomingValue(value: OuterType): void {
-    this.formControl.setValue(this.outerToInner(value), { emitEvent: false });
+  handleIncomingValue(outer: OuterType): void {
+    this.incomingValues$.next(outer);
   }
 
   /** Called as angular propagates disabled changes to this `ControlValueAccessor`. You normally do not need to use it. */
@@ -79,13 +89,63 @@ export abstract class WrappedFormControlSuperclass<
     super.setDisabledState(this.isDisabled);
   }
 
-  /** Override this to modify a value coming from the outside to the format needed within this component. */
-  protected outerToInner(value: OuterType): InnerType {
-    return (value as any) as InnerType;
+  /**
+   * Override this to modify a value coming from the outside to the format needed within this component.
+   *
+   * For more complex needs, see {@link #setUpOuterToInner$} instead.
+   */
+  protected outerToInner(outer: OuterType): InnerType {
+    return (outer as unknown) as InnerType;
   }
 
-  /** Override this to modify a value coming from within this component to the format expected on the outside. */
-  protected innerToOuter(value: InnerType): OuterType {
-    return (value as any) as OuterType;
+  /**
+   * Override this to for full control over the stream of values passed in to your subclass.
+   *
+   * In this example, incoming values are debounced before being passed through to the inner form control
+   * ```ts
+   * setUpOuterToInner$(outer$: Observable<OuterType>): Observable<InnerType> {
+   *   return values$.pipe(
+   *     debounce(300),
+   *     map((outer) => doExpensiveTransformToInnerValue(outer)),
+   *   );
+   * }
+   * ```
+   *
+   * For a simple transformation, see {@link #outerToInner} instead.
+   */
+  protected setUpOuterToInner$(
+    outer$: Observable<OuterType>,
+  ): Observable<InnerType> {
+    return outer$.pipe(map((outer) => this.outerToInner(outer)));
+  }
+
+  /**
+   * Override this to modify a value coming from within this component to the format expected on the outside.
+   *
+   * For more complex needs, see {@link #setUpInnerToOuter$} instead.
+   */
+  protected innerToOuter(inner: InnerType): OuterType {
+    return (inner as unknown) as OuterType;
+  }
+
+  /**
+   * Override this to for full control over the stream of values emitted from your subclass.
+   *
+   * In this example, illegal values are not emitted
+   * ```ts
+   * setUpInnerToOuter$(inner$: Observable<InnerType>): Observable<OuterType> {
+   *   return values$.pipe(
+   *     debounce(300),
+   *     filter((inner) => isLegalValue(outer)),
+   *   );
+   * }
+   * ```
+   *
+   * For a simple transformation, see {@link #innerToOuter} instead.
+   */
+  protected setUpInnerToOuter$(
+    inner$: Observable<InnerType>,
+  ): Observable<OuterType> {
+    return inner$.pipe(map((inner) => this.innerToOuter(inner)));
   }
 }
