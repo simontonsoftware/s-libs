@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  Directive,
+  ElementRef,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { noop } from '@s-libs/micro-dash';
 import { ComponentContextNext } from './component-context-next';
@@ -86,6 +92,27 @@ describe('createDynamicWrapper()', () => {
     ctx.assignInputs({ tricky: 'the value' });
     ctx.run(() => {
       expect(ctx.getComponentInstance().tricky).toBe('the value');
+    });
+  });
+
+  // https://github.com/simontonsoftware/s-libs/issues/40
+  it('can handle inputs defined by a superclass (production bug)', () => {
+    @Directive()
+    class SuperclassComponent {
+      @Input() superclassInput?: string;
+    }
+
+    @Component({ template: '' })
+    class SubclassComponent extends SuperclassComponent {
+      @Input() subclassInput?: string;
+    }
+
+    const ctx = new ComponentContextNext(SubclassComponent);
+    ctx.assignInputs({ superclassInput: 'an actual value' });
+    ctx.run(async () => {
+      expect(ctx.getComponentInstance().superclassInput).toBe(
+        'an actual value',
+      );
     });
   });
 

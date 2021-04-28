@@ -1,7 +1,7 @@
 import { Component, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { assert } from '@s-libs/js-core';
-import { flatMap } from '@s-libs/micro-dash';
+import { forOwn } from '@s-libs/micro-dash';
 
 /** @hidden */
 interface InputMeta<T> {
@@ -74,19 +74,28 @@ function isValidSelector(selector: string): boolean {
 
 /** @hidden */
 function getInputMetas<T>(componentType: Type<T>): Array<InputMeta<T>> {
+  let metas: Array<InputMeta<T>>;
+  const superType = Object.getPrototypeOf(componentType.prototype)?.constructor;
+  if (superType) {
+    metas = getInputMetas(superType);
+  } else {
+    metas = [];
+  }
+
   // I tried making this support inputs with special characters in their names, but it turns out that *Angular* can only support that when using AOT. So our *dynamic* wrapper cannot.
-  return flatMap(
+  forOwn(
     (componentType as any).propDecorators,
     (decorators: any[], property: any) => {
       const inputDecorators = decorators.filter(
         (decorator) => decorator.type.prototype.ngMetadataName === 'Input',
       );
-      return inputDecorators.map((decorator) => {
+      for (const decorator of inputDecorators) {
         const binding = decorator.args?.[0] || property;
-        return { property, binding };
-      });
+        metas.push({ property, binding });
+      }
     },
   );
+  return metas;
 }
 
 /** @hidden */
