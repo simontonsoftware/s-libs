@@ -9,6 +9,7 @@ export { includes } from './includes';
 export { keyBy } from './key-by';
 export { map } from './map';
 export { reduce } from './reduce';
+export { reject } from './reject';
 export { reduceRight } from './reduce-right';
 export { sample } from './sample';
 export { sampleSize } from './sample-size';
