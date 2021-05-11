@@ -7,9 +7,9 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { keys } from '@s-libs/micro-dash';
-import { trimLeftoverStyles } from '../../trim-leftover-styles';
+import { trimLeftoverStyles } from '../trim-leftover-styles';
 import { extendMetadata } from '../angular-context/angular-context';
-import { AngularContextNext } from '../angular-context/angular-context-next';
+import { AngularContext } from '../angular-context/angular-context';
 import {
   createDynamicWrapper,
   WrapperComponent,
@@ -18,7 +18,7 @@ import {
 /**
  * Provides the foundation for an opinionated pattern for component tests.
  *
- * - Includes all features from {@link AngularContextNext}
+ * - Includes all features from {@link AngularContext}
  * - Automatically creates your component at the beginning of `run()`.
  * - Sets up Angular to call `ngOnChanges()` like it would in production. This is not the case if you use the standard `TestBed.createComponent()` directly.
  * - Wraps your component in a dynamically created parent that you can easily style however you like.
@@ -36,7 +36,7 @@ import {
  * }
  *
  * it('greets you by name', () => {
- *   const ctx = new ComponentContextNext(GreeterComponent);
+ *   const ctx = new ComponentContext(GreeterComponent);
  *   ctx.assignInputs({ name: 'World' });
  *   ctx.run(() => {
  *     expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
@@ -51,7 +51,7 @@ import {
  *
  * // To re-use your context setup, make a subclass of ComponentContext to
  * // import into any spec
- * class AppContext extends ComponentContextNext<AppComponent> {
+ * class AppContext extends ComponentContext<AppComponent> {
  *   constructor() {
  *     super(AppComponent, {
  *       imports: [
@@ -143,7 +143,7 @@ import {
  * class AppModule {}
  * ```
  */
-export class ComponentContextNext<T> extends AngularContextNext {
+export class ComponentContext<T> extends AngularContext {
   /**
    * The {@link ComponentFixture} for a synthetic wrapper around your component. Available with the callback to `run()`.
    */
@@ -158,7 +158,7 @@ export class ComponentContextNext<T> extends AngularContextNext {
 
   /**
    * @param componentType `run()` will create a component of this type before running the rest of your test.
-   * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContextNext}.
+   * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContext}.
    * @param unboundInputs By default a synthetic parent component will be created that binds to all your component's inputs. Pass input names here that should NOT be bound. This is useful e.g. to test the default value of an input.
    */
   constructor(

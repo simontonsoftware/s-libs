@@ -1,6 +1,6 @@
 import { Component, Directive, Injectable } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ComponentContextNext, expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { Subject } from 'rxjs';
 import {
   InjectableSuperclass,
@@ -29,7 +29,7 @@ class TestComponent {
   showThings = true;
 }
 
-class TestComponentContext extends ComponentContextNext<TestComponent> {
+class TestComponentContext extends ComponentContext<TestComponent> {
   subject = new Subject();
 
   constructor() {

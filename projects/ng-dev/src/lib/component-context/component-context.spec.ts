@@ -16,9 +16,9 @@ import {
 import { RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { noop } from '@s-libs/micro-dash';
-import { ComponentContextNext } from './component-context-next';
+import { ComponentContext } from './component-context';
 
-describe('ComponentContextNext', () => {
+describe('ComponentContext', () => {
   @Component({ template: 'Hello, {{name}}!' })
   class TestComponent {
     @Input() name!: string;
@@ -36,7 +36,7 @@ describe('ComponentContextNext', () => {
 
   describe('.fixture', () => {
     it('is provided', () => {
-      const ctx = new ComponentContextNext(TestComponent);
+      const ctx = new ComponentContext(TestComponent);
       ctx.run(() => {
         expect(ctx.fixture).toBeInstanceOf(ComponentFixture);
       });
@@ -47,7 +47,7 @@ describe('ComponentContextNext', () => {
     it('accepts module metadata to be bootstrapped', () => {
       const value = Symbol();
       const token = new InjectionToken<symbol>('tok');
-      const ctx = new ComponentContextNext(TestComponent, {
+      const ctx = new ComponentContext(TestComponent, {
         providers: [{ provide: token, useValue: value }],
       });
       ctx.run(() => {
@@ -58,7 +58,7 @@ describe('ComponentContextNext', () => {
     it('disables animations', () => {
       @NgModule({ imports: [BrowserAnimationsModule] })
       class AnimatedModule {}
-      const ctx = new ComponentContextNext(TestComponent, {
+      const ctx = new ComponentContext(TestComponent, {
         imports: [AnimatedModule],
       });
       ctx.run(() => {
@@ -67,7 +67,7 @@ describe('ComponentContextNext', () => {
     });
 
     it('allows default module metadata to be overridden', () => {
-      const ctx = new ComponentContextNext(TestComponent, {
+      const ctx = new ComponentContext(TestComponent, {
         imports: [BrowserAnimationsModule],
       });
       ctx.run(() => {
@@ -78,7 +78,7 @@ describe('ComponentContextNext', () => {
 
   describe('.assignInputs()', () => {
     it('updates the inputs', () => {
-      const ctx = new ComponentContextNext(TestComponent);
+      const ctx = new ComponentContext(TestComponent);
       ctx.run(() => {
         ctx.assignInputs({ name: 'New Guy' });
         expect(ctx.fixture.nativeElement.textContent).toContain('New Guy');
@@ -86,7 +86,7 @@ describe('ComponentContextNext', () => {
     });
 
     it('triggers ngOnChanges() with the proper changes argument', () => {
-      const ctx = new ComponentContextNext(ChangeDetectingComponent);
+      const ctx = new ComponentContext(ChangeDetectingComponent);
       ctx.run(() => {
         const spy = ctx.getComponentInstance().ngOnChangesSpy;
         spy.calls.reset();
@@ -105,7 +105,7 @@ describe('ComponentContextNext', () => {
         @Input('nonInput') letsTryToTrickIt?: string;
       }
 
-      const ctx = new ComponentContextNext(NonInputComponent);
+      const ctx = new ComponentContext(NonInputComponent);
       expect(() => {
         ctx.assignInputs({ nonInput: 'value' });
       }).toThrowError(
@@ -118,7 +118,7 @@ describe('ComponentContextNext', () => {
       class UnboundInputComponent {
         @Input() doNotBind?: string;
       }
-      const ctx = new ComponentContextNext(UnboundInputComponent, {}, [
+      const ctx = new ComponentContext(UnboundInputComponent, {}, [
         'doNotBind',
       ]);
       expect(() => {
@@ -131,7 +131,7 @@ describe('ComponentContextNext', () => {
 
   describe('.assignWrapperStyles()', () => {
     it('can be used before .run()', () => {
-      const ctx = new ComponentContextNext(TestComponent);
+      const ctx = new ComponentContext(TestComponent);
       ctx.assignWrapperStyles({ border: '1px solid black' });
       ctx.run(() => {
         const wrapper = ctx.fixture.debugElement.query(
@@ -144,7 +144,7 @@ describe('ComponentContextNext', () => {
     });
 
     it('changes (only) the passed-in styles', () => {
-      const ctx = new ComponentContextNext(TestComponent);
+      const ctx = new ComponentContext(TestComponent);
       ctx.assignWrapperStyles({ border: '1px solid black' });
       ctx.run(() => {
         ctx.assignWrapperStyles({ 'background-color': 'blue' });
@@ -163,7 +163,7 @@ describe('ComponentContextNext', () => {
 
   describe('.getComponentInstance()', () => {
     it('returns the instantiated component', () => {
-      const ctx = new ComponentContextNext(TestComponent);
+      const ctx = new ComponentContext(TestComponent);
       ctx.assignInputs({ name: 'instantiated name' });
       ctx.run(() => {
         expect(ctx.getComponentInstance().name).toBe('instantiated name');
@@ -173,14 +173,14 @@ describe('ComponentContextNext', () => {
 
   describe('.init()', () => {
     it('creates a component of the type specified in the constructor', () => {
-      const ctx = new ComponentContextNext(TestComponent);
+      const ctx = new ComponentContext(TestComponent);
       ctx.run(() => {
         expect(ctx.getComponentInstance()).toBeInstanceOf(TestComponent);
       });
     });
 
     it('trims leftover styles', () => {
-      const ctx = new ComponentContextNext(TestComponent);
+      const ctx = new ComponentContext(TestComponent);
       let style: HTMLStyleElement;
       ctx.run(() => {
         style = document.createElement('style');
@@ -192,7 +192,7 @@ describe('ComponentContextNext', () => {
     });
 
     it('triggers ngOnChanges', () => {
-      const ctx = new ComponentContextNext(ChangeDetectingComponent);
+      const ctx = new ComponentContext(ChangeDetectingComponent);
       ctx.run(() => {
         const spy = ctx.getComponentInstance().ngOnChangesSpy;
         expect(spy).toHaveBeenCalledTimes(1);
@@ -202,7 +202,7 @@ describe('ComponentContextNext', () => {
 
   describe('.runChangeDetection()', () => {
     it('gets change detection working inside the fixture', () => {
-      const ctx = new ComponentContextNext(TestComponent);
+      const ctx = new ComponentContext(TestComponent);
       ctx.run(() => {
         ctx.getComponentInstance().name = 'Changed Guy';
         ctx.tick();
@@ -213,7 +213,7 @@ describe('ComponentContextNext', () => {
 
   describe('.cleanUp()', () => {
     it('destroys the fixture', () => {
-      const ctx = new ComponentContextNext(TestComponent);
+      const ctx = new ComponentContext(TestComponent);
       ctx.run(noop);
       ctx.getComponentInstance().name = 'Changed Guy';
       ctx.fixture.detectChanges();
@@ -223,7 +223,7 @@ describe('ComponentContextNext', () => {
     });
 
     it('does the superclass things', () => {
-      const ctx = new ComponentContextNext(TestComponent);
+      const ctx = new ComponentContext(TestComponent);
       expect(() => {
         ctx.run(() => {
           setInterval(noop, 10);
@@ -235,7 +235,7 @@ describe('ComponentContextNext', () => {
   });
 });
 
-describe('ComponentContextNext class-level doc examples', () => {
+describe('ComponentContext class-level doc examples', () => {
   describe('simple example', () => {
     @Component({ template: 'Hello, {{name}}!' })
     class GreeterComponent {
@@ -243,7 +243,7 @@ describe('ComponentContextNext class-level doc examples', () => {
     }
 
     it('greets you by name', () => {
-      const ctx = new ComponentContextNext(GreeterComponent);
+      const ctx = new ComponentContext(GreeterComponent);
       ctx.assignInputs({ name: 'World' });
       ctx.run(() => {
         expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
@@ -256,7 +256,7 @@ describe('ComponentContextNext class-level doc examples', () => {
     // app-context.ts
 
     // To re-use your context setup, make a subclass of ComponentContext to import into any spec
-    class AppContext extends ComponentContextNext<AppComponent> {
+    class AppContext extends ComponentContext<AppComponent> {
       constructor() {
         super(AppComponent, {
           imports: [

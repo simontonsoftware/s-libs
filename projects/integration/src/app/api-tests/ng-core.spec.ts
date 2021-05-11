@@ -24,7 +24,7 @@ import {
   provideValueAccessor,
   WrappedFormControlSuperclass,
 } from '@s-libs/ng-core';
-import { ComponentContextNext, expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -122,7 +122,7 @@ describe('ng-core', () => {
         }
       }
 
-      class TestComponentContext extends ComponentContextNext<TestComponent> {
+      class TestComponentContext extends ComponentContext<TestComponent> {
         color$ = new BehaviorSubject('Grey');
 
         constructor() {
@@ -254,7 +254,7 @@ describe('ng-core', () => {
         }
       }
 
-      class TestComponentContext extends ComponentContextNext<TestComponent> {
+      class TestComponentContext extends ComponentContext<TestComponent> {
         constructor() {
           super(TestComponent, {
             imports: [FormsModule, ReactiveFormsModule],
@@ -348,7 +348,7 @@ describe('ng-core', () => {
         }
       }
 
-      class TestComponentContext extends ComponentContextNext<TestComponent> {
+      class TestComponentContext extends ComponentContext<TestComponent> {
         constructor() {
           super(TestComponent, {
             imports: [FormsModule],
@@ -442,7 +442,7 @@ describe('ng-core', () => {
         showThings = true;
       }
 
-      class TestComponentContext extends ComponentContextNext<TestComponent> {
+      class TestComponentContext extends ComponentContext<TestComponent> {
         subject = new Subject();
 
         constructor() {

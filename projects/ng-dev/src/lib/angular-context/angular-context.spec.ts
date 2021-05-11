@@ -10,12 +10,12 @@ import {
   InjectionToken,
   Injector,
 } from '@angular/core';
-import { TestBed, tick } from '@angular/core/testing';
+import { flush, TestBed, tick } from '@angular/core/testing';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { sleep } from '@s-libs/js-core';
 import { noop, Observable } from 'rxjs';
-import { expectSingleCallAndReset } from '../../spies';
 import { AngularContext } from './angular-context';
 
 describe('AngularContext', () => {
@@ -26,7 +26,7 @@ describe('AngularContext', () => {
 
     protected cleanUp(): void {
       this.inject(OverlayContainer).ngOnDestroy();
-      this.tick(5000);
+      flush();
       super.cleanUp();
     }
   }
@@ -77,12 +77,17 @@ describe('AngularContext', () => {
       });
     });
 
-    it('defaults options to `{}`', () => {
+    it('can handle async tests that call tick', () => {
+      let completed = false;
       const ctx = new AngularContext();
-      const spy = spyOn(ctx as any, 'init');
-      ctx.run(() => {
-        expectSingleCallAndReset(spy, {});
+      ctx.run(async () => {
+        await sleep(0);
+        setTimeout(() => {
+          completed = true;
+        }, 500);
+        ctx.tick(500);
       });
+      expect(completed).toBeTrue();
     });
   });
 
@@ -96,38 +101,26 @@ describe('AngularContext', () => {
   });
 
   describe('.getHarness()', () => {
-    it('returns a synchronized harness', () => {
+    it('returns a harness', () => {
       const ctx = new SnackBarContext();
-      ctx.run(() => {
+      ctx.run(async () => {
         ctx.inject(MatSnackBar).open('hi');
-        const bar = ctx.getHarness(MatSnackBarHarness);
-        expect(bar.getMessage()).toBe('hi');
-      });
-    });
-  });
-
-  describe('.getHarnessForOptional()', () => {
-    it('gets either the a synchronized harness or null', () => {
-      const ctx = new SnackBarContext();
-      ctx.run(() => {
-        expect(ctx.getHarnessForOptional(MatSnackBarHarness)).toBeNull();
-        ctx.inject(MatSnackBar).open('hi');
-        const bar = ctx.getHarnessForOptional(MatSnackBarHarness);
-        expect(bar).not.toBeNull();
-        expect(bar!.getMessage()).toBe('hi');
+        const bar = await ctx.getHarness(MatSnackBarHarness);
+        expect(await bar.getMessage()).toBe('hi');
       });
     });
   });
 
   describe('.getAllHarnesses()', () => {
-    it('gets an array of synchronized harnesses', () => {
+    it('gets an array of harnesses', () => {
       const ctx = new SnackBarContext();
-      ctx.run(() => {
-        expect(ctx.getAllHarnesses(MatSnackBarHarness).length).toBe(0);
+      ctx.run(async () => {
+        let bars = await ctx.getAllHarnesses(MatSnackBarHarness);
+        expect(bars.length).toBe(0);
         ctx.inject(MatSnackBar).open('hi');
-        const bars = ctx.getAllHarnesses(MatSnackBarHarness);
+        bars = await ctx.getAllHarnesses(MatSnackBarHarness);
         expect(bars.length).toBe(1);
-        expect(bars[0].getMessage()).toBe('hi');
+        expect(await bars[0].getMessage()).toBe('hi');
       });
     });
   });
@@ -248,16 +241,6 @@ describe('AngularContext', () => {
     });
   });
 
-  describe('.init()', () => {
-    it('receives the options passed to .run()', () => {
-      const ctx = new AngularContext();
-      const spy = spyOn(ctx as any, 'init');
-      ctx.run({ thisIsTheOne: true }, () => {
-        expectSingleCallAndReset(spy, { thisIsTheOne: true });
-      });
-    });
-  });
-
   describe('.verifyPostTestConditions()', () => {
     it('errs if there are unexpected http requests', () => {
       const ctx = new AngularContext();
@@ -280,6 +263,17 @@ describe('AngularContext', () => {
         });
       })
         // No error: "1 periodic timer(s) still in the queue."
+        .not.toThrowError();
+    });
+
+    it('flushes pending timeouts', () => {
+      const ctx = new AngularContext();
+      expect(() => {
+        ctx.run(() => {
+          setTimeout(noop, 1);
+        });
+      })
+        // No error: "1 timer(s) still in the queue."
         .not.toThrowError();
     });
   });

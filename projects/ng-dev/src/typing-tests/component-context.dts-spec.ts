@@ -1,8 +1,8 @@
-import { ComponentContextNext } from '../lib/test-context';
+import { ComponentContext } from '../lib/component-context';
 
 class TestComponent {}
 
-const ctx = new ComponentContextNext(TestComponent);
+const ctx = new ComponentContext(TestComponent);
 // $ExpectType ComponentFixture<unknown>
 const fixture = ctx.fixture;
 // $ExpectType (inputs: Partial<TestComponent>) => void

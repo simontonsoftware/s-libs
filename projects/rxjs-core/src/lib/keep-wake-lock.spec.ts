@@ -1,5 +1,5 @@
 import {
-  AngularContextNext,
+  AngularContext,
   AsyncMethodController,
   expectSingleCallAndReset,
   TestCall,
@@ -18,12 +18,12 @@ class MockSentinel implements WakeLockSentinel {
 const nav = navigator as ExtendedNavigator;
 
 describe('keepWakeLock$()', () => {
-  let ctx: AngularContextNext;
+  let ctx: AngularContext;
   let request: AsyncMethodController<WakeLock, 'request'>;
   let visibilityState: jasmine.Spy;
   let notifyVisibilityChange: VoidFunction | undefined;
   beforeEach(() => {
-    ctx = new AngularContextNext();
+    ctx = new AngularContext();
     request = new AsyncMethodController(nav.wakeLock!, 'request', {
       ctx,
     });

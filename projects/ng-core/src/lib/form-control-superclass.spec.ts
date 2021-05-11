@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ComponentContextNext } from '@s-libs/ng-dev';
+import { ComponentContext } from '@s-libs/ng-dev';
 import { click, find, findButton } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
 import {
@@ -49,9 +49,9 @@ class CounterComponent extends FormControlSuperclass<number> {
 }
 
 describe('FormControlSuperclass', () => {
-  let ctx: ComponentContextNext<TestComponent>;
+  let ctx: ComponentContext<TestComponent>;
   beforeEach(() => {
-    ctx = new ComponentContextNext(TestComponent, {
+    ctx = new ComponentContext(TestComponent, {
       imports: [FormsModule],
       declarations: [CounterComponent],
       // this can go away with component harnesses eventually

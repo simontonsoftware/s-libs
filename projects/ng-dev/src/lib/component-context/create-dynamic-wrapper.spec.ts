@@ -7,14 +7,14 @@ import {
 } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { noop } from '@s-libs/micro-dash';
-import { ComponentContextNext } from './component-context-next';
+import { ComponentContext } from './component-context';
 
 describe('createDynamicWrapper()', () => {
   it("uses the component's selector if it is a tag name", () => {
     @Component({ selector: 's-tag-name', template: '' })
     class TagNameComponent {}
 
-    const ctx = new ComponentContextNext(TagNameComponent);
+    const ctx = new ComponentContext(TagNameComponent);
     ctx.run(() => {
       expect(
         ctx.fixture.debugElement.query(By.directive(TagNameComponent)).name,
@@ -26,7 +26,7 @@ describe('createDynamicWrapper()', () => {
     @Component({ template: 'the template' })
     class NoSelectorComponent {}
 
-    const ctx = new ComponentContextNext(NoSelectorComponent);
+    const ctx = new ComponentContext(NoSelectorComponent);
     ctx.run(() => {
       expect(ctx.fixture.nativeElement.textContent).toContain('the template');
     });
@@ -36,7 +36,7 @@ describe('createDynamicWrapper()', () => {
     // tslint:disable-next-line:component-selector
     @Component({ selector: '[myAttribute]', template: 'the template' })
     class AttributeSelectorComponent {}
-    const ctx = new ComponentContextNext(AttributeSelectorComponent);
+    const ctx = new ComponentContext(AttributeSelectorComponent);
     ctx.run(() => {
       expect(ctx.fixture.nativeElement.textContent).toContain('the template');
     });
@@ -49,7 +49,7 @@ describe('createDynamicWrapper()', () => {
       @Input('bindingName') propertyName?: string;
     }
 
-    const ctx = new ComponentContextNext(RenamedInputComponent);
+    const ctx = new ComponentContext(RenamedInputComponent);
     ctx.assignInputs({ propertyName: 'custom value' });
     ctx.run(() => {
       expect(ctx.fixture.nativeElement.textContent).toContain('custom value');
@@ -66,7 +66,7 @@ describe('createDynamicWrapper()', () => {
       }
     }
 
-    const ctx = new ComponentContextNext(SetterInputComponent);
+    const ctx = new ComponentContext(SetterInputComponent);
     ctx.assignInputs({ setterInput: 'sent value' });
     ctx.run(() => {
       expect(ctx.getComponentInstance().receivedValue).toBe('sent value');
@@ -78,7 +78,7 @@ describe('createDynamicWrapper()', () => {
     class NoInputComponent {}
 
     expect(() => {
-      new ComponentContextNext(NoInputComponent).run(noop);
+      new ComponentContext(NoInputComponent).run(noop);
     }).not.toThrowError();
   });
 
@@ -88,7 +88,7 @@ describe('createDynamicWrapper()', () => {
       @Input() tricky?: string;
       @ViewChild('tricky') trickyChild!: ElementRef;
     }
-    const ctx = new ComponentContextNext(TrickyViewChildComponent);
+    const ctx = new ComponentContext(TrickyViewChildComponent);
     ctx.assignInputs({ tricky: 'the value' });
     ctx.run(() => {
       expect(ctx.getComponentInstance().tricky).toBe('the value');
@@ -107,7 +107,7 @@ describe('createDynamicWrapper()', () => {
       @Input() subclassInput?: string;
     }
 
-    const ctx = new ComponentContextNext(SubclassComponent);
+    const ctx = new ComponentContext(SubclassComponent);
     ctx.assignInputs({ superclassInput: 'an actual value' });
     ctx.run(async () => {
       expect(ctx.getComponentInstance().superclassInput).toBe(
@@ -121,9 +121,7 @@ describe('createDynamicWrapper()', () => {
     class UnboundInputComponent {
       @Input() doNotBind = 'default value';
     }
-    const ctx = new ComponentContextNext(UnboundInputComponent, {}, [
-      'doNotBind',
-    ]);
+    const ctx = new ComponentContext(UnboundInputComponent, {}, ['doNotBind']);
     ctx.run(() => {
       expect(ctx.getComponentInstance().doNotBind).toBe('default value');
     });
@@ -134,7 +132,7 @@ describe('createDynamicWrapper()', () => {
 
     expect(() => {
       // tslint:disable-next-line:no-unused-expression
-      new ComponentContextNext(NotAComponent);
+      new ComponentContext(NotAComponent);
     }).toThrowError('That does not appear to be a component');
   });
 });

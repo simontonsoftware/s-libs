@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { noop } from '@s-libs/micro-dash';
-import { ComponentContextNext } from '../test-context';
+import { ComponentContext } from '../component-context';
 import { AsyncMethodController } from './async-method-controller';
 import { expectSingleCallAndReset } from './expect-single-call-and-reset';
 
@@ -44,7 +44,7 @@ describe('TestCall', () => {
     }));
 
     it('triggers change detection if the AsyncMethodController was passed a context', () => {
-      const ctx = new ComponentContextNext(TestComponent);
+      const ctx = new ComponentContext(TestComponent);
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'readText',
@@ -79,7 +79,7 @@ describe('TestCall', () => {
     }));
 
     it('triggers change detection if the AsyncMethodController was passed a context', () => {
-      const ctx = new ComponentContextNext(TestComponent);
+      const ctx = new ComponentContext(TestComponent);
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'readText',

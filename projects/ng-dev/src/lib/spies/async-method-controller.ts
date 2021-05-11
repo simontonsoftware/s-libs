@@ -24,7 +24,7 @@ type AsyncMethodKeys<T> = {
  * ```ts
  *  it('can paste', () => {
  *   const clipboard = navigator.clipboard;
- *   const ctx = new AngularContextNext();
+ *   const ctx = new AngularContext();
  *
  *   // mock the browser API for pasting
  *   const controller = new AsyncMethodController(clipboard, 'readText', {

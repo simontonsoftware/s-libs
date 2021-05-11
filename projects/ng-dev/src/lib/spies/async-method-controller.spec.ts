@@ -1,4 +1,4 @@
-import { AngularContextNext } from '../test-context/angular-context/angular-context-next';
+import { AngularContext } from '../angular-context/angular-context';
 import { AsyncMethodController } from './async-method-controller';
 
 describe('AsyncMethodController', () => {
@@ -343,7 +343,7 @@ describe('AsyncMethodController', () => {
   describe('examples from the docs', () => {
     it('can paste', () => {
       const clipboard = navigator.clipboard;
-      const ctx = new AngularContextNext();
+      const ctx = new AngularContext();
 
       // mock the browser API for pasting
       const controller = new AsyncMethodController(clipboard, 'readText', {

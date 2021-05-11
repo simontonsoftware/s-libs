@@ -14,7 +14,7 @@ import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   AngularContext,
-  ComponentContextNext,
+  ComponentContext,
   expectSingleCallAndReset,
 } from '@s-libs/ng-dev';
 import { BehaviorSubject, combineLatest, noop, Observable } from 'rxjs';
@@ -74,7 +74,7 @@ class ColorTextComponent extends DirectiveSuperclass {
   }
 }
 
-class TestComponentContext extends ComponentContextNext<TestComponent> {
+class TestComponentContext extends ComponentContext<TestComponent> {
   color$ = new BehaviorSubject('Grey');
 
   constructor() {
@@ -188,7 +188,7 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      const ctx2 = new ComponentContextNext(TestDirective);
+      const ctx2 = new ComponentContext(TestDirective);
       ctx2.assignInputs({ specified: 'a value' });
       ctx2.run(() => {
         const testDirective = ctx2.getComponentInstance();
@@ -219,7 +219,7 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      const ctx2 = new ComponentContextNext(TestDirective);
+      const ctx2 = new ComponentContext(TestDirective);
       ctx2.run(() => {
         const testDirective = ctx2.getComponentInstance();
         expect(testDirective.emittedDuring).toBe('after ngOnChanges');
@@ -240,7 +240,7 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      const ctx2 = new ComponentContextNext(
+      const ctx2 = new ComponentContext(
         NoInputComponent,
         { declarations: [NoInputComponent] },
         ['myInput'],
@@ -271,7 +271,7 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      const ctx2 = new ComponentContextNext(InputBindingComponent);
+      const ctx2 = new ComponentContext(InputBindingComponent);
       ctx2.assignInputs({ inputValue: { name: 'Techgeek19' } });
       ctx2.run(() => {
         expect(ctx2.fixture.nativeElement.textContent).toContain('Techgeek19');
@@ -290,7 +290,7 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      const ctx2 = new ComponentContextNext(InputBindingComponent);
+      const ctx2 = new ComponentContext(InputBindingComponent);
       ctx2.assignInputs({ inputValue: { name: 'Techgeek19' } });
       ctx2.run(() => {
         expect(ctx2.fixture.nativeElement.textContent).toContain('Techgeek19');

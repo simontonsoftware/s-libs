@@ -3,14 +3,11 @@ import { UnitTestElement } from '@angular/cdk/testing/testbed';
 import { flush } from '@angular/core/testing';
 import { bindKey } from '@s-libs/micro-dash';
 import { AngularContext } from './angular-context';
-import { synchronize, Synchronized } from '../synchronize';
 
 /** @hidden */
 export class FakeAsyncHarnessEnvironment extends HarnessEnvironment<Element> {
-  static documentRootLoader(
-    ctx: AngularContext,
-  ): Synchronized<FakeAsyncHarnessEnvironment> {
-    return synchronize(new FakeAsyncHarnessEnvironment(document.body, ctx));
+  static documentRootLoader(ctx: AngularContext): FakeAsyncHarnessEnvironment {
+    return new FakeAsyncHarnessEnvironment(document.body, ctx);
   }
 
   protected constructor(rawRootElement: Element, private ctx: AngularContext) {
