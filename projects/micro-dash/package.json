@@ -10,5 +10,5 @@
     "url": "https://github.com/simontonsoftware/s-libs.git",
     "directory": "projects/micro-dash"
   },
-  "dependencies": { "tslib": "^2.0.0", "utility-types": "^3.10.0" }
+  "dependencies": { "tslib": "^2.1.0", "utility-types": "^3.10.0" }
 }

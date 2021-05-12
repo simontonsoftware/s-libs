@@ -5,7 +5,7 @@
     <scripts>
       <script value="build" />
     </scripts>
-    <arguments value="--prod rxjs-core" />
+    <arguments value="--configuration production rxjs-core" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />

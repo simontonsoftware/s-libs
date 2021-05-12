@@ -56,7 +56,7 @@ export function find<
   I,
   T extends NonNullable<I>,
   O,
-  F extends number | undefined = undefined
+  F extends number | undefined = undefined,
 >(
   object: I,
   predicate: ValueNarrowingIteratee<T, O>,
@@ -72,7 +72,7 @@ export function find<
   I,
   T extends NonNullable<I>,
   O,
-  F extends number | undefined = undefined
+  F extends number | undefined = undefined,
 >(
   object: I,
   predicate: KeyNarrowingIteratee<T, O>,

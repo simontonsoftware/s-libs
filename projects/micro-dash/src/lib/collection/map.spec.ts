@@ -1,5 +1,4 @@
 import { expectCallsAndReset } from '@s-libs/ng-dev';
-import { stub } from 'sinon';
 import { identity } from '../util';
 import { map } from './map';
 
@@ -73,9 +72,9 @@ describe('map()', () => {
   });
 
   it('should accept `undefined` for `collection`', () => {
-    const logger = stub();
+    const logger = jasmine.createSpy();
     expect(map(undefined, logger)).toEqual([]);
-    expect(logger.callCount).toBe(0);
+    expect(logger.calls.count()).toBe(0);
   });
 
   it('should work with objects with non-number length properties', () => {

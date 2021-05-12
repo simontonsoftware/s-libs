@@ -10,9 +10,9 @@
     "directory": "projects/ng-dev"
   },
   "peerDependencies": {
-    "@angular/cdk": "^11.0.0",
-    "@angular/common": "^11.0.0",
-    "@angular/core": "^11.0.0",
+    "@angular/cdk": "^12.0.0",
+    "@angular/common": "^12.0.0",
+    "@angular/core": "^12.0.0",
     "@s-libs/js-core": "^11.3.0",
     "@s-libs/micro-dash": "^11.3.0",
     "@s-libs/ng-core": "^11.3.0",
@@ -23,6 +23,6 @@
     "@typescript-eslint/eslint-plugin": "^4.8.0",
     "@typescript-eslint/parser": "^4.6.0",
     "eslint": "^7.14.0",
-    "tslint-config-prettier": "^1.18.0"
+    "tslib": "^2.1.0"
   }
 }

@@ -1,5 +1,5 @@
+import { expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { identity } from 'lodash-es';
-import { stub } from 'sinon';
 import { sumBy } from './sum-by';
 
 describe('sumBy()', () => {
@@ -15,9 +15,9 @@ describe('sumBy()', () => {
   });
 
   it('should provide correct `iteratee` arguments', () => {
-    const logger = stub();
+    const logger = jasmine.createSpy();
     sumBy([6], logger);
-    expect(logger.args).toEqual([[6]]);
+    expectSingleCallAndReset(logger, 6);
   });
 
   it('should return the sum of an array of numbers', () => {

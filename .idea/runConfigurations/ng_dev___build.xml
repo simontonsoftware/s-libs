@@ -5,7 +5,7 @@
     <scripts>
       <script value="build" />
     </scripts>
-    <arguments value="--prod ng-dev" />
+    <arguments value="--configuration production ng-dev" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />

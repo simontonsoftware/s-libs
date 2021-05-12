@@ -6,5 +6,5 @@
     "flatModuleFile": "micro-dash",
     "umdId": "sLibs.microDash"
   },
-  "whitelistedNonPeerDependencies": ["utility-types"]
+  "allowedNonPeerDependencies": ["utility-types"]
 }

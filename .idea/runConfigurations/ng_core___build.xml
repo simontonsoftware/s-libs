@@ -5,7 +5,7 @@
     <scripts>
       <script value="build" />
     </scripts>
-    <arguments value="--prod ng-core" />
+    <arguments value="--configuration production ng-core" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />

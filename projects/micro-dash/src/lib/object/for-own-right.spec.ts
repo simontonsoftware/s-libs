@@ -1,6 +1,5 @@
 import { noop } from 'lodash';
 import { expectCallsAndReset, expectSingleCallAndReset } from '@s-libs/ng-dev';
-import { stub } from 'sinon';
 import { forOwnRight } from './for-own-right';
 
 describe('forOwnRight()', () => {
@@ -21,11 +20,11 @@ describe('forOwnRight()', () => {
   });
 
   it('should iterate over `length` properties', () => {
-    const logger = stub();
+    const logger = jasmine.createSpy();
 
     forOwnRight({ 0: 'zero', 1: 'one', length: 2 }, logger);
 
-    expect(logger.args).toContain([2, 'length']);
+    expect(logger.calls.allArgs()).toContain([2, 'length']);
   });
 
   it('should provide correct iteratee arguments', () => {

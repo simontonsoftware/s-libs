@@ -50,8 +50,9 @@ function getSelector(componentType: Type<unknown>): string {
   );
   assert(annotations, 'That does not appear to be a component');
 
-  let selector = annotations.value.find((decorator: any) => decorator.selector)
-    ?.selector;
+  let selector = annotations.value.find(
+    (decorator: any) => decorator.selector,
+  )?.selector;
   if (!isValidSelector(selector)) {
     selector = 's-libs-component-under-test';
     TestBed.overrideComponent(componentType, { set: { selector } });

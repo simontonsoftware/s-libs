@@ -1,4 +1,3 @@
-import { stub } from 'sinon';
 import { keyIsString } from '../../test-helpers/test-utils';
 import { omitBy } from './omit-by';
 
@@ -7,11 +6,11 @@ describe('omitBy()', () => {
   it('does not treat sparse arrays as dense', () => {
     const array = [1];
     array[2] = 3;
-    const logger = stub();
+    const logger = jasmine.createSpy();
 
     omitBy(array, logger);
 
-    expect(logger.args).toEqual([
+    expect(logger.calls.allArgs()).toEqual([
       [1, '0'],
       [3, '2'],
     ]);

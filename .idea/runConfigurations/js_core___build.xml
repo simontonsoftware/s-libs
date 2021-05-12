@@ -5,7 +5,7 @@
     <scripts>
       <script value="build" />
     </scripts>
-    <arguments value="--prod js-core" />
+    <arguments value="--configuration production js-core" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />

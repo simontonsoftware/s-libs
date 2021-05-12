@@ -1,5 +1,4 @@
 import { constant } from 'lodash';
-import { stub } from 'sinon';
 import { set } from './set';
 
 describe('set()', () => {
@@ -13,7 +12,7 @@ describe('set()', () => {
   it('assigns values even if they are the same as their destination', () => {
     for (const equalValue of ['a', ['a'], { a: 1 }, NaN]) {
       const object = {};
-      const setter = stub();
+      const setter = jasmine.createSpy();
       const theValue = constant(equalValue);
       Object.defineProperty(object, 'a', {
         configurable: true,
@@ -24,7 +23,7 @@ describe('set()', () => {
 
       set(object, ['a'], theValue);
 
-      expect(setter.callCount).toBe(1);
+      expect(setter.calls.count()).toBe(1);
     }
   });
 

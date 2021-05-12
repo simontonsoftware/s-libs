@@ -1,13 +1,14 @@
 name: Test Suite
-on: [push]
+on: push
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
         with:
-          node-version: 10.x
+          node-version: 14.x
 
       - uses: actions/cache@v2
         with:
@@ -17,7 +18,7 @@ jobs:
 
       - run: yarn build-libs
 
-      - run: yarn test --watch=false --progress=false --browsers=ChromeHeadlessCI
+      - run: yarn test --no-watch --no-progress --browsers=ChromeHeadlessCI
 
       - run: sudo apt-get update
       - run: sudo apt-get install google-chrome-stable
@@ -27,9 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
         with:
-          node-version: 10.x
+          node-version: 14.x
 
       - uses: actions/cache@v2
         with:
@@ -39,6 +41,5 @@ jobs:
 
       - run: yarn build-libs
 
-      - run: yarn lint
       - run: yarn eslint
       - run: yarn ts-node scripts/dtslint-all

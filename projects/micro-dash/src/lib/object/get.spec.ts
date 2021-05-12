@@ -1,6 +1,82 @@
+import { expectTypeOf } from 'expect-type';
 import { get } from './get';
 
 describe('get()', () => {
+  it('has fancy typing', () => {
+    expect().nothing();
+
+    class Wrap1 {
+      value?: number;
+    }
+
+    class Wrap2 {
+      wrap1 = new Wrap1();
+      value = 'bye';
+    }
+
+    class Wrap3 {
+      wrap2 = new Wrap2();
+      value?: Date;
+    }
+
+    class Cycle {
+      next!: Cycle;
+      value!: number;
+    }
+
+    expectTypeOf(get(new Wrap1(), ['value'])).toEqualTypeOf<
+      number | undefined
+    >();
+    expectTypeOf(get(new Wrap1(), ['value'], 1)).toEqualTypeOf<number>();
+
+    expectTypeOf(get(new Wrap2(), ['wrap1'])).toEqualTypeOf<Wrap1>();
+    expectTypeOf(get(new Wrap2(), ['wrap1', 'value'])).toEqualTypeOf<
+      number | undefined
+    >();
+
+    expectTypeOf(get(new Wrap3(), ['wrap2', 'wrap1'])).toEqualTypeOf<Wrap1>();
+    expectTypeOf(get(new Wrap3(), ['wrap2', 'wrap1', 'value'])).toEqualTypeOf<
+      number | undefined
+    >();
+    expectTypeOf(
+      get(new Wrap3(), ['wrap2', 'wrap1', 'value'], 1),
+    ).toEqualTypeOf<number>();
+
+    expectTypeOf(
+      get(new Cycle(), ['next', 'next', 'next', 'next']),
+    ).toEqualTypeOf<Cycle>();
+    expectTypeOf(
+      get(new Cycle(), ['next', 'next', 'next', 'next', 'next']),
+    ).toEqualTypeOf<any>();
+
+    // when D is a different type than at the path
+    expectTypeOf(
+      get(new Wrap3(), ['wrap2', 'wrap1'], 'hi'),
+    ).toEqualTypeOf<Wrap1>();
+    // expectTypeOf(get(new Wrap2(), ['wrap1', 'value'], 'hi')).toEqualTypeOf<
+    //   number | 'hi'
+    // >();
+
+    // when T can be undefined
+    const wOrU = undefined as Wrap3 | undefined;
+    expectTypeOf(get(wOrU, ['wrap2', 'wrap1'])).toEqualTypeOf<
+      Wrap1 | undefined
+    >();
+
+    // fallback to `any` for e.g. a string array
+    const path = ['a', 'b'];
+    expectTypeOf(get(new Cycle(), path)).toEqualTypeOf<any>();
+
+    // passing a key instead of a path
+    expectTypeOf(get(new Wrap1(), 'value')).toEqualTypeOf<number | undefined>();
+    expectTypeOf(get(new Wrap1(), 'value', 1)).toEqualTypeOf<number>();
+    expectTypeOf(get(new Wrap2(), 'wrap1', 1)).toEqualTypeOf<Wrap1>();
+    // expectTypeOf(get(new Wrap1(), 'value', 'hi')).toEqualTypeOf<
+    //   number | 'hi'
+    // >();
+    expectTypeOf(get(wOrU, 'wrap2')).toEqualTypeOf<Wrap2 | undefined>();
+  });
+
   //
   // stolen from https://github.com/lodash/lodash
   //

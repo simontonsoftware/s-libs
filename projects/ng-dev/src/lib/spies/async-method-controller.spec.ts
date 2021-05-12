@@ -1,5 +1,7 @@
+import { expectTypeOf } from 'expect-type';
 import { AngularContext } from '../angular-context/angular-context';
 import { AsyncMethodController } from './async-method-controller';
+import CallInfo = jasmine.CallInfo;
 
 describe('AsyncMethodController', () => {
   describe('constructor', () => {
@@ -25,6 +27,43 @@ describe('AsyncMethodController', () => {
       const match = controller.expectOne((call) => call.args[0] === 'value 2');
 
       expect(match.callInfo.args[0]).toEqual('value 2');
+    });
+
+    it('has fancy typing', () => {
+      expect().nothing();
+
+      const writeController = new AsyncMethodController(
+        navigator.clipboard,
+        'writeText',
+      );
+      expectTypeOf(writeController.expectOne)
+        .parameter(0)
+        .toEqualTypeOf<
+          | [data: string]
+          | ((callInfo: jasmine.CallInfo<Clipboard['writeText']>) => boolean)
+        >();
+      navigator.clipboard.writeText('fake text');
+      writeController.expectOne((callInfo) => {
+        expectTypeOf(callInfo).toEqualTypeOf<
+          CallInfo<(data: string) => Promise<void>>
+        >();
+        return true;
+      });
+
+      const readController = new AsyncMethodController(
+        navigator.clipboard,
+        'readText',
+      );
+      expectTypeOf(readController.expectOne)
+        .parameter(0)
+        .toEqualTypeOf<
+          [] | ((callInfo: jasmine.CallInfo<Clipboard['readText']>) => boolean)
+        >();
+      navigator.clipboard.readText();
+      readController.expectOne((callInfo) => {
+        expectTypeOf(callInfo).toEqualTypeOf<CallInfo<() => Promise<string>>>();
+        return true;
+      });
     });
 
     describe('error message', () => {

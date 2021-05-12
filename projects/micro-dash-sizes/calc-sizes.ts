@@ -21,7 +21,9 @@ async function run(): Promise<void> {
     const library = await getLibraryInput();
     if (library !== 'lodash') {
       console.log('rebuilding micro-dash ...');
-      execSync('ng build --prod micro-dash', { cwd: rootDir });
+      execSync('ng build --configuration production micro-dash', {
+        cwd: rootDir,
+      });
     }
     await buildAndExplore(`**/${base}.${library}.ts`);
   }
@@ -91,9 +93,10 @@ async function build(inputPath: string): Promise<void> {
   }
 
   writeFileSync(path.join(mainDir, 'main.ts'), `import "${importPath}";`);
-  execSync('ng build --prod --sourceMap=true micro-dash-sizes', {
-    cwd: rootDir,
-  });
+  execSync(
+    'ng build --configuration production --sourceMap=true micro-dash-sizes',
+    { cwd: rootDir },
+  );
 }
 
 async function inspect(): Promise<string | undefined> {

@@ -1,3 +1,4 @@
+import { expectTypeOf } from 'expect-type';
 import { zip } from './zip';
 
 describe('zip()', () => {
@@ -11,6 +12,30 @@ describe('zip()', () => {
       [undefined, 3],
       [undefined, 4],
     ]);
+  });
+
+  it('has fancy typing', () => {
+    expect().nothing();
+
+    expectTypeOf(zip(['a'], ['yes'])).toEqualTypeOf<[string, string][]>();
+    expectTypeOf(zip(['a'], [1, 'no'])).toEqualTypeOf<
+      [string, string | number][]
+    >();
+    expectTypeOf(zip(['a'], [2], [new Date()])).toEqualTypeOf<
+      [string, number, Date][]
+    >();
+    expectTypeOf(zip(['a'], [2], [new Date()], [null])).toEqualTypeOf<
+      [string, number, Date, null][]
+    >();
+    expectTypeOf(zip(['a'], ['b'], ['c'], ['d'], ['e'])).toEqualTypeOf<
+      string[][]
+    >();
+    expectTypeOf(
+      zip<string | number>(['a'], [2], ['c'], [4], ['e']),
+    ).toEqualTypeOf<(string | number)[][]>();
+    expectTypeOf(zip(['a'], null, ['c'], undefined, ['e'])).toEqualTypeOf<
+      (string | null | undefined)[][]
+    >();
   });
 
   //

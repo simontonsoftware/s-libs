@@ -1,6 +1,5 @@
 import { noop } from 'lodash';
 import { expectCallsAndReset } from '@s-libs/ng-dev';
-import { stub } from 'sinon';
 import { forEachRight } from './for-each-right';
 
 describe('forEachRight()', () => {
@@ -16,13 +15,11 @@ describe('forEachRight()', () => {
   //
 
   it('can exit early when iterating arrays', () => {
-    const logger = stub();
-    logger.onCall(1).returns(true);
-    logger.onCall(2).returns(false);
+    const logger = jasmine.createSpy().and.returnValues(undefined, true, false);
 
     forEachRight([1, 2, 3, 4], logger);
 
-    expect(logger.args).toEqual([
+    expect(logger.calls.allArgs()).toEqual([
       [4, 3],
       [3, 2],
       [2, 1],
@@ -30,13 +27,11 @@ describe('forEachRight()', () => {
   });
 
   it('can exit early when iterating objects', () => {
-    const logger = stub();
-    logger.onCall(1).returns(true);
-    logger.onCall(2).returns(false);
+    const logger = jasmine.createSpy().and.returnValues(undefined, true, false);
 
     forEachRight({ a: 1, b: 2, c: 3, d: 4 }, logger);
 
-    expect(logger.args).toEqual([
+    expect(logger.calls.allArgs()).toEqual([
       [4, 'd'],
       [3, 'c'],
       [2, 'b'],
@@ -62,11 +57,11 @@ describe('forEachRight()', () => {
   it('should not iterate custom properties', () => {
     const array = [1];
     (array as any).a = 1;
-    const logger = stub();
+    const logger = jasmine.createSpy();
 
     forEachRight(array, logger);
 
-    expect(logger.args).toEqual([[1, 0]]);
+    expect(logger.calls.allArgs()).toEqual([[1, 0]]);
   });
 
   it('iterates over own string keyed properties of objects', () => {

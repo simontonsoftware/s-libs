@@ -16,14 +16,17 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/app-state/tsconfig.lib.json",
             "project": "projects/app-state/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "projects/app-state/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/app-state/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -32,22 +35,15 @@
             "tsConfig": "projects/app-state/tsconfig.spec.json",
             "karmaConfig": "projects/app-state/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/app-state/tsconfig.lib.json",
-              "projects/app-state/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
         }
       }
     },
     "integration": {
       "projectType": "application",
       "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        },
         "@schematics/angular:component": {
           "style": "scss"
         }
@@ -64,54 +60,63 @@
             "main": "projects/integration/src/main.ts",
             "polyfills": "projects/integration/src/polyfills.ts",
             "tsConfig": "projects/integration/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/integration/src/favicon.ico",
               "projects/integration/src/assets"
             ],
             "styles": ["projects/integration/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "projects/integration/src/environments/environment.ts",
                   "with": "projects/integration/src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "integration:build"
-          },
           "configurations": {
             "production": {
               "browserTarget": "integration:build:production"
+            },
+            "development": {
+              "browserTarget": "integration:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -135,6 +140,7 @@
               "node_modules/rxjs/bundles/rxjs.umd.js",
               "node_modules/@angular/core/bundles/core.umd.js",
               "node_modules/@angular/forms/bundles/forms.umd.js",
+              "node_modules/@angular/compiler/bundles/compiler.umd.js",
               "dist/micro-dash/bundles/micro-dash.umd.js",
               "dist/js-core/bundles/js-core.umd.js",
               "dist/rxjs-core/bundles/rxjs-core.umd.js",
@@ -142,29 +148,6 @@
               "dist/ng-core/bundles/ng-core.umd.js",
               "dist/ng-app-state/bundles/ng-app-state.umd.js"
             ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/integration/tsconfig.app.json",
-              "projects/integration/tsconfig.spec.json",
-              "projects/integration/e2e/tsconfig.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/integration/e2e/protractor.conf.js",
-            "devServerTarget": "integration:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "integration:serve:production"
-            }
           }
         }
       }
@@ -178,14 +161,17 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/js-core/tsconfig.lib.json",
             "project": "projects/js-core/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "projects/js-core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/js-core/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -193,16 +179,6 @@
             "main": "projects/js-core/src/test.ts",
             "tsConfig": "projects/js-core/tsconfig.spec.json",
             "karmaConfig": "projects/js-core/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/js-core/tsconfig.lib.json",
-              "projects/js-core/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -216,14 +192,17 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/micro-dash/tsconfig.lib.json",
             "project": "projects/micro-dash/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "projects/micro-dash/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/micro-dash/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -232,21 +211,16 @@
             "tsConfig": "projects/micro-dash/tsconfig.spec.json",
             "karmaConfig": "projects/micro-dash/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/micro-dash/tsconfig.lib.json",
-              "projects/micro-dash/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
         }
       }
     },
     "micro-dash-sizes": {
       "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "projects/micro-dash-sizes",
       "sourceRoot": "projects/micro-dash-sizes/src",
       "prefix": "s",
@@ -258,10 +232,15 @@
             "index": "projects/micro-dash-sizes/src/index.html",
             "main": "projects/micro-dash-sizes/src/main.ts",
             "tsConfig": "projects/micro-dash-sizes/tsconfig.app.json",
-            "aot": true,
             "assets": [],
             "styles": [],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -305,14 +284,17 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ng-app-state/tsconfig.lib.json",
             "project": "projects/ng-app-state/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-app-state/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-app-state/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -320,16 +302,6 @@
             "main": "projects/ng-app-state/src/test.ts",
             "tsConfig": "projects/ng-app-state/tsconfig.spec.json",
             "karmaConfig": "projects/ng-app-state/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ng-app-state/tsconfig.lib.json",
-              "projects/ng-app-state/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -343,14 +315,17 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ng-core/tsconfig.lib.json",
             "project": "projects/ng-core/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-core/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -359,16 +334,6 @@
             "tsConfig": "projects/ng-core/tsconfig.spec.json",
             "karmaConfig": "projects/ng-core/karma.conf.js",
             "polyfills": "projects/ng-core/src/test-polyfills.ts"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ng-core/tsconfig.lib.json",
-              "projects/ng-core/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -382,14 +347,17 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ng-dev/tsconfig.lib.json",
             "project": "projects/ng-dev/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-dev/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-dev/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -398,16 +366,6 @@
             "tsConfig": "projects/ng-dev/tsconfig.spec.json",
             "karmaConfig": "projects/ng-dev/karma.conf.js",
             "polyfills": "projects/ng-dev/src/test-polyfills.ts"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ng-dev/tsconfig.lib.json",
-              "projects/ng-dev/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -421,14 +379,17 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/rxjs-core/tsconfig.lib.json",
             "project": "projects/rxjs-core/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "projects/rxjs-core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/rxjs-core/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -437,16 +398,6 @@
             "tsConfig": "projects/rxjs-core/tsconfig.spec.json",
             "karmaConfig": "projects/rxjs-core/karma.conf.js",
             "polyfills": "projects/rxjs-core/src/test-polyfills.ts"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/rxjs-core/tsconfig.lib.json",
-              "projects/rxjs-core/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
           }
         }
       }

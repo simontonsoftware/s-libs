@@ -1,5 +1,4 @@
 import { noop } from 'lodash';
-import { stub } from 'sinon';
 import { forOwn } from './for-own';
 
 describe('forOwn()', () => {
@@ -7,11 +6,11 @@ describe('forOwn()', () => {
   it('does not treat sparse arrays as dense', () => {
     const array = [1];
     array[2] = 3;
-    const logger = stub();
+    const logger = jasmine.createSpy();
 
     forOwn(array, logger);
 
-    expect(logger.args).toEqual([
+    expect(logger.calls.allArgs()).toEqual([
       [1, '0'],
       [3, '2'],
     ]);
@@ -29,13 +28,11 @@ describe('forOwn()', () => {
   //
 
   it('can exit early when iterating arrays', () => {
-    const logger = stub();
-    logger.onCall(1).returns(true);
-    logger.onCall(2).returns(false);
+    const logger = jasmine.createSpy().and.returnValues(undefined, true, false);
 
     forOwn([1, 2, 3, 4], logger);
 
-    expect(logger.args).toEqual([
+    expect(logger.calls.allArgs()).toEqual([
       [1, '0'],
       [2, '1'],
       [3, '2'],
@@ -43,13 +40,11 @@ describe('forOwn()', () => {
   });
 
   it('can exit early when iterating objects', () => {
-    const logger = stub();
-    logger.onCall(1).returns(true);
-    logger.onCall(2).returns(false);
+    const logger = jasmine.createSpy().and.returnValues(undefined, true, false);
 
     forOwn({ a: 1, b: 2, c: 3, d: 4 }, logger);
 
-    expect(logger.args).toEqual([
+    expect(logger.calls.allArgs()).toEqual([
       [1, 'a'],
       [2, 'b'],
       [3, 'c'],
@@ -57,11 +52,11 @@ describe('forOwn()', () => {
   });
 
   it('should iterate over `length` properties', () => {
-    const logger = stub();
+    const logger = jasmine.createSpy();
 
     forOwn({ 0: 'zero', 1: 'one', length: 2 }, logger);
 
-    expect(logger.args).toEqual([
+    expect(logger.calls.allArgs()).toEqual([
       ['zero', '0'],
       ['one', '1'],
       [2, 'length'],

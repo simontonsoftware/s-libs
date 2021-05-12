@@ -1,6 +1,6 @@
-import { noop } from 'lodash';
 import { expectCallsAndReset } from '@s-libs/ng-dev';
-import { stub } from 'sinon';
+import { expectTypeOf } from 'expect-type';
+import { noop } from 'lodash';
 import { forEach } from './for-each';
 
 describe('forEach()', () => {
@@ -11,18 +11,90 @@ describe('forEach()', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
+  it('has fancy typing', () => {
+    expect().nothing();
+
+    const array: number[] = [] as any;
+    const arrayOrN: number[] | null = [] as any;
+    const arrayOrU: number[] | undefined = [] as any;
+    expectTypeOf(
+      forEach(array, (val, index) => {
+        expectTypeOf(val).toEqualTypeOf<number>();
+        expectTypeOf(index).toEqualTypeOf<number>();
+      }),
+    ).toEqualTypeOf<number[]>();
+    expectTypeOf(
+      forEach(arrayOrN, (val, index) => {
+        expectTypeOf(val).toEqualTypeOf<number>();
+        expectTypeOf(index).toEqualTypeOf<number>();
+      }),
+    ).toEqualTypeOf<number[] | null>();
+    expectTypeOf(
+      forEach(arrayOrU, (val, index) => {
+        expectTypeOf(val).toEqualTypeOf<number>();
+        expectTypeOf(index).toEqualTypeOf<number>();
+      }),
+    ).toEqualTypeOf<number[] | undefined>();
+
+    const tuple: [string, Date] = [] as any;
+    const tupleOrN: [string, Date] | null = [] as any;
+    const tupleOrU: [string, Date] | undefined = [] as any;
+    expectTypeOf(
+      forEach(tuple, (val, index) => {
+        expectTypeOf(val).toEqualTypeOf<string | Date>();
+        expectTypeOf(index).toEqualTypeOf<number>();
+      }),
+    ).toEqualTypeOf<[string, Date]>();
+    expectTypeOf(
+      forEach(tupleOrN, (val, index) => {
+        expectTypeOf(val).toEqualTypeOf<string | Date>();
+        expectTypeOf(index).toEqualTypeOf<number>();
+      }),
+    ).toEqualTypeOf<[string, Date] | null>();
+    expectTypeOf(
+      forEach(tupleOrU, (val, index) => {
+        expectTypeOf(val).toEqualTypeOf<string | Date>();
+        expectTypeOf(index).toEqualTypeOf<number>();
+      }),
+    ).toEqualTypeOf<[string, Date] | undefined>();
+
+    interface Obj {
+      a: 1;
+      b: string;
+    }
+    const obj: Obj = {} as any;
+    const objOrN: Obj | null = {} as any;
+    const objOrU: Obj | undefined = {} as any;
+    expectTypeOf(
+      forEach(obj, (val, key) => {
+        expectTypeOf(val).toEqualTypeOf<string | 1>();
+        expectTypeOf(key).toEqualTypeOf<'a' | 'b'>();
+      }),
+    ).toEqualTypeOf<Obj>();
+    expectTypeOf(
+      forEach(objOrN, (val, key) => {
+        expectTypeOf(val).toEqualTypeOf<string | 1>();
+        expectTypeOf(key).toEqualTypeOf<'a' | 'b'>();
+      }),
+    ).toEqualTypeOf<Obj | null>();
+    expectTypeOf(
+      forEach(objOrU, (val, key) => {
+        expectTypeOf(val).toEqualTypeOf<string | 1>();
+        expectTypeOf(key).toEqualTypeOf<'a' | 'b'>();
+      }),
+    ).toEqualTypeOf<Obj | undefined>();
+  });
+
   //
   // stolen from https://github.com/lodash/lodash
   //
 
   it('can exit early when iterating arrays', () => {
-    const logger = stub();
-    logger.onCall(1).returns(true);
-    logger.onCall(2).returns(false);
+    const logger = jasmine.createSpy().and.returnValues(undefined, true, false);
 
     forEach([1, 2, 3, 4], logger);
 
-    expect(logger.args).toEqual([
+    expect(logger.calls.allArgs()).toEqual([
       [1, 0],
       [2, 1],
       [3, 2],
@@ -30,13 +102,11 @@ describe('forEach()', () => {
   });
 
   it('can exit early when iterating objects', () => {
-    const logger = stub();
-    logger.onCall(1).returns(true);
-    logger.onCall(2).returns(false);
+    const logger = jasmine.createSpy().and.returnValues(undefined, true, false);
 
     forEach({ a: 1, b: 2, c: 3, d: 4 }, logger);
 
-    expect(logger.args).toEqual([
+    expect(logger.calls.allArgs()).toEqual([
       [1, 'a'],
       [2, 'b'],
       [3, 'c'],
