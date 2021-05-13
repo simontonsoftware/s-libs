@@ -1,12 +1,1 @@
-/.idea/
-/coverage/
-/dist/
-/docs/
-/node_modules/
-
-karma.conf.js
-*.e2e-spec.ts
-*.spec.ts
-*.js
-
-/projects/micro-dash/
+**/*.dts-spec.ts

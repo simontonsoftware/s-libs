@@ -53,7 +53,6 @@ class SecondaryModule {}
 class MainModule {}
 
 describe('precompileForTests()', () => {
-  // tslint:disable-next-line:deprecation
   precompileForTests([MainModule]);
 
   async function initComponent(): Promise<ComponentFixture<AComponent>> {

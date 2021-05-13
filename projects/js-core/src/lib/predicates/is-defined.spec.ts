@@ -1,10 +1,7 @@
+import { getArguments } from '../../test-helpers/test-utils';
 import { isDefined } from './is-defined';
 
 describe('isDefined()', () => {
-  function getArguments(): IArguments {
-    return arguments;
-  }
-
   it('works', () => {
     // falsey values
     expect(isDefined(undefined)).toBe(false);

@@ -1,7 +1,5 @@
 // Copied from https://github.com/reduxjs/redux/blob/b3165d0cbd0d8f48142284807d764160df26d6fa/src/types/actions.ts, to avoid requiring `redux` as an installed dependency just for this typing.
 
-// tslint:disable
-
 /**
  * An *action* is a plain object that represents an intention to change the
  * state. Actions are the only way to get data into the store. Any data,

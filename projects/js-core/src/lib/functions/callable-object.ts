@@ -1,6 +1,5 @@
 /** @hidden */
 export interface CallableObject<F extends (...args: any[]) => any> {
-  // tslint:disable-next-line:callable-types
   (...args: Parameters<F>): ReturnType<F>;
 }
 

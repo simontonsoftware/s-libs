@@ -1,6 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RootStore } from '@s-libs/app-state';
+import { noop } from '@s-libs/micro-dash';
 
 class StoreComponent<T extends object> {
   compareFn: (o1: any, o2: any) => boolean = (o1: any, o2: any) =>
@@ -205,11 +206,11 @@ export class NameComponent extends StoreComponent<NameState> {
   ],
 })
 export class InnerNameComponent implements ControlValueAccessor {
-  // prettier-ignore
   model!: string;
   disabled = false;
-  // prettier-ignore
   changeFn!: (value: any) => void;
+
+  registerOnTouched = noop;
 
   writeValue(value: any): void {
     this.model = value;
@@ -218,8 +219,6 @@ export class InnerNameComponent implements ControlValueAccessor {
   registerOnChange(fn: (value: any) => void): void {
     this.changeFn = fn;
   }
-
-  registerOnTouched(): void {}
 
   setDisabledState(disabled: boolean): void {
     this.disabled = disabled;

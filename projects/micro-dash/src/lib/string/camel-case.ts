@@ -11,7 +11,6 @@ import { words } from './words';
  * - Lodash: 6,097 bytes
  * - Micro-dash: 344 bytes
  */
-// tslint:disable-next-line:variable-name
 export function camelCase(string: string): string {
   return words(string)
     .map((w, i) => (i ? capitalize(w) : w.toLowerCase()))

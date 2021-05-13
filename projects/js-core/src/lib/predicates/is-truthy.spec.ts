@@ -1,9 +1,9 @@
+import { getArguments } from '../../test-helpers/test-utils';
 import { isTruthy } from './is-truthy';
 
 describe('isTruthy', () => {
-  // tslint:disable-next-line:only-arrow-functions
-  it('returns `true` for truthy values', function (): void {
-    expect(isTruthy(arguments)).toBe(true);
+  it('returns `true` for truthy values', function () {
+    expect(isTruthy(getArguments())).toBe(true);
     expect(isTruthy([1, 2, 3])).toBe(true);
     expect(isTruthy(true)).toBe(true);
     expect(isTruthy(new Date())).toBe(true);

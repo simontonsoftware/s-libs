@@ -2,8 +2,7 @@ import { expectTypeOf } from 'expect-type';
 import { keys } from './keys';
 
 describe('keys()', () => {
-  // tslint:disable-next-line:only-arrow-functions
-  it('makes no special accommodations for `arguments` objects (unlike lodash)', function (): void {
+  it('makes no special accommodations for `arguments` objects (unlike lodash)', function () {
     expect(keys(arguments).sort()).toEqual(['callee', 'length']);
   });
 
@@ -78,7 +77,6 @@ describe('keys()', () => {
   });
 
   it('should return keys for custom properties on `arguments` objects', () => {
-    // tslint:disable-next-line:only-arrow-functions
     const args: any = (function (..._: any[]): IArguments {
       return arguments;
     })(1, 2, 3);
@@ -88,7 +86,6 @@ describe('keys()', () => {
 
   it('should not include inherited string keyed properties of `arguments` objects', () => {
     (Object.prototype as any).a = 1;
-    // tslint:disable-next-line:only-arrow-functions
     const args: any = (function (..._: any[]): IArguments {
       return arguments;
     })(1, 2, 3);

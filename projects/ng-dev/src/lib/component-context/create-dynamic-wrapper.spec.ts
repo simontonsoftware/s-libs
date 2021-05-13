@@ -33,7 +33,7 @@ describe('createDynamicWrapper()', () => {
   });
 
   it('can handle components whose selectors are not tag names', () => {
-    // tslint:disable-next-line:component-selector
+    // eslint-disable-next-line @angular-eslint/component-selector
     @Component({ selector: '[myAttribute]', template: 'the template' })
     class AttributeSelectorComponent {}
     const ctx = new ComponentContext(AttributeSelectorComponent);
@@ -45,7 +45,7 @@ describe('createDynamicWrapper()', () => {
   it('can handle renamed inputs', () => {
     @Component({ template: '{{ propertyName }}' })
     class RenamedInputComponent {
-      // tslint:disable-next-line:no-input-rename
+      // eslint-disable-next-line @angular-eslint/no-input-rename
       @Input('bindingName') propertyName?: string;
     }
 
@@ -131,7 +131,6 @@ describe('createDynamicWrapper()', () => {
     class NotAComponent {}
 
     expect(() => {
-      // tslint:disable-next-line:no-unused-expression
       new ComponentContext(NotAComponent);
     }).toThrowError('That does not appear to be a component');
   });

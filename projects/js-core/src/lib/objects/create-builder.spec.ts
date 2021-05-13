@@ -28,7 +28,7 @@ describe('createBuilder()', () => {
 
   describe('buildDefaults argument', () => {
     it('is supplied seq and options', () => {
-      const build = createBuilder<Message>((seq, options) => ({
+      const build = createBuilder<Message, any>((seq, options) => ({
         id: seq,
         text: JSON.stringify(options),
       }));
@@ -47,7 +47,7 @@ describe('createBuilder()', () => {
     });
 
     it('is supplied the object to be returned, seq, and options', () => {
-      const build = createBuilder<Message>(
+      const build = createBuilder<Message, any>(
         (seq) => ({ id: seq, text: 'hi' }),
         (obj, seq, options) => {
           obj.text = JSON.stringify({ origText: obj.text, seq, options });
@@ -82,7 +82,6 @@ describe('createBuilder()', () => {
 
 function shiftCharacters(text: string, distance: number): string {
   return text.replace(/[a-z]/gi, (c) => {
-    // tslint:disable:no-bitwise
     const code = c.charCodeAt(0);
     const a = code & 96;
     return String.fromCharCode(((code - a + distance + 129) % 26) - ~a);

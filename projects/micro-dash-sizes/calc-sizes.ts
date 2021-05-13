@@ -16,6 +16,7 @@ const sourceDir = path.join(rootDir, 'projects', 'micro-dash', 'src', 'lib');
 run();
 
 async function run(): Promise<void> {
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     const base = await getFileBaseInput();
     const library = await getLibraryInput();
@@ -122,7 +123,6 @@ async function inspect(): Promise<string | undefined> {
 }
 
 function updateComment(inputPath: string, summary: string): void {
-  // tslint:disable-next-line:no-non-null-assertion
   const lib = summary.match(/ - (.*):/)![1];
 
   const relativePath = path.relative(appDir, inputPath);

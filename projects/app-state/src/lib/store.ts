@@ -7,7 +7,6 @@ import { ChildStore, RootStore } from './index';
 type GetSlice<T> = <K extends keyof T>(attr: K) => Store<T[K]>;
 
 export interface Store<T> extends GetSlice<T> {
-  // tslint:disable:callable-types
   /**
    * Select a slice of the store to operate on. For example `store('currentUser')` will return a new `Store` that represents the `currentUser` property.
    */

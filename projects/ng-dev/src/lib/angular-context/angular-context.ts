@@ -168,6 +168,7 @@ export class AngularContext {
   /**
    * This is a hook for subclasses to override. It is called during `run()`, before the `test()` callback. This implementation does nothing, but if you override this it is still recommended to call `super.init()` in case this implementation does something in the future.
    */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected init(): void {}
 
   /** @hidden */

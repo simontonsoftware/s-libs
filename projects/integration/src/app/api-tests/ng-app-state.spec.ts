@@ -8,7 +8,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RootStore } from '@s-libs/app-state';
-import { keys } from '@s-libs/micro-dash';
+import { keys, noop } from "@s-libs/micro-dash";
 import * as ngAppState from '@s-libs/ng-app-state';
 import { NasModelModule } from '@s-libs/ng-app-state';
 
@@ -78,7 +78,7 @@ describe('ng-app-state', () => {
         {
           extraDirectives = [] as Array<Type<any>>,
           template = '',
-          beforeCreate = () => {},
+          beforeCreate = noop,
         } = {},
       ): S {
         if (template) {

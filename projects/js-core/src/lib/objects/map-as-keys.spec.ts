@@ -1,4 +1,5 @@
 import { expectCallsAndReset } from '@s-libs/ng-dev';
+import { expectTypeOf } from 'expect-type';
 import { mapAsKeys } from './map-as-keys';
 
 describe('mapAsKeys()', () => {
@@ -19,7 +20,9 @@ describe('mapAsKeys()', () => {
     expect(mapAsKeys({}, iteratee)).toEqual({});
     expect(mapAsKeys([], iteratee)).toEqual({});
     expect(mapAsKeys(null as [] | null, iteratee)).toEqual({});
-    expect(mapAsKeys(undefined as {} | undefined, iteratee)).toEqual({});
+    expect(
+      mapAsKeys(undefined as Record<string, never> | undefined, iteratee),
+    ).toEqual({});
   });
 
   it('provides the right iteratee arguments', () => {
@@ -30,5 +33,64 @@ describe('mapAsKeys()', () => {
 
     mapAsKeys({ a: 1, b: 2 }, spy);
     expectCallsAndReset(spy, [1, 'a'], [2, 'b']);
+  });
+
+  it('has fancy typing', () => {
+    expect().nothing();
+
+    type A = number[];
+    type AorU = A | undefined;
+    type AorN = A | null;
+    const a = [] as A;
+    const aOrU = a as AorU;
+    const aOrN = a as AorN;
+    expectTypeOf(mapAsKeys(a, () => 'a')).toEqualTypeOf<{
+      [x: number]: string;
+    }>();
+    expectTypeOf(mapAsKeys(aOrN, () => 'a')).toEqualTypeOf<
+      { [x: number]: string } | Record<string, never>
+    >();
+    expectTypeOf(mapAsKeys(aOrU, () => 'a')).toEqualTypeOf<
+      { [x: number]: string } | Record<string, never>
+    >();
+
+    type B = Array<'a' | 2>;
+    type BorU = B | undefined;
+    type BorN = B | null;
+    const b = [] as B;
+    const bOrU = b as BorU;
+    const bOrN = b as BorN;
+    expectTypeOf(mapAsKeys(b, () => 'a')).toEqualTypeOf<{
+      a: string;
+      2: string;
+    }>();
+    expectTypeOf(mapAsKeys(bOrN, () => 0)).toEqualTypeOf<
+      { a: number; 2: number } | Record<string, never>
+    >();
+    expectTypeOf(mapAsKeys(bOrU, (): 2 => 2)).toEqualTypeOf<
+      { a: 2; 2: 2 } | Record<string, never>
+    >();
+
+    interface O {
+      a: string;
+      b: number;
+    }
+    type OorU = O | undefined;
+    type OorN = O | null;
+    const o = {} as O;
+    const oOrU = o as OorU;
+    const oOrN = o as OorN;
+    expectTypeOf(mapAsKeys(o, () => true)).toEqualTypeOf<{
+      [x: string]: boolean;
+      [x: number]: boolean;
+    }>();
+    expectTypeOf(mapAsKeys(oOrU, () => true)).toEqualTypeOf<{
+      [x: string]: boolean;
+      [x: number]: boolean;
+    }>();
+    expectTypeOf(mapAsKeys(oOrN, () => true)).toEqualTypeOf<{
+      [x: string]: boolean;
+      [x: number]: boolean;
+    }>();
   });
 });

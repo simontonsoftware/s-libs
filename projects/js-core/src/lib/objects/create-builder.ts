@@ -28,16 +28,14 @@ let seq = 0;
  * buildMessage({ text: "abc" }, { cypherDistance: 3 }); // { id: 3, text: "def" }
  * ```
  */
-export function createBuilder<T, OptionsType = {}>(
+export function createBuilder<T, OptionsType = Record<string, never>>(
   buildDefaults: (seq: number, options: Partial<OptionsType>) => T,
   afterBuild?: (obj: T, seq: number, options: Partial<OptionsType>) => void,
 ): (attributes?: Partial<T>, options?: Partial<OptionsType>) => T {
   return (attributes?: Partial<T>, options: Partial<OptionsType> = {}): T => {
     ++seq;
     const obj = Object.assign(buildDefaults(seq, options), attributes);
-    if (afterBuild) {
-      afterBuild(obj, seq, options);
-    }
+    afterBuild?.(obj, seq, options);
     return obj;
   };
 }

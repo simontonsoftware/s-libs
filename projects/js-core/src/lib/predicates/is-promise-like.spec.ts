@@ -1,10 +1,7 @@
+import { getArguments } from '../../test-helpers/test-utils';
 import { isPromiseLike } from './is-promise-like';
 
 describe('isPromiseLike()', () => {
-  function getArguments(): IArguments {
-    return arguments;
-  }
-
   it('works', () => {
     expect(isPromiseLike(Promise.resolve('hi'))).toBe(true);
     expect(isPromiseLike(Promise.reject('bye'))).toBe(true);

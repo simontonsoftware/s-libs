@@ -1,3 +1,4 @@
+import { noop } from '@s-libs/micro-dash';
 import { marbleTest } from '@s-libs/ng-dev';
 import { OperatorFunction, Subject } from 'rxjs';
 import {
@@ -20,7 +21,8 @@ function map<I, O>(fn: (input: I) => O): OperatorFunction<I, O> {
   });
 }
 
-function noop(): OperatorFunction<any, undefined> {
+function nonOp(): OperatorFunction<any, undefined> {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   return createOperatorFunction(() => {});
 }
 
@@ -51,9 +53,9 @@ describe('createOperatorFunction()', () => {
     'allows preventing values, error and completion',
     marbleTest(({ hot, expectObservable }) => {
       const operatorFunction = createOperatorFunction<string>((subscriber) => {
-        subscriber.next = () => {};
-        subscriber.error = () => {};
-        subscriber.complete = () => {};
+        subscriber.next = noop;
+        subscriber.error = noop;
+        subscriber.complete = noop;
       });
 
       const source1 = hot('-a-|').pipe(operatorFunction);
@@ -79,12 +81,12 @@ describe('createOperatorFunction()', () => {
   });
 
   it('passes along values by default', async () => {
-    await expectPipeResult([1, 2, 3], noop(), [1, 2, 3]);
+    await expectPipeResult([1, 2, 3], nonOp(), [1, 2, 3]);
   });
 
-  it('passes along unsubscribes by default', testUnsubscribePropagation(noop));
+  it('passes along unsubscribes by default', testUnsubscribePropagation(nonOp));
 
-  it('passes along errors by default', testErrorPropagation(noop));
+  it('passes along errors by default', testErrorPropagation(nonOp));
 
-  it('passes along completion by default', testCompletionPropagation(noop));
+  it('passes along completion by default', testCompletionPropagation(nonOp));
 });

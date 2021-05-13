@@ -14,7 +14,6 @@ import { Subject } from 'rxjs';
  * }
  * ```
  */
-// tslint:disable-next-line:typedef
 export function mixInInjectableSuperclass<B extends Constructor>(Base: B) {
   return class extends mixInSubscriptionManager(Base) implements OnDestroy {
     #destructionSubject = new Subject<undefined>();

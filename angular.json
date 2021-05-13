@@ -3,7 +3,8 @@
   "version": 1,
   "cli": {
     "packageManager": "yarn",
-    "analytics": "d2657102-efac-4510-9c45-87ca8fcdb63c"
+    "analytics": "d2657102-efac-4510-9c45-87ca8fcdb63c",
+    "defaultCollection": "@angular-eslint/schematics"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -35,6 +36,15 @@
             "tsConfig": "projects/app-state/tsconfig.spec.json",
             "karmaConfig": "projects/app-state/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/app-state/**/*.ts",
+              "projects/app-state/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -64,7 +74,9 @@
               "projects/integration/src/favicon.ico",
               "projects/integration/src/assets"
             ],
-            "styles": ["projects/integration/src/styles.scss"],
+            "styles": [
+              "projects/integration/src/styles.scss"
+            ],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -135,7 +147,9 @@
               "projects/integration/src/favicon.ico",
               "projects/integration/src/assets"
             ],
-            "styles": ["projects/integration/src/styles.scss"],
+            "styles": [
+              "projects/integration/src/styles.scss"
+            ],
             "scripts": [
               "node_modules/rxjs/bundles/rxjs.umd.js",
               "node_modules/@angular/core/bundles/core.umd.js",
@@ -147,6 +161,15 @@
               "dist/app-state/bundles/app-state.umd.js",
               "dist/ng-core/bundles/ng-core.umd.js",
               "dist/ng-app-state/bundles/ng-app-state.umd.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/integration/**/*.ts",
+              "projects/integration/**/*.html"
             ]
           }
         }
@@ -180,6 +203,15 @@
             "tsConfig": "projects/js-core/tsconfig.spec.json",
             "karmaConfig": "projects/js-core/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/js-core/**/*.ts",
+              "projects/js-core/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -210,6 +242,15 @@
             "main": "projects/micro-dash/src/test.ts",
             "tsConfig": "projects/micro-dash/tsconfig.spec.json",
             "karmaConfig": "projects/micro-dash/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/micro-dash/**/*.ts",
+              "projects/micro-dash/**/*.html"
+            ]
           }
         }
       }
@@ -272,6 +313,15 @@
           "options": {
             "browserTarget": "micro-dash-sizes:build"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/micro-dash-sizes/**/*.ts",
+              "projects/micro-dash-sizes/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -302,6 +352,15 @@
             "main": "projects/ng-app-state/src/test.ts",
             "tsConfig": "projects/ng-app-state/tsconfig.spec.json",
             "karmaConfig": "projects/ng-app-state/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ng-app-state/**/*.ts",
+              "projects/ng-app-state/**/*.html"
+            ]
           }
         }
       }
@@ -335,6 +394,15 @@
             "karmaConfig": "projects/ng-core/karma.conf.js",
             "polyfills": "projects/ng-core/src/test-polyfills.ts"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ng-core/**/*.ts",
+              "projects/ng-core/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -367,6 +435,15 @@
             "karmaConfig": "projects/ng-dev/karma.conf.js",
             "polyfills": "projects/ng-dev/src/test-polyfills.ts"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ng-dev/**/*.ts",
+              "projects/ng-dev/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -398,6 +475,15 @@
             "tsConfig": "projects/rxjs-core/tsconfig.spec.json",
             "karmaConfig": "projects/rxjs-core/karma.conf.js",
             "polyfills": "projects/rxjs-core/src/test-polyfills.ts"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/rxjs-core/**/*.ts",
+              "projects/rxjs-core/**/*.html"
+            ]
           }
         }
       }

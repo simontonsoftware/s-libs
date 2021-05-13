@@ -9,7 +9,6 @@
  * - Lodash: 1,396 bytes
  * - Micro-dash: 127 bytes
  */
-// tslint:disable-next-line:variable-name
 export function inRange(number: number, start: number, end: number): boolean {
   return number >= Math.min(start, end) && number < Math.max(start, end);
 }

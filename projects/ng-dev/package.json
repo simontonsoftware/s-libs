@@ -20,9 +20,6 @@
     "jasmine-core": "^3.6.0"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.8.0",
-    "@typescript-eslint/parser": "^4.6.0",
-    "eslint": "^7.14.0",
     "tslib": "^2.1.0"
   }
 }

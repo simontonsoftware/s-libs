@@ -20,10 +20,6 @@ jobs:
 
       - run: yarn test --no-watch --no-progress --browsers=ChromeHeadlessCI
 
-      - run: sudo apt-get update
-      - run: sudo apt-get install google-chrome-stable
-      - run: yarn e2e integration --protractorConfig=projects/integration/e2e/protractor-ci.conf.js
-
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -41,5 +37,5 @@ jobs:
 
       - run: yarn build-libs
 
-      - run: yarn eslint
+      - run: yarn ng lint --quiet
       - run: yarn ts-node scripts/dtslint-all

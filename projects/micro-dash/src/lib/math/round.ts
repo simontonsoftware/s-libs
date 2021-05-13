@@ -14,7 +14,6 @@
  * - Lodash: 1,826 bytes
  * - Micro-dash: 111 bytes
  */
-// tslint:disable-next-line:variable-name
 export function round(number: number, precision = 0): number {
   const factor = 10 ** Math.trunc(precision);
   return Math.round(number * factor) / factor;

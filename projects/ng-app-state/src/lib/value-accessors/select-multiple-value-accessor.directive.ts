@@ -7,7 +7,7 @@ import {
 /** @hidden */
 @Directive({
   selector: 'select[multiple][nasModel]',
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: { '(change)': 'onChange($event.target)', '(blur)': 'onTouched()' },
   providers: [
     {

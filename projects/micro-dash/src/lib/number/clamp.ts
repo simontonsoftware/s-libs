@@ -9,7 +9,6 @@
  * - Lodash: 1,367 bytes
  * - Micro-dash: 119 bytes
  */
-// tslint:disable-next-line:variable-name
 export function clamp(number: number, lower: number, upper: number): number {
   return Math.min(upper, Math.max(lower, number));
 }

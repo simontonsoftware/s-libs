@@ -10,7 +10,6 @@ import { upperFirst } from './upper-first';
  * - Lodash: 1,937 bytes
  * - Micro-dash: 76 bytes
  */
-// tslint:disable-next-line:variable-name
 export function capitalize(string: string): string {
   return upperFirst(string.toLowerCase());
 }

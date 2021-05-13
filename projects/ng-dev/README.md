@@ -8,51 +8,16 @@ To quickly see what is available, see the [api documentation](https://simontonso
 yarn add -D @s-libs/ng-dev @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash @angular/cdk
 ```
 
-## TSLint Config
-
-This library comes with a predefined `tslint.json` that tracks the angular cli's config with these changes that we have found useful:
-
-- Disables rules that conflict with Prettier (via [tslint-config-prettier](https://github.com/prettier/tslint-config-prettier))
-- Allows using the `Function` type. Some of our libraries deal a lot with utilities that operate on functions, and using this type is very handy.
-- Downgrades [no-non-null-assertion](https://palantir.github.io/tslint/rules/no-non-null-assertion/) to a warning. While we believe using `!` should be avoided when reasonable, we find that sometimes it just makes sense.
-- Allows prefixing variables with `_`. This is useful e.g. when overriding a method in a way that does not use all its parameters. We use typescript's "noUnusedParameters" option, which gives an error with unused parameters unless their names are prefixed with `_`.
-
-To use it, change your `tslint.json` to:
-
-```json
-{ "extends": "@s-libs/ng-dev/tslint" }
-```
-
 ## ESLint Config
 
-This library comes with configuration to lint code complexity and length using ESLint. Eventually we expect the Angular CLI to switch to ESLint because TSLint is deprecated. After that this should require less configuration to activate, but for now it requires all these steps:
+This library comes with some default config you can use for ESLint. It to use it, first install [Angular ESLint](https://github.com/angular-eslint/angular-eslint) following their instructions for your situation. Make sure it is working with their minimal config, then change `.eslintrc.json` in your root directory to this:
 
-1. Add a file `.eslintrc.js` to your project root like this:
+```json
+{ "extends": "@s-libs/ng-dev/eslint-config.json" }
+```
 
-   ```js
-   module.exports = require("@s-libs/ng-dev/.eslintrc");
-   ```
+This will give you all the recommended, community-standard rules from ESLint, "eslint:recommended",
+@typescript-eslint, and @angular-eslint/recommended, plus these additions and changes:
 
-1. Add a file `.eslintignore` to your project root like this (and tweak to fit your needs):
-
-   ```
-   /.idea/
-   /coverage/
-   /dist/
-   /docs/
-   /node_modules/
-   karma.conf.js
-   *.spec.ts
-   ```
-
-1. Modify your `package.json`'s lint script to include ESLint:
-   ```
-   "lint": "ng lint && eslint . --ext .js,.jsx,.ts,.tsx",
-   ```
-
-## Upgrading from the non-S-Libs version
-
-If you are upgrading from the loose version of [`s-ng-dev-utils`](https://github.com/simontonsoftware/s-ng-dev-utils), there are a couple changes to be aware of. In addition to the general guidlines [here](https://github.com/simontonsoftware/s-libs/#upgrading-from-the-loose-packages):
-
-- If you use the provided TSLint config, open `tslint.json` and replace `s-ng-dev-utils/tslint` with `@s-libs/ng-dev/tslint`.
-- If you use the provided ESLint config, open `.eslintrc.js` and replace `s-ng-dev-utils/.eslintrc` with `@s-libs/ng-dev/.eslintrc`.
+- code complexity rules to keep your functions and files focused and readable
+- relaxed rules around `ban-types` that Simonton Software has found unuseful

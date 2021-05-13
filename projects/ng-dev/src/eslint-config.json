@@ -1,0 +1,52 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "complexity": ["error", { "max": 5 }],
+        "max-depth": ["error", { "max": 3 }],
+        "max-lines": [
+          "error",
+          { "max": 200, "skipBlankLines": true, "skipComments": true }
+        ],
+        "max-lines-per-function": [
+          "error",
+          { "max": 25, "skipBlankLines": true, "skipComments": true }
+        ],
+        "max-nested-callbacks": ["error", { "max": 2 }],
+
+        // I have not found good alternatives to `object` for the cases I've used it
+        "@typescript-eslint/ban-types": [
+          "error",
+          { "types": { "object": false }, "extendDefaults": true }
+        ]
+      },
+      "env": { "browser": true, "jasmine": true }
+    },
+    {
+      "files": ["*.spec.ts"],
+      "rules": {
+        "max-lines": "off",
+        "max-lines-per-function": "off",
+        "max-nested-callbacks": "off"
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {}
+    }
+  ]
+}

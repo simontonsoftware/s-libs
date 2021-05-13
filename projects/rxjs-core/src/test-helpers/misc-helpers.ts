@@ -27,7 +27,6 @@ export function testUserFunctionError(
   return marbleTest(({ hot, expectObservable, expectSubscriptions }) => {
     const thrower = () => {
       // this is the error TestScheduler expects when it sees "#"
-      // tslint:disable-next-line:no-string-throw
       throw 'error';
     };
     const source = hot('-1-', { 1: upstreamValue });

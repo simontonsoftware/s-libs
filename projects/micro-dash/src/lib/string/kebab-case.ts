@@ -8,7 +8,6 @@ import { words } from './words';
  * - Lodash: 5,154 bytes
  * - Micro-dash: 254 bytes
  */
-// tslint:disable-next-line:variable-name
 export function kebabCase(string: string): string {
   return words(string).map(toLower).join('-');
 }

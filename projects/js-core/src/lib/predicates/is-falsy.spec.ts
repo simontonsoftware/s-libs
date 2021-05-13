@@ -1,3 +1,4 @@
+import { getArguments } from '../../test-helpers/test-utils';
 import { isFalsy } from './is-falsy';
 
 describe('isFalsy', () => {
@@ -13,9 +14,8 @@ describe('isFalsy', () => {
     expect(isFalsy(NaN)).toBe(true);
   });
 
-  // tslint:disable-next-line:only-arrow-functions
-  it('returns `false` for truthy values', function (): void {
-    expect(isFalsy(arguments)).toBe(false);
+  it('returns `false` for truthy values', function () {
+    expect(isFalsy(getArguments())).toBe(false);
     expect(isFalsy([1, 2, 3])).toBe(false);
     expect(isFalsy(true)).toBe(false);
     expect(isFalsy(new Date())).toBe(false);

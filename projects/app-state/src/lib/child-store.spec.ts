@@ -80,7 +80,7 @@ describe('ChildStore', () => {
     });
 
     it('gets the new subvalue even when it has a later subscriber (production bug)', () => {
-      let expectedValue: InnerState | undefined;
+      let expectedValue: InnerState | undefined = undefined;
       store.$.subscribe(() => {
         expect(store('optional').state()).toBe(expectedValue);
       });

@@ -101,7 +101,7 @@ describe('ComponentContext', () => {
       @Component({ template: '' })
       class NonInputComponent {
         nonInput?: string;
-        // tslint:disable-next-line:no-input-rename
+        // eslint-disable-next-line @angular-eslint/no-input-rename
         @Input('nonInput') letsTryToTrickIt?: string;
       }
 

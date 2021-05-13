@@ -1,3 +1,4 @@
+import { getArguments } from '../test-helpers/test-utils';
 import { assert } from './assert';
 
 describe('assert()', () => {
@@ -11,10 +12,7 @@ describe('assert()', () => {
   });
 
   it('does not throw an error when truthy', () => {
-    // tslint:disable-next-line:only-arrow-functions
-    const args = (function (..._: any[]): IArguments {
-      return arguments;
-    })([1, 2, 3]);
+    const args = getArguments(1, 2, 3);
 
     expect(() => assert(args)).not.toThrow();
     expect(() => assert([1, 2, 3])).not.toThrow();

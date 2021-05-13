@@ -12,6 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/projects/ng-app-state/src/test-helpers" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/projects/micro-dash/src/test-helpers" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/projects/micro-dash/src/typing-tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/projects/js-core/src/test-helpers" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />

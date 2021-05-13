@@ -2,7 +2,7 @@ import { Action, ActionCreator } from './actions';
 
 // copied from https://github.com/zalmoxisus/redux-devtools-extension/blob/3df4d939b548b8ec891c73dabe2ffdd5dd2a8119/npm-package/index.d.ts, to avoid required `redux-devtools-extension` as an installed dependency just for this typing.
 
-// tslint:disable
+/* eslint-disable */
 
 /**
  * Copied from `redux-devtools-extension`, to avoid requiring it as an installed dependency just for this interface.

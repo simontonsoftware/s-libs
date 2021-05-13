@@ -1,4 +1,5 @@
 import { discardPeriodicTasks, fakeAsync, tick } from '@angular/core/testing';
+import { noop } from '@s-libs/micro-dash';
 import { expectSingleCallAndReset } from '../public-api';
 import { logTimers } from './log-timers';
 
@@ -22,8 +23,10 @@ describe('logTimers()', () => {
     tick(1000);
     stopLogging();
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     function myFunction(): void {}
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     function myDelayedFunction(): void {}
   }));
 
@@ -46,8 +49,10 @@ describe('logTimers()', () => {
     discardPeriodicTasks();
     stopLogging();
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     function myFunction(): void {}
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     function myDelayedFunction(): void {}
   }));
 
@@ -57,10 +62,8 @@ describe('logTimers()', () => {
     const stopLogging = logTimers();
     stopLogging();
 
-    setTimeout(myFunction);
-    setInterval(myFunction);
+    setTimeout(noop);
+    setInterval(noop);
     expect(logSpy).not.toHaveBeenCalled();
-
-    function myFunction(): void {}
   });
 });

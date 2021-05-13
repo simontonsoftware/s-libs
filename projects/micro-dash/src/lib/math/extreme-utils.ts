@@ -19,6 +19,5 @@ export function findExtreme<T extends Existent>(
       currentCriterion = candidateCriterion;
     }
   });
-  // tslint:disable-next-line:no-non-null-assertion
   return current!;
 }

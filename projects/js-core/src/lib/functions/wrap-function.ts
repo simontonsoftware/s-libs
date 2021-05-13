@@ -48,6 +48,7 @@ export function wrapFunction<A extends any[], R, T>(
 
 /** @hidden */
 function callHook(
+  // eslint-disable-next-line @typescript-eslint/ban-types
   hook: Function | undefined,
   context: any,
   args: any[],

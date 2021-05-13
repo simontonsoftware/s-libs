@@ -10,8 +10,7 @@ describe('isNumber()', () => {
     expect(isNumber(NaN)).toBe(true);
   });
 
-  // tslint:disable-next-line:only-arrow-functions
-  it('should return `false` for non-numbers', function (): void {
+  it('should return `false` for non-numbers', function () {
     expect(isNumber(null)).toBe(false);
     expect(isNumber(undefined)).toBe(false);
     expect(isNumber(false)).toBe(false);

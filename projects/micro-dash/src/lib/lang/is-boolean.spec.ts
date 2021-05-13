@@ -10,8 +10,7 @@ describe('isBoolean()', () => {
     expect(isBoolean(false)).toBe(true);
   });
 
-  // tslint:disable-next-line:only-arrow-functions
-  it('should return `false` for non-booleans', function (): void {
+  it('should return `false` for non-booleans', function () {
     expect(isBoolean(null)).toBe(false);
     expect(isBoolean(undefined)).toBe(false);
     expect(isBoolean(0)).toBe(false);

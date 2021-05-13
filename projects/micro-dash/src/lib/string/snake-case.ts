@@ -8,7 +8,6 @@ import { words } from './words';
  * - Lodash: 5,171 bytes
  * - Micro-dash: 268 bytes
  */
-// tslint:disable-next-line:variable-name
 export function snakeCase(string: string): string {
   return words(string).map(toLower).join('_');
 }

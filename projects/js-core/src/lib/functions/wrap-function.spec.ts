@@ -20,15 +20,14 @@ describe('wrapFunction()', () => {
   beforeEach(() => {
     original = jasmine.createSpy().and.returnValue(toReturn);
     before = jasmine.createSpy();
-    around = jasmine
-      .createSpy()
-      .and.callFake(function (
-        this: any,
-        orig: Function,
-        ...args: any[]
-      ): [any, symbol] {
-        return [orig.call(aroundContext, aroundArg, ...args), aroundReturn];
-      });
+    around = jasmine.createSpy().and.callFake(function (
+      this: any,
+      // eslint-disable-next-line @typescript-eslint/ban-types
+      orig: Function,
+      ...args: any[]
+    ): [any, symbol] {
+      return [orig.call(aroundContext, aroundArg, ...args), aroundReturn];
+    });
     transform = jasmine.createSpy().and.returnValue(transformed);
     after = jasmine.createSpy();
   });

@@ -66,8 +66,7 @@ describe('isString()', () => {
     expect(isString('a')).toBe(true);
   });
 
-  // tslint:disable-next-line:only-arrow-functions
-  it('should return `false` for non-strings', function (): void {
+  it('should return `false` for non-strings', function () {
     expect(isString(null)).toBe(false);
     expect(isString(undefined)).toBe(false);
     expect(isString(false)).toBe(false);

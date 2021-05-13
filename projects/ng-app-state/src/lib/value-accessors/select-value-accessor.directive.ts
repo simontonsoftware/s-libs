@@ -4,7 +4,7 @@ import { NG_VALUE_ACCESSOR, SelectControlValueAccessor } from '@angular/forms';
 /** @hidden */
 @Directive({
   selector: 'select:not([multiple])[nasModel]',
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '(change)': 'onChange($event.target.value)',
     '(blur)': 'onTouched()',

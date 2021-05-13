@@ -8,7 +8,6 @@
  * - Lodash: 2,283 bytes
  * - Micro-dash: 187 bytes
  */
-// tslint:disable-next-line:variable-name
 export function words(string: string): string[] {
   return (
     string

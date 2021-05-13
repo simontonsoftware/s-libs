@@ -6,7 +6,6 @@ import CallInfo = jasmine.CallInfo;
 describe('AsyncMethodController', () => {
   describe('constructor', () => {
     it('allows the controlled method to be called immediately', () => {
-      // tslint:disable-next-line:no-unused-expression
       new AsyncMethodController(navigator.clipboard, 'readText');
 
       expect(() => {

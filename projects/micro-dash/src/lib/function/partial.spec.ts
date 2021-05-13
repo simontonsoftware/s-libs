@@ -38,7 +38,6 @@ describe('partial()', () => {
   });
 
   it('works when there are no partially applied arguments and the created function is invoked without additional arguments', () => {
-    // tslint:disable-next-line:only-arrow-functions
     const fn = function (): number {
       return arguments.length;
     };

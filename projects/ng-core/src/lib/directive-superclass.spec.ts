@@ -175,7 +175,7 @@ describe('DirectiveSuperclass', () => {
     // https://github.com/simontonsoftware/s-ng-utils/issues/10
     it('emits `undefined` for unspecified inputs', () => {
       @Component({ template: '' })
-      class TestDirective extends DirectiveSuperclass {
+      class TestComponent extends DirectiveSuperclass {
         @Input() unspecified?: string;
         @Input() specified?: string;
         emittedValue? = 'initial value';
@@ -188,7 +188,7 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      const ctx2 = new ComponentContext(TestDirective);
+      const ctx2 = new ComponentContext(TestComponent);
       ctx2.assignInputs({ specified: 'a value' });
       ctx2.run(() => {
         const testDirective = ctx2.getComponentInstance();
@@ -199,7 +199,7 @@ describe('DirectiveSuperclass', () => {
     // https://github.com/simontonsoftware/s-libs/issues/14
     it('does not emit until ngOnChanges is called', () => {
       @Component({ template: '' })
-      class TestDirective extends DirectiveSuperclass implements OnChanges {
+      class TestComponent extends DirectiveSuperclass implements OnChanges {
         @Input() myInput?: string;
         stage = 'before ngOnChanges';
         emittedDuring?: string;
@@ -219,7 +219,7 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      const ctx2 = new ComponentContext(TestDirective);
+      const ctx2 = new ComponentContext(TestComponent);
       ctx2.run(() => {
         const testDirective = ctx2.getComponentInstance();
         expect(testDirective.emittedDuring).toBe('after ngOnChanges');
@@ -257,7 +257,8 @@ describe('DirectiveSuperclass', () => {
       @Component({ template: `{{ boundValue.name }}` })
       class InputBindingComponent
         extends DirectiveSuperclass
-        implements OnInit {
+        implements OnInit
+      {
         @Input() inputValue!: { name: string };
         boundValue!: { name: string };
 

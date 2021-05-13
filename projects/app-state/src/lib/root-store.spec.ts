@@ -94,7 +94,7 @@ describe('RootStore', () => {
 
     it("doesn't have that infinite loop with 2 stores (production bug)", () => {
       // https://github.com/simontonsoftware/ng-app-state/issues/28
-      const store2 = new RootStore<{}>({});
+      const store2 = new RootStore<Record<string, never>>({});
       store.$.subscribe(() => {
         store2.batch(noop);
       });

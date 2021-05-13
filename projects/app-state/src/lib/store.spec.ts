@@ -123,8 +123,8 @@ describe('Store', () => {
     });
 
     // https://github.com/simontonsoftware/ng-app-state/issues/13
-    it('does not emit stale values in the middle of propogating a change (production bug)', () => {
-      let log: jasmine.Spy | undefined;
+    it('does not emit stale values in the middle of propagating a change (production bug)', () => {
+      let log: jasmine.Spy | undefined = undefined;
       store.$.subscribe(() => {
         store('optional').$.subscribe(log);
       });

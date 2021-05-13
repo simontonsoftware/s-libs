@@ -1,0 +1,38 @@
+{
+  "extends": "../../.eslintrc.json",
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": [
+          "projects/micro-dash/tsconfig.lib.json",
+          "projects/micro-dash/tsconfig.spec.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "rules": {
+        // It would be nice to remove these and fix up the code. Or at least put more thought into it before declaring these exceptions final.
+        "@typescript-eslint/ban-types": [
+          "error",
+          {
+            "types": { "Function": false, "object": false, "{}": false },
+            "extendDefaults": true
+          }
+        ],
+
+        // micro-dash tests do weird things to make sure the library works for users when they do weird things.
+        "@typescript-eslint/no-empty-function": "off",
+        "no-sparse-arrays": "off",
+        "prefer-rest-params": "off",
+
+        // for this project, we knowingly violate some standards for the sake of smaller bundle size
+        "complexity": "off",
+        "max-depth": "off",
+        "max-lines-per-function": "off",
+        "no-prototype-builtins": "off"
+      }
+    },
+    { "files": ["*.html"], "rules": {} }
+  ]
+}
