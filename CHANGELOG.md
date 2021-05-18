@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v11.3.0...v12.0.0-next.0) (2021-05-18)
+
+### ⚠ BREAKING CHANGES
+
+- **ng-dev:** ESLint is no longer installed automatically with `ng-dev`. The old TSLint and ESLint configs are deprecated, but you can continue to use them for now if you install the old dependencies via your own `package.json`. The were: `"@typescript-eslint/eslint-plugin": "^4.8.0"`, "@typescript-eslint/parser": "^4.6.0"`, and `"eslint": "^7.14.0"`. Consult the README for instructions to set up the new ESLint config at your convenience; the old configs will be removed from this library in a future version.
+- all 3rd party dependencies require bumped version numbers
+- **ng-core:** `AngularContextNext` and `ComponentContextNext` are renamed to replace their old, deprecated versions. If you are still using the old ones, switch to the "Next" versions and get your tests passing before upgrading to `@s-libs` version 12. Once you are on the "Next" versions, this upgrade only requires removing "Next" from the ends of the names.
+
+### Features
+
+- **ng-dev:** Migrate from deprecated TSLint config to new ESLint config ([acd734c](https://github.com/simontonsoftware/s-libs/commit/acd734c060b2a1b9fa85865441c21d876a0a1d94))
+- Update to Angular 12 ([d527860](https://github.com/simontonsoftware/s-libs/commit/d527860acb277cb0ca101d636c623a79dad3b254))
+- **micro-dash:** add `reject()` ([915db96](https://github.com/simontonsoftware/s-libs/commit/915db9636191df5683a0aa83f7c601a94c17a8f6)), closes [#33](https://github.com/simontonsoftware/s-libs/issues/33)
+- **ng-core:** add `WrappedFormControlSuperclass.setUpInnerToOuter$()` and `.setUpOuterToInner$` ([6c90588](https://github.com/simontonsoftware/s-libs/commit/6c905883003829c0626b97c579acbe282dd6f15b)), closes [#37](https://github.com/simontonsoftware/s-libs/issues/37)
+- **ng-core:** Remove deprecated APIs ([106962f](https://github.com/simontonsoftware/s-libs/commit/106962f70cc6ff267d3ee4f9a1f8c3960a1ffeed))
+- **ng-core:** WrappedFormControlSuperclass now sets `ng-touched` on the inner form control ([ad1a474](https://github.com/simontonsoftware/s-libs/commit/ad1a474a918dc67d9d207bcb6bfe86cc9253b471)), closes [#38](https://github.com/simontonsoftware/s-libs/issues/38)
+
+### Bug Fixes
+
+- **ng-dev:** `ComponentContextNext` now handles inputs that come from a component's superclass ([f7830e6](https://github.com/simontonsoftware/s-libs/commit/f7830e6e93aa8b1d480f69206bf7266216681cdc)), closes [#40](https://github.com/simontonsoftware/s-libs/issues/40)
+
 ## [11.3.0](https://github.com/simontonsoftware/s-libs/compare/v11.2.1...v11.3.0) (2021-03-13)
 
 ### Features
