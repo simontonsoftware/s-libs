@@ -11,22 +11,22 @@ import { transform } from '../object';
 
 export function zipObject<
   K extends readonly [Key],
-  V extends readonly [any, ...any[]]
+  V extends readonly [any, ...any[]],
 >(props: K, values: V): { [k in K[0]]: V[0] };
 export function zipObject<
   K extends readonly [Key, Key],
-  V extends readonly [any, any, ...any[]]
+  V extends readonly [any, any, ...any[]],
 >(props: K, values: V): { [k in K[0]]: V[0] } & { [k in K[1]]: V[1] };
 export function zipObject<
   K extends readonly [Key, Key, Key],
-  V extends readonly [any, any, any, ...any[]]
+  V extends readonly [any, any, any, ...any[]],
 >(
   props: K,
   values: V,
 ): { [k in K[0]]: V[0] } & { [k in K[1]]: V[1] } & { [k in K[2]]: V[2] };
 export function zipObject<
   K extends readonly [Key, Key, Key, Key],
-  V extends readonly [any, any, any, any, ...any[]]
+  V extends readonly [any, any, any, any, ...any[]],
 >(
   props: K,
   values: V,

@@ -30,14 +30,14 @@ export function merge<
   A extends object,
   B extends object,
   C extends object,
-  D extends object
+  D extends object,
 >(object: A, source1: B, source2: C, source3: D): A & B & C & D;
 export function merge<
   A extends object,
   B extends object,
   C extends object,
   D extends object,
-  E extends object
+  E extends object,
 >(object: A, source1: B, source2: C, source3: D, source4: E): A & B & C & D & E;
 export function merge<
   A extends object,
@@ -45,7 +45,7 @@ export function merge<
   C extends object,
   D extends object,
   E extends object,
-  F extends object
+  F extends object,
 >(
   object: A,
   source1: B,

@@ -24,7 +24,7 @@ type ArrayIteratee<I, O> = (item: I, index: number) => O;
  */
 export const mapAndCacheArrayElements = mapAndCacheElements as <
   UpstreamType,
-  DownstreamType
+  DownstreamType,
 >(
   buildCacheKey: ArrayIteratee<UpstreamType, any>,
   buildDownstreamItem: ArrayIteratee<UpstreamType, DownstreamType>,

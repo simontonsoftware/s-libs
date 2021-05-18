@@ -74,9 +74,7 @@
               "projects/integration/src/favicon.ico",
               "projects/integration/src/assets"
             ],
-            "styles": [
-              "projects/integration/src/styles.scss"
-            ],
+            "styles": ["projects/integration/src/styles.scss"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -147,9 +145,7 @@
               "projects/integration/src/favicon.ico",
               "projects/integration/src/assets"
             ],
-            "styles": [
-              "projects/integration/src/styles.scss"
-            ],
+            "styles": ["projects/integration/src/styles.scss"],
             "scripts": [
               "node_modules/rxjs/bundles/rxjs.umd.js",
               "node_modules/@angular/core/bundles/core.umd.js",

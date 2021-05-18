@@ -5,7 +5,8 @@ import { noop } from '@s-libs/micro-dash';
 /** @hidden */
 @Directive()
 export abstract class AbstractValueAccessorDirective<T extends HTMLElement>
-  implements ControlValueAccessor {
+  implements ControlValueAccessor
+{
   onChangeFn!: (value: any) => void;
   onTouchedFn = noop;
 

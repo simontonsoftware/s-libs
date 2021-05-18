@@ -73,8 +73,9 @@ function extractAotSummaries(
   modules: any[],
   skipModules: Set<any>,
 ): any[] {
-  return modules.map((module) => () =>
-    extractAotSummaries0(metadataResolver, module, skipModules),
+  return modules.map(
+    (module) => () =>
+      extractAotSummaries0(metadataResolver, module, skipModules),
   );
 }
 

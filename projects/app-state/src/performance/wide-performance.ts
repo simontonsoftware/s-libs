@@ -11,9 +11,10 @@ export class WideState {
   }
 }
 
-export function subscribeWide(
-  store: Store<WideState>,
-): { elapsed: number; subscription: Subscription } {
+export function subscribeWide(store: Store<WideState>): {
+  elapsed: number;
+  subscription: Subscription;
+} {
   const arrayStore = store('array');
   const width = arrayStore.state().length;
   const subscription = new Subscription();

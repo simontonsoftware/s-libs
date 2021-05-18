@@ -20,16 +20,13 @@ type DefinedPath1<K1 extends Key, T extends Obj1<K1, any> | Nil> = NonUndefined<
 /** @hidden */
 type Obj2<K1 extends Key, K2 extends Key, V> = { [k1 in K1]?: Obj1<K2, V> };
 /** @hidden */
-type Path2<
-  K1 extends Key,
-  K2 extends Key,
-  T extends Obj2<K1, K2, any> | Nil
-> = Path1<K2, Path1<K1, T>>;
+type Path2<K1 extends Key, K2 extends Key, T extends Obj2<K1, K2, any> | Nil> =
+  Path1<K2, Path1<K1, T>>;
 /** @hidden */
 type DefinedPath2<
   K1 extends Key,
   K2 extends Key,
-  T extends Obj2<K1, K2, any> | Nil
+  T extends Obj2<K1, K2, any> | Nil,
 > = DefinedPath1<K2, DefinedPath1<K1, T>>;
 
 /** @hidden */
@@ -41,14 +38,14 @@ type Path3<
   K1 extends Key,
   K2 extends Key,
   K3 extends Key,
-  T extends Obj3<K1, K2, K3, any> | Nil
+  T extends Obj3<K1, K2, K3, any> | Nil,
 > = Path1<K3, Path2<K1, K2, T>>;
 /** @hidden */
 type DefinedPath3<
   K1 extends Key,
   K2 extends Key,
   K3 extends Key,
-  T extends Obj3<K1, K2, K3, any> | Nil
+  T extends Obj3<K1, K2, K3, any> | Nil,
 > = DefinedPath1<K3, DefinedPath2<K1, K2, T>>;
 
 // /** @hidden */
@@ -104,7 +101,7 @@ export function invoke<
   K1 extends Key,
   K2 extends Key,
   K3 extends Key,
-  T extends Obj3<K1, K2, K3, Fn> | Nil
+  T extends Obj3<K1, K2, K3, Fn> | Nil,
 >(
   object: T,
   path: readonly [K1, K2, K3],
@@ -117,7 +114,7 @@ export function invoke<
 export function invoke<
   K1 extends Key,
   K2 extends Key,
-  T extends Obj2<K1, K2, Fn> | Nil
+  T extends Obj2<K1, K2, Fn> | Nil,
 >(
   object: T,
   path: readonly [K1, K2],

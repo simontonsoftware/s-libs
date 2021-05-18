@@ -28,7 +28,7 @@ import { wrapFunction, Hooks } from './wrap-function';
  */
 export function wrapMethod<
   K extends keyof any,
-  O extends { [k in K]: (...args: any) => any }
+  O extends { [k in K]: (...args: any) => any },
 >(
   object: O,
   key: K,

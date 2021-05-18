@@ -102,8 +102,8 @@ export function flow<T>(...funcs: ReadonlyArray<(val: T) => T>): (val: T) => T;
 
 export function flow(...funcs: readonly Function[]): Function {
   if (funcs.length) {
-    return funcs.reduce((result, func) => (input: unknown) =>
-      func(result(input)),
+    return funcs.reduce(
+      (result, func) => (input: unknown) => func(result(input)),
     );
   } else {
     return identity;

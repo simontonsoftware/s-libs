@@ -1,7 +1,7 @@
 import { mapValues } from '../../lib/object';
 
 type A = number[];
-const a = (null as unknown) as A;
+const a = null as unknown as A;
 const aOrN = a as A | null;
 const aOrU = a as A | undefined;
 
@@ -16,7 +16,7 @@ interface O {
   a: number;
   b: number;
 }
-const o = (null as unknown) as O;
+const o = null as unknown as O;
 const oOrN = o as O | null;
 const oOrU = o as O | undefined;
 

@@ -8,7 +8,7 @@ type AsyncFunc = (...args: any[]) => Promise<any>;
 /** @hidden */
 type Match<
   WrappingObject,
-  FunctionName extends AsyncMethodKeys<WrappingObject>
+  FunctionName extends AsyncMethodKeys<WrappingObject>,
 > =
   | Parameters<WrappingObject[FunctionName]>
   | ((callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>) => boolean);
@@ -50,7 +50,7 @@ type AsyncMethodKeys<T> = {
  */
 export class AsyncMethodController<
   WrappingObject,
-  FunctionName extends AsyncMethodKeys<WrappingObject>
+  FunctionName extends AsyncMethodKeys<WrappingObject>,
 > {
   #spy: jasmine.Spy<WrappingObject[FunctionName]>;
   #testCalls: TestCall<WrappingObject[FunctionName]>[] = [];

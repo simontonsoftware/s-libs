@@ -37,7 +37,7 @@ export function get<
   T,
   K1 extends keyof NonNullable<T>,
   K2 extends keyof NonNullable<T>[K1],
-  D = undefined
+  D = undefined,
 >(
   object: T,
   path: readonly [K1, K2],
@@ -48,7 +48,7 @@ export function get<
   K1 extends keyof NonNullable<T>,
   K2 extends keyof NonNullable<T>[K1],
   K3 extends keyof NonNullable<T>[K1][K2],
-  D = undefined
+  D = undefined,
 >(
   object: T,
   path: readonly [K1, K2, K3],
@@ -60,7 +60,7 @@ export function get<
   K2 extends keyof NonNullable<T>[K1],
   K3 extends keyof NonNullable<T>[K1][K2],
   K4 extends keyof NonNullable<T>[K1][K2][K3],
-  D = undefined
+  D = undefined,
 >(
   object: T,
   path: readonly [K1, K2, K3, K4],

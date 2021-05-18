@@ -48,7 +48,8 @@ export function provideValueAccessor(type: Type<any>): Provider {
  */
 export abstract class FormControlSuperclass<T>
   extends DirectiveSuperclass
-  implements ControlValueAccessor {
+  implements ControlValueAccessor
+{
   /** Call this to emit a new value when it changes. */
   emitOutgoingValue: (value: T) => void = noop;
 

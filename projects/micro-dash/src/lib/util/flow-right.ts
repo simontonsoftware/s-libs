@@ -102,8 +102,8 @@ export function flowRight<T>(
 
 export function flowRight(...funcs: readonly Function[]): Function {
   if (funcs.length) {
-    return funcs.reduce((result, func) => (input: unknown) =>
-      result(func(input)),
+    return funcs.reduce(
+      (result, func) => (input: unknown) => result(func(input)),
     );
   } else {
     return identity;

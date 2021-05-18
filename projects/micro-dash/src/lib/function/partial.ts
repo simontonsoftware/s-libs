@@ -26,14 +26,14 @@ export function partial<
   A1,
   A2,
   A3,
-  F extends (...args: [A1, A2, A3, ...any[]]) => any
+  F extends (...args: [A1, A2, A3, ...any[]]) => any,
 >(func: F, arg1: A1, arg2: A2, arg3: A3): Drop3Args<F>;
 export function partial<
   A1,
   A2,
   A3,
   A4,
-  F extends (...args: [A1, A2, A3, A4, ...any[]]) => any
+  F extends (...args: [A1, A2, A3, A4, ...any[]]) => any,
 >(func: F, arg1: A1, arg2: A2, arg3: A3, arg4: A4): Drop4Args<F>;
 
 // catch-all
@@ -42,7 +42,7 @@ export function partial<
   A2,
   A3,
   A4,
-  F extends (...args: [A1, A2, A3, A4, ...any[]]) => any
+  F extends (...args: [A1, A2, A3, A4, ...any[]]) => any,
 >(
   func: F,
   ...args: [A1, A2, A3, A4, ...any[]]

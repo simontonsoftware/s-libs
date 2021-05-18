@@ -5,12 +5,8 @@ import { isMatch } from './is-match';
 describe('isMatch()', () => {
   // hits some code coverage missed by the lodash tests
   it('can tell the difference between an object and an array', () => {
-    expect(
-      isMatch<any>(['a'], { 0: 'a' }),
-    ).toBe(false);
-    expect(
-      isMatch<any>({ 0: 'a' }, ['a']),
-    ).toBe(false);
+    expect(isMatch<any>(['a'], { 0: 'a' })).toBe(false);
+    expect(isMatch<any>({ 0: 'a' }, ['a'])).toBe(false);
   });
 
   //

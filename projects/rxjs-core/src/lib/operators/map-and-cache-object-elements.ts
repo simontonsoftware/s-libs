@@ -27,7 +27,7 @@ type ObjectIteratee<T, O> = <K extends keyof T>(
  */
 export const mapAndCacheObjectElements = mapAndCacheElements as <
   UpstreamType,
-  DownstreamType = UpstreamType[keyof UpstreamType]
+  DownstreamType = UpstreamType[keyof UpstreamType],
 >(
   buildCacheKey: ObjectIteratee<UpstreamType, any>,
   buildDownstreamItem: ObjectIteratee<UpstreamType, DownstreamType>,

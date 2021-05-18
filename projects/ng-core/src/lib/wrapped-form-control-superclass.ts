@@ -49,7 +49,7 @@ import { FormControlSuperclass } from './form-control-superclass';
  */
 export abstract class WrappedFormControlSuperclass<
   OuterType,
-  InnerType = OuterType
+  InnerType = OuterType,
 > extends FormControlSuperclass<OuterType> {
   /** Bind this to your inner form control to make all the magic happen. */
   formControl = new FormControl();
@@ -95,7 +95,7 @@ export abstract class WrappedFormControlSuperclass<
    * For more complex needs, see {@link #setUpOuterToInner$} instead.
    */
   protected outerToInner(outer: OuterType): InnerType {
-    return (outer as unknown) as InnerType;
+    return outer as unknown as InnerType;
   }
 
   /**
@@ -125,7 +125,7 @@ export abstract class WrappedFormControlSuperclass<
    * For more complex needs, see {@link #setUpInnerToOuter$} instead.
    */
   protected innerToOuter(inner: InnerType): OuterType {
-    return (inner as unknown) as OuterType;
+    return inner as unknown as OuterType;
   }
 
   /**

@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { noop } from "@s-libs/micro-dash";
+import { noop } from '@s-libs/micro-dash';
 import {
   CityComponent,
   citySelectWithCustomCompareFnTemplate,

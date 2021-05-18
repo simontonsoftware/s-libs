@@ -22,7 +22,7 @@ import { Observable, Observer, OperatorFunction, Subscriber } from 'rxjs';
  */
 export function createOperatorFunction<
   SourceType,
-  DestinationType = SourceType
+  DestinationType = SourceType,
 >(
   modifySubscriber: (
     subscriber: RequiredSubscriber<SourceType>,

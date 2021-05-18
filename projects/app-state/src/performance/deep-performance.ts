@@ -13,9 +13,10 @@ export class DeepState extends CounterState {
   }
 }
 
-export function subscribeDeep(
-  store: Store<DeepState>,
-): { elapsed: number; subscription: Subscription } {
+export function subscribeDeep(store: Store<DeepState>): {
+  elapsed: number;
+  subscription: Subscription;
+} {
   const { depth } = analyze(store);
   const subscriptions: Subscription[] = [];
 
@@ -44,9 +45,10 @@ export function runDeep(store: Store<DeepState>, iterations: number): number {
   return elapsed;
 }
 
-function analyze(
-  store: Store<DeepState>,
-): { depth: number; leafStore: Store<DeepState> } {
+function analyze(store: Store<DeepState>): {
+  depth: number;
+  leafStore: Store<DeepState>;
+} {
   let depth = 1;
   for (; store('next').state(); ++depth) {
     store = store('next');

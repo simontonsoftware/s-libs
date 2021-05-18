@@ -12,7 +12,7 @@ import { filter } from 'rxjs/operators';
  * ```
  */
 export function distinctUntilKeysChanged<
-  T extends object
+  T extends object,
 >(): MonoTypeOperatorFunction<T> {
   let lastKeySet: Set<string | keyof T> | undefined;
   return filter((value) => {
