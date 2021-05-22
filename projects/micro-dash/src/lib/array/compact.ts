@@ -6,7 +6,7 @@ import { identity } from '../util';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 96 bytes
- * - Micro-dash: 35 bytes
+ * - Micro-dash: 26 bytes
  */
 export function compact<T>(array: readonly T[]): Array<Exclude<T, Falsey>> {
   return array.filter(identity) as Array<Exclude<T, Falsey>>;

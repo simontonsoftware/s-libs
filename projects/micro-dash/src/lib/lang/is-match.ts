@@ -13,8 +13,8 @@ import { isEmpty } from './is-empty';
  * - does not match `0` to `-0`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 11,113 bytes
- * - Micro-dash: 662 bytes
+ * - Lodash: 11,191 bytes
+ * - Micro-dash: 613 bytes
  */
 export function isMatch<T>(object: T, source: DeepPartial<T>): boolean {
   return isEmpty(source) || isMatch0(object, source);

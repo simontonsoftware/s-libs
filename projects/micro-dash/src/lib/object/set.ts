@@ -11,8 +11,8 @@ import { update } from './update';
  * - does not handle `customizer` returning `undefined`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 5,639 bytes
- * - Micro-dash: 192 bytes
+ * - Lodash: 5,787 bytes
+ * - Micro-dash: 183 bytes
  */
 export function set<T>(
   object: T,

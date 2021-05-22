@@ -5,8 +5,8 @@ import { Nil } from '../interfaces';
  * Uses a binary search to determine the lowest index at which `value` should be inserted into `array` in order to maintain its sort order.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 1,266 bytes
- * - Micro-dash: 277 bytes
+ * - Lodash: 1,304 bytes
+ * - Micro-dash: 268 bytes
  */
 export function sortedIndex<T>(array: readonly T[] | Nil, value: T): number {
   let min = 0;

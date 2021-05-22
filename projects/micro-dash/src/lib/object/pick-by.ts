@@ -51,8 +51,8 @@ type MaybeIncludedKeys<T, O> = {
  * - does not treat sparse arrays as dense
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 14,767 bytes
- * - Micro-dash: 328 bytes
+ * - Lodash: 14,956 bytes
+ * - Micro-dash: 283 bytes
  */
 
 export function pickBy<T, O>(

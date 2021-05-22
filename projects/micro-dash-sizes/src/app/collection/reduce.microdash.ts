@@ -1,4 +1,6 @@
 import { reduce } from '@s-libs/micro-dash';
 
-reduce([], () => {});
-reduce({ a: 1 }, (key) => key);
+console.log(
+  reduce([], () => 1),
+  reduce({ a: 1 }, (key) => key),
+);

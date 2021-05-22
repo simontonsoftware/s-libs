@@ -7,8 +7,8 @@ import { Nil } from '../interfaces';
  * - does not handle a fractional value for `index`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 1,533 bytes
- * - Micro-dash: 96 bytes
+ * - Lodash: 1,654 bytes
+ * - Micro-dash: 87 bytes
  */
 
 export function nth<T>(array: readonly T[], index: number): T;

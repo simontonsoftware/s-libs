@@ -5,7 +5,7 @@
  * - requires `string` to be a string
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 996 bytes
+ * - Lodash: 1,014 bytes
  * - Micro-dash: 27 bytes
  */
 export function toLower(string: string): string {

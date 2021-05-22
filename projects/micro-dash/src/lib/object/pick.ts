@@ -7,8 +7,8 @@ import { IfCouldBe, Nil } from '../interfaces';
  * - `paths` must be direct properties of `object` (they cannot references deep properties)
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 7,718 bytes
- * - Micro-dash: 142 bytes
+ * - Lodash: 7,908 bytes
+ * - Micro-dash: 133 bytes
  */
 export function pick<T, P extends ReadonlyArray<keyof NonNullable<T>>>(
   object: T,

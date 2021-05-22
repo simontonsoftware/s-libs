@@ -6,8 +6,8 @@ import { map } from './map';
  * Creates an array of elements, sorted in ascending order by the results of running each element in a collection thru each iteratee. This method performs a stable sort, that is, it preserves the original sort order of equal elements.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 15,948 bytes
- * - Micro-dash: 641 bytes
+ * - Lodash: 16,191 bytes
+ * - Micro-dash: 583 bytes
  */
 export function sortBy<T>(
   collection: readonly T[] | ObjectWith<T> | Nil,

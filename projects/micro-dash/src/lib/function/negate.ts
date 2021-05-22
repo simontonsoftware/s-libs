@@ -3,7 +3,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 342 bytes
- * - Micro-dash: 97 bytes
+ * - Micro-dash: 93 bytes
  */
 export function negate<F extends (...args: any[]) => any>(
   predicate: F,

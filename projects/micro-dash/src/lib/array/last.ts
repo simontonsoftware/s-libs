@@ -6,7 +6,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 68 bytes
- * - Micro-dash: 43 bytes
+ * - Micro-dash: 39 bytes
  */
 export function last<T>(array: readonly T[]): T {
   return array[array.length - 1];

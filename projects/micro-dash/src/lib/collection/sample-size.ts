@@ -11,8 +11,8 @@ import { map } from './map';
  * - no special treatment given to fraction values of `n`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 4,765 bytes
- * - Micro-dash: 706 bytes
+ * - Lodash: 4,853 bytes
+ * - Micro-dash: 616 bytes
  */
 
 export function sampleSize<T>(array: readonly T[] | Nil, n?: number): T[];

@@ -2,8 +2,8 @@
  * Creates an array of elements split into groups the length of `size`. If `array` can't be split evenly, the final chunk will be the remaining elements.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 2,206 bytes
- * - Micro-dash: 177 bytes
+ * - Lodash: 2,349 bytes
+ * - Micro-dash: 168 bytes
  */
 export function chunk<T>(array: readonly T[], size = 1): T[][] {
   size = Math.max(Math.trunc(size), 0);

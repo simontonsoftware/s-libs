@@ -2,8 +2,8 @@
  * Creates a shallow clone of `value`.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 12,221 bytes
- * - Micro-dash: 111 bytes
+ * - Lodash: 12,321 bytes
+ * - Micro-dash: 102 bytes
  */
 export function clone<T>(value: T): T {
   if (Array.isArray(value)) {

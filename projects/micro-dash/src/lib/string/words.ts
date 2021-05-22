@@ -5,7 +5,7 @@
  * - does not accept a `pattern` argument
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 2,283 bytes
+ * - Lodash: 2,301 bytes
  * - Micro-dash: 187 bytes
  */
 export function words(string: string): string[] {

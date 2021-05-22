@@ -1,4 +1,6 @@
 import reduce from 'lodash-es/reduce';
 
-reduce([], () => {});
-reduce({ a: 1 }, (key) => key);
+console.log(
+  reduce([], () => 1),
+  reduce({ a: 1 }, (key) => key),
+);

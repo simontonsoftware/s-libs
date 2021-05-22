@@ -5,8 +5,8 @@ import { words } from './words';
  * Converts `string` to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 5,154 bytes
- * - Micro-dash: 254 bytes
+ * - Lodash: 5,188 bytes
+ * - Micro-dash: 245 bytes
  */
 export function kebabCase(string: string): string {
   return words(string).map(toLower).join('-');
