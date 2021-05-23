@@ -1,12 +1,12 @@
-This library provides some default config you can use for ESLint in an Angular project. It gives you all the recommended, community-standard rules from ESLint,
-@typescript-eslint, and @angular-eslint/recommended, plus these additions and changes:
+This library provides some default config you can use for ESLint in an Angular project. It gives you all the recommended, community-standard rules from [`ESLint`](https://eslint.org/docs/rules/),
+[`@typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/src/configs/eslint-recommended.ts), and [`@angular-eslint/recommended`](https://github.com/angular-eslint/angular-eslint), plus these additions and changes:
 
-- code complexity rules to keep your functions and files focused and readable
-- relaxed rules around `ban-types` that Simonton Software has found unuseful
+- Code complexity rules to keep your functions and files focused and readable
+- Relaxed rules around `ban-types` that Simonton Software has found unuseful
 
 # Installation
 
-1. First install [Angular ESLint](https://github.com/angular-eslint/angular-eslint) following their instructions for your situation. Make sure it is working with their minimal config.
+1. First install [Angular ESLint](https://github.com/angular-eslint/angular-eslint), following their instructions for your situation. Make sure it is working with their default config.
 1. `yarn add -D @s-libs/eslint-config-ng`
 1. Change `.eslintrc.json` in your root directory to this, and make adjustments to suit your needs:
 

@@ -82,6 +82,10 @@
         "type": "json"
       },
       {
+        "filename": "projects/eslint-config-ng/package.json",
+        "type": "json"
+      },
+      {
         "filename": "projects/js-core/package.json",
         "type": "json"
       },
