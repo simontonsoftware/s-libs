@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.0.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v12.0.0-next.0...v12.0.0-next.1) (2021-05-23)
+
+### Bug Fixes
+
+- **eslint-config-ng:** Extract eslint config to a new project. Allows using it in a JSON config file ([cb84b1b](https://github.com/simontonsoftware/s-libs/commit/cb84b1b592442e4539b705f5db9735195a93c631))
+
 ## [12.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v11.3.0...v12.0.0-next.0) (2021-05-18)
 
 ### ⚠ BREAKING CHANGES
