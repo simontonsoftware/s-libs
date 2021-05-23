@@ -6,9 +6,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### ⚠ BREAKING CHANGES
 
-- **ng-dev:** ESLint is no longer installed automatically with `ng-dev`. The old TSLint and ESLint configs are deprecated, but you can continue to use them for now if you install the old dependencies via your own `package.json`. The were: `"@typescript-eslint/eslint-plugin": "^4.8.0"`, "@typescript-eslint/parser": "^4.6.0"`, and `"eslint": "^7.14.0"`. Consult the README for instructions to set up the new ESLint config at your convenience; the old configs will be removed from this library in a future version.
+- **ng-dev:** Linting config is now provided by [`@s-libs/eslint-config-ng`](https://github.com/simontonsoftware/s-libs/tree/master/projects/eslint-config-ng). The old TSLint and ESLint configs are still available in `ng-dev`, but are deprecated. ESLint is no longer installed automatically with `ng-dev`, so to continue using its deprecated config you'll need to install the old dependencies via your own `package.json`. They were: `"@typescript-eslint/eslint-plugin": "^4.8.0"`, `"@typescript-eslint/parser": "^4.6.0"`, and `"eslint": "^7.14.0"`. Consult the [README for eslint-config-ng](https://github.com/simontonsoftware/s-libs/tree/master/projects/eslint-config-ng) to to switch to the new configs. The old ones will be removed from this library in a future version.
 - all 3rd party dependencies require bumped version numbers
-- **ng-core:** `AngularContextNext` and `ComponentContextNext` are renamed to replace their old, deprecated versions. If you are still using the old ones, switch to the "Next" versions and get your tests passing before upgrading to `@s-libs` version 12. Once you are on the "Next" versions, this upgrade only requires removing "Next" from the ends of the names.
+- **ng-core:** `AngularContextNext` and `ComponentContextNext` are renamed to replace their old, deprecated versions. If you are still using the old ones, switch to the "Next" versions and get your tests passing before upgrading to `@s-libs` version 12. Once you are on the "Next" versions, this upgrade only requires removing "Next" from the ends of their names.
 
 ### Features
 

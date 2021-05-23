@@ -1,0 +1,19 @@
+{
+  "name": "@s-libs/eslint-config-ng",
+  "version": "12.0.0-next.0",
+  "author": "Simonton Software",
+  "license": "MIT",
+  "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/eslint-config-ng",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simontonsoftware/s-libs.git",
+    "directory": "projects/eslint-config-ng"
+  },
+  "peerDependencies": {
+    "@angular-eslint/eslint-plugin": "^12.0.0",
+    "@angular-eslint/eslint-plugin-template": "^12.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "4.23.0",
+    "eslint": "^7.26.0"
+  }
+}

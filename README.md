@@ -11,6 +11,7 @@ This is a collection of libraries from Simonton Software, written in TypeScript 
 - [`ng-core`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-core): Miscellaneous utilities for Angular
 - [`ng-app-state`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-app-state): Painlessly integrate `app-state` into template-driven Angular forms
 - [`ng-dev`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-dev): Miscellaneous utilities to use while developing Angular apps
+- [`eslint-config-ng`](https://github.com/simontonsoftware/s-libs/tree/master/projects/eslint-config-dev):
 
 ## Upgrading from the loose packages
 

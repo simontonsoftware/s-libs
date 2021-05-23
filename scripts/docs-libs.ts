@@ -1,8 +1,8 @@
-import { libraries, runCommand } from './shared';
+import { buildableLibraries, runCommand } from './shared';
 
 let projects = process.argv.slice(2);
 if (projects.length === 0) {
-  projects = libraries;
+  projects = buildableLibraries;
 }
 
 for (const project of projects) {

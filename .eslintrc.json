@@ -1,5 +1,5 @@
 {
-  "extends": "./projects/ng-dev/src/eslint-config.json",
+  "extends": "./projects/eslint-config-ng",
   "overrides": [
     {
       "files": ["*.ts"],
