@@ -37,9 +37,8 @@ export function createDynamicWrapper<T>(
     styles: { [klass: string]: any } = {};
   }
 
-  const type = DynamicWrapperComponent;
   const inputProperties = inputMetas.map((meta) => meta.property);
-  return { type, inputProperties };
+  return { type: DynamicWrapperComponent, inputProperties };
 }
 
 /** @hidden */

@@ -14,5 +14,7 @@
     "@s-libs/micro-dash": "^12.0.0-next.1",
     "@s-libs/rxjs-core": "^12.0.0-next.1"
   },
-  "dependencies": { "tslib": "^2.1.0" }
+  "dependencies": {
+    "tslib": "^2.1.0"
+  }
 }
