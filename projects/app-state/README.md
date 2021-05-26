@@ -174,26 +174,3 @@ You will likely want to be more selective about which states are pushed into the
 You may also want to tailor which pieces of state are included in undo/redo operations by returning only those portions from `extractUndoState()` (which will change what is passed to `applyUndoState()`).
 
 Consult the documentation in the source of `UndoState` for more options and information.
-
-## Upgrading from the non-S-Libs version
-
-If you are upgrading from the loose version of [`ng-app-state`](https://github.com/simontonsoftware/ng-app-state), there are a number of changes to be aware of. App state no longer depends on `@ngrx/store`. Among other changes, it is now a standalone library, depending only on other packages in S-Libs. There are also some exciting performance improvements. In the end, you'll need to make these changes:
-
-- Remove `@ngrx/store` and `@ngrx/store-devtools` from your project, unless you are using them outside of `app-state`.
-- Remove `StoreModule.forRoot()`, `ngAppStateReducer`, and `StoreDevtoolsModule.instrument()` from `app.module.ts`.
-- To log state changes to the redux devtools extension, check out the new [`logToReduxDevtoolsExtension()`](file:///C:/Users/xemno/IdeaProjects/s-libs/docs/rxjs-core/index.html#logtoreduxdevtoolsextension) in `@s-libs/rxjs-core`. For example if you make your own subclass of `RootStore`, you could put this in its constructor:
-
-  ```ts
-  logToReduxDevtoolsExtension(this.$, {
-    name: "MyStore",
-    autoPause: true,
-  });
-  ```
-
-- Replace references to `StoreObject` with `Store`.
-- Replace references to `AppStore` with `RootStore`.
-- The constructor for `RootStore` takes only 1 argument: its starting state. When transitioning from `AppStore` to `RootStore`, remove the other 2 arguments.
-- Remove calls to `withCaching()`. The redesigned library comes with intelligent caching built in automatically.
-- Batches are no longer tied to a specific slice of the store, but always operate on the entire `RootStore`. Therefore, `.batch()` was moved to `RootStore` and its callback no longer receives a `Store` object. Instead, operate on the store using any existing store object and it will automatically be included in the batch. `Store.getRootStore()` was added to get a reference to start the batch from if needed.
-- `.inBatch()` has been removed.
-- The `batch` parameter was removed from `UndoManager.applyUndoState()`. It still operates in a batch, but now you can use `this.store` in its place with no need for the additional argument.
