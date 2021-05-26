@@ -874,7 +874,7 @@ img { max-width: 100%; }
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class="current tsd-kind-class tsd-has-type-parameter">
+		<li class="current tsd-kind-class">
 			<a href="angularcontext.html" class="tsd-kind-icon">Angular<wbr>Context</a>
 			<ul>
 				<li class=" tsd-kind-constructor tsd-parent-kind-class">
@@ -892,9 +892,6 @@ img { max-width: 100%; }
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a href="angularcontext.html#getharness" class="tsd-kind-icon">get<wbr>Harness</a>
 				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="angularcontext.html#getharnessforoptional" class="tsd-kind-icon">get<wbr>Harness<wbr>For<wbr>Optional</a>
-				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 					<a href="angularcontext.html#init" class="tsd-kind-icon">init</a>
 				</li>
@@ -904,6 +901,9 @@ img { max-width: 100%; }
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="angularcontext.html#run" class="tsd-kind-icon">run</a>
 				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="angularcontext.html#runchangedetection" class="tsd-kind-icon">run<wbr>Change<wbr>Detection</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="angularcontext.html#tick" class="tsd-kind-icon">tick</a>
 				</li>
@@ -912,9 +912,6 @@ img { max-width: 100%; }
 				</li>
 			</ul>
 		</li>
-		<li class=" tsd-kind-class">
-			<a href="angularcontextnext.html" class="tsd-kind-icon">Angular<wbr>Context<wbr>Next</a>
-		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="asyncmethodcontroller.html" class="tsd-kind-icon">Async<wbr>Method<wbr>Controller</a>
 		</li>
@@ -922,13 +919,7 @@ img { max-width: 100%; }
 			<a href="componentcontext.html" class="tsd-kind-icon">Component<wbr>Context</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="componentcontextnext.html" class="tsd-kind-icon">Component<wbr>Context<wbr>Next</a>
-		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="testcall.html" class="tsd-kind-icon">Test<wbr>Call</a>
-		</li>
-		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-			<a href="../index.html#synchronized" class="tsd-kind-icon">Synchronized</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
 			<a href="../index.html#createspyobject" class="tsd-kind-icon">create<wbr>Spy<wbr>Object</a>
@@ -957,26 +948,59 @@ img { max-width: 100%; }
 	<div class="content-wrap">
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
-				<dl class="tsd-comment-tags">
-					<dt>deprecated</dt>
-					<dd><p>Use <a href="angularcontextnext.html">AngularContextNext</a> instead. This old version will be removed in a future version, and <code>AngularContextNext</code> will be renamed to <code>AngularContext</code>.</p>
-						<p>Some notes to migrate to the new version:</p>
-						<ul>
-							<li>Component harnesses from <code>.getHarness()</code> and <code>.getAllHarnesses()</code> are now asynchronous, like a normal harness you&#39;d use Outside <code>AngularContext</code>. You&#39;ll need to make the callback passed to <code>.run()</code> async, and <code>await</code> all the harness actions.</li>
-							<li><code>.getHarnessOptional()</code> is not available. Instead use <code>.getAllHarnesses()</code> and test the length of the resulting array.</li>
-							<li>For any tests that were passing inputs to <code>.run()</code>, instead call <code>.assignInputs()</code> before <code>.run()</code>.</li>
-						</ul>
-					</dd>
-				</dl>
+				<div class="lead">
+					<p>Provides the foundation for an opinionated testing pattern.</p>
+					<ul>
+						<li>All test are run in the <code>fakeAsync</code> zone. This gives you full control over
+						the timing of everything by default.</li>
+						<li>Variables that are initialized for each test exist in a context that is
+						thrown away, so they cannot leak between tests.</li>
+						<li>Clearly separates initialization code from the test itself.</li>
+						<li>Gives control over the simulated date &amp; time with a single line of code.</li>
+						<li>Automatically includes <a href="https://angular.io/api/common/http/testing/HttpClientTestingModule" class="external">HttpClientTestingModule</a> to stub network requests without additional setup.</li>
+						<li>Always verifies that no unexpected http requests were made.</li>
+						<li>Automatically discards periodic tasks and flushes pending timers at the end of each test to avoid the error &quot;X timer(s) still in the queue&quot;.</li>
+					</ul>
+				</div>
+				<p>Why does the class name end with &quot;Next&quot;? This replaces the old <code>AngularContext</code>, but it&#39;s a breaking change so this gives people some time to transition over. Eventually the old one will be removed and this will be renamed to <code>AngularContext</code>.</p>
+				<p>This example tests a simple service that uses <code>HttpClient</code>, and is tested by using <code>AngularContext</code> directly. More often <code>AngularContext</code> will be used as a super class. See <a href="componentcontext.html">ComponentContext</a> for more common use cases.</p>
+				<pre><code class="language-ts"><span style="color: #008000">// This is the class we will test.</span>
+<span style="color: #000000">@</span><span style="color: #795E26">Injectable</span><span style="color: #000000">({ </span><span style="color: #001080">providedIn:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;root&#039;</span><span style="color: #000000"> })</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">MemoriesService</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">constructor</span><span style="color: #000000">(</span><span style="color: #0000FF">private</span><span style="color: #000000"> </span><span style="color: #001080">httpClient</span><span style="color: #000000">: </span><span style="color: #267F99">HttpClient</span><span style="color: #000000">) {}</span>
+
+<span style="color: #000000">  </span><span style="color: #795E26">getLastYearToday</span><span style="color: #000000">(): </span><span style="color: #267F99">Observable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">any</span><span style="color: #000000">&gt; {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">datetime</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Date</span><span style="color: #000000">();</span>
+<span style="color: #000000">    </span><span style="color: #001080">datetime</span><span style="color: #000000">.</span><span style="color: #795E26">setFullYear</span><span style="color: #000000">(</span><span style="color: #001080">datetime</span><span style="color: #000000">.</span><span style="color: #795E26">getFullYear</span><span style="color: #000000">() - </span><span style="color: #098658">1</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">date</span><span style="color: #000000"> = </span><span style="color: #001080">datetime</span><span style="color: #000000">.</span><span style="color: #795E26">toISOString</span><span style="color: #000000">().</span><span style="color: #795E26">split</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;T&#039;</span><span style="color: #000000">)[</span><span style="color: #098658">0</span><span style="color: #000000">];</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">httpClient</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #A31515">`http://example.com/post-from/</span><span style="color: #0000FF">${</span><span style="color: #001080">date</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000">);</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+
+<span style="color: #795E26">describe</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;MemoriesService&#039;</span><span style="color: #000000">, () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #008000">// Tests should have exactly 1 variable outside an &quot;it&quot;: `ctx`.</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">AngularContext</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #795E26">beforeEach</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">AngularContext</span><span style="color: #000000">();</span>
+<span style="color: #000000">  });</span>
+
+<span style="color: #000000">  </span><span style="color: #795E26">it</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;requests a post from 1 year ago&#039;</span><span style="color: #000000">, () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// Before calling `run`, set up any context variables this test needs.</span>
+<span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">startTime</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Date</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;2004-02-16T10:15:00.000Z&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">    </span><span style="color: #008000">// Pass the test itself as a callback to `run()`.</span>
+<span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">httpBackend</span><span style="color: #000000"> = </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #795E26">inject</span><span style="color: #000000">(</span><span style="color: #001080">HttpTestingController</span><span style="color: #000000">);</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">myService</span><span style="color: #000000"> = </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #795E26">inject</span><span style="color: #000000">(</span><span style="color: #001080">MemoriesService</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">      </span><span style="color: #001080">myService</span><span style="color: #000000">.</span><span style="color: #795E26">getLastYearToday</span><span style="color: #000000">().</span><span style="color: #795E26">subscribe</span><span style="color: #000000">();</span>
+
+<span style="color: #000000">      </span><span style="color: #001080">httpBackend</span><span style="color: #000000">.</span><span style="color: #795E26">expectOne</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;http://example.com/post-from/2003-02-16&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    });</span>
+<span style="color: #000000">  });</span>
+<span style="color: #000000">});</span>
+</code></pre>
 			</div>
-		</section>
-		<section class="tsd-panel tsd-type-parameters">
-			<h3>Type parameters</h3>
-			<ul class="tsd-type-parameters">
-				<li>
-					<h4>InitOptions = <span class="tsd-signature-type">object</span></h4>
-				</li>
-			</ul>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
@@ -1013,10 +1037,10 @@ img { max-width: 100%; }
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="angularcontext.html#cleanup" class="tsd-kind-icon">clean<wbr>Up</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="angularcontext.html#getallharnesses" class="tsd-kind-icon">get<wbr>All<wbr>Harnesses</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="angularcontext.html#getharness" class="tsd-kind-icon">get<wbr>Harness</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="angularcontext.html#getharnessforoptional" class="tsd-kind-icon">get<wbr>Harness<wbr>For<wbr>Optional</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="angularcontext.html#init" class="tsd-kind-icon">init</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="angularcontext.html#inject" class="tsd-kind-icon">inject</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="angularcontext.html#run" class="tsd-kind-icon">run</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="angularcontext.html#runchangedetection" class="tsd-kind-icon">run<wbr>Change<wbr>Detection</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="angularcontext.html#tick" class="tsd-kind-icon">tick</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="angularcontext.html#verifyposttestconditions" class="tsd-kind-icon">verify<wbr>Post<wbr>Test<wbr>Conditions</a></li>
 						</ul>
@@ -1036,11 +1060,9 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L51">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:51</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L96">lib/angular-context/angular-context.ts:96</a></li>
 							</ul>
 						</aside>
-						<div class="tsd-comment tsd-typography">
-						</div>
 					</li>
 				</ul>
 			</section>
@@ -1050,10 +1072,10 @@ img { max-width: 100%; }
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="starttime" class="tsd-anchor"></a>
 				<h3>start<wbr>Time</h3>
-				<div class="tsd-signature tsd-kind-icon">start<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol"> = new Date()</span></div>
+				<div class="tsd-signature tsd-kind-icon">start<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol"> = ...</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L49">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:49</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L94">lib/angular-context/angular-context.ts:94</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1075,12 +1097,12 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L167">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:167</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L187">lib/angular-context/angular-context.ts:187</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Performs any cleanup needed at the end of each test. This base implementation calls <a href="https://angular.io/api/core/testing/discardPeriodicTasks" class="external"><code>discardPeriodicTasks</code></a> to avoid an error from the <code>fakeAsync</code> zone.</p>
+								<p>Performs any cleanup needed at the end of each test. This base implementation calls <a href="https://angular.io/api/core/testing/discardPeriodicTasks" class="external"><code>discardPeriodicTasks</code></a> and [flush]{<a href="https://angular.io/api/core/testing/flush%7Cflush%7D">https://angular.io/api/core/testing/flush|flush}</a> to avoid an error from the <code>fakeAsync</code> zone.</p>
 							</div>
 						</div>
 					</li>
@@ -1090,13 +1112,13 @@ img { max-width: 100%; }
 				<a name="getallharnesses" class="tsd-anchor"></a>
 				<h3>get<wbr>All<wbr>Harnesses</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>All<wbr>Harnesses&lt;T&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#synchronized" class="tsd-signature-type">Synchronized</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>All<wbr>Harnesses&lt;H&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">H</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">H</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L125">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:125</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L147">lib/angular-context/angular-context.ts:147</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1111,13 +1133,13 @@ img { max-width: 100%; }
 				<a name="getharness" class="tsd-anchor"></a>
 				<h3>get<wbr>Harness</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>Harness&lt;T&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../index.html#synchronized" class="tsd-signature-type">Synchronized</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Harness&lt;H&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">H</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">H</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L107">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:107</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L140">lib/angular-context/angular-context.ts:140</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1128,43 +1150,22 @@ img { max-width: 100%; }
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="getharnessforoptional" class="tsd-anchor"></a>
-				<h3>get<wbr>Harness<wbr>For<wbr>Optional</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>Harness<wbr>For<wbr>Optional&lt;T&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../index.html#synchronized" class="tsd-signature-type">Synchronized</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L116">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:116</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to <code>await</code> its results. Returns <code>null</code> if the harness cannot be located.</p>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 				<a name="init" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> init</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-					<li class="tsd-signature tsd-kind-icon">init<span class="tsd-signature-symbol">(</span>_options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">InitOptions</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">init<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L150">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:150</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L171">lib/angular-context/angular-context.ts:171</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>This is a hook for subclasses to override. It is called during <code>run()</code>, before the <code>test()</code> callback. This implementation does nothing, but if you override this it is still recommended to call <code>super.init(options)</code> in case this implementation does something in the future.</p>
+								<p>This is a hook for subclasses to override. It is called during <code>run()</code>, before the <code>test()</code> callback. This implementation does nothing, but if you override this it is still recommended to call <code>super.init()</code> in case this implementation does something in the future.</p>
 							</div>
 						</div>
 					</li>
@@ -1180,7 +1181,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L100">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:100</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L133">lib/angular-context/angular-context.ts:133</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1196,31 +1197,40 @@ img { max-width: 100%; }
 				<h3>run</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 					<li class="tsd-signature tsd-kind-icon">run<span class="tsd-signature-symbol">(</span>test<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					<li class="tsd-signature tsd-kind-icon">run<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">InitOptions</span><span class="tsd-signature-symbol">&gt;</span>, test<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L71">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:71</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L117">lib/angular-context/angular-context.ts:117</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Runs <code>test</code> in a <code>fakeAsync</code> zone. Also runs the following in this order, all within the same zone:</p>
-								<ol>
-									<li><code>init(options)</code></li>
-									<li><code>test()</code></li>
-									<li><code>verifyPostTestConditions()</code></li>
-									<li><code>cleanUp()</code></li>
-								</ol>
+								<p>Runs <code>test</code> in a <code>fakeAsync</code> zone. It can use async/await, but be sure anything you <code>await</code> is already due to execute (e.g. if a timeout is due in 3 seconds, call <code>.tick(3000)</code> before <code>await</code>ing its result).</p>
 							</div>
+							<p>Also runs the following in this order, all within the same zone:</p>
+							<ol>
+								<li><code>this.init()</code></li>
+								<li><code>test()</code></li>
+								<li><code>this.verifyPostTestConditions()</code></li>
+								<li><code>this.cleanUp()</code></li>
+							</ol>
 						</div>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="runchangedetection" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> run<wbr>Change<wbr>Detection</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">run<wbr>Change<wbr>Detection<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L72">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L173">lib/angular-context/angular-context.ts:173</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1236,7 +1246,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L138">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:138</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L158">lib/angular-context/angular-context.ts:158</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1257,7 +1267,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L160">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:160</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L180">lib/angular-context/angular-context.ts:180</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

@@ -877,13 +877,16 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-enum">
 			<a href="../enums/timeunit.html" class="tsd-kind-icon">Time<wbr>Unit</a>
 		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="callableobject.html" class="tsd-kind-icon">Callable<wbr>Object</a>
+		</li>
 		<li class=" tsd-kind-class">
 			<a href="debouncer.html" class="tsd-kind-icon">Debouncer</a>
 		</li>
 		<li class="current tsd-kind-class tsd-has-type-parameter">
 			<a href="deferred.html" class="tsd-kind-icon">Deferred</a>
 			<ul>
-				<li class=" tsd-kind-constructor tsd-parent-kind-class">
+				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
 					<a href="deferred.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -990,13 +993,14 @@ img { max-width: 100%; }
 				<div class="lead">
 					<p>An object you can use to create a promise and resolve/reject it later.</p>
 				</div>
-				<pre><code class="language-ts"><span class="hljs-keyword">const</span> deferred = <span class="hljs-keyword">new</span> Deferred&lt;<span class="hljs-built_in">string</span>&gt;();
+				<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">deferred</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">Deferred</span><span style="color: #000000">&lt;</span><span style="color: #267F99">string</span><span style="color: #000000">&gt;();</span>
 
-<span class="hljs-comment">// later</span>
-deferred.resolve(<span class="hljs-string">&#x27;a nice value&#x27;</span>); <span class="hljs-comment">// causes `deferred.promise` to resolve</span>
+<span style="color: #008000">// later</span>
+<span style="color: #001080">deferred</span><span style="color: #000000">.</span><span style="color: #795E26">resolve</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;a nice value&#039;</span><span style="color: #000000">); </span><span style="color: #008000">// causes `deferred.promise` to resolve</span>
 
-<span class="hljs-comment">// or</span>
-deferred.reject(<span class="hljs-string">&#x27;a bad value&#x27;</span>); <span class="hljs-comment">// causes `deferred.promise` to reject</span></code></pre>
+<span style="color: #008000">// or</span>
+<span style="color: #001080">deferred</span><span style="color: #000000">.</span><span style="color: #795E26">reject</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;a bad value&#039;</span><span style="color: #000000">); </span><span style="color: #008000">// causes `deferred.promise` to reject</span>
+</code></pre>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-type-parameters">
@@ -1022,7 +1026,7 @@ deferred.reject(<span class="hljs-string">&#x27;a bad value&#x27;</span>); <span
 					<section class="tsd-index-section ">
 						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="deferred.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter"><a href="deferred.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -1044,17 +1048,17 @@ deferred.reject(<span class="hljs-string">&#x27;a bad value&#x27;</span>); <span
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Constructors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
-				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Deferred<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="deferred.html" class="tsd-signature-type">Deferred</a></li>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Deferred&lt;T&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="deferred.html" class="tsd-signature-type">Deferred</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/deferred.ts#L21">projects/js-core/src/lib/time/deferred.ts:21</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/deferred.ts#L21">lib/time/deferred.ts:21</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1069,7 +1073,7 @@ deferred.reject(<span class="hljs-string">&#x27;a bad value&#x27;</span>); <span
 				<div class="tsd-signature tsd-kind-icon">promise<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/deferred.ts#L17">projects/js-core/src/lib/time/deferred.ts:17</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/deferred.ts#L17">lib/time/deferred.ts:17</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1079,7 +1083,7 @@ deferred.reject(<span class="hljs-string">&#x27;a bad value&#x27;</span>); <span
 				<div class="tsd-signature tsd-kind-icon">reject<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/deferred.ts#L19">projects/js-core/src/lib/time/deferred.ts:19</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/deferred.ts#L19">lib/time/deferred.ts:19</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1089,7 +1093,7 @@ deferred.reject(<span class="hljs-string">&#x27;a bad value&#x27;</span>); <span
 				<div class="tsd-signature tsd-kind-icon">resolve<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/deferred.ts#L18">projects/js-core/src/lib/time/deferred.ts:18</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/deferred.ts#L18">lib/time/deferred.ts:18</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1106,7 +1110,7 @@ deferred.reject(<span class="hljs-string">&#x27;a bad value&#x27;</span>); <span
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/deferred.ts#L35">projects/js-core/src/lib/time/deferred.ts:35</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/deferred.ts#L35">lib/time/deferred.ts:35</a></li>
 							</ul>
 						</aside>
 					</li>

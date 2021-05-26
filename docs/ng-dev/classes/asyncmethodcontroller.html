@@ -874,16 +874,13 @@ img { max-width: 100%; }
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="angularcontext.html" class="tsd-kind-icon">Angular<wbr>Context</a>
-		</li>
 		<li class=" tsd-kind-class">
-			<a href="angularcontextnext.html" class="tsd-kind-icon">Angular<wbr>Context<wbr>Next</a>
+			<a href="angularcontext.html" class="tsd-kind-icon">Angular<wbr>Context</a>
 		</li>
 		<li class="current tsd-kind-class tsd-has-type-parameter">
 			<a href="asyncmethodcontroller.html" class="tsd-kind-icon">Async<wbr>Method<wbr>Controller</a>
 			<ul>
-				<li class=" tsd-kind-constructor tsd-parent-kind-class">
+				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
 					<a href="asyncmethodcontroller.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -904,13 +901,7 @@ img { max-width: 100%; }
 			<a href="componentcontext.html" class="tsd-kind-icon">Component<wbr>Context</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="componentcontextnext.html" class="tsd-kind-icon">Component<wbr>Context<wbr>Next</a>
-		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="testcall.html" class="tsd-kind-icon">Test<wbr>Call</a>
-		</li>
-		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-			<a href="../index.html#synchronized" class="tsd-kind-icon">Synchronized</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
 			<a href="../index.html#createspyobject" class="tsd-kind-icon">create<wbr>Spy<wbr>Object</a>
@@ -942,30 +933,31 @@ img { max-width: 100%; }
 				<div class="lead">
 					<p>Controller to be used in tests, that allows for mocking and flushing any asynchronous function. For example, to mock the browser&#39;s paste functionality:</p>
 				</div>
-				<pre><code class="language-ts"> it(<span class="hljs-string">&#x27;can paste&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
-  <span class="hljs-keyword">const</span> clipboard = navigator.clipboard;
-  <span class="hljs-keyword">const</span> ctx = <span class="hljs-keyword">new</span> AngularContextNext();
+				<pre><code class="language-ts"><span style="color: #000000"> </span><span style="color: #795E26">it</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;can paste&#039;</span><span style="color: #000000">, () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">clipboard</span><span style="color: #000000"> = </span><span style="color: #001080">navigator</span><span style="color: #000000">.</span><span style="color: #001080">clipboard</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">ctx</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">AngularContext</span><span style="color: #000000">();</span>
 
-  <span class="hljs-comment">// mock the browser API for pasting</span>
-  <span class="hljs-keyword">const</span> controller = <span class="hljs-keyword">new</span> AsyncMethodController(clipboard, <span class="hljs-string">&#x27;readText&#x27;</span>, {
-    ctx,
-  });
-  ctx.run(<span class="hljs-function">() =&gt;</span> {
-    <span class="hljs-comment">// BEGIN production code that copies to the clipboard</span>
-    <span class="hljs-keyword">let</span> pastedText: <span class="hljs-built_in">string</span>;
-    clipboard.readText().then(<span class="hljs-function">(<span class="hljs-params">text</span>) =&gt;</span> {
-      pastedText = text;
-    });
-    <span class="hljs-comment">// END production code that copies to the clipboard</span>
+<span style="color: #000000">  </span><span style="color: #008000">// mock the browser API for pasting</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">controller</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">AsyncMethodController</span><span style="color: #000000">(</span><span style="color: #001080">clipboard</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;readText&#039;</span><span style="color: #000000">, {</span>
+<span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">,</span>
+<span style="color: #000000">  });</span>
+<span style="color: #000000">  </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// BEGIN production code that copies to the clipboard</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">pastedText</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #001080">clipboard</span><span style="color: #000000">.</span><span style="color: #795E26">readText</span><span style="color: #000000">().</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">text</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">pastedText</span><span style="color: #000000"> = </span><span style="color: #001080">text</span><span style="color: #000000">;</span>
+<span style="color: #000000">    });</span>
+<span style="color: #000000">    </span><span style="color: #008000">// END production code that copies to the clipboard</span>
 
-    <span class="hljs-comment">// mock the behavior when the user denies access to the clipboard</span>
-    controller.expectOne([]).flush(<span class="hljs-string">&#x27;mock clipboard contents&#x27;</span>);
+<span style="color: #000000">    </span><span style="color: #008000">// mock the behavior when the user denies access to the clipboard</span>
+<span style="color: #000000">    </span><span style="color: #001080">controller</span><span style="color: #000000">.</span><span style="color: #795E26">expectOne</span><span style="color: #000000">([]).</span><span style="color: #795E26">flush</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;mock clipboard contents&#039;</span><span style="color: #000000">);</span>
 
-    <span class="hljs-comment">// BEGIN expect the correct results after a successful copy</span>
-    expect(pastedText!).toBe(<span class="hljs-string">&#x27;mock clipboard contents&#x27;</span>);
-    <span class="hljs-comment">// END expect the correct results after a successful copy</span>
-  });
-});</code></pre>
+<span style="color: #000000">    </span><span style="color: #008000">// BEGIN expect the correct results after a successful copy</span>
+<span style="color: #000000">    </span><span style="color: #795E26">expect</span><span style="color: #000000">(</span><span style="color: #001080">pastedText</span><span style="color: #000000">!).</span><span style="color: #795E26">toBe</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;mock clipboard contents&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #008000">// END expect the correct results after a successful copy</span>
+<span style="color: #000000">  });</span>
+<span style="color: #000000">});</span>
+</code></pre>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-type-parameters">
@@ -994,7 +986,7 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="asyncmethodcontroller.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter"><a href="asyncmethodcontroller.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -1011,17 +1003,17 @@ img { max-width: 100%; }
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Constructors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
-				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Async<wbr>Method<wbr>Controller<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WrappingObject</span>, methodName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FunctionName</span>, __namedParameters<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="asyncmethodcontroller.html" class="tsd-signature-type">AsyncMethodController</a></li>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Async<wbr>Method<wbr>Controller&lt;WrappingObject, FunctionName&gt;<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WrappingObject</span>, methodName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FunctionName</span>, __namedParameters<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="asyncmethodcontroller.html" class="tsd-signature-type">AsyncMethodController</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WrappingObject</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">FunctionName</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/async-method-controller.ts#L56">projects/ng-dev/src/lib/spies/async-method-controller.ts:56</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/async-method-controller.ts#L53">lib/spies/async-method-controller.ts:53</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1039,13 +1031,13 @@ img { max-width: 100%; }
 				<a name="expectnone" class="tsd-anchor"></a>
 				<h3>expect<wbr>None</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">expect<wbr>None<span class="tsd-signature-symbol">(</span>match<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Match</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WrappingObject</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">FunctionName</span><span class="tsd-signature-symbol">&gt;</span>, description<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">expect<wbr>None<span class="tsd-signature-symbol">(</span>match<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Match</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WrappingObject</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">FunctionName</span><span class="tsd-signature-symbol">&gt;</span>, description<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/async-method-controller.ts#L98">projects/ng-dev/src/lib/spies/async-method-controller.ts:98</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/async-method-controller.ts#L95">lib/spies/async-method-controller.ts:95</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1060,13 +1052,13 @@ img { max-width: 100%; }
 				<a name="expectone" class="tsd-anchor"></a>
 				<h3>expect<wbr>One</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">expect<wbr>One<span class="tsd-signature-symbol">(</span>match<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Match</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WrappingObject</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">FunctionName</span><span class="tsd-signature-symbol">&gt;</span>, description<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="testcall.html" class="tsd-signature-type">TestCall</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WrappingObject[FunctionName]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">expect<wbr>One<span class="tsd-signature-symbol">(</span>match<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Match</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WrappingObject</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">FunctionName</span><span class="tsd-signature-symbol">&gt;</span>, description<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="testcall.html" class="tsd-signature-type">TestCall</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WrappingObject[FunctionName]</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/async-method-controller.ts#L78">projects/ng-dev/src/lib/spies/async-method-controller.ts:78</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/async-method-controller.ts#L75">lib/spies/async-method-controller.ts:75</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1087,7 +1079,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/async-method-controller.ts#L117">projects/ng-dev/src/lib/spies/async-method-controller.ts:117</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/async-method-controller.ts#L114">lib/spies/async-method-controller.ts:114</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1108,7 +1100,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/async-method-controller.ts#L130">projects/ng-dev/src/lib/spies/async-method-controller.ts:130</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/async-method-controller.ts#L127">lib/spies/async-method-controller.ts:127</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

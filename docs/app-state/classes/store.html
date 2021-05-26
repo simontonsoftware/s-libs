@@ -880,7 +880,7 @@ img { max-width: 100%; }
 		<li class="current tsd-kind-class tsd-has-type-parameter">
 			<a href="store.html" class="tsd-kind-icon">Store</a>
 			<ul>
-				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a href="store.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -964,16 +964,13 @@ img { max-width: 100%; }
 				<li>
 					<h4>T</h4>
 				</li>
-				<li>
-					<h4>T</h4>
-				</li>
 			</ul>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="tsd-signature-type">function</span>
+					<span class="tsd-signature-type">GetSlice</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>
 				</li>
 				<li>
 					<span class="tsd-signature-type">CallableObject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GetSlice</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>
@@ -993,15 +990,15 @@ img { max-width: 100%; }
 		<section class="tsd-panel">
 			<h3 class="tsd-before-signature">Callable</h3>
 			<ul class="tsd-signatures tsd-kind-class tsd-has-type-parameter">
-				<li class="tsd-signature tsd-kind-icon">__call&lt;K, V&gt;<span class="tsd-signature-symbol">(</span>attr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></li>
-				<li class="tsd-signature tsd-kind-icon">__call<span class="tsd-signature-symbol">(</span>attr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T[T]</span><span class="tsd-signature-symbol">&gt;</span></li>
-				<li class="tsd-signature tsd-kind-icon">__call<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Parameters</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GetSlice</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReturnType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GetSlice</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<li class="tsd-signature tsd-kind-icon">Store&lt;K, V&gt;<span class="tsd-signature-symbol">(</span>attr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<li class="tsd-signature tsd-kind-icon">Store<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Parameters</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GetSlice</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T[string | number | symbol]</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<li class="tsd-signature tsd-kind-icon">Store&lt;K&gt;<span class="tsd-signature-symbol">(</span>attr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T[K]</span><span class="tsd-signature-symbol">&gt;</span></li>
 			</ul>
 			<ul class="tsd-descriptions">
 				<li class="tsd-description">
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L9">projects/app-state/src/lib/store.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L8">projects/app-state/src/lib/store.ts:8</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1013,14 +1010,14 @@ img { max-width: 100%; }
 				<li class="tsd-description">
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L7">projects/app-state/src/lib/store.ts:7</a></li>
+							<li>Defined in dist/js-core/lib/functions/callable-object.d.ts:2</li>
 						</ul>
 					</aside>
 				</li>
 				<li class="tsd-description">
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dist/js-core/lib/functions/callable-object.d.ts:2</li>
+							<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L6">projects/app-state/src/lib/store.ts:6</a></li>
 						</ul>
 					</aside>
 				</li>
@@ -1030,10 +1027,10 @@ img { max-width: 100%; }
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
-					<section class="tsd-index-section ">
+					<section class="tsd-index-section tsd-is-inherited">
 						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="store.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="store.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -1068,20 +1065,20 @@ img { max-width: 100%; }
 				</div>
 			</section>
 		</section>
-		<section class="tsd-panel-group tsd-member-group ">
+		<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 			<h2>Constructors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
-				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Store<span class="tsd-signature-symbol">(</span>getRootStore<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="store.html" class="tsd-signature-type">Store</a></li>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Store&lt;T&gt;<span class="tsd-signature-symbol">(</span>getRootStore<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
-							<p>Overrides CallableObject.__constructor</p>
+							<p>Inherited from GetSlice&lt;T&gt;.constructor</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L36">projects/app-state/src/lib/store.ts:36</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L34">projects/app-state/src/lib/store.ts:34</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1093,10 +1090,10 @@ img { max-width: 100%; }
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="_" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> $</h3>
-				<div class="tsd-signature tsd-kind-icon">$<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new Observable&lt;T&gt;((subscriber) &#x3D;&gt; {const value &#x3D; this.state();this.subscribers.set(subscriber, value);this.maybeActivate();subscriber.next(value);return () &#x3D;&gt; {this.subscribers.delete(subscriber);this.maybeDeactivate();};})</span></div>
+				<div class="tsd-signature tsd-kind-icon">$<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L21">projects/app-state/src/lib/store.ts:21</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L19">projects/app-state/src/lib/store.ts:19</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1108,10 +1105,10 @@ img { max-width: 100%; }
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 				<a name="activechildren" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> active<wbr>Children</h3>
-				<div class="tsd-signature tsd-kind-icon">active<wbr>Children<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><a href="store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new Map&lt;string, Set&lt;Store&lt;unknown&gt;&gt;&gt;()</span></div>
+				<div class="tsd-signature tsd-kind-icon">active<wbr>Children<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><a href="store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L33">projects/app-state/src/lib/store.ts:33</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L31">projects/app-state/src/lib/store.ts:31</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1120,28 +1117,25 @@ img { max-width: 100%; }
 				<h3>get<wbr>Root<wbr>Store</h3>
 				<div class="tsd-signature tsd-kind-icon">get<wbr>Root<wbr>Store<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L38">projects/app-state/src/lib/store.ts:38</a></li>
-					</ul>
 				</aside>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 				<a name="lastknownstate" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagOptional">Optional</span> last<wbr>Known<wbr>State</h3>
-				<div class="tsd-signature tsd-kind-icon">last<wbr>Known<wbr>State<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">T</a></div>
+				<div class="tsd-signature tsd-kind-icon">last<wbr>Known<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L34">projects/app-state/src/lib/store.ts:34</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L32">projects/app-state/src/lib/store.ts:32</a></li>
 					</ul>
 				</aside>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 				<a name="subscribers" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> subscribers</h3>
-				<div class="tsd-signature tsd-kind-icon">subscribers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Subscriber</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new Map&lt;Subscriber&lt;T&gt;, T | undefined&gt;()</span></div>
+				<div class="tsd-signature tsd-kind-icon">subscribers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Subscriber</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L32">projects/app-state/src/lib/store.ts:32</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L30">projects/app-state/src/lib/store.ts:30</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1158,7 +1152,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L155">projects/app-state/src/lib/store.ts:155</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L153">projects/app-state/src/lib/store.ts:153</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1174,7 +1168,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L73">projects/app-state/src/lib/store.ts:73</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L71">projects/app-state/src/lib/store.ts:71</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1195,7 +1189,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L169">projects/app-state/src/lib/store.ts:169</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L167">projects/app-state/src/lib/store.ts:167</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1211,14 +1205,15 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L63">projects/app-state/src/lib/store.ts:63</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L61">projects/app-state/src/lib/store.ts:61</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Removes the state represented by this store object from its parent. E.g. to remove the current user:</p>
 							</div>
-							<pre><code class="language-ts">store(<span class="hljs-string">&#x27;currentUser&#x27;</span>).delete();</code></pre>
+							<pre><code class="language-ts"><span style="color: #795E26">store</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;currentUser&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1233,7 +1228,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L147">projects/app-state/src/lib/store.ts:147</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L145">projects/app-state/src/lib/store.ts:145</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1249,7 +1244,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L109">projects/app-state/src/lib/store.ts:109</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L107">projects/app-state/src/lib/store.ts:107</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1265,7 +1260,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L111">projects/app-state/src/lib/store.ts:111</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L109">projects/app-state/src/lib/store.ts:109</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1281,7 +1276,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L127">projects/app-state/src/lib/store.ts:127</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L125">projects/app-state/src/lib/store.ts:125</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1297,7 +1292,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L100">projects/app-state/src/lib/store.ts:100</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L98">projects/app-state/src/lib/store.ts:98</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1319,11 +1314,9 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L68">projects/app-state/src/lib/store.ts:68</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L66">projects/app-state/src/lib/store.ts:66</a></li>
 							</ul>
 						</aside>
-						<div class="tsd-comment tsd-typography">
-						</div>
 					</li>
 				</ul>
 			</section>
@@ -1337,7 +1330,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L54">projects/app-state/src/lib/store.ts:54</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L52">projects/app-state/src/lib/store.ts:52</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1358,7 +1351,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L88">projects/app-state/src/lib/store.ts:88</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L86">projects/app-state/src/lib/store.ts:86</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1380,7 +1373,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L49">projects/app-state/src/lib/store.ts:49</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L47">projects/app-state/src/lib/store.ts:47</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1401,7 +1394,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L113">projects/app-state/src/lib/store.ts:113</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/app-state/src/lib/store.ts#L111">projects/app-state/src/lib/store.ts:111</a></li>
 							</ul>
 						</aside>
 					</li>

@@ -938,9 +938,10 @@ img { max-width: 100%; }
 							<div class="lead">
 								<p>Adds <code>item</code> to the end of the array in <code>store</code>. Returns a store object representing the newly added item.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">const</span> store: Store&lt;<span class="hljs-built_in">number</span>[]&gt;; <span class="hljs-comment">// assume store starts with [1, 2]</span>
-<span class="hljs-keyword">const</span> added = pushToStoreArray(store, <span class="hljs-number">3</span>); <span class="hljs-comment">// store has [1, 2, 3]</span>
-added.set(<span class="hljs-number">17</span>); <span class="hljs-comment">// store has [1, 2, 17]</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #0000FF">declare</span><span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">store</span><span style="color: #000000">: </span><span style="color: #267F99">Store</span><span style="color: #000000">&lt;</span><span style="color: #267F99">number</span><span style="color: #000000">[]&gt;; </span><span style="color: #008000">// assume store starts with [1, 2]</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">added</span><span style="color: #000000"> = </span><span style="color: #795E26">pushToStoreArray</span><span style="color: #000000">(</span><span style="color: #001080">store</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">); </span><span style="color: #008000">// store has [1, 2, 3]</span>
+<span style="color: #001080">added</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #098658">17</span><span style="color: #000000">); </span><span style="color: #008000">// store has [1, 2, 17]</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -949,7 +950,7 @@ added.set(<span class="hljs-number">17</span>); <span class="hljs-comment">// st
 				<a name="spreadarraystore_" class="tsd-anchor"></a>
 				<h3>spread<wbr>Array<wbr>Store$</h3>
 				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">spread<wbr>Array<wbr>Store$&lt;T&gt;<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><a href="classes/store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="classes/store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">spread<wbr>Array<wbr>Store$&lt;T&gt;<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><a href="classes/store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><a href="classes/store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -962,22 +963,23 @@ added.set(<span class="hljs-number">17</span>); <span class="hljs-comment">// st
 							<div class="lead">
 								<p>Returns an observable that emits an array of store objects, one for each element in <code>source</code>&#39;s state. The resulting arrays will have references to the exact store objects included in the previous emission when possible, making them performant to use in <code>*ngFor</code> expressions without the need to use <code>trackBy</code>.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-meta">@Component</span>({
-  <span class="hljs-attr">template</span>: <span class="hljs-string">`
-    &lt;hero
-      *ngFor=&quot;let heroStore of heroStores$ | async&quot;
-      [heroStore]=&quot;heroStore&quot;
-    &gt;&lt;/hero&gt;
-  `</span>,
-})
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeroListComponent</span> </span>{
-  <span class="hljs-attr">heroStores$</span>: Observable&lt;<span class="hljs-built_in">Array</span>&lt;Store&lt;Hero&gt;&gt;&gt;;
-  <span class="hljs-meta">@Input</span>() <span class="hljs-keyword">private</span> heroesStore: Store&lt;<span class="hljs-built_in">Array</span>&lt;Hero&gt;&gt;;
+							<pre><code class="language-ts"><span style="color: #000000">@</span><span style="color: #795E26">Component</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">template:</span><span style="color: #000000"> </span><span style="color: #A31515">`</span>
+<span style="color: #A31515">    &lt;hero</span>
+<span style="color: #A31515">      *ngFor=&quot;let heroStore of heroStores$ | async&quot;</span>
+<span style="color: #A31515">      [heroStore]=&quot;heroStore&quot;</span>
+<span style="color: #A31515">    &gt;&lt;/hero&gt;</span>
+<span style="color: #A31515">  `</span><span style="color: #000000">,</span>
+<span style="color: #000000">})</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">HeroListComponent</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">heroStores$</span><span style="color: #000000">: </span><span style="color: #267F99">Observable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">Array</span><span style="color: #000000">&lt;</span><span style="color: #267F99">Store</span><span style="color: #000000">&lt;</span><span style="color: #267F99">Hero</span><span style="color: #000000">&gt;&gt;&gt;;</span>
+<span style="color: #000000">  @</span><span style="color: #795E26">Input</span><span style="color: #000000">() </span><span style="color: #0000FF">private</span><span style="color: #000000"> </span><span style="color: #001080">heroesStore</span><span style="color: #000000">: </span><span style="color: #267F99">Store</span><span style="color: #000000">&lt;</span><span style="color: #267F99">Array</span><span style="color: #000000">&lt;</span><span style="color: #267F99">Hero</span><span style="color: #000000">&gt;&gt;;</span>
 
-  <span class="hljs-function"><span class="hljs-title">ngOnChanges</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.heroStores$ = spreadArrayStore(<span class="hljs-built_in">this</span>.heroesStore);
-  }
-}</code></pre>
+<span style="color: #000000">  </span><span style="color: #795E26">ngOnChanges</span><span style="color: #000000">() {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">heroStores$</span><span style="color: #000000"> = </span><span style="color: #795E26">spreadArrayStore</span><span style="color: #000000">(</span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">heroesStore</span><span style="color: #000000">);</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -986,7 +988,7 @@ added.set(<span class="hljs-number">17</span>); <span class="hljs-comment">// st
 				<a name="spreadobjectstore_" class="tsd-anchor"></a>
 				<h3>spread<wbr>Object<wbr>Store$</h3>
 				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">spread<wbr>Object<wbr>Store$&lt;T&gt;<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><a href="classes/store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="classes/store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T[keyof T]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">spread<wbr>Object<wbr>Store$&lt;T&gt;<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><a href="classes/store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><a href="classes/store.html" class="tsd-signature-type">Store</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T[keyof T]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -999,26 +1001,27 @@ added.set(<span class="hljs-number">17</span>); <span class="hljs-comment">// st
 							<div class="lead">
 								<p>Returns an observable that emits an array of store objects, one for each element in <code>source</code>&#39;s state. The resulting arrays will have references to the exact store objects included in the previous emission when possible, making them performant to use in <code>*ngFor</code> expressions without the need to use <code>trackBy</code>.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">interface</span> HeroMap {
-  [name: <span class="hljs-built_in">string</span>]: Hero;
-}
+							<pre><code class="language-ts"><span style="color: #0000FF">interface</span><span style="color: #000000"> </span><span style="color: #267F99">HeroMap</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  [</span><span style="color: #001080">name</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">]: </span><span style="color: #267F99">Hero</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-meta">@Component</span>({
-  <span class="hljs-attr">template</span>: <span class="hljs-string">`
-    &lt;hero
-      *ngFor=&quot;let heroStore of heroStores$ | async&quot;
-      [heroStore]=&quot;heroStore&quot;
-    &gt;&lt;/hero&gt;
-  `</span>,
-})
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeroListComponent</span> </span>{
-  <span class="hljs-attr">heroStores$</span>: Observable&lt;<span class="hljs-built_in">Array</span>&lt;Store&lt;Hero&gt;&gt;&gt;;
-  <span class="hljs-meta">@Input</span>() <span class="hljs-keyword">private</span> heroesStore: Store&lt;HeroMap&gt;;
+<span style="color: #000000">@</span><span style="color: #795E26">Component</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">template:</span><span style="color: #000000"> </span><span style="color: #A31515">`</span>
+<span style="color: #A31515">    &lt;hero</span>
+<span style="color: #A31515">      *ngFor=&quot;let heroStore of heroStores$ | async&quot;</span>
+<span style="color: #A31515">      [heroStore]=&quot;heroStore&quot;</span>
+<span style="color: #A31515">    &gt;&lt;/hero&gt;</span>
+<span style="color: #A31515">  `</span><span style="color: #000000">,</span>
+<span style="color: #000000">})</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">HeroListComponent</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">heroStores$</span><span style="color: #000000">: </span><span style="color: #267F99">Observable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">Array</span><span style="color: #000000">&lt;</span><span style="color: #267F99">Store</span><span style="color: #000000">&lt;</span><span style="color: #267F99">Hero</span><span style="color: #000000">&gt;&gt;&gt;;</span>
+<span style="color: #000000">  @</span><span style="color: #795E26">Input</span><span style="color: #000000">() </span><span style="color: #0000FF">private</span><span style="color: #000000"> </span><span style="color: #001080">heroesStore</span><span style="color: #000000">: </span><span style="color: #267F99">Store</span><span style="color: #000000">&lt;</span><span style="color: #267F99">HeroMap</span><span style="color: #000000">&gt;;</span>
 
-  <span class="hljs-function"><span class="hljs-title">ngOnChanges</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.heroStores$ = spreadObjectStore(<span class="hljs-built_in">this</span>.heroesStore);
-  }
-}</code></pre>
+<span style="color: #000000">  </span><span style="color: #795E26">ngOnChanges</span><span style="color: #000000">() {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">heroStores$</span><span style="color: #000000"> = </span><span style="color: #795E26">spreadObjectStore</span><span style="color: #000000">(</span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">heroesStore</span><span style="color: #000000">);</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>

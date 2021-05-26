@@ -874,11 +874,8 @@ img { max-width: 100%; }
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="classes/angularcontext.html" class="tsd-kind-icon">Angular<wbr>Context</a>
-		</li>
 		<li class=" tsd-kind-class">
-			<a href="classes/angularcontextnext.html" class="tsd-kind-icon">Angular<wbr>Context<wbr>Next</a>
+			<a href="classes/angularcontext.html" class="tsd-kind-icon">Angular<wbr>Context</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="classes/asyncmethodcontroller.html" class="tsd-kind-icon">Async<wbr>Method<wbr>Controller</a>
@@ -887,13 +884,7 @@ img { max-width: 100%; }
 			<a href="classes/componentcontext.html" class="tsd-kind-icon">Component<wbr>Context</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="classes/componentcontextnext.html" class="tsd-kind-icon">Component<wbr>Context<wbr>Next</a>
-		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="classes/testcall.html" class="tsd-kind-icon">Test<wbr>Call</a>
-		</li>
-		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-			<a href="index.html#synchronized" class="tsd-kind-icon">Synchronized</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
 			<a href="index.html#createspyobject" class="tsd-kind-icon">create<wbr>Spy<wbr>Object</a>
@@ -927,18 +918,10 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Classes</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/angularcontext.html" class="tsd-kind-icon">Angular<wbr>Context</a></li>
-							<li class="tsd-kind-class"><a href="classes/angularcontextnext.html" class="tsd-kind-icon">Angular<wbr>Context<wbr>Next</a></li>
+							<li class="tsd-kind-class"><a href="classes/angularcontext.html" class="tsd-kind-icon">Angular<wbr>Context</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/asyncmethodcontroller.html" class="tsd-kind-icon">Async<wbr>Method<wbr>Controller</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/componentcontext.html" class="tsd-kind-icon">Component<wbr>Context</a></li>
-							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/componentcontextnext.html" class="tsd-kind-icon">Component<wbr>Context<wbr>Next</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/testcall.html" class="tsd-kind-icon">Test<wbr>Call</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section ">
-						<h3>Type aliases</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="index.html#synchronized" class="tsd-kind-icon">Synchronized</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -957,27 +940,6 @@ img { max-width: 100%; }
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Type aliases</h2>
-			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
-				<a name="synchronized" class="tsd-anchor"></a>
-				<h3>Synchronized</h3>
-				<div class="tsd-signature tsd-kind-icon">Synchronized<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/synchronize.ts#L10">projects/ng-dev/src/lib/test-context/synchronize.ts:10</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<dl class="tsd-comment-tags">
-						<dt>deprecated</dt>
-						<dd><p>This is no longer used with the new <a href="classes/angularcontextnext.html">AngularContextNext</a>, so it will be removed from this library at the same time as <a href="classes/angularcontext.html">AngularContext</a> in the future.</p>
-							<p>The type for component harness used in an <code>AngularContext</code>, which wraps the original harness in a proxy meant to be used in a <code>fakeAsync</code> test where one cannot <code>await</code> the results of an asynchronous call. The functions that would normally return a promise instead return their result immediately, calling <code>tick()</code> to flush it first.</p>
-						</dd>
-					</dl>
-				</div>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Functions</h2>
 			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
 				<a name="createspyobject" class="tsd-anchor"></a>
@@ -989,23 +951,24 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/create-spy-object.ts#L22">projects/ng-dev/src/lib/spies/create-spy-object.ts:22</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/create-spy-object.ts#L22">lib/spies/create-spy-object.ts:22</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Creates a new object with jasmine spies for each method in <code>type</code>.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Greeter</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">greet</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>)</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!`</span>;
-  }
-}
+							<pre><code class="language-ts"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">Greeter</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">greet</span><span style="color: #000000">(</span><span style="color: #001080">name</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #A31515">`Hello, </span><span style="color: #0000FF">${</span><span style="color: #001080">name</span><span style="color: #0000FF">}</span><span style="color: #A31515">!`</span><span style="color: #000000">;</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-keyword">const</span> spyObject = createSpyObject(Greeter);
-spyObject.greet.and.returnValue(<span class="hljs-string">&quot;Hello, stub!&quot;</span>);
-expect(spyObject.greet(<span class="hljs-string">&quot;Eric&quot;</span>)).toBe(<span class="hljs-string">&quot;Hello, stub!&quot;</span>);
-expectSingleCallAndReset(spyObject.greet, <span class="hljs-string">&quot;Eric&quot;</span>);</code></pre>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">spyObject</span><span style="color: #000000"> = </span><span style="color: #795E26">createSpyObject</span><span style="color: #000000">(</span><span style="color: #001080">Greeter</span><span style="color: #000000">);</span>
+<span style="color: #001080">spyObject</span><span style="color: #000000">.</span><span style="color: #001080">greet</span><span style="color: #000000">.</span><span style="color: #001080">and</span><span style="color: #000000">.</span><span style="color: #795E26">returnValue</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Hello, stub!&quot;</span><span style="color: #000000">);</span>
+<span style="color: #795E26">expect</span><span style="color: #000000">(</span><span style="color: #001080">spyObject</span><span style="color: #000000">.</span><span style="color: #795E26">greet</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Eric&quot;</span><span style="color: #000000">)).</span><span style="color: #795E26">toBe</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Hello, stub!&quot;</span><span style="color: #000000">);</span>
+<span style="color: #795E26">expectSingleCallAndReset</span><span style="color: #000000">(</span><span style="color: #001080">spyObject</span><span style="color: #000000">.</span><span style="color: #001080">greet</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Eric&quot;</span><span style="color: #000000">);</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1014,25 +977,26 @@ expectSingleCallAndReset(spyObject.greet, <span class="hljs-string">&quot;Eric&q
 				<a name="expectcallsandreset" class="tsd-anchor"></a>
 				<h3>expect<wbr>Calls<wbr>And<wbr>Reset</h3>
 				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">expect<wbr>Calls<wbr>And<wbr>Reset<span class="tsd-signature-symbol">(</span>spy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Spy</span>, <span class="tsd-signature-symbol">...</span>allArgs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">expect<wbr>Calls<wbr>And<wbr>Reset<span class="tsd-signature-symbol">(</span>spy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">jasmine.Spy</span>, <span class="tsd-signature-symbol">...</span>allArgs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/expect-calls-and-reset.ts#L13">projects/ng-dev/src/lib/spies/expect-calls-and-reset.ts:13</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/expect-calls-and-reset.ts#L13">lib/spies/expect-calls-and-reset.ts:13</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Expects the spy to have been called the exact number of times as the argument lists provided, with those arguments, then resets the spy.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">const</span> spy = jasmine.createSpy();
+							<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">spy</span><span style="color: #000000"> = </span><span style="color: #001080">jasmine</span><span style="color: #000000">.</span><span style="color: #795E26">createSpy</span><span style="color: #000000">();</span>
 
-spy(<span class="hljs-number">1</span>)
-spy(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
-spy()
-expectCallsAndReset(spy, [<span class="hljs-number">1</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>], []);</code></pre>
+<span style="color: #795E26">spy</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">)</span>
+<span style="color: #795E26">spy</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">)</span>
+<span style="color: #795E26">spy</span><span style="color: #000000">()</span>
+<span style="color: #795E26">expectCallsAndReset</span><span style="color: #000000">(</span><span style="color: #001080">spy</span><span style="color: #000000">, [</span><span style="color: #098658">1</span><span style="color: #000000">], [</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">], []);</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1041,28 +1005,29 @@ expectCallsAndReset(spy, [<span class="hljs-number">1</span>], [<span class="hlj
 				<a name="expectsinglecallandreset" class="tsd-anchor"></a>
 				<h3>expect<wbr>Single<wbr>Call<wbr>And<wbr>Reset</h3>
 				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">expect<wbr>Single<wbr>Call<wbr>And<wbr>Reset<span class="tsd-signature-symbol">(</span>spy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Spy</span>, <span class="tsd-signature-symbol">...</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">expect<wbr>Single<wbr>Call<wbr>And<wbr>Reset<span class="tsd-signature-symbol">(</span>spy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">jasmine.Spy</span>, <span class="tsd-signature-symbol">...</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/expect-single-call-and-reset.ts#L16">projects/ng-dev/src/lib/spies/expect-single-call-and-reset.ts:16</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/spies/expect-single-call-and-reset.ts#L16">lib/spies/expect-single-call-and-reset.ts:16</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Expects exactly one call to have been made to a jasmine spy, for it to have received the given arguments, then resets the spy.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">const</span> spy = jasmine.createSpy();
+							<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">spy</span><span style="color: #000000"> = </span><span style="color: #001080">jasmine</span><span style="color: #000000">.</span><span style="color: #795E26">createSpy</span><span style="color: #000000">();</span>
 
-spy(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
-expectSingleCallAndReset(spy, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// pass</span>
-expectSingleCallAndReset(spy, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// fail</span>
+<span style="color: #795E26">spy</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #795E26">expectSingleCallAndReset</span><span style="color: #000000">(</span><span style="color: #001080">spy</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">); </span><span style="color: #008000">// pass</span>
+<span style="color: #795E26">expectSingleCallAndReset</span><span style="color: #000000">(</span><span style="color: #001080">spy</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">); </span><span style="color: #008000">// fail</span>
 
-spy(<span class="hljs-number">3</span>);
-spy(<span class="hljs-number">4</span>);
-expectSingleCallAndReset(spy, <span class="hljs-number">3</span>); <span class="hljs-comment">// fail</span></code></pre>
+<span style="color: #795E26">spy</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #795E26">spy</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);</span>
+<span style="color: #795E26">expectSingleCallAndReset</span><span style="color: #000000">(</span><span style="color: #001080">spy</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">); </span><span style="color: #008000">// fail</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1077,7 +1042,7 @@ expectSingleCallAndReset(spy, <span class="hljs-number">3</span>); <span class="
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/log-timers.ts#L20">projects/ng-dev/src/lib/log-timers.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/log-timers.ts#L20">lib/log-timers.ts:20</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1099,18 +1064,19 @@ expectSingleCallAndReset(spy, <span class="hljs-number">3</span>); <span class="
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/marble-test.ts#L31">projects/ng-dev/src/lib/marble-test.ts:31</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/marble-test.ts#L27">lib/marble-test.ts:27</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>A helper to take some boilerplate out of RxJS&#39;s new marble testing API for jasmine.</p>
 							</div>
-							<pre><code class="language-ts">it(<span class="hljs-string">&quot;doubles numbers&quot;</span>, marbleTest(<span class="hljs-function">(<span class="hljs-params">{ cold, expectObservable }</span>) =&gt;</span> {
-  <span class="hljs-keyword">const</span> source = cold(<span class="hljs-string">&quot;-1-2-3-|&quot;</span>);
-  <span class="hljs-keyword">const</span> expected = <span class="hljs-string">&quot;   -2-4-6-|&quot;</span>);
-  expectObservable(source.pipe(double())).toBe(expected);
-}));</code></pre>
+							<pre><code class="language-ts"><span style="color: #795E26">it</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;doubles numbers&quot;</span><span style="color: #000000">, </span><span style="color: #795E26">marbleTest</span><span style="color: #000000">(({ </span><span style="color: #001080">cold</span><span style="color: #000000">, </span><span style="color: #001080">expectObservable</span><span style="color: #000000"> }) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">source</span><span style="color: #000000"> = </span><span style="color: #795E26">cold</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;-1-2-3-|&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">expected</span><span style="color: #000000"> = </span><span style="color: #A31515">&quot;   -2-4-6-|&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">  </span><span style="color: #795E26">expectObservable</span><span style="color: #000000">(</span><span style="color: #001080">source</span><span style="color: #000000">.</span><span style="color: #795E26">pipe</span><span style="color: #000000">(</span><span style="color: #795E26">double</span><span style="color: #000000">())).</span><span style="color: #795E26">toBe</span><span style="color: #000000">(</span><span style="color: #001080">expected</span><span style="color: #000000">);</span>
+<span style="color: #000000">}));</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1125,26 +1091,27 @@ expectSingleCallAndReset(spy, <span class="hljs-number">3</span>); <span class="
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/precompile-for-tests.ts#L35">projects/ng-dev/src/lib/precompile-for-tests.ts:35</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/precompile-for-tests.ts#L35">lib/precompile-for-tests.ts:35</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Use this to speed up your angular test suite. Normally when you call <code>TestBed.compileComponents()</code>, it recompiles all the configured components even if it has compiled them before in a previous test. AoT compilation would be a great fix, but is not well supported/documented for tests yet. This function fills the gap by precompiling the components as if by AoT and setting up <code>TestBed</code> to use them.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-comment">// let&#x27;s assume `AppModule` declares or imports a `HelloWorldComponent`</span>
-precompileForTests([AppModule]);
+							<pre><code class="language-ts"><span style="color: #008000">// let&#039;s assume `AppModule` declares or imports a `HelloWorldComponent`</span>
+<span style="color: #795E26">precompileForTests</span><span style="color: #000000">([</span><span style="color: #001080">AppModule</span><span style="color: #000000">]);</span>
 
-<span class="hljs-comment">// Everything below here is the same as normal. Just add the line above.</span>
+<span style="color: #008000">// Everything below here is the same as normal. Just add the line above.</span>
 
-describe(<span class="hljs-string">&quot;AppComponent&quot;</span>, <span class="hljs-function">() =&gt;</span> {
-  it(<span class="hljs-string">&quot;says hello&quot;</span>, <span class="hljs-keyword">async</span> () =&gt; {
-    TestBed.configureTestingModule({ <span class="hljs-attr">declarations</span>: [HelloWorldComponent] });
-    <span class="hljs-keyword">await</span> TestBed.compileComponents(); <span class="hljs-comment">// &lt;- this line is faster</span>
-    <span class="hljs-keyword">const</span> fixture = TestBed.createComponent(HelloWorldComponent);
-    expect(fixture.nativeElement.textContent).toContain(<span class="hljs-string">&quot;Hello, world!&quot;</span>);
-  });
-});</code></pre>
+<span style="color: #795E26">describe</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;AppComponent&quot;</span><span style="color: #000000">, () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">it</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;says hello&quot;</span><span style="color: #000000">, </span><span style="color: #0000FF">async</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">TestBed</span><span style="color: #000000">.</span><span style="color: #795E26">configureTestingModule</span><span style="color: #000000">({ </span><span style="color: #001080">declarations:</span><span style="color: #000000"> [</span><span style="color: #001080">HelloWorldComponent</span><span style="color: #000000">] });</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">TestBed</span><span style="color: #000000">.</span><span style="color: #795E26">compileComponents</span><span style="color: #000000">(); </span><span style="color: #008000">// &lt;- this line is faster</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fixture</span><span style="color: #000000"> = </span><span style="color: #001080">TestBed</span><span style="color: #000000">.</span><span style="color: #795E26">createComponent</span><span style="color: #000000">(</span><span style="color: #001080">HelloWorldComponent</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #795E26">expect</span><span style="color: #000000">(</span><span style="color: #001080">fixture</span><span style="color: #000000">.</span><span style="color: #001080">nativeElement</span><span style="color: #000000">.</span><span style="color: #001080">textContent</span><span style="color: #000000">).</span><span style="color: #795E26">toContain</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Hello, world!&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">  });</span>
+<span style="color: #000000">});</span>
+</code></pre>
 							<p>Note that this uses <code>TestBed.initTestEnvironment</code> to set up the precompiled components, so you will not be able to use it yourself at the same time.</p>
 							<dl class="tsd-comment-tags">
 								<dt>deprecated</dt>
@@ -1165,7 +1132,7 @@ describe(<span class="hljs-string">&quot;AppComponent&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/trim-leftover-styles.ts#L15">projects/ng-dev/src/lib/trim-leftover-styles.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/trim-leftover-styles.ts#L14">lib/trim-leftover-styles.ts:14</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1173,9 +1140,10 @@ describe(<span class="hljs-string">&quot;AppComponent&quot;</span>, <span class=
 								<p>When called at the right times, this speeds up your test suite by removing <code>&lt;script&gt;</code> tags that Angular component tests leave in the DOM. By default Angular dynamically adds <code>&lt;script&gt;</code> tags into the <code>&lt;head&gt;</code> of the document corresponding to component styles. In Jasmine tests they are never cleaned up. This can cause hundreds or even thousands of style tags to accumulate, making component tests slow down as your test suite runs. In Chrome debugger&#39;s performance tab, this time will show up under the activity &quot;Recalculate Style&quot;.</p>
 							</div>
 							<p>The first time this function is called it memorizes the <code>&lt;script&gt;</code> tags in the DOM, then each time it is called after it removes any that appeared since. A simple way to use this effectively is to call it in a <code>beforeEach()</code>.</p>
-							<pre><code class="language-ts">beforeEach(<span class="hljs-function">() =&gt;</span> {
-  trimLeftoverStyles();
-});</code></pre>
+							<pre><code class="language-ts"><span style="color: #795E26">beforeEach</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">trimLeftoverStyles</span><span style="color: #000000">();</span>
+<span style="color: #000000">});</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>

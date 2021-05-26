@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.0.0](https://github.com/simontonsoftware/s-libs/compare/v12.0.0-next.1...v12.0.0) (2021-05-26)
+
+### Features
+
+- **js-core:** Typing for `MigrateFunction` and `VersionedObject` are available from the package root ([4e50072](https://github.com/simontonsoftware/s-libs/commit/4e500720f3fea00fd2707cf5fddf986bd63459c1))
+
 ## [12.0.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v12.0.0-next.0...v12.0.0-next.1) (2021-05-23)
 
 ### Bug Fixes

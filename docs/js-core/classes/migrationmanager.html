@@ -877,6 +877,9 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-enum">
 			<a href="../enums/timeunit.html" class="tsd-kind-icon">Time<wbr>Unit</a>
 		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="callableobject.html" class="tsd-kind-icon">Callable<wbr>Object</a>
+		</li>
 		<li class=" tsd-kind-class">
 			<a href="debouncer.html" class="tsd-kind-icon">Debouncer</a>
 		</li>
@@ -886,6 +889,9 @@ img { max-width: 100%; }
 		<li class="current tsd-kind-class tsd-has-type-parameter">
 			<a href="migrationmanager.html" class="tsd-kind-icon">Migration<wbr>Manager</a>
 			<ul>
+				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
+					<a href="migrationmanager.html#constructor" class="tsd-kind-icon">constructor</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 					<a href="migrationmanager.html#onerror" class="tsd-kind-icon">on<wbr>Error</a>
 				</li>
@@ -988,27 +994,28 @@ img { max-width: 100%; }
 					<p>Use to migrate &quot;versioned objects&quot; from an old version to the latest. This is useful e.g. when keeping state in <code>Persistence</code>, and you release a new version of your app that changes its format.</p>
 				</div>
 				<p>For example, say your app persists an object with the shape <code>{ _version: 3, key_1: string }</code>. You change your code to remove the underscore from <code>key_1</code>, so you want to migrate data on users&#39; machines accordingly. Bump your version to 4 and use <code>MigrationManager</code> like this:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">interface</span> MyData <span class="hljs-keyword">extends</span> VersionedObject {
-  <span class="hljs-attr">_version</span>: <span class="hljs-built_in">number</span>;
-  key1: <span class="hljs-built_in">string</span>;
-}
+				<pre><code class="language-ts"><span style="color: #0000FF">interface</span><span style="color: #000000"> </span><span style="color: #267F99">MyData</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">VersionedObject</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">_version</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">key1</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-comment">// simulate old data in the previous format</span>
-<span class="hljs-keyword">const</span> persistence = <span class="hljs-keyword">new</span> Persistence&lt;MyData&gt;(<span class="hljs-string">&#x27;my key&#x27;</span>);
-persistence.put({ <span class="hljs-attr">_version</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">key_1</span>: <span class="hljs-string">&#x27;my string&#x27;</span> } <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>);
+<span style="color: #008000">// simulate old data in the previous format</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">persistence</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">Persistence</span><span style="color: #000000">&lt;</span><span style="color: #267F99">MyData</span><span style="color: #000000">&gt;(</span><span style="color: #A31515">&#039;my key&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">persistence</span><span style="color: #000000">.</span><span style="color: #795E26">put</span><span style="color: #000000">({ </span><span style="color: #001080">_version:</span><span style="color: #000000"> </span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #001080">key_1:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;my string&#039;</span><span style="color: #000000"> } </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #267F99">any</span><span style="color: #000000">);</span>
 
-<span class="hljs-keyword">const</span> migrater = <span class="hljs-keyword">new</span> MigrationManager&lt;MyData&gt;();
-migrater.registerMigration(<span class="hljs-number">3</span>, <span class="hljs-function">(<span class="hljs-params">oldObject: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
-  <span class="hljs-keyword">return</span> { <span class="hljs-attr">_version</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">key1</span>: oldObject.key_1 };
-});
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">migrater</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">MigrationManager</span><span style="color: #000000">&lt;</span><span style="color: #267F99">MyData</span><span style="color: #000000">&gt;();</span>
+<span style="color: #001080">migrater</span><span style="color: #000000">.</span><span style="color: #795E26">registerMigration</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">, (</span><span style="color: #001080">oldObject</span><span style="color: #000000">: </span><span style="color: #267F99">any</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> { </span><span style="color: #001080">_version:</span><span style="color: #000000"> </span><span style="color: #098658">4</span><span style="color: #000000">, </span><span style="color: #001080">key1:</span><span style="color: #000000"> </span><span style="color: #001080">oldObject</span><span style="color: #000000">.</span><span style="color: #001080">key_1</span><span style="color: #000000"> };</span>
+<span style="color: #000000">});</span>
 
-<span class="hljs-keyword">const</span> defaultData = { <span class="hljs-attr">_version</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">key1</span>: <span class="hljs-string">&#x27;default value&#x27;</span> };
-migrater.run(persistence, defaultData);
-<span class="hljs-comment">// ^ returns { _version: 4, key1: &#x27;my string&#x27; }</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">defaultData</span><span style="color: #000000"> = { </span><span style="color: #001080">_version:</span><span style="color: #000000"> </span><span style="color: #098658">4</span><span style="color: #000000">, </span><span style="color: #001080">key1:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;default value&#039;</span><span style="color: #000000"> };</span>
+<span style="color: #001080">migrater</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(</span><span style="color: #001080">persistence</span><span style="color: #000000">, </span><span style="color: #001080">defaultData</span><span style="color: #000000">);</span>
+<span style="color: #008000">// ^ returns { _version: 4, key1: &#039;my string&#039; }</span>
 
-persistence.clear();
-migrater.run(persistence, defaultData);
-<span class="hljs-comment">// ^ returns defaultData</span></code></pre>
+<span style="color: #001080">persistence</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">();</span>
+<span style="color: #001080">migrater</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(</span><span style="color: #001080">persistence</span><span style="color: #000000">, </span><span style="color: #001080">defaultData</span><span style="color: #000000">);</span>
+<span style="color: #008000">// ^ returns defaultData</span>
+</code></pre>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-type-parameters">
@@ -1032,6 +1039,12 @@ migrater.run(persistence, defaultData);
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
+						<h3>Constructors</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter"><a href="migrationmanager.html#constructor" class="tsd-kind-icon">constructor</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="migrationmanager.html#onerror" class="tsd-kind-icon">on<wbr>Error</a></li>
@@ -1041,6 +1054,22 @@ migrater.run(persistence, defaultData);
 						</ul>
 					</section>
 				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Constructors</h2>
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
+				<a name="constructor" class="tsd-anchor"></a>
+				<h3>constructor</h3>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Migration<wbr>Manager&lt;T&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="migrationmanager.html" class="tsd-signature-type">MigrationManager</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+					</li>
+				</ul>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
@@ -1055,7 +1084,7 @@ migrater.run(persistence, defaultData);
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/migration-manager.ts#L136">projects/js-core/src/lib/migration-manager.ts:136</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/migration-manager.ts#L136">lib/migration-manager.ts:136</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1072,13 +1101,13 @@ migrater.run(persistence, defaultData);
 				<a name="registermigration" class="tsd-anchor"></a>
 				<h3>register<wbr>Migration</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">register<wbr>Migration<span class="tsd-signature-symbol">(</span>sourceVersion<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, migrateFunction<span class="tsd-signature-symbol">: </span><a href="../index.html#migratefunction" class="tsd-signature-type">MigrateFunction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">register<wbr>Migration<span class="tsd-signature-symbol">(</span>sourceVersion<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, migrateFunction<span class="tsd-signature-symbol">: </span><a href="../index.html#migratefunction" class="tsd-signature-type">MigrateFunction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/migration-manager.ts#L119">projects/js-core/src/lib/migration-manager.ts:119</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/migration-manager.ts#L119">lib/migration-manager.ts:119</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1087,17 +1116,18 @@ migrater.run(persistence, defaultData);
 							</div>
 							<p>Use <code>undefined</code> as the <code>sourceVersion</code> to handle migrations from a legacy format that did not have the <code>_version</code> key.</p>
 							<p><code>migrateFunction</code> will be called with the migration manager itself as <code>this</code>. That allows subclasses to pass in methods as a migration function without any special binding. E.g.:</p>
-							<pre><code class="language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MigrationService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">MigrationManager</span>&lt;<span class="hljs-title">MyState</span>&gt; </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> messaging: MessagingService</span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">this</span>.registerMigration(<span class="hljs-number">1</span>, <span class="hljs-built_in">this</span>.migrateFrom1); <span class="hljs-comment">// no special binding</span>
-  }
+							<pre><code class="language-ts"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">MigrationService</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">MigrationManager</span><span style="color: #000000">&lt;</span><span style="color: #267F99">MyState</span><span style="color: #000000">&gt; {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">constructor</span><span style="color: #000000">(</span><span style="color: #0000FF">private</span><span style="color: #000000"> </span><span style="color: #001080">messaging</span><span style="color: #000000">: </span><span style="color: #267F99">MessagingService</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">super</span><span style="color: #000000">();</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #795E26">registerMigration</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">migrateFrom1</span><span style="color: #000000">); </span><span style="color: #008000">// no special binding</span>
+<span style="color: #000000">  }</span>
 
-  <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">migrateFrom1</span>(<span class="hljs-params">source: MyState</span>)</span> {
-    <span class="hljs-built_in">this</span>.messaging.show(<span class="hljs-string">&quot;You&#x27;ve been upgraded!&quot;</span>); <span class="hljs-comment">// you can still use `this`</span>
-    <span class="hljs-keyword">return</span> { ...source, <span class="hljs-attr">_version</span>: <span class="hljs-number">2</span> };
-  }
-}</code></pre>
+<span style="color: #000000">  </span><span style="color: #0000FF">private</span><span style="color: #000000"> </span><span style="color: #795E26">migrateFrom1</span><span style="color: #000000">(</span><span style="color: #001080">source</span><span style="color: #000000">: </span><span style="color: #267F99">MyState</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">messaging</span><span style="color: #000000">.</span><span style="color: #795E26">show</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;You&#039;ve been upgraded!&quot;</span><span style="color: #000000">); </span><span style="color: #008000">// you can still use `this`</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> { ...</span><span style="color: #001080">source</span><span style="color: #000000">, </span><span style="color: #001080">_version:</span><span style="color: #000000"> </span><span style="color: #098658">2</span><span style="color: #000000"> };</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1112,7 +1142,7 @@ migrater.run(persistence, defaultData);
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/migration-manager.ts#L53">projects/js-core/src/lib/migration-manager.ts:53</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/migration-manager.ts#L53">lib/migration-manager.ts:53</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1134,7 +1164,7 @@ migrater.run(persistence, defaultData);
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/migration-manager.ts#L77">projects/js-core/src/lib/migration-manager.ts:77</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/migration-manager.ts#L77">lib/migration-manager.ts:77</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

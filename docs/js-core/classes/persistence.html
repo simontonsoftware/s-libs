@@ -877,6 +877,9 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-enum">
 			<a href="../enums/timeunit.html" class="tsd-kind-icon">Time<wbr>Unit</a>
 		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="callableobject.html" class="tsd-kind-icon">Callable<wbr>Object</a>
+		</li>
 		<li class=" tsd-kind-class">
 			<a href="debouncer.html" class="tsd-kind-icon">Debouncer</a>
 		</li>
@@ -889,7 +892,7 @@ img { max-width: 100%; }
 		<li class="current tsd-kind-class tsd-has-type-parameter">
 			<a href="persistence.html" class="tsd-kind-icon">Persistence</a>
 			<ul>
-				<li class=" tsd-kind-constructor tsd-parent-kind-class">
+				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
 					<a href="persistence.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -988,15 +991,16 @@ img { max-width: 100%; }
 					<p>Get and put objects from/to local storage. They will be (de)serialized as JSON, so be sure that&#39;s OK for your objects.</p>
 				</div>
 				<p>If localStorage is not available, all methods essentially act as noops.</p>
-				<pre><code class="language-ts"> <span class="hljs-comment">// if &#x27;my key&#x27; has never been used before</span>
- <span class="hljs-keyword">const</span> persistence = <span class="hljs-keyword">new</span> Persistence(<span class="hljs-string">&#x27;my key&#x27;</span>);
- persistence.get(); <span class="hljs-comment">// returns `undefined`</span>
+				<pre><code class="language-ts"><span style="color: #000000"> </span><span style="color: #008000">// if &#039;my key&#039; has never been used before</span>
+<span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">persistence</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">Persistence</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;my key&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000"> </span><span style="color: #001080">persistence</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(); </span><span style="color: #008000">// returns `undefined`</span>
 
- <span class="hljs-comment">// now you set it</span>
- persistence.put({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Robert&#x27;</span> });
+<span style="color: #000000"> </span><span style="color: #008000">// now you set it</span>
+<span style="color: #000000"> </span><span style="color: #001080">persistence</span><span style="color: #000000">.</span><span style="color: #795E26">put</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Robert&#039;</span><span style="color: #000000"> });</span>
 
- <span class="hljs-comment">// this will work even after the app reloads (e.g. the next week)</span>
- persistence.get(); <span class="hljs-comment">// returns { name: &#x27;Robert&#x27; }</span></code></pre>
+<span style="color: #000000"> </span><span style="color: #008000">// this will work even after the app reloads (e.g. the next week)</span>
+<span style="color: #000000"> </span><span style="color: #001080">persistence</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(); </span><span style="color: #008000">// returns { name: &#039;Robert&#039; }</span>
+</code></pre>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-type-parameters">
@@ -1022,7 +1026,7 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="persistence.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter"><a href="persistence.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -1038,21 +1042,19 @@ img { max-width: 100%; }
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Constructors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
-				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Persistence<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="persistence.html" class="tsd-signature-type">Persistence</a></li>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Persistence&lt;T&gt;<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="persistence.html" class="tsd-signature-type">Persistence</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L18">projects/js-core/src/lib/persistence.ts:18</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L18">lib/persistence.ts:18</a></li>
 							</ul>
 						</aside>
-						<div class="tsd-comment tsd-typography">
-						</div>
 					</li>
 				</ul>
 			</section>
@@ -1069,7 +1071,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L42">projects/js-core/src/lib/persistence.ts:42</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L42">lib/persistence.ts:42</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1090,7 +1092,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L34">projects/js-core/src/lib/persistence.ts:34</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L34">lib/persistence.ts:34</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1111,7 +1113,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L27">projects/js-core/src/lib/persistence.ts:27</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/persistence.ts#L27">lib/persistence.ts:27</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

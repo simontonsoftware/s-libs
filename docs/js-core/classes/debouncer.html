@@ -877,9 +877,15 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-enum">
 			<a href="../enums/timeunit.html" class="tsd-kind-icon">Time<wbr>Unit</a>
 		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="callableobject.html" class="tsd-kind-icon">Callable<wbr>Object</a>
+		</li>
 		<li class="current tsd-kind-class">
 			<a href="debouncer.html" class="tsd-kind-icon">Debouncer</a>
 			<ul>
+				<li class=" tsd-kind-constructor tsd-parent-kind-class">
+					<a href="debouncer.html#constructor" class="tsd-kind-icon">constructor</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="debouncer.html#cancel" class="tsd-kind-icon">cancel</a>
 				</li>
@@ -981,22 +987,23 @@ img { max-width: 100%; }
 				<div class="lead">
 					<p>Like a standard debounce from e.g. <code>micro-dash</code>, but can execute a different function for a different wait period at each invocation.</p>
 				</div>
-				<pre><code class="language-ts"><span class="hljs-keyword">const</span> print = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(value);
-<span class="hljs-keyword">const</span> debouncer = <span class="hljs-keyword">new</span> Debouncer();
+				<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">print</span><span style="color: #000000"> = (</span><span style="color: #001080">value</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">debouncer</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">Debouncer</span><span style="color: #000000">();</span>
 
-debouncer.run(print, <span class="hljs-number">1000</span>, <span class="hljs-number">1</span>);
-<span class="hljs-keyword">await</span> sleep(<span class="hljs-number">500</span>);
+<span style="color: #001080">debouncer</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(</span><span style="color: #001080">print</span><span style="color: #000000">, </span><span style="color: #098658">1000</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">);</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">sleep</span><span style="color: #000000">(</span><span style="color: #098658">500</span><span style="color: #000000">);</span>
 
-debouncer.run(print, <span class="hljs-number">1000</span>, <span class="hljs-number">2</span>);
-<span class="hljs-keyword">await</span> sleep(<span class="hljs-number">1000</span>); <span class="hljs-comment">// prints &quot;2&quot;</span>
+<span style="color: #001080">debouncer</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(</span><span style="color: #001080">print</span><span style="color: #000000">, </span><span style="color: #098658">1000</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">sleep</span><span style="color: #000000">(</span><span style="color: #098658">1000</span><span style="color: #000000">); </span><span style="color: #008000">// prints &quot;2&quot;</span>
 
-debouncer.run(print, <span class="hljs-number">0</span>, <span class="hljs-number">3</span>);
-debouncer.run(print, <span class="hljs-number">1000</span>, <span class="hljs-number">4</span>);
-<span class="hljs-keyword">await</span> sleep(<span class="hljs-number">500</span>);
+<span style="color: #001080">debouncer</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(</span><span style="color: #001080">print</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">debouncer</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(</span><span style="color: #001080">print</span><span style="color: #000000">, </span><span style="color: #098658">1000</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">);</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">sleep</span><span style="color: #000000">(</span><span style="color: #098658">500</span><span style="color: #000000">);</span>
 
-debouncer.run(print, <span class="hljs-number">2000</span>, <span class="hljs-number">5</span>);
-debouncer.run(print, <span class="hljs-number">50</span>, <span class="hljs-number">6</span>);
-<span class="hljs-keyword">await</span> sleep(<span class="hljs-number">50</span>); <span class="hljs-comment">// prints &quot;6&quot;</span></code></pre>
+<span style="color: #001080">debouncer</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(</span><span style="color: #001080">print</span><span style="color: #000000">, </span><span style="color: #098658">2000</span><span style="color: #000000">, </span><span style="color: #098658">5</span><span style="color: #000000">);</span>
+<span style="color: #001080">debouncer</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(</span><span style="color: #001080">print</span><span style="color: #000000">, </span><span style="color: #098658">50</span><span style="color: #000000">, </span><span style="color: #098658">6</span><span style="color: #000000">);</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">sleep</span><span style="color: #000000">(</span><span style="color: #098658">50</span><span style="color: #000000">); </span><span style="color: #008000">// prints &quot;6&quot;</span>
+</code></pre>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
@@ -1012,6 +1019,12 @@ debouncer.run(print, <span class="hljs-number">50</span>, <span class="hljs-numb
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
+						<h3>Constructors</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="debouncer.html#constructor" class="tsd-kind-icon">constructor</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="debouncer.html#cancel" class="tsd-kind-icon">cancel</a></li>
@@ -1019,6 +1032,22 @@ debouncer.run(print, <span class="hljs-number">50</span>, <span class="hljs-numb
 						</ul>
 					</section>
 				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Constructors</h2>
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<a name="constructor" class="tsd-anchor"></a>
+				<h3>constructor</h3>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Debouncer<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="debouncer.html" class="tsd-signature-type">Debouncer</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+					</li>
+				</ul>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
@@ -1033,7 +1062,7 @@ debouncer.run(print, <span class="hljs-number">50</span>, <span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/debouncer.ts#L35">projects/js-core/src/lib/time/debouncer.ts:35</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/debouncer.ts#L35">lib/time/debouncer.ts:35</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1049,7 +1078,7 @@ debouncer.run(print, <span class="hljs-number">50</span>, <span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/debouncer.ts#L26">projects/js-core/src/lib/time/debouncer.ts:26</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/debouncer.ts#L26">lib/time/debouncer.ts:26</a></li>
 							</ul>
 						</aside>
 					</li>

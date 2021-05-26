@@ -877,6 +877,9 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-enum">
 			<a href="enums/timeunit.html" class="tsd-kind-icon">Time<wbr>Unit</a>
 		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="classes/callableobject.html" class="tsd-kind-icon">Callable<wbr>Object</a>
+		</li>
 		<li class=" tsd-kind-class">
 			<a href="classes/debouncer.html" class="tsd-kind-icon">Debouncer</a>
 		</li>
@@ -981,6 +984,7 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Classes</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/callableobject.html" class="tsd-kind-icon">Callable<wbr>Object</a></li>
 							<li class="tsd-kind-class"><a href="classes/debouncer.html" class="tsd-kind-icon">Debouncer</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/deferred.html" class="tsd-kind-icon">Deferred</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/migrationmanager.html" class="tsd-kind-icon">Migration<wbr>Manager</a></li>
@@ -1035,10 +1039,10 @@ img { max-width: 100%; }
 			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>Constructor</h3>
-				<div class="tsd-signature tsd-kind-icon">Constructor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+				<div class="tsd-signature tsd-kind-icon">Constructor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/constructor.ts#L4">projects/js-core/src/lib/objects/constructor.ts:4</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/constructor.ts#L5">lib/objects/constructor.ts:5</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1053,7 +1057,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Migrate<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/migration-manager.ts#L14">projects/js-core/src/lib/migration-manager.ts:14</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/migration-manager.ts#L14">lib/migration-manager.ts:14</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1069,13 +1073,13 @@ img { max-width: 100%; }
 				<a name="assert" class="tsd-anchor"></a>
 				<h3>assert</h3>
 				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">assert<span class="tsd-signature-symbol">(</span>condition<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">condition</span></li>
+					<li class="tsd-signature tsd-kind-icon">assert<span class="tsd-signature-symbol">(</span>condition<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">condition</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/assert.ts#L19">projects/js-core/src/lib/assert.ts:19</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/assert.ts#L19">lib/assert.ts:19</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1096,15 +1100,16 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/time-utils.ts#L108">projects/js-core/src/lib/time/time-utils.ts:108</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/time-utils.ts#L107">lib/time/time-utils.ts:107</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Converts time between two units. Units can be any value described in the docs for <a href="enums/timeunit.html">TimeUnit</a>.</p>
 							</div>
-							<pre><code class="language-ts">convertTime(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;s&#x27;</span>, <span class="hljs-string">&#x27;ms&#x27;</span>); <span class="hljs-comment">// 1000</span>
-convertTime(<span class="hljs-number">20</span>, TimeUnit.Decades, TimeUnit.Centuries); <span class="hljs-comment">// 2</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #795E26">convertTime</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;s&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;ms&#039;</span><span style="color: #000000">); </span><span style="color: #008000">// 1000</span>
+<span style="color: #795E26">convertTime</span><span style="color: #000000">(</span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #001080">TimeUnit</span><span style="color: #000000">.</span><span style="color: #001080">Decades</span><span style="color: #000000">, </span><span style="color: #001080">TimeUnit</span><span style="color: #000000">.</span><span style="color: #001080">Centuries</span><span style="color: #000000">); </span><span style="color: #008000">// 2</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1113,40 +1118,41 @@ convertTime(<span class="hljs-number">20</span>, TimeUnit.Decades, TimeUnit.Cent
 				<a name="createbuilder" class="tsd-anchor"></a>
 				<h3>create<wbr>Builder</h3>
 				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">create<wbr>Builder&lt;T, OptionsType&gt;<span class="tsd-signature-symbol">(</span>buildDefaults<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, afterBuild<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
+					<li class="tsd-signature tsd-kind-icon">create<wbr>Builder&lt;T, OptionsType&gt;<span class="tsd-signature-symbol">(</span>buildDefaults<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, afterBuild<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/create-builder.ts#L31">projects/js-core/src/lib/objects/create-builder.ts:31</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/create-builder.ts#L30">lib/objects/create-builder.ts:30</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Creates a factory function for building objects of a given type. Commonly used to create test objects for use in specs.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">interface</span> Message {
-  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
-  text: <span class="hljs-built_in">string</span>;
-}
+							<pre><code class="language-ts"><span style="color: #0000FF">interface</span><span style="color: #000000"> </span><span style="color: #267F99">Message</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">id</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">text</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-keyword">interface</span> Options {
-  <span class="hljs-attr">cypherDistance</span>: <span class="hljs-built_in">number</span>;
-}
+<span style="color: #0000FF">interface</span><span style="color: #000000"> </span><span style="color: #267F99">Options</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">cypherDistance</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shiftCharacters</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, distance: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span></span>;
+<span style="color: #0000FF">declare</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">shiftCharacters</span><span style="color: #000000">(</span><span style="color: #001080">text</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #001080">distance</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">): </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
 
-<span class="hljs-keyword">const</span> buildMessage = createBuilder&lt;Message, Options&gt;(
-  <span class="hljs-function">(<span class="hljs-params">seq</span>) =&gt;</span> ({ <span class="hljs-attr">id</span>: seq, <span class="hljs-attr">text</span>: <span class="hljs-string">`message <span class="hljs-subst">${seq}</span>`</span> }),
-  <span class="hljs-function">(<span class="hljs-params">message, _seq, options</span>) =&gt;</span> {
-    message.text = shiftCharacters(message.text, options.cypherDistance || <span class="hljs-number">0</span>);
-  },
-);
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">buildMessage</span><span style="color: #000000"> = </span><span style="color: #795E26">createBuilder</span><span style="color: #000000">&lt;</span><span style="color: #267F99">Message</span><span style="color: #000000">, </span><span style="color: #267F99">Options</span><span style="color: #000000">&gt;(</span>
+<span style="color: #000000">  (</span><span style="color: #001080">seq</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> ({ </span><span style="color: #001080">id:</span><span style="color: #000000"> </span><span style="color: #001080">seq</span><span style="color: #000000">, </span><span style="color: #001080">text:</span><span style="color: #000000"> </span><span style="color: #A31515">`message </span><span style="color: #0000FF">${</span><span style="color: #001080">seq</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000"> }),</span>
+<span style="color: #000000">  (</span><span style="color: #001080">message</span><span style="color: #000000">, </span><span style="color: #001080">_seq</span><span style="color: #000000">, </span><span style="color: #001080">options</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">text</span><span style="color: #000000"> = </span><span style="color: #795E26">shiftCharacters</span><span style="color: #000000">(</span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">text</span><span style="color: #000000">, </span><span style="color: #001080">options</span><span style="color: #000000">.</span><span style="color: #001080">cypherDistance</span><span style="color: #000000"> || </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">);</span>
 
-buildMessage(); <span class="hljs-comment">// { id: 1, text: &quot;message 1&quot; }</span>
-buildMessage({ <span class="hljs-attr">text</span>: <span class="hljs-string">&quot;Hello world!&quot;</span> }); <span class="hljs-comment">// { id: 2, text: &quot;Hello world!&quot; }</span>
-buildMessage({ <span class="hljs-attr">text</span>: <span class="hljs-string">&quot;abc&quot;</span> }, { <span class="hljs-attr">cypherDistance</span>: <span class="hljs-number">3</span> }); <span class="hljs-comment">// { id: 3, text: &quot;def&quot; }</span></code></pre>
+<span style="color: #795E26">buildMessage</span><span style="color: #000000">(); </span><span style="color: #008000">// { id: 1, text: &quot;message 1&quot; }</span>
+<span style="color: #795E26">buildMessage</span><span style="color: #000000">({ </span><span style="color: #001080">text:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;Hello world!&quot;</span><span style="color: #000000"> }); </span><span style="color: #008000">// { id: 2, text: &quot;Hello world!&quot; }</span>
+<span style="color: #795E26">buildMessage</span><span style="color: #000000">({ </span><span style="color: #001080">text:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;abc&quot;</span><span style="color: #000000"> }, { </span><span style="color: #001080">cypherDistance:</span><span style="color: #000000"> </span><span style="color: #098658">3</span><span style="color: #000000"> }); </span><span style="color: #008000">// { id: 3, text: &quot;def&quot; }</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1161,16 +1167,17 @@ buildMessage({ <span class="hljs-attr">text</span>: <span class="hljs-string">&q
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/time-utils.ts#L127">projects/js-core/src/lib/time/time-utils.ts:127</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/time-utils.ts#L126">lib/time/time-utils.ts:126</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Constructs a string representation of an elapsed amount of time. The least significant unit will be rounded to the nearest whole number.</p>
 							</div>
-							<pre><code class="language-ts">elapsedToString(<span class="hljs-number">2001</span>, [<span class="hljs-string">&quot;s&quot;</span>, <span class="hljs-string">&quot;ms&quot;</span>]); <span class="hljs-comment">// &quot;2 s 1 ms&quot;</span>
-elapsedToString(<span class="hljs-number">15</span>, [<span class="hljs-string">&quot;wks&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>], ( elapsedUnit: TimeUnit.Days }); <span class="hljs-comment">// &quot;2 wks 1 d&quot;</span>
-elapsedToString(<span class="hljs-number">1</span>, [TimeUnit.Microseconds]); <span class="hljs-comment">// &quot;1000 μs&quot;</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #795E26">elapsedToString</span><span style="color: #000000">(</span><span style="color: #098658">2001</span><span style="color: #000000">, [</span><span style="color: #A31515">&quot;s&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;ms&quot;</span><span style="color: #000000">]); </span><span style="color: #008000">// &quot;2 s 1 ms&quot;</span>
+<span style="color: #795E26">elapsedToString</span><span style="color: #000000">(</span><span style="color: #098658">15</span><span style="color: #000000">, [</span><span style="color: #A31515">&quot;wks&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;d&quot;</span><span style="color: #000000">], ( </span><span style="color: #001080">elapsedUnit</span><span style="color: #000000">: </span><span style="color: #267F99">TimeUnit</span><span style="color: #000000">.</span><span style="color: #267F99">Days</span><span style="color: #000000"> }); </span><span style="color: #008000">// &quot;2 wks 1 d&quot;</span>
+<span style="color: #000000">elapsedToString(1, [</span><span style="color: #001080">TimeUnit</span><span style="color: #000000">.</span><span style="color: #001080">Microseconds</span><span style="color: #000000">]); </span><span style="color: #008000">// &quot;1000 μs&quot;</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1185,17 +1192,18 @@ elapsedToString(<span class="hljs-number">1</span>, [TimeUnit.Microseconds]); <s
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-defined.ts#L13">projects/js-core/src/lib/predicates/is-defined.ts:13</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-defined.ts#L13">lib/predicates/is-defined.ts:13</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Checks if <code>value</code> is anything other than <code>undefined</code>.</p>
 							</div>
-							<pre><code class="language-ts">isDefined({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> }); <span class="hljs-comment">// true</span>
-isDefined(<span class="hljs-literal">false</span>); <span class="hljs-comment">// true</span>
-isDefined(<span class="hljs-literal">null</span>); <span class="hljs-comment">// true</span>
-isDefined(<span class="hljs-literal">undefined</span>); <span class="hljs-comment">// false</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #795E26">isDefined</span><span style="color: #000000">({ </span><span style="color: #001080">a:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000"> }); </span><span style="color: #008000">// true</span>
+<span style="color: #795E26">isDefined</span><span style="color: #000000">(</span><span style="color: #0000FF">false</span><span style="color: #000000">); </span><span style="color: #008000">// true</span>
+<span style="color: #795E26">isDefined</span><span style="color: #000000">(</span><span style="color: #0000FF">null</span><span style="color: #000000">); </span><span style="color: #008000">// true</span>
+<span style="color: #795E26">isDefined</span><span style="color: #000000">(</span><span style="color: #0000FF">undefined</span><span style="color: #000000">); </span><span style="color: #008000">// false</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1210,29 +1218,30 @@ isDefined(<span class="hljs-literal">undefined</span>); <span class="hljs-commen
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-equal-at-depth.ts#L25">projects/js-core/src/lib/predicates/is-equal-at-depth.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-equal-at-depth.ts#L25">lib/predicates/is-equal-at-depth.ts:25</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Performs a deep comparison between two values to determine if they are equivalent, up to the given depth. Once that depth is reached, remaining values are compared using <code>Object.is()</code>.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">let</span> object1 = <span class="hljs-string">&quot;a&quot;</span>;
-<span class="hljs-keyword">let</span> object2 = <span class="hljs-string">&quot;a&quot;</span>;
-isEqualAtDepth(<span class="hljs-number">0</span>, object1, object2); <span class="hljs-comment">// true</span>
-isEqualAtDepth(<span class="hljs-number">1</span>, object1, object2); <span class="hljs-comment">// true</span>
+							<pre><code class="language-ts"><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">object1</span><span style="color: #000000"> = </span><span style="color: #A31515">&quot;a&quot;</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">object2</span><span style="color: #000000"> = </span><span style="color: #A31515">&quot;a&quot;</span><span style="color: #000000">;</span>
+<span style="color: #795E26">isEqualAtDepth</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #001080">object1</span><span style="color: #000000">, </span><span style="color: #001080">object2</span><span style="color: #000000">); </span><span style="color: #008000">// true</span>
+<span style="color: #795E26">isEqualAtDepth</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #001080">object1</span><span style="color: #000000">, </span><span style="color: #001080">object2</span><span style="color: #000000">); </span><span style="color: #008000">// true</span>
 
-<span class="hljs-keyword">let</span> object1 = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> };
-<span class="hljs-keyword">let</span> object2 = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> };
-isEqualAtDepth(<span class="hljs-number">0</span>, object1, object2); <span class="hljs-comment">// false</span>
-isEqualAtDepth(<span class="hljs-number">1</span>, object1, object2); <span class="hljs-comment">// true</span>
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">object1</span><span style="color: #000000"> = { </span><span style="color: #001080">a:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000"> };</span>
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">object2</span><span style="color: #000000"> = { </span><span style="color: #001080">a:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000"> };</span>
+<span style="color: #795E26">isEqualAtDepth</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #001080">object1</span><span style="color: #000000">, </span><span style="color: #001080">object2</span><span style="color: #000000">); </span><span style="color: #008000">// false</span>
+<span style="color: #795E26">isEqualAtDepth</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #001080">object1</span><span style="color: #000000">, </span><span style="color: #001080">object2</span><span style="color: #000000">); </span><span style="color: #008000">// true</span>
 
-object1 = { <span class="hljs-attr">a</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-attr">d</span>: { <span class="hljs-attr">e</span>: <span class="hljs-number">1</span> } };
-object2 = { <span class="hljs-attr">a</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-attr">d</span>: { <span class="hljs-attr">e</span>: <span class="hljs-number">1</span> } };
-isEqualAtDepth(<span class="hljs-number">0</span>, object1, object2); <span class="hljs-comment">// false</span>
-isEqualAtDepth(<span class="hljs-number">1</span>, object1, object2); <span class="hljs-comment">// false</span>
-isEqualAtDepth(<span class="hljs-number">2</span>, object1, object2); <span class="hljs-comment">// true</span>
-isEqualAtDepth(<span class="hljs-number">3</span>, object1, object2); <span class="hljs-comment">// true</span></code></pre>
+<span style="color: #001080">object1</span><span style="color: #000000"> = { </span><span style="color: #001080">a:</span><span style="color: #000000"> [</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">], </span><span style="color: #001080">d:</span><span style="color: #000000"> { </span><span style="color: #001080">e:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000"> } };</span>
+<span style="color: #001080">object2</span><span style="color: #000000"> = { </span><span style="color: #001080">a:</span><span style="color: #000000"> [</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">], </span><span style="color: #001080">d:</span><span style="color: #000000"> { </span><span style="color: #001080">e:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000"> } };</span>
+<span style="color: #795E26">isEqualAtDepth</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #001080">object1</span><span style="color: #000000">, </span><span style="color: #001080">object2</span><span style="color: #000000">); </span><span style="color: #008000">// false</span>
+<span style="color: #795E26">isEqualAtDepth</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #001080">object1</span><span style="color: #000000">, </span><span style="color: #001080">object2</span><span style="color: #000000">); </span><span style="color: #008000">// false</span>
+<span style="color: #795E26">isEqualAtDepth</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #001080">object1</span><span style="color: #000000">, </span><span style="color: #001080">object2</span><span style="color: #000000">); </span><span style="color: #008000">// true</span>
+<span style="color: #795E26">isEqualAtDepth</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #001080">object1</span><span style="color: #000000">, </span><span style="color: #001080">object2</span><span style="color: #000000">); </span><span style="color: #008000">// true</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1247,7 +1256,7 @@ isEqualAtDepth(<span class="hljs-number">3</span>, object1, object2); <span clas
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-falsy.ts#L4">projects/js-core/src/lib/predicates/is-falsy.ts:4</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-falsy.ts#L4">lib/predicates/is-falsy.ts:4</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1268,17 +1277,18 @@ isEqualAtDepth(<span class="hljs-number">3</span>, object1, object2); <span clas
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-promise-like.ts#L11">projects/js-core/src/lib/predicates/is-promise-like.ts:11</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-promise-like.ts#L11">lib/predicates/is-promise-like.ts:11</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Checks if <code>value</code> has a <code>then()</code> function, indicating that it is probably promise-like.</p>
 							</div>
-							<pre><code class="language-ts">isPromiseLike(<span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">&#x27;hi&#x27;</span>)); <span class="hljs-comment">// true</span>
-isPromiseLike(<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-string">&#x27;bye&#x27;</span>)); <span class="hljs-comment">// true</span>
-isPromiseLike({}); <span class="hljs-comment">// false</span>
-isPromiseLike(<span class="hljs-literal">null</span>); <span class="hljs-comment">// false</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #795E26">isPromiseLike</span><span style="color: #000000">(</span><span style="color: #267F99">Promise</span><span style="color: #000000">.</span><span style="color: #795E26">resolve</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;hi&#039;</span><span style="color: #000000">)); </span><span style="color: #008000">// true</span>
+<span style="color: #795E26">isPromiseLike</span><span style="color: #000000">(</span><span style="color: #267F99">Promise</span><span style="color: #000000">.</span><span style="color: #795E26">reject</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;bye&#039;</span><span style="color: #000000">)); </span><span style="color: #008000">// true</span>
+<span style="color: #795E26">isPromiseLike</span><span style="color: #000000">({}); </span><span style="color: #008000">// false</span>
+<span style="color: #795E26">isPromiseLike</span><span style="color: #000000">(</span><span style="color: #0000FF">null</span><span style="color: #000000">); </span><span style="color: #008000">// false</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1293,7 +1303,7 @@ isPromiseLike(<span class="hljs-literal">null</span>); <span class="hljs-comment
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/sets/is-set-equal.ts#L3">projects/js-core/src/lib/sets/is-set-equal.ts:3</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/sets/is-set-equal.ts#L3">lib/sets/is-set-equal.ts:3</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1309,16 +1319,17 @@ isPromiseLike(<span class="hljs-literal">null</span>); <span class="hljs-comment
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/sets/is-superset.ts#L10">projects/js-core/src/lib/sets/is-superset.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/sets/is-superset.ts#L10">lib/sets/is-superset.ts:10</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Returns whether <code>set</code> contains all the elements in <code>subset</code>. Taken from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set</a>.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">const</span> setA = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
-<span class="hljs-keyword">const</span> setB = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
-setUnion(setA, setB); <span class="hljs-comment">// true</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">setA</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Set</span><span style="color: #000000">([</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">]);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">setB</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Set</span><span style="color: #000000">([</span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">]);</span>
+<span style="color: #795E26">setUnion</span><span style="color: #000000">(</span><span style="color: #001080">setA</span><span style="color: #000000">, </span><span style="color: #001080">setB</span><span style="color: #000000">); </span><span style="color: #008000">// true</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1333,7 +1344,7 @@ setUnion(setA, setB); <span class="hljs-comment">// true</span></code></pre>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-truthy.ts#L4">projects/js-core/src/lib/predicates/is-truthy.ts:4</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/predicates/is-truthy.ts#L4">lib/predicates/is-truthy.ts:4</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1348,47 +1359,48 @@ setUnion(setA, setB); <span class="hljs-comment">// true</span></code></pre>
 				<a name="mapaskeys" class="tsd-anchor"></a>
 				<h3>map<wbr>AsKeys</h3>
 				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">map<wbr>AsKeys&lt;K, V&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
-					<li class="tsd-signature tsd-kind-icon">map<wbr>AsKeys&lt;K, V&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></li>
-					<li class="tsd-signature tsd-kind-icon">map<wbr>AsKeys&lt;T, V&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ObjectIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
-					<li class="tsd-signature tsd-kind-icon">map<wbr>AsKeys&lt;T, V&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ObjectIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></li>
+					<li class="tsd-signature tsd-kind-icon">map<wbr>AsKeys&lt;K, V&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">{ [k in K]: V}</span></li>
+					<li class="tsd-signature tsd-kind-icon">map<wbr>AsKeys&lt;K, V&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">{ [k in K]: V}</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">map<wbr>AsKeys&lt;T, V&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ObjectIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">{ [k in T[keyof T]]: V}</span></li>
+					<li class="tsd-signature tsd-kind-icon">map<wbr>AsKeys&lt;T, V&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ObjectIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">{ [k in T[keyof T]]: V}</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/map-as-keys.ts#L16">projects/js-core/src/lib/objects/map-as-keys.ts:16</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/map-as-keys.ts#L16">lib/objects/map-as-keys.ts:16</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Maps <code>collection</code> to be the keys of a new object, with the values determined by <code>iteratee</code>.</p>
 							</div>
-							<pre><code class="language-ts">mapAsKeys([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> item * item);
-<span class="hljs-comment">// result: { 1: 1, 2: 4, 3: 9 }</span>
+							<pre><code class="language-ts"><span style="color: #795E26">mapAsKeys</span><span style="color: #000000">([</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">], (</span><span style="color: #001080">item</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">item</span><span style="color: #000000"> * </span><span style="color: #001080">item</span><span style="color: #000000">);</span>
+<span style="color: #008000">// result: { 1: 1, 2: 4, 3: 9 }</span>
 
-mapAsKeys({ <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;foo&quot;</span>, <span class="hljs-attr">b</span>: <span class="hljs-string">&quot;bar&quot;</span> }, <span class="hljs-function">(<span class="hljs-params">_item, key</span>) =&gt;</span> key.toUpperCase());
-<span class="hljs-comment">// result: { foo: &quot;A&quot;, bar: &quot;B&quot; }</span></code></pre>
+<span style="color: #795E26">mapAsKeys</span><span style="color: #000000">({ </span><span style="color: #001080">a:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;foo&quot;</span><span style="color: #000000">, </span><span style="color: #001080">b:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;bar&quot;</span><span style="color: #000000"> }, (</span><span style="color: #001080">_item</span><span style="color: #000000">, </span><span style="color: #001080">key</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">key</span><span style="color: #000000">.</span><span style="color: #795E26">toUpperCase</span><span style="color: #000000">());</span>
+<span style="color: #008000">// result: { foo: &quot;A&quot;, bar: &quot;B&quot; }</span>
+</code></pre>
 						</div>
 					</li>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/map-as-keys.ts#L20">projects/js-core/src/lib/objects/map-as-keys.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/map-as-keys.ts#L20">lib/objects/map-as-keys.ts:20</a></li>
 							</ul>
 						</aside>
 					</li>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/map-as-keys.ts#L24">projects/js-core/src/lib/objects/map-as-keys.ts:24</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/map-as-keys.ts#L24">lib/objects/map-as-keys.ts:24</a></li>
 							</ul>
 						</aside>
 					</li>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/map-as-keys.ts#L28">projects/js-core/src/lib/objects/map-as-keys.ts:28</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/map-as-keys.ts#L28">lib/objects/map-as-keys.ts:28</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1398,31 +1410,32 @@ mapAsKeys({ <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;fo
 				<a name="maptoobject" class="tsd-anchor"></a>
 				<h3>map<wbr>ToObject</h3>
 				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">map<wbr>ToObject&lt;I, K, V&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">I</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">I</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
-					<li class="tsd-signature tsd-kind-icon">map<wbr>ToObject&lt;T, K, V&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ObjectIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+					<li class="tsd-signature tsd-kind-icon">map<wbr>ToObject&lt;I, K, V&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">I</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">I</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">{ [k in K]?: V}</span></li>
+					<li class="tsd-signature tsd-kind-icon">map<wbr>ToObject&lt;T, K, V&gt;<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Nil</span>, iteratee<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ObjectIteratee</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">{ [k in K]?: V}</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/map-to-object.ts#L16">projects/js-core/src/lib/objects/map-to-object.ts:16</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/map-to-object.ts#L16">lib/objects/map-to-object.ts:16</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Maps <code>collection</code> a new object, with keys and values determined by <code>iteratee</code>.</p>
 							</div>
-							<pre><code class="language-ts">mapToObject([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> [item, item * item]);
-<span class="hljs-comment">// result: { 1: 1, 2: 4, 3: 9 }</span>
+							<pre><code class="language-ts"><span style="color: #795E26">mapToObject</span><span style="color: #000000">([</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">], (</span><span style="color: #001080">item</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> [</span><span style="color: #001080">item</span><span style="color: #000000">, </span><span style="color: #001080">item</span><span style="color: #000000"> * </span><span style="color: #001080">item</span><span style="color: #000000">]);</span>
+<span style="color: #008000">// result: { 1: 1, 2: 4, 3: 9 }</span>
 
-mapToObject({ <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;foo&quot;</span>, <span class="hljs-attr">b</span>: <span class="hljs-string">&quot;bar&quot;</span> }, <span class="hljs-function">(<span class="hljs-params">item, key</span>) =&gt;</span> [item, key.toUpperCase()]);
-<span class="hljs-comment">// result: { foo: &quot;A&quot;, bar: &quot;B&quot; }</span></code></pre>
+<span style="color: #795E26">mapToObject</span><span style="color: #000000">({ </span><span style="color: #001080">a:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;foo&quot;</span><span style="color: #000000">, </span><span style="color: #001080">b:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;bar&quot;</span><span style="color: #000000"> }, (</span><span style="color: #001080">item</span><span style="color: #000000">, </span><span style="color: #001080">key</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> [</span><span style="color: #001080">item</span><span style="color: #000000">, </span><span style="color: #001080">key</span><span style="color: #000000">.</span><span style="color: #795E26">toUpperCase</span><span style="color: #000000">()]);</span>
+<span style="color: #008000">// result: { foo: &quot;A&quot;, bar: &quot;B&quot; }</span>
+</code></pre>
 						</div>
 					</li>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/map-to-object.ts#L20">projects/js-core/src/lib/objects/map-to-object.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/objects/map-to-object.ts#L20">lib/objects/map-to-object.ts:20</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1438,17 +1451,18 @@ mapToObject({ <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/round-to-multiple-of.ts#L11">projects/js-core/src/lib/round-to-multiple-of.ts:11</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/round-to-multiple-of.ts#L11">lib/round-to-multiple-of.ts:11</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Rounds <code>value</code> to the nearest multiple of <code>multiple</code>.</p>
 							</div>
-							<pre><code class="language-ts">roundToMultiple(<span class="hljs-number">5</span>, <span class="hljs-number">13</span>); <span class="hljs-comment">// 15</span>
-roundToMultiple(<span class="hljs-number">2</span>, <span class="hljs-number">4.8</span>); <span class="hljs-comment">// 4</span>
-roundToMultiple(<span class="hljs-number">3</span>, -<span class="hljs-number">4</span>); <span class="hljs-comment">// -3</span>
-roundToMultiple(<span class="hljs-number">0.5</span>, <span class="hljs-number">1.6</span>); <span class="hljs-comment">// 1.5</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #795E26">roundToMultiple</span><span style="color: #000000">(</span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #098658">13</span><span style="color: #000000">); </span><span style="color: #008000">// 15</span>
+<span style="color: #795E26">roundToMultiple</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">4.8</span><span style="color: #000000">); </span><span style="color: #008000">// 4</span>
+<span style="color: #795E26">roundToMultiple</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">, -</span><span style="color: #098658">4</span><span style="color: #000000">); </span><span style="color: #008000">// -3</span>
+<span style="color: #795E26">roundToMultiple</span><span style="color: #000000">(</span><span style="color: #098658">0.5</span><span style="color: #000000">, </span><span style="color: #098658">1.6</span><span style="color: #000000">); </span><span style="color: #008000">// 1.5</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1463,16 +1477,17 @@ roundToMultiple(<span class="hljs-number">0.5</span>, <span class="hljs-number">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/sets/set-difference.ts#L10">projects/js-core/src/lib/sets/set-difference.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/sets/set-difference.ts#L10">lib/sets/set-difference.ts:10</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Returns a new set that contains the elements of <code>setA</code> that are not in <code>setB</code>. Taken from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set</a>.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">const</span> setA = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
-<span class="hljs-keyword">const</span> setB = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]);
-setDifference(setA, setB); <span class="hljs-comment">// Set [1, 2]</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">setA</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Set</span><span style="color: #000000">([</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">]);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">setB</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Set</span><span style="color: #000000">([</span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">, </span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #098658">6</span><span style="color: #000000">]);</span>
+<span style="color: #795E26">setDifference</span><span style="color: #000000">(</span><span style="color: #001080">setA</span><span style="color: #000000">, </span><span style="color: #001080">setB</span><span style="color: #000000">); </span><span style="color: #008000">// Set [1, 2]</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1487,16 +1502,17 @@ setDifference(setA, setB); <span class="hljs-comment">// Set [1, 2]</span></code
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/sets/set-intersection.ts#L10">projects/js-core/src/lib/sets/set-intersection.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/sets/set-intersection.ts#L10">lib/sets/set-intersection.ts:10</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Returns a new set that contains the elements that are in both <code>setA</code> and <code>setB</code>. Taken from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set</a>.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">const</span> setA = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
-<span class="hljs-keyword">const</span> setB = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]);
-setIntersection(setA, setB); <span class="hljs-comment">// Set [3, 4]</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">setA</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Set</span><span style="color: #000000">([</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">]);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">setB</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Set</span><span style="color: #000000">([</span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">, </span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #098658">6</span><span style="color: #000000">]);</span>
+<span style="color: #795E26">setIntersection</span><span style="color: #000000">(</span><span style="color: #001080">setA</span><span style="color: #000000">, </span><span style="color: #001080">setB</span><span style="color: #000000">); </span><span style="color: #008000">// Set [3, 4]</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1511,16 +1527,17 @@ setIntersection(setA, setB); <span class="hljs-comment">// Set [3, 4]</span></co
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/sets/set-union.ts#L10">projects/js-core/src/lib/sets/set-union.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/sets/set-union.ts#L10">lib/sets/set-union.ts:10</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Returns a new set that contains the elements that are in either <code>setA</code> or <code>setB</code>. Taken from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set</a>.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">const</span> setA = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
-<span class="hljs-keyword">const</span> setB = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]);
-setUnion(setA, setB); <span class="hljs-comment">// Set [1, 2, 3, 4, 5, 6]</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">setA</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Set</span><span style="color: #000000">([</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">]);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">setB</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Set</span><span style="color: #000000">([</span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">, </span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #098658">6</span><span style="color: #000000">]);</span>
+<span style="color: #795E26">setUnion</span><span style="color: #000000">(</span><span style="color: #001080">setA</span><span style="color: #000000">, </span><span style="color: #001080">setB</span><span style="color: #000000">); </span><span style="color: #008000">// Set [1, 2, 3, 4, 5, 6]</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1535,16 +1552,17 @@ setUnion(setA, setB); <span class="hljs-comment">// Set [1, 2, 3, 4, 5, 6]</span
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/sleep.ts#L10">projects/js-core/src/lib/time/sleep.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/time/sleep.ts#L10">lib/time/sleep.ts:10</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Returns a promise that resolves after <code>ms</code> milliseconds.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-comment">// do something</span>
-<span class="hljs-keyword">await</span> sleep(<span class="hljs-number">1000</span>); <span class="hljs-comment">// wait a second</span>
-<span class="hljs-comment">// do something else</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #008000">// do something</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">sleep</span><span style="color: #000000">(</span><span style="color: #098658">1000</span><span style="color: #000000">); </span><span style="color: #008000">// wait a second</span>
+<span style="color: #008000">// do something else</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1559,16 +1577,17 @@ setUnion(setA, setB); <span class="hljs-comment">// Set [1, 2, 3, 4, 5, 6]</span
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/sets/symmetric-set-difference.ts#L10">projects/js-core/src/lib/sets/symmetric-set-difference.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/sets/symmetric-set-difference.ts#L10">lib/sets/symmetric-set-difference.ts:10</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Returns a new set that contains the elements that are in only one of the two sets. Taken from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set</a>.</p>
 							</div>
-							<pre><code class="language-ts"><span class="hljs-keyword">const</span> setA = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
-<span class="hljs-keyword">const</span> setB = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]);
-symmetricSetDifference(setA, setB); <span class="hljs-comment">// Set [1, 2, 5, 6]</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">setA</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Set</span><span style="color: #000000">([</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">]);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">setB</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Set</span><span style="color: #000000">([</span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">, </span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #098658">6</span><span style="color: #000000">]);</span>
+<span style="color: #795E26">symmetricSetDifference</span><span style="color: #000000">(</span><span style="color: #001080">setA</span><span style="color: #000000">, </span><span style="color: #001080">setB</span><span style="color: #000000">); </span><span style="color: #008000">// Set [1, 2, 5, 6]</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1583,21 +1602,22 @@ symmetricSetDifference(setA, setB); <span class="hljs-comment">// Set [1, 2, 5, 
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/to-csv.ts#L17">projects/js-core/src/lib/to-csv.ts:17</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/to-csv.ts#L17">lib/to-csv.ts:17</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Converts a 2D array to a csv string. Values are converted using micro-dash&#39;s <code>toString()</code>.</p>
 							</div>
-							<pre><code class="language-ts">toCsv([[<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>], [<span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;e&quot;</span>, <span class="hljs-string">&quot;f&quot;</span>], [<span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;h&quot;</span>, <span class="hljs-string">&quot;i&quot;</span>]]); <span class="hljs-comment">// &quot;a,b,c\nd,e,f\ng,h,i&quot;</span>
-toCsv([
-  [<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;string&quot;</span>]
-  [<span class="hljs-literal">undefined</span>, <span class="hljs-literal">null</span>],
-  [<span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>],
-  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
-  [{}, { <span class="hljs-attr">hi</span>: <span class="hljs-string">&quot;there&quot;</span> }]
-]) <span class="hljs-comment">// &quot;a,,string\n,\ntrue,false\n1,2,3\n[object Object],[object Object]&quot;</span></code></pre>
+							<pre><code class="language-ts"><span style="color: #795E26">toCsv</span><span style="color: #000000">([[</span><span style="color: #A31515">&quot;a&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;b&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;c&quot;</span><span style="color: #000000">], [</span><span style="color: #A31515">&quot;d&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;e&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;f&quot;</span><span style="color: #000000">], [</span><span style="color: #A31515">&quot;g&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;h&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;i&quot;</span><span style="color: #000000">]]); </span><span style="color: #008000">// &quot;a,b,c\nd,e,f\ng,h,i&quot;</span>
+<span style="color: #795E26">toCsv</span><span style="color: #000000">([</span>
+<span style="color: #000000">  [</span><span style="color: #A31515">&quot;a&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;string&quot;</span><span style="color: #000000">]</span>
+<span style="color: #000000">  [</span><span style="color: #0000FF">undefined</span><span style="color: #000000">, </span><span style="color: #0000FF">null</span><span style="color: #000000">],</span>
+<span style="color: #000000">  [</span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #0000FF">false</span><span style="color: #000000">],</span>
+<span style="color: #000000">  [</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">],</span>
+<span style="color: #000000">  [{}, { </span><span style="color: #001080">hi:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;there&quot;</span><span style="color: #000000"> }]</span>
+<span style="color: #000000">]) </span><span style="color: #008000">// &quot;a,,string\n,\ntrue,false\n1,2,3\n[object Object],[object Object]&quot;</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1612,7 +1632,7 @@ toCsv([
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/functions/wrap-function.ts#L29">projects/js-core/src/lib/functions/wrap-function.ts:29</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/functions/wrap-function.ts#L28">lib/functions/wrap-function.ts:28</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1625,15 +1645,16 @@ toCsv([
 								<li><code>transform</code></li>
 								<li><code>after</code></li>
 							</ol>
-							<pre><code class="language-ts"><span class="hljs-keyword">const</span> sum = <span class="hljs-function">(<span class="hljs-params">a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">number</span></span>) =&gt;</span> a + b;
-<span class="hljs-keyword">const</span> sumAndLog = wrapFunction(sum, {
-  <span class="hljs-attr">after</span>: <span class="hljs-function">(<span class="hljs-params">result, a, b</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(a, <span class="hljs-string">&#x27;+&#x27;</span>, b, <span class="hljs-string">&#x27;=&#x27;</span>, result);
-  },
-}
-<span class="hljs-keyword">const</span> sumPlusOne = wrapFunction(sum, {
-  <span class="hljs-attr">transform</span>: <span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> result + <span class="hljs-number">1</span>,
-});</code></pre>
+							<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">sum</span><span style="color: #000000"> = (</span><span style="color: #001080">a</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">, </span><span style="color: #001080">b</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">a</span><span style="color: #000000"> + </span><span style="color: #001080">b</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">sumAndLog</span><span style="color: #000000"> = </span><span style="color: #795E26">wrapFunction</span><span style="color: #000000">(</span><span style="color: #001080">sum</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">after</span><span style="color: #001080">:</span><span style="color: #000000"> (</span><span style="color: #001080">result</span><span style="color: #000000">, </span><span style="color: #001080">a</span><span style="color: #000000">, </span><span style="color: #001080">b</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">a</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;+&#039;</span><span style="color: #000000">, </span><span style="color: #001080">b</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;=&#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">);</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">}</span>
+<span style="color: #001080">const</span><span style="color: #000000"> </span><span style="color: #001080">sumPlusOne</span><span style="color: #000000"> = </span><span style="color: #795E26">wrapFunction</span><span style="color: #000000">(</span><span style="color: #001080">sum</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">transform</span><span style="color: #001080">:</span><span style="color: #000000"> (</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">result</span><span style="color: #000000"> + </span><span style="color: #098658">1</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+</code></pre>
 						</div>
 					</li>
 				</ul>
@@ -1648,7 +1669,7 @@ toCsv([
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/functions/wrap-method.ts#L29">projects/js-core/src/lib/functions/wrap-method.ts:29</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/js-core/src/lib/functions/wrap-method.ts#L29">lib/functions/wrap-method.ts:29</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

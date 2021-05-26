@@ -874,11 +874,8 @@ img { max-width: 100%; }
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="angularcontext.html" class="tsd-kind-icon">Angular<wbr>Context</a>
-		</li>
 		<li class=" tsd-kind-class">
-			<a href="angularcontextnext.html" class="tsd-kind-icon">Angular<wbr>Context<wbr>Next</a>
+			<a href="angularcontext.html" class="tsd-kind-icon">Angular<wbr>Context</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="asyncmethodcontroller.html" class="tsd-kind-icon">Async<wbr>Method<wbr>Controller</a>
@@ -886,11 +883,8 @@ img { max-width: 100%; }
 		<li class="current tsd-kind-class tsd-has-type-parameter">
 			<a href="componentcontext.html" class="tsd-kind-icon">Component<wbr>Context</a>
 			<ul>
-				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite">
 					<a href="componentcontext.html#constructor" class="tsd-kind-icon">constructor</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-					<a href="componentcontext.html#componenttype" class="tsd-kind-icon">component<wbr>Type</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="componentcontext.html#fixture" class="tsd-kind-icon">fixture</a>
@@ -898,17 +892,23 @@ img { max-width: 100%; }
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a href="componentcontext.html#starttime" class="tsd-kind-icon">start<wbr>Time</a>
 				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="componentcontext.html#assigninputs" class="tsd-kind-icon">assign<wbr>Inputs</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="componentcontext.html#assignwrapperstyles" class="tsd-kind-icon">assign<wbr>Wrapper<wbr>Styles</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 					<a href="componentcontext.html#cleanup" class="tsd-kind-icon">clean<wbr>Up</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a href="componentcontext.html#getallharnesses" class="tsd-kind-icon">get<wbr>All<wbr>Harnesses</a>
 				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-					<a href="componentcontext.html#getharness" class="tsd-kind-icon">get<wbr>Harness</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="componentcontext.html#getcomponentinstance" class="tsd-kind-icon">get<wbr>Component<wbr>Instance</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-					<a href="componentcontext.html#getharnessforoptional" class="tsd-kind-icon">get<wbr>Harness<wbr>For<wbr>Optional</a>
+					<a href="componentcontext.html#getharness" class="tsd-kind-icon">get<wbr>Harness</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 					<a href="componentcontext.html#init" class="tsd-kind-icon">init</a>
@@ -919,6 +919,9 @@ img { max-width: 100%; }
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a href="componentcontext.html#run" class="tsd-kind-icon">run</a>
 				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
+					<a href="componentcontext.html#runchangedetection" class="tsd-kind-icon">run<wbr>Change<wbr>Detection</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a href="componentcontext.html#tick" class="tsd-kind-icon">tick</a>
 				</li>
@@ -928,13 +931,7 @@ img { max-width: 100%; }
 			</ul>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="componentcontextnext.html" class="tsd-kind-icon">Component<wbr>Context<wbr>Next</a>
-		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="testcall.html" class="tsd-kind-icon">Test<wbr>Call</a>
-		</li>
-		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-			<a href="../index.html#synchronized" class="tsd-kind-icon">Synchronized</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
 			<a href="../index.html#createspyobject" class="tsd-kind-icon">create<wbr>Spy<wbr>Object</a>
@@ -963,29 +960,137 @@ img { max-width: 100%; }
 	<div class="content-wrap">
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
-				<dl class="tsd-comment-tags">
-					<dt>deprecated</dt>
-					<dd><p>Use <a href="componentcontextnext.html">ComponentContextNext</a> instead. This old version will be removed in a future version, and <code>ComponentContextNext</code> will be renamed to <code>ComponentContext</code>.</p>
-						<p>Some notes to migrate to the new version:</p>
-						<ul>
-							<li>Change &quot;input&quot; to &quot;inputs&quot; in calls to <code>.run({ input: {...}}, ...)</code></li>
-							<li>Any variables you set in &quot;inputs&quot; must now be actual angular <code>@Input()</code>s</li>
-							<li><code>ctx.fixture</code> is now for a synthetic wrapper component, not your component. Change <code>ctx.fixture.componentInstance</code> to <code>ctx.getComponentInstance()</code></li>
-							<li>If your component has an input with a default value that you want to preserve, pass it in the constructor&#39;s <code>unboundInputs</code> argument.</li>
-							<li>Additionally see all the notes in the superclass: <a href="angularcontext.html">AngularContext</a>.</li>
-						</ul>
-					</dd>
-				</dl>
+				<div class="lead">
+					<p>Provides the foundation for an opinionated pattern for component tests.</p>
+				</div>
+				<ul>
+					<li>Includes all features from <a href="angularcontext.html">AngularContext</a></li>
+					<li>Automatically creates your component at the beginning of <code>run()</code>.</li>
+					<li>Sets up Angular to call <code>ngOnChanges()</code> like it would in production. This is not the case if you use the standard <code>TestBed.createComponent()</code> directly.</li>
+					<li>Wraps your component in a dynamically created parent that you can easily style however you like.</li>
+					<li>Lets you use <a href="https://material.angular.io/cdk/test-harnesses/overview" class="external">component harnesses</a> in the <code>fakeAsync</code> zone, which is normally a challenge.</li>
+					<li>Automatically disables animations.</li>
+					<li>Automatically integrates <a href="../index.html#trimleftoverstyles">trimLeftoverStyles</a> to speed up your test suite.</li>
+				</ul>
+				<p>Why does the class name end with &quot;Next&quot;? This replaces the old <code>ComponentContext</code>, but it&#39;s a breaking change so this gives people some time to transition over. Eventually the old one will be removed and this will be renamed to <code>ComponentContext</code>.</p>
+				<p>A very simple example:</p>
+				<pre><code class="language-ts"><span style="color: #000000">@</span><span style="color: #795E26">Component</span><span style="color: #000000">({ </span><span style="color: #001080">template:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Hello, {{name}}!&#039;</span><span style="color: #000000"> })</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GreeterComponent</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  @</span><span style="color: #795E26">Input</span><span style="color: #000000">() </span><span style="color: #001080">name</span><span style="color: #000000">!: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
+
+<span style="color: #795E26">it</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;greets you by name&#039;</span><span style="color: #000000">, () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">ctx</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">ComponentContext</span><span style="color: #000000">(</span><span style="color: #001080">GreeterComponent</span><span style="color: #000000">);</span>
+<span style="color: #000000">  </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #795E26">assignInputs</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;World&#039;</span><span style="color: #000000"> });</span>
+<span style="color: #000000">  </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #795E26">expect</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">fixture</span><span style="color: #000000">.</span><span style="color: #001080">nativeElement</span><span style="color: #000000">.</span><span style="color: #001080">textContent</span><span style="color: #000000">).</span><span style="color: #795E26">toBe</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Hello, World!&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">  });</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<p>A full example, with routing and a component harness. This is the full code for a tiny Angular app:</p>
+				<pre><code class="language-ts"><span style="color: #008000">/////////////////</span>
+<span style="color: #008000">// app-context.ts</span>
+
+<span style="color: #008000">// To re-use your context setup, make a subclass of ComponentContext to</span>
+<span style="color: #008000">// import into any spec</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">AppContext</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">ComponentContext</span><span style="color: #000000">&lt;</span><span style="color: #267F99">AppComponent</span><span style="color: #000000">&gt; {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">constructor</span><span style="color: #000000">() {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">super</span><span style="color: #000000">(</span><span style="color: #001080">AppComponent</span><span style="color: #000000">, {</span>
+<span style="color: #000000">      </span><span style="color: #001080">imports:</span><span style="color: #000000"> [</span>
+<span style="color: #000000">        </span><span style="color: #008000">// This is your production `AppModule`. Make sure it exports `AppComponent`</span>
+<span style="color: #000000">        </span><span style="color: #001080">AppModule</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #008000">// Import `routes` from your `app-routing.module.ts`</span>
+<span style="color: #000000">        </span><span style="color: #001080">RouterTestingModule</span><span style="color: #000000">.</span><span style="color: #795E26">withRoutes</span><span style="color: #000000">(</span><span style="color: #001080">routes</span><span style="color: #000000">),</span>
+<span style="color: #000000">      ],</span>
+<span style="color: #000000">    });</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+
+<span style="color: #008000">////////////////////////</span>
+<span style="color: #008000">// app.component.spec.ts</span>
+
+<span style="color: #795E26">describe</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;AppComponent&#039;</span><span style="color: #000000">, () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">AppContext</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #795E26">beforeEach</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">AppContext</span><span style="color: #000000">();</span>
+<span style="color: #000000">  });</span>
+
+<span style="color: #000000">  </span><span style="color: #795E26">it</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;can navigate to the first page&#039;</span><span style="color: #000000">, () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #795E26">getHarness</span><span style="color: #000000">(</span><span style="color: #001080">AppComponentHarness</span><span style="color: #000000">).</span><span style="color: #795E26">navigateToFirstPage</span><span style="color: #000000">();</span>
+<span style="color: #000000">      </span><span style="color: #795E26">expect</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">fixture</span><span style="color: #000000">.</span><span style="color: #001080">nativeElement</span><span style="color: #000000">.</span><span style="color: #001080">textContent</span><span style="color: #000000">).</span><span style="color: #795E26">toContain</span><span style="color: #000000">(</span>
+<span style="color: #000000">        </span><span style="color: #A31515">&#039;First works!&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      );</span>
+<span style="color: #000000">    });</span>
+<span style="color: #000000">  });</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #008000">///////////////////////////</span>
+<span style="color: #008000">// app.component.harness.ts</span>
+
+<span style="color: #008000">// A simple component harness to demonstrate its integration with component contexts. Note that everything here is asynchronous, but is treated as synchronous in tests. This is a trick in AngularContexts so harnesses can be used in the fakeAsync zone.</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">AppComponentHarness</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">ComponentHarness</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">static</span><span style="color: #000000"> </span><span style="color: #001080">hostSelector</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;app-root&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">  </span><span style="color: #0000FF">private</span><span style="color: #000000"> </span><span style="color: #001080">getFirstPageLink</span><span style="color: #000000"> = </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #795E26">locatorFor</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;a&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">  </span><span style="color: #0000FF">async</span><span style="color: #000000"> </span><span style="color: #795E26">navigateToFirstPage</span><span style="color: #000000">(): </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;</span><span style="color: #267F99">void</span><span style="color: #000000">&gt; {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">link</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #795E26">getFirstPageLink</span><span style="color: #000000">();</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">link</span><span style="color: #000000">.</span><span style="color: #795E26">click</span><span style="color: #000000">();</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+
+<span style="color: #008000">/////////////////////</span>
+<span style="color: #008000">// first.component.ts</span>
+
+<span style="color: #008000">// A minimal component for demonstration purposes</span>
+<span style="color: #000000">@</span><span style="color: #795E26">Component</span><span style="color: #000000">({ </span><span style="color: #001080">template:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&lt;p&gt;First works!&lt;/p&gt;&#039;</span><span style="color: #000000"> })</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">FirstComponent</span><span style="color: #000000"> {}</span>
+
+<span style="color: #008000">///////////////////</span>
+<span style="color: #008000">// app.component.ts</span>
+
+<span style="color: #008000">// A minimal app component with routing for demonstration purposes</span>
+<span style="color: #000000">@</span><span style="color: #795E26">Component</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">selector:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;app-root&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">template:</span><span style="color: #000000"> </span><span style="color: #A31515">`</span>
+<span style="color: #A31515">    &lt;a routerLink=&quot;/first-page&quot;&gt;First Page&lt;/a&gt;</span>
+<span style="color: #A31515">    &lt;router-outlet&gt;&lt;/router-outlet&gt;</span>
+<span style="color: #A31515">  `</span><span style="color: #000000">,</span>
+<span style="color: #000000">})</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">AppComponent</span><span style="color: #000000"> {}</span>
+
+<span style="color: #008000">////////////////////////</span>
+<span style="color: #008000">// app-routing.module.ts</span>
+
+<span style="color: #008000">// exported for use in tests</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">routes</span><span style="color: #000000">: </span><span style="color: #267F99">Routes</span><span style="color: #000000"> = [{ </span><span style="color: #001080">path:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;first-page&#039;</span><span style="color: #000000">, </span><span style="color: #001080">component:</span><span style="color: #000000"> </span><span style="color: #001080">FirstComponent</span><span style="color: #000000"> }];</span>
+
+<span style="color: #000000">@</span><span style="color: #795E26">NgModule</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">imports:</span><span style="color: #000000"> [</span><span style="color: #001080">RouterModule</span><span style="color: #000000">.</span><span style="color: #795E26">forRoot</span><span style="color: #000000">(</span><span style="color: #001080">routes</span><span style="color: #000000">)],</span>
+<span style="color: #000000">  </span><span style="color: #001080">exports:</span><span style="color: #000000"> [</span><span style="color: #001080">RouterModule</span><span style="color: #000000">],</span>
+<span style="color: #000000">})</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">AppRoutingModule</span><span style="color: #000000"> {}</span>
+
+<span style="color: #008000">////////////////</span>
+<span style="color: #008000">// app.module.ts</span>
+
+<span style="color: #008000">// A minimal app module. Notice the added export.</span>
+<span style="color: #000000">@</span><span style="color: #795E26">NgModule</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">declarations:</span><span style="color: #000000"> [</span><span style="color: #001080">AppComponent</span><span style="color: #000000">, </span><span style="color: #001080">FirstComponent</span><span style="color: #000000">],</span>
+<span style="color: #000000">  </span><span style="color: #001080">imports:</span><span style="color: #000000"> [</span><span style="color: #001080">BrowserModule</span><span style="color: #000000">, </span><span style="color: #001080">BrowserAnimationsModule</span><span style="color: #000000">, </span><span style="color: #001080">AppRoutingModule</span><span style="color: #000000">],</span>
+<span style="color: #000000">  </span><span style="color: #001080">bootstrap:</span><span style="color: #000000"> [</span><span style="color: #001080">AppComponent</span><span style="color: #000000">],</span>
+<span style="color: #000000">  </span><span style="color: #001080">exports:</span><span style="color: #000000"> [</span><span style="color: #001080">AppComponent</span><span style="color: #000000">], </span><span style="color: #008000">// exported for use in tests</span>
+<span style="color: #000000">})</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">AppModule</span><span style="color: #000000"> {}</span>
+</code></pre>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-type-parameters">
 			<h3>Type parameters</h3>
 			<ul class="tsd-type-parameters">
 				<li>
-					<h4>ComponentType = <span class="tsd-signature-type">unknown</span></h4>
-				</li>
-				<li>
-					<h4>Init<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ComponentContextInit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&gt;</span> = <span class="tsd-signature-type">ComponentContextInit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					<h4>T</h4>
 				</li>
 			</ul>
 		</section>
@@ -993,7 +1098,7 @@ img { max-width: 100%; }
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<a href="angularcontext.html" class="tsd-signature-type">AngularContext</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Init</span><span class="tsd-signature-symbol">&gt;</span>
+					<a href="angularcontext.html" class="tsd-signature-type">AngularContext</a>
 					<ul class="tsd-hierarchy">
 						<li>
 							<span class="target">ComponentContext</span>
@@ -1009,13 +1114,12 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="componentcontext.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite"><a href="componentcontext.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="componentcontext.html#componenttype" class="tsd-kind-icon">component<wbr>Type</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="componentcontext.html#fixture" class="tsd-kind-icon">fixture</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="componentcontext.html#starttime" class="tsd-kind-icon">start<wbr>Time</a></li>
 						</ul>
@@ -1023,13 +1127,16 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="componentcontext.html#assigninputs" class="tsd-kind-icon">assign<wbr>Inputs</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="componentcontext.html#assignwrapperstyles" class="tsd-kind-icon">assign<wbr>Wrapper<wbr>Styles</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="componentcontext.html#cleanup" class="tsd-kind-icon">clean<wbr>Up</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="componentcontext.html#getallharnesses" class="tsd-kind-icon">get<wbr>All<wbr>Harnesses</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="componentcontext.html#getcomponentinstance" class="tsd-kind-icon">get<wbr>Component<wbr>Instance</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="componentcontext.html#getharness" class="tsd-kind-icon">get<wbr>Harness</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="componentcontext.html#getharnessforoptional" class="tsd-kind-icon">get<wbr>Harness<wbr>For<wbr>Optional</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="componentcontext.html#init" class="tsd-kind-icon">init</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="componentcontext.html#inject" class="tsd-kind-icon">inject</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="componentcontext.html#run" class="tsd-kind-icon">run</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="componentcontext.html#runchangedetection" class="tsd-kind-icon">run<wbr>Change<wbr>Detection</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="componentcontext.html#tick" class="tsd-kind-icon">tick</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="componentcontext.html#verifyposttestconditions" class="tsd-kind-icon">verify<wbr>Post<wbr>Test<wbr>Conditions</a></li>
 						</ul>
@@ -1039,66 +1146,49 @@ img { max-width: 100%; }
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Constructors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite">
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
-				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Component<wbr>Context<span class="tsd-signature-symbol">(</span>moduleMetadata<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">TestModuleMetadata</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="componentcontext.html" class="tsd-signature-type">ComponentContext</a></li>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Component<wbr>Context&lt;T&gt;<span class="tsd-signature-symbol">(</span>componentType<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Type</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, moduleMetadata<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">TestModuleMetadata</span>, unboundInputs<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">keyof T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="componentcontext.html" class="tsd-signature-type">ComponentContext</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Overrides <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context.ts#L41">projects/ng-dev/src/lib/test-context/component-context/component-context.ts:41</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/component-context/component-context.ts#L157">lib/component-context/component-context.ts:157</a></li>
 							</ul>
 						</aside>
-						<div class="tsd-comment tsd-typography">
-						</div>
 					</li>
 				</ul>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-				<a name="componenttype" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagAbstract">Abstract</span> component<wbr>Type</h3>
-				<div class="tsd-signature tsd-kind-icon">component<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Type</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&gt;</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context.ts#L41">projects/ng-dev/src/lib/test-context/component-context/component-context.ts:41</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p><code>.run()</code> will create a component of this type before running the rest of your test.</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="fixture" class="tsd-anchor"></a>
 				<h3>fixture</h3>
-				<div class="tsd-signature tsd-kind-icon">fixture<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ComponentFixture</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<div class="tsd-signature tsd-kind-icon">fixture<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ComponentFixture</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context.ts#L36">projects/ng-dev/src/lib/test-context/component-context/component-context.ts:36</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/component-context/component-context.ts#L150">lib/component-context/component-context.ts:150</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The {@link ComponentFixture} for your component, provided by Angular&#39;s testing framework.</p>
+						<p>The {@link ComponentFixture} for a synthetic wrapper around your component. Available with the callback to <code>run()</code>.</p>
 					</div>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 				<a name="starttime" class="tsd-anchor"></a>
 				<h3>start<wbr>Time</h3>
-				<div class="tsd-signature tsd-kind-icon">start<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol"> = new Date()</span></div>
+				<div class="tsd-signature tsd-kind-icon">start<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol"> = ...</span></div>
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#starttime">startTime</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L49">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:49</a></li>
+						<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L94">lib/angular-context/angular-context.ts:94</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1110,6 +1200,55 @@ img { max-width: 100%; }
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="assigninputs" class="tsd-anchor"></a>
+				<h3>assign<wbr>Inputs</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">assign<wbr>Inputs<span class="tsd-signature-symbol">(</span>inputs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/component-context/component-context.ts#L207">lib/component-context/component-context.ts:207</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Assign inputs passed into your component. Can be called before <code>run()</code> to set the initial inputs, or within <code>run()</code> to update them and trigger all the appropriate change detection and lifecycle hooks.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="assignwrapperstyles" class="tsd-anchor"></a>
+				<h3>assign<wbr>Wrapper<wbr>Styles</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">assign<wbr>Wrapper<wbr>Styles<span class="tsd-signature-symbol">(</span>styles<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/component-context/component-context.ts#L195">lib/component-context/component-context.ts:195</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Assign css styles to the div wrapping your component. Can be called before or during <code>run()</code>. Accepts an object with the same structure as the <a href="https://angular.io/api/common/NgStyle" class="external">ngStyle directive</a>.</p>
+							</div>
+							<pre><code class="language-ts"><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #795E26">assignWrapperStyles</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">width:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;400px&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">height:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;600px&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">margin:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;20px auto&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">border:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;1px solid&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+</code></pre>
+						</div>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 				<a name="cleanup" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> clean<wbr>Up</h3>
@@ -1121,7 +1260,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Overrides <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#cleanup">cleanUp</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context.ts#L70">projects/ng-dev/src/lib/test-context/component-context/component-context.ts:70</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/component-context/component-context.ts#L252">lib/component-context/component-context.ts:252</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1136,14 +1275,14 @@ img { max-width: 100%; }
 				<a name="getallharnesses" class="tsd-anchor"></a>
 				<h3>get<wbr>All<wbr>Harnesses</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>All<wbr>Harnesses&lt;T&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#synchronized" class="tsd-signature-type">Synchronized</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>All<wbr>Harnesses&lt;H&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">H</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">H</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#getallharnesses">getAllHarnesses</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L125">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:125</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L147">lib/angular-context/angular-context.ts:147</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1154,18 +1293,39 @@ img { max-width: 100%; }
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="getcomponentinstance" class="tsd-anchor"></a>
+				<h3>get<wbr>Component<wbr>Instance</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Component<wbr>Instance<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/component-context/component-context.ts#L226">lib/component-context/component-context.ts:226</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Use within <code>run()</code> to get your instantiated component that is on the page.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 				<a name="getharness" class="tsd-anchor"></a>
 				<h3>get<wbr>Harness</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>Harness&lt;T&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../index.html#synchronized" class="tsd-signature-type">Synchronized</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Harness&lt;H&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">H</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">H</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#getharness">getHarness</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L107">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:107</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L140">lib/angular-context/angular-context.ts:140</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1176,45 +1336,23 @@ img { max-width: 100%; }
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-				<a name="getharnessforoptional" class="tsd-anchor"></a>
-				<h3>get<wbr>Harness<wbr>For<wbr>Optional</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>Harness<wbr>For<wbr>Optional&lt;T&gt;<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HarnessQuery</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../index.html#synchronized" class="tsd-signature-type">Synchronized</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#getharnessforoptional">getHarnessForOptional</a></p>
-							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L116">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:116</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to <code>await</code> its results. Returns <code>null</code> if the harness cannot be located.</p>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 				<a name="init" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> init</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
-					<li class="tsd-signature tsd-kind-icon">init<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Init</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">init<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Overrides <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#init">init</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/component-context/component-context.ts#L53">projects/ng-dev/src/lib/test-context/component-context/component-context.ts:53</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/component-context/component-context.ts#L234">lib/component-context/component-context.ts:234</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Constructs and initializes your component. Called during <code>.run()</code> before it executes the rest of your test. Runs in the same <code>fakeAsync</code> zone as the rest of your test.</p>
+								<p>Constructs and initializes your component. Called during <code>run()</code> before it executes the rest of your test. Runs in the same <code>fakeAsync</code> zone as the rest of your test.</p>
 							</div>
 						</div>
 					</li>
@@ -1231,7 +1369,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#inject">inject</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L100">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:100</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L133">lib/angular-context/angular-context.ts:133</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1247,33 +1385,42 @@ img { max-width: 100%; }
 				<h3>run</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<li class="tsd-signature tsd-kind-icon">run<span class="tsd-signature-symbol">(</span>test<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					<li class="tsd-signature tsd-kind-icon">run<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Init</span><span class="tsd-signature-symbol">&gt;</span>, test<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#run">run</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L71">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:71</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L117">lib/angular-context/angular-context.ts:117</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Runs <code>test</code> in a <code>fakeAsync</code> zone. Also runs the following in this order, all within the same zone:</p>
-								<ol>
-									<li><code>init(options)</code></li>
-									<li><code>test()</code></li>
-									<li><code>verifyPostTestConditions()</code></li>
-									<li><code>cleanUp()</code></li>
-								</ol>
+								<p>Runs <code>test</code> in a <code>fakeAsync</code> zone. It can use async/await, but be sure anything you <code>await</code> is already due to execute (e.g. if a timeout is due in 3 seconds, call <code>.tick(3000)</code> before <code>await</code>ing its result).</p>
 							</div>
+							<p>Also runs the following in this order, all within the same zone:</p>
+							<ol>
+								<li><code>this.init()</code></li>
+								<li><code>test()</code></li>
+								<li><code>this.verifyPostTestConditions()</code></li>
+								<li><code>this.cleanUp()</code></li>
+							</ol>
 						</div>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
+				<a name="runchangedetection" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> run<wbr>Change<wbr>Detection</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">run<wbr>Change<wbr>Detection<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
-							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#run">run</a></p>
+							<p>Overrides <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#runchangedetection">runChangeDetection</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L72">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/component-context/component-context.ts#L245">lib/component-context/component-context.ts:245</a></li>
 							</ul>
 						</aside>
 					</li>
@@ -1290,7 +1437,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#tick">tick</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L138">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:138</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L158">lib/angular-context/angular-context.ts:158</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1312,7 +1459,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="angularcontext.html">AngularContext</a>.<a href="angularcontext.html#verifyposttestconditions">verifyPostTestConditions</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts#L160">projects/ng-dev/src/lib/test-context/angular-context/angular-context.ts:160</a></li>
+								<li>Defined in <a href="https://github.com/simontonsoftware/s-libs/blob/master/projects/ng-dev/src/lib/angular-context/angular-context.ts#L180">lib/angular-context/angular-context.ts:180</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
