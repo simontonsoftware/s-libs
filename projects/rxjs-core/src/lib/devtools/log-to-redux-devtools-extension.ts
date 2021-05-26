@@ -1,12 +1,10 @@
 import { Observable, Subscription } from 'rxjs';
 import { EnhancerOptions } from './enhancer-options';
 
-/** @hidden */
 export interface Connection {
   send(action: any, state: any): void;
 }
 
-/** @hidden */
 export interface Extension {
   connect(options?: EnhancerOptions): Connection;
 }

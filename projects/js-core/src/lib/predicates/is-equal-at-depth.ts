@@ -33,7 +33,6 @@ export function isEqualAtDepth(depth: number, value: any, other: any): boolean {
   return hasSameValues(depth, value, other);
 }
 
-/** @hidden */
 function hasSameValues(depth: number, value: any, other: any): boolean {
   for (const key of keys(value)) {
     if (!Object.prototype.hasOwnProperty.call(other, key)) {

@@ -1,10 +1,6 @@
 {
-  "exclude": ["**/*.spec.ts"],
   "excludePrivate": true,
   "gitRevision": "master",
-  "mode": "file",
-  "module": "commonjs",
   "readme": "none",
-  "target": "ES6",
   "theme": "docs/typedoc-theme"
 }

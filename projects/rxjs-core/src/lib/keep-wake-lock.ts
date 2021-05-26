@@ -1,17 +1,14 @@
 import { fromEvent, Observable } from 'rxjs';
 import { filter, finalize, startWith, switchMap } from 'rxjs/operators';
 
-/** @hidden */
 export interface WakeLockSentinel {
   release(): Promise<void>;
 }
 
-/** @hidden */
 export interface WakeLock {
   request(type: 'screen'): Promise<WakeLockSentinel>;
 }
 
-/** @hidden */
 export interface ExtendedNavigator {
   wakeLock?: WakeLock;
 }

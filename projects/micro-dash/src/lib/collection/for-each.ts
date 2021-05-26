@@ -27,7 +27,6 @@ export function forEach(collection: any, iteratee: any): any {
   return collection;
 }
 
-/** @hidden */
 export function forEachOfArray<T>(
   array: readonly T[],
   iteratee: ArrayIteratee<T, void | boolean>,

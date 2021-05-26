@@ -2,13 +2,11 @@ import { map as _map } from '@s-libs/micro-dash';
 import { OperatorFunction } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-/** @hidden */
 type BuildDownstreamItem<UpstreamType, DownstreamType> = (
   upstreamItem: UpstreamType,
   key: keyof any,
 ) => DownstreamType;
 
-/** @hidden */
 export function mapAndCacheElements<UpstreamType, DownstreamType>(
   buildCacheKey: (upstreamItem: UpstreamType, key: keyof any) => any,
   buildDownstreamItem: BuildDownstreamItem<UpstreamType, DownstreamType>,

@@ -19,7 +19,6 @@ export function keys<T>(object: T | Nil): Array<StringifiedKey<T>> {
   return val as any;
 }
 
-/** @hidden */
 export function keysOfNonArray<T>(object: T | Nil): Array<StringifiedKey<T>> {
   return object ? (Object.getOwnPropertyNames(object) as any) : [];
 }

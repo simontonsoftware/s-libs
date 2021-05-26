@@ -1,7 +1,6 @@
 import { IfCouldBe, Key, Nil } from '../interfaces';
 import { castArray } from '../lang';
 
-/** @hidden */
 type WithDefault<V, D> =
   | (undefined extends D ? V : Exclude<V, undefined>)
   | (undefined extends V ? D : never);

@@ -1,4 +1,3 @@
-/** @hidden */
 export interface CallableObject<F extends (...args: any[]) => any> {
   (...args: Parameters<F>): ReturnType<F>;
 }

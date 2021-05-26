@@ -37,7 +37,6 @@ export function createOperatorFunction<
     });
 }
 
-/** @hidden */
 interface RequiredSubscriber<T> extends Subscriber<T> {
   /**
    * `value` is optional in `Subscriber`. We need it to be required.

@@ -60,14 +60,12 @@ export function precompileForTests(
 }
 
 // TODO: this could be a public function
-/** @hidden */
 function optionallyInject<T>(
   token: Type<T> | InjectionToken<T> | AbstractType<T>,
 ): T | null {
   return TestBed.inject(token, null, InjectFlags.Optional);
 }
 
-/** @hidden */
 function extractAotSummaries(
   metadataResolver: CompileMetadataResolver,
   modules: any[],
@@ -79,7 +77,6 @@ function extractAotSummaries(
   );
 }
 
-/** @hidden */
 function extractAotSummaries0(
   metadataResolver: CompileMetadataResolver,
   module: any,
@@ -104,7 +101,6 @@ function extractAotSummaries0(
   ];
 }
 
-/** @hidden */
 function extractDirectives(
   moduleMetadata: CompileNgModuleMetadata,
   metadataResolver: CompileMetadataResolver,
@@ -114,7 +110,6 @@ function extractDirectives(
   );
 }
 
-/** @hidden */
 function extractPipes(
   moduleMetadata: CompileNgModuleMetadata,
   metadataResolver: CompileMetadataResolver,
@@ -124,7 +119,6 @@ function extractPipes(
   );
 }
 
-/** @hidden */
 function extractImports(moduleMetadata: CompileNgModuleMetadata): any[] {
   return moduleMetadata.importedModules.map(
     (importedModule) => importedModule.type.reference,

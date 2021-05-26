@@ -7,7 +7,7 @@ if (projects.length === 0) {
 
 for (const project of projects) {
   runCommand(
-    `npx typedoc --tsconfig projects/${project}/tsconfig.lib.json --out docs/${project} projects/${project}/src/lib`,
+    `npx typedoc --tsconfig projects/${project}/tsconfig.lib.json --out docs/${project} projects/${project}/src/public-api.ts`,
   );
 }
 runCommand('git add docs/*');

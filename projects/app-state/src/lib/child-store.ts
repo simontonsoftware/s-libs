@@ -1,7 +1,6 @@
 import { clone, omit } from '@s-libs/micro-dash';
 import { RootStore, Store } from './index';
 
-/** @hidden */
 export class ChildStore<T> extends Store<T> {
   constructor(
     getRootStore: () => RootStore<object>,

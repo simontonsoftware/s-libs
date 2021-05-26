@@ -1,4 +1,3 @@
-/** @hidden */
 export interface Hooks<A extends any[], R, T> {
   before?: (this: T, ...args: A) => void;
   around?: (this: T, fn: (...args: A) => R, ...args: A) => R;
@@ -46,7 +45,6 @@ export function wrapFunction<A extends any[], R, T>(
   return wrapped;
 }
 
-/** @hidden */
 function callHook(
   // eslint-disable-next-line @typescript-eslint/ban-types
   hook: Function | undefined,

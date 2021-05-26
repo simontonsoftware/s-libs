@@ -242,7 +242,6 @@ export class ComponentContext<T> extends AngularContext {
     this.tick();
   }
 
-  /** @hidden */
   protected runChangeDetection(): void {
     this.fixture.detectChanges();
   }

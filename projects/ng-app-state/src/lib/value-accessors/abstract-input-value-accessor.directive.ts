@@ -1,7 +1,6 @@
 import { Directive, HostListener } from '@angular/core';
 import { AbstractValueAccessorDirective } from './abstract-value-accessor.directive';
 
-/** @hidden */
 @Directive()
 export abstract class AbstractInputValueAccessorDirective extends AbstractValueAccessorDirective<HTMLInputElement> {
   @HostListener('change')

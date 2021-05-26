@@ -33,7 +33,6 @@ export function sortBy<T>(
   return metas.map((e) => e.value);
 }
 
-/** @hidden */
 export const compareValues = (x: any, y: any): any => {
   let v1 = getSortOrdinal(x);
   let v2 = getSortOrdinal(y);
@@ -48,7 +47,6 @@ export const compareValues = (x: any, y: any): any => {
   }
 };
 
-/** @hidden */
 const getSortOrdinal = (value: any): number => {
   if (Number.isNaN(value)) {
     return 3;

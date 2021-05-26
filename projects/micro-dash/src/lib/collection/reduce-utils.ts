@@ -1,4 +1,3 @@
-/** @hidden */
 export function doReduce(
   iterationFn: Function,
   collection: any,

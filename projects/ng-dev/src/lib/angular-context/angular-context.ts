@@ -22,7 +22,6 @@ import { convertTime } from '@s-libs/js-core';
 import { clone, forOwn } from '@s-libs/micro-dash';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
 
-/** @hidden */
 export function extendMetadata(
   metadata: TestModuleMetadata,
   toAdd: TestModuleMetadata,
@@ -171,7 +170,6 @@ export class AngularContext {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected init(): void {}
 
-  /** @hidden */
   protected runChangeDetection(): void {
     this.inject(ApplicationRef).tick();
   }

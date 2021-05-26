@@ -1,7 +1,6 @@
 import { forEachOfArray } from '../collection/for-each';
 import { Existent, Primitive, ValueIteratee } from '../interfaces';
 
-/** @hidden */
 export function findExtreme<T extends Existent>(
   array: readonly T[],
   iteratee: ValueIteratee<T, Primitive>,

@@ -10,5 +10,11 @@
     "types": [],
     "lib": ["dom", "es2018"]
   },
-  "exclude": ["src/test.ts", "src/test-polyfills.ts", "**/*.spec.ts"]
+  "exclude": [
+    "src/test.ts",
+    "src/test-polyfills.ts",
+    "**/*.spec.ts",
+    // excluded for the sake of TSDoc
+    "src/typing-tests"
+  ]
 }

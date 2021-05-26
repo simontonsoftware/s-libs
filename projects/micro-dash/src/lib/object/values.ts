@@ -11,7 +11,6 @@ export function values<T>(object: T): T[keyof T][] {
   return keys(object).map((key) => object[key as keyof T]);
 }
 
-/** @hidden */
 export function valuesOfNonArray<T>(object: T): T[keyof T][] {
   return keysOfNonArray(object).map((key) => object[key as keyof T]);
 }

@@ -4,7 +4,6 @@ import { flush } from '@angular/core/testing';
 import { bindKey } from '@s-libs/micro-dash';
 import { AngularContext } from './angular-context';
 
-/** @hidden */
 export class FakeAsyncHarnessEnvironment extends HarnessEnvironment<Element> {
   static documentRootLoader(ctx: AngularContext): FakeAsyncHarnessEnvironment {
     return new FakeAsyncHarnessEnvironment(document.body, ctx);

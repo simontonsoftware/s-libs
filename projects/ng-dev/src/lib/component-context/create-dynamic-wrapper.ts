@@ -3,25 +3,21 @@ import { TestBed } from '@angular/core/testing';
 import { assert } from '@s-libs/js-core';
 import { forOwn } from '@s-libs/micro-dash';
 
-/** @hidden */
 interface InputMeta<T> {
   binding: string;
   property: keyof T;
 }
 
-/** @hidden */
 export interface WrapperComponent<T> {
   inputs: Partial<T>;
   styles: { [klass: string]: any };
 }
 
-/** @hidden */
 interface DynamicWrapper<T> {
   type: Type<WrapperComponent<T>>;
   inputProperties: Array<keyof T>;
 }
 
-/** @hidden */
 export function createDynamicWrapper<T>(
   componentType: Type<T>,
   unboundInputs: Array<keyof T>,
@@ -41,7 +37,6 @@ export function createDynamicWrapper<T>(
   return { type: DynamicWrapperComponent, inputProperties };
 }
 
-/** @hidden */
 function getSelector(componentType: Type<unknown>): string {
   const annotations = Reflect.getOwnPropertyDescriptor(
     componentType,
@@ -59,7 +54,6 @@ function getSelector(componentType: Type<unknown>): string {
   return selector;
 }
 
-/** @hidden */
 function isValidSelector(selector: string): boolean {
   if (!selector) {
     return false;
@@ -72,7 +66,6 @@ function isValidSelector(selector: string): boolean {
   }
 }
 
-/** @hidden */
 function getInputMetas<T>(componentType: Type<T>): Array<InputMeta<T>> {
   let metas: Array<InputMeta<T>>;
   const superType = Object.getPrototypeOf(componentType.prototype)?.constructor;
@@ -98,7 +91,6 @@ function getInputMetas<T>(componentType: Type<T>): Array<InputMeta<T>> {
   return metas;
 }
 
-/** @hidden */
 function buildTemplate<T>(
   selector: string,
   inputMetas: InputMeta<T>[],

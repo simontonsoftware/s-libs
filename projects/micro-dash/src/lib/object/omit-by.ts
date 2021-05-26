@@ -11,24 +11,19 @@ import {
 } from '../interfaces';
 import { pickBy } from './pick-by';
 
-/** @hidden */
 type IfDefinitelyIncluded<T, O, If, Else = never> = IfCouldBe<T, O, Else, If>;
-/** @hidden */
 type IfMaybeIncluded<T, O, If, Else = never> = IfDefinitelyIncluded<
   T,
   O,
   Else,
   Exclude<T, O> extends never ? Else : If
 >;
-/** @hidden */
 type KeysWithDefinitelyIncludedValues<T, O> = {
   [K in keyof T]: IfDefinitelyIncluded<T[K], O, K>;
 }[keyof T];
-/** @hidden */
 type KeysWithMaybeIncludedValues<T, O> = {
   [K in keyof T]: IfMaybeIncluded<T[K], O, K>;
 }[keyof T];
-/** @hidden */
 type DefinitelyIncludedKeys<T, O> = {
   [K in keyof T]: IfIndexType<
     K,
@@ -36,7 +31,6 @@ type DefinitelyIncludedKeys<T, O> = {
     IfDefinitelyIncluded<Cast<K, string>, O, K>
   >;
 }[keyof T];
-/** @hidden */
 type MaybeIncludedKeys<T, O> = {
   [K in keyof T]: IfIndexType<K, never, IfMaybeIncluded<Cast<K, string>, O, K>>;
 }[keyof T];

@@ -22,7 +22,6 @@ export function forOwnRight<T>(
   return object;
 }
 
-/** @hidden */
 export function forOwnRightOfNonArray<T>(
   object: T,
   iteratee: ObjectIteratee<T, void | boolean>,

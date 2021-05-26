@@ -12,26 +12,21 @@ import {
 } from '../interfaces';
 import { forOwn } from './for-own';
 
-/** @hidden */
 type IfDefinitelyIncluded<T, O, If, Else = never> = Exclude<T, O> extends never
   ? If
   : Else;
-/** @hidden */
 type IfMaybeIncluded<T, O, If, Else = never> = IfDefinitelyIncluded<
   T,
   O,
   Else,
   IfCouldBe<T, O, If, Else>
 >;
-/** @hidden */
 type KeysWithDefinitelyIncludedValues<T, O> = {
   [K in keyof T]: IfDefinitelyIncluded<T[K], O, K>;
 }[keyof T];
-/** @hidden */
 type KeysWithMaybeIncludedValues<T, O> = {
   [K in keyof T]: IfMaybeIncluded<T[K], O, K>;
 }[keyof T];
-/** @hidden */
 export type DefinitelyIncludedKeys<T, O> = {
   [K in keyof T]: IfIndexType<
     K,
@@ -39,7 +34,6 @@ export type DefinitelyIncludedKeys<T, O> = {
     IfDefinitelyIncluded<Cast<K, string>, O, K>
   >;
 }[keyof T];
-/** @hidden */
 type MaybeIncludedKeys<T, O> = {
   [K in keyof T]: IfIndexType<K, never, IfMaybeIncluded<Cast<K, string>, O, K>>;
 }[keyof T];

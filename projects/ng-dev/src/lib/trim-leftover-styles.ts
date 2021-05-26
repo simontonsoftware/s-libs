@@ -1,4 +1,3 @@
-/** @hidden */
 let initialStyles: Set<HTMLStyleElement> | undefined;
 
 /**
@@ -25,7 +24,6 @@ export function trimLeftoverStyles(): void {
   }
 }
 
-/** @hidden */
 export function resetTrimLeftoverStyles(): void {
   initialStyles = undefined;
 }

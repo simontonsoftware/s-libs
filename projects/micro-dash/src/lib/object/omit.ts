@@ -1,7 +1,6 @@
 import { Nil } from '../interfaces';
 import { clone } from '../lang';
 
-/** @hidden */
 type RemainingKeys<T, Omits> =
   | Exclude<keyof T, Omits>
   | Extract<PropertyKey, keyof T>; // always include index properties

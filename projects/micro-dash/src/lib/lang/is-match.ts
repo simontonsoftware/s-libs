@@ -20,7 +20,6 @@ export function isMatch<T>(object: T, source: DeepPartial<T>): boolean {
   return isEmpty(source) || isMatch0(object, source);
 }
 
-/** @hidden */
 function isMatch0(object: any, source: any): boolean {
   if (Object.is(object, source)) {
     return true;

@@ -1,6 +1,5 @@
 import { TestScheduler } from 'rxjs/testing';
 
-/** @hidden */
 // including this file in a build caused an error without this
 declare global {
   interface SymbolConstructor {
@@ -8,11 +7,8 @@ declare global {
   }
 }
 
-/** @hidden */
 type Run = Parameters<TestScheduler['run']>[0];
-/** @hidden */
 type Helpers = Parameters<Run>[0];
-/** @hidden */
 type Callback<T> = (
   testHelpers: Helpers & { testScheduler: TestScheduler },
 ) => T;

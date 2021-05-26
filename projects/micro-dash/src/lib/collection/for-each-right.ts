@@ -27,7 +27,6 @@ export function forEachRight(collection: any, iteratee: any): any {
   return collection;
 }
 
-/** @hidden */
 export function forEachRightOfArray<T>(
   array: readonly T[],
   iteratee: ArrayIteratee<T, void | boolean>,

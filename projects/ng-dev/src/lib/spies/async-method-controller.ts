@@ -2,10 +2,8 @@ import { Deferred } from '@s-libs/js-core';
 import { isEqual, nth, remove } from '@s-libs/micro-dash';
 import { TestCall } from './test-call';
 
-/** @hidden */
 type AsyncFunc = (...args: any[]) => Promise<any>;
 
-/** @hidden */
 type Match<
   WrappingObject,
   FunctionName extends AsyncMethodKeys<WrappingObject>,
@@ -13,7 +11,6 @@ type Match<
   | Parameters<WrappingObject[FunctionName]>
   | ((callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>) => boolean);
 
-/** @hidden */
 type AsyncMethodKeys<T> = {
   [k in keyof T]: T[k] extends AsyncFunc ? k : never;
 }[keyof T];
@@ -192,7 +189,6 @@ export class AsyncMethodController<
   }
 }
 
-/** @hidden */
 function stringifyArgs(args: any[]): string {
   return JSON.stringify(args);
 }

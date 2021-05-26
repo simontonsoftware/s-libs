@@ -20,7 +20,6 @@ export function forOwn<T>(
   return object;
 }
 
-/** @hidden */
 export function forOwnOfNonArray<T>(
   object: T,
   iteratee: ObjectIteratee<T, void | boolean>,

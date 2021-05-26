@@ -8,7 +8,6 @@ import { RangeValueAccessorDirective } from './value-accessors/range-value-acces
 import { SelectValueAccessorDirective } from './value-accessors/select-value-accessor.directive';
 import { SelectMultipleValueAccessorDirective } from './value-accessors/select-multiple-value-accessor.directive';
 
-/** @hidden */
 const exportedDirectives = [
   CheckboxValueAccessorDirective,
   InputValueAccessorDirective,

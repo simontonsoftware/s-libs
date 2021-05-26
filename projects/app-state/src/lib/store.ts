@@ -3,7 +3,6 @@ import { clone, every } from '@s-libs/micro-dash';
 import { Observable, Subscriber } from 'rxjs';
 import { ChildStore, RootStore } from './index';
 
-/** @hidden */
 type GetSlice<T> = <K extends keyof T>(attr: K) => Store<T[K]>;
 
 export interface Store<T> extends GetSlice<T> {
