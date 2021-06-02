@@ -25,7 +25,8 @@
     // Simonton Software additions
     //
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
