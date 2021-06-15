@@ -26,8 +26,6 @@ import {
  * - Automatically disables animations.
  * - Automatically integrates {@link trimLeftoverStyles} to speed up your test suite.
  *
- * Why does the class name end with "Next"? This replaces the old `ComponentContext`, but it's a breaking change so this gives people some time to transition over. Eventually the old one will be removed and this will be renamed to `ComponentContext`.
- *
  * A very simple example:
  * ```ts
  * @Component({ template: 'Hello, {{name}}!' })

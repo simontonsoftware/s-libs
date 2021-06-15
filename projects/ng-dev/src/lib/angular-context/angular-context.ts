@@ -45,8 +45,6 @@ export function extendMetadata(
  * - Always verifies that no unexpected http requests were made.
  * - Automatically discards periodic tasks and flushes pending timers at the end of each test to avoid the error "X timer(s) still in the queue".
  *
- * Why does the class name end with "Next"? This replaces the old `AngularContext`, but it's a breaking change so this gives people some time to transition over. Eventually the old one will be removed and this will be renamed to `AngularContext`.
- *
  * This example tests a simple service that uses `HttpClient`, and is tested by using `AngularContext` directly. More often `AngularContext` will be used as a super class. See {@link ComponentContext} for more common use cases.
  *
  * ```ts
