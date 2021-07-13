@@ -93,7 +93,7 @@ describe('ComponentContext', () => {
         ctx.assignInputs({ myInput: 'new value' });
         expect(spy).toHaveBeenCalledTimes(1);
         const changes: SimpleChanges = spy.calls.mostRecent().args[0];
-        expect(changes.myInput.currentValue).toBe('new value');
+        expect(changes['myInput'].currentValue).toBe('new value');
       });
     });
 
