@@ -51,11 +51,9 @@ describe('logToReduxDevtoolsExtension()', () => {
 
   it('gracefully handles when there is no extension', () => {
     delete (window as any)[extensionKey];
-    const warn = spyOn(console, 'warn');
     const subject = new Subject();
 
     logToReduxDevtoolsExtension(subject);
-    expectSingleCallAndReset(warn, 'No redux devtools extension found');
 
     expect(() => {
       subject.next({ a: 1 });

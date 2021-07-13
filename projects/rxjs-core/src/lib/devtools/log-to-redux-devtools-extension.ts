@@ -21,7 +21,6 @@ export function logToReduxDevtoolsExtension(
   const extension: Extension | undefined = (window as any)
     .__REDUX_DEVTOOLS_EXTENSION__;
   if (!extension) {
-    console.warn('No redux devtools extension found');
     return new Subscription();
   }
 
