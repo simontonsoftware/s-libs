@@ -154,6 +154,12 @@ export class AngularContext {
    * @param unit The unit of time `amount` represents. Accepts anything described in `@s-libs/s-core`'s [TimeUnit]{@linkcode https://simontonsoftware.github.io/s-js-utils/typedoc/enums/timeunit.html} enum.
    */
   tick(amount = 0, unit = 'ms'): void {
+    if (!Zone.current.get('FakeAsyncTestZoneSpec')) {
+      throw new Error(
+        '.tick() only works inside the .run() callback (because it needs to be in a fakeAsync zone)',
+      );
+    }
+
     // To simulate real life, trigger change detection before processing macro tasks. To further simulate real life, wait until the micro task queue is empty.
     flushMicrotasks();
     this.runChangeDetection();

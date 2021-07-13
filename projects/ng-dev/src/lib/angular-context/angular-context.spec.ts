@@ -239,6 +239,15 @@ describe('AngularContext', () => {
         expect(performance.now()).toBe(start + 10);
       });
     });
+
+    it('gives a nice error message when you try to use it outside `run()`', () => {
+      const ctx = new AngularContext();
+      expect(() => {
+        ctx.tick();
+      }).toThrowError(
+        '.tick() only works inside the .run() callback (because it needs to be in a fakeAsync zone)',
+      );
+    });
   });
 
   describe('.verifyPostTestConditions()', () => {
