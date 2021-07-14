@@ -8,6 +8,7 @@ export { forEachRight } from './for-each-right';
 export { includes } from './includes';
 export { keyBy } from './key-by';
 export { map } from './map';
+export { partition } from './partition';
 export { reduce } from './reduce';
 export { reject } from './reject';
 export { reduceRight } from './reduce-right';

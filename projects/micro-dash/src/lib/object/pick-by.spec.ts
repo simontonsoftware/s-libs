@@ -46,9 +46,9 @@ describe('pickBy()', () => {
     //
 
     type A = Array<string | number>;
-    const a = [1, 'b'] as A;
-    const aOrU = [1, 'b'] as A | undefined;
-    const aOrN = [1, 'b'] as A | null;
+    const a = [] as A;
+    const aOrU = a as A | undefined;
+    const aOrN = a as A | null;
 
     expectTypeOf(pickBy(a, () => true)).toEqualTypeOf<{
       [index: number]: string | number;
@@ -87,17 +87,17 @@ describe('pickBy()', () => {
     expectTypeOf(pickBy(aOrN, isA)).toEqualTypeOf<{ [index: number]: 'a' }>();
 
     type AB = Array<'a' | 'b'>;
-    const ab = ['a'] as AB;
-    const abOrU = ['a'] as AB | undefined;
-    const abOrN = ['a'] as AB | null;
+    const ab = [] as AB;
+    const abOrU = ab as AB | undefined;
+    const abOrN = ab as AB | null;
     expectTypeOf(pickBy(ab, isA)).toEqualTypeOf<{ [index: number]: 'a' }>();
     expectTypeOf(pickBy(abOrU, isA)).toEqualTypeOf<{ [index: number]: 'a' }>();
     expectTypeOf(pickBy(abOrN, isA)).toEqualTypeOf<{ [index: number]: 'a' }>();
 
     type AN = Array<'a' | number>;
-    const an = ['a'] as AN;
-    const anOrU = ['a'] as AN | undefined;
-    const anOrN = ['a'] as AN | null;
+    const an = [] as AN;
+    const anOrU = an as AN | undefined;
+    const anOrN = an as AN | null;
     expectTypeOf(pickBy(an, isStringOr2)).toEqualTypeOf<{
       [index: number]: 2 | 'a';
     }>();
@@ -117,20 +117,20 @@ describe('pickBy()', () => {
       2: string;
       c: Date | Document;
     }
-    const o: O = {} as any;
-    const oOrU: O | undefined = {} as any;
-    const oOrN: O | null = {} as any;
+    const o = {} as O;
+    const oOrN = o as O | null;
+    const oOrU = o as O | undefined;
     expectTypeOf(pickBy(o, () => true)).toEqualTypeOf<{
       2?: string | undefined;
       a?: number | undefined;
       c?: Date | Document | undefined;
     }>();
-    expectTypeOf(pickBy(oOrU, () => true)).toEqualTypeOf<{
+    expectTypeOf(pickBy(oOrN, () => true)).toEqualTypeOf<{
       2?: string | undefined;
       a?: number | undefined;
       c?: Date | Document | undefined;
     }>();
-    expectTypeOf(pickBy(oOrN, () => true)).toEqualTypeOf<{
+    expectTypeOf(pickBy(oOrU, () => true)).toEqualTypeOf<{
       2?: string | undefined;
       a?: number | undefined;
       c?: Date | Document | undefined;
@@ -187,9 +187,9 @@ describe('pickBy()', () => {
     interface S2 {
       a: 'a' | number;
     }
-    const s2: S2 = {} as any;
-    const s2OrU: S2 | undefined = {} as any;
-    const s2OrN: S2 | null = {} as any;
+    const s2 = {} as S2;
+    const s2OrN = s2 as S2 | null;
+    const s2OrU = s2 as S2 | undefined;
     expectTypeOf(pickBy(s2, isA)).toEqualTypeOf<{ a?: 'a' | undefined }>();
     expectTypeOf(pickBy(s2OrU, isA)).toEqualTypeOf<
       {} | { a?: 'a' | undefined }
