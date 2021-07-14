@@ -1,6 +1,13 @@
+import { times } from 'lodash-es';
 import { flatten } from '.';
 
 describe('flatten()', () => {
+  it('can handle large arrays', () => {
+    expect(() => {
+      flatten(times(1000000, () => [1]));
+    }).not.toThrowError();
+  });
+
   //
   // stolen from https://github.com/healthiers/mini-dash
   //
@@ -44,14 +51,6 @@ describe('flatten()', () => {
       undefined,
       undefined,
     ]);
-  });
-
-  it('should respect `Symbol.isConcatSpreadable`', () => {
-    const object1: any = { '0': 'a', length: 1 };
-    const object2: any = { '0': 'a', length: 1 };
-    object1[Symbol.isConcatSpreadable] = true;
-
-    expect(flatten([object1, object2] as any)).toEqual(['a', object2]);
   });
 
   it('should work with extremely large arrays', () => {

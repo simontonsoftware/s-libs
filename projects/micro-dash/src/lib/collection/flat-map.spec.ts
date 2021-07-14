@@ -1,7 +1,13 @@
-import { flatten, identity, map } from 'lodash-es';
+import { flatten, identity, map, times } from 'lodash-es';
 import { flatMap } from './flat-map';
 
 describe('flatMap()', () => {
+  it('can handle large arrays', () => {
+    expect(() => {
+      flatMap(times(1000000, identity), () => [1]);
+    }).not.toThrowError();
+  });
+
   //
   // stolen from https://github.com/lodash/lodash
   //
