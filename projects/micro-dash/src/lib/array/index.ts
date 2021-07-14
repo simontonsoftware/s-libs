@@ -4,6 +4,7 @@ export { concat } from './concat';
 export { difference } from './difference';
 export { flatten } from './flatten';
 export { initial } from './initial';
+export { intersection } from './intersection';
 export { last } from './last';
 export { nth } from './nth';
 export { pull } from './pull';
