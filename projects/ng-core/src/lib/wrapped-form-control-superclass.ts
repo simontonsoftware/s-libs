@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { WrappedAbstractControlSuperclass } from './wrapped-abstract-control-superclass';
 
@@ -44,7 +43,6 @@ import { WrappedAbstractControlSuperclass } from './wrapped-abstract-control-sup
  * }
  * ```
  */
-@Injectable()
 export abstract class WrappedFormControlSuperclass<
   OuterType,
   InnerType = OuterType,
