@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { WrappedAbstractControlSuperclass } from './wrapped-abstract-control-superclass.service';
+import { WrappedAbstractControlSuperclass } from './wrapped-abstract-control-superclass';
 
 /**
  * Extend this when creating a form control that simply wraps an existing form control, to reduce a lot of boilerplate. **Warning:** You _must_ include a constructor in your subclass.
