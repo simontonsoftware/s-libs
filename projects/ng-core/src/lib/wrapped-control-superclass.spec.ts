@@ -8,7 +8,12 @@ import {
   ComponentFixtureAutoDetect,
   flushMicrotasks,
 } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ComponentContext } from '@s-libs/ng-dev';
 import { Observable } from 'rxjs';
@@ -20,16 +25,16 @@ import {
   provideValueAccessor,
 } from './form-component-superclass';
 import { InjectableSuperclass } from './injectable-superclass';
-import { WrappedFormControlSuperclass } from './wrapped-form-control-superclass';
+import { WrappedControlSuperclass } from './wrapped-control-superclass';
 
-describe('WrappedFormControlSuperclass', () => {
+describe('WrappedControlSuperclass', () => {
   it('allows setting up an observable to translate between inner and outer values', () => {
     @Component({
       selector: 's-observable-translation',
-      template: `<input [formControl]="formControl" />`,
+      template: `<input [formControl]="control" />`,
       providers: [provideValueAccessor(ObservableTranslationComponent)],
     })
-    class ObservableTranslationComponent extends WrappedFormControlSuperclass<
+    class ObservableTranslationComponent extends WrappedControlSuperclass<
       number,
       string
     > {
@@ -86,8 +91,8 @@ describe('WrappedFormControlSuperclass', () => {
   });
 
   it('adds ng-touched to the inner form control at the right time', () => {
-    @Component({ template: `<input [formControl]="formControl" />` })
-    class NgTouchedComponent extends WrappedFormControlSuperclass<string> {
+    @Component({ template: `<input [formControl]="control" />` })
+    class NgTouchedComponent extends WrappedControlSuperclass<string> {
       constructor(injector: Injector) {
         super(injector);
       }
@@ -104,9 +109,70 @@ describe('WrappedFormControlSuperclass', () => {
       expect(debugElement.classes['ng-touched']).toBe(true);
     });
   });
+
+  // https://github.com/simontonsoftware/s-libs/pull/52
+  it('can wrap a form group', () => {
+    class FullName {
+      firstName = '';
+      lastName = '';
+    }
+
+    @Component({
+      selector: 's-full-name',
+      template: `
+        <div [formGroup]="control">
+          <input id="first" formControlName="firstName" />
+          <input id="last" formControlName="lastName" />
+        </div>
+      `,
+      providers: [provideValueAccessor(FullNameComponent)],
+    })
+    class FullNameComponent extends WrappedControlSuperclass<FullName> {
+      control = new FormGroup({
+        firstName: new FormControl(),
+        lastName: new FormControl(),
+      });
+
+      // This looks unnecessary, but is required for Angular to provide `Injector`
+      constructor(injector: Injector) {
+        super(injector);
+      }
+
+      protected outerToInner(outer: FullName | null): FullName {
+        // `outer` can come in as `null` during initialization when the user binds with `ngModel`
+        return outer || new FullName();
+      }
+    }
+
+    @Component({
+      template: `
+        <s-full-name [ngModel]="fullName" [disabled]="disabled"></s-full-name>
+      `,
+    })
+    class FormComponent {
+      @Input() disabled = false;
+      fullName = { firstName: 'Krick', lastName: 'Ray' };
+    }
+
+    const ctx = new ComponentContext(FormComponent, {
+      imports: [FormsModule, ReactiveFormsModule],
+      declarations: [FullNameComponent],
+    });
+    ctx.run(async () => {
+      const inputs = document.querySelectorAll('input');
+      expect(inputs[0].value).toBe('Krick');
+      expect(inputs[1].value).toBe('Ray');
+
+      expect(inputs[0].disabled).toBe(false);
+      expect(inputs[1].disabled).toBe(false);
+      ctx.assignInputs({ disabled: true });
+      expect(inputs[0].disabled).toBe(true);
+      expect(inputs[1].disabled).toBe(true);
+    });
+  });
 });
 
-describe('WrappedFormControlSuperclass tests using an old style fixture', () => {
+describe('WrappedControlSuperclass tests using an old style fixture', () => {
   @Component({
     template: `
       <s-string-component
@@ -130,11 +196,11 @@ describe('WrappedFormControlSuperclass tests using an old style fixture', () => 
 
   @Component({
     selector: `s-string-component`,
-    template: ` <input [formControl]="formControl" /> `,
+    template: ` <input [formControl]="control" /> `,
     providers: [provideValueAccessor(StringComponent)],
     changeDetection: ChangeDetectionStrategy.OnPush,
   })
-  class StringComponent extends WrappedFormControlSuperclass<string> {
+  class StringComponent extends WrappedControlSuperclass<string> {
     constructor(injector: Injector) {
       super(injector);
     }
@@ -142,11 +208,11 @@ describe('WrappedFormControlSuperclass tests using an old style fixture', () => 
 
   @Component({
     selector: `s-date-component`,
-    template: ` <input type="datetime-local" [formControl]="formControl" /> `,
+    template: ` <input type="datetime-local" [formControl]="control" /> `,
     providers: [provideValueAccessor(DateComponent)],
     changeDetection: ChangeDetectionStrategy.OnPush,
   })
-  class DateComponent extends WrappedFormControlSuperclass<Date, string> {
+  class DateComponent extends WrappedControlSuperclass<Date, string> {
     constructor(injector: Injector) {
       super(injector);
     }

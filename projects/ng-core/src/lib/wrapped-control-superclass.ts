@@ -1,20 +1,20 @@
-import { Injector } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Directive, OnInit } from '@angular/core';
+import { AbstractControl, FormControl } from '@angular/forms';
 import { wrapMethod } from '@s-libs/js-core';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormComponentSuperclass } from './form-component-superclass';
 
 /**
- * Extend this when creating a form control that simply wraps an existing form control, to reduce a lot of boilerplate. **Warning:** You _must_ include a constructor in your subclass.
+ * Extend this when creating a form component that simply wraps existing ones, to reduce a lot of boilerplate. **Warning:** You _must_ include a constructor in your subclass.
  *
- * Example when you don't need to modify the wrapped control's value:
+ * A simple example:
  * ```ts
  * @Component({
- *   template: `<input [formControl]="formControl">`,
+ *   template: `<input [formControl]="control">`,
  *   providers: [provideValueAccessor(StringComponent)],
  * })
- * class StringComponent extends WrappedFormControlSuperclass<string> {
+ * class StringComponent extends WrappedControlSuperclass<string> {
  *   // This looks unnecessary, but is required for Angular to provide `Injector`
  *   constructor(injector: Injector) {
  *     super(injector);
@@ -22,13 +22,48 @@ import { FormComponentSuperclass } from './form-component-superclass';
  * }
  * ```
  *
+ * Example of wrapping multiple inner components:
+ * ```ts
+ * class FullName {
+ *   firstName = '';
+ *   lastName = '';
+ * }
+ *
+ * @Component({
+ *   selector: 'app-full-name',
+ *   template: `
+ *     <div [formGroup]="control">
+ *       <input id="first" formControlName="firstName" />
+ *       <input id="last" formControlName="lastName" />
+ *     </div>
+ *   `,
+ *   providers: [provideValueAccessor(FullNameComponent)],
+ * })
+ * class FullNameComponent extends WrappedControlSuperclass<FullName> {
+ *   control = new FormGroup({
+ *     firstName: new FormControl(),
+ *     lastName: new FormControl(),
+ *   });
+ *
+ *   // This looks unnecessary, but is required for Angular to provide `Injector`
+ *   constructor(injector: Injector) {
+ *     super(injector);
+ *   }
+ *
+ *   protected outerToInner(outer: FullName | null): FullName {
+ *     // `outer` can come in as `null` during initialization when the user binds with `ngModel`
+ *     return outer || new FullName();
+ *   }
+ * }
+ * ```
+ *
  * Example when you need to modify the wrapped control's value:
  * ```ts
  * @Component({
- *   template: `<input type="datetime-local" [formControl]="formControl">`,
+ *   template: `<input type="datetime-local" [control]="formControl">`,
  *   providers: [provideValueAccessor(DateComponent)],
  * })
- * class DateComponent extends WrappedFormControlSuperclass<Date, string> {
+ * class DateComponent extends WrappedControlSuperclass<Date, string> {
  *   // This looks unnecessary, but is required for Angular to provide `Injector`
  *   constructor(injector: Injector) {
  *     super(injector);
@@ -47,27 +82,27 @@ import { FormComponentSuperclass } from './form-component-superclass';
  * }
  * ```
  */
-export abstract class WrappedFormControlSuperclass<
-  OuterType,
-  InnerType = OuterType,
-> extends FormComponentSuperclass<OuterType> {
-  /** Bind this to your inner form control to make all the magic happen. */
-  formControl = new FormControl();
+@Directive()
+export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
+  extends FormComponentSuperclass<OuterType>
+  implements OnInit
+{
+  /** Bind this to your inner form control to make all the magic happen. By default this is a `FormControl`, but for a complex component you can override it to be a `FormGroup` or `FormArray`. */
+  control: AbstractControl = new FormControl();
 
   private incomingValues$ = new Subject<OuterType>();
 
-  constructor(injector: Injector) {
-    super(injector);
+  ngOnInit(): void {
     this.subscribeTo(this.setUpOuterToInner$(this.incomingValues$), (inner) => {
-      this.formControl.setValue(inner, { emitEvent: false });
+      this.control.setValue(inner, { emitEvent: false });
     });
     this.subscribeTo(
-      this.setUpInnerToOuter$(this.formControl.valueChanges),
+      this.setUpInnerToOuter$(this.control.valueChanges),
       (outer) => {
         this.emitOutgoingValue(outer);
       },
     );
-    wrapMethod(this.formControl, 'markAsTouched', {
+    wrapMethod(this.control, 'markAsTouched', {
       after: () => {
         this.onTouched();
       },
@@ -82,9 +117,9 @@ export abstract class WrappedFormControlSuperclass<
   /** Called as angular propagates disabled changes to this `ControlValueAccessor`. You normally do not need to use it. */
   setDisabledState(isDisabled: boolean): void {
     if (isDisabled) {
-      this.formControl.disable({ emitEvent: false });
+      this.control.disable({ emitEvent: false });
     } else {
-      this.formControl.enable({ emitEvent: false });
+      this.control.enable({ emitEvent: false });
     }
     super.setDisabledState(this.isDisabled);
   }

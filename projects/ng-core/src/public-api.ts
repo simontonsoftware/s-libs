@@ -11,4 +11,4 @@ export {
   InjectableSuperclass,
   mixInInjectableSuperclass,
 } from './lib/injectable-superclass';
-export { WrappedFormControlSuperclass } from './lib/wrapped-form-control-superclass';
+export { WrappedControlSuperclass } from './lib/wrapped-control-superclass';

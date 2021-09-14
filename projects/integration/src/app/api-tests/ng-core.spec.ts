@@ -12,7 +12,7 @@ import {
   ComponentFixtureAutoDetect,
   flushMicrotasks,
 } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { keys } from '@s-libs/micro-dash';
 import * as ngCore from '@s-libs/ng-core';
@@ -22,7 +22,7 @@ import {
   InjectableSuperclass,
   mixInInjectableSuperclass,
   provideValueAccessor,
-  WrappedFormControlSuperclass,
+  WrappedControlSuperclass,
 } from '@s-libs/ng-core';
 import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
@@ -42,8 +42,8 @@ describe('ng-core', () => {
       expect(InjectableSuperclass).toBeDefined();
     });
 
-    it('has WrappedFormControlSuperclass', () => {
-      expect(WrappedFormControlSuperclass).toBeDefined();
+    it('has WrappedControlSuperclass', () => {
+      expect(WrappedControlSuperclass).toBeDefined();
     });
 
     it('has mixInInjectableSuperclass', () => {
@@ -192,111 +192,26 @@ describe('ng-core', () => {
     });
 
     it('knows where to find @angular/forms', () => {
-      // WrappedFormControlSuperclass uses @angular/forms. This is one of its tests
+      // WrappedControlSuperclass uses @angular/forms. This is one of its tests
 
-      @Component({
-        template: `
-          <s-string-component
-            [(ngModel)]="string"
-            (ngModelChange)="emissions = emissions + 1"
-            #stringControl="ngModel"
-            [disabled]="shouldDisable"
-          ></s-string-component>
-          <div *ngIf="stringControl.touched">Touched!</div>
-          <button (click)="shouldDisable = !shouldDisable">
-            Toggle Disabled
-          </button>
-          <hr />
-          <s-date-component [(ngModel)]="date"></s-date-component>
-        `,
-      })
-      class TestComponent {
-        @Input() string = '';
-        emissions = 0;
-        date = new Date();
-        shouldDisable = false;
-      }
+      @Component({ template: `<input [formControl]="control" />` })
+      class NgTouchedComponent extends WrappedControlSuperclass<string> {
+        control = new FormControl();
 
-      @Component({
-        selector: `s-string-component`,
-        template: ` <input [formControl]="formControl" /> `,
-        providers: [provideValueAccessor(StringComponent)],
-        changeDetection: ChangeDetectionStrategy.OnPush,
-      })
-      class StringComponent extends WrappedFormControlSuperclass<string> {
         constructor(injector: Injector) {
           super(injector);
         }
       }
 
-      @Component({
-        selector: `s-date-component`,
-        template: `
-          <input type="datetime-local" [formControl]="formControl" />
-        `,
-        providers: [provideValueAccessor(DateComponent)],
-        changeDetection: ChangeDetectionStrategy.OnPush,
-      })
-      class DateComponent extends WrappedFormControlSuperclass<Date, string> {
-        constructor(injector: Injector) {
-          super(injector);
-        }
-
-        protected innerToOuter(value: string): Date {
-          return new Date(value + 'Z');
-        }
-
-        protected outerToInner(value: Date): string {
-          if (value === null) {
-            return ''; // happens during initialization
-          }
-          return value.toISOString().substr(0, 16);
-        }
-      }
-
-      class TestComponentContext extends ComponentContext<TestComponent> {
-        constructor() {
-          super(TestComponent, {
-            imports: [FormsModule, ReactiveFormsModule],
-            declarations: [DateComponent, StringComponent],
-            // this can go away with component harnesses eventually
-            providers: [
-              { provide: ComponentFixtureAutoDetect, useValue: true },
-            ],
-          });
-        }
-      }
-      const ctx = new TestComponentContext();
-
-      function stringInput(): HTMLInputElement {
-        return find<HTMLInputElement>(ctx.fixture, 's-string-component input');
-      }
-
-      function find<T extends Element>(
-        fixture: ComponentFixture<any>,
-        cssSelector: string,
-      ): T {
-        const found = fixture.nativeElement.querySelector(cssSelector) as T;
-        if (found) {
-          return found;
-        } else {
-          throw new Error('could not find ' + cssSelector);
-        }
-      }
-
-      function setValue(input: HTMLInputElement, value: string): void {
-        input.value = value;
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-        input.dispatchEvent(new Event('change', { bubbles: true }));
-        flushMicrotasks();
-      }
-
-      ctx.assignInputs({ string: 'initial value' });
+      const ctx = new ComponentContext(NgTouchedComponent, {
+        imports: [ReactiveFormsModule],
+      });
       ctx.run(() => {
-        expect(stringInput().value).toBe('initial value');
+        const debugElement = ctx.fixture.debugElement.query(By.css('input'));
+        debugElement.triggerEventHandler('blur', {});
+        ctx.tick();
 
-        setValue(stringInput(), 'edited value');
-        expect(ctx.getComponentInstance().string).toBe('edited value');
+        expect(debugElement.classes['ng-touched']).toBe(true);
       });
     });
 
