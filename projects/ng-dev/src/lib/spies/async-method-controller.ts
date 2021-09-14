@@ -24,9 +24,7 @@ type AsyncMethodKeys<T> = {
  *   const ctx = new AngularContext();
  *
  *   // mock the browser API for pasting
- *   const controller = new AsyncMethodController(clipboard, 'readText', {
- *     ctx,
- *   });
+ *   const controller = new AsyncMethodController(clipboard, 'readText');
  *   ctx.run(() => {
  *     // BEGIN production code that copies to the clipboard
  *     let pastedText: string;
@@ -53,18 +51,18 @@ export class AsyncMethodController<
   #testCalls: TestCall<WrappingObject[FunctionName]>[] = [];
 
   /**
-   * Optionally provide `ctx` to automatically trigger promise handlers and changed detection after calling `flush()` or `error()`. This is the normal production behavior of asynchronous browser APIs. However, if the function you are stubbing is not patched by zone.js, change detection would not run automatically, in which case you many not want to pass this parameter. See the list of functions that zone.js patches [here](https://github.com/angular/angular/blob/master/packages/zone.js/STANDARD-APIS.md).
+   * If you are using an `AngularContext`, the default behavior is to automatically call `.tick()` after each `.flush()` and `.error()` to trigger promise handlers and changed detection. This is the normal production behavior of asynchronous browser APIs. However, if zone.js does not patch the function you are stubbing, change detection would not run automatically. In that case you many want to turn off this behavior by passing the option `autoTick: false`. See the list of functions that zone.js patches [here](https://github.com/angular/angular/blob/master/packages/zone.js/STANDARD-APIS.md).
    */
   constructor(
     obj: WrappingObject,
     methodName: FunctionName,
-    { ctx = undefined as { tick(): void } | undefined } = {},
+    { autoTick = true } = {},
   ) {
     // Note: it wasn't immediately clear how avoid `any` in this constructor, and this will be invisible to users. So I gave up. (For now?)
     this.#spy = spyOn(obj, methodName as any) as any;
     this.#spy.and.callFake((() => {
       const deferred = new Deferred<any>();
-      this.#testCalls.push(new TestCall(deferred, ctx));
+      this.#testCalls.push(new TestCall(deferred, autoTick));
       return deferred.promise;
     }) as any);
   }

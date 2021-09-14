@@ -384,9 +384,7 @@ describe('AsyncMethodController', () => {
       const ctx = new AngularContext();
 
       // mock the browser API for pasting
-      const controller = new AsyncMethodController(clipboard, 'readText', {
-        ctx,
-      });
+      const controller = new AsyncMethodController(clipboard, 'readText');
       ctx.run(() => {
         // BEGIN production code that copies to the clipboard
         let pastedText: string;

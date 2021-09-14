@@ -43,12 +43,11 @@ describe('TestCall', () => {
       expectSingleCallAndReset(spy, 'the clipboard text');
     }));
 
-    it('triggers change detection if the AsyncMethodController was passed a context', () => {
+    it('triggers a tick if appropriate', () => {
       const ctx = new ComponentContext(TestComponent);
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'readText',
-        { ctx },
       );
 
       ctx.run(() => {
@@ -78,12 +77,11 @@ describe('TestCall', () => {
       expectSingleCallAndReset(spy, 'some problem');
     }));
 
-    it('triggers change detection if the AsyncMethodController was passed a context', () => {
+    it('triggers a tick if appropriate', () => {
       const ctx = new ComponentContext(TestComponent);
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'readText',
-        { ctx },
       );
 
       ctx.run(() => {
@@ -94,6 +92,37 @@ describe('TestCall', () => {
         testCall.error('permission denied');
         expect(ctx.fixture.nativeElement.textContent).toContain('Changed Guy');
       });
+    });
+  });
+
+  describe('.maybeTick()', () => {
+    it('does not call .tick() when autoTick is false', () => {
+      const ctx = new ComponentContext(TestComponent);
+      const controller = new AsyncMethodController(
+        navigator.clipboard,
+        'readText',
+        { autoTick: false },
+      );
+
+      ctx.run(() => {
+        navigator.clipboard.readText();
+        ctx.getComponentInstance().name = 'Spy';
+        controller.expectOne([]).flush('this is the clipboard content');
+
+        expect(ctx.fixture.nativeElement.textContent).not.toContain('Spy');
+      });
+    });
+
+    it('gracefully handles being run outside an AngularContext', () => {
+      const controller = new AsyncMethodController(
+        navigator.clipboard,
+        'readText',
+      );
+
+      navigator.clipboard.readText();
+      expect(() => {
+        controller.expectOne([]).flush('this is the clipboard content');
+      }).not.toThrowError();
     });
   });
 });
