@@ -16,9 +16,9 @@ import { filter, map } from 'rxjs/operators';
 import { click, find, findButton, setValue } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
 import {
-  FormControlSuperclass,
+  FormComponentSuperclass,
   provideValueAccessor,
-} from './form-control-superclass';
+} from './form-component-superclass';
 import { InjectableSuperclass } from './injectable-superclass';
 import { WrappedFormControlSuperclass } from './wrapped-form-control-superclass';
 
@@ -267,7 +267,7 @@ describe('WrappedFormControlSuperclass tests using an old style fixture', () => 
       ).componentInstance;
       expect(component instanceof InjectableSuperclass).toBe(true);
       expect(component instanceof DirectiveSuperclass).toBe(true);
-      expect(component instanceof FormControlSuperclass).toBe(true);
+      expect(component instanceof FormComponentSuperclass).toBe(true);
     });
   });
 });

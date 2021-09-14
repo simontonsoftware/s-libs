@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { wrapMethod } from '@s-libs/js-core';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FormControlSuperclass } from './form-control-superclass';
+import { FormComponentSuperclass } from './form-component-superclass';
 
 /**
  * Extend this when creating a form control that simply wraps an existing form control, to reduce a lot of boilerplate. **Warning:** You _must_ include a constructor in your subclass.
@@ -50,7 +50,7 @@ import { FormControlSuperclass } from './form-control-superclass';
 export abstract class WrappedFormControlSuperclass<
   OuterType,
   InnerType = OuterType,
-> extends FormControlSuperclass<OuterType> {
+> extends FormComponentSuperclass<OuterType> {
   /** Bind this to your inner form control to make all the magic happen. */
   formControl = new FormControl();
 

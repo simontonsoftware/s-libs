@@ -4,9 +4,9 @@
 
 export { DirectiveSuperclass } from './lib/directive-superclass';
 export {
-  FormControlSuperclass,
+  FormComponentSuperclass,
   provideValueAccessor,
-} from './lib/form-control-superclass';
+} from './lib/form-component-superclass';
 export {
   InjectableSuperclass,
   mixInInjectableSuperclass,

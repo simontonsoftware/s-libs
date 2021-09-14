@@ -209,7 +209,7 @@ describe('partition', () => {
   // stolen from https://github.com/lodash/lodash
   //
 
-  var array = [1, 0, 1];
+  const array = [1, 0, 1];
 
   it('should split elements into two groups by `predicate`', () => {
     expect(partition([], identity)).toEqual([[], []]);

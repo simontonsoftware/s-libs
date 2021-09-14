@@ -32,7 +32,7 @@ export function provideValueAccessor(type: Type<any>): Provider {
  *   `,
  *   providers: [provideValueAccessor(CounterComponent)],
  * })
- * class CounterComponent extends FormControlSuperclass<number> {
+ * class CounterComponent extends FormComponentSuperclass<number> {
  *   counter = 0;
  *
  *   handleIncomingValue(value: number) {
@@ -46,7 +46,7 @@ export function provideValueAccessor(type: Type<any>): Provider {
  * }
  * ```
  */
-export abstract class FormControlSuperclass<T>
+export abstract class FormComponentSuperclass<T>
   extends DirectiveSuperclass
   implements ControlValueAccessor
 {

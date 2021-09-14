@@ -1,6 +1,6 @@
-import { FormControlSuperclass } from '../public-api';
+import { FormComponentSuperclass } from '../public-api';
 
-class TestSubclass extends FormControlSuperclass<Date> {
+class TestSubclass extends FormComponentSuperclass<Date> {
   handleIncomingValue(_value: Date): void {}
 }
 

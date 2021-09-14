@@ -18,7 +18,7 @@ import { keys } from '@s-libs/micro-dash';
 import * as ngCore from '@s-libs/ng-core';
 import {
   DirectiveSuperclass,
-  FormControlSuperclass,
+  FormComponentSuperclass,
   InjectableSuperclass,
   mixInInjectableSuperclass,
   provideValueAccessor,
@@ -34,8 +34,8 @@ describe('ng-core', () => {
       expect(DirectiveSuperclass).toBeDefined();
     });
 
-    it('has FormControlSuperclass', () => {
-      expect(FormControlSuperclass).toBeDefined();
+    it('has FormComponentSuperclass', () => {
+      expect(FormComponentSuperclass).toBeDefined();
     });
 
     it('has InjectableSuperclass', () => {
@@ -301,7 +301,7 @@ describe('ng-core', () => {
     });
 
     it('knows where to find micro-dash', () => {
-      // FormControlSuperclass uses micro-dash. This is one of its tests
+      // FormComponentSuperclass uses micro-dash. This is one of its tests
 
       @Component({
         template: `
@@ -331,7 +331,7 @@ describe('ng-core', () => {
         providers: [provideValueAccessor(CounterComponent)],
         changeDetection: ChangeDetectionStrategy.OnPush,
       })
-      class CounterComponent extends FormControlSuperclass<number> {
+      class CounterComponent extends FormComponentSuperclass<number> {
         counter = 0;
 
         constructor(injector: Injector) {

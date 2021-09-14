@@ -6,9 +6,9 @@ import { ComponentContext } from '@s-libs/ng-dev';
 import { click, find, findButton } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
 import {
-  FormControlSuperclass,
+  FormComponentSuperclass,
   provideValueAccessor,
-} from './form-control-superclass';
+} from './form-component-superclass';
 import { InjectableSuperclass } from './injectable-superclass';
 
 @Component({
@@ -35,7 +35,7 @@ class TestComponent {
   providers: [provideValueAccessor(CounterComponent)],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-class CounterComponent extends FormControlSuperclass<number> {
+class CounterComponent extends FormComponentSuperclass<number> {
   counter = 0;
 
   handleIncomingValue(value: number): void {
@@ -48,7 +48,7 @@ class CounterComponent extends FormControlSuperclass<number> {
   }
 }
 
-describe('FormControlSuperclass', () => {
+describe('FormComponentSuperclass', () => {
   let ctx: ComponentContext<TestComponent>;
   beforeEach(() => {
     ctx = new ComponentContext(TestComponent, {
