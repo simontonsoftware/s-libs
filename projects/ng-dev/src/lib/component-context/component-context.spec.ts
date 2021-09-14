@@ -111,6 +111,7 @@ describe('ComponentContext', () => {
       }).toThrowError(
         'Cannot bind to "nonInput" (it is not an input, or you passed it in `unboundProperties`)',
       );
+      ctx.run(noop);
     });
 
     it('errors with a nice message when given an unbound input', () => {
@@ -126,6 +127,7 @@ describe('ComponentContext', () => {
       }).toThrowError(
         'Cannot bind to "doNotBind" (it is not an input, or you passed it in `unboundProperties`)',
       );
+      ctx.run(noop);
     });
   });
 

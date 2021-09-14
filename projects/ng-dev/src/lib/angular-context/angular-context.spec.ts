@@ -31,6 +31,19 @@ describe('AngularContext', () => {
     }
   }
 
+  describe('.getCurrent()', () => {
+    it('returns the currently running angular context', () => {
+      expect(AngularContext.getCurrent()).toBeUndefined();
+
+      const ctx = new AngularContext();
+      ctx.run(() => {
+        expect(AngularContext.getCurrent()).toBe(ctx);
+      });
+
+      expect(AngularContext.getCurrent()).toBeUndefined();
+    });
+  });
+
   describe('.startTime', () => {
     it('controls the time at which the test starts', () => {
       const ctx = new AngularContext();
@@ -65,6 +78,16 @@ describe('AngularContext', () => {
       const ctx = new AngularContext();
       ctx.run(() => {
         expect(ctx.inject(HttpTestingController)).toBeDefined();
+      });
+    });
+
+    it('gives a nice error message if trying to use 2 at the same time', () => {
+      new AngularContext().run(async () => {
+        expect(() => {
+          new AngularContext();
+        }).toThrowError(
+          'There is already another AngularContext in use (or it was not cleaned up)',
+        );
       });
     });
   });
@@ -247,6 +270,7 @@ describe('AngularContext', () => {
       }).toThrowError(
         '.tick() only works inside the .run() callback (because it needs to be in a fakeAsync zone)',
       );
+      ctx.run(noop);
     });
   });
 

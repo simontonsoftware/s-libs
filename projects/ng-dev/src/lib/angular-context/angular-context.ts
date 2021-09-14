@@ -18,7 +18,7 @@ import {
   TestModuleMetadata,
   tick,
 } from '@angular/core/testing';
-import { convertTime } from '@s-libs/js-core';
+import { assert, convertTime } from '@s-libs/js-core';
 import { clone, forOwn } from '@s-libs/micro-dash';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
 
@@ -86,6 +86,15 @@ export function extendMetadata(
  * ```
  */
 export class AngularContext {
+  private static current?: AngularContext;
+
+  /**
+   * Returns the current `AngularContext` that is in use, or `undefined` if there is not one. A context is defined to be "in use" from the time it is constructed until after its `run()` method completes.
+   */
+  static getCurrent(): AngularContext | undefined {
+    return AngularContext.current;
+  }
+
   /**
    * Set this before calling `run()` to mock the time at which the test starts.
    */
@@ -97,6 +106,11 @@ export class AngularContext {
    * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link HttpClientTestingModule} for you.
    */
   constructor(moduleMetadata: TestModuleMetadata = {}) {
+    assert(
+      !AngularContext.current,
+      'There is already another AngularContext in use (or it was not cleaned up)',
+    );
+    AngularContext.current = this;
     TestBed.configureTestingModule(
       extendMetadata(moduleMetadata, { imports: [HttpClientTestingModule] }),
     );
@@ -191,6 +205,7 @@ export class AngularContext {
   protected cleanUp(): void {
     discardPeriodicTasks();
     flush();
+    AngularContext.current = undefined;
   }
 
   private runWithMockedTime(test: VoidFunction): void {
