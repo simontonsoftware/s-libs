@@ -227,6 +227,12 @@ describe('Store', () => {
       expect(store.state()).toBe(startingState);
       expect(cloneDeep(store.state())).toEqual(stateClone);
     });
+
+    it('throws with a useful message when the state is missing', () => {
+      expect(() => {
+        store<'optional', InnerState>('optional').assign({ state: 3 });
+      }).toThrowError('cannot assign to undefined state');
+    });
   });
 
   describe('.setUsing()', () => {

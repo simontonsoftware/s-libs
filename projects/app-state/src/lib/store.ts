@@ -70,6 +70,10 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
    */
   assign(value: Partial<T>): void {
     this.setUsing((state: any) => {
+      if (!state) {
+        throw new Error('cannot assign to undefined state');
+      }
+
       if (every(value, (innerValue, key) => state[key] === innerValue)) {
         return state;
       } else {
