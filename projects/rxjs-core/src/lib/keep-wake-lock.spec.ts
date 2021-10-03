@@ -24,9 +24,7 @@ describe('keepWakeLock$()', () => {
   let notifyVisibilityChange: VoidFunction | undefined;
   beforeEach(() => {
     ctx = new AngularContext();
-    request = new AsyncMethodController(nav.wakeLock!, 'request', {
-      ctx,
-    });
+    request = new AsyncMethodController(nav.wakeLock!, 'request');
     visibilityState = spyOnProperty(
       document,
       'visibilityState',

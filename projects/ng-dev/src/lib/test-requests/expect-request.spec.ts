@@ -139,7 +139,7 @@ describe('expectRequest()', () => {
       expectSingleCallAndReset(
         log,
         'Expected 1 request to match:',
-        { method: 'GET', url: 'bad url', params: {}, body: null },
+        { method: 'GET', url: 'bad url', params: {}, headers: {}, body: null },
         'Actual pending requests:',
         [request1, request2],
       );
