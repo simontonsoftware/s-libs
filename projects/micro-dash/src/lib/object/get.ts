@@ -1,5 +1,5 @@
 import { IfCouldBe, Key, Nil } from '../interfaces';
-import { castArray } from '../lang';
+import { castArray, isUndefined } from '../lang';
 
 type WithDefault<V, D> =
   | (undefined extends D ? V : Exclude<V, undefined>)
@@ -13,7 +13,7 @@ type WithDefault<V, D> =
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 5,123 bytes
- * - Micro-dash: 110 bytes
+ * - Micro-dash: 107 bytes
  */
 
 export function get<T, K extends keyof NonNullable<T>, D = undefined>(
@@ -77,15 +77,15 @@ export function get(
   path: Key | readonly Key[],
   defaultValue?: any,
 ): any {
-  // const val = property(path)(object);
-  // return isUndefined(val) ? defaultValue : val;
-  path = castArray(path);
+  const val = getWithoutDefault(castArray(path), object);
+  return isUndefined(val) ? defaultValue : val;
+}
+
+export function getWithoutDefault(path: readonly any[], object: any): any {
   const length = path.length;
   let index = 0;
   while (object != null && index < length) {
     object = object[path[index++]];
   }
-  return !index || index < length || object === undefined
-    ? defaultValue
-    : object;
+  return !index || index < length ? undefined : object;
 }
