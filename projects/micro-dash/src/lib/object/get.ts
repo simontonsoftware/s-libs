@@ -13,7 +13,7 @@ type WithDefault<V, D> =
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 5,123 bytes
- * - Micro-dash: 107 bytes
+ * - Micro-dash: 108 bytes
  */
 
 export function get<T, K extends keyof NonNullable<T>, D = undefined>(
@@ -77,11 +77,12 @@ export function get(
   path: Key | readonly Key[],
   defaultValue?: any,
 ): any {
-  const val = getWithoutDefault(castArray(path), object);
+  const val = getWithoutDefault(path, object);
   return isUndefined(val) ? defaultValue : val;
 }
 
-export function getWithoutDefault(path: readonly any[], object: any): any {
+export function getWithoutDefault(path: any, object: any): any {
+  path = castArray(path);
   const length = path.length;
   let index = 0;
   while (object != null && index < length) {

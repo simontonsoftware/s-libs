@@ -1,16 +1,13 @@
 import { IfCouldBe, Nil } from '../interfaces';
 import { getWithoutDefault } from '../object/get';
 
-// https://stackoverflow.com/a/64776616/1836506
-type First<T extends any[]> = T extends [infer U, ...any[]] ? U : never;
-type Rest<T extends any[]> = T extends [any, ...infer U] ? U : never;
-type PropertyAtPath<T, Path extends any[]> = First<Path> extends never
+type PropertyAtPath<T, Path extends readonly any[]> = Path extends []
   ? T
-  : First<Path> extends keyof NonNullable<T>
-  ?
-      | PropertyAtPath<NonNullable<T>[First<Path>], Rest<Path>>
-      | IfCouldBe<T, Nil, undefined>
-  : undefined;
+  : Path extends readonly [infer First, ...infer Rest]
+  ? First extends keyof NonNullable<T>
+    ? PropertyAtPath<NonNullable<T>[First], Rest> | IfCouldBe<T, Nil, undefined>
+    : undefined
+  : unknown;
 
 /**
  * Creates a function that returns the value at `path` of a given object.
@@ -20,10 +17,16 @@ type PropertyAtPath<T, Path extends any[]> = First<Path> extends never
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 5,261 bytes
- * - Micro-dash: 127 bytes
+ * - Micro-dash: 158 bytes
  */
+
+export function property<K extends PropertyKey>(
+  key: K,
+): <T>(object: T) => PropertyAtPath<T, [K]>;
 export function property<P extends PropertyKey[]>(
   path: readonly [...P],
-): <T>(object: T) => PropertyAtPath<T, P> {
+): <T>(object: T) => PropertyAtPath<T, P>;
+
+export function property(path: any): any {
   return getWithoutDefault.bind(0, path);
 }
