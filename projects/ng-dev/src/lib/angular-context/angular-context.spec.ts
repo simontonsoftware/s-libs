@@ -112,6 +112,14 @@ describe('AngularContext', () => {
       });
       expect(completed).toBeTrue();
     });
+
+    it('does not swallow errors (production bug)', () => {
+      expect(() => {
+        new AngularContext().run(() => {
+          throw new Error();
+        });
+      }).toThrowError();
+    });
   });
 
   describe('.inject()', () => {
