@@ -3,8 +3,7 @@
   "dest": "../../dist/micro-dash",
   "lib": {
     "entryFile": "src/public-api.ts",
-    "flatModuleFile": "micro-dash",
-    "umdId": "sLibs.microDash"
+    "flatModuleFile": "micro-dash"
   },
   "allowedNonPeerDependencies": ["utility-types"]
 }

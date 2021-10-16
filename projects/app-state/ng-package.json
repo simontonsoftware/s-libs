@@ -3,12 +3,6 @@
   "dest": "../../dist/app-state",
   "lib": {
     "entryFile": "src/public-api.ts",
-    "flatModuleFile": "app-state",
-    "umdId": "sLibs.appState",
-    "umdModuleIds": {
-      "@s-libs/js-core": "sLibs.jsCore",
-      "@s-libs/micro-dash": "sLibs.microDash",
-      "@s-libs/rxjs-core": "sLibs.rxjsCore"
-    }
+    "flatModuleFile": "app-state"
   }
 }

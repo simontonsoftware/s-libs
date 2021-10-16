@@ -3,11 +3,6 @@
   "dest": "../../dist/rxjs-core",
   "lib": {
     "entryFile": "src/public-api.ts",
-    "flatModuleFile": "rxjs-core",
-    "umdId": "sLibs.rxjsCore",
-    "umdModuleIds": {
-      "@s-libs/js-core": "sLibs.jsCore",
-      "@s-libs/micro-dash": "sLibs.microDash"
-    }
+    "flatModuleFile": "rxjs-core"
   }
 }

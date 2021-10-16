@@ -3,15 +3,6 @@
   "dest": "../../dist/ng-app-state",
   "lib": {
     "entryFile": "src/public-api.ts",
-    "flatModuleFile": "ng-app-state",
-    "umdId": "sLibs.ngAppState",
-    "umdModuleIds": {
-      "@angular/core": "ng.core",
-      "@angular/forms": "ng.forms",
-      "@s-libs/js-core": "sLibs.jsCore",
-      "@s-libs/micro-dash": "sLibs.microDash",
-      "@s-libs/rxjs-core": "sLibs.rxjsCore",
-      "@s-libs/ng-core": "sLibs.ngCore"
-    }
+    "flatModuleFile": "ng-app-state"
   }
 }

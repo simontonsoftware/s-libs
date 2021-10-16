@@ -3,10 +3,6 @@
   "dest": "../../dist/js-core",
   "lib": {
     "entryFile": "src/public-api.ts",
-    "flatModuleFile": "js-core",
-    "umdId": "sLibs.jsCore",
-    "umdModuleIds": {
-      "@s-libs/micro-dash": "sLibs.microDash"
-    }
+    "flatModuleFile": "js-core"
   }
 }

@@ -1,4 +1,3 @@
-import * as jsCore from '@s-libs/js-core';
 import {
   assert,
   Constructor,
@@ -29,7 +28,6 @@ import {
   wrapFunction,
   wrapMethod,
 } from '@s-libs/js-core';
-import { keys } from '@s-libs/micro-dash';
 
 describe('js-core', () => {
   describe('public API', () => {
@@ -144,24 +142,6 @@ describe('js-core', () => {
 
     it('has wrapMethod', () => {
       expect(wrapMethod).toBeDefined();
-    });
-  });
-
-  describe('as a UMD bundle', () => {
-    const bundle: typeof jsCore = (window as any).sLibs.jsCore;
-
-    it('is available as a UMD bundle at sLibs.jsCore', () => {
-      expect(keys(bundle)).toEqual(
-        jasmine.arrayWithExactContents(keys(jsCore)),
-      );
-    });
-
-    it('knows where to find micro-dash', () => {
-      const result = bundle.mapToObject([1, 2, 3], (item) => [
-        item,
-        item * item,
-      ]);
-      expect(result).toEqual({ 1: 1, 2: 4, 3: 9 });
     });
   });
 });
