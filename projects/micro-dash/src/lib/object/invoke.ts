@@ -14,8 +14,11 @@ type DefinedPath1<K1 extends Key, T extends Obj1<K1, any> | Nil> = NonUndefined<
 >;
 
 type Obj2<K1 extends Key, K2 extends Key, V> = { [k1 in K1]?: Obj1<K2, V> };
-type Path2<K1 extends Key, K2 extends Key, T extends Obj2<K1, K2, any> | Nil> =
-  Path1<K2, Path1<K1, T>>;
+type Path2<
+  K1 extends Key,
+  K2 extends Key,
+  T extends Obj2<K1, K2, any> | Nil,
+> = Path1<K2, Path1<K1, T>>;
 type DefinedPath2<
   K1 extends Key,
   K2 extends Key,

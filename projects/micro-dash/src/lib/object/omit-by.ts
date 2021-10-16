@@ -59,8 +59,9 @@ export function omitBy<I, T extends NonNullable<I>, O>(
   object: I,
   predicate: ValueNarrowingIteratee<T, O>,
 ): Evaluate<
-  | ({ [K in KeysWithDefinitelyIncludedValues<T, O>]: Exclude<T[K], O> } &
-      { [K in KeysWithMaybeIncludedValues<T, O>]?: Exclude<T[K], O> })
+  | ({ [K in KeysWithDefinitelyIncludedValues<T, O>]: Exclude<T[K], O> } & {
+      [K in KeysWithMaybeIncludedValues<T, O>]?: Exclude<T[K], O>;
+    })
   | IfCouldBe<I, Nil, {}>
 >;
 export function omitBy<I, T extends NonNullable<I>, O>(
@@ -69,8 +70,7 @@ export function omitBy<I, T extends NonNullable<I>, O>(
 ): Evaluate<
   | ({
       [K in DefinitelyIncludedKeys<T, O>]: T[K];
-    } &
-      { [K in MaybeIncludedKeys<T, O>]?: T[K] })
+    } & { [K in MaybeIncludedKeys<T, O>]?: T[K] })
   | IfCouldBe<I, Nil, {}>
 >;
 export function omitBy<T>(

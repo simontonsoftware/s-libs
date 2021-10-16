@@ -30,10 +30,9 @@ export function zipObject<
 >(
   props: K,
   values: V,
-): { [k in K[0]]: V[0] } &
-  { [k in K[1]]: V[1] } &
-  { [k in K[2]]: V[2] } &
-  { [k in K[3]]: V[3] };
+): { [k in K[0]]: V[0] } & { [k in K[1]]: V[1] } & { [k in K[2]]: V[2] } & {
+  [k in K[3]]: V[3];
+};
 export function zipObject<K extends Key, V>(
   props: readonly K[],
   values: readonly V[],
