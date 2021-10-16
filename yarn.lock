@@ -246,12 +246,12 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/material@~12.0.0":
-  version "12.0.1"
-  resolved "https://registry.npmjs.org/@angular/material/-/material-12.0.1.tgz#2056cc7b08f05a061c46a8d94eb0dac7acf8dfc9"
-  integrity sha512-Sevy/ssBuidSbpixUH8SvBXpHn+rKYfDao2YTgQxBJugIun9mnV0QqlzVG2gkdVYCesqEgZJRe3k7QXq7E+vlw==
+"@angular/material@~13.0.0-rc.0":
+  version "13.0.0-rc.0"
+  resolved "https://registry.npmjs.org/@angular/material/-/material-13.0.0-rc.0.tgz#551a50050d211db59373807e8966af0776949cc6"
+  integrity sha512-B6hmdpyyEfiC6ZWjJux1g720WC/YCGmg9EiLKo9L3rbDKIEvo5eArZInqT7Ji/A/NsotFpm3rPJEFKFYH3zJig==
   dependencies:
-    tslib "^2.1.0"
+    tslib "^2.3.0"
 
 "@angular/platform-browser-dynamic@~13.0.0-rc.0":
   version "13.0.0-rc.0"
@@ -1679,10 +1679,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jasmine@~3.6.0":
-  version "3.6.11"
-  resolved "https://registry.npmjs.org/@types/jasmine/-/jasmine-3.6.11.tgz#4b1d77aa9dfc757407cb9e277216d8e83553f09d"
-  integrity sha512-S6pvzQDvMZHrkBz2Mcn/8Du7cpr76PlRJBAoHnSDNbulULsH5dp0Gns+WRyNX5LHejz/ljxK4/vIHK/caHt6SQ==
+"@types/jasmine@~3.9.0":
+  version "3.9.1"
+  resolved "https://registry.npmjs.org/@types/jasmine/-/jasmine-3.9.1.tgz#94c65ee8bf9d24d9e1d84abaed57b6e0da8b49de"
+  integrity sha512-PVpjh8S8lqKFKurWSKdFATlfBHGPzgy0PoDdzQ+rr78jTQ0aacyh9YndzZcAUPxhk4kRujItFFGQdUJ7flHumw==
 
 "@types/json-schema@*", "@types/json-schema@^7.0.3", "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.6":
   version "7.0.7"
@@ -5272,10 +5272,15 @@ jake@^10.6.1:
     filelist "^1.0.1"
     minimatch "^3.0.4"
 
-jasmine-core@^3.6.0, jasmine-core@~3.7.0:
+jasmine-core@^3.6.0:
   version "3.7.1"
   resolved "https://registry.npmjs.org/jasmine-core/-/jasmine-core-3.7.1.tgz#0401327f6249eac993d47bbfa18d4e8efacfb561"
   integrity sha512-DH3oYDS/AUvvr22+xUBW62m1Xoy7tUlY1tsxKEJvl5JeJ7q8zd1K5bUwiOxdH+erj6l2vAMM3hV25Xs9/WrmuQ==
+
+jasmine-core@~3.9.0:
+  version "3.9.0"
+  resolved "https://registry.npmjs.org/jasmine-core/-/jasmine-core-3.9.0.tgz#09a3c8169fe98ec69440476d04a0e4cb4d59e452"
+  integrity sha512-Tv3kVbPCGVrjsnHBZ38NsPU3sDOtNa0XmbG2baiyJqdb5/SPpDO6GVwJYtUryl6KB4q1Ssckwg612ES9Z0dreQ==
 
 jest-worker@^27.0.6:
   version "27.2.5"
@@ -5435,10 +5440,10 @@ karma-coverage@~2.0.3:
     istanbul-reports "^3.0.0"
     minimatch "^3.0.4"
 
-karma-jasmine-html-reporter@^1.5.0:
-  version "1.6.0"
-  resolved "https://registry.npmjs.org/karma-jasmine-html-reporter/-/karma-jasmine-html-reporter-1.6.0.tgz#586e17025a1b4128e9fba55d5f1e8921bfc3bc1e"
-  integrity sha512-ELO9yf0cNqpzaNLsfFgXd/wxZVYkE2+ECUwhMHUD4PZ17kcsPsYsVyjquiRqyMn2jkd2sHt0IeMyAyq1MC23Fw==
+karma-jasmine-html-reporter@~1.7.0:
+  version "1.7.0"
+  resolved "https://registry.npmjs.org/karma-jasmine-html-reporter/-/karma-jasmine-html-reporter-1.7.0.tgz#52c489a74d760934a1089bfa5ea4a8fcb84cc28b"
+  integrity sha512-pzum1TL7j90DTE86eFt48/s12hqwQuiD+e5aXx2Dc9wDEn2LfGq6RoAxEZZjFiN0RDSCOnosEKRZWxbQ+iMpQQ==
 
 karma-jasmine@~4.0.0:
   version "4.0.1"
@@ -7701,14 +7706,14 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-rxjs@6.6.7, rxjs@^6.5.0, rxjs@~6.6.0:
+rxjs@6.6.7, rxjs@^6.5.0:
   version "6.6.7"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-6.6.7.tgz#90ac018acabf491bf65044235d5863c4dab804c9"
   integrity sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==
   dependencies:
     tslib "^1.9.0"
 
-rxjs@^7.2.0:
+rxjs@^7.2.0, rxjs@~7.4.0:
   version "7.4.0"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-7.4.0.tgz#a12a44d7eebf016f5ff2441b87f28c9a51cebc68"
   integrity sha512-7SQDi7xeTMCJpqViXh8gL/lebcwlp3d831F05+9B44A4B0WfsEwUQHR64gsH1kvJ+Ep/J9K2+n1hVl1CsGN23w==
@@ -8595,7 +8600,7 @@ ts-node@^9.1.1:
     source-map-support "^0.5.17"
     yn "3.1.1"
 
-tslib@2.3.1, tslib@^2.3.0, tslib@^2.3.1:
+tslib@2.3.1, tslib@^2.3.0:
   version "2.3.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
@@ -8732,7 +8737,7 @@ typedoc@^0.20.36:
     shiki "^0.9.3"
     typedoc-default-themes "^0.12.10"
 
-typescript@~4.4.4:
+typescript@~4.4.3:
   version "4.4.4"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.4.4.tgz#2cd01a1a1f160704d3101fd5a58ff0f9fcb8030c"
   integrity sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==

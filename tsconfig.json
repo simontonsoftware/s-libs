@@ -8,6 +8,8 @@
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
@@ -18,7 +20,7 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "lib": ["es2018", "dom"],
+    "lib": ["es2020", "dom"],
     "paths": { "@s-libs/*": ["dist/*"] },
 
     //
@@ -26,7 +28,6 @@
     //
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noPropertyAccessFromIndexSignature": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
