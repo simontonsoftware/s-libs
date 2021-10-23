@@ -1,9 +1,5 @@
 import { pullAt } from './pull-at';
 
-function expectToEq(x: any, y: any): boolean {
-  return expect(x).toEqual(y);
-}
-
 describe('pullAt()', () => {
   //
   // stolen from https://github.com/lodash/lodash
@@ -46,11 +42,11 @@ describe('pullAt()', () => {
   it('should return an empty array when no indexes are given', () => {
     const array = ['a', 'b', 'c'];
 
-    expectToEq(pullAt(array), []);
-    expectToEq(array, ['a', 'b', 'c']);
+    expect(pullAt(array)).toEqual([]);
+    expect(array).toEqual(['a', 'b', 'c']);
 
-    expectToEq(pullAt(array, [], []), []);
-    expectToEq(array, ['a', 'b', 'c']);
+    expect(pullAt(array, [], [])).toEqual([]);
+    expect(array).toEqual(['a', 'b', 'c']);
   });
 
   it('should return an array', () => {
