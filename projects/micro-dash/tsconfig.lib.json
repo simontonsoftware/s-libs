@@ -6,7 +6,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": []
+    "types": [],
 
     // Special just for micro-dash library functions, to reduce bundle size
     "noImplicitReturns": false

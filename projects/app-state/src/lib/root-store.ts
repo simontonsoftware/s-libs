@@ -49,7 +49,7 @@ export class RootStore<T extends object> extends Store<T> {
     return this === other;
   }
 
-  protected maybeEmit(): void {
+  protected override maybeEmit(): void {
     if (this.batchCount === 0) {
       super.maybeEmit();
     }

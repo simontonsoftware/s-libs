@@ -115,7 +115,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   }
 
   /** Called as angular propagates disabled changes to this `ControlValueAccessor`. You normally do not need to use it. */
-  setDisabledState(isDisabled: boolean): void {
+  override setDisabledState(isDisabled: boolean): void {
     if (isDisabled) {
       this.control.disable({ emitEvent: false });
     } else {

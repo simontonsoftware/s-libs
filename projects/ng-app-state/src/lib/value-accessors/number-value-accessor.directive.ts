@@ -9,13 +9,13 @@ import { AbstractInputValueAccessorDirective } from './abstract-input-value-acce
   providers: [provideValueAccessor(NumberValueAccessorDirective)],
 })
 export class NumberValueAccessorDirective extends AbstractInputValueAccessorDirective {
-  registerOnChange(fn: (value: number | null) => void): void {
+  override registerOnChange(fn: (value: number | null) => void): void {
     this.onChangeFn = (value: string) => {
       fn(value === '' ? null : parseFloat(value));
     };
   }
 
-  writeValue(value: number): void {
+  override writeValue(value: number): void {
     // The value needs to be normalized for IE9, otherwise it is set to 'null' when null
     this.element.value = isNil(value) ? '' : value.toString();
   }

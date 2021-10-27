@@ -233,7 +233,7 @@ export class ComponentContext<T> extends AngularContext {
   /**
    * Constructs and initializes your component. Called during `run()` before it executes the rest of your test. Runs in the same `fakeAsync` zone as the rest of your test.
    */
-  protected init(): void {
+  protected override init(): void {
     styleHostToDestroy?.ngOnDestroy();
     super.init();
     this.fixture = TestBed.createComponent(this.wrapperType);
@@ -244,14 +244,14 @@ export class ComponentContext<T> extends AngularContext {
     this.tick();
   }
 
-  protected runChangeDetection(): void {
+  protected override runChangeDetection(): void {
     this.fixture.detectChanges();
   }
 
   /**
    * Performs any cleanup needed at the end of each test. This implementation destroys {@link fixture} and calls the super implementation.
    */
-  protected cleanUp(): void {
+  protected override cleanUp(): void {
     this.fixture.destroy();
     styleHostToDestroy = this.inject(ɵDomSharedStylesHost);
     super.cleanUp();

@@ -16,7 +16,7 @@ import { Subject } from 'rxjs';
  */
 export function mixInInjectableSuperclass<B extends Constructor>(Base: B) {
   return class extends mixInSubscriptionManager(Base) implements OnDestroy {
-    #destructionSubject = new Subject<undefined>();
+    #destructionSubject = new Subject<void>();
 
     /**
      * An observable that emits once when this object is destroyed, then completes.
