@@ -8,37 +8,26 @@ interface InputMeta<T> {
   property: keyof T;
 }
 
-export interface WrapperComponent<T> {
-  inputs: Partial<T>;
-  styles: { [klass: string]: any };
-}
-
-interface DynamicWrapper<T> {
-  type: Type<WrapperComponent<T>>;
-  inputProperties: Array<keyof T>;
-}
-
 @Component({ template: '' })
-class DynamicWrapperComponent<T> {
+export class WrapperComponent<T> {
+  static wrap<T>(
+    componentType: Type<T>,
+    unboundInputs: Array<keyof T>,
+  ): Array<keyof T> {
+    const selector = getSelector(componentType);
+    const inputMetas = getInputMetas(componentType).filter(
+      ({ property }) => !unboundInputs.includes(property),
+    );
+
+    TestBed.overrideComponent(WrapperComponent, {
+      set: { template: buildTemplate(selector, inputMetas) },
+    });
+
+    return inputMetas.map((meta) => meta.property);
+  }
+
   inputs: Partial<T> = {};
   styles: { [klass: string]: any } = {};
-}
-
-export function createDynamicWrapper<T>(
-  componentType: Type<T>,
-  unboundInputs: Array<keyof T>,
-): DynamicWrapper<T> {
-  const selector = getSelector(componentType);
-  const inputMetas = getInputMetas(componentType).filter(
-    ({ property }) => !unboundInputs.includes(property),
-  );
-
-  TestBed.overrideComponent(DynamicWrapperComponent, {
-    set: { template: buildTemplate(selector, inputMetas) },
-  });
-
-  const inputProperties = inputMetas.map((meta) => meta.property);
-  return { type: DynamicWrapperComponent, inputProperties };
 }
 
 function getSelector(componentType: Type<unknown>): string {

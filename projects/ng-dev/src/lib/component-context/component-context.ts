@@ -11,10 +11,7 @@ import {
   AngularContext,
   extendMetadata,
 } from '../angular-context/angular-context';
-import {
-  createDynamicWrapper,
-  WrapperComponent,
-} from './create-dynamic-wrapper';
+import { WrapperComponent } from './wrapper.component';
 
 // This fixes https://github.com/angular/angular/issues/31834. We are using it instead of `trimLeftoverStyles()` so that extra styles added by e.g. Ionic or Fontawesome are preserved. This should be temporary, with the real fix coming from Angular itself with https://github.com/angular/angular/pull/42566.
 let styleHostToDestroy: ɵDomSharedStylesHost | undefined;
@@ -152,7 +149,6 @@ export class ComponentContext<T> extends AngularContext {
   fixture!: ComponentFixture<unknown>;
 
   private componentType: Type<T>;
-  private wrapperType: Type<WrapperComponent<T>>;
   private inputProperties: Set<keyof T>;
 
   private inputs: Partial<T>;
@@ -168,16 +164,17 @@ export class ComponentContext<T> extends AngularContext {
     moduleMetadata: TestModuleMetadata = {},
     unboundInputs: Array<keyof T> = [],
   ) {
-    const wrapper = createDynamicWrapper(componentType, unboundInputs);
+    // TODO: once cleanup of contexts is not so touchy, move this below super() and use shortcut `private` declarations on constructor params
+    const inputProperties = WrapperComponent.wrap(componentType, unboundInputs);
     super(
       extendMetadata(moduleMetadata, {
         imports: [NoopAnimationsModule],
-        declarations: [wrapper.type, componentType],
+        declarations: [WrapperComponent, componentType],
       }),
     );
+
     this.componentType = componentType;
-    this.wrapperType = wrapper.type;
-    this.inputProperties = new Set(wrapper.inputProperties);
+    this.inputProperties = new Set(inputProperties);
     this.inputs = {};
     this.wrapperStyles = {};
   }
@@ -236,7 +233,7 @@ export class ComponentContext<T> extends AngularContext {
   protected override init(): void {
     styleHostToDestroy?.ngOnDestroy();
     super.init();
-    this.fixture = TestBed.createComponent(this.wrapperType);
+    this.fixture = TestBed.createComponent(WrapperComponent);
 
     this.flushStylesToWrapper();
     this.flushInputsToWrapper();

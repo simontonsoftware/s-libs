@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
 import { noop } from '@s-libs/micro-dash';
 import { ComponentContext } from './component-context';
 
-describe('createDynamicWrapper()', () => {
+describe('WrapperComponent', () => {
   it("uses the component's selector if it is a tag name", () => {
     @Component({ selector: 's-tag-name', template: '' })
     class TagNameComponent {}
