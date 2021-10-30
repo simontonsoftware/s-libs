@@ -24,7 +24,7 @@ describe('AngularContext', () => {
       super({ imports: [MatSnackBarModule, NoopAnimationsModule] });
     }
 
-    protected cleanUp(): void {
+    protected override cleanUp(): void {
       this.inject(OverlayContainer).ngOnDestroy();
       flush();
       super.cleanUp();

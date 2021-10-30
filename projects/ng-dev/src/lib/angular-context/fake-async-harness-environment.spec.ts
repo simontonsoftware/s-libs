@@ -33,7 +33,7 @@ describe('FakeAsyncHarnessEnvironment', () => {
         });
       }
 
-      protected cleanUp(): void {
+      protected override cleanUp(): void {
         this.inject(OverlayContainer).ngOnDestroy();
         this.tick(5000);
         super.cleanUp();

@@ -12,7 +12,7 @@ class Superclass {
 }
 
 class Subclass extends Superclass {
-  b(): string {
+  override b(): string {
     return 'override b';
   }
 

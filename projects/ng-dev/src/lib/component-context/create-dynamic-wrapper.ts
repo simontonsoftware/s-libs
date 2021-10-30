@@ -18,6 +18,12 @@ interface DynamicWrapper<T> {
   inputProperties: Array<keyof T>;
 }
 
+@Component({ template: '' })
+class DynamicWrapperComponent<T> {
+  inputs: Partial<T> = {};
+  styles: { [klass: string]: any } = {};
+}
+
 export function createDynamicWrapper<T>(
   componentType: Type<T>,
   unboundInputs: Array<keyof T>,
@@ -27,11 +33,9 @@ export function createDynamicWrapper<T>(
     ({ property }) => !unboundInputs.includes(property),
   );
 
-  @Component({ template: buildTemplate(selector, inputMetas) })
-  class DynamicWrapperComponent {
-    inputs: Partial<T> = {};
-    styles: { [klass: string]: any } = {};
-  }
+  TestBed.overrideComponent(DynamicWrapperComponent, {
+    set: { template: buildTemplate(selector, inputMetas) },
+  });
 
   const inputProperties = inputMetas.map((meta) => meta.property);
   return { type: DynamicWrapperComponent, inputProperties };
