@@ -41,9 +41,10 @@ export function extendMetadata(
  *   thrown away, so they cannot leak between tests.
  * - Clearly separates initialization code from the test itself.
  * - Gives control over the simulated date & time with a single line of code.
- * - Automatically includes {@link https://angular.io/api/common/http/testing/HttpClientTestingModule|HttpClientTestingModule} to stub network requests without additional setup.
+ * - Automatically includes [HttpClientTestingModule]{@link https://angular.io/api/common/http/testing/HttpClientTestingModule} to stub network requests without additional setup.
  * - Always verifies that no unexpected http requests were made.
  * - Automatically discards periodic tasks and flushes pending timers at the end of each test to avoid the error "X timer(s) still in the queue".
+ * - Opts in to tear down the test module after each test. This fixes leaked component styles, speeding up your test suite (see https://github.com/angular/angular/pull/42566).
  *
  * This example tests a simple service that uses `HttpClient`, and is tested by using `AngularContext` directly. More often `AngularContext` will be used as a super class. See {@link ComponentContext} for more common use cases.
  *
@@ -112,7 +113,10 @@ export class AngularContext {
     );
     AngularContext.current = this;
     TestBed.configureTestingModule(
-      extendMetadata(moduleMetadata, { imports: [HttpClientTestingModule] }),
+      extendMetadata(moduleMetadata, {
+        imports: [HttpClientTestingModule],
+        teardown: { destroyAfterEach: true },
+      }),
     );
   }
 

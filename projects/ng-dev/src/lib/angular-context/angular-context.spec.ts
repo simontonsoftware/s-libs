@@ -16,6 +16,7 @@ import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { sleep } from '@s-libs/js-core';
 import { noop, Observable } from 'rxjs';
+import { ComponentContext } from '../component-context';
 import { AngularContext } from './angular-context';
 
 describe('AngularContext', () => {
@@ -89,6 +90,52 @@ describe('AngularContext', () => {
           'There is already another AngularContext in use (or it was not cleaned up)',
         );
       });
+    });
+
+    describe('test bed teardown', () => {
+      @Component({
+        selector: 'app-styler',
+        template: "I'm cool",
+        styles: [
+          `
+            :host {
+              height: 20px;
+              background: lightblue;
+            }
+          `,
+        ],
+      })
+      class StyledComponent {}
+
+      function getStyles(): Array<string | null> {
+        return Array.from(document.querySelectorAll('style')).map(
+          (style) => style.textContent,
+        );
+      }
+
+      let startingStyleCount: number;
+      beforeAll(() => {
+        startingStyleCount = getStyles().length;
+      });
+
+      // Our component adds 1 style, and we manually add 1 more. So in the test we should see only one copy of the component style, and one OR BOTH of our dynamicly added style (depending on whether this is the first or second run of the test).
+      for (let i = 0; i < 2; ++i) {
+        it('trims (only) leftover styles from angular components', () => {
+          const ctx = new ComponentContext(StyledComponent);
+          ctx.run(() => {
+            const style = document.createElement('style');
+            style.textContent = 'dynamic style';
+            document.head.append(style);
+
+            const styles = getStyles();
+            const numDynamic = styles.filter(
+              (style) => style === 'dynamic style',
+            ).length;
+            expect(numDynamic === 1 || numDynamic === 2).toBe(true);
+            expect(styles.length - numDynamic).toBe(startingStyleCount + 1);
+          });
+        });
+      }
     });
   });
 

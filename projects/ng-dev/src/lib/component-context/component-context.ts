@@ -4,7 +4,7 @@ import {
   TestBed,
   TestModuleMetadata,
 } from '@angular/core/testing';
-import { By, ɵDomSharedStylesHost } from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { keys } from '@s-libs/micro-dash';
 import {
@@ -13,19 +13,15 @@ import {
 } from '../angular-context/angular-context';
 import { WrapperComponent } from './wrapper.component';
 
-// This fixes https://github.com/angular/angular/issues/31834. We are using it instead of `trimLeftoverStyles()` so that extra styles added by e.g. Ionic or Fontawesome are preserved. This should be temporary, with the real fix coming from Angular itself with https://github.com/angular/angular/pull/42566.
-let styleHostToDestroy: ɵDomSharedStylesHost | undefined;
-
 /**
  * Provides the foundation for an opinionated pattern for component tests.
  *
  * - Includes all features from {@link AngularContext}
  * - Automatically creates your component at the beginning of `run()`.
  * - Sets up Angular to call `ngOnChanges()` like it would in production. This is not the case if you use the standard `TestBed.createComponent()` directly.
- * - Wraps your component in a dynamically created parent that you can easily style however you like.
+ * - Wraps your component in a parent that you can easily style however you like.
  * - Lets you use {@link https://material.angular.io/cdk/test-harnesses/overview|component harnesses} in the `fakeAsync` zone, which is normally a challenge.
  * - Automatically disables animations.
- * - Automatically removes component styles from previous tests to speed up your test suite (works around https://github.com/angular/angular/issues/31834).
  *
  * A very simple example:
  * ```ts
@@ -231,7 +227,6 @@ export class ComponentContext<T> extends AngularContext {
    * Constructs and initializes your component. Called during `run()` before it executes the rest of your test. Runs in the same `fakeAsync` zone as the rest of your test.
    */
   protected override init(): void {
-    styleHostToDestroy?.ngOnDestroy();
     super.init();
     this.fixture = TestBed.createComponent(WrapperComponent);
 
@@ -250,7 +245,6 @@ export class ComponentContext<T> extends AngularContext {
    */
   protected override cleanUp(): void {
     this.fixture.destroy();
-    styleHostToDestroy = this.inject(ɵDomSharedStylesHost);
     super.cleanUp();
   }
 
