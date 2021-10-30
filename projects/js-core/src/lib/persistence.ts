@@ -31,7 +31,7 @@ export class Persistence<T> {
   /**
    * Retrieves a deserialized copy of the saved object, or `undefined` if it has not been set.
    */
-  get(): T {
+  get(): T | undefined {
     const savedStr = localStorage?.getItem(this.key);
     return savedStr == null ? undefined : JSON.parse(savedStr);
   }
