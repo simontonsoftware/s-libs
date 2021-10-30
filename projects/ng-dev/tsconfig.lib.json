@@ -16,9 +16,5 @@
     "**/*.spec.ts",
     // excluded for the sake of TSDoc
     "src/typing-tests"
-  ],
-  "angularCompilerOptions": {
-    // So far, ivy does not handle the dynamic wrapper component for ComponentContext.
-    "enableIvy": false
-  }
+  ]
 }

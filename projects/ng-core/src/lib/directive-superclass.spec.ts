@@ -213,7 +213,7 @@ describe('DirectiveSuperclass', () => {
             });
         }
 
-        ngOnChanges(changes: SimpleChanges): void {
+        override ngOnChanges(changes: SimpleChanges): void {
           this.stage = 'after ngOnChanges';
           super.ngOnChanges(changes);
         }

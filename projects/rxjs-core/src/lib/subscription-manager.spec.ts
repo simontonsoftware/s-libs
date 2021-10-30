@@ -95,7 +95,7 @@ describe('SubscriptionManager', () => {
 
   describe('.manage()', () => {
     it('causes the manager to manage the passed-in subscription', () => {
-      const subject = new Subject();
+      const subject = new Subject<void>();
       manager.manage(subject.subscribe(next));
 
       manager.unsubscribe();

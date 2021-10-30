@@ -8,7 +8,6 @@ import {
   expectSingleCallAndReset,
   logTimers,
   marbleTest,
-  precompileForTests,
   trimLeftoverStyles,
 } from '@s-libs/ng-dev';
 
@@ -47,10 +46,6 @@ describe('ng-dev', () => {
 
   it('has marbleTest', () => {
     expect(marbleTest).toBeDefined();
-  });
-
-  it('has precompileForTests()', () => {
-    expect(precompileForTests).toBeDefined();
   });
 
   it('has trimLeftoverStyles()', () => {

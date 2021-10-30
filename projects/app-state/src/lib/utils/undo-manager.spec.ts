@@ -30,7 +30,7 @@ class TestImpl extends UndoManager<State, State> {
     });
   }
 
-  shouldPush(state: State): boolean {
+  override shouldPush(state: State): boolean {
     // looks pointless, but allows this function to be overwritten below
     return super.shouldPush(state);
   }
@@ -664,7 +664,7 @@ describe('UndoManager', () => {
           super(store, 2);
         }
 
-        protected isOverSize(): boolean {
+        protected override isOverSize(): boolean {
           if (numToDrop > 0) {
             --numToDrop;
             return true;

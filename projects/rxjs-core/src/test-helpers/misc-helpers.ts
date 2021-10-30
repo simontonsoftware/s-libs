@@ -1,6 +1,12 @@
-import { BehaviorSubject, Observable, of, OperatorFunction } from 'rxjs';
-import { catchError, toArray } from 'rxjs/operators';
 import { marbleTest } from '@s-libs/ng-dev';
+import {
+  BehaviorSubject,
+  lastValueFrom,
+  Observable,
+  of,
+  OperatorFunction,
+} from 'rxjs';
+import { catchError, toArray } from 'rxjs/operators';
 import { StubbedSubscriber } from './stubbed-subscriber';
 
 export async function expectPipeResult<I, O>(
@@ -15,9 +21,7 @@ export function pipeAndCollect<I, O>(
   source: I[],
   operator: OperatorFunction<I, O>,
 ): Promise<O[]> {
-  return of(...source)
-    .pipe(operator, toArray())
-    .toPromise();
+  return lastValueFrom(of(...source).pipe(operator, toArray()));
 }
 
 export function testUserFunctionError(

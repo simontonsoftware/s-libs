@@ -42,13 +42,13 @@ describe('WrappedControlSuperclass', () => {
         super(injector);
       }
 
-      protected setUpOuterToInner$(
+      protected override setUpOuterToInner$(
         value$: Observable<number>,
       ): Observable<string> {
         return value$.pipe(map((outer) => String(outer / 2)));
       }
 
-      protected setUpInnerToOuter$(
+      protected override setUpInnerToOuter$(
         value$: Observable<string>,
       ): Observable<number> {
         return value$.pipe(
@@ -128,7 +128,7 @@ describe('WrappedControlSuperclass', () => {
       providers: [provideValueAccessor(FullNameComponent)],
     })
     class FullNameComponent extends WrappedControlSuperclass<FullName> {
-      control = new FormGroup({
+      override control = new FormGroup({
         firstName: new FormControl(),
         lastName: new FormControl(),
       });
@@ -138,7 +138,7 @@ describe('WrappedControlSuperclass', () => {
         super(injector);
       }
 
-      protected outerToInner(outer: FullName | null): FullName {
+      protected override outerToInner(outer: FullName | null): FullName {
         // `outer` can come in as `null` during initialization when the user binds with `ngModel`
         return outer || new FullName();
       }
@@ -217,11 +217,11 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
       super(injector);
     }
 
-    protected innerToOuter(value: string): Date {
+    protected override innerToOuter(value: string): Date {
       return new Date(value + 'Z');
     }
 
-    protected outerToInner(value: Date): string {
+    protected override outerToInner(value: Date): string {
       if (value === null) {
         return ''; // happens during initialization
       }

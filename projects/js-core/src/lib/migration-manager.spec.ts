@@ -190,7 +190,7 @@ describe('MigrationManager', () => {
     it('can propogate a different error', () => {
       const differentError = new Error();
       const migrater = new (class extends MigrationManager<MyData> {
-        protected onError(): MyData {
+        protected override onError(): MyData {
           throw differentError;
         }
       })();
@@ -202,7 +202,7 @@ describe('MigrationManager', () => {
     it('can provide its own value to be returned from `run()`', () => {
       const newValue = new MyData(2);
       const migrater = new (class extends MigrationManager<MyData> {
-        protected onError(): MyData {
+        protected override onError(): MyData {
           return newValue;
         }
       })();
@@ -216,7 +216,7 @@ describe('MigrationManager', () => {
       const originalState = persistence.get();
       const onError = jasmine.createSpy();
       const migrater = new (class extends MigrationManager<MyData> {
-        protected onError = onError;
+        protected override onError = onError;
       })();
 
       registerAndRun(migrater);
