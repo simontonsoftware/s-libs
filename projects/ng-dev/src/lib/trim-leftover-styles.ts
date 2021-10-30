@@ -10,6 +10,8 @@ let initialStyles: Set<HTMLStyleElement> | undefined;
  *   trimLeftoverStyles();
  * });
  * ```
+ *
+ * @deprecated Angular now has a built-in way to address this issue; pass `teardown: { destroyAfterEach: true }` to either `TestBed.initTestEnvironment()` or `TestBed.configureTestingModule()` (see https://github.com/angular/angular/pull/42566). If you use {@linkcode AngularContext} this is done for you automatically.
  */
 export function trimLeftoverStyles(): void {
   const styles = new Set(Array.from(document.querySelectorAll('style')));
