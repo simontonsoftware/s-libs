@@ -139,7 +139,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    * In this example, incoming values are debounced before being passed through to the inner form control
    * ```ts
    * setUpOuterToInner$(outer$: Observable<OuterType>): Observable<InnerType> {
-   *   return values$.pipe(
+   *   return outer$.pipe(
    *     debounce(300),
    *     map((outer) => doExpensiveTransformToInnerValue(outer)),
    *   );
@@ -169,7 +169,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    * In this example, illegal values are not emitted
    * ```ts
    * setUpInnerToOuter$(inner$: Observable<InnerType>): Observable<OuterType> {
-   *   return values$.pipe(
+   *   return inner$.pipe(
    *     debounce(300),
    *     filter((inner) => isLegalValue(outer)),
    *   );
