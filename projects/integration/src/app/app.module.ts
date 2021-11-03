@@ -1,17 +1,28 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NasModelModule } from '@s-libs/ng-app-state';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DeepPerformanceComponent } from './deep-performance/deep-performance.component';
-import { WidePerformanceComponent } from './wide-performance/wide-performance.component';
+import { DeepPerformanceComponent } from './app-state-performance/deep-performance/deep-performance.component';
+import { NasModelComponent } from './nas-model/nas-model.component';
+import { WidePerformanceComponent } from './app-state-performance/wide-performance/wide-performance.component';
+import { AppStatePerformanceComponent } from './app-state-performance/app-state-performance.component';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, NasModelModule],
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    FormsModule,
+    NasModelModule,
+    ReactiveFormsModule,
+  ],
   declarations: [
     AppComponent,
-    WidePerformanceComponent,
+    AppStatePerformanceComponent,
     DeepPerformanceComponent,
+    NasModelComponent,
+    WidePerformanceComponent,
   ],
   bootstrap: [AppComponent],
 })

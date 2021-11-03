@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RootStore } from '@s-libs/app-state';
-import { unsubscribe } from '../../../../app-state/src/performance/performance-utils';
+import { unsubscribe } from '../../../../../app-state/src/performance/performance-utils';
 import {
   runWide,
   subscribeWide,
   WideState,
-} from '../../../../app-state/src/performance/wide-performance';
+} from '../../../../../app-state/src/performance/wide-performance';
 
 @Component({
   selector: 's-wide-performance',

@@ -1,6 +1,10 @@
 import { isEmpty } from './is-empty';
 
 describe('isEmpty()', () => {
+  //
+  // stolen from https://github.com/lodash/lodash
+  //
+
   it('should return `true` for empty values', () => {
     expect(isEmpty({})).toBe(true);
     expect(isEmpty([])).toBe(true);

@@ -4,8 +4,8 @@ import {
   DeepState,
   runDeep,
   subscribeDeep,
-} from '../../../../app-state/src/performance/deep-performance';
-import { unsubscribe } from '../../../../app-state/src/performance/performance-utils';
+} from '../../../../../app-state/src/performance/deep-performance';
+import { unsubscribe } from '../../../../../app-state/src/performance/performance-utils';
 
 @Component({
   selector: 's-deep-performance',
