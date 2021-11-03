@@ -1,4 +1,5 @@
 import { expectCallsAndReset } from '@s-libs/ng-dev';
+import { expectTypeOf } from 'expect-type';
 import { mapToObject } from './map-to-object';
 
 describe('mapToObject()', () => {
@@ -31,5 +32,52 @@ describe('mapToObject()', () => {
 
     mapToObject({ a: 1, b: 2 }, spy);
     expectCallsAndReset(spy, [1, 'a'], [2, 'b']);
+  });
+
+  describe('typing', () => {
+    it('is good for arrays', () => {
+      type A = number[];
+      type AorU = A | undefined;
+      type AorN = A | null;
+
+      const a = [] as A;
+      const aOrU = a as AorU;
+      const aOrN = a as AorN;
+
+      type Result = { a?: number };
+      expectTypeOf(mapToObject(a, () => ['a', 1])).toEqualTypeOf<Result>();
+      expectTypeOf(mapToObject(aOrN, () => ['a', 1])).toEqualTypeOf<Result>();
+      expectTypeOf(mapToObject(aOrU, () => ['a', 1])).toEqualTypeOf<Result>();
+
+      const index: [string, number] = ['a', 1];
+      type IndexResult = Record<string, number>;
+      expectTypeOf(mapToObject(a, () => index)).toEqualTypeOf<IndexResult>();
+      expectTypeOf(mapToObject(aOrU, () => index)).toEqualTypeOf<IndexResult>();
+      expectTypeOf(mapToObject(aOrN, () => index)).toEqualTypeOf<IndexResult>();
+    });
+
+    it('is good for objects', () => {
+      interface O {
+        a: string;
+        b: number;
+      }
+      type OorU = O | undefined;
+      type OorN = O | null;
+
+      const o = {} as O;
+      const oOrU = o as OorU;
+      const oOrN = o as OorN;
+
+      type Result = { a?: number };
+      expectTypeOf(mapToObject(o, () => ['a', 1])).toEqualTypeOf<Result>();
+      expectTypeOf(mapToObject(oOrU, () => ['a', 1])).toEqualTypeOf<Result>();
+      expectTypeOf(mapToObject(oOrN, () => ['a', 1])).toEqualTypeOf<Result>();
+
+      const index: [string, number] = ['a', 1];
+      type IndexResult = Record<string, number>;
+      expectTypeOf(mapToObject(o, () => index)).toEqualTypeOf<IndexResult>();
+      expectTypeOf(mapToObject(oOrU, () => index)).toEqualTypeOf<IndexResult>();
+      expectTypeOf(mapToObject(oOrN, () => index)).toEqualTypeOf<IndexResult>();
+    });
   });
 });

@@ -51,7 +51,7 @@ export class MigrationManager<T extends VersionedObject> {
    * If an error is thrown by a migration, see `onError()` for details.
    */
   run(persistence: Persistence<T>, defaultValue: T): T {
-    let object: T = persistence.get();
+    let object = persistence.get();
     if (object?._version === defaultValue._version) {
       return object;
     }

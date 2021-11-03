@@ -1,5 +1,10 @@
 import { transform } from '@s-libs/micro-dash';
-import { ArrayIteratee, Nil, ObjectIteratee } from '../interfaces';
+import {
+  ArrayIteratee,
+  Nil,
+  ObjectIteratee,
+  PartialExceptIndexes,
+} from '../interfaces';
 
 /**
  * Maps `collection` a new object, with keys and values determined by `iteratee`.
@@ -14,13 +19,13 @@ import { ArrayIteratee, Nil, ObjectIteratee } from '../interfaces';
  */
 
 export function mapToObject<I, K extends keyof any, V>(
-  array: I[] | Nil,
+  array: readonly I[] | Nil,
   iteratee: ArrayIteratee<I, Readonly<[K, V]>>,
-): { [k in K]?: V };
+): PartialExceptIndexes<{ [k in K]: V }>;
 export function mapToObject<T, K extends keyof any, V>(
   object: T | Nil,
   iteratee: ObjectIteratee<T, Readonly<[K, V]>>,
-): { [k in K]?: V };
+): PartialExceptIndexes<{ [k in K]: V }>;
 
 export function mapToObject(collection: any, iteratee: any): any {
   return transform(collection, (accumulator: any, origValue, keyOrIndex) => {
