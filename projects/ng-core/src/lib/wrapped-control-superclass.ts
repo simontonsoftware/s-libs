@@ -77,10 +77,14 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
 
   private incomingValues$ = new Subject<OuterType>();
 
-  ngOnInit(): void {
+  constructor(injector: Injector) {
+    super(injector);
     this.subscribeTo(this.setUpOuterToInner$(this.incomingValues$), (inner) => {
       this.control.setValue(inner, { emitEvent: false });
     });
+  }
+
+  ngOnInit(): void {
     this.subscribeTo(
       this.setUpInnerToOuter$(this.control.valueChanges),
       (outer) => {
