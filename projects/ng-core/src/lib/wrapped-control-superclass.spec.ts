@@ -38,6 +38,8 @@ describe('WrappedControlSuperclass', () => {
       number,
       string
     > {
+      control = new FormControl();
+
       constructor(injector: Injector) {
         super(injector);
       }
@@ -93,6 +95,8 @@ describe('WrappedControlSuperclass', () => {
   it('adds ng-touched to the inner form control at the right time', () => {
     @Component({ template: `<input [formControl]="control" />` })
     class NgTouchedComponent extends WrappedControlSuperclass<string> {
+      control = new FormControl();
+
       constructor(injector: Injector) {
         super(injector);
       }
@@ -201,6 +205,8 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
     changeDetection: ChangeDetectionStrategy.OnPush,
   })
   class StringComponent extends WrappedControlSuperclass<string> {
+    control = new FormControl();
+
     constructor(injector: Injector) {
       super(injector);
     }
@@ -213,6 +219,8 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
     changeDetection: ChangeDetectionStrategy.OnPush,
   })
   class DateComponent extends WrappedControlSuperclass<Date, string> {
+    control = new FormControl();
+
     constructor(injector: Injector) {
       super(injector);
     }

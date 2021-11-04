@@ -1,5 +1,5 @@
 import { Directive, OnInit } from '@angular/core';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { wrapMethod } from '@s-libs/js-core';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,13 +8,13 @@ import { FormComponentSuperclass } from './form-component-superclass';
 /**
  * Extend this when creating a form component that simply wraps existing ones, to reduce a lot of boilerplate. **Warning:** You _must_ include a constructor in your subclass.
  *
- * A simple example:
+ * To wrap a single form control use the subclass {@linkcode WrappedFormControlSuperclass}:
  * ```ts
  * @Component({
  *   template: `<input [formControl]="control">`,
  *   providers: [provideValueAccessor(StringComponent)],
  * })
- * class StringComponent extends WrappedControlSuperclass<string> {
+ * class StringComponent extends WrappedFormControlSuperclass<string> {
  *   // This looks unnecessary, but is required for Angular to provide `Injector`
  *   constructor(injector: Injector) {
  *     super(injector);
@@ -63,7 +63,7 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *   template: `<input type="datetime-local" [control]="formControl">`,
  *   providers: [provideValueAccessor(DateComponent)],
  * })
- * class DateComponent extends WrappedControlSuperclass<Date, string> {
+ * class DateComponent extends WrappedFormControlSuperclass<Date, string> {
  *   // This looks unnecessary, but is required for Angular to provide `Injector`
  *   constructor(injector: Injector) {
  *     super(injector);
@@ -87,8 +87,8 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   extends FormComponentSuperclass<OuterType>
   implements OnInit
 {
-  /** Bind this to your inner form control to make all the magic happen. By default this is a `FormControl`, but for a complex component you can override it to be a `FormGroup` or `FormArray`. */
-  control: AbstractControl = new FormControl();
+  /** Bind this to your inner form control to make all the magic happen. */
+  abstract control: AbstractControl;
 
   private incomingValues$ = new Subject<OuterType>();
 
@@ -127,7 +127,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   /**
    * Override this to modify a value coming from the outside to the format needed within this component.
    *
-   * For more complex needs, see {@link #setUpOuterToInner$} instead.
+   * For more complex needs, see {@linkcode #setUpOuterToInner$} instead.
    */
   protected outerToInner(outer: OuterType): InnerType {
     return outer as unknown as InnerType;
@@ -146,7 +146,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    * }
    * ```
    *
-   * For a simple transformation, see {@link #outerToInner} instead.
+   * For a simple transformation, see {@linkcode #outerToInner} instead.
    */
   protected setUpOuterToInner$(
     outer$: Observable<OuterType>,
@@ -157,7 +157,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   /**
    * Override this to modify a value coming from within this component to the format expected on the outside.
    *
-   * For more complex needs, see {@link #setUpInnerToOuter$} instead.
+   * For more complex needs, see {@linkcode #setUpInnerToOuter$} instead.
    */
   protected innerToOuter(inner: InnerType): OuterType {
     return inner as unknown as OuterType;
@@ -176,7 +176,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    * }
    * ```
    *
-   * For a simple transformation, see {@link #innerToOuter} instead.
+   * For a simple transformation, see {@linkcode #innerToOuter} instead.
    */
   protected setUpInnerToOuter$(
     inner$: Observable<InnerType>,

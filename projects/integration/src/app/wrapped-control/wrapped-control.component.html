@@ -1,0 +1,11 @@
+<p>
+  This integration exists because I tried eliminating
+  <code>WrappedFormControlSuperclass</code> in favor of having only
+  <code>WrappedControlSuperclass</code> that defaulted <code>control</code> to a
+  <code>FormControl</code>. And everything looked great and all the tests
+  passed, until I tried to use it in a real app. Then suddenly it wouldn't
+  compile because the typing of <code>AbstractControl</code> wasn't a good
+  enough match for a <code>[formControl]</code> binding. So we now have this in
+  the integration app, and build it during CI.
+</p>
+<input [formControl]="control" />

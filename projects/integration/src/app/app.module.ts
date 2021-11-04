@@ -8,6 +8,7 @@ import { DeepPerformanceComponent } from './app-state-performance/deep-performan
 import { NasModelComponent } from './nas-model/nas-model.component';
 import { WidePerformanceComponent } from './app-state-performance/wide-performance/wide-performance.component';
 import { AppStatePerformanceComponent } from './app-state-performance/app-state-performance.component';
+import { WrappedControlComponent } from './wrapped-control/wrapped-control.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { AppStatePerformanceComponent } from './app-state-performance/app-state-
     DeepPerformanceComponent,
     NasModelComponent,
     WidePerformanceComponent,
+    WrappedControlComponent,
   ],
   bootstrap: [AppComponent],
 })
