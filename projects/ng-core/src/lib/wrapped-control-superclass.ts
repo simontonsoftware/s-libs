@@ -1,4 +1,4 @@
-import { Directive, OnInit } from '@angular/core';
+import { Directive, Injector, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { wrapMethod } from '@s-libs/js-core';
 import { Observable, Subject } from 'rxjs';
@@ -14,12 +14,7 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *   template: `<input [formControl]="control">`,
  *   providers: [provideValueAccessor(StringComponent)],
  * })
- * class StringComponent extends WrappedFormControlSuperclass<string> {
- *   // This looks unnecessary, but is required for Angular to provide `Injector`
- *   constructor(injector: Injector) {
- *     super(injector);
- *   }
- * }
+ * class StringComponent extends WrappedFormControlSuperclass<string> {}
  * ```
  *
  * Example of wrapping multiple inner components:
@@ -45,11 +40,6 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *     lastName: new FormControl(),
  *   });
  *
- *   // This looks unnecessary, but is required for Angular to provide `Injector`
- *   constructor(injector: Injector) {
- *     super(injector);
- *   }
- *
  *   protected outerToInner(outer: FullName | null): FullName {
  *     // `outer` can come in as `null` during initialization when the user binds with `ngModel`
  *     return outer || new FullName();
@@ -64,11 +54,6 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *   providers: [provideValueAccessor(DateComponent)],
  * })
  * class DateComponent extends WrappedFormControlSuperclass<Date, string> {
- *   // This looks unnecessary, but is required for Angular to provide `Injector`
- *   constructor(injector: Injector) {
- *     super(injector);
- *   }
- *
  *   protected innerToOuter(inner: string): Date {
  *     return new Date(inner + "Z");
  *   }

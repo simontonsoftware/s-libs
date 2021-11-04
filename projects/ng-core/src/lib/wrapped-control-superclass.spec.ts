@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  Input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import {
   ComponentFixtureAutoDetect,
   flushMicrotasks,
@@ -39,10 +34,6 @@ describe('WrappedControlSuperclass', () => {
       string
     > {
       control = new FormControl();
-
-      constructor(injector: Injector) {
-        super(injector);
-      }
 
       protected override setUpOuterToInner$(
         value$: Observable<number>,
@@ -96,10 +87,6 @@ describe('WrappedControlSuperclass', () => {
     @Component({ template: `<input [formControl]="control" />` })
     class NgTouchedComponent extends WrappedControlSuperclass<string> {
       control = new FormControl();
-
-      constructor(injector: Injector) {
-        super(injector);
-      }
     }
 
     const ctx = new ComponentContext(NgTouchedComponent, {
@@ -136,11 +123,6 @@ describe('WrappedControlSuperclass', () => {
         firstName: new FormControl(),
         lastName: new FormControl(),
       });
-
-      // This looks unnecessary, but is required for Angular to provide `Injector`
-      constructor(injector: Injector) {
-        super(injector);
-      }
 
       protected override outerToInner(outer: FullName | null): FullName {
         // `outer` can come in as `null` during initialization when the user binds with `ngModel`
@@ -206,10 +188,6 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
   })
   class StringComponent extends WrappedControlSuperclass<string> {
     control = new FormControl();
-
-    constructor(injector: Injector) {
-      super(injector);
-    }
   }
 
   @Component({
@@ -220,10 +198,6 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
   })
   class DateComponent extends WrappedControlSuperclass<Date, string> {
     control = new FormControl();
-
-    constructor(injector: Injector) {
-      super(injector);
-    }
 
     protected override innerToOuter(value: string): Date {
       return new Date(value + 'Z');
