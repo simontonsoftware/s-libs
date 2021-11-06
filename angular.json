@@ -335,7 +335,8 @@
           "options": {
             "main": "projects/ng-app-state/src/test.ts",
             "tsConfig": "projects/ng-app-state/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-app-state/karma.conf.js"
+            "karmaConfig": "projects/ng-app-state/karma.conf.js",
+            "polyfills": "projects/ng-app-state/src/test-polyfills.ts"
           }
         },
         "lint": {

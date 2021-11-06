@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -9,7 +9,11 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { Store } from '@s-libs/app-state';
 import { noop } from '@s-libs/micro-dash';
+import { ComponentContext } from '@s-libs/ng-dev';
+import { Subject } from 'rxjs';
+import { setValue } from '../../../ng-core/src/test-helpers';
 import {
   CityComponent,
   citySelectWithCustomCompareFnTemplate,
@@ -637,7 +641,7 @@ describe('value accessors', () => {
 });
 
 // `nasModel` is tested pretty thoroughly above, by the tests adapted from angular's suite. Here we hit a few more cases to complete code coverage.
-describe('nasModel', () => {
+describe('NasModelDirective', () => {
   it('can bind to different store objects over time', fakeAsync(() => {
     const store = initTest(MenuComponent, MenuStore, {
       template: `<input [nasModel]="textStore">`,
@@ -680,4 +684,23 @@ describe('nasModel', () => {
     flushMicrotasks();
     expect(input.disabled).toBe(false);
   }));
+
+  it('handles `null` from an async pipe', () => {
+    @Component({ template: `<input [nasModel]="store$ | async" />` })
+    class StoreStreamComponent {
+      store$ = new Subject<Store<string>>();
+    }
+
+    const ctx = new ComponentContext(StoreStreamComponent, {
+      imports: [NasModelModule],
+    });
+    expect(() => {
+      ctx.run(() => {
+        const input: HTMLInputElement = ctx.fixture.debugElement.query(
+          By.css('input'),
+        ).nativeElement;
+        setValue(input, 'updated value');
+      });
+    }).not.toThrowError();
+  });
 });
