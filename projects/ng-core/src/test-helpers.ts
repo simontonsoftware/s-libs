@@ -1,4 +1,5 @@
-import { ComponentFixture, flushMicrotasks } from '@angular/core/testing';
+import { ComponentFixture } from '@angular/core/testing';
+import { AngularContext } from '@s-libs/ng-dev';
 
 export function findButton(
   fixture: ComponentFixture<any>,
@@ -30,12 +31,12 @@ export function find<T extends Element>(
 
 export function click(element: Element): void {
   element.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  flushMicrotasks();
+  AngularContext.getCurrent()!.tick();
 }
 
 export function setValue(input: HTMLInputElement, value: string): void {
   input.value = value;
   input.dispatchEvent(new Event('input', { bubbles: true }));
   input.dispatchEvent(new Event('change', { bubbles: true }));
-  flushMicrotasks();
+  AngularContext.getCurrent()!.tick();
 }

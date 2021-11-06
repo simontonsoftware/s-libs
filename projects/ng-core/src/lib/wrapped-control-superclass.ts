@@ -1,7 +1,14 @@
-import { Directive, Injector, OnInit } from '@angular/core';
+import { Directive, ErrorHandler, Injector, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { wrapMethod } from '@s-libs/js-core';
-import { Observable, Subject } from 'rxjs';
+import { bindKey, flow } from '@s-libs/micro-dash';
+import {
+  MonoTypeOperatorFunction,
+  Observable,
+  retry,
+  Subject,
+  tap,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormComponentSuperclass } from './form-component-superclass';
 
@@ -75,13 +82,18 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   /** Bind this to your inner form control to make all the magic happen. */
   abstract control: AbstractControl;
 
-  private incomingValues$ = new Subject<OuterType>();
+  #incomingValues$ = new Subject<OuterType>();
+  #errorHandler: ErrorHandler;
 
   constructor(injector: Injector) {
     super(injector);
-    this.subscribeTo(this.setUpOuterToInner$(this.incomingValues$), (inner) => {
-      this.control.setValue(inner, { emitEvent: false });
-    });
+    this.#errorHandler = injector.get(ErrorHandler);
+    this.subscribeTo(
+      this.setUpOuterToInner$(this.#incomingValues$),
+      (inner) => {
+        this.control.setValue(inner, { emitEvent: false });
+      },
+    );
   }
 
   ngOnInit(): void {
@@ -100,7 +112,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
 
   /** Called as angular propagates values changes to this `ControlValueAccessor`. You normally do not need to use it. */
   handleIncomingValue(outer: OuterType): void {
-    this.incomingValues$.next(outer);
+    this.#incomingValues$.next(outer);
   }
 
   /** Called as angular propagates disabled changes to this `ControlValueAccessor`. You normally do not need to use it. */
@@ -140,7 +152,10 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   protected setUpOuterToInner$(
     outer$: Observable<OuterType>,
   ): Observable<InnerType> {
-    return outer$.pipe(map((outer) => this.outerToInner(outer)));
+    return outer$.pipe(
+      map((outer) => this.outerToInner(outer)),
+      this.#handleError(),
+    );
   }
 
   /**
@@ -170,6 +185,16 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   protected setUpInnerToOuter$(
     inner$: Observable<InnerType>,
   ): Observable<OuterType> {
-    return inner$.pipe(map((inner) => this.innerToOuter(inner)));
+    return inner$.pipe(
+      map((inner) => this.innerToOuter(inner)),
+      this.#handleError(),
+    );
+  }
+
+  #handleError<T>(): MonoTypeOperatorFunction<T> {
+    return flow(
+      tap<T>({ error: bindKey(this.#errorHandler, 'handleError') }),
+      retry(),
+    );
   }
 }

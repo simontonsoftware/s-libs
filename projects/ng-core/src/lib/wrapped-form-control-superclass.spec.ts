@@ -6,7 +6,7 @@ import { WrappedFormControlSuperclass } from './wrapped-form-control-superclass'
 
 describe('WrappedFormControlSuperclass', () => {
   it('provides a FormControl', () => {
-    @Component({ template: `<input [formControl]="control" />` })
+    @Component({ template: `` })
     class SimpleControl extends WrappedFormControlSuperclass<string> {}
 
     const ctx = new ComponentContext(SimpleControl, {

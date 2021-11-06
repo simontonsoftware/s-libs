@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ErrorHandler,
+  Input,
+} from '@angular/core';
 import {
   ComponentFixtureAutoDetect,
   flushMicrotasks,
@@ -10,7 +15,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ComponentContext } from '@s-libs/ng-dev';
+import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { click, find, findButton, setValue } from '../test-helpers';
@@ -154,6 +159,95 @@ describe('WrappedControlSuperclass', () => {
       ctx.assignInputs({ disabled: true });
       expect(inputs[0].disabled).toBe(true);
       expect(inputs[1].disabled).toBe(true);
+    });
+  });
+
+  it('gracefully handles an error in .innerToOuter()', () => {
+    @Component({
+      selector: `sl-error-in`,
+      template: `<input [formControl]="control" />`,
+      providers: [provideValueAccessor(ErrorInComponent)],
+    })
+    class ErrorInComponent extends WrappedControlSuperclass<number> {
+      control = new FormControl();
+      override outerToInner = jasmine.createSpy();
+    }
+
+    @Component({
+      template: `<sl-error-in [(ngModel)]="value"></sl-error-in>`,
+    })
+    class WrapperComponent {
+      @Input() value!: string;
+    }
+
+    const handleError = jasmine.createSpy();
+    const ctx = new ComponentContext(WrapperComponent, {
+      declarations: [ErrorInComponent],
+      imports: [FormsModule, ReactiveFormsModule],
+      providers: [{ provide: ErrorHandler, useValue: { handleError } }],
+    });
+    ctx.run(async () => {
+      const control: ErrorInComponent = ctx.fixture.debugElement.query(
+        By.directive(ErrorInComponent),
+      ).componentInstance;
+      const input: HTMLInputElement = ctx.fixture.debugElement.query(
+        By.css('input'),
+      ).nativeElement;
+
+      const error = new Error();
+      control.outerToInner.and.throwError(error);
+      ctx.assignInputs({ value: 'wont show' });
+      expectSingleCallAndReset(handleError, error);
+      expect(input.value).toBe('');
+
+      control.outerToInner.and.returnValue('restored');
+      ctx.assignInputs({ value: 'will show' });
+      expect(input.value).toBe('restored');
+    });
+  });
+
+  it('gracefully handles an error in .outerToInner()', () => {
+    @Component({
+      selector: `sl-error-out`,
+      template: `<input [formControl]="control" />`,
+      providers: [provideValueAccessor(ErrorOutComponent)],
+    })
+    class ErrorOutComponent extends WrappedControlSuperclass<number> {
+      control = new FormControl();
+      override innerToOuter = jasmine.createSpy();
+    }
+
+    @Component({
+      template: `<sl-error-out [(ngModel)]="value"></sl-error-out>`,
+    })
+    class WrapperComponent {
+      value = 'initial value';
+    }
+
+    const handleError = jasmine.createSpy();
+    const ctx = new ComponentContext(WrapperComponent, {
+      declarations: [ErrorOutComponent],
+      imports: [FormsModule, ReactiveFormsModule],
+      providers: [{ provide: ErrorHandler, useValue: { handleError } }],
+    });
+    ctx.run(async () => {
+      const wrapper = ctx.getComponentInstance();
+      const control: ErrorOutComponent = ctx.fixture.debugElement.query(
+        By.directive(ErrorOutComponent),
+      ).componentInstance;
+      const input: HTMLInputElement = ctx.fixture.debugElement.query(
+        By.css('input'),
+      ).nativeElement;
+
+      const error = new Error();
+      control.innerToOuter.and.throwError(error);
+      setValue(input, 'wont show');
+      expectSingleCallAndReset(handleError, error);
+      expect(wrapper.value).toBe('initial value');
+
+      control.innerToOuter.and.returnValue('restored');
+      setValue(input, 'will show');
+      expect(wrapper.value).toBe('restored');
     });
   });
 });
