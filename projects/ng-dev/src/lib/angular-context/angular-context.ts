@@ -44,7 +44,6 @@ export function extendMetadata(
  * - Automatically includes [HttpClientTestingModule]{@link https://angular.io/api/common/http/testing/HttpClientTestingModule} to stub network requests without additional setup.
  * - Always verifies that no unexpected http requests were made.
  * - Automatically discards periodic tasks and flushes pending timers at the end of each test to avoid the error "X timer(s) still in the queue".
- * - Opts in to tear down the test module after each test. This fixes leaked component styles, speeding up your test suite (see https://github.com/angular/angular/pull/42566).
  *
  * This example tests a simple service that uses `HttpClient`, and is tested by using `AngularContext` directly. More often `AngularContext` will be used as a super class. See {@link ComponentContext} for more common use cases.
  *
@@ -87,13 +86,13 @@ export function extendMetadata(
  * ```
  */
 export class AngularContext {
-  private static current?: AngularContext;
+  static #current?: AngularContext;
 
   /**
    * Returns the current `AngularContext` that is in use, or `undefined` if there is not one. A context is defined to be "in use" from the time it is constructed until after its `run()` method completes.
    */
   static getCurrent(): AngularContext | undefined {
-    return AngularContext.current;
+    return AngularContext.#current;
   }
 
   /**
@@ -101,22 +100,19 @@ export class AngularContext {
    */
   startTime = new Date();
 
-  private loader = FakeAsyncHarnessEnvironment.documentRootLoader(this);
+  #loader = FakeAsyncHarnessEnvironment.documentRootLoader(this);
 
   /**
    * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link HttpClientTestingModule} for you.
    */
   constructor(moduleMetadata: TestModuleMetadata = {}) {
     assert(
-      !AngularContext.current,
+      !AngularContext.#current,
       'There is already another AngularContext in use (or it was not cleaned up)',
     );
-    AngularContext.current = this;
+    AngularContext.#current = this;
     TestBed.configureTestingModule(
-      extendMetadata(moduleMetadata, {
-        imports: [HttpClientTestingModule],
-        teardown: { destroyAfterEach: true },
-      }),
+      extendMetadata(moduleMetadata, { imports: [HttpClientTestingModule] }),
     );
   }
 
@@ -131,7 +127,7 @@ export class AngularContext {
    * 4. `this.cleanUp()`
    */
   run(test: () => void | Promise<void>): void {
-    this.runWithMockedTime(() => {
+    this.#runWithMockedTime(() => {
       this.init();
       try {
         test();
@@ -154,7 +150,7 @@ export class AngularContext {
    * Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to `await` its results. Throws an error if no match can be located.
    */
   getHarness<H extends ComponentHarness>(query: HarnessQuery<H>): Promise<H> {
-    return this.loader.getHarness(query);
+    return this.#loader.getHarness(query);
   }
 
   /**
@@ -163,7 +159,7 @@ export class AngularContext {
   getAllHarnesses<H extends ComponentHarness>(
     query: HarnessQuery<H>,
   ): Promise<Array<H>> {
-    return this.loader.getAllHarnesses(query);
+    return this.#loader.getAllHarnesses(query);
   }
 
   /**
@@ -209,10 +205,10 @@ export class AngularContext {
   protected cleanUp(): void {
     discardPeriodicTasks();
     flush();
-    AngularContext.current = undefined;
+    AngularContext.#current = undefined;
   }
 
-  private runWithMockedTime(test: VoidFunction): void {
+  #runWithMockedTime(test: VoidFunction): void {
     // https://github.com/angular/angular/issues/31677#issuecomment-573139551
     const now = performance.now;
     spyOn(performance, 'now').and.callFake(() => Date.now());
