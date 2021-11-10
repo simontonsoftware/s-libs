@@ -1,5 +1,6 @@
 import { Deferred } from '@s-libs/js-core';
 import { isEqual, nth, remove } from '@s-libs/micro-dash';
+import { buildErrorMessage } from '../utils';
 import { TestCall } from './test-call';
 
 type AsyncFunc = (...args: any[]) => Promise<any>;
@@ -68,7 +69,7 @@ export class AsyncMethodController<
   }
 
   /**
-   * Expect that a single call has been made which matches the given parameters or predicate, and return its mock. If no such call has been made, or more than one such call has been made, fail with an error message including `description`, if provided.
+   * Expect that a single call was made that matches the given parameters or predicate, and return its mock. If no such call was made, or more than one, fail with a message including `description`, if provided.
    */
   expectOne(
     match: Match<WrappingObject, FunctionName>,
@@ -77,10 +78,11 @@ export class AsyncMethodController<
     const matches = this.match(match);
     if (matches.length !== 1) {
       throw new Error(
-        this.buildErrorMessage({
+        buildErrorMessage({
           matchType: 'one matching',
+          itemType: 'call',
           matches,
-          stringifiedUserInput: this.stringifyUserInput(match, description),
+          stringifiedUserInput: this.#stringifyUserInput(match, description),
         }),
       );
     }
@@ -88,7 +90,7 @@ export class AsyncMethodController<
   }
 
   /**
-   * Expect that no calls have been made which match the given parameters or predicate. If a matching call has been made, fail with an error message including `description`, if provided.
+   * Expect that no calls were made which match the given parameters or predicate. If a matching call was made, fail with a message including `description`, if provided.
    */
   expectNone(
     match: Match<WrappingObject, FunctionName>,
@@ -97,10 +99,11 @@ export class AsyncMethodController<
     const matches = this.match(match);
     if (matches.length > 0) {
       throw new Error(
-        this.buildErrorMessage({
+        buildErrorMessage({
           matchType: 'zero matching',
+          itemType: 'call',
+          stringifiedUserInput: this.#stringifyUserInput(match, description),
           matches,
-          stringifiedUserInput: this.stringifyUserInput(match, description),
         }),
       );
     }
@@ -112,22 +115,24 @@ export class AsyncMethodController<
   match(
     match: Match<WrappingObject, FunctionName>,
   ): TestCall<WrappingObject[FunctionName]>[] {
-    this.ensureCallInfoIsSet();
+    this.#ensureCallInfoIsSet();
     const filterFn = Array.isArray(match)
-      ? this.makeArgumentMatcher(match)
+      ? this.#makeArgumentMatcher(match)
       : match;
     return remove(this.#testCalls, (testCall) => filterFn(testCall.callInfo));
   }
 
   /**
-   * Verify that no unmatched calls are outstanding. If any calls are outstanding, fail with an error message indicating which calls were not handled.
+   * Verify that no unmatched calls are outstanding. If any are, fail with a message indicating which calls were not matched.
    */
   verify(): void {
     if (this.#testCalls.length) {
-      this.ensureCallInfoIsSet();
+      this.#ensureCallInfoIsSet();
       let message =
-        this.buildErrorMessage({
+        buildErrorMessage({
           matchType: 'no open',
+          itemType: 'call',
+          stringifiedUserInput: undefined,
           matches: this.#testCalls,
         }) + ':';
       for (const testCall of this.#testCalls) {
@@ -137,7 +142,7 @@ export class AsyncMethodController<
     }
   }
 
-  private ensureCallInfoIsSet(): void {
+  #ensureCallInfoIsSet(): void {
     for (let i = 1; i <= this.#testCalls.length; ++i) {
       const testCall = nth(this.#testCalls, -i);
       if (testCall.callInfo) {
@@ -148,31 +153,14 @@ export class AsyncMethodController<
     }
   }
 
-  private makeArgumentMatcher(
+  #makeArgumentMatcher(
     args: Parameters<WrappingObject[FunctionName]>,
   ): (callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>) => boolean {
     return (callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>) =>
       isEqual(callInfo.args, args);
   }
 
-  private buildErrorMessage({
-    stringifiedUserInput,
-    matchType,
-    matches,
-  }: {
-    stringifiedUserInput?: string;
-    matchType: string;
-    matches: TestCall<WrappingObject[FunctionName]>[];
-  }): string {
-    let message = `Expected ${matchType} call(s)`;
-    if (stringifiedUserInput) {
-      message += ` for criterion "${stringifiedUserInput}"`;
-    }
-    message += `, found ${matches.length}`;
-    return message;
-  }
-
-  private stringifyUserInput(
+  #stringifyUserInput(
     match: Match<WrappingObject, FunctionName>,
     description?: string,
   ): string {

@@ -65,53 +65,51 @@ describe('AsyncMethodController', () => {
       });
     });
 
-    describe('error message', () => {
-      it('throws an error when there is no match', () => {
-        const controller = new AsyncMethodController(
-          navigator.clipboard,
-          'readText',
-        );
-        navigator.clipboard.readText();
+    it('throws when there is no match', () => {
+      const controller = new AsyncMethodController(
+        navigator.clipboard,
+        'readText',
+      );
+      navigator.clipboard.readText();
 
-        expect(() => {
-          controller.expectOne(() => false);
-        }).toThrowError(
-          'Expected one matching call(s) for criterion "Match by function: ", found 0',
-        );
-      });
+      expect(() => {
+        controller.expectOne(() => false);
+      }).toThrowError(
+        'Expected one matching call(s) for criterion "Match by function: ", found 0',
+      );
+    });
 
-      it('throws an error when there have been no calls', () => {
-        const controller = new AsyncMethodController(
-          navigator.clipboard,
-          'readText',
-        );
+    it('throws when there have been no calls', () => {
+      const controller = new AsyncMethodController(
+        navigator.clipboard,
+        'readText',
+      );
 
-        expect(() => {
-          controller.expectOne(() => true);
-        }).toThrowError(
-          'Expected one matching call(s) for criterion "Match by function: ", found 0',
-        );
-      });
+      expect(() => {
+        controller.expectOne(() => true);
+      }).toThrowError(
+        'Expected one matching call(s) for criterion "Match by function: ", found 0',
+      );
+    });
 
-      it('throws an error when there is more than one match', () => {
-        const controller = new AsyncMethodController(
-          navigator.clipboard,
-          'readText',
-        );
-        navigator.clipboard.readText();
-        navigator.clipboard.readText();
+    it('throws when there is more than one match', () => {
+      const controller = new AsyncMethodController(
+        navigator.clipboard,
+        'readText',
+      );
+      navigator.clipboard.readText();
+      navigator.clipboard.readText();
 
-        expect(() => {
-          controller.expectOne(() => true);
-        }).toThrowError(
-          'Expected one matching call(s) for criterion "Match by function: ", found 2',
-        );
-      });
+      expect(() => {
+        controller.expectOne(() => true);
+      }).toThrowError(
+        'Expected one matching call(s) for criterion "Match by function: ", found 2',
+      );
     });
   });
 
   describe('.expectNone()', () => {
-    it('throws an error if any call matches', () => {
+    it('throws if any call matches', () => {
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'writeText',
@@ -126,7 +124,7 @@ describe('AsyncMethodController', () => {
       );
     });
 
-    it('does not throw an error when no call matches', () => {
+    it('does not throw when no call matches', () => {
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'readText',
@@ -197,7 +195,7 @@ describe('AsyncMethodController', () => {
       );
     });
 
-    it('remove the matching calls from future matching', () => {
+    it('removes the matching calls from future matching', () => {
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'writeText',
@@ -219,7 +217,7 @@ describe('AsyncMethodController', () => {
       expect(matches).toEqual([]);
     });
 
-    it('can gracefully handle when no calls match', () => {
+    it('gracefully handles when no calls match', () => {
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'readText',
@@ -233,7 +231,7 @@ describe('AsyncMethodController', () => {
   });
 
   describe('.verify()', () => {
-    it('does not throw an error when all calls have been expected', () => {
+    it('does not throw when all calls have been expected', () => {
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'readText',
@@ -252,7 +250,7 @@ describe('AsyncMethodController', () => {
       }).not.toThrowError();
     });
 
-    it('throws an error if there is an outstanding call, including the number of open calls', () => {
+    it('throws if there is an outstanding call, including the number of them', () => {
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'writeText',
@@ -320,65 +318,7 @@ describe('AsyncMethodController', () => {
     });
   });
 
-  describe('.#buildErrorMessage()', () => {
-    it('includes the given description when throwing an error', () => {
-      const controller = new AsyncMethodController(
-        navigator.clipboard,
-        'readText',
-      );
-
-      expect(() => {
-        controller.expectOne(() => true, 'show this');
-      }).toThrowMatching((error: Error) =>
-        error.message.includes('for criterion "show this"'),
-      );
-    });
-
-    it('includes the name of the match function when throwing an error, when no description is provided', () => {
-      const controller = new AsyncMethodController(
-        navigator.clipboard,
-        'readText',
-      );
-
-      expect(() => {
-        controller.expectOne(nofindy);
-      }).toThrowMatching((error: Error) =>
-        error.message.includes('criterion "Match by function: nofindy"'),
-      );
-
-      function nofindy(): boolean {
-        return false;
-      }
-    });
-
-    it('formats the error message nicely when using the arguments shorthand', () => {
-      const controller = new AsyncMethodController(window, 'fetch');
-
-      expect(() => {
-        controller.expectOne(['some url', { method: 'GET' }]);
-      }).toThrowMatching((error: Error) =>
-        error.message.includes(
-          'for criterion "Match by arguments: ["some url",{"method":"GET"}]"',
-        ),
-      );
-    });
-
-    it('includes the number of matches found', () => {
-      const controller = new AsyncMethodController(
-        navigator.clipboard,
-        'writeText',
-      );
-      navigator.clipboard.writeText('value 1');
-      navigator.clipboard.writeText('value 2');
-      navigator.clipboard.writeText('value 3');
-
-      expect(() => {
-        controller.expectOne((call) => call.args[0] !== 'value 2');
-      }).toThrowMatching((error: Error) => error.message.includes('found 2'));
-    });
-  });
-
-  describe('examples from the docs', () => {
+  describe('example from the docs', () => {
     it('can paste', () => {
       const clipboard = navigator.clipboard;
       const ctx = new AngularContext();
