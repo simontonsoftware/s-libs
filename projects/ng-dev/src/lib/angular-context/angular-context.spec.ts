@@ -6,6 +6,7 @@ import {
   Component,
   ComponentFactoryResolver,
   DoCheck,
+  ErrorHandler,
   Injectable,
   InjectionToken,
   Injector,
@@ -13,10 +14,17 @@ import {
 import { flush, TestBed, tick } from '@angular/core/testing';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ANIMATION_MODULE_TYPE,
+  BrowserAnimationsModule,
+  NoopAnimationsModule,
+} from '@angular/platform-browser/animations';
 import { sleep } from '@s-libs/js-core';
 import { noop, Observable } from 'rxjs';
+import { ComponentContext } from '../component-context';
+import { MockErrorHandler } from '../mock-error-handler';
 import { AngularContext } from './angular-context';
+import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
 
 describe('AngularContext', () => {
   class SnackBarContext extends AngularContext {
@@ -78,6 +86,13 @@ describe('AngularContext', () => {
       const ctx = new AngularContext();
       ctx.run(() => {
         expect(ctx.inject(HttpTestingController)).toBeDefined();
+      });
+    });
+
+    it('sets up MockErrorHandler', () => {
+      const ctx = new AngularContext();
+      ctx.run(() => {
+        expect(ctx.inject(ErrorHandler)).toEqual(jasmine.any(MockErrorHandler));
       });
     });
 
@@ -293,6 +308,25 @@ describe('AngularContext', () => {
         'Expected no open requests, found 1: GET an unexpected URL',
       );
     });
+
+    it('errs if there are unexpected errors', () => {
+      @Component({ template: '<button (click)="throwError()"></button>' })
+      class ThrowingComponent {
+        throwError(): never {
+          throw new Error();
+        }
+      }
+
+      const ctx = new ComponentContext(ThrowingComponent);
+      expect(() => {
+        ctx.run(async () => {
+          // TODO: make something like `ctx.getTestElement()`?
+          const loader = FakeAsyncHarnessEnvironment.documentRootLoader(ctx);
+          const button = await loader.locatorFor('button')();
+          await button.click();
+        });
+      }).toThrowError('Expected no error(s), found 1');
+    });
   });
 
   describe('.cleanUp()', () => {
@@ -355,6 +389,29 @@ describe('AngularContext class-level doc example', () => {
         httpBackend.expectOne('http://example.com/post-from/2003-02-16');
       });
       expect().nothing();
+    });
+  });
+});
+
+describe('extendMetadata', () => {
+  it('allows animations to be unconditionally disabled', () => {
+    @Component({ template: '' })
+    class BlankComponent {}
+    const ctx = new ComponentContext(BlankComponent, {
+      imports: [BrowserAnimationsModule],
+    });
+    ctx.run(() => {
+      expect(ctx.inject(ANIMATION_MODULE_TYPE)).toBe('NoopAnimations');
+    });
+  });
+
+  it('allows the user to override providers', () => {
+    const errorHandler = { handleError: noop };
+    const ctx = new AngularContext({
+      providers: [{ provide: ErrorHandler, useValue: errorHandler }],
+    });
+    ctx.run(() => {
+      expect(ctx.inject(ErrorHandler)).toBe(errorHandler);
     });
   });
 });

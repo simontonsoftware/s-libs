@@ -15,4 +15,3 @@ export function pullAll<T>(array: T[], values: T[]): T[] {
   }
   return array;
 }
-// TODO: return type could be narrower?

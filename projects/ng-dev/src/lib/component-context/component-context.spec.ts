@@ -65,15 +65,6 @@ describe('ComponentContext', () => {
         expect(ctx.inject(ANIMATION_MODULE_TYPE)).toBe('NoopAnimations');
       });
     });
-
-    it('allows default module metadata to be overridden', () => {
-      const ctx = new ComponentContext(TestComponent, {
-        imports: [BrowserAnimationsModule],
-      });
-      ctx.run(() => {
-        expect(ctx.inject(ANIMATION_MODULE_TYPE)).toBe('NoopAnimations');
-      });
-    });
   });
 
   describe('.assignInputs()', () => {

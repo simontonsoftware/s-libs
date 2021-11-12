@@ -20,6 +20,7 @@ import {
 } from '@angular/core/testing';
 import { assert, convertTime } from '@s-libs/js-core';
 import { clone, forOwn } from '@s-libs/micro-dash';
+import { MockErrorHandler } from '../mock-error-handler';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
 
 export function extendMetadata(
@@ -28,7 +29,16 @@ export function extendMetadata(
 ): TestModuleMetadata {
   const result: any = clone(metadata);
   forOwn(toAdd, (val, key) => {
-    result[key] = Array.isArray(result[key]) ? result[key].concat(val) : val;
+    const existing = result[key];
+    if (!existing) {
+      result[key] = val;
+    } else if (key === 'imports') {
+      // to allow ComponentContext to unconditionally disable animations, added imports override previous imports
+      result[key] = [result[key], val];
+    } else {
+      // but for most things we want to let what comes in from subclasses and users win
+      result[key] = [val, result[key]];
+    }
   });
   return result;
 }
@@ -112,7 +122,10 @@ export class AngularContext {
     );
     AngularContext.#current = this;
     TestBed.configureTestingModule(
-      extendMetadata(moduleMetadata, { imports: [HttpClientTestingModule] }),
+      extendMetadata(moduleMetadata, {
+        imports: [HttpClientTestingModule],
+        providers: [MockErrorHandler.overrideProvider()],
+      }),
     );
   }
 
@@ -193,10 +206,11 @@ export class AngularContext {
   }
 
   /**
-   * Runs post-test verifications. This base implementation runs [HttpTestingController#verify]{@linkcode https://angular.io/api/common/http/testing/HttpTestingController#verify}. Unlike {@link #cleanUp}, it is OK for this method to throw an error to indicate a violation.
+   * Runs post-test verifications. This base implementation runs [HttpTestingController.verify]{@linkcode https://angular.io/api/common/http/testing/HttpTestingController#verify} and {@linkcode MockErrorHandler.verify}. Unlike {@linkcode #cleanUp}, it is OK for this method to throw an error to indicate a violation.
    */
   protected verifyPostTestConditions(): void {
     this.inject(HttpTestingController).verify();
+    this.inject(MockErrorHandler).verify();
   }
 
   /**

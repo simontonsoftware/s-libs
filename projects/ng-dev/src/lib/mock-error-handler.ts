@@ -24,15 +24,15 @@ type Match = string | RegExp | ((error: ErrorType) => boolean);
 @Injectable({ providedIn: 'root' })
 export class MockErrorHandler extends ErrorHandler {
   /**
-   * Convenience method to put in a `provide` array, to override Angular's default error handler. Note that this is provided automatically by {@linkcode AngularContext}.
+   * Convenience method to put in a `provide` array, to override Angular's default error handler. You do not need to use this if you are using {@linkcode AngularContext}, which automatically provides it.
    *
    * ```ts
    * TestBed.configureTestingModule({
-   *   providers: [MockErrorHandler.createProvider()],
+   *   providers: [MockErrorHandler.overrideProvider()],
    * });
    * ```
    */
-  static createProvider(): Provider {
+  static overrideProvider(): Provider {
     return { provide: ErrorHandler, useExisting: MockErrorHandler };
   }
 

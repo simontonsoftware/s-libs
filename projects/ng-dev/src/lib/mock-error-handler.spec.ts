@@ -10,10 +10,10 @@ describe('MockErrorHandler', () => {
     consoleSpy = spyOn(console, 'error');
   });
 
-  describe('createProvider()', () => {
+  describe('overrideProvider()', () => {
     it('makes MockErrorHandler the ErrorHandler', () => {
       TestBed.configureTestingModule({
-        providers: [MockErrorHandler.createProvider()],
+        providers: [MockErrorHandler.overrideProvider()],
       });
       expect(TestBed.inject(ErrorHandler)).toBe(
         TestBed.inject(MockErrorHandler),
