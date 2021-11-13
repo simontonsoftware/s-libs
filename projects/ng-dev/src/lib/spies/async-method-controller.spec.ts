@@ -28,43 +28,6 @@ describe('AsyncMethodController', () => {
       expect(match.callInfo.args[0]).toEqual('value 2');
     });
 
-    it('has fancy typing', () => {
-      expect().nothing();
-
-      const writeController = new AsyncMethodController(
-        navigator.clipboard,
-        'writeText',
-      );
-      expectTypeOf(writeController.expectOne)
-        .parameter(0)
-        .toEqualTypeOf<
-          | [data: string]
-          | ((callInfo: jasmine.CallInfo<Clipboard['writeText']>) => boolean)
-        >();
-      navigator.clipboard.writeText('fake text');
-      writeController.expectOne((callInfo) => {
-        expectTypeOf(callInfo).toEqualTypeOf<
-          CallInfo<(data: string) => Promise<void>>
-        >();
-        return true;
-      });
-
-      const readController = new AsyncMethodController(
-        navigator.clipboard,
-        'readText',
-      );
-      expectTypeOf(readController.expectOne)
-        .parameter(0)
-        .toEqualTypeOf<
-          [] | ((callInfo: jasmine.CallInfo<Clipboard['readText']>) => boolean)
-        >();
-      navigator.clipboard.readText();
-      readController.expectOne((callInfo) => {
-        expectTypeOf(callInfo).toEqualTypeOf<CallInfo<() => Promise<string>>>();
-        return true;
-      });
-    });
-
     it('throws when there is no match', () => {
       const controller = new AsyncMethodController(
         navigator.clipboard,
@@ -105,6 +68,43 @@ describe('AsyncMethodController', () => {
       }).toThrowError(
         'Expected one matching call(s) for criterion "Match by function: ", found 2',
       );
+    });
+
+    it('has fancy typing', () => {
+      expect().nothing();
+
+      const writeController = new AsyncMethodController(
+        navigator.clipboard,
+        'writeText',
+      );
+      expectTypeOf(writeController.expectOne)
+        .parameter(0)
+        .toEqualTypeOf<
+          | [data: string]
+          | ((callInfo: jasmine.CallInfo<Clipboard['writeText']>) => boolean)
+        >();
+      navigator.clipboard.writeText('fake text');
+      writeController.expectOne((callInfo) => {
+        expectTypeOf(callInfo).toEqualTypeOf<
+          CallInfo<(data: string) => Promise<void>>
+        >();
+        return true;
+      });
+
+      const readController = new AsyncMethodController(
+        navigator.clipboard,
+        'readText',
+      );
+      expectTypeOf(readController.expectOne)
+        .parameter(0)
+        .toEqualTypeOf<
+          [] | ((callInfo: jasmine.CallInfo<Clipboard['readText']>) => boolean)
+        >();
+      navigator.clipboard.readText();
+      readController.expectOne((callInfo) => {
+        expectTypeOf(callInfo).toEqualTypeOf<CallInfo<() => Promise<string>>>();
+        return true;
+      });
     });
   });
 

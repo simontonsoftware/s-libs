@@ -1,4 +1,4 @@
-import { ArrayIteratee, Nil, ObjectIteratee } from '../interfaces';
+import { ArrayIteratee, EmptyObject, Nil, ObjectIteratee } from '../interfaces';
 import { mapToObject } from './map-to-object';
 
 /**
@@ -20,7 +20,7 @@ export function mapAsKeys<K extends keyof any, V>(
 export function mapAsKeys<K extends keyof any, V>(
   array: K[] | Nil,
   iteratee: ArrayIteratee<K, V>,
-): { [k in K]: V } | Record<string, never>;
+): { [k in K]: V } | EmptyObject;
 export function mapAsKeys<T extends Record<keyof T, keyof any>, V>(
   object: T,
   iteratee: ObjectIteratee<T, V>,
@@ -28,7 +28,7 @@ export function mapAsKeys<T extends Record<keyof T, keyof any>, V>(
 export function mapAsKeys<T extends Record<keyof T, keyof any>, V>(
   object: T | Nil,
   iteratee: ObjectIteratee<T, V>,
-): { [k in T[keyof T]]: V } | Record<string, never>;
+): { [k in T[keyof T]]: V } | EmptyObject;
 
 export function mapAsKeys(collection: any, iteratee: any): any {
   return mapToObject(collection, (value, keyOrIndex) => [

@@ -1,3 +1,5 @@
+import { EmptyObject } from '../interfaces';
+
 let seq = 0;
 
 /**
@@ -27,7 +29,7 @@ let seq = 0;
  * buildMessage({ text: "abc" }, { cypherDistance: 3 }); // { id: 3, text: "def" }
  * ```
  */
-export function createBuilder<T, OptionsType = Record<string, never>>(
+export function createBuilder<T, OptionsType = EmptyObject>(
   buildDefaults: (seq: number, options: Partial<OptionsType>) => T,
   afterBuild?: (obj: T, seq: number, options: Partial<OptionsType>) => void,
 ): (attributes?: Partial<T>, options?: Partial<OptionsType>) => T {

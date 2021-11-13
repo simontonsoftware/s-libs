@@ -8,6 +8,7 @@ export type StringifiedKey<T> = Cast<keyof T, string>;
 type Cast<I, O> = Exclude<I, O> extends never ? I : O;
 
 export type Nil = null | undefined;
+export type EmptyObject = Record<string, never>;
 
 type IfIndexType<T, If, Else = never> = string extends T
   ? If

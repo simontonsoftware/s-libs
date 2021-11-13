@@ -1,3 +1,5 @@
+import { identity, isString } from '@s-libs/micro-dash';
+import { expectTypeOf } from 'expect-type';
 import { getArguments } from '../test-helpers/test-utils';
 import { assert } from './assert';
 
@@ -35,5 +37,15 @@ describe('assert()', () => {
   it('does not require a message', () => {
     expect(() => assert(false)).toThrowError('');
     expect(() => assert(true)).not.toThrowError();
+  });
+
+  it('has fancy typing', () => {
+    expect().nothing();
+
+    const v = '' as string | Date;
+    expectTypeOf(identity(v)).toEqualTypeOf<string | Date>();
+
+    assert(isString(v));
+    expectTypeOf(identity(v)).toEqualTypeOf<string>();
   });
 });

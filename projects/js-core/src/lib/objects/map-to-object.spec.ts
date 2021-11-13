@@ -36,6 +36,8 @@ describe('mapToObject()', () => {
 
   describe('typing', () => {
     it('is good for arrays', () => {
+      expect().nothing();
+
       type A = number[];
       type AorU = A | undefined;
       type AorN = A | null;
@@ -57,6 +59,8 @@ describe('mapToObject()', () => {
     });
 
     it('is good for objects', () => {
+      expect().nothing();
+
       interface O {
         a: string;
         b: number;

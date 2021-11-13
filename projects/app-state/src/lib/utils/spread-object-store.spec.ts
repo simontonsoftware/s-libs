@@ -12,32 +12,6 @@ describe('spreadObjectStore$()', () => {
     store = new RootStore(state);
   });
 
-  it('has fancy typing', () => {
-    expect().nothing();
-
-    const object = store;
-    const objectOrNull = object as Store<Record<string, number> | null>;
-    const objectOrUndefined = object as Store<
-      Record<string, number> | undefined
-    >;
-    const objectOrNil = object as Store<
-      Record<string, number> | null | undefined
-    >;
-
-    expectTypeOf(spreadObjectStore$(object)).toEqualTypeOf<
-      Observable<Store<number>[]>
-    >();
-    expectTypeOf(spreadObjectStore$(objectOrNull)).toEqualTypeOf<
-      Observable<Store<number>[]>
-    >();
-    expectTypeOf(spreadObjectStore$(objectOrUndefined)).toEqualTypeOf<
-      Observable<Store<number>[]>
-    >();
-    expectTypeOf(spreadObjectStore$(objectOrNil)).toEqualTypeOf<
-      Observable<Store<number>[]>
-    >();
-  });
-
   it('emits a separate store object for each element in the object', () => {
     store.set({ a: 1, b: 2 });
     let emitted: Array<Store<number>>;
@@ -118,5 +92,31 @@ describe('spreadObjectStore$()', () => {
 
     objectStore.set(null);
     expect(emitted.length).toBe(0);
+  });
+
+  it('has fancy typing', () => {
+    expect().nothing();
+
+    const object = store;
+    const objectOrNull = object as Store<Record<string, number> | null>;
+    const objectOrUndefined = object as Store<
+      Record<string, number> | undefined
+    >;
+    const objectOrNil = object as Store<
+      Record<string, number> | null | undefined
+    >;
+
+    expectTypeOf(spreadObjectStore$(object)).toEqualTypeOf<
+      Observable<Store<number>[]>
+    >();
+    expectTypeOf(spreadObjectStore$(objectOrNull)).toEqualTypeOf<
+      Observable<Store<number>[]>
+    >();
+    expectTypeOf(spreadObjectStore$(objectOrUndefined)).toEqualTypeOf<
+      Observable<Store<number>[]>
+    >();
+    expectTypeOf(spreadObjectStore$(objectOrNil)).toEqualTypeOf<
+      Observable<Store<number>[]>
+    >();
   });
 });

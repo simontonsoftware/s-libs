@@ -1,4 +1,6 @@
+import { expectTypeOf } from 'expect-type';
 import { getArguments } from '../../test-helpers/test-utils';
+import { assert } from '../assert';
 import { isDefined } from './is-defined';
 
 describe('isDefined()', () => {
@@ -23,5 +25,25 @@ describe('isDefined()', () => {
     expect(isDefined(/x/)).toBe(true);
     expect(isDefined('a')).toBe(true);
     expect(isDefined(Symbol('a'))).toBe(true);
+  });
+
+  it('has fancy typing', () => {
+    expect().nothing();
+
+    const alwaysDefined = 'a';
+    const sometimesDefined = 'a' as string | undefined;
+    const neverDefined = 'a' as unknown as undefined;
+
+    expectTypeOf(isDefined(alwaysDefined)).toEqualTypeOf<boolean>();
+    expectTypeOf(isDefined(sometimesDefined)).toEqualTypeOf<boolean>();
+    expectTypeOf(isDefined(neverDefined)).toEqualTypeOf<boolean>();
+
+    assert(isDefined(alwaysDefined));
+    assert(isDefined(sometimesDefined));
+    assert(isDefined(neverDefined));
+
+    expectTypeOf(alwaysDefined).toEqualTypeOf<string>();
+    expectTypeOf(sometimesDefined).toEqualTypeOf<string>();
+    expectTypeOf(neverDefined).toEqualTypeOf<never>();
   });
 });

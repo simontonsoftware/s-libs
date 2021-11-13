@@ -10,12 +10,6 @@ describe('pushToStoreArray', () => {
     store = new RootStore([1, 2]);
   });
 
-  it('has fancy typing', () => {
-    expect().nothing();
-
-    expectTypeOf(pushToStoreArray(store, 5)).toEqualTypeOf<Store<number>>();
-  });
-
   it('adds the specified item to the store', () => {
     store.set([]);
     pushToStoreArray(store, 1);
@@ -53,5 +47,11 @@ describe('pushToStoreArray', () => {
     expect(store.state()).toEqual([1, 2]);
     expect(so1!.state()).toEqual(1);
     expect(so2!.state()).toEqual(2);
+  });
+
+  it('has fancy typing', () => {
+    expect().nothing();
+
+    expectTypeOf(pushToStoreArray(store, 5)).toEqualTypeOf<Store<number>>();
   });
 });
