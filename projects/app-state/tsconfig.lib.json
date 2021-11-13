@@ -8,10 +8,5 @@
     "inlineSources": true,
     "types": []
   },
-  "exclude": [
-    "src/test.ts",
-    "**/*.spec.ts",
-    // excluded for the sake of TSDoc
-    "src/typing-tests"
-  ]
+  "exclude": ["src/test.ts", "**/*.spec.ts"]
 }

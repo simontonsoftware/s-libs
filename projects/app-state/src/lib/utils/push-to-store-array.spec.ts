@@ -1,3 +1,4 @@
+import { expectTypeOf } from 'expect-type';
 import { RootStore } from '../root-store';
 import { Store } from '../store';
 import { pushToStoreArray } from './push-to-store-array';
@@ -7,6 +8,12 @@ describe('pushToStoreArray', () => {
 
   beforeEach(() => {
     store = new RootStore([1, 2]);
+  });
+
+  it('has fancy typing', () => {
+    expect().nothing();
+
+    expectTypeOf(pushToStoreArray(store, 5)).toEqualTypeOf<Store<number>>();
   });
 
   it('adds the specified item to the store', () => {

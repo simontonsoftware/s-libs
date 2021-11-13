@@ -1,14 +1,40 @@
 import { cloneDeep, identity, pick } from '@s-libs/micro-dash';
 import { expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { expectTypeOf } from 'expect-type';
 import { skip, take } from 'rxjs/operators';
 import { InnerState, TestState } from '../test-helpers/test-state';
 import { RootStore } from './root-store';
+import { Store } from './store';
 
 describe('Store', () => {
   let store: RootStore<TestState>;
 
   beforeEach(() => {
     store = new RootStore(new TestState());
+  });
+
+  it('has fancy typing', () => {
+    expect().nothing();
+
+    class State {
+      a!: number;
+      b!: string;
+      obj!: { c: Date };
+      ary!: Array<boolean>;
+    }
+
+    const store = new RootStore<State>(new State());
+
+    expectTypeOf(store('a')).toEqualTypeOf<Store<number>>();
+    expectTypeOf(store('obj')).toEqualTypeOf<Store<{ c: Date }>>();
+    expectTypeOf(store('obj')('c')).toEqualTypeOf<Store<Date>>();
+    expectTypeOf(store('ary')).toEqualTypeOf<Store<boolean[]>>();
+    expectTypeOf(store('ary')(1)).toEqualTypeOf<Store<boolean>>();
+
+    expectTypeOf(store.getRootStore()).toEqualTypeOf<RootStore<object>>();
+    expectTypeOf(store('obj')('c').getRootStore()).toEqualTypeOf<
+      RootStore<object>
+    >();
   });
 
   describe('.$', () => {

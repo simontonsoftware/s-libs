@@ -15,7 +15,7 @@ describe('WrappedFormControlSuperclass', () => {
     ctx.run(async () => {
       const control = ctx.getComponentInstance().control;
       expect(control).toEqual(jasmine.any(FormControl));
-      expectTypeOf(control).toMatchTypeOf<FormControl>();
+      expectTypeOf(control).toEqualTypeOf<FormControl>();
     });
   });
 });

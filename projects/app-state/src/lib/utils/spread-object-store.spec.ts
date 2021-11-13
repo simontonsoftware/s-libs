@@ -1,3 +1,5 @@
+import { expectTypeOf } from 'expect-type';
+import { Observable } from 'rxjs';
 import { RootStore } from '../root-store';
 import { Store } from '../store';
 import { spreadObjectStore$ } from './spread-object-store';
@@ -8,6 +10,32 @@ describe('spreadObjectStore$()', () => {
   beforeEach(() => {
     const state: Record<string, number> = { a: 1, b: 2 };
     store = new RootStore(state);
+  });
+
+  it('has fancy typing', () => {
+    expect().nothing();
+
+    const object = store;
+    const objectOrNull = object as Store<Record<string, number> | null>;
+    const objectOrUndefined = object as Store<
+      Record<string, number> | undefined
+    >;
+    const objectOrNil = object as Store<
+      Record<string, number> | null | undefined
+    >;
+
+    expectTypeOf(spreadObjectStore$(object)).toEqualTypeOf<
+      Observable<Store<number>[]>
+    >();
+    expectTypeOf(spreadObjectStore$(objectOrNull)).toEqualTypeOf<
+      Observable<Store<number>[]>
+    >();
+    expectTypeOf(spreadObjectStore$(objectOrUndefined)).toEqualTypeOf<
+      Observable<Store<number>[]>
+    >();
+    expectTypeOf(spreadObjectStore$(objectOrNil)).toEqualTypeOf<
+      Observable<Store<number>[]>
+    >();
   });
 
   it('emits a separate store object for each element in the object', () => {
