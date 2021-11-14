@@ -65,7 +65,7 @@ function getInput(text: string): Promise<string> {
 async function buildAndExplore(fileGlob: string): Promise<void> {
   const inputPaths = await getPaths(fileGlob);
   for (const inputPath of inputPaths) {
-    await build(inputPath);
+    build(inputPath);
     const summary = await inspect();
     if (summary) {
       updateComment(inputPath, summary);
@@ -81,9 +81,9 @@ function getPaths(fileGlob: string): Promise<string[]> {
   });
 }
 
-async function build(inputPath: string): Promise<void> {
+function build(inputPath: string): void {
   const importFile = path.relative(mainDir, inputPath);
-  const importPath = './' + importFile.replace(/\\/g, '/').replace('.ts', '');
+  const importPath = './' + importFile.replace(/\\/gu, '/').replace('.ts', '');
 
   // lodash files come first, so print only on those
   const lodashIndex = importPath.indexOf('.lodash');
@@ -118,13 +118,13 @@ async function inspect(): Promise<string | undefined> {
 }
 
 function updateComment(inputPath: string, summary: string): void {
-  const lib = summary.match(/ - (.*):/)![1];
+  const lib = summary.match(/ - (.*):/u)![1];
 
   const relativePath = path.relative(appDir, inputPath);
-  const baseName = relativePath.replace(/\.lodash|\.microdash/, '');
+  const baseName = relativePath.replace(/\.lodash|\.microdash/u, '');
   const sourcePath = path.join(sourceDir, baseName);
 
   let source = fs.readFileSync(sourcePath, 'utf8');
-  source = source.replace(new RegExp(` \\* - ${lib}:.*`), summary);
+  source = source.replace(new RegExp(` \\* - ${lib}:.*`, 'u'), summary);
   fs.writeFileSync(sourcePath, source);
 }

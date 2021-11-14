@@ -51,7 +51,7 @@ describe('expectRequest()', () => {
       const url = 'correct_url';
       const body = 'correct_body';
       const options = {
-        body: body,
+        body,
         headers: { header: 'correct' },
         params: { param: 'correct' },
       };

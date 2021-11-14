@@ -124,7 +124,7 @@ describe('MockErrorHandler', () => {
       handler.handleError(new Error('error 2'));
       handler.handleError(new Error('error 3'));
 
-      const matches = handler.match(/2/);
+      const matches = handler.match(/2/u);
 
       expect(matches).toEqual([new Error('error 2')]);
     });
@@ -156,7 +156,7 @@ describe('MockErrorHandler', () => {
       handler.handleError({ messages: { matches: new Date() } });
       expect(() => {
         handler.match('a string');
-        handler.match(/a regexp/);
+        handler.match(/a regexp/u);
         handler.match(() => true);
       }).not.toThrowError();
     });

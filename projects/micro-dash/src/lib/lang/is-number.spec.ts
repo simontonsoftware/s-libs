@@ -22,7 +22,7 @@ describe('isNumber()', () => {
     expect(isNumber(new Error())).toBe(false);
     expect(isNumber(Array.prototype.slice)).toBe(false);
     expect(isNumber({ a: 1 })).toBe(false);
-    expect(isNumber(/x/)).toBe(false);
+    expect(isNumber(/x/u)).toBe(false);
     expect(isNumber('a')).toBe(false);
     expect(isNumber(Symbol('a'))).toBe(false);
   });

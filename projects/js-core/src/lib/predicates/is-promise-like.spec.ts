@@ -23,7 +23,7 @@ describe('isPromiseLike()', () => {
     expect(isPromiseLike(Array.prototype.slice)).toBe(false);
     expect(isPromiseLike({ a: 1 })).toBe(false);
     expect(isPromiseLike(1)).toBe(false);
-    expect(isPromiseLike(/x/)).toBe(false);
+    expect(isPromiseLike(/x/u)).toBe(false);
     expect(isPromiseLike('a')).toBe(false);
     expect(isPromiseLike(Symbol('a'))).toBe(false);
   });

@@ -125,7 +125,7 @@ export abstract class UndoManager<StateType, UndoStateType> {
       throw new Error('Nothing to drop');
     }
 
-    this.currentStateIndex = this.currentStateIndex - 1;
+    --this.currentStateIndex;
     this.dropRedoHistory();
     this.emitUndoChanges();
   }

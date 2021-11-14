@@ -22,7 +22,7 @@ describe('isDefined()', () => {
     expect(isDefined(Array.prototype.slice)).toBe(true);
     expect(isDefined({ a: 1 })).toBe(true);
     expect(isDefined(1)).toBe(true);
-    expect(isDefined(/x/)).toBe(true);
+    expect(isDefined(/x/u)).toBe(true);
     expect(isDefined('a')).toBe(true);
     expect(isDefined(Symbol('a'))).toBe(true);
   });

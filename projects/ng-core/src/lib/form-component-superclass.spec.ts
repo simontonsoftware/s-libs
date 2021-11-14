@@ -67,8 +67,6 @@ describe('FormComponentSuperclass', () => {
     return findButton(ctx.fixture, 'Toggle Disabled');
   }
 
-  ///////
-
   it('provides help for 2-way binding', () => {
     ctx.assignInputs({ value: 15 });
     ctx.run(() => {

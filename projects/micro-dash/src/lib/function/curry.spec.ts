@@ -2,6 +2,8 @@ import { bind } from 'lodash';
 import { ObjectWith } from '../interfaces';
 import { curry } from './curry';
 
+/* eslint-disable max-params */
+
 describe('curry()', () => {
   //
   // stolen from https://github.com/lodash/lodash
@@ -80,13 +82,11 @@ describe('curry()', () => {
   });
 
   it('should work for names that shadow `Object.prototype`', () => {
-    const curried = curry(function hasOwnProperty(
-      a: number,
-      b: number,
-      c: number,
-    ): number[] {
-      return [a, b, c];
-    });
+    const curried = curry((a: number, b: number, c: number): number[] => [
+      a,
+      b,
+      c,
+    ]);
 
     expect(curried(1)(2)(3)).toEqual([1, 2, 3]);
   });

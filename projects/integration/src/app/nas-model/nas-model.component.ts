@@ -85,12 +85,11 @@ export class NasModelComponent {
   ): void {
     this.store.mutateUsing((state) => {
       if (state[type] === '') {
-        state.datetime =
-          state.date =
-          state.month =
-          state.week =
-          state.time =
-            '';
+        state.datetime = '';
+        state.date = '';
+        state.month = '';
+        state.week = '';
+        state.time = '';
       } else {
         this.modDateTime(state, fn);
         this.modDate(state, fn);

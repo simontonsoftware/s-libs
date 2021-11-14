@@ -24,7 +24,7 @@ describe('assert()', () => {
     expect(() => assert(Array.prototype.slice)).not.toThrow();
     expect(() => assert({ a: 1 })).not.toThrow();
     expect(() => assert(1)).not.toThrow();
-    expect(() => assert(/x/)).not.toThrow();
+    expect(() => assert(/x/u)).not.toThrow();
     expect(() => assert('a')).not.toThrow();
     expect(() => assert(Symbol('a'))).not.toThrow();
   });

@@ -38,8 +38,8 @@ describe('random()', () => {
   });
 
   it('should support large integer values', () => {
-    const min = Math.pow(2, 31);
-    const max = Math.pow(2, 62);
+    const min = 2 ** 31;
+    const max = 2 ** 62;
     for (let i = iterations; --i >= 0; ) {
       const result = random(min, max);
       expect(result).toBeGreaterThanOrEqual(min);

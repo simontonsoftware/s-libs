@@ -23,7 +23,7 @@ describe('isBoolean()', () => {
     expect(isBoolean(Array.prototype.slice)).toBe(false);
     expect(isBoolean({ a: 1 })).toBe(false);
     expect(isBoolean(1)).toBe(false);
-    expect(isBoolean(/x/)).toBe(false);
+    expect(isBoolean(/x/u)).toBe(false);
     expect(isBoolean('a')).toBe(false);
     expect(isBoolean(Symbol('a'))).toBe(false);
   });

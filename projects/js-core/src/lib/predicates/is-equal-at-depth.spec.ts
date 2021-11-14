@@ -77,8 +77,8 @@ describe('isEqualAtDepth()', () => {
     let array2: any[] = [true, null, 1, 'a', undefined];
     expectToBecomeEqualAtDepth(1, array1, array2);
 
-    array1 = [[1, 2, 3], new Date(2012, 4, 23), /x/, { e: 1 }];
-    array2 = [[1, 2, 3], new Date(2012, 4, 23), /x/, { e: 1 }];
+    array1 = [[1, 2, 3], new Date(2012, 4, 23), /x/u, { e: 1 }];
+    array2 = [[1, 2, 3], new Date(2012, 4, 23), /x/u, { e: 1 }];
     expectToBecomeEqualAtDepth(2, array1, array2);
 
     array1 = [1, 2, 3];

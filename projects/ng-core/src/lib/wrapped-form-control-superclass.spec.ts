@@ -13,7 +13,7 @@ describe('WrappedFormControlSuperclass', () => {
       imports: [ReactiveFormsModule],
     });
     ctx.run(async () => {
-      const control = ctx.getComponentInstance().control;
+      const { control } = ctx.getComponentInstance();
       expect(control).toEqual(jasmine.any(FormControl));
       expectTypeOf(control).toEqualTypeOf<FormControl>();
     });

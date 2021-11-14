@@ -224,7 +224,7 @@ export class AngularContext {
 
   #runWithMockedTime(test: VoidFunction): void {
     // https://github.com/angular/angular/issues/31677#issuecomment-573139551
-    const now = performance.now;
+    const { now } = performance;
     spyOn(performance, 'now').and.callFake(() => Date.now());
 
     jasmine.clock().install();

@@ -22,7 +22,7 @@ describe('isUndefined', () => {
     expect(isUndefined(Array.prototype.slice)).toBe(false);
     expect(isUndefined({ a: 1 })).toBe(false);
     expect(isUndefined(1)).toBe(false);
-    expect(isUndefined(/x/)).toBe(false);
+    expect(isUndefined(/x/u)).toBe(false);
     expect(isUndefined('a')).toBe(false);
     expect(isUndefined(Symbol('a'))).toBe(false);
   });

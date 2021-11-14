@@ -320,7 +320,7 @@ describe('AsyncMethodController', () => {
 
   describe('example from the docs', () => {
     it('can paste', () => {
-      const clipboard = navigator.clipboard;
+      const { clipboard } = navigator;
       const ctx = new AngularContext();
 
       // mock the browser API for pasting

@@ -116,9 +116,10 @@ export class AsyncMethodController<
     match: Match<WrappingObject, FunctionName>,
   ): TestCall<WrappingObject[FunctionName]>[] {
     this.#ensureCallInfoIsSet();
-    const filterFn = Array.isArray(match)
-      ? this.#makeArgumentMatcher(match)
-      : match;
+    let filterFn: (
+      callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>,
+    ) => boolean;
+    filterFn = Array.isArray(match) ? this.#makeArgumentMatcher(match) : match;
     return remove(this.#testCalls, (testCall) => filterFn(testCall.callInfo));
   }
 

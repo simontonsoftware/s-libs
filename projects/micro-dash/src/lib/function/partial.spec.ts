@@ -13,7 +13,9 @@ describe('partial()', () => {
   });
 
   it('sets the `length` property', () => {
-    const fn = (_a: any, _b: any, _c: any) => {};
+    const fn = (_a: any, _b: any, _c: any) => {
+      // blah
+    };
 
     expect(partial(fn).length).toBe(3);
     expect(partial(fn, 1).length).toBe(2);

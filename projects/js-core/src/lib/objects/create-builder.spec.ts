@@ -80,10 +80,12 @@ describe('createBuilder()', () => {
   });
 });
 
+/* eslint-disable no-bitwise */
 function shiftCharacters(text: string, distance: number): string {
-  return text.replace(/[a-z]/gi, (c) => {
+  return text.replace(/[a-z]/giu, (c) => {
     const code = c.charCodeAt(0);
     const a = code & 96;
     return String.fromCharCode(((code - a + distance + 129) % 26) - ~a);
   });
 }
+/* eslint-enable no-bitwise */

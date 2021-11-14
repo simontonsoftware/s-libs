@@ -1,3 +1,5 @@
+import { isNil } from '@s-libs/micro-dash';
+
 /**
  * Get and put objects from/to local storage. They will be (de)serialized as JSON, so be sure that's OK for your objects.
  *
@@ -15,6 +17,7 @@
  *  persistence.get(); // returns { name: 'Robert' }
  * ```
  */
+
 export class Persistence<T> {
   /**
    * @param key The key in local storage at which to find the existing object (if any), and to save it.
@@ -33,7 +36,7 @@ export class Persistence<T> {
    */
   get(): T | undefined {
     const savedStr = localStorage?.getItem(this.key);
-    return savedStr == null ? undefined : JSON.parse(savedStr);
+    return isNil(savedStr) ? undefined : JSON.parse(savedStr);
   }
 
   /**

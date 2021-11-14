@@ -3,7 +3,9 @@ import { isRegExp } from './is-reg-exp';
 describe('isRegExp()', () => {
   // declared to be different than lodash. if this changes, update the documentation
   it('should return `false` for subclassed values', () => {
-    function Foo(): void {}
+    function Foo(): void {
+      // blah
+    }
     Foo.prototype = RegExp.prototype;
     expect(isRegExp(new (Foo as any)())).toBe(true);
   });
@@ -13,8 +15,8 @@ describe('isRegExp()', () => {
   //
 
   it('should return `true` for regexes', () => {
-    expect(isRegExp(/x/)).toBe(true);
-    expect(isRegExp(RegExp('x'))).toBe(true);
+    expect(isRegExp(/x/u)).toBe(true);
+    expect(isRegExp(RegExp('x', 'u'))).toBe(true);
   });
 
   it('should return `false` for non-regexes', function () {

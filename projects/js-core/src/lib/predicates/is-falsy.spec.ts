@@ -14,7 +14,7 @@ describe('isFalsy', () => {
     expect(isFalsy(NaN)).toBe(true);
   });
 
-  it('returns `false` for truthy values', function () {
+  it('returns `false` for truthy values', () => {
     expect(isFalsy(getArguments())).toBe(false);
     expect(isFalsy([1, 2, 3])).toBe(false);
     expect(isFalsy(true)).toBe(false);
@@ -23,7 +23,7 @@ describe('isFalsy', () => {
     expect(isFalsy(Array.prototype.slice)).toBe(false);
     expect(isFalsy({ a: 1 })).toBe(false);
     expect(isFalsy(1)).toBe(false);
-    expect(isFalsy(/x/)).toBe(false);
+    expect(isFalsy(/x/u)).toBe(false);
     expect(isFalsy('a')).toBe(false);
     expect(isFalsy(Symbol('a'))).toBe(false);
   });

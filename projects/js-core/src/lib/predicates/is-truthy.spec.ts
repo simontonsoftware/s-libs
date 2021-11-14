@@ -2,7 +2,7 @@ import { getArguments } from '../../test-helpers/test-utils';
 import { isTruthy } from './is-truthy';
 
 describe('isTruthy', () => {
-  it('returns `true` for truthy values', function () {
+  it('returns `true` for truthy values', () => {
     expect(isTruthy(getArguments())).toBe(true);
     expect(isTruthy([1, 2, 3])).toBe(true);
     expect(isTruthy(true)).toBe(true);
@@ -11,7 +11,7 @@ describe('isTruthy', () => {
     expect(isTruthy(Array.prototype.slice)).toBe(true);
     expect(isTruthy({ a: 1 })).toBe(true);
     expect(isTruthy(1)).toBe(true);
-    expect(isTruthy(/x/)).toBe(true);
+    expect(isTruthy(/x/u)).toBe(true);
     expect(isTruthy('a')).toBe(true);
     expect(isTruthy(Symbol('a'))).toBe(true);
   });

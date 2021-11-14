@@ -18,7 +18,7 @@ describe('isObject()', () => {
     expect(isObject(Array.prototype.slice)).toBe(true);
     expect(isObject({ a: 1 })).toBe(true);
     expect(isObject(Object(0))).toBe(true);
-    expect(isObject(/x/)).toBe(true);
+    expect(isObject(/x/u)).toBe(true);
     expect(isObject(Object('a'))).toBe(true);
     expect(isObject(document.body)).toBe(true);
     expect(isObject(Object(Symbol('a')))).toBe(true);

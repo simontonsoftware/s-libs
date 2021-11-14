@@ -82,7 +82,7 @@ describe('isString()', () => {
     expect(isString(Array.prototype.slice)).toBe(false);
     expect(isString({ '0': 1, length: 1 })).toBe(false);
     expect(isString(1)).toBe(false);
-    expect(isString(/x/)).toBe(false);
+    expect(isString(/x/u)).toBe(false);
     expect(isString(Symbol('a'))).toBe(false);
   });
 });

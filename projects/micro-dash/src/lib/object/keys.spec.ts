@@ -7,7 +7,9 @@ describe('keys()', () => {
   });
 
   it('includes the `constructor` property on prototype objects (unlike lodash)', () => {
-    function Foo(): void {}
+    function Foo(): void {
+      // blah
+    }
     Foo.prototype.a = 1;
 
     expect(keys(Foo.prototype)).toEqual(['constructor', 'a']);

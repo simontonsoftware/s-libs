@@ -55,7 +55,7 @@ describe('merge()', () => {
     const object = Object.freeze({ a: undefined });
     expect(() => {
       merge(object, { a: 1 });
-    }).toThrowError(/^Cannot assign to read only property/);
+    }).toThrowError(/^Cannot assign to read only property/u);
   });
 
   it('should work as an iteratee for methods like `reduce`', () => {

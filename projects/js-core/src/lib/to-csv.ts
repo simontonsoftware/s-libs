@@ -20,8 +20,8 @@ export function toCsv(content: any[][]): string {
     .join('\n');
 }
 
-const specialCsvCharactersRegexp = /["|,|\n|\r]/;
-const allDoubleQuotes = /"/g;
+const specialCsvCharactersRegexp = /["|,|\n|\r]/u;
+const allDoubleQuotes = /"/gu;
 
 function toCellString(value: any): string {
   const str = toString(value);

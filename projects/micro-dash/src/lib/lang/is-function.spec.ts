@@ -10,11 +10,15 @@ describe('isFunction()', () => {
   });
 
   it('should return `true` for async functions', () => {
-    expect(isFunction(async () => {})).toBe(true);
+    expect(isFunction(async () => 0)).toBe(true);
   });
 
   it('should return `true` for generator functions', () => {
-    expect(isFunction(function* (): IterableIterator<any> {})).toBe(true);
+    expect(
+      isFunction(function* (): IterableIterator<any> {
+        // blah
+      }),
+    ).toBe(true);
   });
 
   it('should return `true` for the `Proxy` constructor', () => {
@@ -48,7 +52,7 @@ describe('isFunction()', () => {
     expect(isFunction(new Error())).toBe(false);
     expect(isFunction({ a: 1 })).toBe(false);
     expect(isFunction(1)).toBe(false);
-    expect(isFunction(/x/)).toBe(false);
+    expect(isFunction(/x/u)).toBe(false);
     expect(isFunction('a')).toBe(false);
     expect(isFunction(Symbol('a'))).toBe(false);
 
@@ -56,7 +60,9 @@ describe('isFunction()', () => {
   });
 
   it('should return `false` for subclassed values', () => {
-    function Foo(): void {}
+    function Foo(): void {
+      // blah
+    }
     Foo.prototype = Function;
     expect(isFunction(new (Foo as any)())).toBe(false);
   });

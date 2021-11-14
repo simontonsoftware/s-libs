@@ -13,30 +13,6 @@ describe('Store', () => {
     store = new RootStore(new TestState());
   });
 
-  it('has fancy typing', () => {
-    expect().nothing();
-
-    class State {
-      a!: number;
-      b!: string;
-      obj!: { c: Date };
-      ary!: Array<boolean>;
-    }
-
-    const store = new RootStore<State>(new State());
-
-    expectTypeOf(store('a')).toEqualTypeOf<Store<number>>();
-    expectTypeOf(store('obj')).toEqualTypeOf<Store<{ c: Date }>>();
-    expectTypeOf(store('obj')('c')).toEqualTypeOf<Store<Date>>();
-    expectTypeOf(store('ary')).toEqualTypeOf<Store<boolean[]>>();
-    expectTypeOf(store('ary')(1)).toEqualTypeOf<Store<boolean>>();
-
-    expectTypeOf(store.getRootStore()).toEqualTypeOf<RootStore<object>>();
-    expectTypeOf(store('obj')('c').getRootStore()).toEqualTypeOf<
-      RootStore<object>
-    >();
-  });
-
   describe('.$', () => {
     it('fires immediately, and with every change', () => {
       const rootNext = jasmine.createSpy();
@@ -150,7 +126,7 @@ describe('Store', () => {
 
     // https://github.com/simontonsoftware/ng-app-state/issues/13
     it('does not emit stale values in the middle of propagating a change (production bug)', () => {
-      let log: jasmine.Spy | undefined = undefined;
+      let log: jasmine.Spy | undefined;
       store.$.subscribe(() => {
         store('optional').$.subscribe(log);
       });
@@ -381,5 +357,29 @@ describe('Store', () => {
       expect(store.state()).toBe(startingState);
       expect(cloneDeep(store.state())).toEqual(stateClone);
     });
+  });
+
+  it('has fancy typing', () => {
+    expect().nothing();
+
+    class State {
+      a!: number;
+      b!: string;
+      obj!: { c: Date };
+      ary!: Array<boolean>;
+    }
+
+    const str = new RootStore<State>(new State());
+
+    expectTypeOf(str('a')).toEqualTypeOf<Store<number>>();
+    expectTypeOf(str('obj')).toEqualTypeOf<Store<{ c: Date }>>();
+    expectTypeOf(str('obj')('c')).toEqualTypeOf<Store<Date>>();
+    expectTypeOf(str('ary')).toEqualTypeOf<Store<boolean[]>>();
+    expectTypeOf(str('ary')(1)).toEqualTypeOf<Store<boolean>>();
+
+    expectTypeOf(str.getRootStore()).toEqualTypeOf<RootStore<object>>();
+    expectTypeOf(str('obj')('c').getRootStore()).toEqualTypeOf<
+      RootStore<object>
+    >();
   });
 });

@@ -20,14 +20,16 @@ describe('wrapFunction()', () => {
   beforeEach(() => {
     original = jasmine.createSpy().and.returnValue(toReturn);
     before = jasmine.createSpy();
-    around = jasmine.createSpy().and.callFake(function (
-      this: any,
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      orig: Function,
-      ...args: any[]
-    ): [any, symbol] {
-      return [orig.call(aroundContext, aroundArg, ...args), aroundReturn];
-    });
+    around = jasmine.createSpy().and.callFake(
+      (
+        // eslint-disable-next-line @typescript-eslint/ban-types
+        orig: Function,
+        ...args: any[]
+      ): [any, symbol] => [
+        orig.call(aroundContext, aroundArg, ...args),
+        aroundReturn,
+      ],
+    );
     transform = jasmine.createSpy().and.returnValue(transformed);
     after = jasmine.createSpy();
   });
@@ -66,8 +68,6 @@ describe('wrapFunction()', () => {
     expect(transform.calls.first().object).toBe(context);
     expectSingleCallAndReset(transform, [toReturn, aroundReturn], arg1, arg2);
   }
-
-  //////////
 
   it('runs the before hook', () => {
     const wrapped = wrapFunction(original, { before });

@@ -3,6 +3,7 @@ import { MigrationManager, VersionedObject } from './migration-manager';
 import { Persistence } from './persistence';
 
 describe('MigrationManager', () => {
+  /* eslint-disable */
   it('works for the example in the docs', () => {
     interface MyData extends VersionedObject {
       _version: number;
@@ -27,6 +28,7 @@ describe('MigrationManager', () => {
     persistence.clear();
     expect(migrater.run(persistence, defaultData)).toBe(defaultData);
   });
+  /* eslint-enable */
 
   it('works for the other example in the docs', () => {
     class MyState {

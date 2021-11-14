@@ -115,8 +115,6 @@ describe('DirectiveSuperclass', () => {
     return find<HTMLSpanElement>(ctx.fixture, 's-color-text span');
   }
 
-  /////////
-
   it('can be used as the superclass to a pipe (production bug)', () => {
     @Pipe({ name: 'not' })
     class NotPipe extends DirectiveSuperclass implements PipeTransform {

@@ -148,7 +148,7 @@ describe('get()', () => {
       true,
       new Date(),
       1,
-      /x/,
+      /x/u,
       'a',
     ];
 

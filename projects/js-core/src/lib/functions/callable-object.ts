@@ -20,6 +20,7 @@ export interface CallableObject<F extends (...args: any[]) => any> {
  */
 export abstract class CallableObject<F extends (...args: any[]) => any> {
   constructor(callAction: F) {
+    // eslint-disable-next-line no-constructor-return -- this is the whole point!
     return Object.setPrototypeOf(callAction, new.target.prototype);
   }
 }

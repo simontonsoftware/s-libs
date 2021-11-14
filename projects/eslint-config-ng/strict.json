@@ -1,0 +1,81 @@
+{
+  "extends": "./index",
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "rules": {
+        //
+        // ESLint
+        //
+
+        // possible problems
+        "array-callback-return": ["error"],
+        "no-constructor-return": ["error"],
+        "no-duplicate-imports": ["error"],
+        "no-promise-executor-return": ["error"],
+        "no-self-compare": ["error"],
+        "no-template-curly-in-string": ["error"],
+        "no-unmodified-loop-condition": ["error"],
+        "no-unreachable-loop": ["error"],
+        "require-atomic-updates": ["error"],
+
+        // suggestions
+        "arrow-body-style": ["error"],
+        "camelcase": ["error"],
+        "consistent-return": ["error"],
+        "consistent-this": ["error", "self"],
+        "eqeqeq": ["error"],
+        "func-name-matching": ["error"],
+        "grouped-accessor-pairs": ["error", "getBeforeSet"],
+        "max-params": ["error"],
+        "no-alert": ["error"],
+        "no-bitwise": ["error"],
+        "no-caller": ["error"],
+        "no-extend-native": ["error"],
+        "no-extra-bind": ["error"],
+        "no-implicit-coercion": ["error", { "allow": ["!!", "+"] }],
+        "no-labels": ["error"],
+        "no-lone-blocks": ["error"],
+        "no-lonely-if": ["error"],
+        "no-multi-assign": ["error"],
+        "no-multi-str": ["error"],
+        "no-negated-condition": ["error"],
+        "no-nested-ternary": ["error"],
+        "no-new": ["error"],
+        "no-new-func": ["error"],
+        "no-new-object": ["error"],
+        "no-new-wrappers": ["error"],
+        "no-octal-escape": ["error"],
+        "no-return-assign": ["error"],
+        "no-sequences": ["error"],
+        "no-undef-init": ["error"],
+        "no-unneeded-ternary": ["error"],
+        "no-useless-call": ["error"],
+        "no-useless-computed-key": ["error"],
+        "no-useless-concat": ["error"],
+        "no-useless-rename": ["error"],
+        "no-useless-return": ["error"],
+        "no-var": ["error"],
+        "object-shorthand": ["error"],
+        "one-var": ["error", "never"],
+        "operator-assignment": ["error"],
+        "prefer-arrow-callback": ["error"],
+        "prefer-const": ["error", { "ignoreReadBeforeAssign": true }],
+        "prefer-destructuring": ["error", { "array": false, "object": true }],
+        "prefer-exponentiation-operator": ["error"],
+        "prefer-named-capture-group": ["error"],
+        "prefer-numeric-literals": ["error"],
+        "prefer-object-spread": ["error"],
+        "prefer-regex-literals": ["error"],
+        "prefer-rest-params": ["error"],
+        "prefer-spread": ["error"],
+        "radix": ["error", "as-needed"],
+        "require-unicode-regexp": ["error"],
+        "spaced-comment": ["error", "always", { "exceptions": ["*", "/"] }],
+        "strict": ["error"],
+        "yoda": ["error"],
+        "multiline-ternary": ["error", "never"]
+      }
+    }
+  ]
+}

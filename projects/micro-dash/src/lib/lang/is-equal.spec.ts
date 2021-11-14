@@ -44,8 +44,8 @@ describe('isEqual()', () => {
     let array2: any[] = [true, null, 1, 'a', undefined];
     expect(isEqual(array1, array2)).toBe(true);
 
-    array1 = [[1, 2, 3], new Date(2012, 4, 23), /x/, { e: 1 }];
-    array2 = [[1, 2, 3], new Date(2012, 4, 23), /x/, { e: 1 }];
+    array1 = [[1, 2, 3], new Date(2012, 4, 23), /x/u, { e: 1 }];
+    array2 = [[1, 2, 3], new Date(2012, 4, 23), /x/u, { e: 1 }];
     expect(isEqual(array1, array2)).toBe(true);
 
     array1 = [1, 2, 3];
