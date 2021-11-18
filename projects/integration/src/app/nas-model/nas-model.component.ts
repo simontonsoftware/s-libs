@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { mapToObject } from '@s-libs/js-core';
+import { isTruthy, mapToObject } from '@s-libs/js-core';
 import { forEach, padStart } from '@s-libs/micro-dash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { City, IntegrationState } from '../integration-state';
 import { IntegrationStore } from '../integration-store';
 
 @Component({
-  selector: 's-nas-model',
+  selector: 'sl-nas-model',
   templateUrl: './nas-model.component.html',
   styleUrls: ['./nas-model.component.scss'],
 })
@@ -30,7 +30,7 @@ export class NasModelComponent {
   checkToChoose(): void {
     const choices: City[] = [];
     forEach(this.store.state().checkMany, (selected, city) => {
-      if (selected) {
+      if (selected === true) {
         choices.push(city as any);
       }
     });

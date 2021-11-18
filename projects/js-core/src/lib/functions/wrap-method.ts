@@ -36,7 +36,7 @@ export function wrapMethod<
 ): () => void {
   const original = object[key];
   object[key] = wrapFunction(original, hooks) as O[K];
-  return () => {
+  return (): void => {
     object[key] = original;
   };
 }

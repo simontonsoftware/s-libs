@@ -1,3 +1,5 @@
+import { isFalsy } from './predicates';
+
 /**
  * Throws an error if `condition` is falsy, and acts as a type guard.
  *
@@ -17,7 +19,7 @@
  * ```
  */
 export function assert(condition: any, message?: string): asserts condition {
-  if (!condition) {
+  if (isFalsy(condition)) {
     throw new Error(message);
   }
 }

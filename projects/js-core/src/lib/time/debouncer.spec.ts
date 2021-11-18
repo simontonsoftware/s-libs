@@ -1,5 +1,6 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { isDefined } from '../predicates';
 import { Debouncer } from './debouncer';
 
 describe('Debouncer', () => {
@@ -87,11 +88,11 @@ describe('Debouncer', () => {
   it('supports recursive calls', fakeAsync(() => {
     const queue = ['b', 'c'];
     const processed: string[] = [];
-    const func = (item: string) => {
+    const func = (item: string): void => {
       processed.push(item);
 
       const next = queue.shift();
-      if (next) {
+      if (isDefined(next)) {
         debouncer.run(func, 32, next);
       }
     };

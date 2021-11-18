@@ -366,7 +366,7 @@ describe('Store', () => {
       a!: number;
       b!: string;
       obj!: { c: Date };
-      ary!: Array<boolean>;
+      ary!: boolean[];
     }
 
     const str = new RootStore<State>(new State());

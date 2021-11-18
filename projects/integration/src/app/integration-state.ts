@@ -1,4 +1,4 @@
-export type City = 'San Francisco' | 'Nairobi' | 'Gulu';
+export type City = 'Gulu' | 'Nairobi' | 'San Francisco';
 
 export class IntegrationState {
   freeText = 'initial text';

@@ -1,5 +1,5 @@
 import { CallableObject } from '@s-libs/js-core';
-import { clone, every } from '@s-libs/micro-dash';
+import { clone, every, isUndefined } from '@s-libs/micro-dash';
 import { Observable, Subscriber } from 'rxjs';
 import { ChildStore, RootStore } from './index';
 
@@ -21,7 +21,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     this.subscribers.set(subscriber, value);
     this.maybeActivate();
     subscriber.next(value);
-    return () => {
+    return (): void => {
       this.subscribers.delete(subscriber);
       this.maybeDeactivate();
     };
@@ -36,7 +36,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
   constructor(public getRootStore: () => RootStore<object>) {
     super(
       (childKey: any) =>
-        this.activeChildren.get(childKey)?.values().next()?.value ||
+        this.activeChildren.get(childKey)?.values().next()?.value ??
         new ChildStore(getRootStore, this, childKey),
     );
   }
@@ -70,7 +70,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
    */
   assign(value: Partial<T>): void {
     this.setUsing((state: any) => {
-      if (!state) {
+      if (isUndefined(state)) {
         throw new Error('cannot assign to undefined state');
       }
 
@@ -139,8 +139,8 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
       }
     });
     this.activeChildren.forEach((children) => {
-      // `children` can be undefined if emitting from a previous key caused removed all subscribers to this key
-      for (const child of children || []) {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- `children` can be undefined if emitting from a previous key removed all subscribers to this key
+      for (const child of children ?? []) {
         child.maybeEmit();
       }
     });
@@ -151,7 +151,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     key: any,
     child: ChildStore<any>,
   ): boolean {
-    return parent.activeChildren.get(key)?.has(child) || false;
+    return parent.activeChildren.get(key)?.has(child) ?? false;
   }
 
   protected activateChild(

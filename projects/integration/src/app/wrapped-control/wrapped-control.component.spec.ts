@@ -10,7 +10,7 @@ describe('WrappedControlComponent', () => {
   it('catches the first incoming value from a nasModel', () => {
     @Component({
       template: `
-        <s-wrapped-control [nasModel]="store('value')"></s-wrapped-control>
+        <sl-wrapped-control [nasModel]="store('value')"></sl-wrapped-control>
       `,
     })
     class WrapperComponent {

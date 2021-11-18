@@ -76,6 +76,7 @@ export class MigrationManager<T extends VersionedObject> {
    */
   upgrade(object: T, targetVersion: number): T {
     let lastVersion = object._version;
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- we don't assume as much type safety here, since it may need migration first comply!
     assert(lastVersion === undefined || lastVersion <= targetVersion);
     while (lastVersion !== targetVersion) {
       object = this.upgradeOneStep(object, targetVersion);

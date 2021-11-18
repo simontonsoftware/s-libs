@@ -107,16 +107,16 @@ describe('spreadObjectStore$()', () => {
     >;
 
     expectTypeOf(spreadObjectStore$(object)).toEqualTypeOf<
-      Observable<Store<number>[]>
+      Observable<Array<Store<number>>>
     >();
     expectTypeOf(spreadObjectStore$(objectOrNull)).toEqualTypeOf<
-      Observable<Store<number>[]>
+      Observable<Array<Store<number>>>
     >();
     expectTypeOf(spreadObjectStore$(objectOrUndefined)).toEqualTypeOf<
-      Observable<Store<number>[]>
+      Observable<Array<Store<number>>>
     >();
     expectTypeOf(spreadObjectStore$(objectOrNil)).toEqualTypeOf<
-      Observable<Store<number>[]>
+      Observable<Array<Store<number>>>
     >();
   });
 });

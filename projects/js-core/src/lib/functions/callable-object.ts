@@ -1,4 +1,5 @@
 export interface CallableObject<F extends (...args: any[]) => any> {
+  // eslint-disable-next-line @typescript-eslint/prefer-function-type -- this is a special kind of class
   (...args: Parameters<F>): ReturnType<F>;
 }
 
@@ -18,6 +19,7 @@ export interface CallableObject<F extends (...args: any[]) => any> {
  * doubler(2); // 6
  * ```
  */
+// eslint-disable-next-line @typescript-eslint/prefer-function-type,@typescript-eslint/no-extraneous-class -- this is a special kind of class
 export abstract class CallableObject<F extends (...args: any[]) => any> {
   constructor(callAction: F) {
     // eslint-disable-next-line no-constructor-return -- this is the whole point!

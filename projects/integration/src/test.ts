@@ -8,12 +8,12 @@ import {
 } from '@angular/platform-browser-dynamic/testing';
 
 declare const require: {
-  context(
+  context: (
     path: string,
     deep?: boolean,
     filter?: RegExp,
-  ): {
-    keys(): string[];
+  ) => {
+    keys: () => string[];
     <T>(id: string): T;
   };
 };

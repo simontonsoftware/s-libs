@@ -8,7 +8,7 @@ import {
 import { unsubscribe } from '../../../../../app-state/src/performance/performance-utils';
 
 @Component({
-  selector: 's-deep-performance',
+  selector: 'sl-deep-performance',
   templateUrl: './deep-performance.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

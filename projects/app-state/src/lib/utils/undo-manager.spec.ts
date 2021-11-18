@@ -356,7 +356,7 @@ describe('UndoManager', () => {
 
     it('can drop collected changes when they equate to no change', () => {
       undoManager.collectKey = 'k';
-      undoManager.shouldPush = (state) =>
+      undoManager.shouldPush = (state): boolean =>
         !isEqual(state, undoManager.currentUndoState);
 
       store('counter').set(1);
@@ -595,19 +595,19 @@ describe('UndoManager', () => {
 
   describe('.shouldPush()', () => {
     it('controls whether undo states are actually pushed', () => {
-      undoManager.shouldPush = () => true;
+      undoManager.shouldPush = (): boolean => true;
       undoManager.pushCurrentState();
       expectStack(0, 0);
 
-      undoManager.shouldPush = () => false;
+      undoManager.shouldPush = (): boolean => false;
       undoManager.pushCurrentState();
       expectStack(0, 0);
 
-      undoManager.shouldPush = () => true;
+      undoManager.shouldPush = (): boolean => true;
       undoManager.pushCurrentState();
       expectStack(0, 0, 0);
 
-      undoManager.shouldPush = () => false;
+      undoManager.shouldPush = (): boolean => false;
       undoManager.pushCurrentState();
       expectStack(0, 0, 0);
     });
@@ -627,11 +627,11 @@ describe('UndoManager', () => {
       store('counter').set(1);
       undoManager.undo();
 
-      undoManager.shouldPush = () => false;
+      undoManager.shouldPush = (): boolean => false;
       store('counter').set(2);
       expectStack(0, 1);
 
-      undoManager.shouldPush = () => true;
+      undoManager.shouldPush = (): boolean => true;
       store('counter').set(3);
       expectStack(0, 3);
     });

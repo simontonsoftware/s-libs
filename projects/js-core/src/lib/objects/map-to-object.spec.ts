@@ -46,7 +46,9 @@ describe('mapToObject()', () => {
       const aOrU = a as AorU;
       const aOrN = a as AorN;
 
-      type Result = { a?: number };
+      interface Result {
+        a?: number;
+      }
       expectTypeOf(mapToObject(a, () => ['a', 1])).toEqualTypeOf<Result>();
       expectTypeOf(mapToObject(aOrN, () => ['a', 1])).toEqualTypeOf<Result>();
       expectTypeOf(mapToObject(aOrU, () => ['a', 1])).toEqualTypeOf<Result>();
@@ -72,7 +74,9 @@ describe('mapToObject()', () => {
       const oOrU = o as OorU;
       const oOrN = o as OorN;
 
-      type Result = { a?: number };
+      interface Result {
+        a?: number;
+      }
       expectTypeOf(mapToObject(o, () => ['a', 1])).toEqualTypeOf<Result>();
       expectTypeOf(mapToObject(oOrU, () => ['a', 1])).toEqualTypeOf<Result>();
       expectTypeOf(mapToObject(oOrN, () => ['a', 1])).toEqualTypeOf<Result>();

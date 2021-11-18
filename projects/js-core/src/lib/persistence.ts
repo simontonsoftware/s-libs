@@ -17,7 +17,6 @@ import { isNil } from '@s-libs/micro-dash';
  *  persistence.get(); // returns { name: 'Robert' }
  * ```
  */
-
 export class Persistence<T> {
   /**
    * @param key The key in local storage at which to find the existing object (if any), and to save it.
@@ -28,6 +27,7 @@ export class Persistence<T> {
    * Serializes `obj` and saves it in local storage.
    */
   put(obj: T): void {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- `localStorage` can be undefined e.g. in an Android WebView that doesn't have the option turned on
     localStorage?.setItem(this.key, JSON.stringify(obj));
   }
 
@@ -35,6 +35,7 @@ export class Persistence<T> {
    * Retrieves a deserialized copy of the saved object, or `undefined` if it has not been set.
    */
   get(): T | undefined {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- `localStorage` can be undefined e.g. in an Android WebView that doesn't have the option turned on
     const savedStr = localStorage?.getItem(this.key);
     return isNil(savedStr) ? undefined : JSON.parse(savedStr);
   }
@@ -43,6 +44,7 @@ export class Persistence<T> {
    * Deletes the saved item from local storage.
    */
   clear(): void {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- `localStorage` can be undefined e.g. in an Android WebView that doesn't have the option turned on
     localStorage?.removeItem(this.key);
   }
 }

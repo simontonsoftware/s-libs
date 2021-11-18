@@ -7,7 +7,7 @@
  * // do something else
  * ```
  */
-export function sleep(ms: number): Promise<undefined> {
+export async function sleep(ms: number): Promise<undefined> {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });

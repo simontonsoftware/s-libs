@@ -25,11 +25,11 @@ import { Store } from '../index';
  * ```
  */
 export function spreadArrayStore$<T>(
-  source: Store<Array<T> | null | undefined>,
+  source: Store<T[] | null | undefined>,
 ): Observable<Array<Store<T>>> {
   let cache: Array<Store<T>> = [];
   return source.$.pipe(
-    distinctUntilChanged((x, y) => (x?.length || 0) === (y?.length || 0)),
+    distinctUntilChanged((x, y) => (x?.length ?? 0) === (y?.length ?? 0)),
     map((array) => {
       array ??= [];
       if (array.length < cache.length) {
@@ -37,7 +37,7 @@ export function spreadArrayStore$<T>(
       } else {
         cache = cache.slice();
         for (let i = cache.length; i < array.length; ++i) {
-          cache[i] = (source as Store<Array<T>>)(i);
+          cache[i] = (source as Store<T[]>)(i);
         }
       }
       return cache;

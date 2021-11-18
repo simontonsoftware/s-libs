@@ -1,4 +1,4 @@
-import { clone, omit } from '@s-libs/micro-dash';
+import { clone, isUndefined, omit } from '@s-libs/micro-dash';
 import { RootStore, Store } from './index';
 
 export class ChildStore<T> extends Store<T> {
@@ -16,7 +16,7 @@ export class ChildStore<T> extends Store<T> {
     }
 
     const parentState = clone(this.parent.state());
-    if (!parentState) {
+    if (isUndefined(parentState)) {
       throw new Error('cannot modify when parent state is missing');
     }
 

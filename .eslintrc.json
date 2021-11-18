@@ -1,16 +1,16 @@
 {
-  "extends": "./projects/eslint-config-ng",
+  "extends": "./projects/eslint-config-ng/strict",
   "overrides": [
     {
       "files": ["*.ts"],
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
-          { "type": "attribute", "prefix": "s", "style": "camelCase" }
+          { "type": "attribute", "prefix": "sl", "style": "camelCase" }
         ],
         "@angular-eslint/component-selector": [
           "error",
-          { "type": "element", "prefix": "s", "style": "kebab-case" }
+          { "type": "element", "prefix": "sl", "style": "kebab-case" }
         ]
       }
     }

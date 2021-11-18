@@ -5,7 +5,7 @@ import {
 } from '@s-libs/ng-core';
 
 @Component({
-  selector: 's-wrapped-control',
+  selector: 'sl-wrapped-control',
   templateUrl: './wrapped-control.component.html',
   styleUrls: ['./wrapped-control.component.scss'],
   providers: [provideValueAccessor(WrappedControlComponent)],

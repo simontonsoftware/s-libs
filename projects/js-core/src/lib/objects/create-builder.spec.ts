@@ -12,7 +12,7 @@ interface Options {
 const buildMessage = createBuilder<Message, Options>(
   (seq) => ({ id: seq, text: `message ${seq}` }),
   (message, _seq, options) => {
-    message.text = shiftCharacters(message.text, options.cypherDistance || 0);
+    message.text = shiftCharacters(message.text, options.cypherDistance ?? 0);
   },
 );
 

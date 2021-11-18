@@ -8,7 +8,7 @@ import {
 } from '../../../../../app-state/src/performance/wide-performance';
 
 @Component({
-  selector: 's-wide-performance',
+  selector: 'sl-wide-performance',
   templateUrl: './wide-performance.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

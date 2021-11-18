@@ -1,9 +1,9 @@
-import { Debouncer } from '@s-libs/js-core';
+import { Debouncer, isDefined } from '@s-libs/js-core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Store } from '../index';
 
-export type UndoOrRedo = 'undo' | 'redo';
+export type UndoOrRedo = 'redo' | 'undo';
 
 export abstract class UndoManager<StateType, UndoStateType> {
   private stack: UndoStateType[] = [];
@@ -62,8 +62,8 @@ export abstract class UndoManager<StateType, UndoStateType> {
    * @param collectDebounce If at least this many milliseconds elapse with no other push, the next one will be to a new undo state regardless of its `collectKey`. Defaults to `undefined`, which sets no such timeout.
    */
   pushCurrentState({
-    collectKey = undefined as undefined | string,
-    collectDebounce = undefined as undefined | number,
+    collectKey = undefined as string | undefined,
+    collectDebounce = undefined as number | undefined,
   } = {}): void {
     const nextState = this.extractUndoState(this.store.state());
     if (this.currentStateIndex >= 0 && !this.shouldPush(nextState)) {
@@ -184,7 +184,7 @@ export abstract class UndoManager<StateType, UndoStateType> {
     return this.maxDepth > 0 && size > this.maxDepth;
   }
 
-  private changeState(change: 1 | -1, undoOrRedo: UndoOrRedo): void {
+  private changeState(change: -1 | 1, undoOrRedo: UndoOrRedo): void {
     const stateToOverwrite = this.currentUndoState;
     this.currentStateIndex += change;
     const stateToApply = this.currentUndoState;
@@ -211,7 +211,7 @@ export abstract class UndoManager<StateType, UndoStateType> {
     nextState: UndoStateType,
     collectKey: string | undefined,
   ): boolean {
-    if (collectKey && this.currentCollectKey === collectKey) {
+    if (isDefined(collectKey) && this.currentCollectKey === collectKey) {
       --this.currentStateIndex;
       this.dropRedoHistory();
       if (!this.shouldPush(nextState)) {

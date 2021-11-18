@@ -22,7 +22,7 @@ export class Deferred<T> {
 
   constructor() {
     const hooks = {
-      before: () => {
+      before: (): void => {
         this.pending = false;
       },
     };

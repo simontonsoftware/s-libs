@@ -20,15 +20,15 @@ export function mapAsKeys<K extends keyof any, V>(
 export function mapAsKeys<K extends keyof any, V>(
   array: K[] | Nil,
   iteratee: ArrayIteratee<K, V>,
-): { [k in K]: V } | EmptyObject;
+): EmptyObject | { [k in K]: V };
 export function mapAsKeys<T extends Record<keyof T, keyof any>, V>(
   object: T,
   iteratee: ObjectIteratee<T, V>,
 ): { [k in T[keyof T]]: V };
 export function mapAsKeys<T extends Record<keyof T, keyof any>, V>(
-  object: T | Nil,
+  object: Nil | T,
   iteratee: ObjectIteratee<T, V>,
-): { [k in T[keyof T]]: V } | EmptyObject;
+): EmptyObject | { [k in T[keyof T]]: V };
 
 export function mapAsKeys(collection: any, iteratee: any): any {
   return mapToObject(collection, (value, keyOrIndex) => [

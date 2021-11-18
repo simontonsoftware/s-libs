@@ -17,7 +17,7 @@ describe('mapAsKeys()', () => {
   });
 
   it('works with empty and null collections', () => {
-    const iteratee = () => 'a';
+    const iteratee = (): string => 'a';
     expect(mapAsKeys({}, iteratee)).toEqual({});
     expect(mapAsKeys([], iteratee)).toEqual({});
     expect(mapAsKeys(null as [] | null, iteratee)).toEqual({});
@@ -45,14 +45,14 @@ describe('mapAsKeys()', () => {
     const a = [] as A;
     const aOrU = a as AorU;
     const aOrN = a as AorN;
-    expectTypeOf(mapAsKeys(a, () => 'a')).toEqualTypeOf<{
-      [x: number]: string;
-    }>();
+    expectTypeOf(mapAsKeys(a, () => 'a')).toEqualTypeOf<
+      Record<number, string>
+    >();
     expectTypeOf(mapAsKeys(aOrN, () => 'a')).toEqualTypeOf<
-      { [x: number]: string } | EmptyObject
+      EmptyObject | Record<number, string>
     >();
     expectTypeOf(mapAsKeys(aOrU, () => 'a')).toEqualTypeOf<
-      { [x: number]: string } | EmptyObject
+      EmptyObject | Record<number, string>
     >();
 
     type B = Array<'a' | 2>;
@@ -66,10 +66,10 @@ describe('mapAsKeys()', () => {
       2: string;
     }>();
     expectTypeOf(mapAsKeys(bOrN, () => 0)).toEqualTypeOf<
-      { a: number; 2: number } | EmptyObject
+      EmptyObject | { a: number; 2: number }
     >();
     expectTypeOf(mapAsKeys(bOrU, (): 2 => 2)).toEqualTypeOf<
-      { a: 2; 2: 2 } | EmptyObject
+      EmptyObject | { a: 2; 2: 2 }
     >();
 
     interface O {
@@ -86,10 +86,10 @@ describe('mapAsKeys()', () => {
       [x: number]: boolean;
     }>();
     expectTypeOf(mapAsKeys(oOrU, () => true)).toEqualTypeOf<
-      { [x: string]: boolean; [x: number]: boolean } | EmptyObject
+      EmptyObject | { [x: string]: boolean; [x: number]: boolean }
     >();
     expectTypeOf(mapAsKeys(oOrN, () => true)).toEqualTypeOf<
-      { [x: string]: boolean; [x: number]: boolean } | EmptyObject
+      EmptyObject | { [x: string]: boolean; [x: number]: boolean }
     >();
   });
 });

@@ -88,21 +88,21 @@ describe('spreadArrayStore$()', () => {
     expect().nothing();
 
     const array = store;
-    const arrayOrNull = array as Store<Array<number> | null>;
-    const arrayOrUndefined = array as Store<Array<number> | undefined>;
-    const arrayOrNil = array as Store<Array<number> | null | undefined>;
+    const arrayOrNull = array as Store<number[] | null>;
+    const arrayOrUndefined = array as Store<number[] | undefined>;
+    const arrayOrNil = array as Store<number[] | null | undefined>;
 
     expectTypeOf(spreadArrayStore$(array)).toEqualTypeOf<
-      Observable<Store<number>[]>
+      Observable<Array<Store<number>>>
     >();
     expectTypeOf(spreadArrayStore$(arrayOrNull)).toEqualTypeOf<
-      Observable<Store<number>[]>
+      Observable<Array<Store<number>>>
     >();
     expectTypeOf(spreadArrayStore$(arrayOrUndefined)).toEqualTypeOf<
-      Observable<Store<number>[]>
+      Observable<Array<Store<number>>>
     >();
     expectTypeOf(spreadArrayStore$(arrayOrNil)).toEqualTypeOf<
-      Observable<Store<number>[]>
+      Observable<Array<Store<number>>>
     >();
   });
 });

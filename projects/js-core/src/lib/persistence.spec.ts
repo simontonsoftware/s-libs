@@ -6,6 +6,7 @@ describe('Persistence', () => {
     localStorage.removeItem(key);
   });
   afterEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- we simulate Android WebViews where this can be null
     localStorage?.removeItem(key);
   });
 

@@ -19,11 +19,11 @@ import {
  */
 
 export function mapToObject<I, K extends keyof any, V>(
-  array: readonly I[] | Nil,
+  array: Nil | readonly I[],
   iteratee: ArrayIteratee<I, Readonly<[K, V]>>,
 ): PartialExceptIndexes<{ [k in K]: V }>;
 export function mapToObject<T, K extends keyof any, V>(
-  object: T | Nil,
+  object: Nil | T,
   iteratee: ObjectIteratee<T, Readonly<[K, V]>>,
 ): PartialExceptIndexes<{ [k in K]: V }>;
 
