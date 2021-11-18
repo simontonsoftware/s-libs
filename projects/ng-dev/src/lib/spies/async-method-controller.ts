@@ -119,7 +119,11 @@ export class AsyncMethodController<
     let filterFn: (
       callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>,
     ) => boolean;
-    filterFn = Array.isArray(match) ? this.#makeArgumentMatcher(match) : match;
+    if (Array.isArray(match)) {
+      filterFn = this.#makeArgumentMatcher(match);
+    } else {
+      filterFn = match;
+    }
     return remove(this.#testCalls, (testCall) => filterFn(testCall.callInfo));
   }
 

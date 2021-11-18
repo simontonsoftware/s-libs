@@ -67,7 +67,7 @@ type DefinedPath3<
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 6,336 bytes
- * - Micro-dash: 252 bytes
+ * - Micro-dash: 384 bytes
  */
 
 // Removed for https://github.com/simontonsoftware/micro-dash/issues/33
@@ -145,4 +145,5 @@ export function invoke<T extends object | Nil>(
       args,
     );
   }
+  return undefined;
 }

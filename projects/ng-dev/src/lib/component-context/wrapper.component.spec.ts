@@ -131,6 +131,7 @@ describe('WrapperComponent', () => {
     class NotAComponent {}
 
     expect(() => {
+      // eslint-disable-next-line no-new -- nothing more is needed for this test
       new ComponentContext(NotAComponent);
     }).toThrowError('That does not appear to be a component');
   });

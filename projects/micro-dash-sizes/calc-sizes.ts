@@ -118,7 +118,7 @@ async function inspect(): Promise<string | undefined> {
 }
 
 function updateComment(inputPath: string, summary: string): void {
-  const lib = summary.match(/ - (.*):/u)![1];
+  const { lib } = summary.match(/ - (?<lib>.*):/u)!.groups!;
 
   const relativePath = path.relative(appDir, inputPath);
   const baseName = relativePath.replace(/\.lodash|\.microdash/u, '');

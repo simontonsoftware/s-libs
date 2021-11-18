@@ -99,6 +99,7 @@ describe('AngularContext', () => {
     it('gives a nice error message if trying to use 2 at the same time', () => {
       new AngularContext().run(async () => {
         expect(() => {
+          // eslint-disable-next-line no-new -- nothing more is needed for this test
           new AngularContext();
         }).toThrowError(
           'There is already another AngularContext in use (or it was not cleaned up)',

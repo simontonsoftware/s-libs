@@ -83,7 +83,7 @@ export function get(
 
 export function getWithoutDefault(path: any, object: any): any {
   path = castArray(path);
-  const length = path.length;
+  const { length } = path;
   let index = 0;
   while (object != null && index < length) {
     object = object[path[index++]];

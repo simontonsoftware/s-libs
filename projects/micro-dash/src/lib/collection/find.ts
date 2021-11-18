@@ -30,7 +30,7 @@ type PossibleKeyMatches<T, O> = {
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 14,627 bytes
- * - Micro-dash: 218 bytes
+ * - Micro-dash: 251 bytes
  */
 
 // array: value narrowing
@@ -99,4 +99,5 @@ export function find(collection: any, predicate: Function, fromIndex = 0): any {
       }
     }
   }
+  return undefined;
 }

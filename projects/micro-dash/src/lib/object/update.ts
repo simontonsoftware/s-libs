@@ -9,7 +9,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 5,997 bytes
- * - Micro-dash: 183 bytes
+ * - Micro-dash: 210 bytes
  */
 export function update<T>(
   object: T,
@@ -18,7 +18,7 @@ export function update<T>(
 ): T {
   if (object && path.length) {
     let current: any = object;
-    const length = path.length;
+    const { length } = path;
     for (let i = 0; i < length; ++i) {
       const key = path[i];
       let value = current[key];

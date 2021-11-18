@@ -6,7 +6,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 2,301 bytes
- * - Micro-dash: 187 bytes
+ * - Micro-dash: 205 bytes
  */
 export function words(string: string): string[] {
   return (

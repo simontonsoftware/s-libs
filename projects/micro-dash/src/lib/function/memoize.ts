@@ -20,7 +20,7 @@ export function memoize<T extends Function>(
   resolver: Function = identity,
 ): T & { cache: Map<any, any> } {
   const memoized: any = function (this: any): any {
-    const cache = memoized.cache;
+    const { cache } = memoized;
     const key = resolver.apply(this, arguments);
     if (cache.has(key)) {
       return cache.get(key);

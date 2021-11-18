@@ -248,7 +248,7 @@
       },
       "root": "projects/micro-dash-sizes",
       "sourceRoot": "projects/micro-dash-sizes/src",
-      "prefix": "s",
+      "prefix": "sl",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -257,35 +257,35 @@
             "index": "projects/micro-dash-sizes/src/index.html",
             "main": "projects/micro-dash-sizes/src/main.ts",
             "tsConfig": "projects/micro-dash-sizes/tsconfig.app.json",
-            "assets": [],
+            "assets": [
+              "projects/micro-dash-sizes/src/favicon.ico",
+              "projects/micro-dash-sizes/src/assets"
+            ],
             "styles": [],
-            "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "scripts": []
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
               "fileReplacements": [],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": []
+              "outputHashing": "all"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "micro-dash-sizes:build"
-          },
           "configurations": {
             "production": {
               "browserTarget": "micro-dash-sizes:build:production"

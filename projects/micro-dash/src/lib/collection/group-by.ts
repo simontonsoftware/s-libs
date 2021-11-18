@@ -12,7 +12,7 @@ import { transform } from '../object/transform';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 14,378 bytes
- * - Micro-dash: 286 bytes
+ * - Micro-dash: 360 bytes
  */
 export function groupBy<T, K extends Key>(
   collection: readonly T[] | ObjectWith<T> | Nil,

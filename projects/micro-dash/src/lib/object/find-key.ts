@@ -65,11 +65,12 @@ export function findKey<T>(
 
 export function findKey<T>(object: T, predicate: Function): Key | undefined {
   let found;
-  forOwn(object, (value, key): boolean | undefined => {
+  forOwn(object, (value, key) => {
     if (predicate(value, key)) {
       found = key;
       return false;
     }
+    return undefined;
   });
   return found;
 }

@@ -8,7 +8,7 @@ import { Nil } from '../interfaces';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 1,654 bytes
- * - Micro-dash: 87 bytes
+ * - Micro-dash: 113 bytes
  */
 
 export function nth<T>(array: readonly T[], index: number): T;
@@ -20,5 +20,7 @@ export function nth<T>(
 ): T | undefined {
   if (array) {
     return array[index < 0 ? array.length + index : index];
+  } else {
+    return undefined;
   }
 }

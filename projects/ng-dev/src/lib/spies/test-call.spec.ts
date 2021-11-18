@@ -19,7 +19,7 @@ describe('TestCall', () => {
       );
       navigator.clipboard.readText();
 
-      const callInfo = controller.expectOne([]).callInfo;
+      const { callInfo } = controller.expectOne([]);
 
       // We'd love to test that this is just an "instanceof jasmine.CallInfo", but that's not really a thing. So we'll approximate it by ensuring a couple properties exist.
       expect(callInfo.returnValue).toBeInstanceOf(Promise);

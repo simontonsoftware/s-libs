@@ -14,6 +14,11 @@ interface RequestOptions {
   params?: Record<string, string>;
   headers?: Record<string, string>;
 }
+type MatchOptions = Required<RequestOptions> & {
+  method: HttpMethod;
+  url: string;
+  body: HttpBody;
+};
 interface AngularHttpMap {
   keys(): string[];
   get(key: string): string | null;
@@ -49,18 +54,16 @@ export function expectRequest<ResponseBody extends HttpBody>(
   options: RequestOptions & { body?: HttpBody } = {},
 ): SlTestRequest<ResponseBody> {
   expect().nothing(); // convince jasmine we are expecting something
-  const opts = { params: {}, headers: {}, body: null, ...options };
-  console.log({ options, opts });
-
   const ctx = AngularContext.getCurrent();
   assert(ctx, 'expectRequest only works while an AngularContext is in use');
 
+  const opts = { method, url, params: {}, headers: {}, body: null, ...options };
   try {
-    return matchRequest(ctx, method, url, opts);
+    return matchRequest(ctx, opts);
   } catch (error) {
     console.error(
       'Expected 1 request to match:',
-      { method, url, ...opts },
+      opts,
       'Actual pending requests:',
       pendingRequests,
     );
@@ -70,19 +73,14 @@ export function expectRequest<ResponseBody extends HttpBody>(
   }
 }
 
-function matchRequest(
-  ctx: AngularContext,
-  method: 'DELETE' | 'GET' | 'POST' | 'PUT',
-  url: string,
-  opts: Required<RequestOptions> & { body: HttpBody },
-) {
+function matchRequest(ctx: AngularContext, options: MatchOptions) {
   const controller = ctx.inject(HttpTestingController);
   matchCount = 0;
   pendingRequests = [];
   return new SlTestRequest(
     controller.expectOne((req) => {
       pendingRequests.push(req);
-      const found = isMatch(req, method, url, opts);
+      const found = isMatch(req, options);
       if (found) {
         ++matchCount;
       }
@@ -91,15 +89,10 @@ function matchRequest(
   );
 }
 
-function isMatch(
-  req: HttpRequest<any>,
-  method: HttpMethod,
-  url: string,
-  options: Required<RequestOptions> & { body: HttpBody },
-): boolean {
+function isMatch(req: HttpRequest<any>, options: MatchOptions): boolean {
   return (
-    req.method === method &&
-    req.url === url &&
+    req.method === options.method &&
+    req.url === options.url &&
     matchAngularHttpMap(req.params, options.params) &&
     matchAngularHttpMap(req.headers, options.headers) &&
     isEqual(req.body, options.body)

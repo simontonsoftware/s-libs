@@ -28,6 +28,7 @@ export function sortBy<T>(
         return comp;
       }
     }
+    return undefined;
   });
 
   return metas.map((e) => e.value);
@@ -45,6 +46,7 @@ export const compareValues = (x: any, y: any): any => {
   } else if (v1 > v2) {
     return 1;
   }
+  return undefined;
 };
 
 const getSortOrdinal = (value: any): number => {

@@ -24,13 +24,20 @@
         // micro-dash tests do weird things to make sure the library works for users when they do weird things.
         "@typescript-eslint/no-empty-function": "off",
         "no-sparse-arrays": "off",
+        "prefer-regex-literals": "off",
         "prefer-rest-params": "off",
 
         // for this project, we knowingly violate some standards for the sake of smaller bundle size
         "complexity": "off",
+        "eqeqeq": "off",
         "max-depth": "off",
         "max-lines-per-function": "off",
-        "no-prototype-builtins": "off"
+        "max-params": "off",
+        "no-bitwise": "off",
+        "no-multi-assign": "off",
+        "no-prototype-builtins": "off",
+        "prefer-named-capture-group": "off",
+        "require-unicode-regexp": "off"
       }
     },
     { "files": ["*.html"], "rules": {} }
