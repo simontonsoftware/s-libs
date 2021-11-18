@@ -28,7 +28,7 @@ export function logTimers(): () => void {
       console.log('setInterval(', ...args, ')');
     },
   }) as any;
-  return () => {
+  return (): void => {
     restoreTimeouts();
     restoreIntervals();
   };

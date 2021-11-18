@@ -1,5 +1,5 @@
 import { Deferred } from '@s-libs/js-core';
-import { isEqual, nth, remove } from '@s-libs/micro-dash';
+import { isEqual, isUndefined, nth, remove } from '@s-libs/micro-dash';
 import { buildErrorMessage } from '../utils';
 import { TestCall } from './test-call';
 
@@ -49,7 +49,7 @@ export class AsyncMethodController<
   FunctionName extends AsyncMethodKeys<WrappingObject>,
 > {
   #spy: jasmine.Spy<WrappingObject[FunctionName]>;
-  #testCalls: TestCall<WrappingObject[FunctionName]>[] = [];
+  #testCalls: Array<TestCall<WrappingObject[FunctionName]>> = [];
 
   /**
    * If you are using an `AngularContext`, the default behavior is to automatically call `.tick()` after each `.flush()` and `.error()` to trigger promise handlers and changed detection. This is the normal production behavior of asynchronous browser APIs. However, if zone.js does not patch the function you are stubbing, change detection would not run automatically. In that case you many want to turn off this behavior by passing the option `autoTick: false`. See the list of functions that zone.js patches [here](https://github.com/angular/angular/blob/master/packages/zone.js/STANDARD-APIS.md).
@@ -61,7 +61,7 @@ export class AsyncMethodController<
   ) {
     // Note: it wasn't immediately clear how avoid `any` in this constructor, and this will be invisible to users. So I gave up. (For now?)
     this.#spy = spyOn(obj, methodName as any) as any;
-    this.#spy.and.callFake((() => {
+    this.#spy.and.callFake((async () => {
       const deferred = new Deferred<any>();
       this.#testCalls.push(new TestCall(deferred, autoTick));
       return deferred.promise;
@@ -114,7 +114,7 @@ export class AsyncMethodController<
    */
   match(
     match: Match<WrappingObject, FunctionName>,
-  ): TestCall<WrappingObject[FunctionName]>[] {
+  ): Array<TestCall<WrappingObject[FunctionName]>> {
     this.#ensureCallInfoIsSet();
     let filterFn: (
       callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>,
@@ -150,26 +150,23 @@ export class AsyncMethodController<
   #ensureCallInfoIsSet(): void {
     for (let i = 1; i <= this.#testCalls.length; ++i) {
       const testCall = nth(this.#testCalls, -i);
-      if (testCall.callInfo) {
-        return;
-      }
-
-      testCall.callInfo = nth(this.#spy.calls.all(), -i);
+      testCall.callInfo ??= nth(this.#spy.calls.all(), -i);
     }
   }
 
   #makeArgumentMatcher(
     args: Parameters<WrappingObject[FunctionName]>,
   ): (callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>) => boolean {
-    return (callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>) =>
-      isEqual(callInfo.args, args);
+    return (
+      callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>,
+    ): boolean => isEqual(callInfo.args, args);
   }
 
   #stringifyUserInput(
     match: Match<WrappingObject, FunctionName>,
     description?: string,
   ): string {
-    if (!description) {
+    if (isUndefined(description)) {
       if (Array.isArray(match)) {
         description = 'Match by arguments: ' + stringifyArgs(match);
       } else {

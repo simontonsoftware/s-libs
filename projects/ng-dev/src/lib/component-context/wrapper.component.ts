@@ -1,6 +1,6 @@
 import { Component, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { assert } from '@s-libs/js-core';
+import { assert, isDefined } from '@s-libs/js-core';
 import { forOwn } from '@s-libs/micro-dash';
 
 interface InputMeta<T> {
@@ -27,7 +27,7 @@ export class WrapperComponent<T> {
   }
 
   inputs: Partial<T> = {};
-  styles: { [klass: string]: any } = {};
+  styles: Record<string, any> = {};
 }
 
 function getSelector(componentType: Type<unknown>): string {
@@ -62,7 +62,7 @@ function isValidSelector(selector: string): boolean {
 function getInputMetas<T>(componentType: Type<T>): Array<InputMeta<T>> {
   let metas: Array<InputMeta<T>>;
   const superType = Object.getPrototypeOf(componentType.prototype)?.constructor;
-  if (superType) {
+  if (isDefined(superType)) {
     metas = getInputMetas(superType);
   } else {
     metas = [];
@@ -76,7 +76,7 @@ function getInputMetas<T>(componentType: Type<T>): Array<InputMeta<T>> {
         (decorator) => decorator.type.prototype.ngMetadataName === 'Input',
       );
       for (const decorator of inputDecorators) {
-        const binding = decorator.args?.[0] || property;
+        const binding = decorator.args?.[0] ?? property;
         metas.push({ property, binding });
       }
     },
@@ -86,7 +86,7 @@ function getInputMetas<T>(componentType: Type<T>): Array<InputMeta<T>> {
 
 function buildTemplate<T>(
   selector: string,
-  inputMetas: InputMeta<T>[],
+  inputMetas: Array<InputMeta<T>>,
 ): string {
   const bindingStrings = inputMetas.map(
     ({ binding, property }) => `[${binding}]="inputs.${property}"`,

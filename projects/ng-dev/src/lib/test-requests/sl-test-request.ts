@@ -42,7 +42,10 @@ export class SlTestRequest<Body extends HttpBody> {
    */
   flushError(
     status = 500,
-    { statusText = 'simulated test error', body = null as HttpBody } = {},
+    {
+      statusText = 'simulated test error',
+      body = null,
+    }: { statusText?: string; body?: HttpBody } = {},
   ): void {
     this.req.flush(body, { status, statusText });
     this.tickIfPossible();

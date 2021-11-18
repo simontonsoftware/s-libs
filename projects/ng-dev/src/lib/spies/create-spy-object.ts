@@ -23,7 +23,7 @@ export function createSpyObject<T>(type: Type<T>): jasmine.SpyObj<T> {
   const mock: any = {};
   for (
     let proto = type.prototype;
-    proto;
+    proto !== null;
     proto = Object.getPrototypeOf(proto)
   ) {
     for (const key of functions(proto)) {

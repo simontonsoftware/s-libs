@@ -91,9 +91,9 @@ describe('ComponentContext', () => {
     it('errors with a nice message when given a non-input', () => {
       @Component({ template: '' })
       class NonInputComponent {
-        nonInput?: string;
         // eslint-disable-next-line @angular-eslint/no-input-rename
         @Input('nonInput') letsTryToTrickIt?: string;
+        nonInput?: string;
       }
 
       const ctx = new ComponentContext(NonInputComponent);

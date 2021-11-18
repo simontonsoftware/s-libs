@@ -81,8 +81,8 @@ describe('AsyncMethodController', () => {
       expectTypeOf(writeController.expectOne)
         .parameter(0)
         .toEqualTypeOf<
-          | [data: string]
           | ((callInfo: jasmine.CallInfo<Clipboard['writeText']>) => boolean)
+          | [data: string]
         >();
       navigator.clipboard.writeText('fake text');
       writeController.expectOne((callInfo) => {
@@ -99,7 +99,7 @@ describe('AsyncMethodController', () => {
       expectTypeOf(readController.expectOne)
         .parameter(0)
         .toEqualTypeOf<
-          [] | ((callInfo: jasmine.CallInfo<Clipboard['readText']>) => boolean)
+          ((callInfo: jasmine.CallInfo<Clipboard['readText']>) => boolean) | []
         >();
       navigator.clipboard.readText();
       readController.expectOne((callInfo) => {

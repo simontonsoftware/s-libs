@@ -28,6 +28,6 @@ export function marbleTest<T>(callback: Callback<T>): () => T {
   const testScheduler = new TestScheduler((actual, expected) => {
     expect(actual).toEqual(expected);
   });
-  return () =>
+  return (): T =>
     testScheduler.run((helpers) => callback({ ...helpers, testScheduler }));
 }

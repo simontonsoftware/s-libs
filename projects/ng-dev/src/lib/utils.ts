@@ -1,3 +1,5 @@
+import { isDefined } from '@s-libs/js-core';
+
 export function buildErrorMessage({
   matchType,
   itemType,
@@ -10,7 +12,7 @@ export function buildErrorMessage({
   matches: unknown[];
 }): string {
   let message = `Expected ${matchType} ${itemType}(s)`;
-  if (stringifiedUserInput) {
+  if (isDefined(stringifiedUserInput)) {
     message += ` for criterion "${stringifiedUserInput}"`;
   }
   message += `, found ${matches.length}`;

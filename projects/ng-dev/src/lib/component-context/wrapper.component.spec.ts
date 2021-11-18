@@ -11,14 +11,14 @@ import { ComponentContext } from './component-context';
 
 describe('WrapperComponent', () => {
   it("uses the component's selector if it is a tag name", () => {
-    @Component({ selector: 's-tag-name', template: '' })
+    @Component({ selector: 'sl-tag-name', template: '' })
     class TagNameComponent {}
 
     const ctx = new ComponentContext(TagNameComponent);
     ctx.run(() => {
       expect(
         ctx.fixture.debugElement.query(By.directive(TagNameComponent)).name,
-      ).toBe('s-tag-name');
+      ).toBe('sl-tag-name');
     });
   });
 
@@ -128,6 +128,7 @@ describe('WrapperComponent', () => {
   });
 
   it('errors with a nice message when given a non-component', () => {
+    // eslint-disable-next-line @typescript-eslint/no-extraneous-class
     class NotAComponent {}
 
     expect(() => {

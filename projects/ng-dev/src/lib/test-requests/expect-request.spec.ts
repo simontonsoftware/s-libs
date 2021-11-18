@@ -14,7 +14,7 @@ describe('expectRequest()', () => {
     http = ctx.inject(HttpClient);
   });
 
-  function cleanUpPendingRequests() {
+  function cleanUpPendingRequests(): void {
     ctx.inject(HttpTestingController).match(() => true);
   }
 

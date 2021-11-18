@@ -1,9 +1,9 @@
 import { ErrorHandler, Injectable, Provider } from '@angular/core';
-import { isRegExp, isString, remove } from '@s-libs/micro-dash';
+import { isRegExp, isString, isUndefined, remove } from '@s-libs/micro-dash';
 import { buildErrorMessage } from './utils';
 
 type ErrorType = Parameters<ErrorHandler['handleError']>[0];
-type Match = string | RegExp | ((error: ErrorType) => boolean);
+type Match = RegExp | string | ((error: ErrorType) => boolean);
 
 /**
  * An error handler to be used in tests, that keeps track of all errors it handles and allows for expectations to run on them.
@@ -87,10 +87,10 @@ export class MockErrorHandler extends ErrorHandler {
   match(match: Match): ErrorType[] {
     if (isString(match)) {
       const message = match;
-      match = (error) => error?.message === message;
+      match = (error): boolean => error?.message === message;
     } else if (isRegExp(match)) {
       const regex = match;
-      match = (error) => regex.test(error?.message);
+      match = (error): boolean => regex.test(error?.message);
     }
     return remove(this.#errors, match);
   }
@@ -98,7 +98,7 @@ export class MockErrorHandler extends ErrorHandler {
   /**
    * Verify that no unmatched errors are outstanding. If any are, fail with a message indicating which calls were not matched.
    */
-  verify() {
+  verify(): void {
     const count = this.#errors.length;
     if (count > 0) {
       throw new Error(`Expected no error(s), found ${count}`);
@@ -107,7 +107,7 @@ export class MockErrorHandler extends ErrorHandler {
 }
 
 function stringifyUserInput(match: Match, description?: string): string {
-  if (!description) {
+  if (isUndefined(description)) {
     if (isString(match)) {
       description = 'Match by string: ' + match;
     } else if (isRegExp(match)) {

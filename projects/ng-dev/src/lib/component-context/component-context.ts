@@ -148,7 +148,7 @@ export class ComponentContext<T> extends AngularContext {
   private inputProperties: Set<keyof T>;
 
   private inputs: Partial<T>;
-  private wrapperStyles: { [klass: string]: any };
+  private wrapperStyles: Record<string, any>;
 
   /**
    * @param componentType `run()` will create a component of this type before running the rest of your test.
@@ -187,7 +187,7 @@ export class ComponentContext<T> extends AngularContext {
    * });
    * ```
    */
-  assignWrapperStyles(styles: { [klass: string]: any }): void {
+  assignWrapperStyles(styles: Record<string, any>): void {
     Object.assign(this.wrapperStyles, styles);
 
     if (this.isInitialized()) {
@@ -249,6 +249,7 @@ export class ComponentContext<T> extends AngularContext {
   }
 
   private isInitialized(): boolean {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- this actually can be undefined, but typing doesn't reflect it because once everything is initialized its defined
     return !!this.fixture;
   }
 

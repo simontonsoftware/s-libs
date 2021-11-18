@@ -14,25 +14,14 @@
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
-          {
-            "type": "attribute",
-            "prefix": ["s", "app"],
-            "style": "camelCase"
-          }
+          { "type": "attribute", "prefix": ["sl", "app"], "style": "camelCase" }
         ],
         "@angular-eslint/component-selector": [
           "error",
-          {
-            "type": "element",
-            "prefix": ["s", "app"],
-            "style": "kebab-case"
-          }
+          { "type": "element", "prefix": ["sl", "app"], "style": "kebab-case" }
         ]
       }
     },
-    {
-      "files": ["*.html"],
-      "rules": {}
-    }
+    { "files": ["*.html"], "rules": {} }
   ]
 }

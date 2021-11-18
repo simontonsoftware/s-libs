@@ -19,7 +19,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { assert, convertTime } from '@s-libs/js-core';
-import { clone, forOwn } from '@s-libs/micro-dash';
+import { clone, forOwn, isUndefined } from '@s-libs/micro-dash';
 import { MockErrorHandler } from '../mock-error-handler';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
 
@@ -30,7 +30,7 @@ export function extendMetadata(
   const result: any = clone(metadata);
   forOwn(toAdd, (val, key) => {
     const existing = result[key];
-    if (!existing) {
+    if (isUndefined(existing)) {
       result[key] = val;
     } else if (key === 'imports') {
       // to allow ComponentContext to unconditionally disable animations, added imports override previous imports
@@ -139,7 +139,7 @@ export class AngularContext {
    * 3. `this.verifyPostTestConditions()`
    * 4. `this.cleanUp()`
    */
-  run(test: () => void | Promise<void>): void {
+  run(test: () => Promise<void> | void): void {
     this.#runWithMockedTime(() => {
       this.init();
       try {
@@ -155,23 +155,25 @@ export class AngularContext {
   /**
    * Gets a service or other injectable from the root injector. This implementation is a simple pass-through to [TestBed.inject()]{@linkcode https://angular.io/api/core/testing/TestBed#inject}, but subclasses may provide their own implementation. It is recommended to use this in your tests instead of using `TestBed` directly.
    */
-  inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>): T {
+  inject<T>(token: AbstractType<T> | InjectionToken<T> | Type<T>): T {
     return TestBed.inject(token);
   }
 
   /**
    * Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to `await` its results. Throws an error if no match can be located.
    */
-  getHarness<H extends ComponentHarness>(query: HarnessQuery<H>): Promise<H> {
+  async getHarness<H extends ComponentHarness>(
+    query: HarnessQuery<H>,
+  ): Promise<H> {
     return this.#loader.getHarness(query);
   }
 
   /**
    * Gets all component harnesses that match the query, wrapped for use in a fakeAsync test so that you do not need to `await` its results.
    */
-  getAllHarnesses<H extends ComponentHarness>(
+  async getAllHarnesses<H extends ComponentHarness>(
     query: HarnessQuery<H>,
-  ): Promise<Array<H>> {
+  ): Promise<H[]> {
     return this.#loader.getAllHarnesses(query);
   }
 
@@ -181,7 +183,9 @@ export class AngularContext {
    * @param unit The unit of time `amount` represents. Accepts anything described in `@s-libs/s-core`'s [TimeUnit]{@linkcode https://simontonsoftware.github.io/s-js-utils/typedoc/enums/timeunit.html} enum.
    */
   tick(amount = 0, unit = 'ms'): void {
-    if (!(window as any).Zone.current.get('FakeAsyncTestZoneSpec')) {
+    if (
+      isUndefined((window as any).Zone.current.get('FakeAsyncTestZoneSpec'))
+    ) {
       throw new Error(
         '.tick() only works inside the .run() callback (because it needs to be in a fakeAsync zone)',
       );

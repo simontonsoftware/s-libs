@@ -20,12 +20,12 @@ type MatchOptions = Required<RequestOptions> & {
   body: HttpBody;
 };
 interface AngularHttpMap {
-  keys(): string[];
-  get(key: string): string | null;
+  keys: () => string[];
+  get: (key: string) => string | null;
 }
 
 let matchCount: number;
-let pendingRequests: HttpRequest<any>[];
+let pendingRequests: Array<HttpRequest<any>>;
 
 /**
  * This convenience method is similar to [HttpTestingController.expectOne()]{@linkcode https://angular.io/api/common/http/testing/HttpTestingController}, with extra features. The returned request object will automatically trigger change detection when you flush a response, just like in production.
@@ -73,7 +73,10 @@ export function expectRequest<ResponseBody extends HttpBody>(
   }
 }
 
-function matchRequest(ctx: AngularContext, options: MatchOptions) {
+function matchRequest(
+  ctx: AngularContext,
+  options: MatchOptions,
+): SlTestRequest<HttpBody> {
   const controller = ctx.inject(HttpTestingController);
   matchCount = 0;
   pendingRequests = [];
