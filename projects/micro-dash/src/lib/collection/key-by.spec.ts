@@ -10,7 +10,8 @@ describe('keyBy()', () => {
   it('has fancy typing', () => {
     expect().nothing();
 
-    const mapper = (value: number) => (value % 2 ? 'odd' : 'even');
+    const mapper = (value: number): 'even' | 'odd' =>
+      value % 2 ? 'odd' : 'even';
     interface O {
       a: number;
       b: number;
@@ -34,11 +35,11 @@ describe('keyBy()', () => {
     expectTypeOf(keyBy(aOrN, mapper)).toEqualTypeOf<OddEven>();
     expectTypeOf(keyBy(aOrU, mapper)).toEqualTypeOf<OddEven>();
 
-    type City = 'Nairobi' | 'Gulu';
+    type City = 'Gulu' | 'Nairobi';
     const chooseMany: City[] = ['Nairobi', 'Gulu'];
     expectTypeOf(keyBy(chooseMany, (city) => city)).toEqualTypeOf<{
-      Nairobi?: 'Nairobi' | 'Gulu' | undefined;
-      Gulu?: 'Nairobi' | 'Gulu' | undefined;
+      Nairobi?: 'Gulu' | 'Nairobi' | undefined;
+      Gulu?: 'Gulu' | 'Nairobi' | undefined;
     }>();
   });
 

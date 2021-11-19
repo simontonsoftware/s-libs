@@ -18,11 +18,11 @@ import { filter } from './filter';
  */
 
 export function reject<I, O>(
-  array: readonly I[] | Nil,
+  array: Nil | readonly I[],
   predicate: ArrayNarrowingIteratee<O>,
 ): Array<Exclude<I, O>>;
 export function reject<T>(
-  array: readonly T[] | Nil,
+  array: Nil | readonly T[],
   predicate: ArrayIteratee<T, boolean>,
 ): T[];
 
@@ -35,7 +35,7 @@ export function reject<I, O>(
   predicate: KeyNarrowingIteratee<I, O>,
 ): Array<{ [K in keyof I]: Cast<K, string> extends O ? never : I[K] }[keyof I]>;
 export function reject<T>(
-  object: T | Nil,
+  object: Nil | T,
   predicate: ObjectIteratee<T, boolean>,
 ): Array<T[keyof T]>;
 

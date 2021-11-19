@@ -14,7 +14,7 @@ describe('concat()', () => {
   });
 
   it('should concat arrays and values', () => {
-    const array: Array<number | number[]> = [1];
+    const array: Array<number[] | number> = [1];
     const actual = concat(array, 2, [3], [[4]]);
 
     expect(actual).toEqual([1, 2, 3, [4]]);

@@ -16,12 +16,12 @@
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
   wait = 0,
-): ((...args: Parameters<T>) => void) & { cancel(): void } {
+): ((...args: Parameters<T>) => void) & { cancel: () => void } {
   let timeoutId: ReturnType<typeof setTimeout>;
-  const cancel = () => {
+  const cancel = (): void => {
     clearTimeout(timeoutId);
   };
-  const debounced = (...args: unknown[]) => {
+  const debounced = (...args: unknown[]): void => {
     cancel();
     timeoutId = setTimeout(func, wait, ...args);
   };

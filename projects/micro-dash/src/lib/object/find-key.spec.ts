@@ -25,7 +25,7 @@ describe('findKey()', () => {
     //
     // Array
     //
-    type A = Array<string | number>;
+    type A = Array<number | string>;
     const a = [1, 'b'] as A;
     const aOrU = a as A | undefined;
     const aOrN = a as A | null;
@@ -119,7 +119,7 @@ describe('findKey()', () => {
     expectTypeOf(findKey(sOrN, isMapOrString)).toEqualTypeOf<'b' | undefined>();
 
     interface S2 {
-      b: 'a' | number;
+      b: number | 'a';
     }
     const s2 = { b: 2 } as S2;
     const s2OrU = s2 as S2 | undefined;
@@ -213,7 +213,7 @@ describe('findKey()', () => {
       'a' | undefined
     >();
 
-    const so = {} as { [key: string]: number | string };
+    const so = {} as Record<string, number | string>;
     expectTypeOf(findKey(so, isString)).toEqualTypeOf<string | undefined>();
     expectTypeOf(findKey(so, isNumber)).toEqualTypeOf<string | undefined>();
     expectTypeOf(findKey(so, isDate)).toEqualTypeOf<undefined>();

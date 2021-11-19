@@ -7,6 +7,6 @@ import { Nil } from '../interfaces';
  * - Lodash: 1,974 bytes
  * - Micro-dash: 93 bytes
  */
-export function lowerFirst(string: string | Nil): string {
+export function lowerFirst(string: Nil | string): string {
   return string ? string.charAt(0).toLowerCase() + string.slice(1) : '';
 }

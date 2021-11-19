@@ -45,7 +45,7 @@ export function partial<
   F extends (...args: [A1, A2, A3, A4, ...any[]]) => any,
 >(
   func: F,
-  ...args: [A1, A2, A3, A4, ...any[]]
+  ...partials: [A1, A2, A3, A4, ...any[]]
 ): (...args: any[]) => ReturnType<F>;
 
 export function partial(func: Function, ...partials: any[]): any {

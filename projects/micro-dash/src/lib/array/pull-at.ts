@@ -15,7 +15,7 @@ import { flatten } from './flatten';
  */
 export function pullAt(
   array: any[],
-  ...indexes: Array<number | number[]>
+  ...indexes: Array<number[] | number>
 ): any[] {
   const flattenedIndexes = flatten(indexes);
   const result = flattenedIndexes.map((i) => array[i]);

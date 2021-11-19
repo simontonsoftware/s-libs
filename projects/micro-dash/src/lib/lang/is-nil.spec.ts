@@ -15,7 +15,7 @@ describe('isNil()', () => {
   it('fancily narrows types', () => {
     const maybeNull: string | null = 'a';
     const maybeUndefined: string | undefined = 'b';
-    const maybeBoth: string | Nil = 'c';
+    const maybeBoth: Nil | string = 'c';
 
     let str: string;
 

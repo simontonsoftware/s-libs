@@ -26,19 +26,19 @@ describe('partition', () => {
   it('has fancy typing for arrays', () => {
     expect().nothing();
 
-    type A = Array<string | number>;
+    type A = Array<number | string>;
     const a = [] as A;
     const aOrU = a as A | undefined;
     const aOrN = a as A | null;
 
     expectTypeOf(partition(a, () => true)).toEqualTypeOf<
-      [Array<string | number>, Array<string | number>]
+      [Array<number | string>, Array<number | string>]
     >();
     expectTypeOf(partition(aOrU, () => true)).toEqualTypeOf<
-      [Array<string | number>, Array<string | number>]
+      [Array<number | string>, Array<number | string>]
     >();
     expectTypeOf(partition(aOrN, () => true)).toEqualTypeOf<
-      [Array<string | number>, Array<string | number>]
+      [Array<number | string>, Array<number | string>]
     >();
 
     // narrowing
@@ -62,13 +62,13 @@ describe('partition', () => {
     >();
 
     expectTypeOf(partition(a, isA)).toEqualTypeOf<
-      ['a'[], Array<string | number>]
+      [Array<'a'>, Array<number | string>]
     >();
     expectTypeOf(partition(aOrU, isA)).toEqualTypeOf<
-      ['a'[], Array<string | number>]
+      [Array<'a'>, Array<number | string>]
     >();
     expectTypeOf(partition(aOrN, isA)).toEqualTypeOf<
-      ['a'[], Array<string | number>]
+      [Array<'a'>, Array<number | string>]
     >();
 
     type AB = Array<'a' | 'b'>;
@@ -76,9 +76,13 @@ describe('partition', () => {
     const abOrU = ab as AB | undefined;
     const abOrN = ab as AB | null;
 
-    expectTypeOf(partition(ab, isA)).toEqualTypeOf<['a'[], 'b'[]]>();
-    expectTypeOf(partition(abOrU, isA)).toEqualTypeOf<['a'[], 'b'[]]>();
-    expectTypeOf(partition(abOrN, isA)).toEqualTypeOf<['a'[], 'b'[]]>();
+    expectTypeOf(partition(ab, isA)).toEqualTypeOf<[Array<'a'>, Array<'b'>]>();
+    expectTypeOf(partition(abOrU, isA)).toEqualTypeOf<
+      [Array<'a'>, Array<'b'>]
+    >();
+    expectTypeOf(partition(abOrN, isA)).toEqualTypeOf<
+      [Array<'a'>, Array<'b'>]
+    >();
 
     expectTypeOf(partition(ab, isString)).toEqualTypeOf<
       [Array<'a' | 'b'>, []]
@@ -90,7 +94,7 @@ describe('partition', () => {
       [Array<'a' | 'b'>, []]
     >();
 
-    type AN = Array<'a' | number>;
+    type AN = Array<number | 'a'>;
     const an = [] as AN;
     const anOrU = an as AN | undefined;
     const anOrN = an as AN | null;
@@ -116,7 +120,7 @@ describe('partition', () => {
     const o = {} as O;
     const oOrN = o as O | null;
     const oOrU = o as O | undefined;
-    type AllOTypes = number | string | Date | Document;
+    type AllOTypes = Date | Document | number | string;
     expectTypeOf(partition(o, () => true)).toEqualTypeOf<
       [AllOTypes[], AllOTypes[]]
     >();
@@ -130,43 +134,43 @@ describe('partition', () => {
     // value narrowing
 
     expectTypeOf(partition(o, isString)).toEqualTypeOf<
-      [string[], Array<number | Date | Document>]
+      [string[], Array<Date | Document | number>]
     >();
     expectTypeOf(partition(oOrU, isString)).toEqualTypeOf<
-      [string[], Array<number | Date | Document>]
+      [string[], Array<Date | Document | number>]
     >();
     expectTypeOf(partition(oOrN, isString)).toEqualTypeOf<
-      [string[], Array<number | Date | Document>]
+      [string[], Array<Date | Document | number>]
     >();
 
     expectTypeOf(partition(o, isDate)).toEqualTypeOf<
-      [Date[], Array<number | string | Document>]
+      [Date[], Array<Document | number | string>]
     >();
     expectTypeOf(partition(oOrU, isDate)).toEqualTypeOf<
-      [Date[], Array<number | string | Document>]
+      [Date[], Array<Document | number | string>]
     >();
     expectTypeOf(partition(oOrN, isDate)).toEqualTypeOf<
-      [Date[], Array<number | string | Document>]
+      [Date[], Array<Document | number | string>]
     >();
 
     expectTypeOf(partition(o, isNumberOrString)).toEqualTypeOf<
-      [Array<string | number>, Array<Date | Document>]
+      [Array<number | string>, Array<Date | Document>]
     >();
     expectTypeOf(partition(oOrU, isNumberOrString)).toEqualTypeOf<
-      [Array<string | number>, Array<Date | Document>]
+      [Array<number | string>, Array<Date | Document>]
     >();
     expectTypeOf(partition(oOrN, isNumberOrString)).toEqualTypeOf<
-      [Array<string | number>, Array<Date | Document>]
+      [Array<number | string>, Array<Date | Document>]
     >();
 
     expectTypeOf(partition(o, isDateOrString)).toEqualTypeOf<
-      [Array<Date | string>, Array<number | Document>]
+      [Array<Date | string>, Array<Document | number>]
     >();
     expectTypeOf(partition(oOrU, isDateOrString)).toEqualTypeOf<
-      [Array<Date | string>, Array<number | Document>]
+      [Array<Date | string>, Array<Document | number>]
     >();
     expectTypeOf(partition(oOrN, isDateOrString)).toEqualTypeOf<
-      [Array<Date | string>, Array<number | Document>]
+      [Array<Date | string>, Array<Document | number>]
     >();
 
     expectTypeOf(partition(o, isMap)).toEqualTypeOf<[[], AllOTypes[]]>();
@@ -174,25 +178,25 @@ describe('partition', () => {
     expectTypeOf(partition(oOrN, isMap)).toEqualTypeOf<[[], AllOTypes[]]>();
 
     expectTypeOf(partition(o, isMapOrString)).toEqualTypeOf<
-      [string[], Array<number | Date | Document>]
+      [string[], Array<Date | Document | number>]
     >();
     expectTypeOf(partition(oOrU, isMapOrString)).toEqualTypeOf<
-      [string[], Array<number | Date | Document>]
+      [string[], Array<Date | Document | number>]
     >();
     expectTypeOf(partition(oOrN, isMapOrString)).toEqualTypeOf<
-      [string[], Array<number | Date | Document>]
+      [string[], Array<Date | Document | number>]
     >();
 
     interface S2 {
-      a: 'a' | number;
+      a: number | 'a';
     }
     const s2 = {} as S2;
     const s2OrN = s2 as S2 | null;
     const s2OrU = s2 as S2 | undefined;
 
-    expectTypeOf(partition(s2, isA)).toEqualTypeOf<['a'[], number[]]>();
-    expectTypeOf(partition(s2OrU, isA)).toEqualTypeOf<['a'[], number[]]>();
-    expectTypeOf(partition(s2OrN, isA)).toEqualTypeOf<['a'[], number[]]>();
+    expectTypeOf(partition(s2, isA)).toEqualTypeOf<[Array<'a'>, number[]]>();
+    expectTypeOf(partition(s2OrU, isA)).toEqualTypeOf<[Array<'a'>, number[]]>();
+    expectTypeOf(partition(s2OrN, isA)).toEqualTypeOf<[Array<'a'>, number[]]>();
 
     expectTypeOf(partition(s2, isStringOr2)).toEqualTypeOf<
       [Array<'a' | 2>, number[]]
@@ -240,13 +244,13 @@ describe('partition', () => {
   });
 
   it('should ignore changes to `length`', () => {
-    const array = [1];
+    const shortArray = [1];
     const spy = jasmine.createSpy().and.callFake(() => {
-      array.push(2);
+      shortArray.push(2);
       return true;
     });
 
-    partition(array, spy);
+    partition(shortArray, spy);
 
     expect(spy).toHaveBeenCalledTimes(1);
   });

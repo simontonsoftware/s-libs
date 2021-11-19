@@ -7,6 +7,6 @@ import { Nil } from '../interfaces';
  * - Lodash: 1,974 bytes
  * - Micro-dash: 93 bytes
  */
-export function upperFirst(string: string | Nil): string {
+export function upperFirst(string: Nil | string): string {
   return string ? string.charAt(0).toUpperCase() + string.slice(1) : '';
 }

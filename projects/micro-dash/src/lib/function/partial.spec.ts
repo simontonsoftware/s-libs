@@ -13,7 +13,7 @@ describe('partial()', () => {
   });
 
   it('sets the `length` property', () => {
-    const fn = (_a: any, _b: any, _c: any) => {
+    const fn = (_a: any, _b: any, _c: any): void => {
       // blah
     };
 
@@ -32,7 +32,7 @@ describe('partial()', () => {
   });
 
   it('creates a function that can be invoked with additional arguments', () => {
-    const fn = (a: string, b: string) => [a, b];
+    const fn = (a: string, b: string): string[] => [a, b];
 
     const par = partial(fn, 'a');
 
@@ -80,7 +80,7 @@ describe('partial()', () => {
   });
 
   it('should work with curried functions', () => {
-    const fn = (a: number, b: number, c: number) => a + b + c;
+    const fn = (a: number, b: number, c: number): number => a + b + c;
     const curried = curry(partial(fn, 1), 2);
 
     expect(curried(2, 3)).toBe(6);

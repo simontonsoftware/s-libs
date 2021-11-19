@@ -9,5 +9,5 @@
  * - Micro-dash: 55 bytes
  */
 export function without<T>(array: readonly T[], ...values: readonly T[]): T[] {
-  return array.filter((item) => values.indexOf(item) === -1);
+  return array.filter((item) => !values.includes(item));
 }

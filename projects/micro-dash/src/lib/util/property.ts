@@ -5,7 +5,7 @@ type PropertyAtPath<T, Path extends readonly any[]> = Path extends []
   ? T
   : Path extends readonly [infer First, ...infer Rest]
   ? First extends keyof NonNullable<T>
-    ? PropertyAtPath<NonNullable<T>[First], Rest> | IfCouldBe<T, Nil, undefined>
+    ? IfCouldBe<T, Nil, undefined> | PropertyAtPath<NonNullable<T>[First], Rest>
     : undefined
   : unknown;
 

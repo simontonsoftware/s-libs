@@ -12,10 +12,10 @@ import { Nil } from '../interfaces';
  */
 
 export function nth<T>(array: readonly T[], index: number): T;
-export function nth<T>(array: readonly T[] | Nil, index: number): T | undefined;
+export function nth<T>(array: Nil | readonly T[], index: number): T | undefined;
 
 export function nth<T>(
-  array: readonly T[] | Nil,
+  array: Nil | readonly T[],
   index: number,
 ): T | undefined {
   if (array) {

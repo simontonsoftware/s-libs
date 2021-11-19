@@ -40,7 +40,7 @@ export function keyIsString3(_: any, key: any): key is '3' {
   return key === '3';
 }
 
-export function keyIsAorNumber(_: any, key: any): key is 'a' | number {
+export function keyIsAorNumber(_: any, key: any): key is number | 'a' {
   return key === 'a' || isNumber(key);
 }
 
@@ -52,6 +52,6 @@ export function keyIsNumber(_: any, key: any): key is number {
   return isNumber(key);
 }
 
-export function keyIsDateOrString(_: any, key: any): key is string | Date {
+export function keyIsDateOrString(_: any, key: any): key is Date | string {
   return isString(key) || isDate(key);
 }

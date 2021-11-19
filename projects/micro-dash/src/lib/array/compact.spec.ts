@@ -20,7 +20,7 @@ describe('compact()', () => {
   });
 
   it('fancily narrows the type', () => {
-    const before: Array<number | false | undefined | '' | null> = [
+    const before: Array<number | '' | false | null | undefined> = [
       1,
       2,
       false,

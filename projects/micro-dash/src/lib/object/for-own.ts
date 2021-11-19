@@ -14,7 +14,7 @@ import { keys, keysOfNonArray } from './keys';
  */
 export function forOwn<T>(
   object: T,
-  iteratee: ObjectIteratee<T, void | boolean>,
+  iteratee: ObjectIteratee<T, boolean | void>,
 ): T {
   forEachOfArray(keys(object), (key) => iteratee(object[key as keyof T], key));
   return object;
@@ -22,7 +22,7 @@ export function forOwn<T>(
 
 export function forOwnOfNonArray<T>(
   object: T,
-  iteratee: ObjectIteratee<T, void | boolean>,
+  iteratee: ObjectIteratee<T, boolean | void>,
 ): T {
   forEachOfArray(keysOfNonArray(object), (key) =>
     iteratee(object[key as keyof T], key),

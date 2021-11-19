@@ -6,5 +6,5 @@
  * - Micro-dash: 39 bytes
  */
 export function constant<T>(value: T): () => T {
-  return () => value;
+  return (): T => value;
 }

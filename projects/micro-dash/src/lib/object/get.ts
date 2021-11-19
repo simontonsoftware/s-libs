@@ -20,7 +20,7 @@ export function get<T, K extends keyof NonNullable<T>, D = undefined>(
   object: T,
   key: K,
   defaultValue?: D,
-): WithDefault<NonNullable<T>[K], D> | IfCouldBe<T, Nil, D>;
+): IfCouldBe<T, Nil, D> | WithDefault<NonNullable<T>[K], D>;
 
 export function get<D = undefined>(
   object: object,
@@ -31,7 +31,7 @@ export function get<T, K1 extends keyof NonNullable<T>, D = undefined>(
   object: T,
   path: readonly [K1],
   defaultValue?: D,
-): WithDefault<NonNullable<T>[K1], D> | IfCouldBe<T, Nil, D>;
+): IfCouldBe<T, Nil, D> | WithDefault<NonNullable<T>[K1], D>;
 export function get<
   T,
   K1 extends keyof NonNullable<T>,
@@ -41,7 +41,7 @@ export function get<
   object: T,
   path: readonly [K1, K2],
   defaultValue?: D,
-): WithDefault<NonNullable<T>[K1][K2], D> | IfCouldBe<T, Nil, D>;
+): IfCouldBe<T, Nil, D> | WithDefault<NonNullable<T>[K1][K2], D>;
 export function get<
   T,
   K1 extends keyof NonNullable<T>,
@@ -52,7 +52,7 @@ export function get<
   object: T,
   path: readonly [K1, K2, K3],
   defaultValue?: D,
-): WithDefault<NonNullable<T>[K1][K2][K3], D> | IfCouldBe<T, Nil, D>;
+): IfCouldBe<T, Nil, D> | WithDefault<NonNullable<T>[K1][K2][K3], D>;
 export function get<
   T,
   K1 extends keyof NonNullable<T>,
@@ -64,10 +64,10 @@ export function get<
   object: T,
   path: readonly [K1, K2, K3, K4],
   defaultValue?: D,
-): WithDefault<NonNullable<T>[K1][K2][K3][K4], D> | IfCouldBe<T, Nil, D>;
+): IfCouldBe<T, Nil, D> | WithDefault<NonNullable<T>[K1][K2][K3][K4], D>;
 
 export function get(
-  object: object | Nil,
+  object: Nil | object,
   path: readonly Key[],
   defaultValue?: any,
 ): any;

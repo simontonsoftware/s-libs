@@ -27,16 +27,16 @@ describe('keys()', () => {
       2: string;
     }
     type A = number[];
-    const oOrU = undefined as undefined | O;
-    const oOrN = null as null | O;
-    const wOrU = undefined as undefined | W;
-    const wOrN = null as null | W;
-    const aOrU = undefined as undefined | A;
-    const aOrN = null as null | A;
+    const oOrU = undefined as O | undefined;
+    const oOrN = null as O | null;
+    const wOrU = undefined as W | undefined;
+    const wOrN = null as W | null;
+    const aOrU = undefined as A | undefined;
+    const aOrN = null as A | null;
 
-    expectTypeOf(keys({ a: 1, b: 2 })).toEqualTypeOf<('a' | 'b')[]>();
-    expectTypeOf(keys(oOrU)).toEqualTypeOf<('a' | 'b')[]>();
-    expectTypeOf(keys(oOrN)).toEqualTypeOf<('a' | 'b')[]>();
+    expectTypeOf(keys({ a: 1, b: 2 })).toEqualTypeOf<Array<'a' | 'b'>>();
+    expectTypeOf(keys(oOrU)).toEqualTypeOf<Array<'a' | 'b'>>();
+    expectTypeOf(keys(oOrN)).toEqualTypeOf<Array<'a' | 'b'>>();
     expectTypeOf(keys({ a: 2, 2: 'b' })).toEqualTypeOf<string[]>();
     expectTypeOf(keys(wOrU)).toEqualTypeOf<string[]>();
     expectTypeOf(keys(wOrN)).toEqualTypeOf<string[]>();
@@ -45,7 +45,7 @@ describe('keys()', () => {
     expectTypeOf(keys(aOrN)).toEqualTypeOf<string[]>();
 
     expectTypeOf(keys(['a', 'b'])).toEqualTypeOf<string[]>();
-    expectTypeOf(keys({ a: 1, b: 'hi ' })).toEqualTypeOf<('a' | 'b')[]>();
+    expectTypeOf(keys({ a: 1, b: 'hi ' })).toEqualTypeOf<Array<'a' | 'b'>>();
   });
 
   //

@@ -26,12 +26,12 @@ export function zip<T1, T2, T3, T4>(
 ): Array<[T1, T2, T3, T4]>;
 export function zip<T>(...arrays: readonly T[][]): T[][];
 export function zip<T>(
-  ...arrays: ReadonlyArray<readonly T[] | Nil>
-): Array<Array<T | Nil>>;
+  ...arrays: ReadonlyArray<Nil | readonly T[]>
+): Array<Array<Nil | T>>;
 
 export function zip<T>(
-  ...arrays: ReadonlyArray<readonly T[] | Nil>
-): Array<Array<T | Nil>> {
+  ...arrays: ReadonlyArray<Nil | readonly T[]>
+): Array<Array<Nil | T>> {
   const length = Math.max(0, ...arrays.map((a) => (a ? a.length : 0)));
   return times(length, (i) => arrays.map((a) => (a ? a[i] : undefined)));
 }

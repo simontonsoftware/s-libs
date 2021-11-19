@@ -50,31 +50,31 @@ type MaybeIncludedKeys<T, O> = {
  */
 
 export function pickBy<T, O>(
-  object: readonly T[] | Nil,
+  object: Nil | readonly T[],
   predicate: ValueNarrowingIteratee<T[], O>,
-): { [index: number]: Narrow<T, O> };
+): Record<number, Narrow<T, O>>;
 export function pickBy<T>(
-  object: readonly T[] | Nil,
+  object: Nil | readonly T[],
   predicate: ObjectIteratee<T, boolean>,
-): { [index: number]: T };
+): Record<number, T>;
 
 export function pickBy<I, T extends NonNullable<I>, O>(
   object: I,
   predicate: ValueNarrowingIteratee<T, O>,
 ): Evaluate<
-  | ({ [K in KeysWithDefinitelyIncludedValues<T, O>]: Narrow<T[K], O> } & {
-      [K in KeysWithMaybeIncludedValues<T, O>]?: Narrow<T[K], O>;
-    })
   | IfCouldBe<I, Nil, {}>
+  | ({
+      [K in KeysWithMaybeIncludedValues<T, O>]?: Narrow<T[K], O>;
+    } & { [K in KeysWithDefinitelyIncludedValues<T, O>]: Narrow<T[K], O> })
 >;
 export function pickBy<I, T extends NonNullable<I>, O>(
   object: I,
   predicate: KeyNarrowingIteratee<T, O>,
 ): Evaluate<
+  | IfCouldBe<I, Nil, {}>
   | ({
       [K in DefinitelyIncludedKeys<T, O>]: T[K];
     } & { [K in MaybeIncludedKeys<T, O>]?: T[K] })
-  | IfCouldBe<I, Nil, {}>
 >;
 export function pickBy<T>(
   object: T,

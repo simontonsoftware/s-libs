@@ -9,15 +9,15 @@ import { forOwn } from './for-own';
  * - Micro-dash: 235 bytes
  */
 
-export function mapValues<A extends readonly any[] | Nil, O>(
+export function mapValues<A extends Nil | readonly any[], O>(
   array: A,
   iteratee: (item: NonNullable<A>[number], index: number) => O,
-): { [index: number]: O } | IfCouldBe<A, Nil, {}>;
+): IfCouldBe<A, Nil, {}> | Record<number, O>;
 
 export function mapValues<T, O>(
   object: T,
   iteratee: ObjectIteratee<T, O>,
-): { [key in keyof NonNullable<T>]: O } | IfCouldBe<T, Nil, {}>;
+): IfCouldBe<T, Nil, {}> | { [key in keyof NonNullable<T>]: O };
 
 export function mapValues(object: any, iteratee: Function): any {
   const obj: any = {};

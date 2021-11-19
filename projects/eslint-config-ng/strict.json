@@ -116,10 +116,8 @@
         "@typescript-eslint/prefer-ts-expect-error": ["error"],
         "@typescript-eslint/promise-function-async": ["error"],
         "@typescript-eslint/require-array-sort-compare": ["error"],
-        "@typescript-eslint/sort-type-union-intersection-members": ["error"],
         "@typescript-eslint/strict-boolean-expressions": ["error"],
         "@typescript-eslint/switch-exhaustiveness-check": ["error"],
-        "@typescript-eslint/unified-signatures": ["error"],
 
         // Extension rules
         "@typescript-eslint/dot-notation": ["error"],

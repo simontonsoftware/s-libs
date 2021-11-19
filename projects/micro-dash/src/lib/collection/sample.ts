@@ -9,7 +9,7 @@ import { random } from '../math';
  * - Lodash: 3,642 bytes
  * - Micro-dash: 440 bytes
  */
-export function sample<T>(collection: readonly T[] | ObjectWith<T>): T {
+export function sample<T>(collection: ObjectWith<T> | readonly T[]): T {
   collection = toArray(collection as any);
   return (collection as any)[random((collection as any[]).length - 1)];
 }

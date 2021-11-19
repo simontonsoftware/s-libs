@@ -44,22 +44,22 @@ export function findKey<I, T extends NonNullable<I>, O>(
   object: I,
   predicate: ValueNarrowingIteratee<T, O>,
 ):
-  | PossibleValueMatches<T, O>
   | (DefiniteValueMatches<T, O> extends never ? undefined : never)
-  | IfCouldBe<I, Nil, undefined>;
+  | IfCouldBe<I, Nil, undefined>
+  | PossibleValueMatches<T, O>;
 
 // object: key narrowing
 export function findKey<I, T extends NonNullable<I>, O>(
   object: I,
   predicate: KeyNarrowingIteratee<T, O>,
 ):
-  | PossibleKeyMatch<T, O>
   | (DefiniteKeyMatch<T, O> extends never ? undefined : never)
-  | IfCouldBe<I, Nil, undefined>;
+  | IfCouldBe<I, Nil, undefined>
+  | PossibleKeyMatch<T, O>;
 
 // object
 export function findKey<T>(
-  object: T | Nil,
+  object: Nil | T,
   predicate: ObjectIteratee<T, boolean>,
 ): Cast<keyof T, string> | undefined;
 

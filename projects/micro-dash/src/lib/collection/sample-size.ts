@@ -15,8 +15,8 @@ import { map } from './map';
  * - Micro-dash: 616 bytes
  */
 
-export function sampleSize<T>(array: readonly T[] | Nil, n?: number): T[];
-export function sampleSize<T>(object: T | Nil, n?: number): Array<T[keyof T]>;
+export function sampleSize<T>(array: Nil | readonly T[], n?: number): T[];
+export function sampleSize<T>(object: Nil | T, n?: number): Array<T[keyof T]>;
 
 export function sampleSize(collection: any, n = 1): any[] {
   const values = map(collection, identity);

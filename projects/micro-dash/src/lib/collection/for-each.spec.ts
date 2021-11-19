@@ -41,19 +41,19 @@ describe('forEach()', () => {
     const tupleOrU: [string, Date] | undefined = [] as any;
     expectTypeOf(
       forEach(tuple, (val, index) => {
-        expectTypeOf(val).toEqualTypeOf<string | Date>();
+        expectTypeOf(val).toEqualTypeOf<Date | string>();
         expectTypeOf(index).toEqualTypeOf<number>();
       }),
     ).toEqualTypeOf<[string, Date]>();
     expectTypeOf(
       forEach(tupleOrN, (val, index) => {
-        expectTypeOf(val).toEqualTypeOf<string | Date>();
+        expectTypeOf(val).toEqualTypeOf<Date | string>();
         expectTypeOf(index).toEqualTypeOf<number>();
       }),
     ).toEqualTypeOf<[string, Date] | null>();
     expectTypeOf(
       forEach(tupleOrU, (val, index) => {
-        expectTypeOf(val).toEqualTypeOf<string | Date>();
+        expectTypeOf(val).toEqualTypeOf<Date | string>();
         expectTypeOf(index).toEqualTypeOf<number>();
       }),
     ).toEqualTypeOf<[string, Date] | undefined>();

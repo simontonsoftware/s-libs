@@ -6,10 +6,10 @@ import { get } from './get';
 type Fn = (...args: any[]) => any;
 
 type Obj1<K1 extends Key, V> = { [key in K1]?: V };
-type Path1<K1 extends Key, T extends Obj1<K1, any> | Nil> = T extends Existent
+type Path1<K1 extends Key, T extends Nil | Obj1<K1, any>> = T extends Existent
   ? T[K1]
   : NonNullable<T>[K1] | undefined;
-type DefinedPath1<K1 extends Key, T extends Obj1<K1, any> | Nil> = NonUndefined<
+type DefinedPath1<K1 extends Key, T extends Nil | Obj1<K1, any>> = NonUndefined<
   NonNullable<T>[K1]
 >;
 
@@ -17,12 +17,12 @@ type Obj2<K1 extends Key, K2 extends Key, V> = { [k1 in K1]?: Obj1<K2, V> };
 type Path2<
   K1 extends Key,
   K2 extends Key,
-  T extends Obj2<K1, K2, any> | Nil,
+  T extends Nil | Obj2<K1, K2, any>,
 > = Path1<K2, Path1<K1, T>>;
 type DefinedPath2<
   K1 extends Key,
   K2 extends Key,
-  T extends Obj2<K1, K2, any> | Nil,
+  T extends Nil | Obj2<K1, K2, any>,
 > = DefinedPath1<K2, DefinedPath1<K1, T>>;
 
 type Obj3<K1 extends Key, K2 extends Key, K3 extends Key, V> = {
@@ -32,13 +32,13 @@ type Path3<
   K1 extends Key,
   K2 extends Key,
   K3 extends Key,
-  T extends Obj3<K1, K2, K3, any> | Nil,
+  T extends Nil | Obj3<K1, K2, K3, any>,
 > = Path1<K3, Path2<K1, K2, T>>;
 type DefinedPath3<
   K1 extends Key,
   K2 extends Key,
   K3 extends Key,
-  T extends Obj3<K1, K2, K3, any> | Nil,
+  T extends Nil | Obj3<K1, K2, K3, any>,
 > = DefinedPath1<K3, DefinedPath2<K1, K2, T>>;
 
 // // type Obj4<K1 extends Key, K2 extends Key, K3 extends Key, K4 extends Key, V> = {
@@ -91,7 +91,7 @@ export function invoke<
   K1 extends Key,
   K2 extends Key,
   K3 extends Key,
-  T extends Obj3<K1, K2, K3, Fn> | Nil,
+  T extends Nil | Obj3<K1, K2, K3, Fn>,
 >(
   object: T,
   path: readonly [K1, K2, K3],
@@ -104,7 +104,7 @@ export function invoke<
 export function invoke<
   K1 extends Key,
   K2 extends Key,
-  T extends Obj2<K1, K2, Fn> | Nil,
+  T extends Nil | Obj2<K1, K2, Fn>,
 >(
   object: T,
   path: readonly [K1, K2],
@@ -114,7 +114,7 @@ export function invoke<
   : ReturnType<DefinedPath2<K1, K2, T>> | undefined;
 
 // 1 element path
-export function invoke<K1 extends Key, T extends Obj1<K1, Fn> | Nil>(
+export function invoke<K1 extends Key, T extends Nil | Obj1<K1, Fn>>(
   object: T,
   path: readonly [K1],
   ...args: Parameters<DefinedPath1<K1, T>>
@@ -123,17 +123,17 @@ export function invoke<K1 extends Key, T extends Obj1<K1, Fn> | Nil>(
   : ReturnType<DefinedPath1<K1, T>> | undefined;
 
 // empty path
-export function invoke(object: object | Nil, path: readonly []): undefined;
+export function invoke(object: Nil | object, path: readonly []): undefined;
 
 // TODO: limit this so it doesn't apply to 1-4 element paths with bad parameters
 // fallback: n element path
 export function invoke(
-  object: object | Nil,
+  object: Nil | object,
   path: readonly Key[],
   ...args: any[]
 ): any;
 
-export function invoke<T extends object | Nil>(
+export function invoke<T extends Nil | object>(
   object: T,
   path: readonly Key[],
   ...args: any[]

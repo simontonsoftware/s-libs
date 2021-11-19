@@ -7,7 +7,7 @@ import { isString, toArray } from '../lang';
  * - Lodash: 4,651 bytes
  * - Micro-dash: 279 bytes
  */
-export function includes<T extends readonly any[] | object | string>(
+export function includes<T extends object | string | readonly any[]>(
   collection: T,
   value: T extends readonly any[]
     ? T[0]

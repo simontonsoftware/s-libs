@@ -17,7 +17,7 @@ import { forEach } from './for-each';
  */
 
 export function partition<T, O>(
-  array: T | Nil,
+  array: Nil | T,
   predicate: ValueNarrowingIteratee<ValuesType<T>, O>,
 ): [
   IfCouldBe<ValuesType<T>, O, Array<Narrow<ValuesType<T>, O>>, []>,
@@ -26,7 +26,7 @@ export function partition<T, O>(
     : Array<Exclude<ValuesType<T>, O>>,
 ];
 export function partition<T>(
-  array: T | Nil,
+  array: Nil | T,
   predicate: ValueIteratee<ValuesType<T>, any>,
 ): [Array<ValuesType<T>>, Array<ValuesType<T>>];
 

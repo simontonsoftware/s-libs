@@ -10,8 +10,8 @@ import { map } from './map';
  * - Micro-dash: 583 bytes
  */
 export function sortBy<T>(
-  collection: readonly T[] | ObjectWith<T> | Nil,
-  iteratees: ValueIteratee<T, any> | Array<ValueIteratee<T, any>>,
+  collection: Nil | ObjectWith<T> | readonly T[],
+  iteratees: Array<ValueIteratee<T, any>> | ValueIteratee<T, any>,
 ): T[] {
   const fns = castArray(iteratees);
   const metas = map(collection, (value: any) =>

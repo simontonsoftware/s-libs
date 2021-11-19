@@ -21,13 +21,17 @@
           }
         ],
 
+        // lodash tests that we copy commonly violate these
+        "@typescript-eslint/no-confusing-void-expression": "off",
+        "@typescript-eslint/require-array-sort-compare": "off",
+
         // micro-dash tests do weird things to make sure the library works for users when they do weird things.
         "@typescript-eslint/no-empty-function": "off",
         "no-sparse-arrays": "off",
         "prefer-regex-literals": "off",
         "prefer-rest-params": "off",
 
-        // for this project, we knowingly violate some standards for the sake of smaller bundle size
+        // we knowingly violate some standards for the sake of smaller bundle size
         "complexity": "off",
         "eqeqeq": "off",
         "max-depth": "off",
@@ -37,7 +41,11 @@
         "no-multi-assign": "off",
         "no-prototype-builtins": "off",
         "prefer-named-capture-group": "off",
-        "require-unicode-regexp": "off"
+        "require-unicode-regexp": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
+
+        // some functions accept iteratees that return either void or boolean
+        "@typescript-eslint/no-invalid-void-type": "off"
       }
     },
     { "files": ["*.html"], "rules": {} }

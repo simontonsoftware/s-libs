@@ -5,11 +5,11 @@ const a = null as unknown as A;
 const aOrN = a as A | null;
 const aOrU = a as A | undefined;
 
-// $ExpectType { [index: number]: string; }
+// $ExpectType Record<number, string>
 mapValues(a, String);
-// $ExpectType {} | { [index: number]: string; }
+// $ExpectType {} | Record<number, string>
 mapValues(aOrN, String);
-// $ExpectType {} | { [index: number]: string; }
+// $ExpectType {} | Record<number, string>
 mapValues(aOrU, String);
 
 interface O {

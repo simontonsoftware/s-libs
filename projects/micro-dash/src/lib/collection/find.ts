@@ -35,14 +35,14 @@ type PossibleKeyMatches<T, O> = {
 
 // array: value narrowing
 export function find<I, O>(
-  array: readonly I[] | Nil,
+  array: Nil | readonly I[],
   predicate: ArrayNarrowingIteratee<O>,
   fromIndex?: number,
 ): Extract<I, O> | Extract<O, I> | undefined;
 
 // array
 export function find<T>(
-  array: readonly T[] | Nil,
+  array: Nil | readonly T[],
   predicate: ArrayIteratee<T, boolean>,
   fromIndex?: number,
 ): T | undefined;
@@ -58,10 +58,10 @@ export function find<
   predicate: ValueNarrowingIteratee<T, O>,
   fromIndex?: F,
 ):
-  | PossibleValueMatches<T, O>
   | (DefiniteValueMatches<T, O> extends never ? undefined : never)
+  | IfCouldBe<F, number, undefined>
   | IfCouldBe<I, Nil, undefined>
-  | IfCouldBe<F, number, undefined>;
+  | PossibleValueMatches<T, O>;
 
 // object: key narrowing
 export function find<
@@ -74,14 +74,14 @@ export function find<
   predicate: KeyNarrowingIteratee<T, O>,
   fromIndex?: F,
 ):
-  | PossibleKeyMatches<T, O>
   | (DefiniteKeyMatches<T, O> extends never ? undefined : never)
+  | IfCouldBe<F, number, undefined>
   | IfCouldBe<I, Nil, undefined>
-  | IfCouldBe<F, number, undefined>;
+  | PossibleKeyMatches<T, O>;
 
 // object
 export function find<T>(
-  object: T | Nil,
+  object: Nil | T,
   predicate: ObjectIteratee<T, boolean>,
   fromIndex?: number,
 ): T[keyof T] | undefined;

@@ -16,7 +16,7 @@ type RemainingKeys<T, Omits> =
  * - Lodash: 15,720 bytes
  * - Micro-dash: 142 bytes
  */
-export function omit<T extends object | Nil, O extends ReadonlyArray<keyof T>>(
+export function omit<T extends Nil | object, O extends ReadonlyArray<keyof T>>(
   object: T,
   ...paths: O
 ): {
@@ -24,6 +24,7 @@ export function omit<T extends object | Nil, O extends ReadonlyArray<keyof T>>(
 } {
   const obj: any = clone(object) || {};
   for (const path of paths) {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- well, this is exactly what the user requested, so ...
     delete obj[path];
   }
   return obj;

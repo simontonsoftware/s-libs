@@ -14,7 +14,7 @@ import { keys, keysOfNonArray } from './keys';
  */
 export function forOwnRight<T>(
   object: T,
-  iteratee: ObjectIteratee<T, void | boolean>,
+  iteratee: ObjectIteratee<T, boolean | void>,
 ): T {
   forEachRightOfArray(keys(object), (key) =>
     iteratee(object[key as keyof T], key),
@@ -24,7 +24,7 @@ export function forOwnRight<T>(
 
 export function forOwnRightOfNonArray<T>(
   object: T,
-  iteratee: ObjectIteratee<T, void | boolean>,
+  iteratee: ObjectIteratee<T, boolean | void>,
 ): T {
   forEachRightOfArray(keysOfNonArray(object), (key) =>
     iteratee(object[key as keyof T], key),

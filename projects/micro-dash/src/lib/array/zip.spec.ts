@@ -17,24 +17,24 @@ describe('zip()', () => {
   it('has fancy typing', () => {
     expect().nothing();
 
-    expectTypeOf(zip(['a'], ['yes'])).toEqualTypeOf<[string, string][]>();
+    expectTypeOf(zip(['a'], ['yes'])).toEqualTypeOf<Array<[string, string]>>();
     expectTypeOf(zip(['a'], [1, 'no'])).toEqualTypeOf<
-      [string, string | number][]
+      Array<[string, number | string]>
     >();
     expectTypeOf(zip(['a'], [2], [new Date()])).toEqualTypeOf<
-      [string, number, Date][]
+      Array<[string, number, Date]>
     >();
     expectTypeOf(zip(['a'], [2], [new Date()], [null])).toEqualTypeOf<
-      [string, number, Date, null][]
+      Array<[string, number, Date, null]>
     >();
     expectTypeOf(zip(['a'], ['b'], ['c'], ['d'], ['e'])).toEqualTypeOf<
       string[][]
     >();
     expectTypeOf(
-      zip<string | number>(['a'], [2], ['c'], [4], ['e']),
-    ).toEqualTypeOf<(string | number)[][]>();
+      zip<number | string>(['a'], [2], ['c'], [4], ['e']),
+    ).toEqualTypeOf<Array<Array<number | string>>>();
     expectTypeOf(zip(['a'], null, ['c'], undefined, ['e'])).toEqualTypeOf<
-      (string | null | undefined)[][]
+      Array<Array<string | null | undefined>>
     >();
   });
 

@@ -13,7 +13,7 @@
  */
 export function update<T>(
   object: T,
-  path: ReadonlyArray<string | number>,
+  path: ReadonlyArray<number | string>,
   updater: (val: any) => any,
 ): T {
   if (object && path.length) {

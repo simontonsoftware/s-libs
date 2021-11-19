@@ -34,9 +34,9 @@ export type IfIndexType<T, If, Else = never> = string extends T
 
 type IndexKeys<T> = { [K in keyof T]: IfIndexType<K, K> }[keyof T];
 type NonIndexKeys<T> = { [K in keyof T]: IfIndexType<K, never, K> }[keyof T];
-export type PartialExceptIndexes<T> = { [K in IndexKeys<T>]: T[K] } & {
+export type PartialExceptIndexes<T> = {
   [K in NonIndexKeys<T>]?: T[K];
-};
+} & { [K in IndexKeys<T>]: T[K] };
 
 export type Evaluate<T> = T extends infer I ? { [K in keyof I]: T[K] } : never;
 

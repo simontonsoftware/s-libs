@@ -14,7 +14,7 @@ describe('memoize()', () => {
   });
 
   it('should support a `resolver`', () => {
-    const fn = (a: number, b: number, c: number) => a + b + c;
+    const fn = (a: number, b: number, c: number): number => a + b + c;
 
     const memoized = memoize(fn, fn);
 

@@ -16,7 +16,7 @@ import { update } from './update';
  */
 export function set<T>(
   object: T,
-  path: ReadonlyArray<string | number>,
+  path: ReadonlyArray<number | string>,
   value: any,
 ): T {
   return update(object, path, constant(value));

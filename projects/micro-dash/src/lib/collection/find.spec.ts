@@ -22,28 +22,28 @@ describe('find()', () => {
   it('has fancy typing for arrays', () => {
     expect().nothing();
 
-    type A = Array<string | number>;
+    type A = Array<number | string>;
     const a = [1, 'b'] as A;
     const aOrU = a as A | undefined;
     const aOrN = a as A | null;
 
     expectTypeOf(find(a, () => true)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(a, () => true, 1)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(aOrU, () => true)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(aOrU, () => true, 1)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(aOrN, () => true)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(aOrN, () => true, 1)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
 
     // Narrowing
@@ -87,13 +87,13 @@ describe('find()', () => {
     expectTypeOf(find(abOrU, isString)).toEqualTypeOf<'a' | 'b' | undefined>();
     expectTypeOf(find(abOrN, isString)).toEqualTypeOf<'a' | 'b' | undefined>();
 
-    type AN = Array<'a' | number>;
+    type AN = Array<number | 'a'>;
     const an = ['a'] as AN;
     const anOrN = ['a'] as AN | null;
     const anOrU = ['a'] as AN | undefined;
-    expectTypeOf(find(an, isStringOr2)).toEqualTypeOf<2 | 'a' | undefined>();
-    expectTypeOf(find(anOrU, isStringOr2)).toEqualTypeOf<2 | 'a' | undefined>();
-    expectTypeOf(find(anOrN, isStringOr2)).toEqualTypeOf<2 | 'a' | undefined>();
+    expectTypeOf(find(an, isStringOr2)).toEqualTypeOf<'a' | 2 | undefined>();
+    expectTypeOf(find(anOrU, isStringOr2)).toEqualTypeOf<'a' | 2 | undefined>();
+    expectTypeOf(find(anOrN, isStringOr2)).toEqualTypeOf<'a' | 2 | undefined>();
   });
 
   it('has fancy typing for objects', () => {
@@ -109,22 +109,22 @@ describe('find()', () => {
     const oOrN = o as O | null;
 
     expectTypeOf(find(o, () => true)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(o, () => true, 1)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(oOrU, () => true)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(oOrU, () => true, 1)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(oOrN, () => true)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(oOrN, () => true, 1)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
 
     // Value narrowing
@@ -146,38 +146,38 @@ describe('find()', () => {
     expectTypeOf(find(oOrN, isDate)).toEqualTypeOf<Date | undefined>();
     expectTypeOf(find(oOrN, isDate, 1)).toEqualTypeOf<Date | undefined>();
 
-    expectTypeOf(find(o, isNumberOrString)).toEqualTypeOf<string | number>();
+    expectTypeOf(find(o, isNumberOrString)).toEqualTypeOf<number | string>();
     expectTypeOf(find(o, isNumberOrString, 1)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(oOrU, isNumberOrString)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(oOrU, isNumberOrString, 1)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(oOrN, isNumberOrString)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(oOrN, isNumberOrString, 1)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
 
-    expectTypeOf(find(o, isDateOrString)).toEqualTypeOf<string | Date>();
+    expectTypeOf(find(o, isDateOrString)).toEqualTypeOf<Date | string>();
     expectTypeOf(find(o, isDateOrString, 1)).toEqualTypeOf<
-      string | Date | undefined
+      Date | string | undefined
     >();
     expectTypeOf(find(oOrU, isDateOrString)).toEqualTypeOf<
-      string | Date | undefined
+      Date | string | undefined
     >();
     expectTypeOf(find(oOrU, isDateOrString, 1)).toEqualTypeOf<
-      string | Date | undefined
+      Date | string | undefined
     >();
     expectTypeOf(find(oOrN, isDateOrString)).toEqualTypeOf<
-      string | Date | undefined
+      Date | string | undefined
     >();
     expectTypeOf(find(oOrN, isDateOrString, 1)).toEqualTypeOf<
-      string | Date | undefined
+      Date | string | undefined
     >();
 
     expectTypeOf(find(o, isMap)).toEqualTypeOf<undefined>();
@@ -202,7 +202,7 @@ describe('find()', () => {
     >();
 
     interface S2 {
-      a: 'a' | number;
+      a: number | 'a';
     }
     const s2 = { a: 2 } as S2;
     const s2OrU = { a: 2 } as S2 | undefined;
@@ -213,15 +213,15 @@ describe('find()', () => {
     expectTypeOf(find(s2OrU, isA, 1)).toEqualTypeOf<'a' | undefined>();
     expectTypeOf(find(s2OrN, isA)).toEqualTypeOf<'a' | undefined>();
     expectTypeOf(find(s2OrN, isA, 1)).toEqualTypeOf<'a' | undefined>();
-    expectTypeOf(find(s2, isStringOr2)).toEqualTypeOf<2 | 'a' | undefined>();
-    expectTypeOf(find(s2, isStringOr2, 1)).toEqualTypeOf<2 | 'a' | undefined>();
-    expectTypeOf(find(s2OrU, isStringOr2)).toEqualTypeOf<2 | 'a' | undefined>();
+    expectTypeOf(find(s2, isStringOr2)).toEqualTypeOf<'a' | 2 | undefined>();
+    expectTypeOf(find(s2, isStringOr2, 1)).toEqualTypeOf<'a' | 2 | undefined>();
+    expectTypeOf(find(s2OrU, isStringOr2)).toEqualTypeOf<'a' | 2 | undefined>();
     expectTypeOf(find(s2OrU, isStringOr2, 1)).toEqualTypeOf<
-      2 | 'a' | undefined
+      'a' | 2 | undefined
     >();
-    expectTypeOf(find(s2OrN, isStringOr2)).toEqualTypeOf<2 | 'a' | undefined>();
+    expectTypeOf(find(s2OrN, isStringOr2)).toEqualTypeOf<'a' | 2 | undefined>();
     expectTypeOf(find(s2OrN, isStringOr2, 1)).toEqualTypeOf<
-      2 | 'a' | undefined
+      'a' | 2 | undefined
     >();
 
     // Key narrowing
@@ -236,40 +236,40 @@ describe('find()', () => {
     const sOrN = s as S | null;
 
     expectTypeOf(find(s, keyIsString)).toEqualTypeOf<
-      string | number | Date | Document
+      Date | Document | number | string
     >();
     expectTypeOf(find(s, keyIsString, 1)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(sOrU, keyIsString)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(sOrU, keyIsString, 1)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(sOrN, keyIsString)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(sOrN, keyIsString, 1)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(o, keyIsString)).toEqualTypeOf<
-      string | number | Date | Document
+      Date | Document | number | string
     >();
     expectTypeOf(find(o, keyIsString, 1)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(oOrU, keyIsString)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(oOrU, keyIsString, 1)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(oOrN, keyIsString)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(oOrN, keyIsString, 1)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
 
     expectTypeOf(find(s, keyIsNumber)).toEqualTypeOf<undefined>();
@@ -291,21 +291,21 @@ describe('find()', () => {
     expectTypeOf(find(sOrU, keyIsA, 1)).toEqualTypeOf<number | undefined>();
     expectTypeOf(find(sOrN, keyIsA)).toEqualTypeOf<number | undefined>();
     expectTypeOf(find(sOrN, keyIsA, 1)).toEqualTypeOf<number | undefined>();
-    expectTypeOf(find(o, keyIsA)).toEqualTypeOf<string | number>();
+    expectTypeOf(find(o, keyIsA)).toEqualTypeOf<number | string>();
     expectTypeOf(find(o, keyIsA, 1)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(oOrU, keyIsA)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(oOrU, keyIsA, 1)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(oOrN, keyIsA)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(oOrN, keyIsA, 1)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
 
     expectTypeOf(find(s, keyIsString2)).toEqualTypeOf<undefined>();
@@ -358,56 +358,56 @@ describe('find()', () => {
     expectTypeOf(find(sOrN, keyIsC, 1)).toEqualTypeOf<
       Date | Document | undefined
     >();
-    expectTypeOf(find(o, keyIsC)).toEqualTypeOf<string | Date | Document>();
+    expectTypeOf(find(o, keyIsC)).toEqualTypeOf<Date | Document | string>();
     expectTypeOf(find(o, keyIsC, 1)).toEqualTypeOf<
-      string | Date | Document | undefined
+      Date | Document | string | undefined
     >();
     expectTypeOf(find(oOrU, keyIsC)).toEqualTypeOf<
-      string | Date | Document | undefined
+      Date | Document | string | undefined
     >();
     expectTypeOf(find(oOrU, keyIsC, 1)).toEqualTypeOf<
-      string | Date | Document | undefined
+      Date | Document | string | undefined
     >();
     expectTypeOf(find(oOrN, keyIsC)).toEqualTypeOf<
-      string | Date | Document | undefined
+      Date | Document | string | undefined
     >();
     expectTypeOf(find(oOrN, keyIsC, 1)).toEqualTypeOf<
-      string | Date | Document | undefined
+      Date | Document | string | undefined
     >();
 
-    expectTypeOf(find(s, keyIsAorC)).toEqualTypeOf<number | Date | Document>();
+    expectTypeOf(find(s, keyIsAorC)).toEqualTypeOf<Date | Document | number>();
     expectTypeOf(find(s, keyIsAorC, 1)).toEqualTypeOf<
-      number | Date | Document | undefined
+      Date | Document | number | undefined
     >();
     expectTypeOf(find(sOrU, keyIsAorC)).toEqualTypeOf<
-      number | Date | Document | undefined
+      Date | Document | number | undefined
     >();
     expectTypeOf(find(sOrU, keyIsAorC, 1)).toEqualTypeOf<
-      number | Date | Document | undefined
+      Date | Document | number | undefined
     >();
     expectTypeOf(find(sOrN, keyIsAorC)).toEqualTypeOf<
-      number | Date | Document | undefined
+      Date | Document | number | undefined
     >();
     expectTypeOf(find(sOrN, keyIsAorC, 1)).toEqualTypeOf<
-      number | Date | Document | undefined
+      Date | Document | number | undefined
     >();
     expectTypeOf(find(o, keyIsAorC)).toEqualTypeOf<
-      string | number | Date | Document
+      Date | Document | number | string
     >();
     expectTypeOf(find(o, keyIsAorC, 1)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(oOrU, keyIsAorC)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(oOrU, keyIsAorC, 1)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(oOrN, keyIsAorC)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
     expectTypeOf(find(oOrN, keyIsAorC, 1)).toEqualTypeOf<
-      string | number | Date | Document | undefined
+      Date | Document | number | string | undefined
     >();
 
     expectTypeOf(find(s, keyIsAorNumber)).toEqualTypeOf<number>();
@@ -426,30 +426,30 @@ describe('find()', () => {
     expectTypeOf(find(sOrN, keyIsAorNumber, 1)).toEqualTypeOf<
       number | undefined
     >();
-    expectTypeOf(find(o, keyIsAorNumber)).toEqualTypeOf<string | number>();
+    expectTypeOf(find(o, keyIsAorNumber)).toEqualTypeOf<number | string>();
     expectTypeOf(find(o, keyIsAorNumber, 1)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(oOrU, keyIsAorNumber)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(oOrU, keyIsAorNumber, 1)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(oOrN, keyIsAorNumber)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(find(oOrN, keyIsAorNumber, 1)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
 
-    const so = {} as { [key: string]: number | string };
+    const so = {} as Record<string, number | string>;
     expectTypeOf(find(so, isString)).toEqualTypeOf<string | undefined>();
     expectTypeOf(find(so, isNumber)).toEqualTypeOf<number | undefined>();
     expectTypeOf(find(so, isDate)).toEqualTypeOf<undefined>();
     expectTypeOf(find(so, isDateOrString)).toEqualTypeOf<string | undefined>();
-    expectTypeOf(find(so, keyIsString)).toEqualTypeOf<string | number>();
-    expectTypeOf(find(so, keyIsA)).toEqualTypeOf<string | number | undefined>();
+    expectTypeOf(find(so, keyIsString)).toEqualTypeOf<number | string>();
+    expectTypeOf(find(so, keyIsA)).toEqualTypeOf<number | string | undefined>();
     expectTypeOf(find(so, keyIsNumber)).toEqualTypeOf<undefined>();
   });
 

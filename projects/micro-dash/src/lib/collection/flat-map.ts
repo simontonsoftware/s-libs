@@ -11,11 +11,11 @@ import { map } from './map';
  */
 
 export function flatMap<I, O>(
-  array: readonly I[] | Nil,
+  array: Nil | readonly I[],
   iteratee: ArrayIteratee<I, O | O[]>,
 ): O[];
 export function flatMap<T, O>(
-  object: T | Nil,
+  object: Nil | T,
   iteratee: ObjectIteratee<T, O | O[]>,
 ): O[];
 

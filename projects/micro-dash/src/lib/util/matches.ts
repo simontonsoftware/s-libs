@@ -16,5 +16,5 @@ import { cloneDeep, isMatch } from '../lang';
  */
 export function matches(source: any): (value: any) => boolean {
   source = cloneDeep(source);
-  return (value: any) => isMatch(value, source);
+  return (value: any): boolean => isMatch(value, source);
 }

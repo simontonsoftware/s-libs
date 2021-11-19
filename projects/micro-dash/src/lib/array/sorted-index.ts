@@ -8,7 +8,7 @@ import { Nil } from '../interfaces';
  * - Lodash: 1,304 bytes
  * - Micro-dash: 268 bytes
  */
-export function sortedIndex<T>(array: readonly T[] | Nil, value: T): number {
+export function sortedIndex<T>(array: Nil | readonly T[], value: T): number {
   let min = 0;
   let max = array ? array.length - 1 : 0;
   while (max > min) {

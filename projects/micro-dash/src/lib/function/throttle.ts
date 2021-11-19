@@ -17,25 +17,28 @@ export function throttle<T extends (...args: any[]) => any>(
   func: T,
   wait = 0,
   { leading = true, trailing = true } = {},
-): ((...args: Parameters<T>) => void) & { cancel(): void; flush(): void } {
+): ((...args: Parameters<T>) => void) & {
+  cancel: () => void;
+  flush: () => void;
+} {
   let tail = 0;
   let nextArgs: Parameters<T> | undefined;
   let timeoutId: any;
 
   // helpers to save some bytes
-  const now = () => performance.now();
-  const setNewTail = () => {
+  const now = (): number => performance.now();
+  const setNewTail = (): void => {
     tail = now() + wait;
   };
 
-  const cancel = () => {
+  const cancel = (): void => {
     clearTimeout(timeoutId);
     timeoutId = undefined;
     nextArgs = undefined;
     tail = 0;
   };
 
-  const flush = () => {
+  const flush = (): void => {
     if (nextArgs) {
       const args = nextArgs;
       cancel();
@@ -45,7 +48,7 @@ export function throttle<T extends (...args: any[]) => any>(
     }
   };
 
-  const throttled = (...args: Parameters<T>) => {
+  const throttled = (...args: Parameters<T>): void => {
     nextArgs = args;
     const delay = Math.max(0, tail - now());
     if (!delay && (leading || timeoutId)) {

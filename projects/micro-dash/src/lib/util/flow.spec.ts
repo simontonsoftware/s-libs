@@ -7,9 +7,9 @@ describe('flow()', () => {
   //
 
   it('should supply each function with the return value of the previous', () => {
-    const increment = (x: number) => x + 1;
-    const square = (x: number) => x * x;
-    const fixed = (n: number) => n.toFixed(1);
+    const increment = (x: number): number => x + 1;
+    const square = (x: number): number => x * x;
+    const fixed = (n: number): string => n.toFixed(1);
 
     expect(flow(increment, square, fixed)(2)).toBe('9.0');
   });

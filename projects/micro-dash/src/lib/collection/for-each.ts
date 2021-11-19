@@ -9,13 +9,13 @@ import { forOwnOfNonArray } from '../object/for-own';
  * - Micro-dash: 200 bytes
  */
 
-export function forEach<T extends readonly any[] | Nil>(
+export function forEach<T extends Nil | readonly any[]>(
   array: T,
-  iteratee: ArrayIteratee<NonNullable<T>[number], void | boolean>,
+  iteratee: ArrayIteratee<NonNullable<T>[number], boolean | void>,
 ): T;
 export function forEach<T>(
   object: T,
-  iteratee: ObjectIteratee<NonNullable<T>, void | boolean>,
+  iteratee: ObjectIteratee<NonNullable<T>, boolean | void>,
 ): T;
 
 export function forEach(collection: any, iteratee: any): any {
@@ -29,7 +29,7 @@ export function forEach(collection: any, iteratee: any): any {
 
 export function forEachOfArray<T>(
   array: readonly T[],
-  iteratee: ArrayIteratee<T, void | boolean>,
+  iteratee: ArrayIteratee<T, boolean | void>,
 ): void {
   for (let i = 0, len = array.length; i < len; ++i) {
     if (iteratee(array[i], i) === false) {

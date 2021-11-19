@@ -54,9 +54,9 @@ export function bindKey<
 >(
   object: T,
   key: K,
-  ...args: [A1, A2, A3, A4, ...any[]]
+  ...partials: [A1, A2, A3, A4, ...any[]]
 ): (...args: any[]) => ReturnType<T[K]>;
 
 export function bindKey(object: any, key: any, ...partials: any[]): any {
-  return (...args: any[]) => object[key](...partials, ...args);
+  return (...args: any[]): any => object[key](...partials, ...args);
 }

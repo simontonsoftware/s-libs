@@ -102,7 +102,7 @@ describe('isMatch()', () => {
   });
 
   it('should return `true` when comparing an empty `source`', () => {
-    const object = { a: 1 } as { a: 1 } | any[] | Falsey;
+    const object = { a: 1 } as any[] | Falsey | { a: 1 };
     expect(isMatch(object, [])).toBe(true);
     expect(isMatch(object, {})).toBe(true);
     expect(isMatch(object, null)).toBe(true);
@@ -114,8 +114,8 @@ describe('isMatch()', () => {
   });
 
   it('should return `true` when comparing an empty `source` to a nullish `object`', () => {
-    expect(isMatch(null as null | {}, {})).toEqual(true);
-    expect(isMatch(undefined as undefined | {}, {})).toEqual(true);
+    expect(isMatch(null as {} | null, {})).toEqual(true);
+    expect(isMatch(undefined as {} | undefined, {})).toEqual(true);
   });
 
   it('should return `true` when comparing a `source` of empty arrays and objects', () => {

@@ -13,7 +13,7 @@ import { IfCouldBe, Nil } from '../interfaces';
 export function pick<T, P extends ReadonlyArray<keyof NonNullable<T>>>(
   object: T,
   ...paths: P
-): { [K in P[number]]: NonNullable<T>[K] } | IfCouldBe<T, Nil, {}> {
+): IfCouldBe<T, Nil, {}> | { [K in P[number]]: NonNullable<T>[K] } {
   const result: any = {};
   if (object != null) {
     for (const path of paths) {

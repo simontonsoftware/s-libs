@@ -26,56 +26,56 @@ declare const a: A;
 declare const aOrU: A | undefined;
 declare const aOrN: A | null;
 
-// $ExpectType { [index: number]: string | number; }
+// $ExpectType Record<number, string | number>
 omitBy(a, () => true);
-// $ExpectType { [index: number]: string | number; }
+// $ExpectType Record<number, string | number>
 omitBy(aOrU, () => true);
-// $ExpectType { [index: number]: string | number; }
+// $ExpectType Record<number, string | number>
 omitBy(aOrN, () => true);
 
 // narrowing
 
-// $ExpectType { [index: number]: number; }
+// $ExpectType Record<number, number>
 omitBy(a, isString);
-// $ExpectType { [index: number]: number; }
+// $ExpectType Record<number, number>
 omitBy(aOrU, isString);
-// $ExpectType { [index: number]: number; }
+// $ExpectType Record<number, number>
 omitBy(aOrN, isString);
 
-// $ExpectType { [index: number]: number; }
+// $ExpectType Record<number, number>
 omitBy(a, isDateOrString);
-// $ExpectType { [index: number]: number; }
+// $ExpectType Record<number, number>
 omitBy(aOrU, isDateOrString);
-// $ExpectType { [index: number]: number; }
+// $ExpectType Record<number, number>
 omitBy(aOrN, isDateOrString);
 
-// $ExpectType { [index: number]: string | number; }
+// $ExpectType Record<number, string | number>
 omitBy(a, isA);
-// $ExpectType { [index: number]: string | number; }
+// $ExpectType Record<number, string | number>
 omitBy(aOrU, isA);
-// $ExpectType { [index: number]: string | number; }
+// $ExpectType Record<number, string | number>
 omitBy(aOrN, isA);
 
 type AB = Array<'a' | 'b'>;
 declare const ab: AB;
 declare const abOrU: AB | undefined;
 declare const abOrN: AB | null;
-// $ExpectType { [index: number]: "b"; }
+// $ExpectType Record<number, "b">
 omitBy(ab, isA);
-// $ExpectType { [index: number]: "b"; }
+// $ExpectType Record<number, "b">
 omitBy(abOrU, isA);
-// $ExpectType { [index: number]: "b"; }
+// $ExpectType Record<number, "b">
 omitBy(abOrN, isA);
 
 type AN = Array<'a' | number>;
 declare const an: AN;
 declare const anOrU: AN | undefined;
 declare const anOrN: AN | null;
-// $ExpectType { [index: number]: number; }
+// $ExpectType Record<number, number>
 omitBy(an, isStringOr2);
-// $ExpectType { [index: number]: number; }
+// $ExpectType Record<number, number>
 omitBy(anOrU, isStringOr2);
-// $ExpectType { [index: number]: number; }
+// $ExpectType Record<number, number>
 omitBy(anOrN, isStringOr2);
 
 //
@@ -106,11 +106,11 @@ omitBy(oOrU, isString);
 // $ExpectType { a: number; c: Date | Document; } | {}
 omitBy(oOrN, isString);
 
-// $ExpectType { 2: string; a: number; c?: Document | undefined; }
+// $ExpectType { c?: Document | undefined; 2: string; a: number; }
 omitBy(o, isDate);
-// $ExpectType {} | { 2: string; a: number; c?: Document | undefined; }
+// $ExpectType {} | { c?: Document | undefined; 2: string; a: number; }
 omitBy(oOrU, isDate);
-// $ExpectType {} | { 2: string; a: number; c?: Document | undefined; }
+// $ExpectType {} | { c?: Document | undefined; 2: string; a: number; }
 omitBy(oOrN, isDate);
 
 // $ExpectType { c: Date | Document; }
@@ -120,11 +120,11 @@ omitBy(oOrU, isNumberOrString);
 // $ExpectType {} | { c: Date | Document; }
 omitBy(oOrN, isNumberOrString);
 
-// $ExpectType { a: number; c?: Document | undefined; }
+// $ExpectType { c?: Document | undefined; a: number; }
 omitBy(o, isDateOrString);
-// $ExpectType {} | { a: number; c?: Document | undefined; }
+// $ExpectType {} | { c?: Document | undefined; a: number; }
 omitBy(oOrU, isDateOrString);
-// $ExpectType {} | { a: number; c?: Document | undefined; }
+// $ExpectType {} | { c?: Document | undefined; a: number; }
 omitBy(oOrN, isDateOrString);
 
 // $ExpectType { 2: string; a: number; c: Date | Document; }

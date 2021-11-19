@@ -15,12 +15,12 @@ import { ObjectWith } from '../interfaces';
 
 export function transform<E, A>(
   array: readonly E[] | undefined,
-  iteratee: (accumulator: A, value: E, index: number) => void | boolean,
+  iteratee: (accumulator: A, value: E, index: number) => boolean | void,
   accumulator?: A,
 ): A;
 export function transform<E, A>(
   object: ObjectWith<E> | undefined,
-  iteratee: (accumulator: A, value: E, key: string) => void | boolean,
+  iteratee: (accumulator: A, value: E, key: string) => boolean | void,
   accumulator?: A,
 ): A;
 

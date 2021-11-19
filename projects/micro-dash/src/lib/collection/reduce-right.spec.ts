@@ -16,8 +16,11 @@ describe('reduceRight()', () => {
   it('has fancy typing', () => {
     expect().nothing();
 
-    type Ary = Array<string | number>;
-    type Obj = { a: string; b: number };
+    type Ary = Array<number | string>;
+    interface Obj {
+      a: string;
+      b: number;
+    }
 
     const a: Ary = [] as any;
     const aOrNull: Ary | null = [] as any;
@@ -28,15 +31,15 @@ describe('reduceRight()', () => {
     const oOrUndefined: Obj | undefined = {} as any;
     const oOrNullOrUndefined: Obj | null | undefined = {} as any;
 
-    expectTypeOf(reduceRight(a, identity)).toEqualTypeOf<string | number>();
+    expectTypeOf(reduceRight(a, identity)).toEqualTypeOf<number | string>();
     expectTypeOf(reduceRight(aOrNull, identity)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(reduceRight(aOrUndefined, identity)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(reduceRight(aOrNullOrUndefined, identity)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(reduceRight(a, identity, 4)).toEqualTypeOf<number>();
     expectTypeOf(reduceRight(aOrNull, identity, 4)).toEqualTypeOf<number>();
@@ -47,15 +50,15 @@ describe('reduceRight()', () => {
       reduceRight(aOrNullOrUndefined, identity, 4),
     ).toEqualTypeOf<number>();
 
-    expectTypeOf(reduceRight(o, identity)).toEqualTypeOf<string | number>();
+    expectTypeOf(reduceRight(o, identity)).toEqualTypeOf<number | string>();
     expectTypeOf(reduceRight(oOrNull, identity)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(reduceRight(oOrUndefined, identity)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(reduceRight(oOrNullOrUndefined, identity)).toEqualTypeOf<
-      string | number | undefined
+      number | string | undefined
     >();
     expectTypeOf(reduceRight(o, identity, 4)).toEqualTypeOf<number>();
     expectTypeOf(reduceRight(oOrNull, identity, 4)).toEqualTypeOf<number>();
@@ -67,14 +70,14 @@ describe('reduceRight()', () => {
     ).toEqualTypeOf<number>();
 
     reduceRight(a, (accumulator, value, index) => {
-      expectTypeOf(accumulator).toEqualTypeOf<string | number>();
-      expectTypeOf(value).toEqualTypeOf<string | number>();
+      expectTypeOf(accumulator).toEqualTypeOf<number | string>();
+      expectTypeOf(value).toEqualTypeOf<number | string>();
       expectTypeOf(index).toEqualTypeOf<number>();
       return 1;
     });
     reduceRight(aOrNull, (accumulator, value, index) => {
-      expectTypeOf(accumulator).toEqualTypeOf<string | number>();
-      expectTypeOf(value).toEqualTypeOf<string | number>();
+      expectTypeOf(accumulator).toEqualTypeOf<number | string>();
+      expectTypeOf(value).toEqualTypeOf<number | string>();
       expectTypeOf(index).toEqualTypeOf<number>();
       return 1;
     });
@@ -82,7 +85,7 @@ describe('reduceRight()', () => {
       a,
       (accumulator, value, index) => {
         expectTypeOf(accumulator).toEqualTypeOf<Date>();
-        expectTypeOf(value).toEqualTypeOf<string | number>();
+        expectTypeOf(value).toEqualTypeOf<number | string>();
         expectTypeOf(index).toEqualTypeOf<number>();
         return accumulator;
       },
@@ -92,7 +95,7 @@ describe('reduceRight()', () => {
       aOrNull,
       (accumulator, value, index) => {
         expectTypeOf(accumulator).toEqualTypeOf<Date>();
-        expectTypeOf(value).toEqualTypeOf<string | number>();
+        expectTypeOf(value).toEqualTypeOf<number | string>();
         expectTypeOf(index).toEqualTypeOf<number>();
         return accumulator;
       },
@@ -100,14 +103,14 @@ describe('reduceRight()', () => {
     );
 
     reduceRight(o, (accumulator, value, index) => {
-      expectTypeOf(accumulator).toEqualTypeOf<string | number>();
-      expectTypeOf(value).toEqualTypeOf<string | number>();
+      expectTypeOf(accumulator).toEqualTypeOf<number | string>();
+      expectTypeOf(value).toEqualTypeOf<number | string>();
       expectTypeOf(index).toEqualTypeOf<'a' | 'b'>();
       return 1;
     });
     reduceRight(oOrNull, (accumulator, value, index) => {
-      expectTypeOf(accumulator).toEqualTypeOf<string | number>();
-      expectTypeOf(value).toEqualTypeOf<string | number>();
+      expectTypeOf(accumulator).toEqualTypeOf<number | string>();
+      expectTypeOf(value).toEqualTypeOf<number | string>();
       expectTypeOf(index).toEqualTypeOf<'a' | 'b'>();
       return 1;
     });
@@ -115,7 +118,7 @@ describe('reduceRight()', () => {
       o,
       (accumulator, value, index) => {
         expectTypeOf(accumulator).toEqualTypeOf<Date>();
-        expectTypeOf(value).toEqualTypeOf<string | number>();
+        expectTypeOf(value).toEqualTypeOf<number | string>();
         expectTypeOf(index).toEqualTypeOf<'a' | 'b'>();
         return accumulator;
       },
@@ -125,7 +128,7 @@ describe('reduceRight()', () => {
       oOrNull,
       (accumulator, value, index) => {
         expectTypeOf(accumulator).toEqualTypeOf<Date>();
-        expectTypeOf(value).toEqualTypeOf<string | number>();
+        expectTypeOf(value).toEqualTypeOf<number | string>();
         expectTypeOf(index).toEqualTypeOf<'a' | 'b'>();
         return accumulator;
       },

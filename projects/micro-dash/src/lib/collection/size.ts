@@ -9,8 +9,8 @@ import { keys } from '../object';
  */
 
 export function size(collection: object): number;
-export function size(collection: readonly any[] | string): number;
+export function size(collection: string | readonly any[]): number;
 
-export function size(collection: object | readonly any[] | string): number {
+export function size(collection: object | string | readonly any[]): number {
   return keys(collection).length;
 }

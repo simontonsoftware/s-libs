@@ -68,7 +68,7 @@ describe('curry()', () => {
       b: string,
       c: string,
     ): number[] {
-      const value = this || {};
+      const value = this ?? {};
       return [value[a], value[b], value[c]];
     }
 

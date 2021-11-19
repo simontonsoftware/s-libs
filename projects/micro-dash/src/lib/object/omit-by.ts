@@ -47,31 +47,31 @@ type MaybeIncludedKeys<T, O> = {
  */
 
 export function omitBy<T, O>(
-  object: readonly T[] | Nil,
+  object: Nil | readonly T[],
   predicate: ValueNarrowingIteratee<T[], O>,
-): { [index: number]: Exclude<T, O> };
+): Record<number, Exclude<T, O>>;
 export function omitBy<T>(
-  object: readonly T[] | Nil,
+  object: Nil | readonly T[],
   predicate: ObjectIteratee<T, boolean>,
-): { [index: number]: T };
+): Record<number, T>;
 
 export function omitBy<I, T extends NonNullable<I>, O>(
   object: I,
   predicate: ValueNarrowingIteratee<T, O>,
 ): Evaluate<
-  | ({ [K in KeysWithDefinitelyIncludedValues<T, O>]: Exclude<T[K], O> } & {
-      [K in KeysWithMaybeIncludedValues<T, O>]?: Exclude<T[K], O>;
-    })
   | IfCouldBe<I, Nil, {}>
+  | ({
+      [K in KeysWithMaybeIncludedValues<T, O>]?: Exclude<T[K], O>;
+    } & { [K in KeysWithDefinitelyIncludedValues<T, O>]: Exclude<T[K], O> })
 >;
 export function omitBy<I, T extends NonNullable<I>, O>(
   object: I,
   predicate: KeyNarrowingIteratee<T, O>,
 ): Evaluate<
+  | IfCouldBe<I, Nil, {}>
   | ({
       [K in DefinitelyIncludedKeys<T, O>]: T[K];
     } & { [K in MaybeIncludedKeys<T, O>]?: T[K] })
-  | IfCouldBe<I, Nil, {}>
 >;
 export function omitBy<T>(
   object: T,

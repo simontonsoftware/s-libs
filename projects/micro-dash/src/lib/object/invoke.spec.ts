@@ -19,7 +19,7 @@ describe('invoke()', () => {
   });
 
   it('should support invoking with arguments', () => {
-    const obj = { a: (a: any, b: any) => [a, b] };
+    const obj = { a: (a: any, b: any): any[] => [a, b] };
     expect(invoke(obj, ['a'], 1, 2)).toEqual([1, 2]);
   });
 
@@ -29,7 +29,7 @@ describe('invoke()', () => {
   });
 
   it('should support deep paths', () => {
-    const obj = { a: { b: (a: any, b: any) => [a, b] } };
+    const obj = { a: { b: (a: any, b: any): any[] => [a, b] } };
     expect(invoke(obj, ['a', 'b'], 1, 2)).toEqual([1, 2]);
   });
 

@@ -10,16 +10,16 @@ import { doReduce } from './reduce-utils';
  * - Micro-dash: 319 bytes
  */
 
-export function reduce<T extends readonly any[] | Nil>(
+export function reduce<T extends Nil | readonly any[]>(
   array: T,
   iteratee: (
     accumulator: NonNullable<T>[number],
     value: NonNullable<T>[number],
     index: number,
   ) => NonNullable<T>[number],
-): NonNullable<T>[number] | IfCouldBe<T, Nil, undefined>;
+): IfCouldBe<T, Nil, undefined> | NonNullable<T>[number];
 export function reduce<E, A>(
-  array: readonly E[] | Nil,
+  array: Nil | readonly E[],
   iteratee: (accumulator: A, value: E, index: number) => A,
   accumulator: A,
 ): A;
@@ -30,7 +30,7 @@ export function reduce<T>(
     value: NonNullable<T>[keyof NonNullable<T>],
     key: keyof NonNullable<T>,
   ) => NonNullable<T>[keyof NonNullable<T>],
-): NonNullable<T>[keyof NonNullable<T>] | IfCouldBe<T, Nil, undefined>;
+): IfCouldBe<T, Nil, undefined> | NonNullable<T>[keyof NonNullable<T>];
 export function reduce<T, A>(
   object: T,
   iteratee: (

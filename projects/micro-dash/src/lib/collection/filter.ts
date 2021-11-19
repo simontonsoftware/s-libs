@@ -19,11 +19,11 @@ import { forEach } from './for-each';
  */
 
 export function filter<I, O>(
-  array: readonly I[] | Nil,
+  array: Nil | readonly I[],
   predicate: ArrayNarrowingIteratee<O>,
 ): Array<Extract<I, O> | Extract<O, I>>;
 export function filter<T>(
-  array: readonly T[] | Nil,
+  array: Nil | readonly T[],
   predicate: ArrayIteratee<T, boolean>,
 ): T[];
 
@@ -36,7 +36,7 @@ export function filter<I, O>(
   predicate: KeyNarrowingIteratee<I, O>,
 ): Array<{ [K in keyof I]: IfCouldBe<Cast<K, string>, O, I[K]> }[keyof I]>;
 export function filter<T>(
-  object: T | Nil,
+  object: Nil | T,
   predicate: ObjectIteratee<T, boolean>,
 ): Array<T[keyof T]>;
 

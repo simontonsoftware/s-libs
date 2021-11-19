@@ -18,6 +18,6 @@ export function words(string: string): string[] {
       .replace(/([A-Za-z])(\d)/g, '$1 $2')
       // before last upper in a sequence followed by lower
       .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3')
-      .match(/[A-Za-z0-9]+/g) || []
+      .match(/[A-Za-z0-9]+/g) ?? []
   );
 }

@@ -11,11 +11,11 @@ import { forOwnRightOfNonArray } from '../object/for-own-right';
 
 export function forEachRight<T>(
   array: readonly T[] | undefined,
-  iteratee: ArrayIteratee<T, void | boolean>,
+  iteratee: ArrayIteratee<T, boolean | void>,
 ): T[];
 export function forEachRight<T>(
   object: T | undefined,
-  iteratee: ObjectIteratee<T, void | boolean>,
+  iteratee: ObjectIteratee<T, boolean | void>,
 ): T;
 
 export function forEachRight(collection: any, iteratee: any): any {
@@ -29,7 +29,7 @@ export function forEachRight(collection: any, iteratee: any): any {
 
 export function forEachRightOfArray<T>(
   array: readonly T[],
-  iteratee: ArrayIteratee<T, void | boolean>,
+  iteratee: ArrayIteratee<T, boolean | void>,
 ): void {
   for (let i = array.length; --i >= 0; ) {
     if (iteratee(array[i], i) === false) {
