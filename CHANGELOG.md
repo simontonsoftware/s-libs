@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.0.0](https://github.com/simontonsoftware/s-libs/compare/v13.0.0-next.0...v13.0.0) (2021-11-20)
+
+### Bug Fixes
+
+- **ng-dev:** properly export `expectRequest` and `SlTestRequest` ([9c64fdd](https://github.com/simontonsoftware/s-libs/commit/9c64fdd290007f0ee8e438a831ee8126a4b2b4d4))
+
 ## [13.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v12.0.0...v13.0.0-next.0) (2021-11-20)
 
 ### ⚠ BREAKING CHANGES
