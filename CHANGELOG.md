@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v12.0.0...v13.0.0-next.0) (2021-11-20)
+
+### ⚠ BREAKING CHANGES
+
+- **all libraries:** UMD bundles are no longer published, because the Angular CLI no longer creates them.
+- **ng-core:** In subclasses of `WrappedFormControlSuperclass`, rename all references of `formControl` to `control`
+- **ng-core:** If you have a subclass of `WrappedFormControlSuperclass` that implement `ngOnInit()`, you must now call `super.ngOnInit()`
+- **ng-core:** Rename all references of `FormControlSuperclass` to `FormComponentSuperclass`
+- **ng-dev:** In a previous version, linting config moved from `ng-dev` to `eslint-config-ng`. The old config was deprecated, now it is removed.
+- **ng-dev:** Tests that cause a call to `ErrorHandler.handleError` will now fail. Expect the errors with something like `ctx.inject(MockErrorHandler).expectOne('error message')`.
+- **ng-dev:** `trimLeftoverStyles()` has been removed, because Angular does it now by default.
+- **ng-dev:** The deprecated `precompileForTests()` was removed from the library. It was only useful for the old View Engine renderer.
+- **ng-dev:** The behavior for `AsyncMethodController` to automatically trigger promise handlers and change detection is now opt-out instead of opt-in. The `ctx` option for its constructor has been removed. If you are using an `AngularContext` and do _not_ want automatic calls to `.tick()` after each `.flush()` and `.error()`, pass a new option the constructor: `autoTick: false`.
+- **ng-dev:** To track which context is "current", it is now an error to create a context object without later calling its `.run()` method.
+- **ng-dev:** To track which context is "current", it is now required for context subclasses to call `super.cleanUp()`.
+
+### Features
+
+- Upgrade peer dependencies to RxJs 7.4, Angular 13, and Jasmine 3.10 ([b030aa1](https://github.com/simontonsoftware/s-libs/commit/b030aa1380dc6204a4ba2299008639c3dfb11d0d))
+- **app-state:** improve error message when trying to `.assign()` to undefined state. ([ad11531](https://github.com/simontonsoftware/s-libs/commit/ad11531439e5113172e9272a10d103dc87bc620a)), closes [#53](https://github.com/simontonsoftware/s-libs/issues/53)
+- **js-core:** Improve typing of `mapToObject()` for index types ([4310429](https://github.com/simontonsoftware/s-libs/commit/431042908c473765ebe1a155f7501220fc82bfae)), closes [#54](https://github.com/simontonsoftware/s-libs/issues/54)
+- **micro-dash:** add `intersection()` ([1c9a715](https://github.com/simontonsoftware/s-libs/commit/1c9a71570c674867769e69aa0c78f748c8557f15)), closes [#48](https://github.com/simontonsoftware/s-libs/issues/48)
+- **micro-dash:** add `partition()` ([14417df](https://github.com/simontonsoftware/s-libs/commit/14417df4b4087de86e5f62c2874cb4f3fdf32823)), closes [#25](https://github.com/simontonsoftware/s-libs/issues/25)
+- **micro-dash:** add `property()` ([52a3c02](https://github.com/simontonsoftware/s-libs/commit/52a3c021490fca0b0ed4b42b4bb0c010e9babb83))
+- **ng-app-state:** `nasModel` accepts `null` for the store, for compatibility with an async pipe ([f5f8f7a](https://github.com/simontonsoftware/s-libs/commit/f5f8f7aafd3eb3ad319b2019431563360dc7c81a)), closes [#60](https://github.com/simontonsoftware/s-libs/issues/60)
+- **ng-core:** add `WrappedControlSuperclass` ([fb7cc7e](https://github.com/simontonsoftware/s-libs/commit/fb7cc7eb9fd052c49bf9132c0f8e40d45f7092b8))
+- **ng-core:** No longer require unnecessary-looking constructors when extending `WrappedControlSuperclass` ([337eaa3](https://github.com/simontonsoftware/s-libs/commit/337eaa30e2dc05fec35c0bc0a3350d188c188031))
+- **ng-core:** Rename `FormControlSuperclass` to `FormComponentSuperclass`, to better match Angular terminology (where a "FormControl" is not a component) ([481908d](https://github.com/simontonsoftware/s-libs/commit/481908d6cbafc5d282edbe250eb2c1de791f42c8))
+- **ng-dev:** `AngularContext` now uses `MockErrorHandler`. ([71f0c44](https://github.com/simontonsoftware/s-libs/commit/71f0c445f3a2061f1eafac52809ec05ec5a9e33c))
+- **ng-dev:** `AsyncMethodController` no longer needs the `ctx` argument ([3c2f190](https://github.com/simontonsoftware/s-libs/commit/3c2f19020c889351be0cd28c220b855ddd850801))
+- **ng-dev:** `ComponentContext` no longer clears styles between tests that were added by anyone other than angular. (This is desirable when using e.g. Ionic or Fontawesome, which expect styles to persist.) ([b42af81](https://github.com/simontonsoftware/s-libs/commit/b42af8178f78ed5a7ddd8c23989a9720ff6d052e)), closes [#34](https://github.com/simontonsoftware/s-libs/issues/34)
+- **ng-dev:** add `AngularContext.getCurrent()` ([0c0acfc](https://github.com/simontonsoftware/s-libs/commit/0c0acfc6183311eb617094e9c4d54122d97afd94))
+- **ng-dev:** add `expectRequest()` and `SlTestRequest` ([115b757](https://github.com/simontonsoftware/s-libs/commit/115b7570c25fae9948a86a5fd8d1d1f52bcad094))
+- **ng-dev:** add `MockErrorHandler` ([d83353e](https://github.com/simontonsoftware/s-libs/commit/d83353e872cd959ff7a9c9b0999ed9a9b67d0e99))
+- **ng-dev:** provide a nice error message why trying to use `AngularContext.tick()` outside `.run()` ([396af3c](https://github.com/simontonsoftware/s-libs/commit/396af3c31a73ac37426b3bf6a3fab84eba32c588)), closes [#29](https://github.com/simontonsoftware/s-libs/issues/29)
+- **ng-dev:** remove deprecated linting config ([5b4aefe](https://github.com/simontonsoftware/s-libs/commit/5b4aefed45cd73c365d8f566885574b396482ad4))
+
+### Bug Fixes
+
+- **js-core:** Fix typing to show that `Persistence.get()` can return `undefined` ([50239e5](https://github.com/simontonsoftware/s-libs/commit/50239e54d9f6b6a20f49e95a26a3ab0934eb099c)), closes [#56](https://github.com/simontonsoftware/s-libs/issues/56)
+- **micro-dash:** `flatten()` and `flatMap()` now work on very large arrays ([5c215da](https://github.com/simontonsoftware/s-libs/commit/5c215daba189095efc941a517a9158ddab33a17c)), closes [#46](https://github.com/simontonsoftware/s-libs/issues/46)
+- **ng-core:** `WrappedControlSuperclass` gracefully handles errors thrown from `innerToOuter()` and `outerToInner()` ([45599aa](https://github.com/simontonsoftware/s-libs/commit/45599aaef8c8283cfb03ed54f4460d8202a0fcf0))
+- **ng-core:** Fix a timing issue when combining `nasModel` and `WrappedControlSuperclass` so that it properly receives its initial value ([6e07405](https://github.com/simontonsoftware/s-libs/commit/6e0740568868c329116b9fd2117e1e9ccc3a0702))
+- **ng-dev:** fix compilation error in CI ([2ff1d2c](https://github.com/simontonsoftware/s-libs/commit/2ff1d2cb86edf4223b231ca440da644c300be4af))
+
 ## [12.0.0](https://github.com/simontonsoftware/s-libs/compare/v12.0.0-next.1...v12.0.0) (2021-05-26)
 
 ### Features
