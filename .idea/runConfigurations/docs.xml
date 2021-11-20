@@ -1,11 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="npm-publish prerelease" type="js.build_tools.npm">
+  <configuration default="false" name="docs" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="npm-publish" />
+      <script value="docs" />
     </scripts>
-    <arguments value="--tag next" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />
