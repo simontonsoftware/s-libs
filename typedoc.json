@@ -1,6 +1,5 @@
 {
   "excludePrivate": true,
   "gitRevision": "master",
-  "readme": "none",
-  "theme": "docs/typedoc-theme"
+  "readme": "none"
 }
