@@ -2,12 +2,14 @@ import {
   AngularContext,
   AsyncMethodController,
   ComponentContext,
-  TestCall,
   createSpyObject,
   expectCallsAndReset,
+  expectRequest,
   expectSingleCallAndReset,
   logTimers,
   marbleTest,
+  SlTestRequest,
+  TestCall,
 } from '@s-libs/ng-dev';
 
 describe('ng-dev', () => {
@@ -27,12 +29,20 @@ describe('ng-dev', () => {
     expect(TestCall).toBeDefined();
   });
 
+  it('has SlTestRequest', () => {
+    expect(SlTestRequest).toBeDefined();
+  });
+
   it('has createSpyObject()', () => {
     expect(createSpyObject).toBeDefined();
   });
 
   it('has expectCallsAndReset()', () => {
     expect(expectCallsAndReset).toBeDefined();
+  });
+
+  it('has expectRequest()', () => {
+    expect(expectRequest).toBeDefined();
   });
 
   it('has expectSingleCallAndReset()', () => {
