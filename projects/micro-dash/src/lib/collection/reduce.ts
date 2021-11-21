@@ -6,8 +6,8 @@ import { doReduce } from './reduce-utils';
  * Reduces `collection` to a value which is the accumulated result of running each element in collection thru `iteratee`, where each successive invocation is supplied the return value of the previous. If accumulator is not given, the first element of collection is used as the initial value.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 14,177 bytes
- * - Micro-dash: 319 bytes
+ * - Lodash: 14,603 bytes
+ * - Micro-dash: 391 bytes
  */
 
 export function reduce<T extends Nil | readonly any[]>(

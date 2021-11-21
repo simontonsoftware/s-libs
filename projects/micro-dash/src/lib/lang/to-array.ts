@@ -5,8 +5,8 @@ import { valuesOfNonArray } from '../object/values';
  * Converts `value` to an array.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 5,925 bytes
- * - Micro-dash: 166 bytes
+ * - Lodash: 6,104 bytes
+ * - Micro-dash: 234 bytes
  */
 
 export function toArray(value: string): string[];

@@ -2,8 +2,8 @@
  * Creates a function that negates the result of the predicate `func`. The `func` predicate is invoked with the `this` binding and arguments of the created function.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 342 bytes
- * - Micro-dash: 93 bytes
+ * - Lodash: 359 bytes
+ * - Micro-dash: 115 bytes
  */
 export function negate<F extends (...args: any[]) => any>(
   predicate: F,

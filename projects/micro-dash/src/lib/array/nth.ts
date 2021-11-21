@@ -7,7 +7,7 @@ import { Nil } from '../interfaces';
  * - does not handle a fractional value for `index`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 1,654 bytes
+ * - Lodash: 1,760 bytes
  * - Micro-dash: 113 bytes
  */
 

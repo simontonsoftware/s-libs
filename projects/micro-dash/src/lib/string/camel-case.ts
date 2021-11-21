@@ -8,8 +8,8 @@ import { words } from './words';
  * - requires `string` to be a string
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 6,139 bytes
- * - Micro-dash: 326 bytes
+ * - Lodash: 6,107 bytes
+ * - Micro-dash: 375 bytes
  */
 export function camelCase(string: string): string {
   return words(string)

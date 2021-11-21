@@ -1,4 +1,3 @@
-import { isDefined } from '@s-libs/js-core';
 import { execSync } from 'child_process';
 import * as fs from 'fs';
 import { writeFileSync } from 'fs';
@@ -6,7 +5,7 @@ import * as glob from 'glob';
 import * as path from 'path';
 import * as readline from 'readline';
 import { explore } from 'source-map-explorer';
-import { forEach } from '../micro-dash/src/lib/collection';
+import { forEach } from '../micro-dash/src/public-api';
 
 const rootDir = path.join(__dirname, '..', '..');
 const mainDir = path.join(__dirname, 'src');
@@ -68,7 +67,7 @@ async function buildAndExplore(fileGlob: string): Promise<void> {
   for (const inputPath of inputPaths) {
     build(inputPath);
     const summary = await inspect();
-    if (isDefined(summary)) {
+    if (summary !== undefined) {
       updateComment(inputPath, summary);
     }
   }

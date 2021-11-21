@@ -10,8 +10,8 @@ import { times } from './times';
  * - does not work as an iteratee for methods like `map`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 2,149 bytes
- * - Micro-dash: 174 bytes
+ * - Lodash: 2,260 bytes
+ * - Micro-dash: 214 bytes
  */
 
 export function range(end: number): number[];

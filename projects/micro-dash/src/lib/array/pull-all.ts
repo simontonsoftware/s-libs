@@ -6,8 +6,8 @@ import { remove } from './remove';
  * **Note:** Unlike `difference`, this method mutates array.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 825 bytes
- * - Micro-dash: 181 bytes
+ * - Lodash: 855 bytes
+ * - Micro-dash: 222 bytes
  */
 export function pullAll<T>(array: T[], values: T[]): T[] {
   for (const value of values.slice()) {

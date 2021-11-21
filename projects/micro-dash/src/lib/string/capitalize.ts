@@ -7,8 +7,8 @@ import { upperFirst } from './upper-first';
  * - requires `string` to be a string
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 1,971 bytes
- * - Micro-dash: 73 bytes
+ * - Lodash: 2,092 bytes
+ * - Micro-dash: 101 bytes
  */
 export function capitalize(string: string): string {
   return upperFirst(string.toLowerCase());
