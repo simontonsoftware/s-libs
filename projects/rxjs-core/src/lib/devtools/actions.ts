@@ -1,4 +1,6 @@
-// Copied from https://github.com/reduxjs/redux/blob/b3165d0cbd0d8f48142284807d764160df26d6fa/src/types/actions.ts, to avoid requiring `redux` as an installed dependency just for this typing.
+// Copied from https://github.com/reduxjs/redux/blob/066e56605763b3f71619ea2b4eadf6c08686c35c/src/types/actions.ts, to avoid requiring `redux` as an installed dependency just for this typing.
+
+/* eslint-disable */
 
 /**
  * An *action* is a plain object that represents an intention to change the
@@ -16,7 +18,6 @@
  * how actions should be constructed.
  *
  * @template T the type of the action's `type` tag.
- * @hidden
  */
 export interface Action<T = any> {
   type: T;
@@ -38,7 +39,6 @@ export interface Action<T = any> {
  * async action instead of an action.
  *
  * @template A Returned action type.
- * @hidden
  */
 export interface ActionCreator<A, P extends any[] = any[]> {
   (...args: P): A;

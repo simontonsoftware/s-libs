@@ -50,6 +50,7 @@ describe('logToReduxDevtoolsExtension()', () => {
   });
 
   it('gracefully handles when there is no extension', () => {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- I insist
     delete (window as any)[extensionKey];
     const subject = new Subject();
 

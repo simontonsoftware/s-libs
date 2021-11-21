@@ -11,7 +11,7 @@ import {
 class DestroyableService extends InjectableSuperclass {}
 
 @Directive({
-  selector: `[sDestroyableDirective]`,
+  selector: `[slDestroyableDirective]`,
   providers: [DestroyableService],
 })
 class DestroyableDirective extends InjectableSuperclass {
@@ -23,7 +23,7 @@ class DestroyableDirective extends InjectableSuperclass {
 }
 
 @Component({
-  template: `<p *ngIf="showThings" sDestroyableDirective>I'm showing.</p>`,
+  template: `<p *ngIf="showThings" slDestroyableDirective>I'm showing.</p>`,
 })
 class TestComponent {
   showThings = true;
@@ -35,7 +35,9 @@ class TestComponentContext extends ComponentContext<TestComponent> {
   constructor() {
     super(TestComponent, {
       declarations: [DestroyableDirective],
-      providers: [{ provide: Subject, useFactory: () => this.subject }],
+      providers: [
+        { provide: Subject, useFactory: (): Subject<unknown> => this.subject },
+      ],
     });
   }
 }

@@ -17,7 +17,7 @@ export function filterBehavior<T>(
 ): MonoTypeOperatorFunction<T> {
   return createOperatorFunction<T>((subscriber, destination) => {
     let firstValue = true;
-    subscriber.next = (value) => {
+    subscriber.next = (value): void => {
       if (firstValue) {
         destination.next(value);
         firstValue = false;

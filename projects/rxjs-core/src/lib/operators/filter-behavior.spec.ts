@@ -60,7 +60,7 @@ describe('filterBehavior()', () => {
 
   it('handles the predicate throwing an error', () => {
     const ex = new Error();
-    const thrower = () => {
+    const thrower = (): never => {
       throw ex;
     };
     const source = new Subject();

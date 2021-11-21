@@ -12,7 +12,7 @@ import { Observable, Subscription, Unsubscribable } from 'rxjs';
  * }
  * ```
  */
-/* eslint-disable max-lines-per-function */
+// eslint-disable-next-line max-lines-per-function,@typescript-eslint/explicit-function-return-type
 export function mixInSubscriptionManager<B extends Constructor>(Base: B) {
   return class extends Base implements Unsubscribable {
     #subscriptions = new Subscription();

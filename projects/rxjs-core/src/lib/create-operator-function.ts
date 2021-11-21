@@ -29,7 +29,7 @@ export function createOperatorFunction<
     destination: Observer<DestinationType>,
   ) => void,
 ): OperatorFunction<SourceType, DestinationType> {
-  return (source: Observable<SourceType>) =>
+  return (source: Observable<SourceType>): Observable<DestinationType> =>
     new Observable<DestinationType>((destination) => {
       const subscriber = new Subscriber<SourceType>(destination);
       modifySubscriber(subscriber, destination);
@@ -41,5 +41,5 @@ interface RequiredSubscriber<T> extends Subscriber<T> {
   /**
    * `value` is optional in `Subscriber`. We need it to be required.
    */
-  next(value: T): void;
+  next: (value: T) => void;
 }

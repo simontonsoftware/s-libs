@@ -9,7 +9,7 @@ import { AbstractInputValueAccessorDirective } from './abstract-input-value-acce
 })
 export class RangeValueAccessorDirective extends AbstractInputValueAccessorDirective {
   override registerOnChange(fn: (value: number) => void): void {
-    this.onChangeFn = (value: string) => {
+    this.onChangeFn = (value: string): void => {
       fn(parseFloat(value));
     };
   }

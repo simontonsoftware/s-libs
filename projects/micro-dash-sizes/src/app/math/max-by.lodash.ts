@@ -1,3 +1,3 @@
 import maxBy from 'lodash-es/maxBy';
 
-console.log(maxBy([], () => 1));
+console.log(maxBy([1], () => 1));

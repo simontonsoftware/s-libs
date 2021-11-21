@@ -3,9 +3,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RootStore } from '@s-libs/app-state';
 import { noop } from '@s-libs/micro-dash';
 
+/* eslint-disable @typescript-eslint/no-useless-constructor -- this file does injection in funny ways */
+
 class StoreComponent<T extends object> {
   compareFn: (o1: any, o2: any) => boolean = (o1: any, o2: any) =>
-    o1 && o2 ? o1.id === o2.id : o1 === o2;
+    o1?.id === o2?.id;
 
   constructor(public store: RootStore<T>) {}
 }

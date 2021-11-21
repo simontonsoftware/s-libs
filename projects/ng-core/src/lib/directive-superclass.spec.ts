@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { isDefined, isFalsy } from '@s-libs/js-core';
 import {
   AngularContext,
   ComponentContext,
@@ -30,11 +31,11 @@ import { DirectiveSuperclass } from './directive-superclass';
       Both
     </button>
     <button (click)="hide = !hide">Hide</button>
-    <s-color-text
+    <sl-color-text
       *ngIf="!hide"
       [prefix]="prefix"
       [prefix2]="prefix2"
-    ></s-color-text>
+    ></sl-color-text>
   `,
 })
 class TestComponent {
@@ -44,12 +45,12 @@ class TestComponent {
   hide = false;
 
   toggle(key: 'prefix' | 'prefix2', value: string): void {
-    this[key] = this[key] ? undefined : value;
+    this[key] = isDefined(this[key]) ? undefined : value;
   }
 }
 
 @Component({
-  selector: 's-color-text',
+  selector: 'sl-color-text',
   template: ` <span [style.background]="color">{{ color }}</span> `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -81,7 +82,10 @@ class TestComponentContext extends ComponentContext<TestComponent> {
     super(TestComponent, {
       declarations: [ColorTextComponent],
       providers: [
-        { provide: 'color$', useFactory: () => this.color$ },
+        {
+          provide: 'color$',
+          useFactory: (): Observable<string> => this.color$,
+        },
         // this can go away with component harnesses eventually
         { provide: ComponentFixtureAutoDetect, useValue: true },
       ],
@@ -112,14 +116,14 @@ describe('DirectiveSuperclass', () => {
   }
 
   function colorSpan(ctx: TestComponentContext): HTMLSpanElement {
-    return find<HTMLSpanElement>(ctx.fixture, 's-color-text span');
+    return find<HTMLSpanElement>(ctx.fixture, 'sl-color-text span');
   }
 
   it('can be used as the superclass to a pipe (production bug)', () => {
     @Pipe({ name: 'not' })
     class NotPipe extends DirectiveSuperclass implements PipeTransform {
       transform(value: any): boolean {
-        return !value;
+        return isFalsy(value);
       }
     }
     expect(() => {
@@ -173,7 +177,7 @@ describe('DirectiveSuperclass', () => {
     // https://github.com/simontonsoftware/s-ng-utils/issues/10
     it('emits `undefined` for unspecified inputs', () => {
       @Component({ template: '' })
-      class TestComponent extends DirectiveSuperclass {
+      class InputTrackingComponent extends DirectiveSuperclass {
         @Input() unspecified?: string;
         @Input() specified?: string;
         emittedValue? = 'initial value';
@@ -186,7 +190,7 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      const ctx2 = new ComponentContext(TestComponent);
+      const ctx2 = new ComponentContext(InputTrackingComponent);
       ctx2.assignInputs({ specified: 'a value' });
       ctx2.run(() => {
         const testDirective = ctx2.getComponentInstance();
@@ -197,7 +201,10 @@ describe('DirectiveSuperclass', () => {
     // https://github.com/simontonsoftware/s-libs/issues/14
     it('does not emit until ngOnChanges is called', () => {
       @Component({ template: '' })
-      class TestComponent extends DirectiveSuperclass implements OnChanges {
+      class StageTrackingComponent
+        extends DirectiveSuperclass
+        implements OnChanges
+      {
         @Input() myInput?: string;
         stage = 'before ngOnChanges';
         emittedDuring?: string;
@@ -217,7 +224,7 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      const ctx2 = new ComponentContext(TestComponent);
+      const ctx2 = new ComponentContext(StageTrackingComponent);
       ctx2.run(() => {
         const testDirective = ctx2.getComponentInstance();
         expect(testDirective.emittedDuring).toBe('after ngOnChanges');
@@ -225,7 +232,7 @@ describe('DirectiveSuperclass', () => {
     });
 
     it('emits even if no inputs are provided to the component', () => {
-      @Component({ selector: 's-no-input', template: '' })
+      @Component({ template: '' })
       class NoInputComponent extends DirectiveSuperclass {
         @Input() myInput?: string;
         emitted = false;

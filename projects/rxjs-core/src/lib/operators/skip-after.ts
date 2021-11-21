@@ -34,11 +34,14 @@ export function skipAfter<T>(
   return createOperatorFunction<T>((subscriber, destination) => {
     let skipNext = false;
     subscriber.add(
-      skip$.subscribe(() => {
-        skipNext = true;
-      }, bindKey(destination, 'error')),
+      skip$.subscribe({
+        next: () => {
+          skipNext = true;
+        },
+        error: bindKey(destination, 'error'),
+      }),
     );
-    subscriber.next = (value) => {
+    subscriber.next = (value): void => {
       if (skipNext) {
         skipNext = false;
       } else {

@@ -30,7 +30,7 @@ import { WrappedControlSuperclass } from './wrapped-control-superclass';
 describe('WrappedControlSuperclass', () => {
   it('allows setting up an observable to translate between inner and outer values', () => {
     @Component({
-      selector: 's-observable-translation',
+      selector: 'sl-observable-translation',
       template: `<input [formControl]="control" />`,
       providers: [provideValueAccessor(ObservableTranslationComponent)],
     })
@@ -58,9 +58,9 @@ describe('WrappedControlSuperclass', () => {
 
     @Component({
       template: `
-        <s-observable-translation
+        <sl-observable-translation
           [(ngModel)]="outerValue"
-        ></s-observable-translation>
+        ></sl-observable-translation>
       `,
     })
     class WrapperComponent {
@@ -114,7 +114,7 @@ describe('WrappedControlSuperclass', () => {
     }
 
     @Component({
-      selector: 's-full-name',
+      selector: 'sl-full-name',
       template: `
         <div [formGroup]="control">
           <input id="first" formControlName="firstName" />
@@ -131,13 +131,13 @@ describe('WrappedControlSuperclass', () => {
 
       protected override outerToInner(outer: FullName | null): FullName {
         // `outer` can come in as `null` during initialization when the user binds with `ngModel`
-        return outer || new FullName();
+        return outer ?? new FullName();
       }
     }
 
     @Component({
       template: `
-        <s-full-name [ngModel]="fullName" [disabled]="disabled"></s-full-name>
+        <sl-full-name [ngModel]="fullName" [disabled]="disabled"></sl-full-name>
       `,
     })
     class FormComponent {
@@ -255,16 +255,16 @@ describe('WrappedControlSuperclass', () => {
 describe('WrappedControlSuperclass tests using an old style fixture', () => {
   @Component({
     template: `
-      <s-string-component
+      <sl-string-component
         [(ngModel)]="string"
         (ngModelChange)="emissions = emissions + 1"
         #stringControl="ngModel"
         [disabled]="shouldDisable"
-      ></s-string-component>
+      ></sl-string-component>
       <div *ngIf="stringControl.touched">Touched!</div>
       <button (click)="shouldDisable = !shouldDisable">Toggle Disabled</button>
       <hr />
-      <s-date-component [(ngModel)]="date"></s-date-component>
+      <sl-date-component [(ngModel)]="date"></sl-date-component>
     `,
   })
   class TestComponent {
@@ -275,7 +275,7 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
   }
 
   @Component({
-    selector: `s-string-component`,
+    selector: `sl-string-component`,
     template: ` <input [formControl]="control" /> `,
     providers: [provideValueAccessor(StringComponent)],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -285,7 +285,7 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
   }
 
   @Component({
-    selector: `s-date-component`,
+    selector: `sl-date-component`,
     template: ` <input type="datetime-local" [formControl]="control" /> `,
     providers: [provideValueAccessor(DateComponent)],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -298,8 +298,9 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
     }
 
     protected override outerToInner(value: Date): string {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- happens during initialization
       if (value === null) {
-        return ''; // happens during initialization
+        return '';
       }
       return value.toISOString().substr(0, 16);
     }
@@ -324,12 +325,12 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
   function stringInput(): HTMLInputElement {
     return find<HTMLInputElement>(
       masterCtx.fixture,
-      's-string-component input',
+      'sl-string-component input',
     );
   }
 
   function dateInput(): HTMLInputElement {
-    return find<HTMLInputElement>(masterCtx.fixture, 's-date-component input');
+    return find<HTMLInputElement>(masterCtx.fixture, 'sl-date-component input');
   }
 
   function toggleDisabledButton(): HTMLButtonElement {

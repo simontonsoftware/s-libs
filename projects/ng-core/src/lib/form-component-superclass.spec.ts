@@ -13,11 +13,11 @@ import { InjectableSuperclass } from './injectable-superclass';
 
 @Component({
   template: `
-    <s-counter
+    <sl-counter
       [(ngModel)]="value"
       #counter="ngModel"
       [disabled]="shouldDisable"
-    ></s-counter>
+    ></sl-counter>
     <div *ngIf="counter.touched">Touched!</div>
     <button (click)="shouldDisable = !shouldDisable">Toggle Disabled</button>
   `,
@@ -28,7 +28,7 @@ class TestComponent {
 }
 
 @Component({
-  selector: `s-counter`,
+  selector: `sl-counter`,
   template: `
     <button (click)="increment()" [disabled]="isDisabled">{{ counter }}</button>
   `,
@@ -60,7 +60,7 @@ describe('FormComponentSuperclass', () => {
   });
 
   function incrementButton(): HTMLButtonElement {
-    return find<HTMLButtonElement>(ctx.fixture, 's-counter button');
+    return find<HTMLButtonElement>(ctx.fixture, 'sl-counter button');
   }
 
   function toggleDisabledButton(): HTMLButtonElement {

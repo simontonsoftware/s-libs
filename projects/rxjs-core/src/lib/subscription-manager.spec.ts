@@ -1,3 +1,4 @@
+import { isDefined } from '@s-libs/js-core';
 import { expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { of, Subject, throwError } from 'rxjs';
 import {
@@ -26,7 +27,7 @@ describe('SubscriptionManager', () => {
     for (const num of sequence) {
       subject.next(num);
     }
-    if (errorText) {
+    if (isDefined(errorText)) {
       subject.error(errorText);
     } else {
       subject.complete();

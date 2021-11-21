@@ -26,17 +26,17 @@ export function logValues<T>(
   prefix?: string,
   level: 'debug' | 'trace' | 'info' | 'log' | 'warn' | 'error' = 'log',
 ): MonoTypeOperatorFunction<T> {
-  return tap<T>(
-    makeLogFn('[value]'),
-    makeLogFn('[error]'),
-    makeLogFn('[complete]'),
-  );
+  return tap<T>({
+    next: makeLogFn('[value]'),
+    error: makeLogFn('[error]'),
+    complete: makeLogFn('[complete]'),
+  });
 
   function makeLogFn(...prefixes: string[]): (value?: any) => void {
     if (prefix !== undefined) {
       prefixes.push(prefix);
     }
-    return (...values: any[]) => {
+    return (...values: any[]): void => {
       console[level](...prefixes, ...values);
     };
   }

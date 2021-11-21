@@ -20,7 +20,7 @@ import {
  * ```
  */
 export function cache<T>(): MonoTypeOperatorFunction<T> {
-  return (source: Observable<T>) => {
+  return (source: Observable<T>): Observable<T> => {
     let middleMan: ReplaySubject<T> | undefined;
     let upstreamSubscription: Subscription;
     return new Observable<T>((subscriber) => {
@@ -32,7 +32,7 @@ export function cache<T>(): MonoTypeOperatorFunction<T> {
       const subscription = middleMan.subscribe(subscriber);
 
       // teardown logic
-      return () => {
+      return (): void => {
         subscription.unsubscribe();
         if (middleMan!.observers.length === 0) {
           upstreamSubscription.unsubscribe();

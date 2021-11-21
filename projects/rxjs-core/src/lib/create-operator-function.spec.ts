@@ -15,7 +15,7 @@ import { createOperatorFunction } from './create-operator-function';
  */
 function map<I, O>(fn: (input: I) => O): OperatorFunction<I, O> {
   return createOperatorFunction<I, O>((subscriber, destination) => {
-    subscriber.next = (value) => {
+    subscriber.next = (value): void => {
       destination.next(fn(value));
     };
   });
@@ -32,10 +32,10 @@ describe('createOperatorFunction()', () => {
     const sub = subscribeWithStubs(
       source.pipe(
         createOperatorFunction<number>((subscriber, destination) => {
-          subscriber.next = (value) => {
+          subscriber.next = (value): void => {
             destination.next(value + 1);
           };
-          subscriber.error = (value) => {
+          subscriber.error = (value): void => {
             destination.error(value - 1);
           };
         }),

@@ -1,3 +1,4 @@
+import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { AngularContext } from '@s-libs/ng-dev';
 
@@ -9,11 +10,11 @@ export function findButton(
     (candidate) =>
       candidate.nativeElement.nodeName === 'BUTTON' &&
       candidate.nativeElement.textContent.trim() === text,
-  );
-  if (found) {
-    return found.nativeElement;
-  } else {
+  ) as DebugElement | null;
+  if (found === null) {
     throw new Error('No button with text ' + text);
+  } else {
+    return found.nativeElement;
   }
 }
 
@@ -21,11 +22,11 @@ export function find<T extends Element>(
   fixture: ComponentFixture<any>,
   cssSelector: string,
 ): T {
-  const found = fixture.nativeElement.querySelector(cssSelector) as T;
-  if (found) {
-    return found;
-  } else {
+  const found = fixture.nativeElement.querySelector(cssSelector) as T | null;
+  if (found === null) {
     throw new Error('could not find ' + cssSelector);
+  } else {
+    return found;
   }
 }
 

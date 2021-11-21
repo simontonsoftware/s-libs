@@ -48,7 +48,7 @@ import { InjectableSuperclass } from './injectable-superclass';
  * ```
  */
 // maybe this won't need the fake selector after https://github.com/angular/angular/issues/36427
-@Directive({ selector: '[sDirectiveSuperclass]' })
+@Directive({ selector: '[slDirectiveSuperclass]' })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class DirectiveSuperclass
   extends InjectableSuperclass

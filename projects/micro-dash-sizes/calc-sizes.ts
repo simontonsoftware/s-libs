@@ -1,3 +1,4 @@
+import { isDefined } from '@s-libs/js-core';
 import { execSync } from 'child_process';
 import * as fs from 'fs';
 import { writeFileSync } from 'fs';
@@ -16,7 +17,7 @@ const sourceDir = path.join(rootDir, 'projects', 'micro-dash', 'src', 'lib');
 run();
 
 async function run(): Promise<void> {
-  // eslint-disable-next-line no-constant-condition
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   while (true) {
     const base = await getFileBaseInput();
     const library = await getLibraryInput();
@@ -52,7 +53,7 @@ async function getLibraryInput(): Promise<string> {
   return library;
 }
 
-function getInput(text: string): Promise<string> {
+async function getInput(text: string): Promise<string> {
   return new Promise<string>((resolve) => {
     const reader = readline.createInterface(process.stdin, process.stdout);
     reader.question(text, (answer) => {
@@ -67,13 +68,13 @@ async function buildAndExplore(fileGlob: string): Promise<void> {
   for (const inputPath of inputPaths) {
     build(inputPath);
     const summary = await inspect();
-    if (summary) {
+    if (isDefined(summary)) {
       updateComment(inputPath, summary);
     }
   }
 }
 
-function getPaths(fileGlob: string): Promise<string[]> {
+async function getPaths(fileGlob: string): Promise<string[]> {
   return new Promise<string[]>((resolve) => {
     glob(path.join(appDir, fileGlob), { nodir: true }, (_err, files) => {
       resolve(files);
@@ -118,7 +119,7 @@ async function inspect(): Promise<string | undefined> {
 }
 
 function updateComment(inputPath: string, summary: string): void {
-  const { lib } = summary.match(/ - (?<lib>.*):/u)!.groups!;
+  const { lib } = / - (?<lib>.*):/u.exec(summary)!.groups!;
 
   const relativePath = path.relative(appDir, inputPath);
   const baseName = relativePath.replace(/\.lodash|\.microdash/u, '');

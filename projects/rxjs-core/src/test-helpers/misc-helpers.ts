@@ -17,7 +17,7 @@ export async function expectPipeResult<I, O>(
   expect(await pipeAndCollect(source, operator)).toEqual(result);
 }
 
-export function pipeAndCollect<I, O>(
+export async function pipeAndCollect<I, O>(
   source: I[],
   operator: OperatorFunction<I, O>,
 ): Promise<O[]> {
@@ -29,8 +29,8 @@ export function testUserFunctionError(
   upstreamValue: any,
 ): () => void {
   return marbleTest(({ hot, expectObservable, expectSubscriptions }) => {
-    const thrower = () => {
-      // this is the error TestScheduler expects when it sees "#"
+    const thrower = (): never => {
+      // eslint-disable-next-line @typescript-eslint/no-throw-literal -- this is the error TestScheduler expects when it sees "#"
       throw 'error';
     };
     const source = hot('-1-', { 1: upstreamValue });
@@ -67,7 +67,8 @@ export function testUnsubscribePropagation(
 export function testValuePropagation(
   buildOperator: () => OperatorFunction<any, any>,
 ): () => Promise<void> {
-  return () => expectPipeResult([1, 'b'], buildOperator(), [1, 'b']);
+  return async (): Promise<void> =>
+    expectPipeResult([1, 'b'], buildOperator(), [1, 'b']);
 }
 
 export function testErrorPropagation(
