@@ -8,6 +8,7 @@ interface InputMeta<T> {
   property: keyof T;
 }
 
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- change detection is carefully orchestrated in the typescript */
 @Component({ template: '' })
 export class WrapperComponent<T> {
   static wrap<T>(

@@ -130,7 +130,37 @@
         "@typescript-eslint/no-throw-literal": ["error"],
         "@typescript-eslint/no-unused-expressions": ["error"],
         "@typescript-eslint/no-useless-constructor": ["error"],
-        "@typescript-eslint/return-await": ["error"]
+        "@typescript-eslint/return-await": ["error"],
+
+        //
+        // @angular-eslint
+        //
+
+        // Typescript
+        "@angular-eslint/component-max-inline-declarations": ["error"],
+        "@angular-eslint/contextual-decorator": ["error"],
+        "@angular-eslint/no-lifecycle-call": ["error"],
+        "@angular-eslint/no-queries-metadata-property": ["error"],
+        "@angular-eslint/prefer-on-push-component-change-detection": ["error"],
+        "@angular-eslint/relative-url-prefix": ["error"],
+        "@angular-eslint/sort-ngmodule-metadata-arrays": ["error"]
+      }
+    },
+    {
+      "files": ["*.spec.ts"],
+      "rules": {
+        "@angular-eslint/component-max-inline-declarations": "off",
+        "@angular-eslint/prefer-on-push-component-change-detection": "off"
+      }
+    },
+    {
+      "files": ["*.html"],
+      "rules": {
+        "@angular-eslint/template/click-events-have-key-events": ["error"],
+        "@angular-eslint/template/conditional-complexity": ["error"],
+        "@angular-eslint/template/cyclomatic-complexity": ["error"],
+        "@angular-eslint/template/mouse-events-have-key-events": ["error"],
+        "@angular-eslint/template/no-duplicate-attributes": ["error"]
       }
     }
   ]

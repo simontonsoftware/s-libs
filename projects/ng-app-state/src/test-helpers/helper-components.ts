@@ -4,6 +4,7 @@ import { RootStore } from '@s-libs/app-state';
 import { noop } from '@s-libs/micro-dash';
 
 /* eslint-disable @typescript-eslint/no-useless-constructor -- this file does injection in funny ways */
+/* eslint-disable @angular-eslint/component-max-inline-declarations,@angular-eslint/prefer-on-push-component-change-detection -- this file is for specs, and these rules are disabled for specs */
 
 class StoreComponent<T extends object> {
   compareFn: (o1: any, o2: any) => boolean = (o1: any, o2: any) =>
