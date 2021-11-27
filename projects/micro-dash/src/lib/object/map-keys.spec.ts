@@ -1,10 +1,9 @@
 import { expectCallsAndReset } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
-import { identity } from '../util';
+import { identity } from 'lodash-es';
 import { mapKeys } from './map-keys';
-import { mapValues } from './map-values';
 
-describe('mapValues()', () => {
+describe('mapKeys()', () => {
   it('has fancy typing', () => {
     expect().nothing();
 
@@ -13,20 +12,16 @@ describe('mapValues()', () => {
     const aOrN = a as A | null;
     const aOrU = a as A | undefined;
 
-    expectTypeOf(mapValues(a, String)).toEqualTypeOf<Record<number, string>>();
-    expectTypeOf(mapValues(aOrN, String)).toEqualTypeOf<
-      Record<number, string>
-    >();
-    expectTypeOf(mapValues(aOrU, String)).toEqualTypeOf<
-      Record<number, string>
-    >();
-    expectTypeOf(mapValues(a, identity)).toEqualTypeOf<
+    expectTypeOf(mapKeys(a, String)).toEqualTypeOf<Record<string, number>>();
+    expectTypeOf(mapKeys(aOrN, String)).toEqualTypeOf<Record<string, number>>();
+    expectTypeOf(mapKeys(aOrU, String)).toEqualTypeOf<Record<string, number>>();
+    expectTypeOf(mapKeys(a, (_v, k) => k)).toEqualTypeOf<
       Record<number, number>
     >();
-    expectTypeOf(mapValues(aOrN, identity)).toEqualTypeOf<
+    expectTypeOf(mapKeys(aOrN, (_v, k) => k)).toEqualTypeOf<
       Record<number, number>
     >();
-    expectTypeOf(mapValues(aOrU, identity)).toEqualTypeOf<
+    expectTypeOf(mapKeys(aOrU, (_v, k) => k)).toEqualTypeOf<
       Record<number, number>
     >();
 
@@ -38,35 +33,28 @@ describe('mapValues()', () => {
     const oOrN = o as O | null;
     const oOrU = o as O | undefined;
 
-    expectTypeOf(mapValues(o, String)).toEqualTypeOf<{
-      a: string;
-      b: string;
-    }>();
-    expectTypeOf(mapValues(oOrN, String)).toEqualTypeOf<
-      {} | { a: string; b: string }
-    >();
-    expectTypeOf(mapValues(oOrU, String)).toEqualTypeOf<
-      {} | { a: string; b: string }
-    >();
-    expectTypeOf(mapValues(o, identity)).toEqualTypeOf<O>();
-    expectTypeOf(mapValues(oOrN, identity)).toEqualTypeOf<O | {}>();
-    expectTypeOf(mapValues(oOrU, identity)).toEqualTypeOf<O | {}>();
+    expectTypeOf(mapKeys(o, Number)).toEqualTypeOf<Record<number, number>>();
+    expectTypeOf(mapKeys(oOrN, Number)).toEqualTypeOf<Record<number, number>>();
+    expectTypeOf(mapKeys(oOrU, Number)).toEqualTypeOf<Record<number, number>>();
+    expectTypeOf(mapKeys(o, (_v, k) => k)).toEqualTypeOf<O>();
+    expectTypeOf(mapKeys(oOrN, (_v, k) => k)).toEqualTypeOf<O | {}>();
+    expectTypeOf(mapKeys(oOrU, (_v, k) => k)).toEqualTypeOf<O | {}>();
   });
 
   it('maps strings', () => {
-    expect(mapValues('ab', String) as any).toEqual({ 0: 'a', 1: 'b' });
+    expect(mapKeys('12', String) as any).toEqual({ 1: '1', 2: '2' });
   });
 
   //
   // stolen from https://github.com/lodash/lodash
   //
 
-  it('should map values in `object` to a new object', () => {
-    expect(mapValues({ a: 1, b: 2 }, String)).toEqual({ a: '1', b: '2' });
+  it('should map keys in `object` to a new object', () => {
+    expect(mapKeys({ a: 1, b: 2 }, String)).toEqual({ 1: 1, 2: 2 });
   });
 
   it('should treat arrays like objects', () => {
-    expect(mapValues([1, 2], String)).toEqual({ 0: '1', 1: '2' });
+    expect(mapKeys([1, 2], String)).toEqual({ 1: 1, 2: 2 });
   });
 
   it('should accept a falsey `object`', () => {
@@ -76,7 +64,7 @@ describe('mapValues()', () => {
 
   it('should provide correct iteratee arguments', () => {
     const spy = jasmine.createSpy();
-    mapValues([1, 2, 3], spy);
+    mapKeys([1, 2, 3], spy);
     expect(spy.calls.first().args).toEqual([1, '0']);
   });
 
@@ -85,7 +73,7 @@ describe('mapValues()', () => {
     array[2] = 3;
     const spy = jasmine.createSpy();
 
-    mapValues(array, spy);
+    mapKeys(array, spy);
 
     expectCallsAndReset(spy, [1, '0'], [3, '2']);
   });
@@ -97,7 +85,7 @@ describe('mapValues()', () => {
       return true;
     });
 
-    mapValues(array, spy);
+    mapKeys(array, spy);
 
     expect(spy).toHaveBeenCalledTimes(1);
   });
@@ -109,7 +97,7 @@ describe('mapValues()', () => {
       return true;
     });
 
-    mapValues(object, spy);
+    mapKeys(object, spy);
 
     expect(spy).toHaveBeenCalledTimes(1);
   });

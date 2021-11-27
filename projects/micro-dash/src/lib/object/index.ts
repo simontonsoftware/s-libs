@@ -5,6 +5,7 @@ export { functions } from './functions';
 export { get } from './get';
 export { invoke } from './invoke';
 export { keys } from './keys';
+export { mapKeys } from './map-keys';
 export { mapValues } from './map-values';
 export { merge } from './merge';
 export { omit } from './omit';
