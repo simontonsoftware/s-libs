@@ -136,13 +136,13 @@ export function elapsedToString(
   let showZeros = showLeadingZeros;
   const tokens: Array<number | string> = [];
   units.forEach((unit, i) => {
-    const conversion = convertTime(1, elapsedUnit, unit);
-    const value = Math.floor(elapsed * conversion);
+    const conversion = convertTime(1, unit, elapsedUnit);
+    const value = Math.floor(elapsed / conversion);
     if (value > 0 || showZeros || i === units.length - 1) {
       tokens.push(value, unit);
       showZeros = true;
     }
-    elapsed -= value / conversion;
+    elapsed -= value * conversion;
   });
   return tokens.join(' ');
 }

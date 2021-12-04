@@ -83,6 +83,29 @@ describe('time-utils', () => {
         elapsedToString(1, ['ms'], { elapsedUnit: TimeUnit.Seconds }),
       ).toBe('1000 ms');
     });
+
+    it('is accurate with large gaps in units (production bug)', () => {
+      expect(
+        elapsedToString(convertTime(1, 'w', 'ns') - 1, ['w', 'ns'], {
+          elapsedUnit: TimeUnit.Nanoseconds,
+        }),
+      ).toBe('0 w 604_799_999_999_999 ns');
+      expect(
+        elapsedToString(convertTime(1, 'w', 'ns'), ['w', 'ns'], {
+          elapsedUnit: TimeUnit.Nanoseconds,
+        }),
+      ).toBe('1 w 0 ns');
+      expect(
+        elapsedToString(convertTime(1, 'mil', 'ms') - 1, ['mil', 'ms'], {
+          elapsedUnit: TimeUnit.Milliseconds,
+        }),
+      ).toBe('0 mil 31_535_999_999_999 ms');
+      expect(
+        elapsedToString(convertTime(1, 'mil', 'ms'), ['mil', 'ms'], {
+          elapsedUnit: TimeUnit.Milliseconds,
+        }),
+      ).toBe('1 mil 0 ms');
+    });
   });
 
   describe('convertTime()', () => {
