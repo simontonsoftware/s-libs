@@ -20,6 +20,9 @@ jobs:
 
       - run: yarn test --no-watch --no-progress --browsers=ChromeHeadlessCI
 
+      # build this to make sure no template compile errors crop up that tests don't catch
+      - run: yarn build integration
+
   lint:
     runs-on: ubuntu-latest
     steps:

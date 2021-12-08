@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { isTruthy, mapToObject } from '@s-libs/js-core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { mapToObject } from '@s-libs/js-core';
 import { forEach, padStart } from '@s-libs/micro-dash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { IntegrationStore } from '../integration-store';
   selector: 'sl-nas-model',
   templateUrl: './nas-model.component.html',
   styleUrls: ['./nas-model.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NasModelComponent {
   cities: City[] = ['San Francisco', 'Nairobi', 'Gulu'];

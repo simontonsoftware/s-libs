@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   provideValueAccessor,
   WrappedFormControlSuperclass,
@@ -9,5 +9,6 @@ import {
   templateUrl: './wrapped-control.component.html',
   styleUrls: ['./wrapped-control.component.scss'],
   providers: [provideValueAccessor(WrappedControlComponent)],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WrappedControlComponent extends WrappedFormControlSuperclass<string> {}

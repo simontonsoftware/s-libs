@@ -323,7 +323,7 @@ describe('ComponentContext class-level doc examples', () => {
     // A minimal app module. Notice the added export.
     @NgModule({
       declarations: [AppComponent, FirstComponent],
-      imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule],
+      imports: [AppRoutingModule, BrowserAnimationsModule, BrowserModule],
       bootstrap: [AppComponent],
       exports: [AppComponent], // exported for use in tests
     })
