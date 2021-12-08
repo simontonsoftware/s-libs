@@ -22,6 +22,7 @@ import {
   setIntersection,
   setUnion,
   sleep,
+  Stopwatch,
   symmetricSetDifference,
   TimeUnit,
   toCsv,
@@ -54,6 +55,10 @@ describe('js-core', () => {
 
     it('has Persistence', () => {
       expect(Persistence).toBeDefined();
+    });
+
+    it('has Stopwatch', () => {
+      expect(Stopwatch).toBeDefined();
     });
 
     it('has assert', () => {

@@ -89,7 +89,7 @@ describe('time-utils', () => {
         elapsedToString(convertTime(1, 'w', 'ns') - 1, ['w', 'ns'], {
           elapsedUnit: TimeUnit.Nanoseconds,
         }),
-      ).toBe('0 w 604_799_999_999_999 ns');
+      ).toBe('0 w 604799999999999 ns');
       expect(
         elapsedToString(convertTime(1, 'w', 'ns'), ['w', 'ns'], {
           elapsedUnit: TimeUnit.Nanoseconds,
@@ -99,7 +99,7 @@ describe('time-utils', () => {
         elapsedToString(convertTime(1, 'mil', 'ms') - 1, ['mil', 'ms'], {
           elapsedUnit: TimeUnit.Milliseconds,
         }),
-      ).toBe('0 mil 31_535_999_999_999 ms');
+      ).toBe('0 mil 31535999999999 ms');
       expect(
         elapsedToString(convertTime(1, 'mil', 'ms'), ['mil', 'ms'], {
           elapsedUnit: TimeUnit.Milliseconds,
