@@ -147,6 +147,18 @@ describe('AngularContext', () => {
     });
   });
 
+  describe('.hasHarness()', () => {
+    it('returns whether a match for the harness exists', () => {
+      const ctx = new SnackBarContext();
+      ctx.run(async () => {
+        expect(await ctx.hasHarness(MatSnackBarHarness)).toBe(false);
+
+        ctx.inject(MatSnackBar).open('hi');
+        expect(await ctx.hasHarness(MatSnackBarHarness)).toBe(true);
+      });
+    });
+  });
+
   describe('.getHarness()', () => {
     it('returns a harness', () => {
       const ctx = new SnackBarContext();

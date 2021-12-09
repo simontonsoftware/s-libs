@@ -160,6 +160,14 @@ export class AngularContext {
   }
 
   /**
+   * A convenience method to determine whether a given harness can be found.
+   */
+  async hasHarness(query: HarnessQuery<ComponentHarness>): Promise<boolean> {
+    const found = await this.getAllHarnesses(query);
+    return found.length > 0;
+  }
+
+  /**
    * Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to `await` its results. Throws an error if no match can be located.
    */
   async getHarness<H extends ComponentHarness>(
