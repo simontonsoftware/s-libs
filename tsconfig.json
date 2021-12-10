@@ -21,7 +21,15 @@
     "target": "es2017",
     "module": "es2020",
     "lib": ["es2020", "dom"],
-    "paths": { "@s-libs/*": ["dist/*"] },
+    "paths": {
+      "@s-libs/*": [
+        "dist/*"
+      ],
+      "ng-mat-core": [
+        "dist/ng-mat-core/ng-mat-core",
+        "dist/ng-mat-core"
+      ]
+    },
 
     //
     // Simonton Software additions

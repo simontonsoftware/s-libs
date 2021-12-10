@@ -74,7 +74,9 @@
               "projects/integration/src/favicon.ico",
               "projects/integration/src/assets"
             ],
-            "styles": ["projects/integration/src/styles.scss"],
+            "styles": [
+              "projects/integration/src/styles.scss"
+            ],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -145,7 +147,9 @@
               "projects/integration/src/favicon.ico",
               "projects/integration/src/assets"
             ],
-            "styles": ["projects/integration/src/styles.scss"]
+            "styles": [
+              "projects/integration/src/styles.scss"
+            ]
           }
         },
         "lint": {
@@ -468,6 +472,46 @@
             "lintFilePatterns": [
               "projects/rxjs-core/**/*.ts",
               "projects/rxjs-core/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-mat-core": {
+      "projectType": "library",
+      "root": "projects/ng-mat-core",
+      "sourceRoot": "projects/ng-mat-core/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ng-mat-core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-mat-core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-mat-core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-mat-core/src/test.ts",
+            "tsConfig": "projects/ng-mat-core/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-mat-core/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ng-mat-core/**/*.ts",
+              "projects/ng-mat-core/**/*.html"
             ]
           }
         }
