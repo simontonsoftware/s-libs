@@ -185,10 +185,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/cdk@~13.0.0-next.0":
-  version "13.0.2"
-  resolved "https://registry.npmjs.org/@angular/cdk/-/cdk-13.0.2.tgz#48b9c00d24c9e764c0a718873acf8c6779241a35"
-  integrity sha512-m7RHIAXpFpgsrydhWXX1hAXRmQpQ+m9eRCYAoz8QiDCchYyVvTaxkZ8J7XGS8RtJ2EiocXSp4TlwQQrpXe+4lg==
+"@angular/cdk@~13.0.0":
+  version "13.0.4"
+  resolved "https://registry.npmjs.org/@angular/cdk/-/cdk-13.0.4.tgz#1f52944b1d7e2d2b6a38487a26e206f0b7e33bbf"
+  integrity sha512-cdCOvNbj2IQ60eQ4Dvt+aPqCp6ZSp+e7QpXicMdbxEk7J8kIcFFy2ZaxURx6wNt6Z+LRLgeasAfWB5zdP/Otfg==
   dependencies:
     tslib "^2.3.0"
   optionalDependencies:
@@ -264,10 +264,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/material@~13.0.1":
-  version "13.0.2"
-  resolved "https://registry.npmjs.org/@angular/material/-/material-13.0.2.tgz#bbab63f69c9227110b7e22d694fe984528b3d5c2"
-  integrity sha512-DbbkQFpZ73oxOuR9LkkpeUPWP31DNIG3Z94sOrtdBhX3HfbLLOCaAJAIwMl8+bEuzDgtWBmx3taUR8l4WKCO8g==
+"@angular/material@~13.0.0":
+  version "13.0.4"
+  resolved "https://registry.npmjs.org/@angular/material/-/material-13.0.4.tgz#5cda5695d94053e432e98680d6107ff941a13819"
+  integrity sha512-tgTT+bUlab2PRL0cBiF4Y3Y8c8thzfFsBG3Z4+TN8U5D9o+rGOPxqqDpkke+QSJ3ZthhlQVCHp0KXQVvgVIcfQ==
   dependencies:
     tslib "^2.3.0"
 
