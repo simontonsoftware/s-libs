@@ -19,5 +19,7 @@
     "@s-libs/rxjs-core": "^13.0.0",
     "jasmine-core": "^3.10.0"
   },
-  "dependencies": { "tslib": "^2.3.0" }
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
 }

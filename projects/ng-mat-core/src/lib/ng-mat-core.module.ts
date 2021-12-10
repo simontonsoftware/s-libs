@@ -1,16 +1,8 @@
 import { NgModule } from '@angular/core';
-import { NgMatCoreComponent } from './ng-mat-core.component';
-
-
 
 @NgModule({
-  declarations: [
-    NgMatCoreComponent
-  ],
-  imports: [
-  ],
-  exports: [
-    NgMatCoreComponent
-  ]
+  declarations: [],
+  imports: [],
+  exports: [],
 })
-export class NgMatCoreModule { }
+export class NgMatCoreModule {}
