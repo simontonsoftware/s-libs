@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularContext } from '@s-libs/ng-dev';
-import { DialogData, OK_VALUE } from './dialog.component';
+import {
+  DialogData,
+  DEFAULT_OK_VALUE,
+  SL_DIALOG_DATA,
+} from './dialog.component';
 import { DialogComponentHarness } from './dialog.component.harness';
 import { SlDialogModule } from './sl-dialog.module';
 import { SlDialogService } from './sl-dialog.service';
@@ -78,7 +82,21 @@ describe('DialogComponent', () => {
     });
   });
 
-  it('defaults to an "OK" button with primary color and OK_VALUE', () => {
+  it('can inject input to a component', () => {
+    @Component({ template: '{{ myInput }}' })
+    class MyDialogComponent {
+      constructor(@Inject(SL_DIALOG_DATA) public myInput: string) {}
+    }
+
+    ctx.run(async () => {
+      show({ component: MyDialogComponent, slDialogData: 'My input.' });
+
+      const dialog = await ctx.getHarness(DialogComponentHarness);
+      expect(await dialog.getContentText()).toBe('My input.');
+    });
+  });
+
+  it('defaults to an "OK" button with primary color and DEFAULT_OK_VALUE', () => {
     ctx.run(async () => {
       const closedPromise = show({});
 
@@ -87,7 +105,7 @@ describe('DialogComponent', () => {
       expect(await dialog.getButtonColors()).toEqual(['primary']);
 
       await dialog.clickButton('OK');
-      expect(await closedPromise).toBe(OK_VALUE);
+      expect(await closedPromise).toBe(DEFAULT_OK_VALUE);
     });
   });
 
