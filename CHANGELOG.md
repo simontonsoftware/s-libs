@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v13.1.0-next.0...v13.1.0-next.1) (2021-12-18)
+
+### Bug Fixes
+
+- **ng-mat-core:** properly export `SlDialogService` ([68d3963](https://github.com/simontonsoftware/s-libs/commit/68d3963247a1aff82656ecfd3612976ad4106750))
+
 ## [13.1.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v13.0.0...v13.1.0-next.0) (2021-12-18)
 
 ### Features
