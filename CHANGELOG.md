@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v13.0.0...v13.1.0-next.0) (2021-12-18)
+
+### Features
+
+- **js-core:** add `Stopwatch` ([2704c53](https://github.com/simontonsoftware/s-libs/commit/2704c532b82cff1882eb7648668489f8ffe6350e))
+- **micro-dash:** add `mapKeys()` ([f29016a](https://github.com/simontonsoftware/s-libs/commit/f29016a031e1c395642fbbd2e9e1375e662a1a71))
+- **ng-dev:** add `AngularContext.hasHarness()` ([464a9b9](https://github.com/simontonsoftware/s-libs/commit/464a9b9c17b6e469bd48a11478a90309d85e8f69))
+- **ng-mat-core:** Introducing `@s-libs/ng-mat-core`! A library of utility for Angular Material. The first thing available: `SlDialogService` ([#71](https://github.com/simontonsoftware/s-libs/issues/71)) ([91de8e6](https://github.com/simontonsoftware/s-libs/commit/91de8e69196aa62876e0e0549f8ab04ac2e0f13b))
+
+### Bug Fixes
+
+- **js-core:** improve accuracy of `elapsedToString()` when computing both very large and very small units. (It is now accurate until the largest unit is about a quadrillion times the size of the smallest unit.) ([fa072cd](https://github.com/simontonsoftware/s-libs/commit/fa072cd4e304d0f125eb77c5526bbf9d40746c36))
+
 ## [13.0.0](https://github.com/simontonsoftware/s-libs/compare/v13.0.0-next.0...v13.0.0) (2021-11-20)
 
 ### Bug Fixes
