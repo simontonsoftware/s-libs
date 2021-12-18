@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.0-next.2](https://github.com/simontonsoftware/s-libs/compare/v13.1.0-next.1...v13.1.0-next.2) (2021-12-18)
+
+### Features
+
+- **ng-mat-core:** Add `SlDialogHarness` ([2478777](https://github.com/simontonsoftware/s-libs/commit/24787771bbf8454e415e189ae5ee18bca765f420))
+
 ## [13.1.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v13.1.0-next.0...v13.1.0-next.1) (2021-12-18)
 
 ### Bug Fixes
