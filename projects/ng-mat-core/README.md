@@ -1,25 +1,15 @@
-# NgMatCore
+## API Documentation
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.0.
+To quickly see what is available, see the [api documentation](https://simontonsoftware.github.io/s-libs/ng-mat-core).
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name --project ng-mat-core` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-mat-core`.
+Install along with its peer dependencies using:
 
-> Note: Don't forget to add `--project ng-mat-core` or else it will be added to the default project in your `angular.json` file.
+```shell script
+npm install --save @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
 
-## Build
+# OR
 
-Run `ng build ng-mat-core` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build ng-mat-core`, go to the dist folder `cd dist/ng-mat-core` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test ng-mat-core` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+yarn add @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
+```
