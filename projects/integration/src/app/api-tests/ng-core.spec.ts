@@ -9,33 +9,31 @@ import {
 } from '@s-libs/ng-core';
 
 describe('ng-core', () => {
-  describe('public API', () => {
-    it('has DirectiveSuperclass', () => {
-      expect(DirectiveSuperclass).toBeDefined();
-    });
+  it('has DirectiveSuperclass', () => {
+    expect(DirectiveSuperclass).toBeDefined();
+  });
 
-    it('has FormComponentSuperclass', () => {
-      expect(FormComponentSuperclass).toBeDefined();
-    });
+  it('has FormComponentSuperclass', () => {
+    expect(FormComponentSuperclass).toBeDefined();
+  });
 
-    it('has InjectableSuperclass', () => {
-      expect(InjectableSuperclass).toBeDefined();
-    });
+  it('has InjectableSuperclass', () => {
+    expect(InjectableSuperclass).toBeDefined();
+  });
 
-    it('has WrappedControlSuperclass', () => {
-      expect(WrappedControlSuperclass).toBeDefined();
-    });
+  it('has WrappedControlSuperclass', () => {
+    expect(WrappedControlSuperclass).toBeDefined();
+  });
 
-    it('has WrappedFormControlSuperclass', () => {
-      expect(WrappedFormControlSuperclass).toBeDefined();
-    });
+  it('has WrappedFormControlSuperclass', () => {
+    expect(WrappedFormControlSuperclass).toBeDefined();
+  });
 
-    it('has mixInInjectableSuperclass', () => {
-      expect(mixInInjectableSuperclass).toBeDefined();
-    });
+  it('has mixInInjectableSuperclass', () => {
+    expect(mixInInjectableSuperclass).toBeDefined();
+  });
 
-    it('has provideValueAccessor', () => {
-      expect(provideValueAccessor).toBeDefined();
-    });
+  it('has provideValueAccessor', () => {
+    expect(provideValueAccessor).toBeDefined();
   });
 });
