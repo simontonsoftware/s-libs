@@ -6,7 +6,7 @@ import {
   DEFAULT_OK_VALUE,
   SL_DIALOG_DATA,
 } from './dialog.component';
-import { DialogComponentHarness } from './dialog.component.harness';
+import { SlDialogHarness } from './sl-dialog.harness';
 import { SlDialogModule } from './sl-dialog.module';
 import { SlDialogService } from './sl-dialog.service';
 
@@ -18,7 +18,7 @@ describe('DialogComponent', () => {
     });
   });
 
-  async function show<T>(data: DialogData<unknown>): Promise<T | unknown> {
+  async function open<T>(data: DialogData<unknown>): Promise<T | unknown> {
     const dialog = ctx.inject(SlDialogService).open(data);
     ctx.tick();
     return dialog;
@@ -26,18 +26,18 @@ describe('DialogComponent', () => {
 
   it('displays a title', () => {
     ctx.run(async () => {
-      show({ title: 'Show Me This!' });
+      open({ title: 'Show Me This!' });
 
-      const dialog = await ctx.getHarness(DialogComponentHarness);
+      const dialog = await ctx.getHarness(SlDialogHarness);
       expect(await dialog.getTitle()).toBe('Show Me This!');
     });
   });
 
   it('displays text', () => {
     ctx.run(async () => {
-      show({ text: 'Show me this.' });
+      open({ text: 'Show me this.' });
 
-      const dialog = await ctx.getHarness(DialogComponentHarness);
+      const dialog = await ctx.getHarness(SlDialogHarness);
       expect(await dialog.getContentText()).toBe('Show me this.');
     });
   });
@@ -47,9 +47,9 @@ describe('DialogComponent', () => {
     class ContentComponent {}
 
     ctx.run(async () => {
-      show({ component: ContentComponent });
+      open({ component: ContentComponent });
 
-      const dialog = await ctx.getHarness(DialogComponentHarness);
+      const dialog = await ctx.getHarness(SlDialogHarness);
       expect(await dialog.getContentText()).toBe('Show me this.');
     });
   });
@@ -61,9 +61,9 @@ describe('DialogComponent', () => {
     }
 
     ctx.run(async () => {
-      show({ component: TitledComponent });
+      open({ component: TitledComponent });
 
-      const dialog = await ctx.getHarness(DialogComponentHarness);
+      const dialog = await ctx.getHarness(SlDialogHarness);
       expect(await dialog.getTitle()).toBe('Component Title');
     });
   });
@@ -75,9 +75,9 @@ describe('DialogComponent', () => {
     }
 
     ctx.run(async () => {
-      show({ title: 'Direct Title', component: TitledComponent });
+      open({ title: 'Direct Title', component: TitledComponent });
 
-      const dialog = await ctx.getHarness(DialogComponentHarness);
+      const dialog = await ctx.getHarness(SlDialogHarness);
       expect(await dialog.getTitle()).toBe('Direct Title');
     });
   });
@@ -89,18 +89,18 @@ describe('DialogComponent', () => {
     }
 
     ctx.run(async () => {
-      show({ component: MyDialogComponent, slDialogData: 'My input.' });
+      open({ component: MyDialogComponent, slDialogData: 'My input.' });
 
-      const dialog = await ctx.getHarness(DialogComponentHarness);
+      const dialog = await ctx.getHarness(SlDialogHarness);
       expect(await dialog.getContentText()).toBe('My input.');
     });
   });
 
   it('defaults to an "OK" button with primary color and DEFAULT_OK_VALUE', () => {
     ctx.run(async () => {
-      const closedPromise = show({});
+      const closedPromise = open({});
 
-      const dialog = await ctx.getHarness(DialogComponentHarness);
+      const dialog = await ctx.getHarness(SlDialogHarness);
       expect(await dialog.getButtonText()).toEqual(['OK']);
       expect(await dialog.getButtonColors()).toEqual(['primary']);
 
@@ -111,14 +111,14 @@ describe('DialogComponent', () => {
 
   it('accepts custom buttons', () => {
     ctx.run(async () => {
-      const closedPromise = show({
+      const closedPromise = open({
         buttons: [
           { text: 'Prime', value: 'value 1', color: 'primary' },
           { text: 'Warn', value: 'value 2', color: 'warn' },
         ],
       });
 
-      const dialog = await ctx.getHarness(DialogComponentHarness);
+      const dialog = await ctx.getHarness(SlDialogHarness);
       expect(await dialog.getButtonText()).toEqual(['Prime', 'Warn']);
       expect(await dialog.getButtonColors()).toEqual(['primary', 'warn']);
 
@@ -129,17 +129,17 @@ describe('DialogComponent', () => {
 
   it('defaults custom buttons to primary color', () => {
     ctx.run(async () => {
-      show({ buttons: [{ text: 'Color me', value: 'blah' }] });
+      open({ buttons: [{ text: 'Color me', value: 'blah' }] });
 
-      const dialog = await ctx.getHarness(DialogComponentHarness);
+      const dialog = await ctx.getHarness(SlDialogHarness);
       expect(await dialog.getButtonColors()).toEqual(['primary']);
     });
   });
 
   it('defaults custom button values to their text', () => {
     ctx.run(async () => {
-      const closedPromise = show({ buttons: [{ text: 'Click me' }] });
-      const dialog = await ctx.getHarness(DialogComponentHarness);
+      const closedPromise = open({ buttons: [{ text: 'Click me' }] });
+      const dialog = await ctx.getHarness(SlDialogHarness);
 
       await dialog.clickButton('Click me');
 
@@ -149,23 +149,21 @@ describe('DialogComponent', () => {
 
   it('allows creating buttons with the default color', () => {
     ctx.run(async () => {
-      show({
+      open({
         buttons: [{ text: 'No color', value: 'blah', color: 'default' }],
       });
 
-      const dialog = await ctx.getHarness(DialogComponentHarness);
+      const dialog = await ctx.getHarness(SlDialogHarness);
       expect(await dialog.getButtonColors()).toEqual(['default']);
     });
   });
 
   it('display button text in all caps (per design spec examples)', () => {
     ctx.run(async () => {
-      show({ buttons: [{ text: 'Not All Caps', value: 'blah' }] });
+      open({ buttons: [{ text: 'Not All Caps', value: 'blah' }] });
 
-      const dialog = await ctx.getHarness(DialogComponentHarness);
-      expect(
-        await dialog.getButtonCssValue('Not All Caps', 'text-transform'),
-      ).toBe('uppercase');
+      const button = document.querySelector('button')!;
+      expect(getComputedStyle(button).textTransform).toBe('uppercase');
     });
   });
 });

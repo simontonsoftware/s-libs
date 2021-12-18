@@ -456,7 +456,6 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "sourceMap": false,
             "main": "projects/ng-mat-core/src/test.ts",
             "tsConfig": "projects/ng-mat-core/tsconfig.spec.json",
             "karmaConfig": "projects/ng-mat-core/karma.conf.js",

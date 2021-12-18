@@ -8,19 +8,17 @@ import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { DialogButtonColor } from './dialog.component';
 
-interface DialogComponentHarnessFilters extends BaseHarnessFilters {
+interface SlDialogHarnessFilters extends BaseHarnessFilters {
   title?: string | RegExp;
 }
 
-export class DialogComponentHarness extends ContentContainerComponentHarness {
+export class SlDialogHarness extends ContentContainerComponentHarness {
   static hostSelector = 'sl-dialog';
 
-  private getContent = this.locatorFor('mat-dialog-content');
-
   static with(
-    options: DialogComponentHarnessFilters,
-  ): HarnessPredicate<DialogComponentHarness> {
-    return new HarnessPredicate(DialogComponentHarness, options).addOption(
+    options: SlDialogHarnessFilters,
+  ): HarnessPredicate<SlDialogHarness> {
+    return new HarnessPredicate(SlDialogHarness, options).addOption(
       'title',
       options.title,
       async (harness, title) =>
@@ -28,23 +26,25 @@ export class DialogComponentHarness extends ContentContainerComponentHarness {
     );
   }
 
+  #getContent = this.locatorFor('mat-dialog-content');
+
   async getTitle(): Promise<string> {
     const title = await this.locatorFor('[mat-dialog-title]')();
     return title.text();
   }
 
   async getContentText(): Promise<string> {
-    const content = await this.getContent();
+    const content = await this.#getContent();
     return content.text();
   }
 
   async getButtonText(): Promise<string[]> {
-    const buttons = await this.getButtons();
+    const buttons = await this.#getButtons();
     return Promise.all(buttons.map(async (button) => button.getText()));
   }
 
   async getButtonColors(): Promise<DialogButtonColor[]> {
-    const buttons = await this.getButtons();
+    const buttons = await this.#getButtons();
     return Promise.all(
       buttons.map(async (button) => {
         const host = await button.host();
@@ -61,21 +61,9 @@ export class DialogComponentHarness extends ContentContainerComponentHarness {
     );
   }
 
-  async getButtonCssValue(text: string, property: string): Promise<string> {
-    const button = await this.getButton(text);
-    const buttonHost = await button.host();
-    return buttonHost.getCssValue(property);
-  }
-
   async clickButton(text: string): Promise<void> {
-    const button = await this.getButton(text);
+    const button = await this.#getButton(text);
     await button.click();
-  }
-
-  async getContentScroll(): Promise<number> {
-    const content = await this.getContent();
-    const scrollTop = await content.getCssValue('scrollTop');
-    return +scrollTop;
   }
 
   async close(): Promise<void> {
@@ -85,17 +73,17 @@ export class DialogComponentHarness extends ContentContainerComponentHarness {
     await dialog.close();
   }
 
-  private async getButton(text: string): Promise<MatButtonHarness> {
-    const footer = await this.getFooter();
+  async #getButton(text: string): Promise<MatButtonHarness> {
+    const footer = await this.#getFooter();
     return footer.getHarness(MatButtonHarness.with({ text }));
   }
 
-  private async getButtons(): Promise<MatButtonHarness[]> {
-    const footer = await this.getFooter();
+  async #getButtons(): Promise<MatButtonHarness[]> {
+    const footer = await this.#getFooter();
     return footer.getAllHarnesses(MatButtonHarness);
   }
 
-  private async getFooter(): Promise<HarnessLoader> {
+  async #getFooter(): Promise<HarnessLoader> {
     return this.getChildLoader('mat-dialog-actions');
   }
 }
