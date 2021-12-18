@@ -1,0 +1,21 @@
+{
+  "extends": "../../.eslintrc.json",
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": [
+          "projects/ng-mat-core/tsconfig.lib.json",
+          "projects/ng-mat-core/tsconfig.spec.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "rules": {}
+    },
+    {
+      "files": ["*.html"],
+      "rules": {}
+    }
+  ]
+}

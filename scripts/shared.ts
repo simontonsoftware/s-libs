@@ -9,6 +9,7 @@ export const buildableLibraries = [
   'app-state',
   'ng-core',
   'ng-app-state',
+  'ng-mat-core',
   'ng-dev',
 ];
 
@@ -18,7 +19,7 @@ export function runCommand(command: string): void {
   execSync(command, { stdio: 'inherit' });
 }
 
-export function getInput(text: string): Promise<string> {
+export async function getInput(text: string): Promise<string> {
   return new Promise<string>((resolve) => {
     const reader = createInterface(process.stdin, process.stdout);
     reader.question(text, (answer) => {
