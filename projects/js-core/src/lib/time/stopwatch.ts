@@ -1,4 +1,5 @@
-import { elapsedToString, isDefined } from '@s-libs/js-core';
+import { isDefined } from '../predicates';
+import { elapsedToString } from './time-utils';
 
 /**
  * Keeps track of elapsed time.

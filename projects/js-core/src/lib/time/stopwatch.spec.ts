@@ -1,6 +1,6 @@
 import { fakeAsync, tick } from '@angular/core/testing';
-import { convertTime } from '@s-libs/js-core';
 import { Stopwatch } from './stopwatch';
+import { convertTime } from './time-utils';
 
 describe('Stopwatch', () => {
   beforeEach(() => {
