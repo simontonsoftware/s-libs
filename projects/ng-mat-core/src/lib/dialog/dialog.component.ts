@@ -13,9 +13,13 @@ export type DialogButtonColor = NonNullable<ThemePalette> | 'default';
 
 export interface DialogButton<T> {
   text: string;
-  /** {@link SlDialogService.open} will resolve to this value when the button is clicked. Defaults to {@link text}. */
+  /**
+   * {@link SlDialogService.open} will resolve to this value when the button is clicked. Defaults to {@link text}.
+   */
   value?: T;
-  /** Defaults to `'primary'`, in accordance with the Material Design spec examples. */
+  /**
+   * Defaults to `'primary'`, in accordance with the Material Design spec examples.
+   */
   color?: DialogButtonColor;
 }
 

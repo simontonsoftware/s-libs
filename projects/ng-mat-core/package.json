@@ -7,7 +7,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/simontonsoftware/s-libs.git",
-    "directory": "projects/ng-core"
+    "directory": "projects/ng-mat-core"
   },
   "peerDependencies": {
     "@angular/common": "^13.0.0",
