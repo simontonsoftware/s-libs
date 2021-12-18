@@ -17,6 +17,7 @@ import {
   mapToObject,
   MigrationManager,
   Persistence,
+  PublicInterface,
   roundToMultipleOf,
   setDifference,
   setIntersection,
@@ -55,6 +56,10 @@ describe('js-core', () => {
 
     it('has Persistence', () => {
       expect(Persistence).toBeDefined();
+    });
+
+    it('has PublicInterface', () => {
+      expect(PublicInterface).toBeDefined();
     });
 
     it('has Stopwatch', () => {
