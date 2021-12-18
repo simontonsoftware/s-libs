@@ -1,4 +1,5 @@
 import {
+  PersistenceTranslator,
   PersistentStore,
   pushToStoreArray,
   RootStore,
@@ -7,8 +8,13 @@ import {
   Store,
   UndoManager,
 } from '@s-libs/app-state';
+import { expectTypeOf } from 'expect-type';
 
 describe('app-state', () => {
+  it('has PersistenceTranslator', () => {
+    expectTypeOf<PersistenceTranslator<number, string>>();
+  });
+
   it('has PersistentStore', () => {
     expect(PersistentStore).toBeDefined();
   });
