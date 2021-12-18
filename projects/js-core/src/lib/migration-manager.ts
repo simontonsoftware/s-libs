@@ -43,7 +43,7 @@ export type MigrateFunction<T> = (source: T, targetVersion: number) => T;
  * ```
  */
 export class MigrationManager<T extends VersionedObject> {
-  private migrations = new Map<number | undefined, MigrateFunction<T>>();
+  #migrations = new Map<number | undefined, MigrateFunction<T>>();
 
   /**
    * Returns the value from `persistence`, upgraded to match the version in `defaultValue`. If `persistence` was empty, returns `defaultValue` directly. Updates `peristence` to reflect the returned value.
@@ -76,10 +76,10 @@ export class MigrationManager<T extends VersionedObject> {
    */
   upgrade(object: T, targetVersion: number): T {
     let lastVersion = object._version;
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- we don't assume as much type safety here, since it may need migration first comply!
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- we don't assume as much type safety here, since it may need migration to comply!
     assert(lastVersion === undefined || lastVersion <= targetVersion);
     while (lastVersion !== targetVersion) {
-      object = this.upgradeOneStep(object, targetVersion);
+      object = this.#upgradeOneStep(object, targetVersion);
       const newVersion = object._version;
       if (lastVersion) {
         assert(
@@ -121,7 +121,7 @@ export class MigrationManager<T extends VersionedObject> {
     sourceVersion: number | undefined,
     migrateFunction: MigrateFunction<T>,
   ): void {
-    this.migrations.set(sourceVersion, migrateFunction.bind(this));
+    this.#migrations.set(sourceVersion, migrateFunction.bind(this));
   }
 
   /**
@@ -138,9 +138,9 @@ export class MigrationManager<T extends VersionedObject> {
     throw error;
   }
 
-  private upgradeOneStep(upgradable: T, targetVersion: number): T {
+  #upgradeOneStep(upgradable: T, targetVersion: number): T {
     const version = upgradable._version;
-    const migrationFunction = this.migrations.get(version);
+    const migrationFunction = this.#migrations.get(version);
     if (!migrationFunction) {
       throw new Error(`Unable to migrate from version ${version}`);
     }

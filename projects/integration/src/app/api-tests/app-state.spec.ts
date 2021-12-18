@@ -1,4 +1,5 @@
 import {
+  PersistentStore,
   pushToStoreArray,
   RootStore,
   spreadArrayStore$,
@@ -8,29 +9,31 @@ import {
 } from '@s-libs/app-state';
 
 describe('app-state', () => {
-  describe('public API', () => {
-    it('has RootStore', () => {
-      expect(RootStore).toBeDefined();
-    });
+  it('has PersistentStore', () => {
+    expect(PersistentStore).toBeDefined();
+  });
 
-    it('has Store', () => {
-      expect(Store).toBeDefined();
-    });
+  it('has RootStore', () => {
+    expect(RootStore).toBeDefined();
+  });
 
-    it('has UndoManager', () => {
-      expect(UndoManager).toBeDefined();
-    });
+  it('has Store', () => {
+    expect(Store).toBeDefined();
+  });
 
-    it('has pushToStoreArray', () => {
-      expect(pushToStoreArray).toBeDefined();
-    });
+  it('has UndoManager', () => {
+    expect(UndoManager).toBeDefined();
+  });
 
-    it('has spreadArrayStore$', () => {
-      expect(spreadArrayStore$).toBeDefined();
-    });
+  it('has pushToStoreArray', () => {
+    expect(pushToStoreArray).toBeDefined();
+  });
 
-    it('has spreadObjectStore$', () => {
-      expect(spreadObjectStore$).toBeDefined();
-    });
+  it('has spreadArrayStore$', () => {
+    expect(spreadArrayStore$).toBeDefined();
+  });
+
+  it('has spreadObjectStore$', () => {
+    expect(spreadObjectStore$).toBeDefined();
   });
 });
