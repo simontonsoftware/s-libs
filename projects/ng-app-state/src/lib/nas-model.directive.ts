@@ -35,8 +35,8 @@ export class NasModelDirective<T> implements AfterViewInit, OnDestroy {
   }
 
   @Input()
-  set disabled(isDisabled: boolean) {
-    this.#valueAccessor.setDisabledState?.(isDisabled);
+  set disabled(isDisabled: boolean | null) {
+    this.#valueAccessor.setDisabledState?.(isDisabled ?? false);
   }
 
   ngAfterViewInit(): void {

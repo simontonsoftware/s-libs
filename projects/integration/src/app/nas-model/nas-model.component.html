@@ -1,13 +1,57 @@
-<input [nasModel]="store('freeText')" /> <br />
-<input type="text" [nasModel]="store('freeText')" /> Text <br />
-<input type="search" [nasModel]="store('freeText')" /> Search <br />
-<input type="tel" [nasModel]="store('freeText')" /> Tel <br />
-<input type="password" [nasModel]="store('freeText')" /> Password <br />
-<input type="email" [nasModel]="store('freeText')" /> Email <br />
-<input type="url" [nasModel]="store('freeText')" /> Url <br />
-<input type="color" [nasModel]="store('freeText')" /> <br />
-<textarea [nasModel]="store('freeText')"></textarea> <br />
+<input
+  [nasModel]="store('freeText')"
+  [disabled]="store('disabled').$ | async"
+/>
+<br />
+<input
+  type="text"
+  [nasModel]="store('freeText')"
+  [disabled]="store('disabled').$ | async"
+/>
+Text <br />
+<input
+  type="search"
+  [nasModel]="store('freeText')"
+  [disabled]="store('disabled').$ | async"
+/>
+Search <br />
+<input
+  type="tel"
+  [nasModel]="store('freeText')"
+  [disabled]="store('disabled').$ | async"
+/>
+Tel <br />
+<input
+  type="password"
+  [nasModel]="store('freeText')"
+  [disabled]="store('disabled').$ | async"
+/>
+Password <br />
+<input
+  type="email"
+  [nasModel]="store('freeText')"
+  [disabled]="store('disabled').$ | async"
+/>
+Email <br />
+<input
+  type="url"
+  [nasModel]="store('freeText')"
+  [disabled]="store('disabled').$ | async"
+/>
+Url <br />
+<input
+  type="color"
+  [nasModel]="store('freeText')"
+  [disabled]="store('disabled').$ | async"
+/>
+<br />
+<textarea
+  [nasModel]="store('freeText')"
+  [disabled]="store('disabled').$ | async"
+></textarea>
+<br />
 <button (click)="store('freeText').delete()">Clear</button>
+<label><input type="checkbox" [nasModel]="store('disabled')" /> Disabled</label>
 
 <hr />
 

@@ -3,8 +3,8 @@ import { mapToObject } from '@s-libs/js-core';
 import { forEach, padStart } from '@s-libs/micro-dash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { City, IntegrationState } from '../integration-state';
-import { IntegrationStore } from '../integration-store';
+import { City, NasModelState } from './nas-model-state';
+import { NasModelStore } from './nas-model-store';
 
 @Component({
   selector: 'sl-nas-model',
@@ -16,7 +16,7 @@ export class NasModelComponent {
   cities: City[] = ['San Francisco', 'Nairobi', 'Gulu'];
   stateString$: Observable<string>;
 
-  constructor(public store: IntegrationStore) {
+  constructor(public store: NasModelStore) {
     this.stateString$ = store.$.pipe(
       map((state) => JSON.stringify(state, null, 2)),
     );
@@ -80,10 +80,7 @@ export class NasModelComponent {
     });
   }
 
-  private modDates(
-    type: keyof IntegrationState,
-    fn: (dest: Date) => void,
-  ): void {
+  private modDates(type: keyof NasModelState, fn: (dest: Date) => void): void {
     this.store.mutateUsing((state) => {
       if (state[type] === '') {
         state.datetime = '';
@@ -101,28 +98,28 @@ export class NasModelComponent {
     });
   }
 
-  private modDateTime(state: IntegrationState, fn: (dest: Date) => void): void {
+  private modDateTime(state: NasModelState, fn: (dest: Date) => void): void {
     const d = dateParts(this.dateFromDatetime(), fn);
     state.datetime = `${d.y}-${d.M}-${d.d}T${d.h}:${d.m}`;
   }
 
-  private modDate(state: IntegrationState, fn: (dest: Date) => void): void {
+  private modDate(state: NasModelState, fn: (dest: Date) => void): void {
     const d = dateParts(this.dateFromDate(state), fn);
     state.date = `${d.y}-${d.M}-${d.d}`;
   }
 
-  private modMonth(state: IntegrationState, fn: (dest: Date) => void): void {
+  private modMonth(state: NasModelState, fn: (dest: Date) => void): void {
     const d = dateParts(this.dateFromMonth(state), fn);
     state.month = `${d.y}-${d.M}`;
   }
 
-  private modWeek(state: IntegrationState, fn: (dest: Date) => void): void {
+  private modWeek(state: NasModelState, fn: (dest: Date) => void): void {
     const dateObj = this.dateFromWeek(state);
     fn(dateObj);
     state.week = `${pad(getWeekYear(dateObj), 4)}-W${pad(getWeek(dateObj))}`;
   }
 
-  private modTime(state: IntegrationState, fn: (dest: Date) => void): void {
+  private modTime(state: NasModelState, fn: (dest: Date) => void): void {
     const d = dateParts(this.dateFromTime(state), fn);
     state.time = `${d.h}:${d.m}`;
   }

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { RootStore } from '@s-libs/app-state';
 import { logToReduxDevtoolsExtension } from '@s-libs/rxjs-core';
-import { IntegrationState } from './integration-state';
+import { NasModelState } from './nas-model-state';
 
 @Injectable({ providedIn: 'root' })
-export class IntegrationStore extends RootStore<IntegrationState> {
+export class NasModelStore extends RootStore<NasModelState> {
   constructor() {
-    super(new IntegrationState());
+    super(new NasModelState());
     logToReduxDevtoolsExtension(this.$, {
       name: 'Integration store',
       autoPause: true,

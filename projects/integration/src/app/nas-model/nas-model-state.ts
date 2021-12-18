@@ -1,6 +1,6 @@
 export type City = 'Gulu' | 'Nairobi' | 'San Francisco';
 
-export class IntegrationState {
+export class NasModelState {
   freeText = 'initial text';
   number = 42;
   chooseOne: City = 'Nairobi';
@@ -11,4 +11,6 @@ export class IntegrationState {
   month = '1980-11';
   week = '1980-W45';
   time = '10:30';
+
+  disabled = false;
 }

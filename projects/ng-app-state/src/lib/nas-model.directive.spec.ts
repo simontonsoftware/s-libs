@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { Store } from '@s-libs/app-state';
+import { RootStore, Store } from '@s-libs/app-state';
 import { noop } from '@s-libs/micro-dash';
 import { ComponentContext } from '@s-libs/ng-dev';
 import { Subject } from 'rxjs';
@@ -685,7 +685,7 @@ describe('NasModelDirective', () => {
     expect(input.disabled).toBe(false);
   }));
 
-  it('handles `null` from an async pipe', () => {
+  it('handles `null` for the store (for async pipe compatibility)', () => {
     @Component({ template: `<input [nasModel]="store$ | async" />` })
     class StoreStreamComponent {
       store$ = new Subject<Store<string>>();
@@ -700,6 +700,35 @@ describe('NasModelDirective', () => {
           By.css('input'),
         ).nativeElement;
         setValue(input, 'updated value');
+      });
+    }).not.toThrowError();
+  });
+
+  it('handles `null` for disabled (for async pipe compatibility)', () => {
+    @Component({
+      template: `<input
+        [nasModel]="store('val')"
+        [disabled]="disabled$ | async"
+      />`,
+    })
+    class StoreStreamComponent {
+      store = new RootStore({ val: 'hi' });
+      disabled$ = new Subject<boolean>();
+    }
+
+    const ctx = new ComponentContext(StoreStreamComponent, {
+      imports: [NasModelModule],
+    });
+    expect(() => {
+      ctx.run(() => {
+        const input: HTMLInputElement = ctx.fixture.debugElement.query(
+          By.css('input'),
+        ).nativeElement;
+        expect(input.disabled).toBe(false);
+
+        ctx.getComponentInstance().disabled$.next(true);
+        ctx.tick();
+        expect(input.disabled).toBe(true);
       });
     }).not.toThrowError();
   });
