@@ -30,6 +30,7 @@ import {
   wrapFunction,
   wrapMethod,
 } from '@s-libs/js-core';
+import { expectTypeOf } from 'expect-type';
 
 describe('js-core', () => {
   describe('public API', () => {
@@ -59,7 +60,7 @@ describe('js-core', () => {
     });
 
     it('has PublicInterface', () => {
-      expect(PublicInterface).toBeDefined();
+      expectTypeOf<PublicInterface<Date>>().toMatchTypeOf<Date>();
     });
 
     it('has Stopwatch', () => {
