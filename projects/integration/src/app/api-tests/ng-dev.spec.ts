@@ -9,6 +9,7 @@ import {
   logTimers,
   marbleTest,
   SlTestRequest,
+  staticTest,
   TestCall,
 } from '@s-libs/ng-dev';
 
@@ -55,5 +56,9 @@ describe('ng-dev', () => {
 
   it('has marbleTest', () => {
     expect(marbleTest).toBeDefined();
+  });
+
+  it('has staticTest', () => {
+    expect(staticTest).toBeDefined();
   });
 });
