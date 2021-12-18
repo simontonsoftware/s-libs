@@ -1,5 +1,6 @@
 export {
   DEFAULT_OK_VALUE,
+  DialogButton,
   DialogButtonColor,
   DialogData,
   SL_DIALOG_DATA,

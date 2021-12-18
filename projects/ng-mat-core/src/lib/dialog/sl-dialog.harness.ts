@@ -12,9 +12,15 @@ interface SlDialogHarnessFilters extends BaseHarnessFilters {
   title?: string | RegExp;
 }
 
+/**
+ * Harness for interacting with a dialog opened via {@link SlDialogService.open}.
+ */
 export class SlDialogHarness extends ContentContainerComponentHarness {
   static hostSelector = 'sl-dialog';
 
+  /**
+   * Gets a `HarnessPredicate` that can be used to search for a SlDialogHarness that meets certain criteria.
+   */
   static with(
     options: SlDialogHarnessFilters,
   ): HarnessPredicate<SlDialogHarness> {
@@ -33,16 +39,25 @@ export class SlDialogHarness extends ContentContainerComponentHarness {
     return title.text();
   }
 
+  /**
+   * Get the text displayed in the content of the dialog. Note this includes text from both the `text` and `component` options of {@link SlDialogService.open}.
+   */
   async getContentText(): Promise<string> {
     const content = await this.#getContent();
     return content.text();
   }
 
+  /**
+   * Return the text of all the buttons.
+   */
   async getButtonText(): Promise<string[]> {
     const buttons = await this.#getButtons();
     return Promise.all(buttons.map(async (button) => button.getText()));
   }
 
+  /**
+   * Return the text of all the buttons. Note that "default" corresponds to when you explicitly specify that color for the button, and is **not** the color of a button when you don't specify a color (see {@link DialogButton.color}).
+   */
   async getButtonColors(): Promise<DialogButtonColor[]> {
     const buttons = await this.#getButtons();
     return Promise.all(
@@ -66,6 +81,9 @@ export class SlDialogHarness extends ContentContainerComponentHarness {
     await button.click();
   }
 
+  /**
+   * Closes the dialog by pressing escape.
+   */
   async close(): Promise<void> {
     const rootLoader =
       await this.documentRootLocatorFactory().rootHarnessLoader();
