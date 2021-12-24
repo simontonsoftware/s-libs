@@ -7,9 +7,16 @@ import { identity } from '@s-libs/micro-dash';
 import { skip } from 'rxjs/operators';
 import { RootStore } from '../root-store';
 
-export interface PersistenceTranslator<State, Persisted> {
-  toState: (right: Persisted) => State;
-  toPersisted: (left: State) => Persisted;
+export interface PersistenceCodec<State, Persisted> {
+  /**
+   * Convert from the format that is kept in the store to what is persisted.
+   */
+  encode: (state: State) => Persisted;
+
+  /**
+   * Convert from the format that is persisted to what is kept in the store.
+   */
+  decode: (persisted: Persisted) => State;
 }
 
 /**
@@ -70,7 +77,7 @@ export interface PersistenceTranslator<State, Persisted> {
  * expect(store.state().myStateKey).toBe('my new value');
  * ```
  *
- * If you want to persist something a little different from what is in the store, for example to omit some properties, use a {@link Translator}:
+ * If you want to persist something a little different from what is in the store, for example to omit some properties, use a {@link PersistenceCodec}:
  *
  * ```ts
  * class MyState implements VersionedObject {
@@ -79,21 +86,19 @@ export interface PersistenceTranslator<State, Persisted> {
  * }
  * type Persisted = Omit<MyState, 'sessionStart'>;
  *
- * class MyTranslator implements PersistenceTranslator<MyState, Persisted> {
- *   toState(right: Persisted): MyState {
- *     return { ...right, sessionStart: Date.now() };
+ * class MyCodec implements PersistenceCodec<MyState, Persisted> {
+ *   encode(left: MyState): Persisted {
+ *     return omit(left, 'sessionStart');
  *   }
  *
- *   toPersisted(left: MyState): Persisted {
- *     return omit(left, 'sessionStart');
+ *   decode(right: Persisted): MyState {
+ *     return { ...right, sessionStart: Date.now() };
  *   }
  * }
  *
  * class MyStore extends PersistentStore<MyState, Persisted> {
  *   constructor() {
- *     super('myPersistenceKey', new MyState(), {
- *       translator: new MyTranslator(),
- *     });
+ *     super('myPersistenceKey', new MyState(), { codec: new MyCodec() });
  *   }
  * }
  *
@@ -113,36 +118,35 @@ export class PersistentStore<
   State extends VersionedObject,
   Persisted extends VersionedObject = State,
 > extends RootStore<State> {
-  // TODO: see if this works for the docs
   /**
    * @param persistenceKey the key in local storage at which to persist the state
    * @param defaultState used when the state has not been persisted yet
-   * @param migrator used to update the state when it was at a lower {@link VersionedObject._version} when it was last persisted
-   * @param translator use to persist a different format than what is kept in the store
+   * @param __namedParameters.migrator used to update the state when it was at a lower {@link VersionedObject._version} when it was last persisted
+   * @param __namedParameters.codec use to persist a different format than what is kept in the store
    */
   constructor(
     persistenceKey: string,
     defaultState: State,
     {
       migrator = new MigrationManager<Persisted>(),
-      translator = new IdentityTranslator() as PersistenceTranslator<
-        State,
-        Persisted
-      >,
+      codec = new IdentityCodec() as PersistenceCodec<State, Persisted>,
     } = {},
   ) {
     const persistence = new Persistence<Persisted>(persistenceKey);
-    const defaultPersisted = translator.toPersisted(defaultState);
+    const defaultPersisted = codec.encode(defaultState);
     const persisted = migrator.run(persistence, defaultPersisted);
-    super(translator.toState(persisted));
+    if (persisted !== defaultPersisted) {
+      defaultState = codec.decode(persisted);
+    }
+    super(defaultState);
 
     this.$.pipe(skip(1)).subscribe((state) => {
-      persistence.put(translator.toPersisted(state));
+      persistence.put(codec.encode(state));
     });
   }
 }
 
-class IdentityTranslator<T> implements PersistenceTranslator<T, T> {
-  toState = identity;
-  toPersisted = identity;
+class IdentityCodec<T> implements PersistenceCodec<T, T> {
+  decode = identity;
+  encode = identity;
 }

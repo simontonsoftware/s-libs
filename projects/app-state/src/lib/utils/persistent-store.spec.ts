@@ -1,7 +1,7 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { MigrationManager, VersionedObject } from '@s-libs/js-core';
 import { omit } from '@s-libs/micro-dash';
-import { PersistenceTranslator, PersistentStore } from './persistent-store';
+import { PersistenceCodec, PersistentStore } from './persistent-store';
 
 describe('PersistentStore', () => {
   beforeEach(() => {
@@ -9,6 +9,19 @@ describe('PersistentStore', () => {
   });
   afterEach(() => {
     localStorage.clear();
+  });
+
+  // this gives users a way to test whether it's a fresh install
+  it('uses `defaultState` directly (not a copy) when there is nothing persisted', () => {
+    const codec = {
+      encode: (): VersionedObject => ({ _version: -1 }),
+      decode: (): VersionedObject => ({ _version: -2 }),
+    };
+    const defaultState = { _version: 1 };
+
+    const store = new PersistentStore('meh', defaultState, { codec });
+
+    expect(store.state()).toBe(defaultState);
   });
 
   describe('documentation', () => {
@@ -70,28 +83,26 @@ describe('PersistentStore', () => {
       expect(store.state().myStateKey).toBe('my new value');
     });
 
-    it('is working for the translator example', fakeAsync(() => {
+    it('is working for the codec example', fakeAsync(() => {
       class MyState implements VersionedObject {
         _version = 1;
         sessionStart = Date.now();
       }
       type Persisted = Omit<MyState, 'sessionStart'>;
 
-      class MyTranslator implements PersistenceTranslator<MyState, Persisted> {
-        toState(right: Persisted): MyState {
-          return { ...right, sessionStart: Date.now() };
+      class MyCodec implements PersistenceCodec<MyState, Persisted> {
+        encode(left: MyState): Persisted {
+          return omit(left, 'sessionStart');
         }
 
-        toPersisted(left: MyState): Persisted {
-          return omit(left, 'sessionStart');
+        decode(right: Persisted): MyState {
+          return { ...right, sessionStart: Date.now() };
         }
       }
 
       class MyStore extends PersistentStore<MyState, Persisted> {
         constructor() {
-          super('myPersistenceKey', new MyState(), {
-            translator: new MyTranslator(),
-          });
+          super('myPersistenceKey', new MyState(), { codec: new MyCodec() });
         }
       }
 

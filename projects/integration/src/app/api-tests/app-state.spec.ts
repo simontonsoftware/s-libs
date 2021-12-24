@@ -1,5 +1,5 @@
 import {
-  PersistenceTranslator,
+  PersistenceCodec,
   PersistentStore,
   pushToStoreArray,
   RootStore,
@@ -11,8 +11,8 @@ import {
 import { expectTypeOf } from 'expect-type';
 
 describe('app-state', () => {
-  it('has PersistenceTranslator', () => {
-    expectTypeOf<PersistenceTranslator<number, string>>();
+  it('has PersistenceCodec', () => {
+    expectTypeOf<PersistenceCodec<number, string>>();
   });
 
   it('has PersistentStore', () => {
