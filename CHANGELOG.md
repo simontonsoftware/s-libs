@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.0](https://github.com/simontonsoftware/s-libs/compare/v13.1.0-next.2...v13.1.0) (2021-12-29)
+
+### Features
+
+- **app-state:** add `PersistentStore` ([f85fc6f](https://github.com/simontonsoftware/s-libs/commit/f85fc6f7ddfaac8550f0a958c526cec79996b66c))
+- **app-state:** add `codec` param to `PersistentStore` ([5a008f7](https://github.com/simontonsoftware/s-libs/commit/5a008f750b6cb58f5467c740779e86d6a21d50a9))
+- **js-core:** Add `PublicInterface` ([e443610](https://github.com/simontonsoftware/s-libs/commit/e443610040d07769aff402b665f542974a10d1aa)), closes [#65](https://github.com/simontonsoftware/s-libs/issues/65)
+- **ng-app-state:** `nasModel`'s `disabled` input accepts `null`, for compatibility with an async pipe ([d3cebcd](https://github.com/simontonsoftware/s-libs/commit/d3cebcde5576807b66bed80adbb9f47e2d30ab15)), closes [#69](https://github.com/simontonsoftware/s-libs/issues/69)
+- **ng-dev:** add `staticTest()` ([e3ca8a2](https://github.com/simontonsoftware/s-libs/commit/e3ca8a2b83e399d43dfa9dac2cd5539fd4fe6065))
+
 ## [13.1.0-next.2](https://github.com/simontonsoftware/s-libs/compare/v13.1.0-next.1...v13.1.0-next.2) (2021-12-18)
 
 ### Features
