@@ -10,6 +10,16 @@ import { scan } from 'rxjs/operators';
  * withHistory(0): -[1]--[2]----[3]------[4]------[5]------|
  * ```
  */
+
+export function withHistory<T>(count: 0): OperatorFunction<T, [T]>;
+export function withHistory<T>(count: 1): OperatorFunction<T, [T, T?]>;
+export function withHistory<T>(count: 2): OperatorFunction<T, [T, T?, T?]>;
+export function withHistory<T>(count: 3): OperatorFunction<T, [T, T?, T?, T?]>;
+export function withHistory<T>(
+  count: 4,
+): OperatorFunction<T, [T, T?, T?, T?, T?]>;
+export function withHistory<T>(count: number): OperatorFunction<T, [T, ...T[]]>;
+
 export function withHistory<T>(count: number): OperatorFunction<T, T[]> {
   return scan<T, T[]>((buf, value) => [value, ...buf.slice(0, count)], []);
 }

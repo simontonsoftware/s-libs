@@ -1,4 +1,6 @@
 import { marbleTest } from '@s-libs/ng-dev';
+import { expectTypeOf } from 'expect-type';
+import { Observable, of } from 'rxjs';
 import {
   testCompletionPropagation,
   testErrorPropagation,
@@ -7,6 +9,28 @@ import {
 import { withHistory } from './with-history';
 
 describe('withHistory()', () => {
+  it('has fancy typing', () => {
+    const date$ = of(new Date());
+    expectTypeOf(date$.pipe(withHistory(0))).toEqualTypeOf<
+      Observable<[Date]>
+    >();
+    expectTypeOf(date$.pipe(withHistory(1))).toEqualTypeOf<
+      Observable<[Date, Date?]>
+    >();
+    expectTypeOf(date$.pipe(withHistory(2))).toEqualTypeOf<
+      Observable<[Date, Date?, Date?]>
+    >();
+    expectTypeOf(date$.pipe(withHistory(3))).toEqualTypeOf<
+      Observable<[Date, Date?, Date?, Date?]>
+    >();
+    expectTypeOf(date$.pipe(withHistory(4))).toEqualTypeOf<
+      Observable<[Date, Date?, Date?, Date?, Date?]>
+    >();
+    expectTypeOf(date$.pipe(withHistory(5))).toEqualTypeOf<
+      Observable<[Date, ...Date[]]>
+    >();
+  });
+
   it(
     'emits the last `historyCount` values',
     marbleTest(({ cold, expectObservable, expectSubscriptions }) => {
