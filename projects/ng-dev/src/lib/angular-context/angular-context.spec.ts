@@ -22,7 +22,7 @@ import {
 import { sleep } from '@s-libs/js-core';
 import { noop, Observable } from 'rxjs';
 import { ComponentContext } from '../component-context';
-import { MockErrorHandler } from '../mock-error-handler';
+import { MockErrorHandler } from '../mock-error-handler/mock-error-handler';
 import { AngularContext } from './angular-context';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
 

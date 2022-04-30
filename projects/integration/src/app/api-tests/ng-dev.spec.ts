@@ -2,6 +2,7 @@ import {
   AngularContext,
   AsyncMethodController,
   ComponentContext,
+  ComponentHarnessSuperclass,
   createSpyObject,
   expectCallsAndReset,
   expectRequest,
@@ -24,6 +25,10 @@ describe('ng-dev', () => {
 
   it('has ComponentContext', () => {
     expect(ComponentContext).toBeDefined();
+  });
+
+  it('has ComponentHarnessSuperclass', () => {
+    expect(ComponentHarnessSuperclass).toBeDefined();
   });
 
   it('has TestCall', () => {

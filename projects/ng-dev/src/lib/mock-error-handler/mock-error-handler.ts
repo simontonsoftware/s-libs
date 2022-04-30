@@ -1,6 +1,6 @@
 import { ErrorHandler, Injectable, Provider } from '@angular/core';
 import { isRegExp, isString, isUndefined, remove } from '@s-libs/micro-dash';
-import { buildErrorMessage } from './utils';
+import { buildErrorMessage } from '../utils';
 
 type ErrorType = Parameters<ErrorHandler['handleError']>[0];
 type Match = RegExp | string | ((error: ErrorType) => boolean);

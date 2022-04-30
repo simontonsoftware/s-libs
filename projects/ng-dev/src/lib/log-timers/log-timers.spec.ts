@@ -1,6 +1,6 @@
 import { discardPeriodicTasks, fakeAsync, tick } from '@angular/core/testing';
 import { noop } from '@s-libs/micro-dash';
-import { expectSingleCallAndReset } from '../public-api';
+import { expectSingleCallAndReset } from '../../public-api';
 import { logTimers } from './log-timers';
 
 describe('logTimers()', () => {

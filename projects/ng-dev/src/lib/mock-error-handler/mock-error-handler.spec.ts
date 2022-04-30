@@ -1,8 +1,8 @@
 import { ErrorHandler } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { AngularContext } from './angular-context';
+import { AngularContext } from '../angular-context';
 import { MockErrorHandler } from './mock-error-handler';
-import { expectSingleCallAndReset } from './spies';
+import { expectSingleCallAndReset } from '../spies';
 
 describe('MockErrorHandler', () => {
   let consoleSpy: jasmine.Spy;

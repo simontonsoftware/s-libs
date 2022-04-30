@@ -20,7 +20,7 @@ import {
 } from '@angular/core/testing';
 import { assert, convertTime } from '@s-libs/js-core';
 import { clone, forOwn, isUndefined } from '@s-libs/micro-dash';
-import { MockErrorHandler } from '../mock-error-handler';
+import { MockErrorHandler } from '../mock-error-handler/mock-error-handler';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
 
 export function extendMetadata(
