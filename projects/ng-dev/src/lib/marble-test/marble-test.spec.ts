@@ -1,8 +1,20 @@
+import { noop } from '@s-libs/micro-dash';
+import { expectTypeOf } from 'expect-type';
 import { of } from 'rxjs';
 import { concatMap, delay, throttleTime } from 'rxjs/operators';
+import { staticTest } from '../../public-api';
 import { marbleTest } from './marble-test';
 
 describe('marbleTest()', () => {
+  it('has fancy typing', () => {
+    staticTest(() => {
+      expectTypeOf(marbleTest(noop)).toEqualTypeOf<VoidFunction>();
+      expectTypeOf(marbleTest(async () => 1)).toEqualTypeOf<
+        () => Promise<number>
+      >();
+    });
+  });
+
   // https://github.com/ReactiveX/rxjs/blob/master/docs_app/content/guide/testing/marble-testing.md
   it(
     'works for the first example in the docs',
