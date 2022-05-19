@@ -1,25 +1,6 @@
-import { Provider, Type } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor } from '@angular/forms';
 import { noop } from '@s-libs/micro-dash';
 import { DirectiveSuperclass } from './directive-superclass';
-
-/**
- * Use in the `providers` of a component that implements `ControlValueAccessor` to reduce some boilerplate.
- *
- * ```ts
- * @Component({ providers: [provideValueAccessor(MyFormControl)] }
- * class MyFormControl extends BaseFormControl {
- *   // ...
- * }
- * ```
- */
-export function provideValueAccessor(type: Type<any>): Provider {
-  return {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: type,
-    multi: true,
-  };
-}
 
 /**
  * Extend this when creating a form control to reduce some boilerplate.

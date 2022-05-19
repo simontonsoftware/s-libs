@@ -1,5 +1,5 @@
 import { Directive, ErrorHandler, Injector, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, ValidationErrors, Validator } from '@angular/forms';
 import { wrapMethod } from '@s-libs/js-core';
 import { bindKey, flow } from '@s-libs/micro-dash';
 import {
@@ -77,7 +77,7 @@ import { FormComponentSuperclass } from './form-component-superclass';
 @Directive()
 export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   extends FormComponentSuperclass<OuterType>
-  implements OnInit
+  implements OnInit, Validator
 {
   /** Bind this to your inner form control to make all the magic happen. */
   abstract control: AbstractControl;
@@ -189,6 +189,10 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
       map((inner) => this.innerToOuter(inner)),
       this.#handleError(),
     );
+  }
+
+  protected validate(): ValidationErrors | null {
+    return this.control.errors;
   }
 
   #handleError<T>(): MonoTypeOperatorFunction<T> {
