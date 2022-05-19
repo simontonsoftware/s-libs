@@ -192,7 +192,13 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   }
 
   protected validate(): ValidationErrors | null {
-    return this.control.errors;
+    /**
+     * Control errors in the FormGroup (FormArray) are not returned with the `errors` property,
+     * so they need to be obtained from them or return a general error
+     */
+    return this.control.invalid
+      ? this.control.errors ?? { wrappedControlInvalid: true }
+      : null;
   }
 
   #handleError<T>(): MonoTypeOperatorFunction<T> {
