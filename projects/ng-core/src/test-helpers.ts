@@ -1,6 +1,7 @@
-import { DebugElement } from '@angular/core';
+import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { AngularContext } from '@s-libs/ng-dev';
+import { By } from '@angular/platform-browser';
+import { AngularContext, ComponentContext } from '@s-libs/ng-dev';
 
 export function findButton(
   fixture: ComponentFixture<any>,
@@ -28,6 +29,10 @@ export function find<T extends Element>(
   } else {
     return found;
   }
+}
+
+export function findDirective<T>(ctx: ComponentContext<any>, type: Type<T>): T {
+  return ctx.fixture.debugElement.query(By.directive(type)).componentInstance;
 }
 
 export function click(element: Element): void {

@@ -1,5 +1,12 @@
-import { Directive, ErrorHandler, Injector, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import {
+  Directive,
+  ErrorHandler,
+  InjectFlags,
+  Injector,
+  OnInit,
+  ProviderToken,
+} from '@angular/core';
+import { AbstractControl, NgControl, ValidationErrors } from '@angular/forms';
 import { wrapMethod } from '@s-libs/js-core';
 import { bindKey, flow } from '@s-libs/micro-dash';
 import {
@@ -10,6 +17,7 @@ import {
   tap,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ControlSynchronizer } from './control-synchronizer';
 import { FormComponentSuperclass } from './form-component-superclass';
 
 /**
@@ -73,6 +81,8 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *   }
  * }
  * ```
+ *
+ * If you bind to your component using an {@linkcode NgControl} (e.g. when using `ngModel`), validation errors will be synchronized between it and the control inside your component. You can override various methods below to control or disable that process. Note that validation, `statuschanges`, and `valuechanges` may all happen more often as a result of this synchronization.
  */
 @Directive()
 export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
@@ -82,11 +92,13 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   /** Bind this to your inner form control to make all the magic happen. */
   abstract control: AbstractControl;
 
+  #injector: Injector;
   #incomingValues$ = new Subject<OuterType>();
   #errorHandler: ErrorHandler;
 
   constructor(injector: Injector) {
     super(injector);
+    this.#injector = injector;
     this.#errorHandler = injector.get(ErrorHandler);
     this.subscribeTo(
       this.setUpOuterToInner$(this.#incomingValues$),
@@ -97,6 +109,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   }
 
   ngOnInit(): void {
+    this.#bindValidation();
     this.subscribeTo(
       this.setUpInnerToOuter$(this.control.valueChanges),
       (outer) => {
@@ -126,15 +139,6 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   }
 
   /**
-   * Override this to modify a value coming from the outside to the format needed within this component.
-   *
-   * For more complex needs, see {@linkcode #setUpOuterToInner$} instead.
-   */
-  protected outerToInner(outer: OuterType): InnerType {
-    return outer as unknown as InnerType;
-  }
-
-  /**
    * Override this to for full control over the stream of values passed in to your subclass.
    *
    * In this example, incoming values are debounced before being passed through to the inner form control
@@ -159,12 +163,12 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   }
 
   /**
-   * Override this to modify a value coming from within this component to the format expected on the outside.
+   * Override this to modify a value coming from the outside to the format needed within this component.
    *
-   * For more complex needs, see {@linkcode #setUpInnerToOuter$} instead.
+   * For more complex needs, see {@linkcode #setUpOuterToInner$} instead.
    */
-  protected innerToOuter(inner: InnerType): OuterType {
-    return inner as unknown as OuterType;
+  protected outerToInner(outer: OuterType): InnerType {
+    return outer as unknown as InnerType;
   }
 
   /**
@@ -174,7 +178,6 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    * ```ts
    * setUpInnerToOuter$(inner$: Observable<InnerType>): Observable<OuterType> {
    *   return inner$.pipe(
-   *     debounce(300),
    *     filter((inner) => isLegalValue(outer)),
    *   );
    * }
@@ -191,10 +194,103 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
     );
   }
 
+  /**
+   * Override this to modify a value coming from within this component to the format expected on the outside.
+   *
+   * For more complex needs, see {@linkcode #setUpInnerToOuter$} instead.
+   */
+  protected innerToOuter(inner: InnerType): OuterType {
+    return inner as unknown as OuterType;
+  }
+
+  /**
+   * Override this to for full control over the stream of validation errors synchronized in to your subclass.
+   *
+   * For a simple transformation, see {@linkcode #outerToInnerErrors} instead.
+   */
+  protected setUpOuterToInnerErrors$(
+    outer$: Observable<ValidationErrors>,
+  ): Observable<ValidationErrors> {
+    return outer$.pipe(
+      map((inner) => this.outerToInnerErrors(inner)),
+      this.#handleError(),
+    );
+  }
+
+  /**
+   * Override this to modify validation errors that synchronize in to this component.
+   *
+   * In this example we assume the `required` validation is handled by the user and should not affect internal validation
+   * ```ts
+   * protected override outerToInnerErrors(
+   *   errors: ValidationErrors,
+   * ): ValidationErrors {
+   *   return omit(errors, 'required');
+   * }
+   * ```
+   *
+   * For more complex needs, see {@linkcode #setUpOuterToInnerErrors$} instead.
+   */
+  protected outerToInnerErrors(errors: ValidationErrors): ValidationErrors {
+    return errors;
+  }
+
+  /**
+   * Override this to for full control over the stream of validation errors synchronized out from your subclass.
+   *
+   * In this example, synchronization is turned off:
+   * ```ts
+   * protected override setUpInnerToOuterErrors$(): Observable<ValidationErrors> {
+   *   return EMPTY;
+   * }
+   * ```
+   *
+   * For a simple transformation, see {@linkcode #innerToOuterErrors} instead.
+   */
+  protected setUpInnerToOuterErrors$(
+    inner$: Observable<ValidationErrors>,
+  ): Observable<ValidationErrors> {
+    return inner$.pipe(
+      map((inner) => this.innerToOuterErrors(inner)),
+      this.#handleError(),
+    );
+  }
+
+  /**
+   * Override this to modify validation errors that synchronize out from this component.
+   *
+   * For more complex needs, see {@linkcode #setUpInnerToOuterErrors$} instead.
+   */
+  protected innerToOuterErrors(errors: ValidationErrors): ValidationErrors {
+    return errors;
+  }
+
+  #bindValidation(): void {
+    const outerControl = this.#selfInject(NgControl)?.control;
+    if (outerControl) {
+      ControlSynchronizer.synchronize(
+        outerControl,
+        this.control,
+        this.setUpOuterToInnerErrors$.bind(this),
+        this.setUpInnerToOuterErrors$.bind(this),
+        this,
+      );
+    }
+  }
+
   #handleError<T>(): MonoTypeOperatorFunction<T> {
     return flow(
       tap<T>({ error: bindKey(this.#errorHandler, 'handleError') }),
       retry(),
+    );
+  }
+
+  #selfInject<T>(token: ProviderToken<T>): T | undefined {
+    return this.#injector.get(
+      token,
+      undefined,
+      // eslint-disable-next-line no-bitwise
+      InjectFlags.Self | InjectFlags.Optional,
     );
   }
 }

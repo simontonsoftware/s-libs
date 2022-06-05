@@ -13,12 +13,20 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidationErrors,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { keys, omit } from '@s-libs/micro-dash';
 import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { click, find, findButton, setValue } from '../test-helpers';
+import {
+  click,
+  find,
+  findButton,
+  findDirective,
+  setValue,
+} from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
 import {
   FormComponentSuperclass,
@@ -26,68 +34,9 @@ import {
 } from './form-component-superclass';
 import { InjectableSuperclass } from './injectable-superclass';
 import { WrappedControlSuperclass } from './wrapped-control-superclass';
+import { WrappedFormControlSuperclass } from './wrapped-form-control-superclass';
 
 describe('WrappedControlSuperclass', () => {
-  it('allows setting up an observable to translate between inner and outer values', () => {
-    @Component({
-      selector: 'sl-observable-translation',
-      template: `<input [formControl]="control" />`,
-      providers: [provideValueAccessor(ObservableTranslationComponent)],
-    })
-    class ObservableTranslationComponent extends WrappedControlSuperclass<
-      number,
-      string
-    > {
-      control = new FormControl();
-
-      protected override setUpOuterToInner$(
-        value$: Observable<number>,
-      ): Observable<string> {
-        return value$.pipe(map((outer) => String(outer / 2)));
-      }
-
-      protected override setUpInnerToOuter$(
-        value$: Observable<string>,
-      ): Observable<number> {
-        return value$.pipe(
-          map((inner) => +inner * 2),
-          filter((val) => !isNaN(val)),
-        );
-      }
-    }
-
-    @Component({
-      template: `
-        <sl-observable-translation
-          [(ngModel)]="outerValue"
-        ></sl-observable-translation>
-      `,
-    })
-    class WrapperComponent {
-      @Input() outerValue!: number;
-    }
-
-    const ctx = new ComponentContext(WrapperComponent, {
-      imports: [FormsModule, ReactiveFormsModule],
-      declarations: [ObservableTranslationComponent],
-    });
-    ctx.assignInputs({ outerValue: 38 });
-    ctx.run(() => {
-      const input: HTMLInputElement = ctx.fixture.debugElement.query(
-        By.css('input'),
-      ).nativeElement;
-      expect(input.value).toBe('19');
-
-      setValue(input, '6');
-      ctx.tick();
-      expect(ctx.getComponentInstance().outerValue).toBe(12);
-
-      setValue(input, "you can't double me");
-      ctx.tick();
-      expect(ctx.getComponentInstance().outerValue).toBe(12);
-    });
-  });
-
   it('adds ng-touched to the inner form control at the right time', () => {
     @Component({ template: `<input [formControl]="control" />` })
     class NgTouchedComponent extends WrappedControlSuperclass<string> {
@@ -162,92 +111,258 @@ describe('WrappedControlSuperclass', () => {
     });
   });
 
-  it('gracefully handles an error in .innerToOuter()', () => {
-    @Component({
-      selector: `sl-error-in`,
-      template: `<input [formControl]="control" />`,
-      providers: [provideValueAccessor(ErrorInComponent)],
-    })
-    class ErrorInComponent extends WrappedControlSuperclass<number> {
-      control = new FormControl();
-      override outerToInner = jasmine.createSpy();
-    }
+  describe('translating between inner and outer formats', () => {
+    it('allows setting up an observable to translate between inner and outer values', () => {
+      @Component({
+        selector: 'sl-observable-translation',
+        template: `<input [formControl]="control" />`,
+        providers: [provideValueAccessor(ObservableTranslationComponent)],
+      })
+      class ObservableTranslationComponent extends WrappedControlSuperclass<
+        number,
+        string
+      > {
+        control = new FormControl();
 
-    @Component({
-      template: `<sl-error-in [(ngModel)]="value"></sl-error-in>`,
-    })
-    class WrapperComponent {
-      @Input() value!: string;
-    }
+        protected override setUpOuterToInner$(
+          value$: Observable<number>,
+        ): Observable<string> {
+          return value$.pipe(map((outer) => String(outer / 2)));
+        }
 
-    const handleError = jasmine.createSpy();
-    const ctx = new ComponentContext(WrapperComponent, {
-      declarations: [ErrorInComponent],
-      imports: [FormsModule, ReactiveFormsModule],
-      providers: [{ provide: ErrorHandler, useValue: { handleError } }],
+        protected override setUpInnerToOuter$(
+          value$: Observable<string>,
+        ): Observable<number> {
+          return value$.pipe(
+            map((inner) => +inner * 2),
+            filter((val) => !isNaN(val)),
+          );
+        }
+      }
+
+      @Component({
+        template: `
+          <sl-observable-translation
+            [(ngModel)]="outerValue"
+          ></sl-observable-translation>
+        `,
+      })
+      class WrapperComponent {
+        @Input() outerValue!: number;
+      }
+
+      const ctx = new ComponentContext(WrapperComponent, {
+        imports: [FormsModule, ReactiveFormsModule],
+        declarations: [ObservableTranslationComponent],
+      });
+      ctx.assignInputs({ outerValue: 38 });
+      ctx.run(() => {
+        const input: HTMLInputElement = ctx.fixture.debugElement.query(
+          By.css('input'),
+        ).nativeElement;
+        expect(input.value).toBe('19');
+
+        setValue(input, '6');
+        ctx.tick();
+        expect(ctx.getComponentInstance().outerValue).toBe(12);
+
+        setValue(input, "you can't double me");
+        ctx.tick();
+        expect(ctx.getComponentInstance().outerValue).toBe(12);
+      });
     });
-    ctx.run(async () => {
-      const control: ErrorInComponent = ctx.fixture.debugElement.query(
-        By.directive(ErrorInComponent),
-      ).componentInstance;
-      const input: HTMLInputElement = ctx.fixture.debugElement.query(
-        By.css('input'),
-      ).nativeElement;
 
-      const error = new Error();
-      control.outerToInner.and.throwError(error);
-      ctx.assignInputs({ value: 'wont show' });
-      expectSingleCallAndReset(handleError, error);
-      expect(input.value).toBe('');
+    it('gracefully handles an error in .innerToOuter()', () => {
+      @Component({
+        selector: `sl-error-in`,
+        template: `<input [formControl]="control" />`,
+        providers: [provideValueAccessor(ErrorInComponent)],
+      })
+      class ErrorInComponent extends WrappedControlSuperclass<number> {
+        control = new FormControl();
+        override outerToInner = jasmine.createSpy();
+      }
 
-      control.outerToInner.and.returnValue('restored');
-      ctx.assignInputs({ value: 'will show' });
-      expect(input.value).toBe('restored');
+      @Component({
+        template: ` <sl-error-in [(ngModel)]="value"></sl-error-in>`,
+      })
+      class WrapperComponent {
+        @Input() value!: string;
+      }
+
+      const handleError = jasmine.createSpy();
+      const ctx = new ComponentContext(WrapperComponent, {
+        declarations: [ErrorInComponent],
+        imports: [FormsModule, ReactiveFormsModule],
+        providers: [{ provide: ErrorHandler, useValue: { handleError } }],
+      });
+      ctx.run(async () => {
+        const control: ErrorInComponent = ctx.fixture.debugElement.query(
+          By.directive(ErrorInComponent),
+        ).componentInstance;
+        const input: HTMLInputElement = ctx.fixture.debugElement.query(
+          By.css('input'),
+        ).nativeElement;
+
+        const error = new Error();
+        control.outerToInner.and.throwError(error);
+        ctx.assignInputs({ value: 'wont show' });
+        expectSingleCallAndReset(handleError, error);
+        expect(input.value).toBe('');
+
+        control.outerToInner.and.returnValue('restored');
+        ctx.assignInputs({ value: 'will show' });
+        expect(input.value).toBe('restored');
+      });
+    });
+
+    it('gracefully handles an error in .outerToInner()', () => {
+      @Component({
+        selector: `sl-error-out`,
+        template: `<input [formControl]="control" />`,
+        providers: [provideValueAccessor(ErrorOutComponent)],
+      })
+      class ErrorOutComponent extends WrappedControlSuperclass<number> {
+        control = new FormControl();
+        override innerToOuter = jasmine.createSpy();
+      }
+
+      @Component({
+        template: ` <sl-error-out [(ngModel)]="value"></sl-error-out>`,
+      })
+      class WrapperComponent {
+        value = 'initial value';
+      }
+
+      const handleError = jasmine.createSpy();
+      const ctx = new ComponentContext(WrapperComponent, {
+        declarations: [ErrorOutComponent],
+        imports: [FormsModule, ReactiveFormsModule],
+        providers: [{ provide: ErrorHandler, useValue: { handleError } }],
+      });
+      ctx.run(async () => {
+        const wrapper = ctx.getComponentInstance();
+        const control: ErrorOutComponent = ctx.fixture.debugElement.query(
+          By.directive(ErrorOutComponent),
+        ).componentInstance;
+        const input: HTMLInputElement = ctx.fixture.debugElement.query(
+          By.css('input'),
+        ).nativeElement;
+
+        const error = new Error();
+        control.innerToOuter.and.throwError(error);
+        setValue(input, 'wont show');
+        expectSingleCallAndReset(handleError, error);
+        expect(wrapper.value).toBe('initial value');
+
+        control.innerToOuter.and.returnValue('restored');
+        setValue(input, 'will show');
+        expect(wrapper.value).toBe('restored');
+      });
     });
   });
 
-  it('gracefully handles an error in .outerToInner()', () => {
-    @Component({
-      selector: `sl-error-out`,
-      template: `<input [formControl]="control" />`,
-      providers: [provideValueAccessor(ErrorOutComponent)],
-    })
-    class ErrorOutComponent extends WrappedControlSuperclass<number> {
-      control = new FormControl();
-      override innerToOuter = jasmine.createSpy();
-    }
+  describe('validation', () => {
+    it('works for simple transformations', () => {
+      @Component({
+        selector: 'sl-inner',
+        template: `<input [formControl]="control" maxlength="2" />`,
+        providers: [provideValueAccessor(InnerComponent)],
+      })
+      class InnerComponent extends WrappedFormControlSuperclass<string> {
+        // this is an example in the docs
+        protected override outerToInnerErrors(
+          errors: ValidationErrors,
+        ): ValidationErrors {
+          return omit(errors, 'required');
+        }
 
-    @Component({
-      template: `<sl-error-out [(ngModel)]="value"></sl-error-out>`,
-    })
-    class WrapperComponent {
-      value = 'initial value';
-    }
+        protected override innerToOuterErrors(
+          errors: ValidationErrors,
+        ): ValidationErrors {
+          return omit(errors, 'maxlength');
+        }
+      }
 
-    const handleError = jasmine.createSpy();
-    const ctx = new ComponentContext(WrapperComponent, {
-      declarations: [ErrorOutComponent],
-      imports: [FormsModule, ReactiveFormsModule],
-      providers: [{ provide: ErrorHandler, useValue: { handleError } }],
+      @Component({
+        template: `<sl-inner [formControl]="control" required></sl-inner>`,
+      })
+      class OuterComponent extends WrappedFormControlSuperclass<string> {}
+
+      const ctx = new ComponentContext(OuterComponent, {
+        imports: [ReactiveFormsModule],
+        declarations: [InnerComponent],
+      });
+      ctx.run(async () => {
+        const outer = ctx.getComponentInstance();
+        const inner = findDirective(ctx, InnerComponent);
+        const input = find<HTMLInputElement>(ctx.fixture, 'input');
+
+        expect(inner.control.errors).toBe(null);
+        expect(outer.control.errors).toEqual({ required: true });
+
+        setValue(input, '123');
+        expect(keys(inner.control.errors)).toEqual(['maxlength']);
+        expect(outer.control.errors).toBe(null);
+      });
     });
-    ctx.run(async () => {
-      const wrapper = ctx.getComponentInstance();
-      const control: ErrorOutComponent = ctx.fixture.debugElement.query(
-        By.directive(ErrorOutComponent),
-      ).componentInstance;
-      const input: HTMLInputElement = ctx.fixture.debugElement.query(
-        By.css('input'),
-      ).nativeElement;
 
-      const error = new Error();
-      control.innerToOuter.and.throwError(error);
-      setValue(input, 'wont show');
-      expectSingleCallAndReset(handleError, error);
-      expect(wrapper.value).toBe('initial value');
+    it('works for complex transformations', () => {
+      @Component({
+        selector: 'sl-inner',
+        template: `<input [formControl]="control" required />`,
+        providers: [provideValueAccessor(InnerComponent)],
+      })
+      class InnerComponent extends WrappedFormControlSuperclass<string> {
+        // this is an example in the docs
+        protected override setUpInnerToOuterErrors$(): Observable<ValidationErrors> {
+          return EMPTY;
+        }
+      }
 
-      control.innerToOuter.and.returnValue('restored');
-      setValue(input, 'will show');
-      expect(wrapper.value).toBe('restored');
+      @Component({
+        template: `<sl-inner [formControl]="control"></sl-inner>`,
+      })
+      class OuterComponent extends WrappedFormControlSuperclass<string> {}
+
+      const ctx = new ComponentContext(OuterComponent, {
+        imports: [ReactiveFormsModule],
+        declarations: [InnerComponent],
+      });
+      ctx.run(async () => {
+        const outer = ctx.getComponentInstance();
+        expect(outer.control.errors).toBe(null);
+      });
+    });
+
+    describe('when there is an outer `NgControl`', () => {
+      it('does not sync with ancestor controls', () => {
+        @Component({
+          selector: `sl-inner`,
+          template: `<input [formControl]="control" />`,
+          providers: [provideValueAccessor(InnerComponent)],
+        })
+        class InnerComponent extends WrappedFormControlSuperclass<string> {}
+
+        @Component({
+          selector: `sl-middle`,
+          template: `<sl-inner></sl-inner>`,
+          providers: [provideValueAccessor(MiddleComponent)],
+        })
+        class MiddleComponent extends WrappedFormControlSuperclass<string> {}
+
+        @Component({ template: `<sl-middle ngModel required></sl-middle>` })
+        class OuterComponent {}
+
+        const ctx = new ComponentContext(OuterComponent, {
+          imports: [FormsModule, ReactiveFormsModule],
+          declarations: [InnerComponent, MiddleComponent],
+        });
+        ctx.run(async () => {
+          const innerControl = findDirective(ctx, InnerComponent).control;
+          expect(innerControl.errors).toBe(null);
+        });
+      });
     });
   });
 });
