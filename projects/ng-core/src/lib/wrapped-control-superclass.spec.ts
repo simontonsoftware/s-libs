@@ -78,7 +78,7 @@ describe('WrappedControlSuperclass', () => {
         lastName: new FormControl(),
       });
 
-      protected override outerToInner(outer: FullName | null): FullName {
+      protected override outerToInnerValue(outer: FullName | null): FullName {
         // `outer` can come in as `null` during initialization when the user binds with `ngModel`
         return outer ?? new FullName();
       }
@@ -124,13 +124,13 @@ describe('WrappedControlSuperclass', () => {
       > {
         control = new FormControl();
 
-        protected override setUpOuterToInner$(
+        protected override setUpOuterToInnerValue$(
           value$: Observable<number>,
         ): Observable<string> {
           return value$.pipe(map((outer) => String(outer / 2)));
         }
 
-        protected override setUpInnerToOuter$(
+        protected override setUpInnerToOuterValue$(
           value$: Observable<string>,
         ): Observable<number> {
           return value$.pipe(
@@ -172,7 +172,7 @@ describe('WrappedControlSuperclass', () => {
       });
     });
 
-    it('gracefully handles an error in .innerToOuter()', () => {
+    it('gracefully handles an error in .innerToOuterValue()', () => {
       @Component({
         selector: `sl-error-in`,
         template: `<input [formControl]="control" />`,
@@ -180,7 +180,7 @@ describe('WrappedControlSuperclass', () => {
       })
       class ErrorInComponent extends WrappedControlSuperclass<number> {
         control = new FormControl();
-        override outerToInner = jasmine.createSpy();
+        override outerToInnerValue = jasmine.createSpy();
       }
 
       @Component({
@@ -205,18 +205,18 @@ describe('WrappedControlSuperclass', () => {
         ).nativeElement;
 
         const error = new Error();
-        control.outerToInner.and.throwError(error);
+        control.outerToInnerValue.and.throwError(error);
         ctx.assignInputs({ value: 'wont show' });
         expectSingleCallAndReset(handleError, error);
         expect(input.value).toBe('');
 
-        control.outerToInner.and.returnValue('restored');
+        control.outerToInnerValue.and.returnValue('restored');
         ctx.assignInputs({ value: 'will show' });
         expect(input.value).toBe('restored');
       });
     });
 
-    it('gracefully handles an error in .outerToInner()', () => {
+    it('gracefully handles an error in .outerToInnerValue()', () => {
       @Component({
         selector: `sl-error-out`,
         template: `<input [formControl]="control" />`,
@@ -224,7 +224,7 @@ describe('WrappedControlSuperclass', () => {
       })
       class ErrorOutComponent extends WrappedControlSuperclass<number> {
         control = new FormControl();
-        override innerToOuter = jasmine.createSpy();
+        override innerToOuterValue = jasmine.createSpy();
       }
 
       @Component({
@@ -250,12 +250,12 @@ describe('WrappedControlSuperclass', () => {
         ).nativeElement;
 
         const error = new Error();
-        control.innerToOuter.and.throwError(error);
+        control.innerToOuterValue.and.throwError(error);
         setValue(input, 'wont show');
         expectSingleCallAndReset(handleError, error);
         expect(wrapper.value).toBe('initial value');
 
-        control.innerToOuter.and.returnValue('restored');
+        control.innerToOuterValue.and.returnValue('restored');
         setValue(input, 'will show');
         expect(wrapper.value).toBe('restored');
       });
@@ -408,11 +408,11 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
   class DateComponent extends WrappedControlSuperclass<Date, string> {
     control = new FormControl();
 
-    protected override innerToOuter(value: string): Date {
+    protected override innerToOuterValue(value: string): Date {
       return new Date(value + 'Z');
     }
 
-    protected override outerToInner(value: Date): string {
+    protected override outerToInnerValue(value: Date): string {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- happens during initialization
       if (value === null) {
         return '';

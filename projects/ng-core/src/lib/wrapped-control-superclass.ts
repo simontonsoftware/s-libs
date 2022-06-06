@@ -55,7 +55,7 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *     lastName: new FormControl(),
  *   });
  *
- *   protected outerToInner(outer: FullName | null): FullName {
+ *   protected outerToInnerValue(outer: FullName | null): FullName {
  *     // `outer` can come in as `null` during initialization when the user binds with `ngModel`
  *     return outer || new FullName();
  *   }
@@ -69,11 +69,11 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *   providers: [provideValueAccessor(DateComponent)],
  * })
  * class DateComponent extends WrappedFormControlSuperclass<Date, string> {
- *   protected innerToOuter(inner: string): Date {
+ *   protected innerToOuterValue(inner: string): Date {
  *     return new Date(inner + "Z");
  *   }
  *
- *   protected outerToInner(outer: Date): string {
+ *   protected outerToInnerValue(outer: Date): string {
  *     if (outer === null) {
  *       return ""; // happens during initialization
  *     }
@@ -101,7 +101,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
     this.#injector = injector;
     this.#errorHandler = injector.get(ErrorHandler);
     this.subscribeTo(
-      this.setUpOuterToInner$(this.#incomingValues$),
+      this.setUpOuterToInnerValue$(this.#incomingValues$),
       (inner) => {
         this.control.setValue(inner, { emitEvent: false });
       },
@@ -111,7 +111,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   ngOnInit(): void {
     this.#bindValidation();
     this.subscribeTo(
-      this.setUpInnerToOuter$(this.control.valueChanges),
+      this.setUpInnerToOuterValue$(this.control.valueChanges),
       (outer) => {
         this.emitOutgoingValue(outer);
       },
@@ -143,7 +143,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    *
    * In this example, incoming values are debounced before being passed through to the inner form control
    * ```ts
-   * setUpOuterToInner$(outer$: Observable<OuterType>): Observable<InnerType> {
+   * setUpOuterToInnerValue$(outer$: Observable<OuterType>): Observable<InnerType> {
    *   return outer$.pipe(
    *     debounce(300),
    *     map((outer) => doExpensiveTransformToInnerValue(outer)),
@@ -151,13 +151,13 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    * }
    * ```
    *
-   * For a simple transformation, see {@linkcode #outerToInner} instead.
+   * For a simple transformation, see {@linkcode #outerToInnerValue} instead.
    */
-  protected setUpOuterToInner$(
+  protected setUpOuterToInnerValue$(
     outer$: Observable<OuterType>,
   ): Observable<InnerType> {
     return outer$.pipe(
-      map((outer) => this.outerToInner(outer)),
+      map((outer) => this.outerToInnerValue(outer)),
       this.#handleError(),
     );
   }
@@ -165,9 +165,9 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   /**
    * Override this to modify a value coming from the outside to the format needed within this component.
    *
-   * For more complex needs, see {@linkcode #setUpOuterToInner$} instead.
+   * For more complex needs, see {@linkcode #setUpOuterToInnerValue$} instead.
    */
-  protected outerToInner(outer: OuterType): InnerType {
+  protected outerToInnerValue(outer: OuterType): InnerType {
     return outer as unknown as InnerType;
   }
 
@@ -176,20 +176,20 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    *
    * In this example, illegal values are not emitted
    * ```ts
-   * setUpInnerToOuter$(inner$: Observable<InnerType>): Observable<OuterType> {
+   * setUpInnerToOuterValue$(inner$: Observable<InnerType>): Observable<OuterType> {
    *   return inner$.pipe(
    *     filter((inner) => isLegalValue(outer)),
    *   );
    * }
    * ```
    *
-   * For a simple transformation, see {@linkcode #innerToOuter} instead.
+   * For a simple transformation, see {@linkcode #innerToOuterValue} instead.
    */
-  protected setUpInnerToOuter$(
+  protected setUpInnerToOuterValue$(
     inner$: Observable<InnerType>,
   ): Observable<OuterType> {
     return inner$.pipe(
-      map((inner) => this.innerToOuter(inner)),
+      map((inner) => this.innerToOuterValue(inner)),
       this.#handleError(),
     );
   }
@@ -197,9 +197,9 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   /**
    * Override this to modify a value coming from within this component to the format expected on the outside.
    *
-   * For more complex needs, see {@linkcode #setUpInnerToOuter$} instead.
+   * For more complex needs, see {@linkcode #setUpInnerToOuterValue$} instead.
    */
-  protected innerToOuter(inner: InnerType): OuterType {
+  protected innerToOuterValue(inner: InnerType): OuterType {
     return inner as unknown as OuterType;
   }
 
