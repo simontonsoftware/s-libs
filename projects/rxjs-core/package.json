@@ -12,7 +12,9 @@
   "peerDependencies": {
     "@s-libs/js-core": "^13.1.0",
     "@s-libs/micro-dash": "^13.1.0",
-    "rxjs": "^7.4.0"
+    "rxjs": "^7.5.0"
   },
-  "dependencies": { "tslib": "^2.3.0" }
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
 }
