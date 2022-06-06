@@ -4,7 +4,9 @@
   "cli": {
     "packageManager": "yarn",
     "analytics": "d2657102-efac-4510-9c45-87ca8fcdb63c",
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -514,6 +516,5 @@
         }
       }
     }
-  },
-  "defaultProject": "integration"
+  }
 }
