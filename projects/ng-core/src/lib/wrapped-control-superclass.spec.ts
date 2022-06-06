@@ -9,7 +9,7 @@ import {
   flushMicrotasks,
 } from '@angular/core/testing';
 import {
-  UntypedFormControl,
+  FormControl,
   UntypedFormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -40,7 +40,7 @@ describe('WrappedControlSuperclass', () => {
   it('adds ng-touched to the inner form control at the right time', () => {
     @Component({ template: `<input [formControl]="control" />` })
     class NgTouchedComponent extends WrappedControlSuperclass<string> {
-      control = new UntypedFormControl();
+      control = new FormControl();
     }
 
     const ctx = new ComponentContext(NgTouchedComponent, {
@@ -74,8 +74,8 @@ describe('WrappedControlSuperclass', () => {
     })
     class FullNameComponent extends WrappedControlSuperclass<FullName> {
       override control = new UntypedFormGroup({
-        firstName: new UntypedFormControl(),
-        lastName: new UntypedFormControl(),
+        firstName: new FormControl(),
+        lastName: new FormControl(),
       });
 
       protected override outerToInnerValue(outer: FullName | null): FullName {
@@ -122,7 +122,7 @@ describe('WrappedControlSuperclass', () => {
         number,
         string
       > {
-        control = new UntypedFormControl();
+        control = new FormControl();
 
         protected override setUpOuterToInnerValue$(
           value$: Observable<number>,
@@ -179,7 +179,7 @@ describe('WrappedControlSuperclass', () => {
         providers: [provideValueAccessor(ErrorInComponent)],
       })
       class ErrorInComponent extends WrappedControlSuperclass<number> {
-        control = new UntypedFormControl();
+        control = new FormControl();
         override outerToInnerValue = jasmine.createSpy();
       }
 
@@ -223,7 +223,7 @@ describe('WrappedControlSuperclass', () => {
         providers: [provideValueAccessor(ErrorOutComponent)],
       })
       class ErrorOutComponent extends WrappedControlSuperclass<number> {
-        control = new UntypedFormControl();
+        control = new FormControl();
         override innerToOuterValue = jasmine.createSpy();
       }
 
@@ -396,7 +396,7 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
     changeDetection: ChangeDetectionStrategy.OnPush,
   })
   class StringComponent extends WrappedControlSuperclass<string> {
-    control = new UntypedFormControl();
+    control = new FormControl();
   }
 
   @Component({
@@ -406,7 +406,7 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
     changeDetection: ChangeDetectionStrategy.OnPush,
   })
   class DateComponent extends WrappedControlSuperclass<Date, string> {
-    control = new UntypedFormControl();
+    control = new FormControl();
 
     protected override innerToOuterValue(value: string): Date {
       return new Date(value + 'Z');

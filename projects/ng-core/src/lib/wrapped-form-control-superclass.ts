@@ -1,4 +1,4 @@
-import { UntypedFormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { WrappedControlSuperclass } from './wrapped-control-superclass';
 
 /**
@@ -8,5 +8,5 @@ export abstract class WrappedFormControlSuperclass<
   OuterType,
   InnerType = OuterType,
 > extends WrappedControlSuperclass<OuterType, InnerType> {
-  control = new UntypedFormControl();
+  control = new FormControl();
 }

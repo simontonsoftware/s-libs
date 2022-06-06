@@ -5,7 +5,7 @@ import {
   Input,
 } from '@angular/core';
 import {
-  UntypedFormControl,
+  FormControl,
   ReactiveFormsModule,
   ValidationErrors,
 } from '@angular/forms';
@@ -22,7 +22,7 @@ import { find, findDirective, setValue } from '../test-helpers';
 
 abstract class AbstractValidatingComponent extends WrappedControlSuperclass<string> {
   syncError = false;
-  control = new UntypedFormControl(undefined, () =>
+  control = new FormControl(undefined, () =>
     this.#makeError(this.syncError, 'Sync'),
   );
   failOnNeedlessAsync = false;
