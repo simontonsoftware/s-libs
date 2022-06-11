@@ -42,7 +42,7 @@ describe('keepWakeLock$()', () => {
     notifyVisibilityChange = undefined;
   });
 
-  function setVisibility(value: VisibilityState): void {
+  function setVisibility(value: DocumentVisibilityState): void {
     visibilityState.and.returnValue(value);
     notifyVisibilityChange?.();
     ctx.tick();

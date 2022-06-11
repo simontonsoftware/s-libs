@@ -196,11 +196,15 @@ describe('ComponentContext', () => {
     it('destroys the fixture', () => {
       const ctx = new ComponentContext(TestComponent);
       ctx.run(noop);
-      ctx.getComponentInstance().name = 'Changed Guy';
-      ctx.fixture.detectChanges();
-      expect(ctx.fixture.nativeElement.textContent).not.toContain(
-        'Changed Guy',
-      );
+      // This was the test in Angular 13, and still fails if the fixure is not destroyed in 14
+      // ctx.getComponentInstance().name = 'Changed Guy';
+      // ctx.fixture.detectChanges();
+      // expect(ctx.fixture.nativeElement.textContent).not.toContain(
+      //   'Changed Guy',
+      // );
+      expect(() => {
+        ctx.getComponentInstance();
+      }).toThrowError();
     });
 
     it('does the superclass things', () => {

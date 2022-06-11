@@ -24,7 +24,7 @@ describe('Persistence', () => {
 
   // this can happen in android webviews, where it's up to the embedding app to call `.setDomStorageEnabled()`
   it('gracefully handles when localStorage is null', () => {
-    spyOnProperty(window, 'localStorage').and.returnValue(null);
+    spyOnProperty(window as any, 'localStorage').and.returnValue(null);
     const persistence = new Persistence('my key');
 
     expect(() => {
