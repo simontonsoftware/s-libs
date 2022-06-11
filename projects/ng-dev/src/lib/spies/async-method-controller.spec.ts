@@ -1,5 +1,5 @@
 import { expectTypeOf } from 'expect-type';
-import { AngularContext } from '../angular-context/angular-context';
+import { AngularContext } from '../../public-api';
 import { AsyncMethodController } from './async-method-controller';
 import CallInfo = jasmine.CallInfo;
 
@@ -334,7 +334,6 @@ describe('AsyncMethodController', () => {
         });
         // END production code that copies to the clipboard
 
-        // mock the behavior when the user denies access to the clipboard
         controller.expectOne([]).flush('mock clipboard contents');
 
         // BEGIN expect the correct results after a successful copy

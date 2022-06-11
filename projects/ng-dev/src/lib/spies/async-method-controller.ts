@@ -5,16 +5,25 @@ import { TestCall } from './test-call';
 
 type AsyncFunc = (...args: any[]) => Promise<any>;
 
+type AsyncMethodKeys<T> = {
+  [k in keyof T]: T[k] extends AsyncFunc ? k : never;
+}[keyof T];
+
+type AsyncMethod<
+  WrappingObject,
+  FunctionName extends keyof WrappingObject,
+> = WrappingObject[FunctionName] extends (...args: any[]) => Promise<any>
+  ? WrappingObject[FunctionName]
+  : never;
+
 type Match<
   WrappingObject,
   FunctionName extends AsyncMethodKeys<WrappingObject>,
 > =
-  | Parameters<WrappingObject[FunctionName]>
-  | ((callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>) => boolean);
-
-type AsyncMethodKeys<T> = {
-  [k in keyof T]: T[k] extends AsyncFunc ? k : never;
-}[keyof T];
+  | Parameters<AsyncMethod<WrappingObject, FunctionName>>
+  | ((
+      callInfo: jasmine.CallInfo<AsyncMethod<WrappingObject, FunctionName>>,
+    ) => boolean);
 
 /**
  * Controller to be used in tests, that allows for mocking and flushing any asynchronous function. For example, to mock the browser's paste functionality:
@@ -34,7 +43,6 @@ type AsyncMethodKeys<T> = {
  *     });
  *     // END production code that copies to the clipboard
  *
- *     // mock the behavior when the user denies access to the clipboard
  *     controller.expectOne([]).flush('mock clipboard contents');
  *
  *     // BEGIN expect the correct results after a successful copy
@@ -48,8 +56,8 @@ export class AsyncMethodController<
   WrappingObject,
   FunctionName extends AsyncMethodKeys<WrappingObject>,
 > {
-  #spy: jasmine.Spy<WrappingObject[FunctionName]>;
-  #testCalls: Array<TestCall<WrappingObject[FunctionName]>> = [];
+  #spy: jasmine.Spy<AsyncMethod<WrappingObject, FunctionName>>;
+  #testCalls: Array<TestCall<AsyncMethod<WrappingObject, FunctionName>>> = [];
 
   /**
    * If you are using an `AngularContext`, the default behavior is to automatically call `.tick()` after each `.flush()` and `.error()` to trigger promise handlers and changed detection. This is the normal production behavior of asynchronous browser APIs. However, if zone.js does not patch the function you are stubbing, change detection would not run automatically. In that case you many want to turn off this behavior by passing the option `autoTick: false`. See the list of functions that zone.js patches [here](https://github.com/angular/angular/blob/master/packages/zone.js/STANDARD-APIS.md).
@@ -74,7 +82,7 @@ export class AsyncMethodController<
   expectOne(
     match: Match<WrappingObject, FunctionName>,
     description?: string,
-  ): TestCall<WrappingObject[FunctionName]> {
+  ): TestCall<AsyncMethod<WrappingObject, FunctionName>> {
     const matches = this.match(match);
     if (matches.length !== 1) {
       throw new Error(
@@ -114,10 +122,10 @@ export class AsyncMethodController<
    */
   match(
     match: Match<WrappingObject, FunctionName>,
-  ): Array<TestCall<WrappingObject[FunctionName]>> {
+  ): Array<TestCall<AsyncMethod<WrappingObject, FunctionName>>> {
     this.#ensureCallInfoIsSet();
     let filterFn: (
-      callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>,
+      callInfo: jasmine.CallInfo<AsyncMethod<WrappingObject, FunctionName>>,
     ) => boolean;
     if (Array.isArray(match)) {
       filterFn = this.#makeArgumentMatcher(match);
@@ -155,10 +163,12 @@ export class AsyncMethodController<
   }
 
   #makeArgumentMatcher(
-    args: Parameters<WrappingObject[FunctionName]>,
-  ): (callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>) => boolean {
+    args: Parameters<AsyncMethod<WrappingObject, FunctionName>>,
+  ): (
+    callInfo: jasmine.CallInfo<AsyncMethod<WrappingObject, FunctionName>>,
+  ) => boolean {
     return (
-      callInfo: jasmine.CallInfo<WrappingObject[FunctionName]>,
+      callInfo: jasmine.CallInfo<AsyncMethod<WrappingObject, FunctionName>>,
     ): boolean => isEqual(callInfo.args, args);
   }
 

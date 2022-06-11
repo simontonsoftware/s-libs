@@ -203,7 +203,9 @@ export class ComponentContext<T> extends AngularContext {
     for (const key of keys(inputs)) {
       if (!this.inputProperties.has(key as keyof T)) {
         throw new Error(
-          `Cannot bind to "${key}" (it is not an input, or you passed it in \`unboundProperties\`)`,
+          `Cannot bind to "${String(
+            key,
+          )}" (it is not an input, or you passed it in \`unboundProperties\`)`,
         );
       }
     }

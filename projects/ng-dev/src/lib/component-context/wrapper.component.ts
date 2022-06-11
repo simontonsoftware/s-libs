@@ -90,7 +90,7 @@ function buildTemplate<T>(
   inputMetas: Array<InputMeta<T>>,
 ): string {
   const bindingStrings = inputMetas.map(
-    ({ binding, property }) => `[${binding}]="inputs.${property}"`,
+    ({ binding, property }) => `[${binding}]="inputs.${String(property)}"`,
   );
   return `
     <div class="s-libs-dynamic-wrapper" [ngStyle]="styles">

@@ -10,16 +10,6 @@ import {
  */
 export class ComponentHarnessSuperclass extends ContentContainerComponentHarness {
   /**
-   * @return whether the given {@link HarnessQuery} matches a component under this component's root element
-   */
-  protected async hasHarness<T extends ComponentHarness>(
-    predicate: HarnessQuery<T>,
-  ): Promise<boolean> {
-    const all = await this.getAllHarnesses(predicate);
-    return all.length > 0;
-  }
-
-  /**
    * Searches for an instance of the component corresponding to the given harness type under the document root element, and returns a {@link ComponentHarness} for that instance. If multiple matching components are found, a harness for the first one is returned. If no matching component is found, an error is thrown.
    */
   protected async getTopLevelHarness<T extends ComponentHarness>(
