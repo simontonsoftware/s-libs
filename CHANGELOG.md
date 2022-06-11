@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v13.1.0...v14.0.0-next.0) (2022-06-11)
+
+### ⚠ BREAKING CHANGES
+
+- Libraries that depend on Angular now require version 14, that depend on RxJS require 7.5, and that require Jasmine require 4.1
+- **ng-core:** Subclasses that override one of these methods must make the same name change.
+- **ng-core:** Errors from validation outside and inside a `WrappedControlSuperclass` are now synchronized both ways. See the docs for examples to modify or disable this process.
+
+### Features
+
+- **ng-core:** `WrappedControlSuperclass` now synchronizes validation errors with its outer `NgControl`, if one exists ([edea7d4](https://github.com/simontonsoftware/s-libs/commit/edea7d499db7614bb5768b47d014226199efb4a2)), closes [#76](https://github.com/simontonsoftware/s-libs/issues/76)
+- **ng-core:** Rename `WrappedControlSuperclass.outerToInner` and similar to `.outerToInnerValues` and similar, to avoid confusion with `.outerToInnerErrors` ([b65e4e2](https://github.com/simontonsoftware/s-libs/commit/b65e4e2c8739c29d833fdf070e8b9a632940cc8b))
+- **ng-dev:** add `ComponentHarnessSuperclass` ([861a4a4](https://github.com/simontonsoftware/s-libs/commit/861a4a475584fe3953876d5dd6460157a00e5b71))
+- **rxjs-core:** improve typing for `withHistory()` ([c4134ff](https://github.com/simontonsoftware/s-libs/commit/c4134ff0300c799f68c7bb929ea52aab5f43529e)), closes [#5](https://github.com/simontonsoftware/s-libs/issues/5)
+- Update to Angular 14 ([ea35470](https://github.com/simontonsoftware/s-libs/commit/ea35470b842dfe5796226eb63417c77f439f5845))
+
 ## [13.1.0](https://github.com/simontonsoftware/s-libs/compare/v13.1.0-next.2...v13.1.0) (2021-12-29)
 
 ### Features
