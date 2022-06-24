@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.0](https://github.com/simontonsoftware/s-libs/compare/v14.0.0-next.0...v14.0.0) (2022-06-24)
+
 ## [14.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v13.1.0...v14.0.0-next.0) (2022-06-11)
 
 ### ⚠ BREAKING CHANGES
