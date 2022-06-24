@@ -41,7 +41,7 @@ wrapFunction(f, {
     return '1';
   },
 });
+// $ExpectError
 wrapFunction(f, {
-  // $ExpectError
   after(_r, _a1: Date): void {},
 });

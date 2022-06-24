@@ -1,10 +1,42 @@
+import { expectTypeOf } from 'expect-type';
 import { identity } from 'lodash-es';
-import { expectCallsAndReset } from '@s-libs/ng-dev';
+import { expectCallsAndReset, staticTest } from '@s-libs/ng-dev';
 import { groupBy } from './group-by';
 
 describe('groupBy()', () => {
   it('works with an `undefined` collection', () => {
     expect(groupBy(undefined, identity)).toEqual({});
+  });
+
+  it('has fancy typing', () => {
+    staticTest(() => {
+      const a = [1] as number[];
+      const aOrN = [1] as number[] | null;
+      const o = { a: 1 } as { a: number };
+      const oOrU = { a: 1 } as { a: number } | undefined;
+
+      expectTypeOf(groupBy(a, (): string => 'hi')).toEqualTypeOf<
+        Record<string, number[]>
+      >();
+      expectTypeOf(groupBy(a, (): 'hi' | 'there' => 'hi')).toEqualTypeOf<{
+        hi: number[] | undefined;
+        there: number[] | undefined;
+      }>();
+      expectTypeOf(groupBy(o, (): number => 1)).toEqualTypeOf<
+        Record<number, number[]>
+      >();
+      expectTypeOf(groupBy(o, (): 1 | 2 => 1)).toEqualTypeOf<{
+        1: number[] | undefined;
+        2: number[] | undefined;
+      }>();
+
+      expectTypeOf(groupBy(aOrN, (): string => 'a')).toEqualTypeOf<
+        Record<string, number[]>
+      >();
+      expectTypeOf(groupBy(oOrU, (): string => 'a')).toEqualTypeOf<
+        Record<string, number[]>
+      >();
+    });
   });
 
   //
