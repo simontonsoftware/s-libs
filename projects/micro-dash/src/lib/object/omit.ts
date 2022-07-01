@@ -1,4 +1,4 @@
-import { Nil } from '../interfaces';
+import { EmptyObject, IfCouldBe, Nil } from '../interfaces';
 import { clone } from '../lang';
 
 type RemainingKeys<T, Omits> =
@@ -16,15 +16,21 @@ type RemainingKeys<T, Omits> =
  * - Lodash: 16,006 bytes
  * - Micro-dash: 170 bytes
  */
-export function omit<T extends Nil | object, O extends ReadonlyArray<keyof T>>(
+export function omit<
+  T extends object | Nil,
+  O extends ReadonlyArray<keyof Exclude<T, Nil>>,
+>(
   object: T,
   ...paths: O
-): {
-  [K in RemainingKeys<T, O[number]>]: T[K];
-} {
+):
+  | {
+      [K in RemainingKeys<Exclude<T, Nil>, O[number]>]: Exclude<T, Nil>[K];
+    }
+  | IfCouldBe<T, Nil, EmptyObject> {
+  // TODO: test size of `??`
   const obj: any = clone(object) || {};
   for (const path of paths) {
-    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- well, this is exactly what the user requested, so ...
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- this is exactly what the user requested, so ...
     delete obj[path];
   }
   return obj;
