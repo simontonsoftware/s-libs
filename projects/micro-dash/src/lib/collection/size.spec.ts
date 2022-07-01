@@ -1,6 +1,10 @@
 import { size } from './size';
 
 describe('size()', () => {
+  //
+  // stolen from https://github.com/lodash/lodash
+  //
+
   const array = [1, 2, 3];
 
   it('should return the number of own enumerable string keyed properties of an object', () => {
@@ -13,6 +17,8 @@ describe('size()', () => {
 
   it('should accept a falsey `object`', () => {
     expect(size('')).toBe(0);
+    expect(size(null)).toBe(0);
+    expect(size(undefined)).toBe(0);
   });
 
   it('should not treat objects with negative lengths as array-like', () => {

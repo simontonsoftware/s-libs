@@ -1,3 +1,4 @@
+import { Nil } from '../interfaces';
 import { keys } from '../object';
 
 /**
@@ -7,10 +8,8 @@ import { keys } from '../object';
  * - Lodash: 3,569 bytes
  * - Micro-dash: 233 bytes
  */
-
-export function size(collection: object): number;
-export function size(collection: string | readonly any[]): number;
-
-export function size(collection: object | string | readonly any[]): number {
+export function size(
+  collection: object | string | readonly any[] | Nil,
+): number {
   return keys(collection).length;
 }
