@@ -12,8 +12,8 @@ type WithDefault<V, D> =
  * - does not handle a dot-separated string for `path`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 5,296 bytes
- * - Micro-dash: 227 bytes
+ * - Lodash: 5,426 bytes
+ * - Micro-dash: 250 bytes
  */
 
 export function get<T, K extends keyof NonNullable<T>, D = undefined>(

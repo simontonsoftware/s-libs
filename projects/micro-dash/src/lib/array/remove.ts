@@ -7,8 +7,8 @@ import { ArrayIteratee, ArrayNarrowingIteratee } from '../interfaces';
  * - iterates over `array` in reverse order
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 14,577 bytes
- * - Micro-dash: 128 bytes
+ * - Lodash: 14,808 bytes
+ * - Micro-dash: 139 bytes
  */
 
 export function remove<I, O>(

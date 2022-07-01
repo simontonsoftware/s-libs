@@ -10,8 +10,8 @@
  * - does not make any guarantees about the value of `this` in `func`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 2,505 bytes
- * - Micro-dash: 412 bytes
+ * - Lodash: 2,539 bytes
+ * - Micro-dash: 401 bytes
  */
 export function throttle<T extends (...args: any[]) => any>(
   func: T,

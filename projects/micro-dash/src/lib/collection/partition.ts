@@ -12,8 +12,8 @@ import { forEach } from './for-each';
  * Creates an array of elements split into two groups, the first of which contains elements `predicate` returns truthy for, the second of which contains elements `predicate` returns falsey for.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 14,669 bytes
- * - Micro-dash: 340 bytes
+ * - Lodash: 14,926 bytes
+ * - Micro-dash: 344 bytes
  */
 
 export function partition<T, O>(

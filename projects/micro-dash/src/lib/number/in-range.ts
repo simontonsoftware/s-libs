@@ -6,8 +6,8 @@
  * - does not coerce falsey bounds to `0`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 1,590 bytes
- * - Micro-dash: 145 bytes
+ * - Lodash: 1,610 bytes
+ * - Micro-dash: 132 bytes
  */
 export function inRange(number: number, start: number, end: number): boolean {
   return number >= Math.min(start, end) && number < Math.max(start, end);

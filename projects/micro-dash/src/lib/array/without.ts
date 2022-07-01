@@ -5,8 +5,8 @@
  * - Uses triple equals rather than `SameValueZero`.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 5,973 bytes
- * - Micro-dash: 79 bytes
+ * - Lodash: 6,098 bytes
+ * - Micro-dash: 69 bytes
  */
 export function without<T>(array: readonly T[], ...values: readonly T[]): T[] {
   return array.filter((item) => !values.includes(item));

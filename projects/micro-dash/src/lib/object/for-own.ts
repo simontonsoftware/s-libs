@@ -9,8 +9,8 @@ import { keys, keysOfNonArray } from './keys';
  * - does not treat sparse arrays as dense
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 3,693 bytes
- * - Micro-dash: 261 bytes
+ * - Lodash: 3,744 bytes
+ * - Micro-dash: 283 bytes
  */
 export function forOwn<T>(
   object: T,

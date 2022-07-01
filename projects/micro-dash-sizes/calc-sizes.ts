@@ -75,9 +75,13 @@ async function buildAndExplore(fileGlob: string): Promise<void> {
 
 async function getPaths(fileGlob: string): Promise<string[]> {
   return new Promise<string[]>((resolve) => {
-    glob(path.join(appDir, fileGlob), { nodir: true }, (_err, files) => {
-      resolve(files);
-    });
+    glob(
+      fileGlob,
+      { cwd: appDir, matchBase: true, absolute: true },
+      (_err, files) => {
+        resolve(files);
+      },
+    );
   });
 }
 
@@ -92,7 +96,7 @@ function build(inputPath: string): void {
   }
 
   writeFileSync(path.join(mainDir, 'main.ts'), `import "${importPath}";`);
-  execSync('ng build --sourceMap=true micro-dash-sizes', { cwd: rootDir });
+  execSync('ng build --source-map=true micro-dash-sizes', { cwd: rootDir });
 }
 
 async function inspect(): Promise<string | undefined> {

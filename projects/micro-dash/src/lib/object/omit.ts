@@ -13,8 +13,8 @@ type RemainingKeys<T, Omits> =
  * - does not work with arrays
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 16,006 bytes
- * - Micro-dash: 170 bytes
+ * - Lodash: 16,266 bytes
+ * - Micro-dash: 161 bytes
  */
 export function omit<
   T extends object | Nil,

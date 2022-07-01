@@ -6,8 +6,8 @@ import { size } from './size';
  * Creates an array of shuffled values, using a version of the [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle).
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 4,017 bytes
- * - Micro-dash: 961 bytes
+ * - Lodash: 4,083 bytes
+ * - Micro-dash: 987 bytes
  */
 
 export function shuffle<T>(array: Nil | readonly T[]): T[];

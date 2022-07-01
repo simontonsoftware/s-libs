@@ -13,8 +13,8 @@ import { filter } from './filter';
  * The opposite of `filter`; this method returns the elements of `collection` that `predicate` does **not** return truthy for.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 14,758 bytes
- * - Micro-dash: 379 bytes
+ * - Lodash: 15,017 bytes
+ * - Micro-dash: 385 bytes
  */
 
 export function reject<I, O>(

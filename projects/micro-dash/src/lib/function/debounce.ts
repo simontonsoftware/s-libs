@@ -10,8 +10,8 @@
  * - does not make any guarantees about the value of `this` in `func`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 2,279 bytes
- * - Micro-dash: 184 bytes
+ * - Lodash: 2,310 bytes
+ * - Micro-dash: 173 bytes
  */
 export function debounce<T extends (...args: any[]) => any>(
   func: T,

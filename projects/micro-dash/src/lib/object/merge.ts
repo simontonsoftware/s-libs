@@ -13,8 +13,8 @@ import { clone } from '../lang/clone';
  * - when merging an array onto a non-array, the result is a non-array
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 10,671 bytes
- * - Micro-dash: 435 bytes
+ * - Lodash: 10,888 bytes
+ * - Micro-dash: 438 bytes
  */
 
 export function merge<A extends object, B extends object>(

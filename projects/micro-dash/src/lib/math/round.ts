@@ -11,8 +11,8 @@
  * - may return `NaN` with large `precision` values
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 2,045 bytes
- * - Micro-dash: 120 bytes
+ * - Lodash: 2,101 bytes
+ * - Micro-dash: 109 bytes
  */
 export function round(number: number, precision = 0): number {
   const factor = 10 ** Math.trunc(precision);

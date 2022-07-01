@@ -8,8 +8,8 @@ import { keysOfNonArray } from '../object/keys';
  * Arrays are considered empty if they have a `length` of `0`.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 4,374 bytes
- * - Micro-dash: 146 bytes
+ * - Lodash: 4,406 bytes
+ * - Micro-dash: 148 bytes
  */
 export function isEmpty(value: any): boolean {
   if (!Array.isArray(value)) {

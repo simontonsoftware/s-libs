@@ -29,8 +29,8 @@ type PossibleKeyMatches<T, O> = {
  * Iterates over elements of `collection`, returning the first element `predicate` returns truthy for.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 15,060 bytes
- * - Micro-dash: 262 bytes
+ * - Lodash: 15,296 bytes
+ * - Micro-dash: 264 bytes
  */
 
 // array: value narrowing

@@ -6,8 +6,8 @@ import { map } from './map';
  * Creates a flattened array of values by running each element in `collection` thru `iteratee` and flattening the mapped results.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 14,784 bytes
- * - Micro-dash: 488 bytes
+ * - Lodash: 15,065 bytes
+ * - Micro-dash: 495 bytes
  */
 
 export function flatMap<I, O>(
