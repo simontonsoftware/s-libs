@@ -10,6 +10,6 @@ This is a collection of libraries from Simonton Software, written in TypeScript 
 - [`app-state`](https://github.com/simontonsoftware/s-libs/tree/master/projects/app-state): An observable state management library
 - [`ng-core`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-core): Miscellaneous utilities for Angular
 - [`ng-app-state`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-app-state): Painlessly integrate `app-state` into template-driven Angular forms
-- [`ng-mat-core`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-app-state): Miscellaneous utilities for Angular Material
+- [`ng-mat-core`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-mat-core): Miscellaneous utilities for Angular Material
 - [`ng-dev`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-dev): Miscellaneous utilities to use while developing Angular apps
 - [`eslint-config-ng`](https://github.com/simontonsoftware/s-libs/tree/master/projects/eslint-config-ng): Recommended default config for ESLint in an Angular project.
