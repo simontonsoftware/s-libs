@@ -10,7 +10,7 @@ import { map } from './map';
  * - Micro-dash: 692 bytes
  */
 export function sortBy<T>(
-  collection: Nil | ObjectWith<T> | readonly T[],
+  collection: ObjectWith<T> | readonly T[] | Nil,
   iteratees: Array<ValueIteratee<T, any>> | ValueIteratee<T, any>,
 ): T[] {
   const fns = castArray(iteratees);
