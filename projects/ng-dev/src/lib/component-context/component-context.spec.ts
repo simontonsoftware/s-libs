@@ -1,5 +1,6 @@
 import { ComponentHarness } from '@angular/cdk/testing';
 import {
+  APP_INITIALIZER,
   Component,
   InjectionToken,
   Input,
@@ -15,6 +16,7 @@ import {
 } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { sleep } from '@s-libs/js-core';
 import { noop } from '@s-libs/micro-dash';
 import { ComponentContext } from './component-context';
 
@@ -177,6 +179,34 @@ describe('ComponentContext', () => {
       ctx.run(() => {
         const spy = ctx.getComponentInstance().ngOnChangesSpy;
         expect(spy).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    it('causes APP_INITIALIZERs to complete before instantiating the component', () => {
+      const appInitSpy = jasmine.createSpy('app init');
+      const componentInitSpy = jasmine.createSpy('component init');
+
+      @Component({ template: '' })
+      class InitializingComponent {
+        constructor() {
+          componentInitSpy();
+        }
+      }
+
+      const ctx = new ComponentContext(InitializingComponent, {
+        providers: [
+          {
+            provide: APP_INITIALIZER,
+            useFactory: () => async (): Promise<void> => {
+              await sleep(0);
+              appInitSpy();
+            },
+            multi: true,
+          },
+        ],
+      });
+      ctx.run(async () => {
+        expect(appInitSpy).toHaveBeenCalledBefore(componentInitSpy);
       });
     });
   });

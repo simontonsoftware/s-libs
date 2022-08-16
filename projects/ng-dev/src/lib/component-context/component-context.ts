@@ -1,8 +1,9 @@
-import { Type } from '@angular/core';
+import { ApplicationInitStatus, Type } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   TestModuleMetadata,
+  tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,6 +23,7 @@ import { WrapperComponent } from './wrapper.component';
  * - Wraps your component in a parent that you can easily style however you like.
  * - Lets you use {@link https://material.angular.io/cdk/test-harnesses/overview|component harnesses} in the `fakeAsync` zone, which is normally a challenge.
  * - Automatically disables animations.
+ * - Causes {@link https://angular.io/api/core/APP_INITIALIZER APP_INITIALIZER}s to run before instantiating the component. However, this requires all work in your initializers to complete with a call to `tick()`.
  *
  * A very simple example:
  * ```ts
@@ -230,6 +232,11 @@ export class ComponentContext<T> extends AngularContext {
    */
   protected override init(): void {
     super.init();
+
+    // Inject something (I think anything) to finalize the compiler and trigger any registered APP_INITIALIZER. Then `tick()` to (hopefully) run it, assuming the user is only doing things that will be flushed right away.
+    this.inject(ApplicationInitStatus);
+    tick(); // can't use `this.tick()` until the component exists
+
     this.fixture = TestBed.createComponent(WrapperComponent);
 
     this.flushStylesToWrapper();
