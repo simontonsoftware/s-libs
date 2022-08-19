@@ -1,6 +1,7 @@
 import {
   cache,
   createOperatorFunction,
+  debounceMap,
   delayOnMicrotaskQueue,
   distinctUntilKeysChanged,
   filterBehavior,
@@ -35,6 +36,10 @@ describe('rxjs-core', () => {
 
     it('has createOperatorFunction', () => {
       expect(createOperatorFunction).toBeDefined();
+    });
+
+    it('has debounceMap', () => {
+      expect(debounceMap).toBeDefined();
     });
 
     it('has delayOnMicrotaskQueue', () => {

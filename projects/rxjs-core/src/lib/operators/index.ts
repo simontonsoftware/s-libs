@@ -1,4 +1,5 @@
 export { cache } from './cache';
+export { debounceMap } from './debounce-map';
 export { delayOnMicrotaskQueue } from './delay-on-microtask-queue';
 export { distinctUntilKeysChanged } from './distinct-until-keys-changed';
 export { filterBehavior } from './filter-behavior';
