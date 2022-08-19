@@ -14,7 +14,7 @@ type Callback<T> = (
 ) => T;
 
 /**
- * A helper to take some boilerplate out of RxJS's new marble testing API for jasmine.
+ * A helper to take some boilerplate out of RxJS's {@link https://rxjs-dev.firebaseapp.com/guide/testing/marble-testing marble testing} API.
  *
  * ```ts
  * it("doubles numbers", marbleTest(({ cold, expectObservable }) => {

@@ -23,7 +23,9 @@ import { WrapperComponent } from './wrapper.component';
  * - Wraps your component in a parent that you can easily style however you like.
  * - Lets you use {@link https://material.angular.io/cdk/test-harnesses/overview|component harnesses} in the `fakeAsync` zone, which is normally a challenge.
  * - Automatically disables animations.
- * - Causes {@link https://angular.io/api/core/APP_INITIALIZER APP_INITIALIZER}s to run before instantiating the component. However, this requires all work in your initializers to complete with a call to `tick()`.
+ * - Causes async {@link https://angular.io/api/core/APP_INITIALIZER APP_INITIALIZER}s to complete before instantiating the component. Two caveats:
+ *   - this requires all work in your initializers to complete with a call to `tick()`
+ *   - this requires delaying app initialization until inside the `fakeAsync` zone, i.e. with the callback to {@link #run}. If you have async initializers, you must be careful not to do things that finalize the app setup before then, such as {@link #inject}.
  *
  * A very simple example:
  * ```ts
