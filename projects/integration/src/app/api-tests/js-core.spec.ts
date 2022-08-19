@@ -6,6 +6,7 @@ import {
   Debouncer,
   Deferred,
   elapsedToString,
+  // Encoding,
   isDefined,
   isEqualAtDepth,
   isFalsy,
@@ -23,6 +24,7 @@ import {
   setIntersection,
   setUnion,
   sleep,
+  sort,
   Stopwatch,
   symmetricSetDifference,
   TimeUnit,
@@ -30,6 +32,7 @@ import {
   wrapFunction,
   wrapMethod,
 } from '@s-libs/js-core';
+import { staticTest } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
 
 describe('js-core', () => {
@@ -51,6 +54,11 @@ describe('js-core', () => {
       expect(Deferred).toBeDefined();
     });
 
+    // Everything was going great until trying to build the bundle. Then it gave not-very-helpful error message, "Do not know how to serialize a BigInt", and the build failed. With Angular 14.0.
+    // it('has Encoding', () => {
+    //   expect(Encoding).toBeDefined();
+    // });
+
     it('has MigrationManager', () => {
       expect(MigrationManager).toBeDefined();
     });
@@ -60,7 +68,9 @@ describe('js-core', () => {
     });
 
     it('has PublicInterface', () => {
-      expectTypeOf<PublicInterface<Date>>().toMatchTypeOf<Date>();
+      staticTest(() => {
+        expectTypeOf<PublicInterface<Date>>().toMatchTypeOf<Date>();
+      });
     });
 
     it('has Stopwatch', () => {
@@ -137,6 +147,10 @@ describe('js-core', () => {
 
     it('has sleep', () => {
       expect(sleep).toBeDefined();
+    });
+
+    it('has sort', () => {
+      expect(sort).toBeDefined();
     });
 
     it('has symmetricSetDifference', () => {

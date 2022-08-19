@@ -8,11 +8,14 @@ import {
   Store,
   UndoManager,
 } from '@s-libs/app-state';
+import { staticTest } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
 
 describe('app-state', () => {
   it('has PersistenceCodec', () => {
-    expectTypeOf<PersistenceCodec<number, string>>();
+    staticTest(() => {
+      expectTypeOf<PersistenceCodec<number, string>>();
+    });
   });
 
   it('has PersistentStore', () => {
