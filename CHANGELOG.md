@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.0](https://github.com/simontonsoftware/s-libs/compare/v14.0.0...v14.1.0) (2022-08-26)
+
+### Features
+
+- **js-core:** `sleep()` now accepts a unit of time ([cd3ac16](https://github.com/simontonsoftware/s-libs/commit/cd3ac161d1e5e0a98510ea5fa4e336f0d628c5c4))
+- **js-core:** add `sort()` ([94d255a](https://github.com/simontonsoftware/s-libs/commit/94d255a3fa25c57b97b616096d700f40b788b35d))
+- **micro-dash:** accept nullish values for `size()` ([71eaf0b](https://github.com/simontonsoftware/s-libs/commit/71eaf0be25f732c9cbebeb839287d3d2dadc375d))
+- **ng-dev:** `ComponentContext` will now run `APP_INITIALIZER`s before instantiating your component. This requires all work in your initializers to complete with a call to `tick()`. ([4f5a0a2](https://github.com/simontonsoftware/s-libs/commit/4f5a0a288f523c8b9cce387430431ef1e8aac63e))
+- **rxjs-core:** add `debounceMap()` ([b6bc9bb](https://github.com/simontonsoftware/s-libs/commit/b6bc9bb75627bbbb2f7675a4f63d59c9988bd92c))
+
+### Bug Fixes
+
+- **micro-dash:** fix typing for `omit()` with a nullish object ([4a343c3](https://github.com/simontonsoftware/s-libs/commit/4a343c3190163517fae5c547b24afe2101a9ec2a)), closes [#78](https://github.com/simontonsoftware/s-libs/issues/78)
+
 ## [14.0.0](https://github.com/simontonsoftware/s-libs/compare/v14.0.0-next.0...v14.0.0) (2022-06-24)
 
 ## [14.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v13.1.0...v14.0.0-next.0) (2022-06-11)
