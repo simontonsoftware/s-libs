@@ -9,6 +9,7 @@ import { NasModelComponent } from './nas-model/nas-model.component';
 import { WidePerformanceComponent } from './app-state-performance/wide-performance/wide-performance.component';
 import { AppStatePerformanceComponent } from './app-state-performance/app-state-performance.component';
 import { WrappedControlComponent } from './wrapped-control/wrapped-control.component';
+import { PlaygroundComponent } from './playground/playground.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { WrappedControlComponent } from './wrapped-control/wrapped-control.compo
     AppStatePerformanceComponent,
     DeepPerformanceComponent,
     NasModelComponent,
+    PlaygroundComponent,
     WidePerformanceComponent,
     WrappedControlComponent,
   ],

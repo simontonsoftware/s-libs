@@ -265,7 +265,10 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
     return errors;
   }
 
-  #bindValidation(): void {
+  async #bindValidation(): Promise<void> {
+    // Hack-fixing a production bug: https://github.com/simontonsoftware/s-libs/issues/82. `ngModel` and `formControl` both set their `.control` before this component is initialized. However, `formControlName` does not. This is a timing hack to accommodate by delaying on the microtask queue.
+    await Promise.resolve();
+
     const outerControl = this.#selfInject(NgControl)?.control;
     if (outerControl) {
       ControlSynchronizer.synchronize(

@@ -14,6 +14,8 @@ import {
   FormsModule,
   ReactiveFormsModule,
   ValidationErrors,
+  FormGroup,
+  Validators,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { keys, omit } from '@s-libs/micro-dash';
@@ -361,6 +363,53 @@ describe('WrappedControlSuperclass', () => {
         ctx.run(async () => {
           const innerControl = findDirective(ctx, InnerComponent).control;
           expect(innerControl.errors).toBe(null);
+        });
+      });
+
+      it('syncs with all types of NgControls (production bug)', () => {
+        // It was not syncing properly with `FormControlName`: https://github.com/simontonsoftware/s-libs/issues/82
+
+        @Component({
+          selector: 'sl-inner',
+          template: `<input [formControl]="control" />`,
+          providers: [provideValueAccessor(InnerComponent)],
+        })
+        class InnerComponent extends WrappedFormControlSuperclass<string> {}
+
+        @Component({
+          template: `
+            <sl-inner id="model" [ngModel]="''" required></sl-inner>
+            <sl-inner id="control" [formControl]="control"></sl-inner>
+            <form [formGroup]="group">
+              <sl-inner id="name" formControlName="inner"></sl-inner>
+            </form>
+          `,
+        })
+        class OuterComponent {
+          control = new FormControl('', Validators.required);
+          group = new FormGroup({
+            inner: new FormControl('', Validators.required),
+          });
+        }
+
+        const ctx = new ComponentContext(OuterComponent, {
+          imports: [FormsModule, ReactiveFormsModule],
+          declarations: [InnerComponent],
+        });
+        ctx.run(async () => {
+          const model = ctx.fixture.debugElement.query(
+            By.css('#model'),
+          ).componentInstance;
+          const control = ctx.fixture.debugElement.query(
+            By.css('#control'),
+          ).componentInstance;
+          const name = ctx.fixture.debugElement.query(
+            By.css('#name'),
+          ).componentInstance;
+
+          expect(model.control.errors).toEqual({ required: true });
+          expect(control.control.errors).toEqual({ required: true });
+          expect(name.control.errors).toEqual({ required: true });
         });
       });
     });
