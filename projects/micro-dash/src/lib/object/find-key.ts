@@ -26,7 +26,7 @@ type PossibleKeyMatch<T, O> = {
 }[keyof T];
 
 /**
- * This method is like `find` except that it returns the key of the first element `predicate` returns truthy for instead of the element itself.
+ * This function is like `find` except that it returns the key of the first element `predicate` returns truthy for instead of the element itself.
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 14,529 bytes

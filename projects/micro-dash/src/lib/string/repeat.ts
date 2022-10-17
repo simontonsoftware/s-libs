@@ -2,7 +2,7 @@
  * Repeats the given string `n` times.
  *
  * Differences from lodash:
- * - does not work as an iteratee for methods like `map`
+ * - does not work as an iteratee for functions like `map`
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 2,651 bytes

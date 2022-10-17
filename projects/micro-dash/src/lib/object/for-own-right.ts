@@ -3,7 +3,7 @@ import { ObjectIteratee } from '../interfaces';
 import { keys, keysOfNonArray } from './keys';
 
 /**
- * This method is like `forOwn` except that it iterates over properties of `object` in the opposite order.
+ * This function is like `forOwn` except that it iterates over properties of `object` in the opposite order.
  *
  * Differences from lodash:
  * - does not treat sparse arrays as dense

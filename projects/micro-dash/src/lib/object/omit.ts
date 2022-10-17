@@ -6,7 +6,7 @@ type RemainingKeys<T, Omits> =
   | Extract<PropertyKey, keyof T>; // always include index properties
 
 /**
- * The opposite of `pick`; this method creates an object composed of the own enumerable string properties of object that are not omitted.
+ * The opposite of `pick`; this function creates an object composed of the own enumerable string properties of object that are not omitted.
  *
  * Differences from lodash:
  * - `paths` must be direct keys of `object` (they cannot refer to deeper properties)

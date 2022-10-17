@@ -2,7 +2,7 @@ import { ArrayIteratee, ObjectIteratee } from '../interfaces';
 import { forOwnRightOfNonArray } from '../object/for-own-right';
 
 /**
- * This method is like `forEach` except that it iterates over elements of `collection` from right to left.
+ * This function is like `forEach` except that it iterates over elements of `collection` from right to left.
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 4,034 bytes

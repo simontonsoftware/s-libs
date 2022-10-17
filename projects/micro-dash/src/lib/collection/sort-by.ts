@@ -3,7 +3,7 @@ import { castArray } from '../lang';
 import { map } from './map';
 
 /**
- * Creates an array of elements, sorted in ascending order by the results of running each element in a collection thru each iteratee. This method performs a stable sort, that is, it preserves the original sort order of equal elements.
+ * Creates an array of elements, sorted in ascending order by the results of running each element in a collection thru each iteratee. This function performs a stable sort, that is, it preserves the original sort order of equal elements.
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 16,936 bytes

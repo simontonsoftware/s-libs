@@ -2,7 +2,7 @@ import { forEach } from '../collection';
 import { ObjectWith } from '../interfaces';
 
 /**
- * An alternative to `reduce`; this method transforms `object` to a new `accumulator` object which is the result of running each of its own enumerable string keyed properties thru `iteratee`, with each invocation potentially mutating the `accumulator` object. If `accumulator` is not provided, a new plain object (`{}`) will be used. Iteratee functions may exit iteration early by explicitly returning `false`.
+ * An alternative to `reduce`; this function transforms `object` to a new `accumulator` object which is the result of running each of its own enumerable string keyed properties thru `iteratee`, with each invocation potentially mutating the `accumulator` object. If `accumulator` is not provided, a new plain object (`{}`) will be used. Iteratee functions may exit iteration early by explicitly returning `false`.
  *
  * Differences from lodash:
  * - the default accumulator will not have any special prototype, it will simply be `{}`

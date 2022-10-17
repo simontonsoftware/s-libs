@@ -37,7 +37,7 @@ Below are the main differences between the implementations in this library compa
 - Only designed to work with primitives, plain objects, and arrays. It is not designed or tested to handle inherited properties, symbol keys, `arguments` objects, primitive objects (e.g. `Object(1)`), Dates, Maps, Sets, etc.
 - Makes no special attempt to coerce arguments to the expected type, nor to check the type of arguments. Behavior is undefined in such cases.
 - There is no shorthand for "iteratees"; functions that accept one require you to provide an actual function.
-- Does not pass the iterated object to iteratee functions. This allows simplifications, e.g. methods like `merge` can be used as an iteratee for `reduce` without being guarded.
+- Does not pass the iterated object to iteratee functions. This allows simplifications, e.g. functions like `merge` can be used as an iteratee for `reduce` without being guarded.
 - It has no special knowledge of "array like" objects; only actual arrays are treated as arrays.
 - Makes no special attempt to treat `0` and `-0` differently.
 - String functions are designed for simple cases like variable names. They only treat `[0-9A-Za-z]` as part of words and are not smart about contractions or ordinals (e.g. `I'll` or `1st`).

@@ -2,7 +2,7 @@ import { forOwn } from '../object';
 import { clone } from './clone';
 
 /**
- * This method is like `clone` except that it recursively clones `value`.
+ * This function is like `clone` except that it recursively clones `value`.
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 12,696 bytes

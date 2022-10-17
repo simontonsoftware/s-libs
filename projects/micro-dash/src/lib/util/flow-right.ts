@@ -1,7 +1,7 @@
 import { identity } from './identity';
 
 /**
- * This method is like `flow` except that it creates a function that invokes the given functions from right to left.
+ * This function is like `flow` except that it creates a function that invokes the given functions from right to left.
  *
  * Differences from lodash:
  * - does not accept an arrays of functions

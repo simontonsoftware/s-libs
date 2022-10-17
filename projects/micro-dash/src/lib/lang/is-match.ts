@@ -5,7 +5,7 @@ import { isEmpty } from './is-empty';
 /**
  * Performs a partial deep comparison between `object` and `source` to determine if `object` contains equivalent property values.
  *
- * *Note:* This method is equivalent to `matches` when source is partially applied.
+ * *Note:* This function is equivalent to `matches` when source is partially applied.
  *
  * Partial comparisons will match empty array and empty object source values against any array or object value, respectively.
  *

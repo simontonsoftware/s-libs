@@ -28,11 +28,11 @@ let matchCount: number;
 let pendingRequests: Array<HttpRequest<any>>;
 
 /**
- * This convenience method is similar to [HttpTestingController.expectOne()]{@linkcode https://angular.io/api/common/http/testing/HttpTestingController}, with extra features. The returned request object will automatically trigger change detection when you flush a response, just like in production.
+ * This convenience function is similar to [HttpTestingController.expectOne()]{@linkcode https://angular.io/api/common/http/testing/HttpTestingController}, with extra features. The returned request object will automatically trigger change detection when you flush a response, just like in production.
  *
- * This method is opinionated in that you must specify all aspects of the request to match. E.g. if the request specifies headers, you must also specify them in the arguments to this method.
+ * This function is opinionated in that you must specify all aspects of the request to match. E.g. if the request specifies headers, you must also specify them in the arguments to this method.
  *
- * This method only works when you are using an {@linkcode AngularContext}.
+ * This function only works when you are using an {@linkcode AngularContext}.
  *
  * ```ts
  * const ctx = new AngularContext();

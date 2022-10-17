@@ -36,7 +36,7 @@ type MaybeIncludedKeys<T, O> = {
 }[keyof T];
 
 /**
- * The opposite of `pickBy`; this method creates an object composed of the own enumerable string keyed properties of `object` that `predicate` doesn't return truthy for.
+ * The opposite of `pickBy`; this function creates an object composed of the own enumerable string keyed properties of `object` that `predicate` doesn't return truthy for.
  *
  * Differences from lodash:
  * - does not treat sparse arrays as dense

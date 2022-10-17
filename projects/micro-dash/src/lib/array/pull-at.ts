@@ -3,7 +3,7 @@ import { flatten } from './flatten';
 /**
  * Removes elements from array corresponding to indexes and returns an array of removed elements.
  *
- * *Note:* This method mutates `array`.
+ * *Note:* This function mutates `array`.
  *
  * Differences from lodash:
  * - behavior is undefined when attempting to pull attributes keyed with anything other than positive integers

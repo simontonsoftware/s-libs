@@ -2,7 +2,7 @@ import { Key } from '../interfaces';
 import { transform } from '../object';
 
 /**
- * This method is like `fromPairs` except that it accepts two arrays, one of property identifiers and one of corresponding values.
+ * This function is like `fromPairs` except that it accepts two arrays, one of property identifiers and one of corresponding values.
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 2,009 bytes

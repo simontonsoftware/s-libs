@@ -10,7 +10,7 @@ import {
 import { filter } from './filter';
 
 /**
- * The opposite of `filter`; this method returns the elements of `collection` that `predicate` does **not** return truthy for.
+ * The opposite of `filter`; this function returns the elements of `collection` that `predicate` does **not** return truthy for.
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 15,017 bytes

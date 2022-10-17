@@ -1,7 +1,7 @@
 /**
- * This method is like `set()` except that it accepts `updater` to produce the value to set.
+ * This function is like `set()` except that it accepts `updater` to produce the value to set.
  *
- * **Note:** This method mutates `object`.
+ * **Note:** This function mutates `object`.
  *
  * Differences from lodash:
  * - only accepts an array for `path`, not a dot-separated string

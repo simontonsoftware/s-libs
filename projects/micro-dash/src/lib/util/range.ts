@@ -7,7 +7,7 @@ import { times } from './times';
  * **Note:** JavaScript follows the IEEE-754 standard for resolving floating-point values which can produce unexpected results.
  *
  * Differences from lodash:
- * - does not work as an iteratee for methods like `map`
+ * - does not work as an iteratee for functions like `map`
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 2,332 bytes

@@ -1,9 +1,9 @@
 import { remove } from './remove';
 
 /**
- * This method is like `pull` except that it accepts an array of values to remove.
+ * This function is like `pull` except that it accepts an array of values to remove.
  *
- * **Note:** Unlike `difference`, this method mutates array.
+ * **Note:** Unlike `difference`, this function mutates array.
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 894 bytes

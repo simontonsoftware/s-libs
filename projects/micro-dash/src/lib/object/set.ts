@@ -4,7 +4,7 @@ import { update } from './update';
 /**
  * Sets the value at `path` of `object`. If a portion of `path` doesn't exist, it's created. Arrays are created for missing index properties while objects are created for all other missing properties.
  *
- * **Note:** This method mutates `object`.
+ * **Note:** This function mutates `object`.
  *
  * Differences from lodash:
  * - only accepts an array for `path`, not a dot-separated string
