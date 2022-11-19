@@ -18,10 +18,13 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
-    "module": "es2020",
+    "target": "ES2022",
+    "module": "ES2020",
+    "useDefineForClassFields": false,
+    "paths": {
+      "@s-libs/*": ["dist/*"]
+    },
     "lib": ["es2020", "dom"],
-    "paths": { "@s-libs/*": ["dist/*"] },
 
     //
     // Simonton Software additions

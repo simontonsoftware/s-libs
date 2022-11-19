@@ -12,8 +12,8 @@ import {
   Injector,
 } from '@angular/core';
 import { flush, TestBed, tick } from '@angular/core/testing';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
+import { MatLegacySnackBarHarness as MatSnackBarHarness } from '@angular/material/legacy-snack-bar/testing';
 import {
   ANIMATION_MODULE_TYPE,
   BrowserAnimationsModule,

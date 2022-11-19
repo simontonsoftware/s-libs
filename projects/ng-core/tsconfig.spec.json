@@ -5,6 +5,5 @@
     "outDir": "../../out-tsc/spec",
     "types": ["jasmine"]
   },
-  "files": ["src/test.ts"],
-  "include": ["src/test-polyfills.ts", "**/*.spec.ts", "**/*.d.ts"]
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
 }

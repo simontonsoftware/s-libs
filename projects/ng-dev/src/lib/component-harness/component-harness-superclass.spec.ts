@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonHarness } from '@angular/material/button/testing';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyButtonHarness as MatButtonHarness } from '@angular/material/legacy-button/testing';
 import { ComponentContext } from '@s-libs/ng-dev';
 import { ComponentHarnessSuperclass } from './component-harness-superclass';
 

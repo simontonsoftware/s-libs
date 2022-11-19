@@ -7,7 +7,7 @@ import {
   Type,
 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 
 export type DialogButtonColor = NonNullable<ThemePalette> | 'default';
 

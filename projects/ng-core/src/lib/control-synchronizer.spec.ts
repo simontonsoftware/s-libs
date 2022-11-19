@@ -110,7 +110,7 @@ describe('ControlSynchronizer', () => {
       expect(outer.control.errors).toEqual({ outerSync: true });
 
       // without sync runs: inner outer
-      console.log('------------------------------------- outer off, inner on');
+      // console.log('------------------------------------- outer off, inner on');
       outer.syncError = false;
       inner.syncError = true;
       setValue(input, '1');
@@ -118,7 +118,7 @@ describe('ControlSynchronizer', () => {
       expect(outer.control.errors).toEqual({ innerSync: true });
 
       // without sync runs: inner outer
-      console.log('----------------------------------------------- inner off');
+      // console.log('----------------------------------------------- inner off');
       inner.syncError = false;
       setValue(input, '2');
       expect(inner.control.errors).toBe(null);
@@ -126,7 +126,7 @@ describe('ControlSynchronizer', () => {
 
       // inner turns on
       // without sync runs: inner outer
-      console.log('------------------------------------------------ inner on');
+      // console.log('------------------------------------------------ inner on');
       inner.syncError = true;
       setValue(input, '3');
       expect(inner.control.errors).toEqual({ innerSync: true });
@@ -134,7 +134,7 @@ describe('ControlSynchronizer', () => {
 
       // outer turns on, inner turns off
       // without sync runs: inner outer
-      console.log('------------------------------------- outer on, inner off');
+      // console.log('------------------------------------- outer on, inner off');
       outer.syncError = true;
       inner.syncError = false;
       setValue(input, '4');

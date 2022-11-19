@@ -69,7 +69,7 @@ describe('js-core', () => {
 
     it('has PublicInterface', () => {
       staticTest(() => {
-        expectTypeOf<PublicInterface<Date>>().toMatchTypeOf<Date>();
+        expectTypeOf<PublicInterface<Date>>().toEqualTypeOf<Date>();
       });
     });
 

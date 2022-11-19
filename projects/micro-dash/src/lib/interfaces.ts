@@ -39,6 +39,14 @@ export type PartialExceptIndexes<T> = {
   [K in NonIndexKeys<T>]?: T[K];
 } & { [K in IndexKeys<T>]: T[K] };
 
+export type ValuesType<T> = T extends readonly []
+  ? T[number]
+  : T extends ArrayLike<any>
+  ? T[number]
+  : T extends object
+  ? T[keyof T]
+  : never;
+
 export type Evaluate<T> = T extends infer I ? { [K in keyof I]: T[K] } : never;
 
 export type Drop1Arg<T extends Function> = T extends (

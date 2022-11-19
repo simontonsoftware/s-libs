@@ -1,5 +1,18 @@
-import { Directive, forwardRef } from '@angular/core';
-import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  Directive,
+  ElementRef,
+  forwardRef,
+  Inject,
+  Optional,
+  Renderer2,
+} from '@angular/core';
+import {
+  COMPOSITION_BUFFER_MODE,
+  DefaultValueAccessor,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+
+// TODO: move to directive composition??
 
 /** @hidden */
 @Directive({
@@ -20,4 +33,14 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
 })
-export class InputValueAccessorDirective extends DefaultValueAccessor {}
+export class InputValueAccessorDirective extends DefaultValueAccessor {
+  constructor(
+    renderer: Renderer2,
+    elementRef: ElementRef,
+    @Optional()
+    @Inject(COMPOSITION_BUFFER_MODE)
+    _compositionMode: boolean,
+  ) {
+    super(renderer, elementRef, _compositionMode);
+  }
+}

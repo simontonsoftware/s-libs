@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialogHarness } from '@angular/material/dialog/testing';
+import { MatLegacyDialogHarness as MatDialogHarness } from '@angular/material/legacy-dialog/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { assert } from '@s-libs/js-core';
 import { AngularContext } from '@s-libs/ng-dev';

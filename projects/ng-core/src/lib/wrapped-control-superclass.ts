@@ -1,7 +1,6 @@
 import {
   Directive,
   ErrorHandler,
-  InjectFlags,
   Injector,
   OnInit,
   ProviderToken,
@@ -288,12 +287,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
     );
   }
 
-  #selfInject<T>(token: ProviderToken<T>): T | undefined {
-    return this.#injector.get(
-      token,
-      undefined,
-      // eslint-disable-next-line no-bitwise
-      InjectFlags.Self | InjectFlags.Optional,
-    );
+  #selfInject<T>(token: ProviderToken<T>): T | null {
+    return this.#injector.get(token, undefined, { self: true, optional: true });
   }
 }

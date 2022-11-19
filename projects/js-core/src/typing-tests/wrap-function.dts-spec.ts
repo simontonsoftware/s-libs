@@ -25,23 +25,3 @@ wrapFunction(f, {
   // $ExpectType (this: O, _r: number, _a1: string) => void
   after(_r, _a1): void {},
 });
-wrapFunction(f, {
-  // $ExpectError
-  before(this: Date, _a1, _a2): void {},
-});
-wrapFunction(f, {
-  // $ExpectError
-  around(orig: () => void, _a1, _a2): number {
-    return 1;
-  },
-});
-wrapFunction(f, {
-  // $ExpectError
-  transform(_r, _a1, _a2): string {
-    return '1';
-  },
-});
-// $ExpectError
-wrapFunction(f, {
-  after(_r, _a1: Date): void {},
-});

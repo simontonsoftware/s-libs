@@ -3,7 +3,6 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/lib",
-    "target": "es2020",
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
@@ -11,8 +10,6 @@
     "lib": ["dom", "es2018"]
   },
   "exclude": [
-    "src/test.ts",
-    "src/test-polyfills.ts",
     "**/*.spec.ts",
     // excluded for the sake of TSDoc
     "src/typing-tests"

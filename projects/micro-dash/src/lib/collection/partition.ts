@@ -1,10 +1,10 @@
-import { ValuesType } from 'utility-types';
 import {
   IfCouldBe,
   Narrow,
   Nil,
   ValueIteratee,
   ValueNarrowingIteratee,
+  ValuesType,
 } from '../interfaces';
 import { forEach } from './for-each';
 

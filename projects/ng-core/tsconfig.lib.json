@@ -9,8 +9,6 @@
     "types": []
   },
   "exclude": [
-    "src/test.ts",
-    "src/test-polyfills.ts",
     "**/*.spec.ts",
     // excluded for the sake of TSDoc
     "src/typing-tests"

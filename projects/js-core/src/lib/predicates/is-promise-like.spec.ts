@@ -1,10 +1,13 @@
+import { noop } from '@s-libs/micro-dash';
 import { getArguments } from '../../test-helpers/test-utils';
 import { isPromiseLike } from './is-promise-like';
 
 describe('isPromiseLike()', () => {
   it('works', () => {
     expect(isPromiseLike(Promise.resolve('hi'))).toBe(true);
-    expect(isPromiseLike(Promise.reject('bye'))).toBe(true);
+    const rejected = Promise.reject('bye');
+    rejected.catch(noop); // suppress unhandled rejection error
+    expect(isPromiseLike(rejected)).toBe(true);
 
     // falsey values
     expect(isPromiseLike(undefined)).toBe(false);

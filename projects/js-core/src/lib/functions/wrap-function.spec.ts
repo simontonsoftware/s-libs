@@ -1,4 +1,4 @@
-import { expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-dev';
 import { wrapFunction } from './wrap-function';
 
 describe('wrapFunction()', () => {
@@ -144,5 +144,40 @@ describe('wrapFunction()', () => {
 
   it('preserves arity', () => {
     expect(wrapFunction((a: number, b: number) => a + b, {}).length).toBe(2);
+  });
+
+  it('has fancy typing', () => {
+    staticTest(() => {
+      class O {
+        id = 1;
+      }
+      function f(this: O, _a1: string, _a2: Date): number {
+        return 1;
+      }
+
+      wrapFunction(f, {
+        // @ts-expect-error wrong "this" type
+        before(this: Date, _a1, _a2): void {},
+      });
+      wrapFunction(
+        // @ts-expect-error _orig should return number
+        f,
+        {
+          around(_orig: () => void, _a1, _a2): number {
+            return 1;
+          },
+        },
+      );
+      wrapFunction(f, {
+        // @ts-expect-error should return number
+        transform(_r, _a1, _a2): string {
+          return '1';
+        },
+      });
+      wrapFunction(f, {
+        // @ts-expect-error _a1 should be string
+        after(_r, _a1: Date): void {},
+      });
+    });
   });
 });

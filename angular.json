@@ -33,9 +33,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/app-state/src/test.ts",
             "tsConfig": "projects/app-state/tsconfig.spec.json",
-            "karmaConfig": "projects/app-state/karma.conf.js"
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
@@ -66,7 +65,7 @@
             "outputPath": "dist/integration",
             "index": "projects/integration/src/index.html",
             "main": "projects/integration/src/main.ts",
-            "polyfills": "projects/integration/src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/integration/tsconfig.app.json",
             "assets": [
               "projects/integration/src/favicon.ico",
@@ -93,12 +92,6 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
                   "maximumError": "4kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "projects/integration/src/environments/environment.ts",
-                  "with": "projects/integration/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -135,15 +128,14 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/integration/src/test.ts",
-            "polyfills": "projects/integration/src/polyfills.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/integration/tsconfig.spec.json",
-            "karmaConfig": "projects/integration/karma.conf.js",
             "assets": [
               "projects/integration/src/favicon.ico",
               "projects/integration/src/assets"
             ],
-            "styles": ["projects/integration/src/styles.scss"]
+            "styles": ["projects/integration/src/styles.scss"],
+            "scripts": []
           }
         },
         "lint": {
@@ -181,9 +173,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/js-core/src/test.ts",
             "tsConfig": "projects/js-core/tsconfig.spec.json",
-            "karmaConfig": "projects/js-core/karma.conf.js"
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
@@ -221,9 +212,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/micro-dash/src/test.ts",
             "tsConfig": "projects/micro-dash/tsconfig.spec.json",
-            "karmaConfig": "projects/micro-dash/karma.conf.js"
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
@@ -250,6 +240,7 @@
             "outputPath": "dist/micro-dash-sizes",
             "index": "projects/micro-dash-sizes/src/index.html",
             "main": "projects/micro-dash-sizes/src/main.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/micro-dash-sizes/tsconfig.app.json",
             "assets": [
               "projects/micro-dash-sizes/src/favicon.ico",
@@ -272,7 +263,6 @@
                   "maximumError": "4kb"
                 }
               ],
-              "fileReplacements": [],
               "outputHashing": "all"
             }
           },
@@ -327,10 +317,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ng-app-state/src/test.ts",
             "tsConfig": "projects/ng-app-state/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-app-state/karma.conf.js",
-            "polyfills": "projects/ng-app-state/src/test-polyfills.ts"
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
@@ -368,10 +356,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ng-core/src/test.ts",
             "tsConfig": "projects/ng-core/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-core/karma.conf.js",
-            "polyfills": "projects/ng-core/src/test-polyfills.ts"
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
@@ -409,10 +395,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ng-dev/src/test.ts",
             "tsConfig": "projects/ng-dev/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-dev/karma.conf.js",
-            "polyfills": "projects/ng-dev/src/test-polyfills.ts"
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
@@ -450,10 +434,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ng-mat-core/src/test.ts",
             "tsConfig": "projects/ng-mat-core/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-mat-core/karma.conf.js",
-            "polyfills": "projects/ng-mat-core/src/test-polyfills.ts"
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
@@ -491,10 +473,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/rxjs-core/src/test.ts",
             "tsConfig": "projects/rxjs-core/tsconfig.spec.json",
-            "karmaConfig": "projects/rxjs-core/karma.conf.js",
-            "polyfills": "projects/rxjs-core/src/test-polyfills.ts"
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
