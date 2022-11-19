@@ -71,13 +71,13 @@ export class Encoding {
     return !!this.#pull(2);
   }
 
-  pushOption<T>(value: T, options: T[]): void {
+  pushOption<T>(value: T, options: readonly T[]): void {
     const index = options.indexOf(value);
     assert(index >= 0, `value (${value}) not found in options`);
     this.#push(index, options.length);
   }
 
-  pullOption<T>(options: T[]): T {
+  pullOption<T>(options: readonly T[]): T {
     return options[this.#pull(options.length)];
   }
 

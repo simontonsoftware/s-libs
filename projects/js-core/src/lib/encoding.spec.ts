@@ -1,3 +1,4 @@
+import { staticTest } from '@s-libs/ng-dev';
 import { Encoding } from './encoding';
 
 describe('Encoding', () => {
@@ -38,6 +39,13 @@ describe('Encoding', () => {
       expect(() => {
         encoding.pushOption('a', ['b', 'c']);
       }).toThrowError('value (a) not found in options');
+    });
+
+    it('accepts readonly arrays', () => {
+      staticTest(() => {
+        encoding.pushOption(1, [1, 2] as const);
+        encoding.pullOption([1, 2] as const);
+      });
     });
   });
 
