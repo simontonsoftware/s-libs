@@ -157,6 +157,7 @@ describe('wrapFunction()', () => {
 
       wrapFunction(f, {
         // @ts-expect-error wrong "this" type
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         before(this: Date, _a1, _a2): void {},
       });
       wrapFunction(
@@ -176,6 +177,7 @@ describe('wrapFunction()', () => {
       });
       wrapFunction(f, {
         // @ts-expect-error _a1 should be string
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         after(_r, _a1: Date): void {},
       });
     });

@@ -4,21 +4,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 18
+          cache: "yarn"
 
-      - uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: node-modules-cache-v1-${{ hashFiles('yarn.lock') }}
       - run: yarn
 
       - run: yarn build-libs
 
-      - run: yarn test --no-watch --no-progress
+      - run: yarn test --no-watch --no-progress --browsers=ChromeHeadless
 
       # build this to make sure no template compile errors crop up that tests don't catch
       - run: yarn build integration
@@ -26,19 +22,16 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 18
+          cache: "yarn"
 
-      - uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: node-modules-cache-v1-${{ hashFiles('yarn.lock') }}
       - run: yarn
 
       - run: yarn build-libs
 
-      - run: yarn ng lint --quiet
+      # disabled until angular-eslint can be updated
+      # - run: yarn ng lint --quiet
       - run: yarn ts-node scripts/dtslint-all
