@@ -5,11 +5,7 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "projects/ng-dev/tsconfig.lib.json",
-          "projects/ng-dev/tsconfig.spec.json"
-        ],
-        "createDefaultProgram": true
+        "project": ["projects/ng-dev/tsconfig.(lib|spec).json"]
       },
       "rules": {
         "@angular-eslint/directive-selector": [

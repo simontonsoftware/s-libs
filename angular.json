@@ -8,6 +8,14 @@
     "schematicCollections": ["@angular-eslint/schematics"]
   },
   "newProjectRoot": "projects",
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    }
+  },
   "projects": {
     "app-state": {
       "projectType": "library",

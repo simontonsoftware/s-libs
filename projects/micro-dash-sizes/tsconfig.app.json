@@ -9,5 +9,6 @@
     "noImplicitReturns": false
   },
   "files": ["src/main.ts"],
-  "include": ["src/**/*.d.ts"]
+  // include all ts files because they are not captured by `main.ts`, and will be linted
+  "include": ["**/*.ts"]
 }

@@ -5,17 +5,10 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "projects/ng-core/tsconfig.lib.json",
-          "projects/ng-core/tsconfig.spec.json"
-        ],
-        "createDefaultProgram": true
+        "project": ["projects/ng-core/tsconfig.(lib|spec).json"]
       },
       "rules": {}
     },
-    {
-      "files": ["*.html"],
-      "rules": {}
-    }
+    { "files": ["*.html"], "rules": {} }
   ]
 }

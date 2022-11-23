@@ -5,17 +5,10 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "projects/integration/tsconfig.app.json",
-          "projects/integration/tsconfig.spec.json"
-        ],
-        "createDefaultProgram": true
+        "project": ["projects/integration/tsconfig.(app|spec).json"]
       },
       "rules": {}
     },
-    {
-      "files": ["*.html"],
-      "rules": {}
-    }
+    { "files": ["*.html"], "rules": {} }
   ]
 }

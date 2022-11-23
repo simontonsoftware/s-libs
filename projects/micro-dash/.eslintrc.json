@@ -5,11 +5,7 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "projects/micro-dash/tsconfig.lib.json",
-          "projects/micro-dash/tsconfig.spec.json"
-        ],
-        "createDefaultProgram": true
+        "project": ["projects/micro-dash/tsconfig.(lib|spec).json"]
       },
       "rules": {
         // It would be nice to remove these and fix up the code. Or at least put more thought into it before declaring these exceptions final.

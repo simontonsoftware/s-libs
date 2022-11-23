@@ -5,17 +5,10 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "projects/rxjs-core/tsconfig.lib.json",
-          "projects/rxjs-core/tsconfig.spec.json"
-        ],
-        "createDefaultProgram": true
+        "project": ["projects/rxjs-core/tsconfig.(lib|spec).json"]
       },
       "rules": {}
     },
-    {
-      "files": ["*.html"],
-      "rules": {}
-    }
+    { "files": ["*.html"], "rules": {} }
   ]
 }

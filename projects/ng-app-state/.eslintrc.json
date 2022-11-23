@@ -5,11 +5,7 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "projects/ng-app-state/tsconfig.lib.json",
-          "projects/ng-app-state/tsconfig.spec.json"
-        ],
-        "createDefaultProgram": true
+        "project": ["projects/ng-app-state/tsconfig.(lib|spec).json"]
       },
       "rules": {
         "@angular-eslint/directive-selector": [
@@ -22,9 +18,6 @@
         ]
       }
     },
-    {
-      "files": ["*.html"],
-      "rules": {}
-    }
+    { "files": ["*.html"], "rules": {} }
   ]
 }
