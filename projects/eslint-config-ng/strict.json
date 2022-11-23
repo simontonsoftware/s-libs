@@ -154,6 +154,7 @@
     {
       "files": ["*.html"],
       "rules": {
+        "@angular-eslint/template/attributes-order": ["error"],
         "@angular-eslint/template/click-events-have-key-events": ["error"],
         "@angular-eslint/template/conditional-complexity": ["error"],
         "@angular-eslint/template/cyclomatic-complexity": ["error"],

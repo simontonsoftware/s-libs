@@ -145,10 +145,10 @@ export class MenuStore extends RootStore<MenuState> {
   selector: 'nas-menu',
   template: `
     <form>
-      <input type="radio" [nasModel]="store('food')" value="chicken" />
-      <input type="radio" [nasModel]="store('food')" value="fish" />
-      <input type="radio" [nasModel]="store('drink')" value="cola" />
-      <input type="radio" [nasModel]="store('drink')" value="sprite" />
+      <input type="radio" value="chicken" [nasModel]="store('food')" />
+      <input type="radio" value="fish" [nasModel]="store('food')" />
+      <input type="radio" value="cola" [nasModel]="store('drink')" />
+      <input type="radio" value="sprite" [nasModel]="store('drink')" />
     </form>
   `,
 })
@@ -195,9 +195,9 @@ export class NameComponent extends StoreComponent<NameState> {
   template: `
     <input
       name="custom"
+      [disabled]="disabled"
       [(ngModel)]="model"
       (ngModelChange)="changeFn($event)"
-      [disabled]="disabled"
     />
   `,
   providers: [

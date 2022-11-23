@@ -14,9 +14,9 @@ import { InjectableSuperclass } from './injectable-superclass';
 @Component({
   template: `
     <sl-counter
-      [(ngModel)]="value"
       #counter="ngModel"
       [disabled]="shouldDisable"
+      [(ngModel)]="value"
     ></sl-counter>
     <div *ngIf="counter.touched">Touched!</div>
     <button (click)="shouldDisable = !shouldDisable">Toggle Disabled</button>
@@ -30,7 +30,7 @@ class TestComponent {
 @Component({
   selector: `sl-counter`,
   template: `
-    <button (click)="increment()" [disabled]="isDisabled">{{ counter }}</button>
+    <button [disabled]="isDisabled" (click)="increment()">{{ counter }}</button>
   `,
   providers: [provideValueAccessor(CounterComponent)],
   changeDetection: ChangeDetectionStrategy.OnPush,
