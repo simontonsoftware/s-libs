@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v14.1.0...v15.0.0-next.0) (2022-11-24)
+
+### ⚠ BREAKING CHANGES
+
+- **ng-core:** Descendants of `DirectiveSuperclass` must no longer pass `injector` in `super(injector)`
+- **ng-core:** Removed the protected instance variable `DirectiveSuperclass.changeDetectorRef`. If you are using it, you'll need to inject it yourself.
+- Libraries that depend on them now require Angular 15 and Jasmine 4.5
+
+### Features
+
+- **ng-core:** `DirectiveSuperclass` and its descendants no longer require passing `Injector` to their constructors ([a439a43](https://github.com/simontonsoftware/s-libs/commit/a439a4395476d6c2a55403b4b18b0967c453c524))
+- Upgrade to Angular 15 ([81e664a](https://github.com/simontonsoftware/s-libs/commit/81e664a307fbfbc605963850eea1a6595289c4d9))
+
+### Bug Fixes
+
+- **ng-core:** `WrappedControlSuperclass` was failing to synchronize validations with its parent when bound using `formControlName` ([0afc421](https://github.com/simontonsoftware/s-libs/commit/0afc421d5e86e6ef2aa4ee43a2252bb04a60b17b)), closes [#82](https://github.com/simontonsoftware/s-libs/issues/82)
+
 ## [14.1.0](https://github.com/simontonsoftware/s-libs/compare/v14.0.0...v14.1.0) (2022-08-26)
 
 ### Features
