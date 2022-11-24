@@ -1,4 +1,4 @@
-import { Provider, Type } from '@angular/core';
+import { ChangeDetectorRef, inject, Provider, Type } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { noop } from '@s-libs/micro-dash';
 import { DirectiveSuperclass } from './directive-superclass';
@@ -59,13 +59,15 @@ export abstract class FormComponentSuperclass<T>
   /** You can bind to this in your template as needed. */
   isDisabled = false;
 
+  #changeDetectorRef = inject(ChangeDetectorRef);
+
   /** Implement this to handle a new value coming in from outside. */
   abstract handleIncomingValue(value: T): void;
 
   /** Called as angular propagates value changes to this `ControlValueAccessor`. You normally do not need to use it. */
   writeValue(value: T): void {
     this.handleIncomingValue(value);
-    this.changeDetectorRef.markForCheck();
+    this.#changeDetectorRef.markForCheck();
   }
 
   /** Called as angular sets up the binding to this `ControlValueAccessor`. You normally do not need to use it. */
@@ -81,6 +83,6 @@ export abstract class FormComponentSuperclass<T>
   /** Called as angular propagates disabled changes to this `ControlValueAccessor`. You normally do not need to use it. */
   setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
-    this.changeDetectorRef.markForCheck();
+    this.#changeDetectorRef.markForCheck();
   }
 }

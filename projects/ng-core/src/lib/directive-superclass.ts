@@ -1,7 +1,7 @@
 import {
   ChangeDetectorRef,
   Directive,
-  Injector,
+  inject,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
@@ -12,7 +12,7 @@ import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { InjectableSuperclass } from './injectable-superclass';
 
 /**
- * Extend this when creating a directive (including a component, which is a kind of directive) to gain access to the helpers demonstrated below. **Warning:** You _must_ include a constructor in your subclass.
+ * Extend this when creating a directive (including a component, which is a kind of directive) to gain access to the helpers demonstrated below.
  *
  * ```ts
  * @Component({
@@ -28,11 +28,8 @@ import { InjectableSuperclass } from './injectable-superclass';
  *   @Input() prefix2?: string;
  *   color!: string;
  *
- *   constructor(
- *     @Inject("color$") color$: Observable<string>,
- *     injector: Injector,
- *   ) {
- *     super(injector);
+ *   constructor(@Inject("color$") color$: Observable<string>) {
+ *     super();
  *
  *     // combine everything to calculate `color` and keep it up to date
  *     this.bindToInstance(
@@ -59,14 +56,8 @@ export abstract class DirectiveSuperclass
    */
   inputChanges$ = new Subject<Set<keyof this>>();
 
-  protected changeDetectorRef: ChangeDetectorRef;
-
+  #changeDetectorRef = inject(ChangeDetectorRef);
   #onChangesRan$ = new BehaviorSubject(false);
-
-  constructor(injector: Injector) {
-    super();
-    this.changeDetectorRef = injector.get(ChangeDetectorRef);
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.inputChanges$.next(
@@ -103,7 +94,7 @@ export abstract class DirectiveSuperclass
   ): void {
     this.subscribeTo(value$, (value) => {
       this[key] = value;
-      this.changeDetectorRef.markForCheck();
+      this.#changeDetectorRef.markForCheck();
     });
   }
 }

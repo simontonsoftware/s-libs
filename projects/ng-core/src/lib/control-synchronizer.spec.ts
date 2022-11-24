@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  Input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import {
   FormControl,
   ReactiveFormsModule,
@@ -31,10 +26,9 @@ abstract class AbstractValidatingComponent extends WrappedControlSuperclass<stri
 
   constructor(
     private tag: string,
-    injector: Injector,
     { syncError = false, doAsyncValidation = false } = {},
   ) {
-    super(injector);
+    super();
     this.syncError = syncError;
     if (doAsyncValidation) {
       this.control.addAsyncValidators(
@@ -81,8 +75,8 @@ describe('ControlSynchronizer', () => {
       changeDetection: ChangeDetectionStrategy.OnPush,
     })
     class InnerComponent extends AbstractValidatingComponent {
-      constructor(injector: Injector) {
-        super('inner', injector);
+      constructor() {
+        super('inner');
       }
     }
 
@@ -91,8 +85,8 @@ describe('ControlSynchronizer', () => {
       changeDetection: ChangeDetectionStrategy.OnPush,
     })
     class OuterComponent extends AbstractValidatingComponent {
-      constructor(injector: Injector) {
-        super('outer', injector, { syncError: true });
+      constructor() {
+        super('outer', { syncError: true });
       }
     }
 
@@ -151,8 +145,8 @@ describe('ControlSynchronizer', () => {
       changeDetection: ChangeDetectionStrategy.OnPush,
     })
     class InnerComponent extends AbstractValidatingComponent {
-      constructor(injector: Injector) {
-        super('inner', injector, { doAsyncValidation: true });
+      constructor() {
+        super('inner', { doAsyncValidation: true });
       }
     }
 
@@ -161,8 +155,8 @@ describe('ControlSynchronizer', () => {
       changeDetection: ChangeDetectionStrategy.OnPush,
     })
     class OuterComponent extends AbstractValidatingComponent {
-      constructor(injector: Injector) {
-        super('outer', injector, { doAsyncValidation: true });
+      constructor() {
+        super('outer', { doAsyncValidation: true });
       }
     }
 
@@ -224,8 +218,8 @@ describe('ControlSynchronizer', () => {
       outerToInnerDelay$ = new Subject();
       innerToOuterDelay$ = new Subject();
 
-      constructor(injector: Injector) {
-        super('inner', injector, { syncError: true });
+      constructor() {
+        super('inner', { syncError: true });
       }
 
       protected override setUpOuterToInnerErrors$(
@@ -251,8 +245,8 @@ describe('ControlSynchronizer', () => {
       template: `<sl-inner [formControl]="control"></sl-inner>`,
     })
     class OuterComponent extends AbstractValidatingComponent {
-      constructor(injector: Injector) {
-        super('outer', injector, { syncError: true });
+      constructor() {
+        super('outer', { syncError: true });
       }
     }
 

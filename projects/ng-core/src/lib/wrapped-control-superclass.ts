@@ -1,6 +1,7 @@
 import {
   Directive,
   ErrorHandler,
+  inject,
   Injector,
   OnInit,
   ProviderToken,
@@ -20,7 +21,7 @@ import { ControlSynchronizer } from './control-synchronizer';
 import { FormComponentSuperclass } from './form-component-superclass';
 
 /**
- * Extend this when creating a form component that simply wraps existing ones, to reduce a lot of boilerplate. **Warning:** You _must_ include a constructor in your subclass.
+ * Extend this when creating a form component that simply wraps existing ones, to reduce a lot of boilerplate.
  *
  * To wrap a single form control use the subclass {@linkcode WrappedFormControlSuperclass}:
  * ```ts
@@ -91,14 +92,12 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   /** Bind this to your inner form control to make all the magic happen. */
   abstract control: AbstractControl;
 
-  #injector: Injector;
   #incomingValues$ = new Subject<OuterType>();
-  #errorHandler: ErrorHandler;
+  #injector = inject(Injector);
+  #errorHandler = inject(ErrorHandler);
 
-  constructor(injector: Injector) {
-    super(injector);
-    this.#injector = injector;
-    this.#errorHandler = injector.get(ErrorHandler);
+  constructor() {
+    super();
     this.subscribeTo(
       this.setUpOuterToInnerValue$(this.#incomingValues$),
       (inner) => {

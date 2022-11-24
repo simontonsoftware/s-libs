@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
-  Injector,
   Input,
   OnChanges,
   OnInit,
@@ -59,11 +58,8 @@ class ColorTextComponent extends DirectiveSuperclass {
   @Input() prefix2?: string;
   color!: string;
 
-  constructor(
-    @Inject('color$') color$: Observable<string>,
-    injector: Injector,
-  ) {
-    super(injector);
+  constructor(@Inject('color$') color$: Observable<string>) {
+    super();
     this.bindToInstance(
       'color',
       combineLatest([
@@ -182,8 +178,8 @@ describe('DirectiveSuperclass', () => {
         @Input() specified?: string;
         emittedValue? = 'initial value';
 
-        constructor(injector: Injector) {
-          super(injector);
+        constructor() {
+          super();
           this.getInput$('unspecified').subscribe((value) => {
             this.emittedValue = value;
           });
@@ -209,8 +205,8 @@ describe('DirectiveSuperclass', () => {
         stage = 'before ngOnChanges';
         emittedDuring?: string;
 
-        constructor(injector: Injector) {
-          super(injector);
+        constructor() {
+          super();
           this.getInput$('myInput')
             .pipe(take(1))
             .subscribe(() => {
@@ -237,8 +233,8 @@ describe('DirectiveSuperclass', () => {
         @Input() myInput?: string;
         emitted = false;
 
-        constructor(injector: Injector) {
-          super(injector);
+        constructor() {
+          super();
           this.getInput$('myInput').subscribe(() => {
             this.emitted = true;
           });
@@ -267,8 +263,8 @@ describe('DirectiveSuperclass', () => {
         @Input() inputValue!: { name: string };
         boundValue!: { name: string };
 
-        constructor(injector: Injector) {
-          super(injector);
+        constructor() {
+          super();
           this.getInput$('inputValue').subscribe();
         }
 
@@ -290,8 +286,8 @@ describe('DirectiveSuperclass', () => {
         @Input() inputValue!: { name: string };
         boundValue!: { name: string };
 
-        constructor(injector: Injector) {
-          super(injector);
+        constructor() {
+          super();
           this.bindToInstance('boundValue', this.getInput$('inputValue'));
         }
       }
