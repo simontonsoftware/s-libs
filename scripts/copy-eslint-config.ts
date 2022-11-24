@@ -1,9 +1,9 @@
-import { copyFileSync, mkdirSync, readdirSync, rmdirSync } from 'fs';
+import { copyFileSync, mkdirSync, readdirSync, rmSync } from 'fs';
 import { join } from 'path';
 
 export function copyEslintConfig() {
   const targetFolder = 'dist/eslint-config-ng';
-  rmdirSync(targetFolder, { recursive: true });
+  rmSync(targetFolder, { recursive: true });
   mkdirSync(targetFolder);
 
   const srcFolder = 'projects/eslint-config-ng';
