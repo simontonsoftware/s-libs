@@ -5,32 +5,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: "yarn"
-
-      - run: yarn
-
-      - run: yarn build-libs
+      - uses: ./.github/actions/build
 
       - run: yarn test --no-watch --no-progress --browsers=ChromeHeadless
-
-      # build this to make sure no template compile errors crop up that tests don't catch
-      - run: yarn build integration
-
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: "yarn"
-
-      - run: yarn
-
-      - run: yarn build-libs
+      - uses: ./.github/actions/build
 
       - run: yarn lint --quiet
       - run: yarn ts-node scripts/dtslint-all
+
+      # build this to make sure no template compile errors crop up that tests don't catch
+      - run: yarn build integration
