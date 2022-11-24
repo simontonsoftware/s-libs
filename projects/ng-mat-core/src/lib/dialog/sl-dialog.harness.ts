@@ -4,8 +4,8 @@ import {
   HarnessLoader,
   HarnessPredicate,
 } from '@angular/cdk/testing';
-import { MatLegacyButtonHarness as MatButtonHarness } from '@angular/material/legacy-button/testing';
-import { MatLegacyDialogHarness as MatDialogHarness } from '@angular/material/legacy-dialog/testing';
+import { MatButtonHarness } from '@angular/material/button/testing';
+import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { DialogButtonColor } from './dialog.component';
 
 interface SlDialogHarnessFilters extends BaseHarnessFilters {
