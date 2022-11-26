@@ -3,7 +3,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 3,674 bytes
- * - Micro-dash: 86 bytes
+ * - Micro-dash: 88 bytes
  */
 export function padEnd(s: string, length: number, chars?: string): string {
   return s.padEnd(length, chars);

@@ -8,7 +8,7 @@ import { IfCouldBe, Nil } from '../interfaces';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 8,283 bytes
- * - Micro-dash: 149 bytes
+ * - Micro-dash: 151 bytes
  */
 export function pick<T, P extends ReadonlyArray<keyof NonNullable<T>>>(
   object: T,

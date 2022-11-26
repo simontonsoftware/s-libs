@@ -6,7 +6,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 6,098 bytes
- * - Micro-dash: 69 bytes
+ * - Micro-dash: 72 bytes
  */
 export function without<T>(array: readonly T[], ...values: readonly T[]): T[] {
   return array.filter((item) => !values.includes(item));

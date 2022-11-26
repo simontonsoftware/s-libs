@@ -11,7 +11,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 2,310 bytes
- * - Micro-dash: 173 bytes
+ * - Micro-dash: 175 bytes
  */
 export function debounce<T extends (...args: any[]) => any>(
   func: T,

@@ -14,7 +14,7 @@ type RemainingKeys<T, Omits> =
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 16,266 bytes
- * - Micro-dash: 161 bytes
+ * - Micro-dash: 163 bytes
  */
 export function omit<
   T extends object | Nil,

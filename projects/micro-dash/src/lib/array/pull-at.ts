@@ -11,7 +11,7 @@ import { flatten } from './flatten';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 8,215 bytes
- * - Micro-dash: 302 bytes
+ * - Micro-dash: 304 bytes
  */
 export function pullAt(
   array: any[],
