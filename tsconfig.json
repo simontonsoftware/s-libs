@@ -19,12 +19,12 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2020",
+    "module": "ES2022",
     "useDefineForClassFields": false,
     "paths": {
       "@s-libs/*": ["dist/*"]
     },
-    "lib": ["es2020", "dom"],
+    "lib": ["ES2022", "dom"],
 
     //
     // Simonton Software additions
