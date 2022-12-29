@@ -3,7 +3,7 @@
   "version": 1,
   "cli": {
     "analytics": "d2657102-efac-4510-9c45-87ca8fcdb63c",
-    "cache": { "environment": "all"},
+    "cache": { "environment": "all" },
     "defaultCollection": "@angular-eslint/schematics",
     "packageManager": "yarn",
     "schematicCollections": ["@angular-eslint/schematics"]
@@ -143,7 +143,10 @@
               "projects/integration/src/favicon.ico",
               "projects/integration/src/assets"
             ],
-            "styles": ["projects/integration/src/styles.scss"],
+            "styles": [
+              "projects/integration/src/styles.scss",
+              "projects/integration/src/app/api-tests/ng-mat-core.spec.scss"
+            ],
             "scripts": []
           }
         },

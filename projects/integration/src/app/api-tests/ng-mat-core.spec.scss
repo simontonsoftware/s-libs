@@ -1,0 +1,17 @@
+@use "@angular/material" as mat;
+@use "../../../../../dist/ng-mat-core/theming";
+
+$palettes: (
+  primary: mat.define-palette(mat.$teal-palette),
+  accent: mat.define-palette(mat.$deep-purple-palette),
+);
+$minimum-config: (
+  dark-palettes: $palettes,
+  light-palettes: $palettes,
+);
+
+@include theming.dark-theme($minimum-config);
+@include theming.dark-theme-colors($minimum-config);
+@include theming.full-theming($minimum-config...);
+@include theming.light-theme($minimum-config);
+@include theming.light-theme-colors($minimum-config);

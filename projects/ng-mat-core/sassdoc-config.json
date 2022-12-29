@@ -1,0 +1,7 @@
+{
+  "dest": "../../docs/ng-mat-core_sass",
+  "groups": {
+    "undefined": "Theming"
+  },
+  "descriptionPath": "src/lib/theming/README.md"
+}

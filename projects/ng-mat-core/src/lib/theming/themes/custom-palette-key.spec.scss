@@ -1,0 +1,12 @@
+@use "@angular/material" as mat;
+@use ".." as theming;
+
+@include theming.light-theme(
+  (
+    custom-palettes: (
+      primary: mat.define-palette(mat.$light-blue-palette),
+      accent: mat.define-palette(mat.$orange-palette),
+    ),
+  ),
+  $palette-key: "custom-palettes"
+);

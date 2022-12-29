@@ -1,0 +1,58 @@
+@use "sass:meta";
+@use "@angular/material" as mat;
+@use "../colors/colors";
+@use "../themes/themes";
+
+/// A convenience mixin to set up all Angular Material theming for your app, including separate light and dark themes that respect `prefers-color-scheme`.
+///
+/// **Important:** This even does `@include mat.core()` for you, so do not include it yourself.
+///
+/// @param {Map} $config - The config object used for multiple mixins in this library. See the example for a description of all its options.
+///
+/// @example
+/// $config: (
+///   // The `color` value in the map passed to `mat.generate-dark-theme()`.
+///   // Required when defining a dark theme unless you call `dark-theme()`
+///   // directly and pass it a different `$palette-key`.
+///   dark-palettes: (
+///     primary: mat.define-palette(mat.$light-blue-palette),
+///     accent: mat.define-palette(mat.$orange-palette, A200, A100, A400),
+///   ),
+///
+///   // The `color` value in the map passed to `mat.generate-light-theme()`.
+///   // Required when defining a light theme unless you call `dark-theme()`
+///   // directly and pass it a different `$palette-key`.
+///   light-palettes: (
+///     primary: mat.define-palette(mat.$blue-palette),
+///     accent: mat.define-palette(mat.$orange-palette, A400, A200, A700),
+///   ),
+///
+///   // The `typography` value in the map passed to `mat.generate-*-theme()`.
+///   // Defaults to `mat.define-typography-config()`. Pass `null` to omit
+///   // typography from your theming.
+///   typography: mat.define-typography-config("sans-serif"),
+///
+///   // The `density` value in the map passed to `mat.generate-*-theme()`.
+///   // Defaults to `0`.
+///   density: -1,
+///
+///   // The Angular Material modules to include themes/colors for.
+///   // Defaults to all modules.
+///   modules: (
+///     "core",
+///     "button",
+///     "card",
+///     "checkbox",
+///     "form-field",
+///     "input",
+///     "list",
+///   ),
+/// );
+@mixin full-theming($args...) {
+  $config: meta.keywords($args);
+  @include mat.core();
+  @include themes.dark-theme($config);
+  @media (prefers-color-scheme: light) {
+    @include colors.light-theme-colors($config);
+  }
+}

@@ -1,0 +1,13 @@
+@use "@angular/material" as mat;
+@use "./full-theming" as theming;
+
+@include theming.full-theming(
+  $dark-palettes: (
+    primary: mat.define-palette(mat.$light-blue-palette),
+    accent: mat.define-palette(mat.$orange-palette, A200, A100, A400),
+  ),
+  $light-palettes: (
+    primary: mat.define-palette(mat.$blue-palette),
+    accent: mat.define-palette(mat.$orange-palette, A400, A200, A700),
+  )
+);

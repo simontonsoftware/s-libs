@@ -10,4 +10,7 @@ for (const project of projects) {
     `npx typedoc --tsconfig projects/${project}/tsconfig.lib.json --out docs/${project} projects/${project}/src/public-api.ts`,
   );
 }
+runCommand(
+  `npx sassdoc -c projects/ng-mat-core/sassdoc-config.json projects/ng-mat-core/src/lib/theming`,
+);
 runCommand('git add docs/*');

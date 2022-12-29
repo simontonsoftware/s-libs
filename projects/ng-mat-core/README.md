@@ -1,6 +1,6 @@
 ## API Documentation
 
-To quickly see what is available, see the [api documentation](https://simontonsoftware.github.io/s-libs/ng-mat-core).
+To quickly see what is available, see the [typescript documentation](https://simontonsoftware.github.io/s-libs/ng-mat-core) as well as the [sass documentation](https://simontonsoftware.github.io/s-libs/ng-mat-core_sass).
 
 ## Installation
 

@@ -62,6 +62,7 @@
     "lodash-es": "^4.17.10",
     "ng-packagr": "^15.0.0",
     "prettier": "^2.0.5",
+    "sassdoc": "^2.7.4",
     "source-map-explorer": "^2.0.1",
     "standard-version": "^9.0.0",
     "ts-node": "^10.3.0",

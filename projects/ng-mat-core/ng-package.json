@@ -4,5 +4,13 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "flatModuleFile": "ng-mat-core"
-  }
+  },
+  "assets": [
+    {
+      "input": "src/lib/theming",
+      "glob": "**/*.scss",
+      "ignore": ["**/*.spec.scss"],
+      "output": "theming"
+    }
+  ]
 }

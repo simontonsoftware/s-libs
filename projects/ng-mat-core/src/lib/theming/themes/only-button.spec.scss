@@ -1,0 +1,17 @@
+@use "@angular/material" as mat;
+@use ".." as theming;
+
+@include theming.dark-theme(
+  (
+    dark-palettes: (
+      primary: mat.define-palette(mat.$light-blue-palette),
+      accent: mat.define-palette(mat.$orange-palette),
+    ),
+    modules: (
+      "core",
+      "button",
+      // uncomment to see the test fail
+      // "toolbar",,,
+    ),
+  )
+);
