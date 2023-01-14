@@ -47,6 +47,6 @@ export class SlDialogService {
       data,
       autoFocus: false,
     });
-    return firstValueFrom(ref.beforeClosed());
+    return firstValueFrom<Promise<T | undefined>>(ref.beforeClosed());
   }
 }

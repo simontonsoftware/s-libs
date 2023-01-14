@@ -22,7 +22,7 @@ describe('WrappedControlComponent', () => {
       imports: [FormsModule, NasModelModule, ReactiveFormsModule],
     });
     ctx.run(() => {
-      const el: HTMLElement = ctx.fixture.nativeElement;
+      const el = ctx.fixture.nativeElement as HTMLElement;
       const input = el.querySelector('input')!;
       expect(input.value).toBe('initial value');
     });

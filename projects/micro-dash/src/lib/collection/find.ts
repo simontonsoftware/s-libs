@@ -58,10 +58,10 @@ export function find<
   predicate: ValueNarrowingIteratee<T, O>,
   fromIndex?: F,
 ):
-  | (DefiniteValueMatches<T, O> extends never ? undefined : never)
   | IfCouldBe<F, number, undefined>
   | IfCouldBe<I, Nil, undefined>
-  | PossibleValueMatches<T, O>;
+  | PossibleValueMatches<T, O>
+  | (DefiniteValueMatches<T, O> extends never ? undefined : never);
 
 // object: key narrowing
 export function find<
@@ -74,10 +74,10 @@ export function find<
   predicate: KeyNarrowingIteratee<T, O>,
   fromIndex?: F,
 ):
-  | (DefiniteKeyMatches<T, O> extends never ? undefined : never)
   | IfCouldBe<F, number, undefined>
   | IfCouldBe<I, Nil, undefined>
-  | PossibleKeyMatches<T, O>;
+  | PossibleKeyMatches<T, O>
+  | (DefiniteKeyMatches<T, O> extends never ? undefined : never);
 
 // object
 export function find<T>(

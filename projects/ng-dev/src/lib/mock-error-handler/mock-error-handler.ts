@@ -23,6 +23,8 @@ type Match = RegExp | string | ((error: ErrorType) => boolean);
  */
 @Injectable({ providedIn: 'root' })
 export class MockErrorHandler extends ErrorHandler {
+  #errors: ErrorType[] = [];
+
   /**
    * Convenience method to put in a `provide` array, to override Angular's default error handler. You do not need to use this if you are using {@linkcode AngularContext}, which automatically provides it.
    *
@@ -35,8 +37,6 @@ export class MockErrorHandler extends ErrorHandler {
   static overrideProvider(): Provider {
     return { provide: ErrorHandler, useExisting: MockErrorHandler };
   }
-
-  #errors: ErrorType[] = [];
 
   /**
    * In addition to tracking the error, this call's Angular's [ErrorHandler.handleError]{@linkcode https://angular.io/api/core/ErrorHandler#handleError}, prints the error to the console and may print additional information that could be helpful for finding the source of the error.
@@ -109,11 +109,11 @@ export class MockErrorHandler extends ErrorHandler {
 function stringifyUserInput(match: Match, description?: string): string {
   if (isUndefined(description)) {
     if (isString(match)) {
-      description = 'Match by string: ' + match;
+      description = `Match by string: ${match}`;
     } else if (isRegExp(match)) {
-      description = 'Match by regexp: ' + match;
+      description = `Match by regexp: ${match}`;
     } else {
-      description = 'Match by function: ' + match.name;
+      description = `Match by function: ${match.name}`;
     }
   }
   return description;

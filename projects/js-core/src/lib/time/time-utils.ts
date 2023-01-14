@@ -2,6 +2,8 @@ import { last } from '@s-libs/micro-dash';
 import { mapAsKeys } from '../objects/map-as-keys';
 import { roundToMultipleOf } from '../round-to-multiple-of';
 
+/* eslint-disable @typescript-eslint/naming-convention */
+
 /**
  * Defines the canonical string representation for each time unit. Many aliases
  * can also be used with the functions that deal with time units:
@@ -153,7 +155,7 @@ function getNanoConversions(
     singular,
     nanos,
     aliases = [],
-    plural = singular + 's',
+    plural = `${singular}s`,
   }: { singular: string; nanos: number; aliases?: string[]; plural?: string },
 ): Record<string, number> {
   return mapAsKeys(

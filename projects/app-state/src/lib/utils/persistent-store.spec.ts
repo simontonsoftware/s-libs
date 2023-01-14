@@ -1,7 +1,9 @@
 import { fakeAsync, tick } from '@angular/core/testing';
-import { MigrationManager, VersionedObject } from '@s-libs/js-core';
+import { VersionedObject } from '@s-libs/js-core';
+import { MigrationManager } from '@s-libs/js-core';
 import { omit } from '@s-libs/micro-dash';
-import { PersistenceCodec, PersistentStore } from './persistent-store';
+import { PersistenceCodec } from './persistent-store';
+import { PersistentStore } from './persistent-store';
 
 describe('PersistentStore', () => {
   beforeEach(() => {
@@ -26,9 +28,10 @@ describe('PersistentStore', () => {
 
   describe('documentation', () => {
     it('is working for the simple example', () => {
+      /* eslint-disable camelcase */
+
       class MyState implements VersionedObject {
         _version = 1;
-        // eslint-disable-next-line camelcase -- will fix in next version
         my_state_key = 'my state value';
       }
 
@@ -50,12 +53,12 @@ describe('PersistentStore', () => {
     it('is working for the migration example', () => {
       localStorage.setItem(
         'myPersistenceKey',
-        '{ "_version": 1, "my_state_key": "my new value" }',
+        '{ "_version": 1, "my_state_key": "my persisted value" }',
       );
 
       class MyState implements VersionedObject {
         _version = 2; // bump version to 2
-        myStateKey = 'my state value'; // schema change: my_state_key => myStateKey
+        myStateKey = 'my default value'; // schema change: my_state_key => myStateKey
       }
 
       class MyMigrationManager extends MigrationManager<MyState> {
@@ -80,7 +83,7 @@ describe('PersistentStore', () => {
 
       // the store gets the value persisted from version 1 in our previous example
       const store = new MyStore();
-      expect(store.state().myStateKey).toBe('my new value');
+      expect(store.state().myStateKey).toBe('my persisted value');
     });
 
     it('is working for the codec example', fakeAsync(() => {

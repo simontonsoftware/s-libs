@@ -50,19 +50,19 @@ describe('omitBy()', () => {
       // Array
       //
 
-      type A = Array<string | number>;
+      type A = Array<number | string>;
       const a = {} as A;
       const aOrU = {} as A | undefined;
       const aOrN = {} as A | null;
 
       expectTypeOf(omitBy(a, () => true)).toEqualTypeOf<
-        Record<number, string | number>
+        Record<number, number | string>
       >();
       expectTypeOf(omitBy(aOrU, () => true)).toEqualTypeOf<
-        Record<number, string | number>
+        Record<number, number | string>
       >();
       expectTypeOf(omitBy(aOrN, () => true)).toEqualTypeOf<
-        Record<number, string | number>
+        Record<number, number | string>
       >();
 
       // narrowing
@@ -86,13 +86,13 @@ describe('omitBy()', () => {
       >();
 
       expectTypeOf(omitBy(a, isA)).toEqualTypeOf<
-        Record<number, string | number>
+        Record<number, number | string>
       >();
       expectTypeOf(omitBy(aOrU, isA)).toEqualTypeOf<
-        Record<number, string | number>
+        Record<number, number | string>
       >();
       expectTypeOf(omitBy(aOrN, isA)).toEqualTypeOf<
-        Record<number, string | number>
+        Record<number, number | string>
       >();
 
       type AB = Array<'a' | 'b'>;
@@ -103,7 +103,7 @@ describe('omitBy()', () => {
       expectTypeOf(omitBy(abOrU, isA)).toEqualTypeOf<Record<number, 'b'>>();
       expectTypeOf(omitBy(abOrN, isA)).toEqualTypeOf<Record<number, 'b'>>();
 
-      type AN = Array<'a' | number>;
+      type AN = Array<number | 'a'>;
       const an = {} as AN;
       const anOrU = {} as AN | undefined;
       const anOrN = {} as AN | null;
@@ -164,20 +164,20 @@ describe('omitBy()', () => {
         a: number;
       }>();
       expectTypeOf(omitBy(oOrU, isDate)).toEqualTypeOf<
-        {} | { c?: Document | undefined; 2: string; a: number }
+        { c?: Document | undefined; 2: string; a: number } | {}
       >();
       expectTypeOf(omitBy(oOrN, isDate)).toEqualTypeOf<
-        {} | { c?: Document | undefined; 2: string; a: number }
+        { c?: Document | undefined; 2: string; a: number } | {}
       >();
 
       expectTypeOf(omitBy(o, isNumberOrString)).toEqualTypeOf<{
         c: Date | Document;
       }>();
       expectTypeOf(omitBy(oOrU, isNumberOrString)).toEqualTypeOf<
-        {} | { c: Date | Document }
+        { c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(oOrN, isNumberOrString)).toEqualTypeOf<
-        {} | { c: Date | Document }
+        { c: Date | Document } | {}
       >();
 
       expectTypeOf(omitBy(o, isDateOrString)).toEqualTypeOf<{
@@ -185,10 +185,10 @@ describe('omitBy()', () => {
         a: number;
       }>();
       expectTypeOf(omitBy(oOrU, isDateOrString)).toEqualTypeOf<
-        {} | { c?: Document | undefined; a: number }
+        { c?: Document | undefined; a: number } | {}
       >();
       expectTypeOf(omitBy(oOrN, isDateOrString)).toEqualTypeOf<
-        {} | { c?: Document | undefined; a: number }
+        { c?: Document | undefined; a: number } | {}
       >();
 
       expectTypeOf(omitBy(o, isMap)).toEqualTypeOf<{
@@ -197,10 +197,10 @@ describe('omitBy()', () => {
         c: Date | Document;
       }>();
       expectTypeOf(omitBy(oOrU, isMap)).toEqualTypeOf<
-        {} | { 2: string; a: number; c: Date | Document }
+        { 2: string; a: number; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(oOrN, isMap)).toEqualTypeOf<
-        {} | { 2: string; a: number; c: Date | Document }
+        { 2: string; a: number; c: Date | Document } | {}
       >();
 
       expectTypeOf(omitBy(o, isMapOrString)).toEqualTypeOf<{
@@ -208,33 +208,33 @@ describe('omitBy()', () => {
         c: Date | Document;
       }>();
       expectTypeOf(omitBy(oOrU, isMapOrString)).toEqualTypeOf<
-        {} | { a: number; c: Date | Document }
+        { a: number; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(oOrN, isMapOrString)).toEqualTypeOf<
-        {} | { a: number; c: Date | Document }
+        { a: number; c: Date | Document } | {}
       >();
 
       interface S2 {
-        a: 'a' | number;
+        a: number | 'a';
       }
       const s2 = {} as S2;
       const s2OrU = {} as S2 | undefined;
       const s2OrN = {} as S2 | null;
       expectTypeOf(omitBy(s2, isA)).toEqualTypeOf<{ a?: number | undefined }>();
       expectTypeOf(omitBy(s2OrU, isA)).toEqualTypeOf<
-        {} | { a?: number | undefined }
+        { a?: number | undefined } | {}
       >();
       expectTypeOf(omitBy(s2OrN, isA)).toEqualTypeOf<
-        {} | { a?: number | undefined }
+        { a?: number | undefined } | {}
       >();
       expectTypeOf(omitBy(s2, isStringOr2)).toEqualTypeOf<{
         a?: number | undefined;
       }>();
       expectTypeOf(omitBy(s2OrU, isStringOr2)).toEqualTypeOf<
-        {} | { a?: number | undefined }
+        { a?: number | undefined } | {}
       >();
       expectTypeOf(omitBy(s2OrN, isStringOr2)).toEqualTypeOf<
-        {} | { a?: number | undefined }
+        { a?: number | undefined } | {}
       >();
 
       // key narrowing
@@ -261,10 +261,10 @@ describe('omitBy()', () => {
         c: Date | Document;
       }>();
       expectTypeOf(omitBy(sOrU, keyIsNumber)).toEqualTypeOf<
-        {} | { a: number; b: string; c: Date | Document }
+        { a: number; b: string; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(sOrN, keyIsNumber)).toEqualTypeOf<
-        {} | { a: number; b: string; c: Date | Document }
+        { a: number; b: string; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(o, keyIsNumber)).toEqualTypeOf<{
         2: string;
@@ -272,10 +272,10 @@ describe('omitBy()', () => {
         c: Date | Document;
       }>();
       expectTypeOf(omitBy(oOrU, keyIsNumber)).toEqualTypeOf<
-        {} | { 2: string; a: number; c: Date | Document }
+        { 2: string; a: number; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(oOrN, keyIsNumber)).toEqualTypeOf<
-        {} | { 2: string; a: number; c: Date | Document }
+        { 2: string; a: number; c: Date | Document } | {}
       >();
 
       expectTypeOf(omitBy(s, keyIsA)).toEqualTypeOf<{
@@ -283,20 +283,20 @@ describe('omitBy()', () => {
         c: Date | Document;
       }>();
       expectTypeOf(omitBy(sOrU, keyIsA)).toEqualTypeOf<
-        {} | { b: string; c: Date | Document }
+        { b: string; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(sOrN, keyIsA)).toEqualTypeOf<
-        {} | { b: string; c: Date | Document }
+        { b: string; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(o, keyIsA)).toEqualTypeOf<{
         c: Date | Document;
         2?: string | undefined;
       }>();
       expectTypeOf(omitBy(oOrU, keyIsA)).toEqualTypeOf<
-        {} | { c: Date | Document; 2?: string | undefined }
+        { c: Date | Document; 2?: string | undefined } | {}
       >();
       expectTypeOf(omitBy(oOrN, keyIsA)).toEqualTypeOf<
-        {} | { c: Date | Document; 2?: string | undefined }
+        { c: Date | Document; 2?: string | undefined } | {}
       >();
 
       expectTypeOf(omitBy(s, keyIsString2)).toEqualTypeOf<{
@@ -305,10 +305,10 @@ describe('omitBy()', () => {
         c: Date | Document;
       }>();
       expectTypeOf(omitBy(sOrU, keyIsString2)).toEqualTypeOf<
-        {} | { a: number; b: string; c: Date | Document }
+        { a: number; b: string; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(sOrN, keyIsString2)).toEqualTypeOf<
-        {} | { a: number; b: string; c: Date | Document }
+        { a: number; b: string; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(o, keyIsString2)).toEqualTypeOf<{
         a: number;
@@ -316,10 +316,10 @@ describe('omitBy()', () => {
         2?: string | undefined;
       }>();
       expectTypeOf(omitBy(oOrU, keyIsString2)).toEqualTypeOf<
-        {} | { a: number; c: Date | Document; 2?: string | undefined }
+        { a: number; c: Date | Document; 2?: string | undefined } | {}
       >();
       expectTypeOf(omitBy(oOrN, keyIsString2)).toEqualTypeOf<
-        {} | { a: number; c: Date | Document; 2?: string | undefined }
+        { a: number; c: Date | Document; 2?: string | undefined } | {}
       >();
 
       expectTypeOf(omitBy(s, keyIsString3)).toEqualTypeOf<{
@@ -328,10 +328,10 @@ describe('omitBy()', () => {
         c: Date | Document;
       }>();
       expectTypeOf(omitBy(sOrU, keyIsString3)).toEqualTypeOf<
-        {} | { a: number; b: string; c: Date | Document }
+        { a: number; b: string; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(sOrN, keyIsString3)).toEqualTypeOf<
-        {} | { a: number; b: string; c: Date | Document }
+        { a: number; b: string; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(o, keyIsString3)).toEqualTypeOf<{
         a: number;
@@ -339,41 +339,41 @@ describe('omitBy()', () => {
         2?: string | undefined;
       }>();
       expectTypeOf(omitBy(oOrU, keyIsString3)).toEqualTypeOf<
-        {} | { a: number; c: Date | Document; 2?: string | undefined }
+        { a: number; c: Date | Document; 2?: string | undefined } | {}
       >();
       expectTypeOf(omitBy(oOrN, keyIsString3)).toEqualTypeOf<
-        {} | { a: number; c: Date | Document; 2?: string | undefined }
+        { a: number; c: Date | Document; 2?: string | undefined } | {}
       >();
 
       expectTypeOf(omitBy(s, keyIsC)).toEqualTypeOf<{ a: number; b: string }>();
       expectTypeOf(omitBy(sOrU, keyIsC)).toEqualTypeOf<
-        {} | { a: number; b: string }
+        { a: number; b: string } | {}
       >();
       expectTypeOf(omitBy(sOrN, keyIsC)).toEqualTypeOf<
-        {} | { a: number; b: string }
+        { a: number; b: string } | {}
       >();
       expectTypeOf(omitBy(o, keyIsC)).toEqualTypeOf<{
         a: number;
         2?: string | undefined;
       }>();
       expectTypeOf(omitBy(oOrU, keyIsC)).toEqualTypeOf<
-        {} | { a: number; 2?: string | undefined }
+        { a: number; 2?: string | undefined } | {}
       >();
       expectTypeOf(omitBy(oOrN, keyIsC)).toEqualTypeOf<
-        {} | { a: number; 2?: string | undefined }
+        { a: number; 2?: string | undefined } | {}
       >();
 
       expectTypeOf(omitBy(s, keyIsAorC)).toEqualTypeOf<{ b: string }>();
-      expectTypeOf(omitBy(sOrU, keyIsAorC)).toEqualTypeOf<{} | { b: string }>();
-      expectTypeOf(omitBy(sOrN, keyIsAorC)).toEqualTypeOf<{} | { b: string }>();
+      expectTypeOf(omitBy(sOrU, keyIsAorC)).toEqualTypeOf<{ b: string } | {}>();
+      expectTypeOf(omitBy(sOrN, keyIsAorC)).toEqualTypeOf<{ b: string } | {}>();
       expectTypeOf(omitBy(o, keyIsAorC)).toEqualTypeOf<{
         2?: string | undefined;
       }>();
       expectTypeOf(omitBy(oOrU, keyIsAorC)).toEqualTypeOf<
-        {} | { 2?: string | undefined }
+        { 2?: string | undefined } | {}
       >();
       expectTypeOf(omitBy(oOrN, keyIsAorC)).toEqualTypeOf<
-        {} | { 2?: string | undefined }
+        { 2?: string | undefined } | {}
       >();
 
       expectTypeOf(omitBy(s, keyIsAorNumber)).toEqualTypeOf<{
@@ -381,20 +381,20 @@ describe('omitBy()', () => {
         c: Date | Document;
       }>();
       expectTypeOf(omitBy(sOrU, keyIsAorNumber)).toEqualTypeOf<
-        {} | { b: string; c: Date | Document }
+        { b: string; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(sOrN, keyIsAorNumber)).toEqualTypeOf<
-        {} | { b: string; c: Date | Document }
+        { b: string; c: Date | Document } | {}
       >();
       expectTypeOf(omitBy(o, keyIsAorNumber)).toEqualTypeOf<{
         c: Date | Document;
         2?: string | undefined;
       }>();
       expectTypeOf(omitBy(oOrU, keyIsAorNumber)).toEqualTypeOf<
-        {} | { c: Date | Document; 2?: string | undefined }
+        { c: Date | Document; 2?: string | undefined } | {}
       >();
       expectTypeOf(omitBy(oOrN, keyIsAorNumber)).toEqualTypeOf<
-        {} | { c: Date | Document; 2?: string | undefined }
+        { c: Date | Document; 2?: string | undefined } | {}
       >();
 
       const record = {} as Record<string, Date | string>;
@@ -402,7 +402,7 @@ describe('omitBy()', () => {
         Record<string, Date | undefined>
       >();
       expectTypeOf(omitBy(record, isNumber)).toEqualTypeOf<
-        Record<string, string | Date>
+        Record<string, Date | string>
       >();
       expectTypeOf(omitBy(record, isDate)).toEqualTypeOf<
         Record<string, string | undefined>
@@ -410,14 +410,14 @@ describe('omitBy()', () => {
       expectTypeOf(omitBy(record, isDateOrString)).toEqualTypeOf<{}>();
       expectTypeOf(omitBy(record, keyIsString)).toEqualTypeOf<{}>();
       expectTypeOf(omitBy(record, keyIsA)).toEqualTypeOf<
-        Record<string, string | Date>
+        Record<string, Date | string>
       >();
       expectTypeOf(omitBy(record, keyIsNumber)).toEqualTypeOf<
-        Record<string, string | Date>
+        Record<string, Date | string>
       >();
       expectTypeOf(omitBy(record, keyIsDateOrString)).toEqualTypeOf<{}>();
       expectTypeOf(omitBy(record, () => true)).toEqualTypeOf<
-        Record<string, string | Date>
+        Record<string, Date | string>
       >();
     });
   });

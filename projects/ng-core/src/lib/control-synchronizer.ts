@@ -8,27 +8,6 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 type ErrorTransform = MonoTypeOperatorFunction<ValidationErrors>;
 
 export class ControlSynchronizer {
-  static synchronize(
-    outer: AbstractControl,
-    inner: AbstractControl,
-    outerToInnerTransform: ErrorTransform,
-    innerToOuterTransform: ErrorTransform,
-    subscriptionManager: SubscriptionManager,
-  ): void {
-    const outerSync = new ControlSynchronizer(outer);
-    const innerSync = new ControlSynchronizer(inner);
-    outerSync.#acceptErrorsFrom(
-      innerSync,
-      innerToOuterTransform,
-      subscriptionManager,
-    );
-    innerSync.#acceptErrorsFrom(
-      outerSync,
-      outerToInnerTransform,
-      subscriptionManager,
-    );
-  }
-
   #errorsFromPartner: ValidationErrors = {};
   #originalSetErrors = this.control.setErrors.bind(this.control);
   #finishingAsync = false;
@@ -51,6 +30,28 @@ export class ControlSynchronizer {
       },
     });
     control.addValidators(() => this.#errorsFromPartner);
+  }
+
+  // eslint-disable-next-line max-params
+  static synchronize(
+    outer: AbstractControl,
+    inner: AbstractControl,
+    outerToInnerTransform: ErrorTransform,
+    innerToOuterTransform: ErrorTransform,
+    subscriptionManager: SubscriptionManager,
+  ): void {
+    const outerSync = new ControlSynchronizer(outer);
+    const innerSync = new ControlSynchronizer(inner);
+    outerSync.#acceptErrorsFrom(
+      innerSync,
+      innerToOuterTransform,
+      subscriptionManager,
+    );
+    innerSync.#acceptErrorsFrom(
+      outerSync,
+      outerToInnerTransform,
+      subscriptionManager,
+    );
   }
 
   #acceptErrorsFrom(
@@ -76,8 +77,7 @@ export class ControlSynchronizer {
   }
 
   #getNativeErrors(): ValidationErrors {
-    // TODO: remove the `!` after https://github.com/simontonsoftware/s-libs/issues/78
-    return omit(this.control.errors!, ...keys(this.#errorsFromPartner));
+    return omit(this.control.errors, ...keys(this.#errorsFromPartner));
   }
 
   #updateCombinedErrors(nativeErrors: ValidationErrors | null): void {

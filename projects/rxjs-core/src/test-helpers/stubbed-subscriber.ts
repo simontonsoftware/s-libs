@@ -11,13 +11,13 @@ export class StubbedSubscriber {
     expect(this.complete).not.toHaveBeenCalled();
   }
 
-  expectReceivedOnlyValue(value: any): void {
+  expectReceivedOnlyValue(value: unknown): void {
     expectSingleCallAndReset(this.next, value);
     expect(this.error).not.toHaveBeenCalled();
     expect(this.complete).not.toHaveBeenCalled();
   }
 
-  expectReceivedOnlyError(ex: any): void {
+  expectReceivedOnlyError(ex: unknown): void {
     expect(this.next).not.toHaveBeenCalled();
     expectSingleCallAndReset(this.error, ex);
     expect(this.complete).not.toHaveBeenCalled();

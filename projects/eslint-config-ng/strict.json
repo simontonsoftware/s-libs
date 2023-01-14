@@ -1,165 +1,124 @@
 {
-  "extends": "./index",
   "overrides": [
     {
       "files": ["*.ts"],
+      "extends": [
+        "eslint:all",
+        "plugin:@typescript-eslint/all",
+        "plugin:@angular-eslint/all",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "prettier"
+      ],
       "rules": {
-        //
-        // ESLint
-        //
-
-        // possible problems
-        "array-callback-return": ["error"],
-        "no-constructor-return": ["error"],
-        "no-duplicate-imports": ["error"],
-        "no-promise-executor-return": ["error"],
-        "no-self-compare": ["error"],
-        "no-template-curly-in-string": ["error"],
-        "no-unmodified-loop-condition": ["error"],
-        "no-unreachable-loop": ["error"],
-        "require-atomic-updates": ["error"],
-
-        // suggestions
-        "arrow-body-style": ["error"],
-        "camelcase": ["error"],
-        "consistent-return": ["error"],
-        "consistent-this": ["error", "self"],
-        "eqeqeq": ["error"],
-        "func-name-matching": ["error"],
-        "grouped-accessor-pairs": ["error", "getBeforeSet"],
-        "no-alert": ["error"],
-        "no-bitwise": ["error"],
-        "no-caller": ["error"],
-        "no-extend-native": ["error"],
-        "no-extra-bind": ["error"],
-        "no-implicit-coercion": ["error", { "allow": ["!!", "+"] }],
-        "no-labels": ["error"],
-        "no-lone-blocks": ["error"],
-        "no-lonely-if": ["error"],
-        "no-multi-assign": ["error"],
-        "no-multi-str": ["error"],
-        "no-negated-condition": ["error"],
-        "no-nested-ternary": ["error"],
-        "no-new": ["error"],
-        "no-new-func": ["error"],
-        "no-new-object": ["error"],
-        "no-new-wrappers": ["error"],
-        "no-octal-escape": ["error"],
-        "no-return-assign": ["error"],
-        "no-sequences": ["error"],
-        "no-undef-init": ["error"],
-        "no-unneeded-ternary": ["error"],
-        "no-useless-call": ["error"],
-        "no-useless-computed-key": ["error"],
-        "no-useless-concat": ["error"],
-        "no-useless-rename": ["error"],
-        "no-useless-return": ["error"],
-        "no-var": ["error"],
-        "object-shorthand": ["error"],
-        "one-var": ["error", "never"],
-        "operator-assignment": ["error"],
-        "prefer-arrow-callback": ["error"],
-        "prefer-const": ["error", { "ignoreReadBeforeAssign": true }],
-        "prefer-destructuring": ["error", { "array": false, "object": true }],
-        "prefer-exponentiation-operator": ["error"],
-        "prefer-named-capture-group": ["error"],
-        "prefer-numeric-literals": ["error"],
-        "prefer-object-spread": ["error"],
-        "prefer-regex-literals": ["error"],
-        "prefer-rest-params": ["error"],
-        "prefer-spread": ["error"],
-        "radix": ["error", "as-needed"],
-        "require-unicode-regexp": ["error"],
-        "spaced-comment": ["error", "always", { "exceptions": ["*", "/"] }],
-        "strict": ["error"],
-        "yoda": ["error"],
-        "multiline-ternary": ["error", "never"],
-
-        //
-        // @typescript-eslint
-        //
-
-        // Supported rules
-        "@typescript-eslint/array-type": [
-          "error",
-          { "default": "array-simple" }
-        ],
-        "@typescript-eslint/consistent-indexed-object-style": ["error"],
-        "@typescript-eslint/consistent-type-assertions": ["error"],
-        "@typescript-eslint/consistent-type-definitions": ["error"],
-        "@typescript-eslint/explicit-function-return-type": ["error"],
-        "@typescript-eslint/method-signature-style": ["error"],
-        "@typescript-eslint/no-base-to-string": ["error"],
-        "@typescript-eslint/no-confusing-void-expression": ["error"],
-        "@typescript-eslint/no-dynamic-delete": ["error"],
+        // Better compatibility with Angular
         "@typescript-eslint/no-extraneous-class": [
           "error",
           { "allowWithDecorator": true }
         ],
-        "@typescript-eslint/no-invalid-void-type": ["error"],
-        "@typescript-eslint/no-meaningless-void-operator": ["error"],
-        "@typescript-eslint/no-non-null-asserted-nullish-coalescing": ["error"],
-        "@typescript-eslint/no-unnecessary-boolean-literal-compare": ["error"],
-        "no-constant-condition": "off",
-        "@typescript-eslint/no-unnecessary-condition": ["error"],
-        "@typescript-eslint/no-unnecessary-type-arguments": ["error"],
-        "@typescript-eslint/prefer-enum-initializers": ["error"],
-        "@typescript-eslint/prefer-for-of": ["error"],
-        "@typescript-eslint/prefer-function-type": ["error"],
-        "@typescript-eslint/prefer-includes": ["error"],
-        "@typescript-eslint/prefer-literal-enum-member": ["error"],
-        "@typescript-eslint/prefer-nullish-coalescing": ["error"],
-        "@typescript-eslint/prefer-optional-chain": ["error"],
-        "@typescript-eslint/prefer-regexp-exec": ["error"],
-        "@typescript-eslint/prefer-return-this-type": ["error"],
-        "@typescript-eslint/prefer-string-starts-ends-with": ["error"],
-        "@typescript-eslint/prefer-ts-expect-error": ["error"],
-        "@typescript-eslint/promise-function-async": ["error"],
-        "@typescript-eslint/require-array-sort-compare": ["error"],
-        "@typescript-eslint/switch-exhaustiveness-check": ["error"],
+        "accessor-pairs": "off",
+        "class-methods-use-this": "off",
+        "new-cap": "off", // This errs on decorators
 
-        // Extension rules
-        "@typescript-eslint/dot-notation": ["error"],
-        "@typescript-eslint/no-dupe-class-members": ["error"],
-        "@typescript-eslint/no-duplicate-imports": ["error"],
-        "@typescript-eslint/no-invalid-this": ["error"],
-        "@typescript-eslint/no-loop-func": ["error"],
-        "@typescript-eslint/no-shadow": ["error"],
-        "@typescript-eslint/no-throw-literal": ["error"],
-        "@typescript-eslint/no-unused-expressions": ["error"],
-        "@typescript-eslint/no-useless-constructor": ["error"],
-        "@typescript-eslint/return-await": ["error"],
+        // Better compatibility with s-libs
+        "@typescript-eslint/unbound-method": "off",
 
-        //
-        // @angular-eslint
-        //
+        // Some builtin TS and some Angular typing uses `any`, like `Object.getPrototypeOf()` and`ComponentFixture.nativeElement`
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
 
-        // Typescript
-        "@angular-eslint/component-max-inline-declarations": ["error"],
-        "@angular-eslint/contextual-decorator": ["error"],
-        "@angular-eslint/no-lifecycle-call": ["error"],
-        "@angular-eslint/no-queries-metadata-property": ["error"],
-        "@angular-eslint/prefer-on-push-component-change-detection": ["error"],
-        "@angular-eslint/relative-url-prefix": ["error"],
-        "@angular-eslint/sort-ngmodule-metadata-arrays": ["error"]
+        // Subjectively better options
+        "@typescript-eslint/array-type": [
+          "error",
+          { "default": "array-simple" }
+        ],
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          { "accessibility": "no-public" }
+        ],
+        "@typescript-eslint/parameter-properties": [
+          "error",
+          { "prefer": "parameter-property" }
+        ],
+        "@typescript-eslint/restrict-template-expressions": [
+          "error",
+          {
+            "allowNumber": true,
+            "allowBoolean": true,
+            "allowNullish": true,
+            "allowRegExp": true
+          }
+        ],
+        "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
+        "one-var": ["error", "never"],
+        "prefer-const": ["error", { "ignoreReadBeforeAssign": true }],
+        "prefer-destructuring": ["error", { "array": false }],
+        "spaced-comment": ["error", "always", { "exceptions": ["/"] }],
+
+        // Subjectively undesirable
+        "@angular-eslint/use-component-selector": "off",
+        "@angular-eslint/use-injectable-provided-in": "off",
+        "@typescript-eslint/consistent-type-exports": "off",
+        "@typescript-eslint/consistent-type-imports": "off",
+        "@typescript-eslint/init-declarations": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-magic-numbers": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-type-alias": "off",
+        "@typescript-eslint/no-unsafe-declaration-merging": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/prefer-readonly": "off",
+        "@typescript-eslint/prefer-readonly-parameter-types": "off",
+        "@typescript-eslint/require-await": "off",
+        "capitalized-comments": "off",
+        "id-length": "off",
+        "line-comment-position": "off",
+        "max-classes-per-file": "off",
+        "max-statements": "off",
+        "multiline-comment-style": "off",
+        "no-await-in-loop": "off",
+        "no-console": "off",
+        "no-else-return": "off",
+        "no-implicit-coercion": ["error", { "allow": ["!!", "+"] }],
+        "no-inline-comments": "off",
+        "no-param-reassign": "off",
+        "no-plusplus": "off",
+        "no-ternary": "off",
+        "no-undefined": "off",
+        "no-underscore-dangle": "off",
+        "sort-imports": "off",
+        "sort-keys": "off",
+
+        // Handled better by TypeScript
+        "@typescript-eslint/no-unused-vars": "off",
+
+        // Rules the libraries themselves recommend not using /shrug
+        "@typescript-eslint/lines-between-class-members": "off"
       }
     },
     {
       "files": ["*.spec.ts"],
       "rules": {
+        // Subjectively undesirable
         "@angular-eslint/component-max-inline-declarations": "off",
-        "@angular-eslint/prefer-on-push-component-change-detection": "off"
+        "@angular-eslint/prefer-on-push-component-change-detection": "off",
+        "max-lines": "off",
+        "max-lines-per-function": "off",
+        "max-statements": "off"
       }
     },
     {
       "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/all"],
       "rules": {
-        "@angular-eslint/template/attributes-order": ["error"],
-        "@angular-eslint/template/click-events-have-key-events": ["error"],
-        "@angular-eslint/template/conditional-complexity": ["error"],
-        "@angular-eslint/template/cyclomatic-complexity": ["error"],
-        "@angular-eslint/template/mouse-events-have-key-events": ["error"],
-        "@angular-eslint/template/no-duplicate-attributes": ["error"]
+        // Subjectively undesirable
+        "@angular-eslint/template/button-has-type": "off",
+        "@angular-eslint/template/i18n": "off",
+        "@angular-eslint/template/no-call-expression": "off",
+        "@angular-eslint/template/no-inline-styles": "off",
+        "@angular-eslint/template/use-track-by-function": "off"
       }
     }
   ]

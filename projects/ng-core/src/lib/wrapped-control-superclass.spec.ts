@@ -4,17 +4,14 @@ import {
   ErrorHandler,
   Input,
 } from '@angular/core';
-import {
-  ComponentFixtureAutoDetect,
-  flushMicrotasks,
-} from '@angular/core/testing';
+import { flushMicrotasks } from '@angular/core/testing';
 import {
   FormControl,
-  UntypedFormGroup,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  UntypedFormGroup,
   ValidationErrors,
-  FormGroup,
   Validators,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -30,11 +27,9 @@ import {
   setValue,
 } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
-import {
-  FormComponentSuperclass,
-  provideValueAccessor,
-} from './form-component-superclass';
+import { FormComponentSuperclass } from './form-component-superclass';
 import { InjectableSuperclass } from './injectable-superclass';
+import { provideValueAccessor } from './provide-value-accessor';
 import { WrappedControlSuperclass } from './wrapped-control-superclass';
 import { WrappedFormControlSuperclass } from './wrapped-form-control-superclass';
 
@@ -186,7 +181,7 @@ describe('WrappedControlSuperclass', () => {
       }
 
       @Component({
-        template: ` <sl-error-in [(ngModel)]="value"></sl-error-in>`,
+        template: `<sl-error-in [(ngModel)]="value"></sl-error-in>`,
       })
       class WrapperComponent {
         @Input() value!: string;
@@ -458,7 +453,7 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
     control = new FormControl();
 
     protected override innerToOuterValue(value: string): Date {
-      return new Date(value + 'Z');
+      return new Date(`${value}Z`);
     }
 
     protected override outerToInnerValue(value: Date): string {
@@ -475,70 +470,64 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
       super(TestComponent, {
         imports: [FormsModule, ReactiveFormsModule],
         declarations: [DateComponent, StringComponent],
-        // TODO: this can go away with component harnesses eventually
-        providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
       });
     }
   }
 
-  let masterCtx: TestComponentContext;
+  let ctx: TestComponentContext;
   beforeEach(() => {
-    masterCtx = new TestComponentContext();
+    ctx = new TestComponentContext();
   });
 
   function stringInput(): HTMLInputElement {
-    return find<HTMLInputElement>(
-      masterCtx.fixture,
-      'sl-string-component input',
-    );
+    return find<HTMLInputElement>(ctx.fixture, 'sl-string-component input');
   }
 
   function dateInput(): HTMLInputElement {
-    return find<HTMLInputElement>(masterCtx.fixture, 'sl-date-component input');
+    return find<HTMLInputElement>(ctx.fixture, 'sl-date-component input');
   }
 
   function toggleDisabledButton(): HTMLButtonElement {
-    return findButton(masterCtx.fixture, 'Toggle Disabled');
+    return findButton(ctx.fixture, 'Toggle Disabled');
   }
 
   it('provides help for 2-way binding', () => {
-    masterCtx.run(() => {
-      masterCtx.getComponentInstance().string = 'initial value';
-      masterCtx.tick();
+    ctx.run(() => {
+      ctx.getComponentInstance().string = 'initial value';
+      ctx.tick();
       expect(stringInput().value).toBe('initial value');
 
       setValue(stringInput(), 'edited value');
-      expect(masterCtx.getComponentInstance().string).toBe('edited value');
+      expect(ctx.getComponentInstance().string).toBe('edited value');
     });
   });
 
   it('can translate between inner and outer values', () => {
-    masterCtx.run(() => {
-      masterCtx.getComponentInstance().date = new Date('2018-09-03T21:00Z');
-      masterCtx.tick();
+    ctx.run(() => {
+      ctx.getComponentInstance().date = new Date('2018-09-03T21:00Z');
+      ctx.tick();
       expect(dateInput().value).toBe('2018-09-03T21:00');
 
       setValue(dateInput(), '1980-11-04T10:00');
-      expect(masterCtx.getComponentInstance().date).toEqual(
+      expect(ctx.getComponentInstance().date).toEqual(
         new Date('1980-11-04T10:00Z'),
       );
     });
   });
 
   it('provides help for `onTouched`', () => {
-    masterCtx.run(() => {
-      expect(masterCtx.fixture.nativeElement.innerText).not.toContain(
-        'Touched!',
-      );
+    ctx.run(() => {
+      expect(ctx.fixture.nativeElement.innerText).not.toContain('Touched!');
       stringInput().dispatchEvent(new Event('blur'));
-      expect(masterCtx.fixture.nativeElement.innerText).toContain('Touched!');
+      ctx.tick();
+      expect(ctx.fixture.nativeElement.innerText).toContain('Touched!');
     });
   });
 
   it('provides help for `[disabled]`', () => {
-    masterCtx.run(() => {
-      masterCtx.getComponentInstance().shouldDisable = true;
-      masterCtx.tick();
+    ctx.run(() => {
+      ctx.getComponentInstance().shouldDisable = true;
+      ctx.tick();
       expect(stringInput().disabled).toBe(true);
 
       click(toggleDisabledButton());
@@ -550,26 +539,26 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
   });
 
   it('does not emit after an incoming change', () => {
-    masterCtx.run(() => {
-      expect(masterCtx.getComponentInstance().emissions).toBe(0);
+    ctx.run(() => {
+      expect(ctx.getComponentInstance().emissions).toBe(0);
 
       setValue(stringInput(), 'changed from within');
-      expect(masterCtx.getComponentInstance().emissions).toBe(1);
+      expect(ctx.getComponentInstance().emissions).toBe(1);
 
-      masterCtx.getComponentInstance().string = 'changed from without';
-      masterCtx.fixture.detectChanges();
+      ctx.getComponentInstance().string = 'changed from without';
+      ctx.fixture.detectChanges();
       flushMicrotasks();
-      expect(masterCtx.getComponentInstance().emissions).toBe(1);
+      expect(ctx.getComponentInstance().emissions).toBe(1);
 
       click(toggleDisabledButton());
       click(toggleDisabledButton());
-      expect(masterCtx.getComponentInstance().emissions).toBe(1);
+      expect(ctx.getComponentInstance().emissions).toBe(1);
     });
   });
 
   it('has the right class hierarchy', () => {
-    masterCtx.run(() => {
-      const component = masterCtx.fixture.debugElement.query(
+    ctx.run(() => {
+      const component = ctx.fixture.debugElement.query(
         By.directive(StringComponent),
       ).componentInstance;
       expect(component instanceof InjectableSuperclass).toBe(true);

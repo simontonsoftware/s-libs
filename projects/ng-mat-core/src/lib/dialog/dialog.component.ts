@@ -73,7 +73,7 @@ export const DEFAULT_OK_VALUE = Symbol('OK');
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogComponent {
-  public componentInjector: Injector;
+  componentInjector: Injector;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData<unknown>,

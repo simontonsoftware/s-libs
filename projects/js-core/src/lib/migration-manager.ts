@@ -124,6 +124,16 @@ export class MigrationManager<T extends VersionedObject> {
     this.#migrations.set(sourceVersion, migrateFunction.bind(this));
   }
 
+  #upgradeOneStep(upgradable: T, targetVersion: number): T {
+    const version = upgradable._version;
+    const migrationFunction = this.#migrations.get(version);
+    if (!migrationFunction) {
+      throw new Error(`Unable to migrate from version ${version}`);
+    }
+
+    return migrationFunction(upgradable, targetVersion);
+  }
+
   /**
    * Handles errors thrown by a registered migration during `run()`. This is not used if `upgrade()` is called directly.
    *
@@ -136,15 +146,5 @@ export class MigrationManager<T extends VersionedObject> {
    */
   protected onError(error: any, _object: unknown, _defaultValue: T): T {
     throw error;
-  }
-
-  #upgradeOneStep(upgradable: T, targetVersion: number): T {
-    const version = upgradable._version;
-    const migrationFunction = this.#migrations.get(version);
-    if (!migrationFunction) {
-      throw new Error(`Unable to migrate from version ${version}`);
-    }
-
-    return migrationFunction(upgradable, targetVersion);
   }
 }

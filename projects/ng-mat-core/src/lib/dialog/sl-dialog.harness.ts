@@ -9,7 +9,7 @@ import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { DialogButtonColor } from './dialog.component';
 
 interface SlDialogHarnessFilters extends BaseHarnessFilters {
-  title?: string | RegExp;
+  title?: RegExp | string;
 }
 
 /**
@@ -17,6 +17,8 @@ interface SlDialogHarnessFilters extends BaseHarnessFilters {
  */
 export class SlDialogHarness extends ContentContainerComponentHarness {
   static hostSelector = 'sl-dialog';
+
+  #getContent = this.locatorFor('mat-dialog-content');
 
   /**
    * Gets a `HarnessPredicate` that can be used to search for a SlDialogHarness that meets certain criteria.
@@ -31,8 +33,6 @@ export class SlDialogHarness extends ContentContainerComponentHarness {
         HarnessPredicate.stringMatches(harness.getTitle(), title),
     );
   }
-
-  #getContent = this.locatorFor('mat-dialog-content');
 
   async getTitle(): Promise<string> {
     const title = await this.locatorFor('[mat-dialog-title]')();

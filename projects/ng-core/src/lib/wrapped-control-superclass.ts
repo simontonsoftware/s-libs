@@ -89,12 +89,12 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   extends FormComponentSuperclass<OuterType>
   implements OnInit
 {
-  /** Bind this to your inner form control to make all the magic happen. */
-  abstract control: AbstractControl;
-
   #incomingValues$ = new Subject<OuterType>();
   #injector = inject(Injector);
   #errorHandler = inject(ErrorHandler);
+
+  /** Bind this to your inner form control to make all the magic happen. */
+  abstract control: AbstractControl;
 
   constructor() {
     super();
@@ -107,6 +107,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   }
 
   ngOnInit(): void {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.#bindValidation();
     this.subscribeTo(
       this.setUpInnerToOuterValue$(this.control.valueChanges),
@@ -134,6 +135,33 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
       this.control.enable({ emitEvent: false });
     }
     super.setDisabledState(this.isDisabled);
+  }
+
+  async #bindValidation(): Promise<void> {
+    // Hack-fixing a production bug: https://github.com/simontonsoftware/s-libs/issues/82. `ngModel` and `formControl` both set their `.control` before this component is initialized. However, `formControlName` does not. This is a timing hack to accommodate by delaying on the microtask queue.
+    await Promise.resolve();
+
+    const outerControl = this.#selfInject(NgControl)?.control;
+    if (outerControl) {
+      ControlSynchronizer.synchronize(
+        outerControl,
+        this.control,
+        this.setUpOuterToInnerErrors$.bind(this),
+        this.setUpInnerToOuterErrors$.bind(this),
+        this,
+      );
+    }
+  }
+
+  #handleError<T>(): MonoTypeOperatorFunction<T> {
+    return flow(
+      tap<T>({ error: bindKey(this.#errorHandler, 'handleError') }),
+      retry(),
+    );
+  }
+
+  #selfInject<T>(token: ProviderToken<T>): T | null {
+    return this.#injector.get(token, undefined, { self: true, optional: true });
   }
 
   /**
@@ -261,32 +289,5 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    */
   protected innerToOuterErrors(errors: ValidationErrors): ValidationErrors {
     return errors;
-  }
-
-  async #bindValidation(): Promise<void> {
-    // Hack-fixing a production bug: https://github.com/simontonsoftware/s-libs/issues/82. `ngModel` and `formControl` both set their `.control` before this component is initialized. However, `formControlName` does not. This is a timing hack to accommodate by delaying on the microtask queue.
-    await Promise.resolve();
-
-    const outerControl = this.#selfInject(NgControl)?.control;
-    if (outerControl) {
-      ControlSynchronizer.synchronize(
-        outerControl,
-        this.control,
-        this.setUpOuterToInnerErrors$.bind(this),
-        this.setUpInnerToOuterErrors$.bind(this),
-        this,
-      );
-    }
-  }
-
-  #handleError<T>(): MonoTypeOperatorFunction<T> {
-    return flow(
-      tap<T>({ error: bindKey(this.#errorHandler, 'handleError') }),
-      retry(),
-    );
-  }
-
-  #selfInject<T>(token: ProviderToken<T>): T | null {
-    return this.#injector.get(token, undefined, { self: true, optional: true });
   }
 }

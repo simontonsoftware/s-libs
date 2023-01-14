@@ -164,7 +164,6 @@ export class ComponentContext<T> extends AngularContext {
     moduleMetadata: TestModuleMetadata = {},
     unboundInputs: Array<keyof T> = [],
   ) {
-    // TODO: once cleanup of contexts is not so touchy, move this below super() and use shortcut `private` declarations on constructor params
     const inputProperties = WrapperComponent.wrap(componentType, unboundInputs);
     super(
       extendMetadata(moduleMetadata, {
@@ -226,7 +225,7 @@ export class ComponentContext<T> extends AngularContext {
    */
   getComponentInstance(): T {
     return this.fixture.debugElement.query(By.directive(this.componentType))
-      .componentInstance;
+      .componentInstance as T;
   }
 
   /**

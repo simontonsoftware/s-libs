@@ -34,5 +34,5 @@ export function mapAndCacheElements<UpstreamType, DownstreamType>(
 
     cache = nextCache;
     return downstreamItems;
-  });
+  }) as OperatorFunction<UpstreamType | null | undefined, DownstreamType[]>;
 }

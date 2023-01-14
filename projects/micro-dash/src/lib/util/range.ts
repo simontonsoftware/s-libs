@@ -15,6 +15,7 @@ import { times } from './times';
  */
 
 export function range(end: number): number[];
+// eslint-disable-next-line @typescript-eslint/unified-signatures
 export function range(start: number, end: number, step?: number): number[];
 
 export function range(start: number, end?: number, step?: number): number[] {

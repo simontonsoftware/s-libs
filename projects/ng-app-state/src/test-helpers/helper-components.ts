@@ -7,10 +7,9 @@ import { noop } from '@s-libs/micro-dash';
 /* eslint-disable @angular-eslint/component-max-inline-declarations,@angular-eslint/prefer-on-push-component-change-detection -- this file is for specs, and these rules are disabled for specs */
 
 class StoreComponent<T extends object> {
-  compareFn: (o1: any, o2: any) => boolean = (o1: any, o2: any) =>
-    o1?.id === o2?.id;
-
   constructor(public store: RootStore<T>) {}
+
+  compareFn = (o1: any, o2: any): boolean => o1?.id === o2?.id;
 }
 
 //
@@ -215,7 +214,7 @@ export class InnerNameComponent implements ControlValueAccessor {
 
   registerOnTouched = noop;
 
-  writeValue(value: any): void {
+  writeValue(value: string): void {
     this.model = value;
   }
 

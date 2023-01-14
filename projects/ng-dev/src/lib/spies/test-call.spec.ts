@@ -5,6 +5,8 @@ import { ComponentContext } from '../component-context';
 import { AsyncMethodController } from './async-method-controller';
 import { expectSingleCallAndReset } from './expect-single-call-and-reset';
 
+/* eslint-disable @typescript-eslint/no-floating-promises */
+
 describe('TestCall', () => {
   @Component({ template: 'Hello, {{name}}!' })
   class TestComponent {

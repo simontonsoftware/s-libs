@@ -32,6 +32,7 @@ export function keepWakeLock$(): Observable<unknown> {
       }
     }),
     finalize(() => {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       sentinel?.release();
     }),
   );

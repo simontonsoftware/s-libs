@@ -8,10 +8,9 @@ import { AbstractInputValueAccessorDirective } from './abstract-input-value-acce
   providers: [provideValueAccessor(RadioValueAccessorDirective)],
 })
 export class RadioValueAccessorDirective extends AbstractInputValueAccessorDirective {
-  override writeValue(obj: any): void {
+  override async writeValue(obj: unknown): Promise<void> {
     // delay because `button.value` may not be set yet as the component is being initialized
-    Promise.resolve().then(() => {
-      this.element.checked = this.element.value === obj;
-    });
+    await Promise.resolve();
+    this.element.checked = this.element.value === obj;
   }
 }

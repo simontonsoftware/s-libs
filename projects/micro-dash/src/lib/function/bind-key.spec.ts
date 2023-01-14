@@ -10,7 +10,7 @@ describe('bindKey()', () => {
     const object = {
       user: 'fred',
       greet(greeting: string): string {
-        return this.user + ' says: ' + greeting;
+        return `${this.user} says: ${greeting}`;
       },
     };
 
@@ -18,7 +18,7 @@ describe('bindKey()', () => {
     expect(bound()).toBe('fred says: hi');
 
     object.greet = function (greeting): string {
-      return this.user + ' says: ' + greeting + '!';
+      return `${this.user} says: ${greeting}!`;
     };
 
     expect(bound()).toBe('fred says: hi!');

@@ -2,6 +2,8 @@ import { fakeAsync, tick } from '@angular/core/testing';
 import { sleep } from './sleep';
 import { TimeUnit } from './time-utils';
 
+/* eslint-disable @typescript-eslint/no-floating-promises */
+
 describe('sleep()', () => {
   it('resolves after the given delay', fakeAsync(() => {
     let resolved = false;

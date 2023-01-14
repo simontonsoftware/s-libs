@@ -17,7 +17,9 @@ describe('mapToObject()', () => {
   });
 
   it('works with empty and null collections', () => {
-    const iteratee = () => ['a', 1] as const;
+    function iteratee(): ['a', 1] {
+      return ['a', 1];
+    }
     expect(mapToObject({}, iteratee)).toEqual({});
     expect(mapToObject([], iteratee)).toEqual({});
     expect(mapToObject(null, iteratee)).toEqual({});

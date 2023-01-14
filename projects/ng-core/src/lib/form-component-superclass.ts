@@ -1,25 +1,7 @@
-import { ChangeDetectorRef, inject, Provider, Type } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeDetectorRef, inject } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms';
 import { noop } from '@s-libs/micro-dash';
 import { DirectiveSuperclass } from './directive-superclass';
-
-/**
- * Use in the `providers` of a component that implements `ControlValueAccessor` to reduce some boilerplate.
- *
- * ```ts
- * @Component({ providers: [provideValueAccessor(MyFormControl)] }
- * class MyFormControl extends BaseFormControl {
- *   // ...
- * }
- * ```
- */
-export function provideValueAccessor(type: Type<any>): Provider {
-  return {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: type,
-    multi: true,
-  };
-}
 
 /**
  * Extend this when creating a form control to reduce some boilerplate.
@@ -61,9 +43,6 @@ export abstract class FormComponentSuperclass<T>
 
   #changeDetectorRef = inject(ChangeDetectorRef);
 
-  /** Implement this to handle a new value coming in from outside. */
-  abstract handleIncomingValue(value: T): void;
-
   /** Called as angular propagates value changes to this `ControlValueAccessor`. You normally do not need to use it. */
   writeValue(value: T): void {
     this.handleIncomingValue(value);
@@ -85,4 +64,7 @@ export abstract class FormComponentSuperclass<T>
     this.isDisabled = isDisabled;
     this.#changeDetectorRef.markForCheck();
   }
+
+  /** Implement this to handle a new value coming in from outside. */
+  abstract handleIncomingValue(value: T): void;
 }

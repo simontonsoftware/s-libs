@@ -43,10 +43,10 @@ describe('mapValues()', () => {
       b: string;
     }>();
     expectTypeOf(mapValues(oOrN, String)).toEqualTypeOf<
-      {} | { a: string; b: string }
+      { a: string; b: string } | {}
     >();
     expectTypeOf(mapValues(oOrU, String)).toEqualTypeOf<
-      {} | { a: string; b: string }
+      { a: string; b: string } | {}
     >();
     expectTypeOf(mapValues(o, identity)).toEqualTypeOf<O>();
     expectTypeOf(mapValues(oOrN, identity)).toEqualTypeOf<O | {}>();

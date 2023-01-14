@@ -1,7 +1,7 @@
 import { isSetEqual } from '@s-libs/js-core';
 import { keys } from '@s-libs/micro-dash';
-import { Observable } from 'rxjs';
 import { mapAndCacheObjectElements } from '@s-libs/rxjs-core';
+import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Store } from '../index';
 

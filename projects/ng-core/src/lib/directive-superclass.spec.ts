@@ -92,7 +92,7 @@ class TestComponentContext extends ComponentContext<TestComponent> {
 describe('DirectiveSuperclass', () => {
   function colorTextComponent(ctx: TestComponentContext): ColorTextComponent {
     return ctx.fixture.debugElement.query(By.directive(ColorTextComponent))
-      .componentInstance;
+      .componentInstance as ColorTextComponent;
   }
 
   function darkButton(ctx: TestComponentContext): HTMLButtonElement {

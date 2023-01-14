@@ -1,5 +1,7 @@
 import { AsyncMethodController } from './spies';
 
+/* eslint-disable @typescript-eslint/no-floating-promises */
+
 describe('utils', () => {
   describe('buildErrorMessage()', () => {
     it('includes the given description when throwing an error', () => {

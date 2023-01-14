@@ -40,9 +40,9 @@ describe('partial()', () => {
   });
 
   it('works when there are no partially applied arguments and the created function is invoked without additional arguments', () => {
-    const fn = function (): number {
+    function fn(): number {
       return arguments.length;
-    };
+    }
 
     const par = partial(fn);
 
@@ -67,7 +67,7 @@ describe('partial()', () => {
 
   it('should clone metadata for created functions', () => {
     function greet(greeting: string, name: string): string {
-      return greeting + ' ' + name;
+      return `${greeting} ${name}`;
     }
 
     const par1 = partial(greet, 'hi');

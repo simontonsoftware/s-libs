@@ -30,5 +30,5 @@ export function createSpyObject<T>(type: Type<T>): jasmine.SpyObj<T> {
       mock[key] = jasmine.createSpy(key);
     }
   }
-  return mock;
+  return mock as jasmine.SpyObj<T>;
 }

@@ -67,7 +67,7 @@ export class AsyncMethodController<
     methodName: FunctionName,
     { autoTick = true } = {},
   ) {
-    // Note: it wasn't immediately clear how avoid `any` in this constructor, and this will be invisible to users. So I gave up. (For now?)
+    // it wasn't immediately clear how avoid `any` in this constructor, and this will be invisible to users. So I gave up. (For now?)
     this.#spy = spyOn(obj, methodName as any) as any;
     this.#spy.and.callFake((async () => {
       const deferred = new Deferred<any>();
@@ -132,7 +132,11 @@ export class AsyncMethodController<
     } else {
       filterFn = match;
     }
-    return remove(this.#testCalls, (testCall) => filterFn(testCall.callInfo));
+    return remove(
+      this.#testCalls,
+      (testCall: TestCall<AsyncMethod<WrappingObject, FunctionName>>) =>
+        filterFn(testCall.callInfo),
+    );
   }
 
   /**
@@ -141,13 +145,13 @@ export class AsyncMethodController<
   verify(): void {
     if (this.#testCalls.length) {
       this.#ensureCallInfoIsSet();
-      let message =
-        buildErrorMessage({
-          matchType: 'no open',
-          itemType: 'call',
-          stringifiedUserInput: undefined,
-          matches: this.#testCalls,
-        }) + ':';
+      let message = buildErrorMessage({
+        matchType: 'no open',
+        itemType: 'call',
+        stringifiedUserInput: undefined,
+        matches: this.#testCalls,
+      });
+      message += ':';
       for (const testCall of this.#testCalls) {
         message += `\n  ${stringifyArgs(testCall.callInfo.args)}`;
       }
@@ -178,9 +182,9 @@ export class AsyncMethodController<
   ): string {
     if (isUndefined(description)) {
       if (Array.isArray(match)) {
-        description = 'Match by arguments: ' + stringifyArgs(match);
+        description = `Match by arguments: ${stringifyArgs(match)}`;
       } else {
-        description = 'Match by function: ' + match.name;
+        description = `Match by function: ${match.name}`;
       }
     }
     return description;

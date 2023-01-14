@@ -3,6 +3,8 @@ import { AngularContext } from '../../public-api';
 import { AsyncMethodController } from './async-method-controller';
 import CallInfo = jasmine.CallInfo;
 
+/* eslint-disable @typescript-eslint/no-floating-promises */
+
 describe('AsyncMethodController', () => {
   describe('constructor', () => {
     it('allows the controlled method to be called immediately', () => {

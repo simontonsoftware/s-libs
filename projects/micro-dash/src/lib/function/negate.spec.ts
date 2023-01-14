@@ -46,9 +46,9 @@ describe('negate()', () => {
   });
 
   it('should use `this` binding of function', () => {
-    const fn = function (this: any): boolean {
+    function fn(this: any): boolean {
       return this.a;
-    };
+    }
     const object: any = { a: 1 };
 
     let negated = negate(bind(fn, object));

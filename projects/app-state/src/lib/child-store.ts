@@ -1,6 +1,8 @@
 import { clone, isUndefined, omit } from '@s-libs/micro-dash';
 import { RootStore, Store } from './index';
 
+/* eslint-disable @typescript-eslint/no-unsafe-return,@typescript-eslint/explicit-module-boundary-types */
+
 export class ChildStore<T> extends Store<T> {
   constructor(
     getRootStore: () => RootStore<object>,
@@ -32,7 +34,7 @@ export class ChildStore<T> extends Store<T> {
     if (this.isActive()) {
       return this.lastKnownState!;
     } else {
-      return this.parent.state()?.[this.key];
+    return this.parent.state()?.[this.key];
     }
   }
 

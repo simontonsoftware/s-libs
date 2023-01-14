@@ -29,7 +29,7 @@ export function wrapFunction<A extends any[], R, T>(
   original: (this: T, ...args: A) => R,
   hooks: Hooks<A, R, T>,
 ): (this: T, ...args: A) => R {
-  const wrapped = function (this: T, ...args: A): R {
+  function wrapped(this: T, ...args: A): R {
     const callHook = (
       // eslint-disable-next-line @typescript-eslint/ban-types
       hook: Function | undefined,
@@ -47,7 +47,7 @@ export function wrapFunction<A extends any[], R, T>(
     result = callHook(hooks.transform, [result, ...args], result);
     callHook(hooks.after, [result, ...args]);
     return result;
-  };
+  }
   Object.defineProperty(wrapped, 'length', { value: original.length });
   return wrapped;
 }

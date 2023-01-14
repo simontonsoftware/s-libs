@@ -24,7 +24,7 @@ import { tap } from 'rxjs/operators';
  */
 export function logValues<T>(
   prefix?: string,
-  level: 'debug' | 'trace' | 'info' | 'log' | 'warn' | 'error' = 'log',
+  level: 'debug' | 'error' | 'info' | 'log' | 'trace' | 'warn' = 'log',
 ): MonoTypeOperatorFunction<T> {
   return tap<T>({
     next: makeLogFn('[value]'),

@@ -1,5 +1,6 @@
-import { Directive, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, SelectControlValueAccessor } from '@angular/forms';
+import { Directive } from '@angular/core';
+import { SelectControlValueAccessor } from '@angular/forms';
+import { provideValueAccessor } from '@s-libs/ng-core';
 
 /** @hidden */
 @Directive({
@@ -10,14 +11,10 @@ import { NG_VALUE_ACCESSOR, SelectControlValueAccessor } from '@angular/forms';
     '(blur)': 'onTouched()',
   },
   providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectValueAccessorDirective),
-      multi: true,
-    },
+    provideValueAccessor(SelectValueAccessorDirective),
     {
       provide: SelectControlValueAccessor,
-      useExisting: forwardRef(() => SelectValueAccessorDirective),
+      useExisting: SelectValueAccessorDirective,
     },
   ],
 })

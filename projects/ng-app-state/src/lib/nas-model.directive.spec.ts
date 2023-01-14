@@ -32,6 +32,8 @@ import {
 } from '../test-helpers/helper-components';
 import { NasModelModule } from './nas-model.module';
 
+/* eslint-disable @typescript-eslint/no-floating-promises -- a lot of this is copy-pasted from Angular's tests */
+
 let fixture: ComponentFixture<any>;
 
 function detectChanges(): void {
@@ -43,9 +45,12 @@ function query(css: string): any {
 }
 
 function queryAll(css: string): any[] {
-  return fixture.debugElement
-    .queryAll(By.css(css))
-    .map((el) => el.nativeElement);
+  return (
+    fixture.debugElement
+      .queryAll(By.css(css))
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      .map((el) => el.nativeElement)
+  );
 }
 
 function initSingleValueTest(template: string): SingleValueStore {
@@ -557,7 +562,6 @@ describe('value accessors', () => {
         expect(inputs[1].checked).toEqual(false);
       }));
 
-      // TODO: find a way to make this fail when there is no delay in `RadioValueAccessor.writeValue`
       // it(
       //   'starts with the correct value',
       //   fakeAsync(() => {
@@ -610,32 +614,29 @@ describe('value accessors', () => {
 
   describe('custom value accessors', () => {
     describe('in template-driven forms', () => {
-      it(
-        'should support standard writing to view and model',
-        waitForAsync(() => {
-          const store = initTest(NameComponent, NameStore, {
-            extraDirectives: [InnerNameComponent],
-          });
+      it('should support standard writing to view and model', waitForAsync(() => {
+        const store = initTest(NameComponent, NameStore, {
+          extraDirectives: [InnerNameComponent],
+        });
 
-          store('name').set('Nancy');
+        store('name').set('Nancy');
+        detectChanges();
+        fixture.whenStable().then(() => {
           detectChanges();
           fixture.whenStable().then(() => {
+            // model -> view
+            const customInput = query('[name="custom"]');
+            expect(customInput.value).toEqual('Nancy');
+
+            customInput.value = 'Carson';
+            dispatchEvent(customInput, 'input');
             detectChanges();
-            fixture.whenStable().then(() => {
-              // model -> view
-              const customInput = query('[name="custom"]');
-              expect(customInput.value).toEqual('Nancy');
 
-              customInput.value = 'Carson';
-              dispatchEvent(customInput, 'input');
-              detectChanges();
-
-              // view -> model
-              expect(store.state().name).toEqual('Carson');
-            });
+            // view -> model
+            expect(store.state().name).toEqual('Carson');
           });
-        }),
-      );
+        });
+      }));
     });
   });
 });

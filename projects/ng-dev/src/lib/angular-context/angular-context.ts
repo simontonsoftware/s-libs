@@ -40,7 +40,7 @@ export function extendMetadata(
       result[key] = [val, result[key]];
     }
   });
-  return result;
+  return result as TestModuleMetadata;
 }
 
 /**
@@ -99,13 +99,6 @@ export class AngularContext {
   static #current?: AngularContext;
 
   /**
-   * Returns the current `AngularContext` that is in use, or `undefined` if there is not one. A context is defined to be "in use" from the time it is constructed until after its `run()` method completes.
-   */
-  static getCurrent(): AngularContext | undefined {
-    return AngularContext.#current;
-  }
-
-  /**
    * Set this before calling `run()` to mock the time at which the test starts.
    */
   startTime = new Date();
@@ -130,6 +123,13 @@ export class AngularContext {
   }
 
   /**
+   * Returns the current `AngularContext` that is in use, or `undefined` if there is not one. A context is defined to be "in use" from the time it is constructed until after its `run()` method completes.
+   */
+  static getCurrent(): AngularContext | undefined {
+    return AngularContext.#current;
+  }
+
+  /**
    * Runs `test` in a `fakeAsync` zone. It can use async/await, but be sure anything you `await` is already due to execute (e.g. if a timeout is due in 3 seconds, call `.tick(3000)` before `await`ing its result).
    *
    * Also runs the following in this order, all within the same zone:
@@ -143,6 +143,7 @@ export class AngularContext {
     this.#runWithMockedTime(() => {
       this.init();
       try {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         test();
         this.tick();
         this.verifyPostTestConditions();
@@ -207,6 +208,21 @@ export class AngularContext {
     this.runChangeDetection();
   }
 
+  #runWithMockedTime(test: VoidFunction): void {
+    // https://github.com/angular/angular/issues/31677#issuecomment-573139551
+    const { now } = performance;
+    spyOn(performance, 'now').and.callFake(() => Date.now());
+
+    jasmine.clock().install();
+    fakeAsync(() => {
+      jasmine.clock().mockDate(this.startTime);
+      test();
+    })();
+    jasmine.clock().uninstall();
+
+    performance.now = now;
+  }
+
   /**
    * This is a hook for subclasses to override. It is called during `run()`, before the `test()` callback. This implementation does nothing, but if you override this it is still recommended to call `super.init()` in case this implementation does something in the future.
    */
@@ -232,20 +248,5 @@ export class AngularContext {
     discardPeriodicTasks();
     flush();
     AngularContext.#current = undefined;
-  }
-
-  #runWithMockedTime(test: VoidFunction): void {
-    // https://github.com/angular/angular/issues/31677#issuecomment-573139551
-    const { now } = performance;
-    spyOn(performance, 'now').and.callFake(() => Date.now());
-
-    jasmine.clock().install();
-    fakeAsync(() => {
-      jasmine.clock().mockDate(this.startTime);
-      test();
-    })();
-    jasmine.clock().uninstall();
-
-    performance.now = now;
   }
 }

@@ -14,6 +14,7 @@ export abstract class AbstractInputValueAccessorDirective extends AbstractValueA
     this.onTouchedFn();
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types -- required so subclass can make it `number`
   writeValue(value: any): void {
     this.element.value = value;
   }

@@ -15,7 +15,7 @@
  */
 export function expectSingleCallAndReset(
   spy: jasmine.Spy,
-  ...params: any[]
+  ...params: unknown[]
 ): void {
   expect(spy).toHaveBeenCalledTimes(1);
   expect(spy).toHaveBeenCalledWith(...params);

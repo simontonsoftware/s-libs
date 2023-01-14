@@ -16,7 +16,7 @@ import { finalize, switchMap } from 'rxjs/operators';
 export function debounceMap<UpstreamType, DownstreamType>(
   map: (
     input: UpstreamType,
-  ) => PromiseLike<DownstreamType> | Observable<DownstreamType>,
+  ) => Observable<DownstreamType> | PromiseLike<DownstreamType>,
 ): OperatorFunction<UpstreamType, DownstreamType> {
   let lastOperationComplete = Promise.resolve();
   return flow(

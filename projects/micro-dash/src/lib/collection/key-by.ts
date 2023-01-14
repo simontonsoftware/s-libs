@@ -1,4 +1,4 @@
-import { IfIndexType, Key, Nil, ValueIteratee } from '../interfaces';
+import { IfIndexType, Nil, ValueIteratee } from '../interfaces';
 import { forEach } from './for-each';
 
 /**
@@ -9,11 +9,11 @@ import { forEach } from './for-each';
  * - Micro-dash: 316 bytes
  */
 
-export function keyBy<T, K extends Key>(
+export function keyBy<T, K extends PropertyKey>(
   array: Nil | readonly T[],
   iteratee: ValueIteratee<T, K>,
 ): IfIndexType<K, { [key in K]: T }, { [key in K]?: T }>;
-export function keyBy<T, K extends Key>(
+export function keyBy<T, K extends PropertyKey>(
   object: Nil | T,
   iteratee: ValueIteratee<T[keyof T], K>,
 ): IfIndexType<K, { [key in K]: T[keyof T] }, { [key in K]?: T[keyof T] }>;

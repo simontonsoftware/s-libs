@@ -1,10 +1,4 @@
-import {
-  IfIndexType,
-  Key,
-  Nil,
-  ObjectWith,
-  ValueIteratee,
-} from '../interfaces';
+import { IfIndexType, Nil, ObjectWith, ValueIteratee } from '../interfaces';
 import { transform } from '../object/transform';
 
 /**
@@ -14,7 +8,7 @@ import { transform } from '../object/transform';
  * - Lodash: 15,138 bytes
  * - Micro-dash: 417 bytes
  */
-export function groupBy<T, K extends Key>(
+export function groupBy<T, K extends PropertyKey>(
   collection: Nil | ObjectWith<T> | readonly T[],
   iteratee: ValueIteratee<T, K>,
 ): { [k in K]: IfIndexType<K, T[], T[] | undefined> } {

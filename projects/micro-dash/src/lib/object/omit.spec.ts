@@ -18,10 +18,10 @@ describe('omit()', () => {
       const objOrU = {} as Obj | undefined;
       expectTypeOf(omit(obj, 'b')).toEqualTypeOf<{ a: number }>();
       expectTypeOf(omit(objOrN, 'b')).toEqualTypeOf<
-        { a: number } | EmptyObject
+        EmptyObject | { a: number }
       >();
       expectTypeOf(omit(objOrU, 'b')).toEqualTypeOf<
-        { a: number } | EmptyObject
+        EmptyObject | { a: number }
       >();
 
       const indexed = {} as { [k: string]: number; [k: number]: number };

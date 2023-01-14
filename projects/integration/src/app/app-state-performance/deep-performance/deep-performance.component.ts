@@ -17,6 +17,7 @@ export class DeepPerformanceComponent {
   iterations = 1000;
 
   run(): void {
+    // `any` because we import functions directly from `app-state` and TS doesn't like that
     const store: any = new RootStore(new DeepState(this.depth));
     const { subscription } = subscribeDeep(store);
     runDeep(store, this.iterations);

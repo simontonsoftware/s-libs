@@ -18,10 +18,17 @@ describe('DialogComponent', () => {
     });
   });
 
-  async function open<T>(data: DialogData<unknown>): Promise<T | unknown> {
-    const dialog = ctx.inject(SlDialogService).open(data);
+  function open(data: DialogData<unknown>): void {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    openWithPromise(data);
+  }
+
+  async function openWithPromise<T>(
+    data: DialogData<T>,
+  ): Promise<T | undefined> {
+    const promise = ctx.inject(SlDialogService).open(data);
     ctx.tick();
-    return dialog;
+    return promise;
   }
 
   it('displays a title', () => {
@@ -98,7 +105,7 @@ describe('DialogComponent', () => {
 
   it('defaults to an "OK" button with primary color and DEFAULT_OK_VALUE', () => {
     ctx.run(async () => {
-      const closedPromise = open({});
+      const closedPromise = openWithPromise({});
 
       const dialog = await ctx.getHarness(SlDialogHarness);
       expect(await dialog.getButtonText()).toEqual(['OK']);
@@ -111,7 +118,7 @@ describe('DialogComponent', () => {
 
   it('accepts custom buttons', () => {
     ctx.run(async () => {
-      const closedPromise = open({
+      const closedPromise = openWithPromise({
         buttons: [
           { text: 'Prime', value: 'value 1', color: 'primary' },
           { text: 'Warn', value: 'value 2', color: 'warn' },
@@ -138,7 +145,9 @@ describe('DialogComponent', () => {
 
   it('defaults custom button values to their text', () => {
     ctx.run(async () => {
-      const closedPromise = open({ buttons: [{ text: 'Click me' }] });
+      const closedPromise = openWithPromise({
+        buttons: [{ text: 'Click me' }],
+      });
       const dialog = await ctx.getHarness(SlDialogHarness);
 
       await dialog.clickButton('Click me');

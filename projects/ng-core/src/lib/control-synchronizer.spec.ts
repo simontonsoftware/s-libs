@@ -47,7 +47,7 @@ abstract class AbstractValidatingComponent extends WrappedControlSuperclass<stri
 
   flushAsyncWith(error: boolean): void {
     console.log(this.tag, 'resolving', { error });
-    assert(this.#deferred, this.tag + ' has no pending validation to flush');
+    assert(this.#deferred, `${this.tag} has no pending validation to flush`);
     this.#deferred.resolve(this.#makeError(error, 'Async'));
     this.#deferred = undefined;
     AngularContext.getCurrent()!.tick();

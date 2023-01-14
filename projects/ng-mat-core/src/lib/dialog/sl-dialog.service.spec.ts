@@ -31,6 +31,7 @@ describe('SlDialogService', () => {
     class DefinitelyScrollableDialogComponent {}
 
     ctx.run(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       show({ component: DefinitelyScrollableDialogComponent });
 
       // I couldn't find a way to test the scroll position through a harness

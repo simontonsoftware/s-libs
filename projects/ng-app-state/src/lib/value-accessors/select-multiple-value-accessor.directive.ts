@@ -1,8 +1,6 @@
-import { Directive, forwardRef } from '@angular/core';
-import {
-  NG_VALUE_ACCESSOR,
-  SelectMultipleControlValueAccessor,
-} from '@angular/forms';
+import { Directive } from '@angular/core';
+import { SelectMultipleControlValueAccessor } from '@angular/forms';
+import { provideValueAccessor } from '@s-libs/ng-core';
 
 /** @hidden */
 @Directive({
@@ -10,14 +8,10 @@ import {
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: { '(change)': 'onChange($event.target)', '(blur)': 'onTouched()' },
   providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectMultipleValueAccessorDirective),
-      multi: true,
-    },
+    provideValueAccessor(SelectMultipleValueAccessorDirective),
     {
       provide: SelectMultipleControlValueAccessor,
-      useExisting: forwardRef(() => SelectMultipleValueAccessorDirective),
+      useExisting: SelectMultipleValueAccessorDirective,
     },
   ],
 })

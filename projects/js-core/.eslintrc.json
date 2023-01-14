@@ -7,7 +7,11 @@
       "parserOptions": {
         "project": ["projects/js-core/tsconfig.(lib|spec).json"]
       },
-      "rules": {}
+      "rules": {
+        // several utility functions define typying carefully in overloads, and use `any` in the code
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-unsafe-return": "off"
+      }
     },
     { "files": ["*.html"], "rules": {} }
   ]

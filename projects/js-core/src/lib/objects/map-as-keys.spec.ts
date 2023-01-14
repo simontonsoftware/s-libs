@@ -17,7 +17,9 @@ describe('mapAsKeys()', () => {
   });
 
   it('works with empty and null collections', () => {
-    const iteratee = (): string => 'a';
+    function iteratee(): string {
+      return 'a';
+    }
     expect(mapAsKeys({}, iteratee)).toEqual({});
     expect(mapAsKeys([], iteratee)).toEqual({});
     expect(mapAsKeys(null as [] | null, iteratee)).toEqual({});

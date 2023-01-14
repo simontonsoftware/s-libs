@@ -5,12 +5,12 @@ import { bindKey } from '@s-libs/micro-dash';
 import { AngularContext } from './angular-context';
 
 export class FakeAsyncHarnessEnvironment extends HarnessEnvironment<Element> {
-  static documentRootLoader(ctx: AngularContext): FakeAsyncHarnessEnvironment {
-    return new FakeAsyncHarnessEnvironment(document.body, ctx);
-  }
-
   protected constructor(rawRootElement: Element, private ctx: AngularContext) {
     super(rawRootElement);
+  }
+
+  static documentRootLoader(ctx: AngularContext): FakeAsyncHarnessEnvironment {
+    return new FakeAsyncHarnessEnvironment(document.body, ctx);
   }
 
   async waitForTasksOutsideAngular(): Promise<void> {

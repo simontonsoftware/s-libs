@@ -1,18 +1,12 @@
 import {
   Directive,
   ElementRef,
-  forwardRef,
   Inject,
   Optional,
   Renderer2,
 } from '@angular/core';
-import {
-  COMPOSITION_BUFFER_MODE,
-  DefaultValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
-
-// TODO: move to directive composition??
+import { COMPOSITION_BUFFER_MODE, DefaultValueAccessor } from '@angular/forms';
+import { provideValueAccessor } from '@s-libs/ng-core';
 
 /** @hidden */
 @Directive({
@@ -25,13 +19,7 @@ import {
     '(compositionstart)': '$any(this)._compositionStart()',
     '(compositionend)': '$any(this)._compositionEnd($event.target.value)',
   },
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputValueAccessorDirective),
-      multi: true,
-    },
-  ],
+  providers: [provideValueAccessor(InputValueAccessorDirective)],
 })
 export class InputValueAccessorDirective extends DefaultValueAccessor {
   constructor(

@@ -17,6 +17,7 @@ export class WidePerformanceComponent {
   iterations = 1000;
 
   run(): void {
+    // `any` because we import functions directly from `app-state` and TS doesn't like that
     const store: any = new RootStore(new WideState(this.width));
     const { subscription } = subscribeWide(store);
     runWide(store, this.iterations);

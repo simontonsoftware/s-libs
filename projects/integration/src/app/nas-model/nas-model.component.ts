@@ -32,7 +32,7 @@ export class NasModelComponent {
     const choices: City[] = [];
     forEach(this.store.state().checkMany, (selected, city) => {
       if (selected === true) {
-        choices.push(city as any);
+        choices.push(city);
       }
     });
     this.store('chooseMany').set(choices);
@@ -129,11 +129,11 @@ export class NasModelComponent {
   }
 
   private dateFromDate(state = this.store.state()): Date {
-    return new Date((state.date || '2000-01-01') + 'T00:00');
+    return new Date(`${state.date || '2000-01-01'}T00:00`);
   }
 
   private dateFromMonth(state = this.store.state()): Date {
-    return new Date((state.month || '2000-01') + '-01T00:00');
+    return new Date(`${state.month || '2000-01'}-01T00:00`);
   }
 
   private dateFromWeek(state = this.store.state()): Date {
@@ -142,7 +142,7 @@ export class NasModelComponent {
   }
 
   private dateFromTime(state = this.store.state()): Date {
-    return new Date('2000-01-01T' + (state.time || '00:00'));
+    return new Date(`2000-01-01T${state.time || '00:00'}`);
   }
 }
 
@@ -164,8 +164,7 @@ function pad(num: number, length = 2): string {
   return padStart(num.toString(), length, '0');
 }
 
-// Returns the ISO week of the date.
-// Source: https://weeknumber.net/how-to/javascript
+// Returns the ISO week of the date. Source: https://weeknumber.net/how-to/javascript
 function getWeek(date: Date): number {
   date = new Date(date.getTime());
   date.setHours(0, 0, 0, 0);
@@ -185,8 +184,7 @@ function getWeek(date: Date): number {
   );
 }
 
-// Returns the four-digit year corresponding to the ISO week of the date.
-// Source: https://weeknumber.net/how-to/javascript
+// Returns the four-digit year corresponding to the ISO week of the date. Source: https://weeknumber.net/how-to/javascript
 function getWeekYear(date: Date): number {
   date = new Date(date.getTime());
   date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));

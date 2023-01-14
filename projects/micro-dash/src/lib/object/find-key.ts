@@ -2,7 +2,6 @@ import {
   ArrayIteratee,
   Cast,
   IfCouldBe,
-  Key,
   KeyNarrowingIteratee,
   Narrow,
   Nil,
@@ -44,18 +43,18 @@ export function findKey<I, T extends NonNullable<I>, O>(
   object: I,
   predicate: ValueNarrowingIteratee<T, O>,
 ):
-  | (DefiniteValueMatches<T, O> extends never ? undefined : never)
   | IfCouldBe<I, Nil, undefined>
-  | PossibleValueMatches<T, O>;
+  | PossibleValueMatches<T, O>
+  | (DefiniteValueMatches<T, O> extends never ? undefined : never);
 
 // object: key narrowing
 export function findKey<I, T extends NonNullable<I>, O>(
   object: I,
   predicate: KeyNarrowingIteratee<T, O>,
 ):
-  | (DefiniteKeyMatch<T, O> extends never ? undefined : never)
   | IfCouldBe<I, Nil, undefined>
-  | PossibleKeyMatch<T, O>;
+  | PossibleKeyMatch<T, O>
+  | (DefiniteKeyMatch<T, O> extends never ? undefined : never);
 
 // object
 export function findKey<T>(
@@ -63,7 +62,10 @@ export function findKey<T>(
   predicate: ObjectIteratee<T, boolean>,
 ): Cast<keyof T, string> | undefined;
 
-export function findKey<T>(object: T, predicate: Function): Key | undefined {
+export function findKey<T>(
+  object: T,
+  predicate: Function,
+): PropertyKey | undefined {
   let found;
   forOwn(object, (value, key) => {
     if (predicate(value, key)) {

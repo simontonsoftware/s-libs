@@ -1,4 +1,3 @@
-import { Key } from '../interfaces';
 import { transform } from '../object';
 
 /**
@@ -10,35 +9,38 @@ import { transform } from '../object';
  */
 
 export function zipObject<
-  K extends readonly [Key],
+  K extends readonly [PropertyKey],
   V extends readonly [any, ...any[]],
 >(props: K, values: V): { [k in K[0]]: V[0] };
 export function zipObject<
-  K extends readonly [Key, Key],
+  K extends readonly [PropertyKey, PropertyKey],
   V extends readonly [any, any, ...any[]],
 >(props: K, values: V): { [k in K[0]]: V[0] } & { [k in K[1]]: V[1] };
 export function zipObject<
-  K extends readonly [Key, Key, Key],
+  K extends readonly [PropertyKey, PropertyKey, PropertyKey],
   V extends readonly [any, any, any, ...any[]],
 >(
   props: K,
   values: V,
 ): { [k in K[0]]: V[0] } & { [k in K[1]]: V[1] } & { [k in K[2]]: V[2] };
 export function zipObject<
-  K extends readonly [Key, Key, Key, Key],
+  K extends readonly [PropertyKey, PropertyKey, PropertyKey, PropertyKey],
   V extends readonly [any, any, any, any, ...any[]],
 >(
   props: K,
   values: V,
-): { [k in K[0]]: V[0] } & { [k in K[1]]: V[1] } & { [k in K[2]]: V[2] } & {
+): {
   [k in K[3]]: V[3];
-};
-export function zipObject<K extends Key, V>(
+} & { [k in K[0]]: V[0] } & { [k in K[1]]: V[1] } & { [k in K[2]]: V[2] };
+export function zipObject<K extends PropertyKey, V>(
   props: readonly K[],
   values: readonly V[],
 ): { [k in K]: V | undefined };
 
-export function zipObject(props: readonly Key[], values: readonly any[]): any {
+export function zipObject(
+  props: readonly PropertyKey[],
+  values: readonly any[],
+): any {
   return transform(props, (accumulator: any, prop, index) => {
     accumulator[prop] = values[index];
   });

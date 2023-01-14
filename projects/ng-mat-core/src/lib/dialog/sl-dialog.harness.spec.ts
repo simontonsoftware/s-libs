@@ -13,7 +13,14 @@ describe('SlDialogHarness', () => {
     });
   });
 
-  async function open<T>(data: DialogData<T>): Promise<T | undefined> {
+  function open(data: DialogData<unknown>): void {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    openWithPromise(data);
+  }
+
+  async function openWithPromise<T>(
+    data: DialogData<T>,
+  ): Promise<T | undefined> {
     const promise = ctx.inject(SlDialogService).open(data);
     ctx.tick();
     return promise;
@@ -126,9 +133,13 @@ describe('SlDialogHarness', () => {
   describe('.clickButton()', () => {
     it('clicks the button with the given text', () => {
       ctx.run(async () => {
-        const promise = open({ buttons: [{ text: '1' }, { text: '2' }] });
+        const promise = openWithPromise({
+          buttons: [{ text: '1' }, { text: '2' }],
+        });
         const dialog = await ctx.getHarness(SlDialogHarness);
+
         await dialog.clickButton('2');
+
         expect(await promise).toBe('2');
       });
     });

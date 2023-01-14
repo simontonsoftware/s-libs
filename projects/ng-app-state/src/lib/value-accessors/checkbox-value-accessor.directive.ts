@@ -1,8 +1,6 @@
-import { Directive, forwardRef } from '@angular/core';
-import {
-  CheckboxControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import { Directive } from '@angular/core';
+import { CheckboxControlValueAccessor } from '@angular/forms';
+import { provideValueAccessor } from '@s-libs/ng-core';
 
 /** @hidden */
 @Directive({
@@ -12,12 +10,6 @@ import {
     '(change)': 'onChange($event.target.checked)',
     '(blur)': 'onTouched()',
   },
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CheckboxValueAccessorDirective),
-      multi: true,
-    },
-  ],
+  providers: [provideValueAccessor(CheckboxValueAccessorDirective)],
 })
 export class CheckboxValueAccessorDirective extends CheckboxControlValueAccessor {}

@@ -31,19 +31,19 @@ describe('filter()', () => {
       // Array
       //
 
-      type A = Array<string | number>;
+      type A = Array<number | string>;
       const a = [1, 'b'] as A;
       const aOrU = a as A | undefined;
       const aOrN = a as A | null;
 
       expectTypeOf(filter(a, () => true)).toEqualTypeOf<
-        Array<string | number>
+        Array<number | string>
       >();
       expectTypeOf(filter(aOrU, () => true)).toEqualTypeOf<
-        Array<string | number>
+        Array<number | string>
       >();
       expectTypeOf(filter(aOrN, () => true)).toEqualTypeOf<
-        Array<string | number>
+        Array<number | string>
       >();
 
       // Narrowing
@@ -68,13 +68,13 @@ describe('filter()', () => {
       expectTypeOf(filter(abOrU, isA)).toEqualTypeOf<Array<'a'>>();
       expectTypeOf(filter(abOrN, isA)).toEqualTypeOf<Array<'a'>>();
 
-      type AN = Array<'a' | number>;
+      type AN = Array<number | 'a'>;
       const an = ['a'] as AN;
       const anOrU = ['a'] as AN | undefined;
       const anOrN = ['a'] as AN | null;
-      expectTypeOf(filter(an, isStringOr2)).toEqualTypeOf<Array<2 | 'a'>>();
-      expectTypeOf(filter(anOrU, isStringOr2)).toEqualTypeOf<Array<2 | 'a'>>();
-      expectTypeOf(filter(anOrN, isStringOr2)).toEqualTypeOf<Array<2 | 'a'>>();
+      expectTypeOf(filter(an, isStringOr2)).toEqualTypeOf<Array<'a' | 2>>();
+      expectTypeOf(filter(anOrU, isStringOr2)).toEqualTypeOf<Array<'a' | 2>>();
+      expectTypeOf(filter(anOrN, isStringOr2)).toEqualTypeOf<Array<'a' | 2>>();
 
       //
       // Object
@@ -90,13 +90,13 @@ describe('filter()', () => {
       const oOrN = o as O | null;
 
       expectTypeOf(filter(o, () => true)).toEqualTypeOf<
-        Array<string | number | Date | Document>
+        Array<Date | Document | number | string>
       >();
       expectTypeOf(filter(oOrU, () => true)).toEqualTypeOf<
-        Array<string | number | Date | Document>
+        Array<Date | Document | number | string>
       >();
       expectTypeOf(filter(oOrN, () => true)).toEqualTypeOf<
-        Array<string | number | Date | Document>
+        Array<Date | Document | number | string>
       >();
 
       // Value narrowing
@@ -110,23 +110,23 @@ describe('filter()', () => {
       expectTypeOf(filter(oOrN, isDate)).toEqualTypeOf<Date[]>();
 
       expectTypeOf(filter(o, isNumberOrString)).toEqualTypeOf<
-        Array<string | number>
+        Array<number | string>
       >();
       expectTypeOf(filter(oOrU, isNumberOrString)).toEqualTypeOf<
-        Array<string | number>
+        Array<number | string>
       >();
       expectTypeOf(filter(oOrN, isNumberOrString)).toEqualTypeOf<
-        Array<string | number>
+        Array<number | string>
       >();
 
       expectTypeOf(filter(o, isDateOrString)).toEqualTypeOf<
-        Array<string | Date>
+        Array<Date | string>
       >();
       expectTypeOf(filter(oOrU, isDateOrString)).toEqualTypeOf<
-        Array<string | Date>
+        Array<Date | string>
       >();
       expectTypeOf(filter(oOrN, isDateOrString)).toEqualTypeOf<
-        Array<string | Date>
+        Array<Date | string>
       >();
 
       expectTypeOf(filter(o, isMap)).toEqualTypeOf<never[]>();
@@ -138,7 +138,7 @@ describe('filter()', () => {
       expectTypeOf(filter(oOrN, isMapOrString)).toEqualTypeOf<string[]>();
 
       interface S2 {
-        a: 'a' | number;
+        a: number | 'a';
       }
       const s2 = { a: 2 } as S2;
       const s2OrU = { a: 2 } as S2 | undefined;
@@ -146,9 +146,9 @@ describe('filter()', () => {
       expectTypeOf(filter(s2, isA)).toEqualTypeOf<Array<'a'>>();
       expectTypeOf(filter(s2OrU, isA)).toEqualTypeOf<Array<'a'>>();
       expectTypeOf(filter(s2OrN, isA)).toEqualTypeOf<Array<'a'>>();
-      expectTypeOf(filter(s2, isStringOr2)).toEqualTypeOf<Array<2 | 'a'>>();
-      expectTypeOf(filter(s2OrU, isStringOr2)).toEqualTypeOf<Array<2 | 'a'>>();
-      expectTypeOf(filter(s2OrN, isStringOr2)).toEqualTypeOf<Array<2 | 'a'>>();
+      expectTypeOf(filter(s2, isStringOr2)).toEqualTypeOf<Array<'a' | 2>>();
+      expectTypeOf(filter(s2OrU, isStringOr2)).toEqualTypeOf<Array<'a' | 2>>();
+      expectTypeOf(filter(s2OrN, isStringOr2)).toEqualTypeOf<Array<'a' | 2>>();
 
       // Key narrowing
 
@@ -162,22 +162,22 @@ describe('filter()', () => {
       const sOrN = s as S | null;
 
       expectTypeOf(filter(s, keyIsString)).toEqualTypeOf<
-        Array<string | number | Date | Document>
+        Array<Date | Document | number | string>
       >();
       expectTypeOf(filter(sOrU, keyIsString)).toEqualTypeOf<
-        Array<string | number | Date | Document>
+        Array<Date | Document | number | string>
       >();
       expectTypeOf(filter(sOrN, keyIsString)).toEqualTypeOf<
-        Array<string | number | Date | Document>
+        Array<Date | Document | number | string>
       >();
       expectTypeOf(filter(o, keyIsString)).toEqualTypeOf<
-        Array<string | number | Date | Document>
+        Array<Date | Document | number | string>
       >();
       expectTypeOf(filter(oOrU, keyIsString)).toEqualTypeOf<
-        Array<string | number | Date | Document>
+        Array<Date | Document | number | string>
       >();
       expectTypeOf(filter(oOrN, keyIsString)).toEqualTypeOf<
-        Array<string | number | Date | Document>
+        Array<Date | Document | number | string>
       >();
 
       expectTypeOf(filter(s, keyIsNumber)).toEqualTypeOf<never[]>();
@@ -190,12 +190,12 @@ describe('filter()', () => {
       expectTypeOf(filter(s, keyIsA)).toEqualTypeOf<number[]>();
       expectTypeOf(filter(sOrU, keyIsA)).toEqualTypeOf<number[]>();
       expectTypeOf(filter(sOrN, keyIsA)).toEqualTypeOf<number[]>();
-      expectTypeOf(filter(o, keyIsA)).toEqualTypeOf<Array<string | number>>();
+      expectTypeOf(filter(o, keyIsA)).toEqualTypeOf<Array<number | string>>();
       expectTypeOf(filter(oOrU, keyIsA)).toEqualTypeOf<
-        Array<string | number>
+        Array<number | string>
       >();
       expectTypeOf(filter(oOrN, keyIsA)).toEqualTypeOf<
-        Array<string | number>
+        Array<number | string>
       >();
 
       expectTypeOf(filter(s, keyIsString2)).toEqualTypeOf<never[]>();
@@ -220,45 +220,45 @@ describe('filter()', () => {
         Array<Date | Document>
       >();
       expectTypeOf(filter(o, keyIsC)).toEqualTypeOf<
-        Array<string | Date | Document>
+        Array<Date | Document | string>
       >();
       expectTypeOf(filter(oOrU, keyIsC)).toEqualTypeOf<
-        Array<string | Date | Document>
+        Array<Date | Document | string>
       >();
       expectTypeOf(filter(oOrN, keyIsC)).toEqualTypeOf<
-        Array<string | Date | Document>
+        Array<Date | Document | string>
       >();
 
       expectTypeOf(filter(s, keyIsAorC)).toEqualTypeOf<
-        Array<number | Date | Document>
+        Array<Date | Document | number>
       >();
       expectTypeOf(filter(sOrU, keyIsAorC)).toEqualTypeOf<
-        Array<number | Date | Document>
+        Array<Date | Document | number>
       >();
       expectTypeOf(filter(sOrN, keyIsAorC)).toEqualTypeOf<
-        Array<number | Date | Document>
+        Array<Date | Document | number>
       >();
       expectTypeOf(filter(o, keyIsAorC)).toEqualTypeOf<
-        Array<string | number | Date | Document>
+        Array<Date | Document | number | string>
       >();
       expectTypeOf(filter(oOrU, keyIsAorC)).toEqualTypeOf<
-        Array<string | number | Date | Document>
+        Array<Date | Document | number | string>
       >();
       expectTypeOf(filter(oOrN, keyIsAorC)).toEqualTypeOf<
-        Array<string | number | Date | Document>
+        Array<Date | Document | number | string>
       >();
 
       expectTypeOf(filter(s, keyIsAorNumber)).toEqualTypeOf<number[]>();
       expectTypeOf(filter(sOrU, keyIsAorNumber)).toEqualTypeOf<number[]>();
       expectTypeOf(filter(sOrN, keyIsAorNumber)).toEqualTypeOf<number[]>();
       expectTypeOf(filter(o, keyIsAorNumber)).toEqualTypeOf<
-        Array<string | number>
+        Array<number | string>
       >();
       expectTypeOf(filter(oOrU, keyIsAorNumber)).toEqualTypeOf<
-        Array<string | number>
+        Array<number | string>
       >();
       expectTypeOf(filter(oOrN, keyIsAorNumber)).toEqualTypeOf<
-        Array<string | number>
+        Array<number | string>
       >();
 
       const so = {} as Record<string, number | string>;
@@ -267,9 +267,9 @@ describe('filter()', () => {
       expectTypeOf(filter(so, isDate)).toEqualTypeOf<never[]>();
       expectTypeOf(filter(so, isDateOrString)).toEqualTypeOf<string[]>();
       expectTypeOf(filter(so, keyIsString)).toEqualTypeOf<
-        Array<string | number>
+        Array<number | string>
       >();
-      expectTypeOf(filter(so, keyIsA)).toEqualTypeOf<Array<string | number>>();
+      expectTypeOf(filter(so, keyIsA)).toEqualTypeOf<Array<number | string>>();
       expectTypeOf(filter(so, keyIsNumber)).toEqualTypeOf<never[]>();
     });
   });

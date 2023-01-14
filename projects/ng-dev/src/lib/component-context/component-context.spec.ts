@@ -47,7 +47,7 @@ describe('ComponentContext', () => {
 
   describe('constructor', () => {
     it('accepts module metadata to be bootstrapped', () => {
-      const value = Symbol();
+      const value = Symbol('');
       const token = new InjectionToken<symbol>('tok');
       const ctx = new ComponentContext(TestComponent, {
         providers: [{ provide: token, useValue: value }],

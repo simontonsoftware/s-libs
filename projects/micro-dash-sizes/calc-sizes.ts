@@ -13,10 +13,10 @@ const appDir = path.join(mainDir, 'app');
 const bundleDir = path.join(rootDir, 'dist', 'micro-dash-sizes');
 const sourceDir = path.join(rootDir, 'projects', 'micro-dash', 'src', 'lib');
 
-run();
+await run();
 
 async function run(): Promise<void> {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition,no-constant-condition
   while (true) {
     const base = await getFileBaseInput();
     const library = await getLibraryInput();
@@ -87,7 +87,7 @@ async function getPaths(fileGlob: string): Promise<string[]> {
 
 function build(inputPath: string): void {
   const importFile = path.relative(mainDir, inputPath);
-  const importPath = './' + importFile.replace(/\\/gu, '/').replace('.ts', '');
+  const importPath = `./${importFile.replace(/\\/gu, '/').replace('.ts', '')}`;
 
   // lodash files come first, so print only on those
   const lodashIndex = importPath.indexOf('.lodash');

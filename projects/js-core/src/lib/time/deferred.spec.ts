@@ -1,6 +1,8 @@
 import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-dev';
 import { Deferred } from './deferred';
 
+/* eslint-disable @typescript-eslint/no-floating-promises */
+
 describe('Deferred', () => {
   describe('.resolve()', () => {
     it('uses the provided value', async () => {

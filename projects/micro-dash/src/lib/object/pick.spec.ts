@@ -18,9 +18,9 @@ describe('pick()', () => {
       const objOrNull = {} as Obj | null;
       const objOrUndefined = {} as Obj | undefined;
       const objOrNil = {} as Obj | null | undefined;
-      expectTypeOf(pick(objOrNull, 'b')).toEqualTypeOf<{} | { b: Date }>();
-      expectTypeOf(pick(objOrUndefined, 'b')).toEqualTypeOf<{} | { b: Date }>();
-      expectTypeOf(pick(objOrNil, 'b')).toEqualTypeOf<{} | { b: Date }>();
+      expectTypeOf(pick(objOrNull, 'b')).toEqualTypeOf<{ b: Date } | {}>();
+      expectTypeOf(pick(objOrUndefined, 'b')).toEqualTypeOf<{ b: Date } | {}>();
+      expectTypeOf(pick(objOrNil, 'b')).toEqualTypeOf<{ b: Date } | {}>();
 
       interface Indexed {
         [k: string]: number;

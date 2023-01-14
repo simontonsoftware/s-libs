@@ -37,7 +37,7 @@ export class Persistence<T> {
   get(): T | undefined {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- `localStorage` can be undefined e.g. in an Android WebView that doesn't have the option turned on
     const savedStr = localStorage?.getItem(this.key);
-    return isNil(savedStr) ? undefined : JSON.parse(savedStr);
+    return isNil(savedStr) ? undefined : (JSON.parse(savedStr) as T);
   }
 
   /**

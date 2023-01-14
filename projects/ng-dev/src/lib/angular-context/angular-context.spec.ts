@@ -72,7 +72,7 @@ describe('AngularContext', () => {
 
   describe('constructor', () => {
     it('accepts module metadata to be bootstrapped', () => {
-      const value = Symbol();
+      const value = Symbol('');
       const token = new InjectionToken<symbol>('tok');
       const ctx = new AngularContext({
         providers: [{ provide: token, useValue: value }],
@@ -255,6 +255,7 @@ describe('AngularContext', () => {
         const componentRef = factory.create(ctx.inject(Injector));
         ctx.inject(ApplicationRef).attachView(componentRef.hostView);
 
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         Promise.resolve().then(() => {
           flushedMicroTasksBeforeChangeDetection = !ranChangeDetection;
         });
@@ -333,7 +334,6 @@ describe('AngularContext', () => {
       const ctx = new ComponentContext(ThrowingComponent);
       expect(() => {
         ctx.run(async () => {
-          // TODO: make something like `ctx.getTestElement()`?
           const loader = FakeAsyncHarnessEnvironment.documentRootLoader(ctx);
           const button = await loader.locatorFor('button')();
           await button.click();

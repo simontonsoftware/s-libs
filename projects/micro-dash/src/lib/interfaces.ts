@@ -1,6 +1,5 @@
 export type Nil = null | undefined;
 export type Primitive = boolean | number | string;
-export type Key = keyof any; // TODO: replace with built-in PropertyKey
 export type Existent = Primitive | object;
 export type EmptyObject = Record<string, never>;
 export type ObjectWith<T> = Record<string, T>;

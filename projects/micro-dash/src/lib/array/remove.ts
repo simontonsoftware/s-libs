@@ -14,7 +14,7 @@ import { ArrayIteratee, ArrayNarrowingIteratee } from '../interfaces';
 export function remove<I, O>(
   array: I[],
   predicate: ArrayNarrowingIteratee<O>,
-): O[]; // TODO: could be narrower?
+): O[];
 export function remove<T>(
   array: T[],
   predicate: ArrayIteratee<T, boolean>,

@@ -73,6 +73,7 @@ export class Encoding {
 
   pushOption<T>(value: T, options: readonly T[]): void {
     const index = options.indexOf(value);
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     assert(index >= 0, `value (${value}) not found in options`);
     this.#push(index, options.length);
   }

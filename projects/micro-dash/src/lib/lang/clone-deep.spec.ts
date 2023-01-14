@@ -33,7 +33,8 @@ describe('cloneDeep()', () => {
     'objects with object values': { b: ['B'], c: { C: 1 } },
   };
   for (const [kind, object] of toPairs(clonable)) {
-    it('should clone ' + kind, () => {
+    // eslint-disable-next-line @typescript-eslint/no-loop-func
+    it(`should clone ${kind}`, () => {
       const actual = cloneDeep(object);
 
       expect(actual).toEqual(object);

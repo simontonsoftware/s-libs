@@ -17,7 +17,7 @@ class Subclass extends Superclass {
   }
 
   c(arg: string): string {
-    return 'received ' + arg;
+    return `received ${arg}`;
   }
 }
 

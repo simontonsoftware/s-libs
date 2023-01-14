@@ -3,6 +3,8 @@ import { clone, every, isUndefined } from '@s-libs/micro-dash';
 import { Observable, Subscriber } from 'rxjs';
 import { ChildStore, RootStore } from './index';
 
+/* eslint-disable @typescript-eslint/no-unsafe-return,@typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-unsafe-declaration-merging */
+
 type GetSlice<T> = <K extends keyof T>(attr: K) => Store<T[K]>;
 
 export interface Store<T> extends GetSlice<T> {
@@ -42,30 +44,6 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
   }
 
   /**
-   * Retrieve the current state represented by this store object.
-   */
-  abstract state(): T;
-
-  /**
-   * Replace the state represented by this store object with the given value.
-   */
-  abstract set(value: T): void;
-
-  /**
-   * Removes the state represented by this store object from its parent. E.g. to remove the current user:
-   *
-   * ```ts
-   * store('currentUser').delete();
-   * ```
-   */
-  abstract delete(): void;
-
-  /**
-   * @returns whether the given `Store` operates on the same slice of the store as this object.
-   */
-  abstract refersToSameStateAs(other: Store<T>): boolean;
-
-  /**
    * Assigns the given values to state of this store object. The resulting state will be like `Object.assign(store.state(), value)`.
    */
   assign(value: Partial<T>): void {
@@ -77,7 +55,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
       if (every(value, (innerValue, key) => state[key] === innerValue)) {
         return state;
       } else {
-        return { ...state, ...(value as any) };
+      return { ...state, ...(value as any) };
       }
     });
   }
@@ -107,10 +85,6 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     func(state, ...args);
     this.set(state);
   }
-
-  protected abstract maybeActivate(): void;
-
-  protected abstract maybeDeactivate(): void;
 
   protected updateState(value: any): void {
     if (value === this.lastKnownState) {
@@ -180,4 +154,32 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
       parent.maybeDeactivate();
     }
   }
+
+  /**
+   * Retrieve the current state represented by this store object.
+   */
+  abstract state(): T;
+
+  /**
+   * Replace the state represented by this store object with the given value.
+   */
+  abstract set(value: T): void;
+
+  /**
+   * Removes the state represented by this store object from its parent. E.g. to remove the current user:
+   *
+   * ```ts
+   * store('currentUser').delete();
+   * ```
+   */
+  abstract delete(): void;
+
+  /**
+   * @returns whether the given `Store` operates on the same slice of the store as this object.
+   */
+  abstract refersToSameStateAs(other: Store<T>): boolean;
+
+  protected abstract maybeActivate(): void;
+
+  protected abstract maybeDeactivate(): void;
 }

@@ -15,7 +15,9 @@ export abstract class AbstractValueAccessorDirective<T extends HTMLElement>
     this.elementRef = injector.get(ElementRef);
   }
 
-  abstract writeValue(value: any): void;
+  protected get element(): T {
+    return this.elementRef.nativeElement as T;
+  }
 
   registerOnChange(fn: (value: any) => void): void {
     this.onChangeFn = fn;
@@ -25,7 +27,5 @@ export abstract class AbstractValueAccessorDirective<T extends HTMLElement>
     this.onTouchedFn = fn;
   }
 
-  protected get element(): T {
-    return this.elementRef.nativeElement;
-  }
+  abstract writeValue(value: unknown): void;
 }

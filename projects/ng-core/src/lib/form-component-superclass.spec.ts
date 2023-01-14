@@ -5,11 +5,9 @@ import { By } from '@angular/platform-browser';
 import { ComponentContext } from '@s-libs/ng-dev';
 import { click, find, findButton } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
-import {
-  FormComponentSuperclass,
-  provideValueAccessor,
-} from './form-component-superclass';
+import { FormComponentSuperclass } from './form-component-superclass';
 import { InjectableSuperclass } from './injectable-superclass';
+import { provideValueAccessor } from './provide-value-accessor';
 
 @Component({
   template: `

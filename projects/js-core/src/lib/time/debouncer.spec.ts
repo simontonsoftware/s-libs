@@ -88,14 +88,14 @@ describe('Debouncer', () => {
   it('supports recursive calls', fakeAsync(() => {
     const queue = ['b', 'c'];
     const processed: string[] = [];
-    const func = (item: string): void => {
+    function func(item: string): void {
       processed.push(item);
 
       const next = queue.shift();
       if (isDefined(next)) {
         debouncer.run(func, 32, next);
       }
-    };
+    }
 
     debouncer.run(func, 32, 'a');
 

@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
  * }
  * ```
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type -- I'm not even sure how to describe the return type
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/explicit-module-boundary-types -- I'm not sure how to describe the return type
 export function mixInInjectableSuperclass<B extends Constructor>(Base: B) {
   return class extends mixInSubscriptionManager(Base) implements OnDestroy {
     #destructionSubject = new Subject<void>();

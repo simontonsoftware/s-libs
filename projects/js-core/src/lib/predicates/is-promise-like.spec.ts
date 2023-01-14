@@ -5,7 +5,7 @@ import { isPromiseLike } from './is-promise-like';
 describe('isPromiseLike()', () => {
   it('works', () => {
     expect(isPromiseLike(Promise.resolve('hi'))).toBe(true);
-    const rejected = Promise.reject('bye');
+    const rejected = Promise.reject(new Error('bye'));
     rejected.catch(noop); // suppress unhandled rejection error
     expect(isPromiseLike(rejected)).toBe(true);
 

@@ -25,7 +25,7 @@ export class TestCall<F extends jasmine.Func> {
   /**
    * Reject the call with the given reason.
    */
-  error(reason: any): void {
+  error(reason: unknown): void {
     this.deferred.reject(reason);
     this.maybeTick();
   }

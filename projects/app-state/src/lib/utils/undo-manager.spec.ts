@@ -6,7 +6,7 @@ import { UndoManager, UndoOrRedo } from './undo-manager';
 
 class State {
   counter = 0;
-  object?: any;
+  object?: never;
 }
 
 class TestImpl extends UndoManager<State, State> {
@@ -669,7 +669,7 @@ describe('UndoManager', () => {
             --numToDrop;
             return true;
           } else {
-            return false;
+          return false;
           }
         }
       })();

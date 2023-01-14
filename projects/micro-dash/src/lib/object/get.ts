@@ -1,4 +1,4 @@
-import { IfCouldBe, Key, Nil } from '../interfaces';
+import { IfCouldBe, Nil } from '../interfaces';
 import { castArray, isUndefined } from '../lang';
 
 type WithDefault<V, D> =
@@ -68,13 +68,13 @@ export function get<
 
 export function get(
   object: Nil | object,
-  path: readonly Key[],
+  path: readonly PropertyKey[],
   defaultValue?: any,
 ): any;
 
 export function get(
   object: any,
-  path: Key | readonly Key[],
+  path: PropertyKey | readonly PropertyKey[],
   defaultValue?: any,
 ): any {
   const val = getWithoutDefault(path, object);

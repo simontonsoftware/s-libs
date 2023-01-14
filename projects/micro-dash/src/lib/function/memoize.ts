@@ -11,7 +11,7 @@ import { identity } from '../util/identity';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 4,060 bytes
- * - Micro-dash: 262 bytes
+ * - Micro-dash: 255 bytes
  *
  * @param resolver The function to resolve the cache key.
  */
@@ -19,7 +19,7 @@ export function memoize<T extends Function>(
   func: T,
   resolver: Function = identity,
 ): T & { cache: Map<any, any> } {
-  const memoized: any = function (this: any): any {
+  function memoized(this: any): any {
     const { cache } = memoized;
     const key = resolver.apply(this, arguments);
     if (cache.has(key)) {
@@ -29,7 +29,7 @@ export function memoize<T extends Function>(
       cache.set(key, value);
       return value;
     }
-  };
+  }
   memoized.cache = new Map();
-  return memoized;
+  return memoized as any;
 }

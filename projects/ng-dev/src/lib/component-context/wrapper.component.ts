@@ -11,6 +11,9 @@ interface InputMeta<T> {
 // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- change detection is carefully orchestrated in the typescript */
 @Component({ template: '' })
 export class WrapperComponent<T> {
+  inputs: Partial<T> = {};
+  styles: Record<string, any> = {};
+
   static wrap<T>(
     componentType: Type<T>,
     unboundInputs: Array<keyof T>,
@@ -26,9 +29,6 @@ export class WrapperComponent<T> {
 
     return inputMetas.map((meta) => meta.property);
   }
-
-  inputs: Partial<T> = {};
-  styles: Record<string, any> = {};
 }
 
 function getSelector(componentType: Type<unknown>): string {
@@ -39,13 +39,14 @@ function getSelector(componentType: Type<unknown>): string {
   assert(annotations, 'That does not appear to be a component');
 
   let selector = annotations.value.find(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     (decorator: any) => decorator.selector,
   )?.selector;
   if (!isValidSelector(selector)) {
     selector = 's-libs-component-under-test';
     TestBed.overrideComponent(componentType, { set: { selector } });
   }
-  return selector;
+  return selector as string;
 }
 
 function isValidSelector(selector: string): boolean {

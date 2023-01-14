@@ -26,7 +26,7 @@ export async function pipeAndCollect<I, O>(
 
 export function testUserFunctionError(
   buildOperator: (thrower: () => never) => OperatorFunction<any, any>,
-  upstreamValue: any,
+  upstreamValue: unknown,
 ): () => void {
   return marbleTest(({ hot, expectObservable, expectSubscriptions }) => {
     const thrower = (): never => {

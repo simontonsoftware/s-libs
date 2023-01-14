@@ -17,18 +17,17 @@ type RemainingKeys<T, Omits> =
  * - Micro-dash: 163 bytes
  */
 export function omit<
-  T extends object | Nil,
+  T extends Nil | object,
   O extends ReadonlyArray<keyof Exclude<T, Nil>>,
 >(
   object: T,
   ...paths: O
 ):
+  | IfCouldBe<T, Nil, EmptyObject>
   | {
       [K in RemainingKeys<Exclude<T, Nil>, O[number]>]: Exclude<T, Nil>[K];
-    }
-  | IfCouldBe<T, Nil, EmptyObject> {
-  // TODO: test size of `??`
-  const obj: any = clone(object) || {};
+    } {
+  const obj: any = clone(object) ?? {};
   for (const path of paths) {
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- this is exactly what the user requested, so ...
     delete obj[path];

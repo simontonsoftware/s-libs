@@ -6,6 +6,21 @@ import { Store } from '../index';
 export type UndoOrRedo = 'redo' | 'undo';
 
 export abstract class UndoManager<StateType, UndoStateType> {
+  /**
+   * An observable that emits the result of `canUndo()` every time that value changes.
+   */
+  canUndo$: Observable<boolean>;
+
+  /**
+   * An observable that emits the result of `canRedo()` every time that value changes.
+   */
+  canRedo$: Observable<boolean>;
+
+  /**
+   * An observable that emits the current state every time it changes.
+   */
+  state$: Observable<UndoStateType>;
+
   private stack: UndoStateType[] = [];
   private currentStateIndex!: number;
 
@@ -17,27 +32,6 @@ export abstract class UndoManager<StateType, UndoStateType> {
   private collectDebouncer = new Debouncer();
 
   /**
-   * An observable that emits the result of `canUndo()` every time that value changes.
-   */
-  canUndo$: Observable<boolean> = this.canUndoSubject.pipe(
-    distinctUntilChanged(),
-  );
-
-  /**
-   * An observable that emits the result of `canRedo()` every time that value changes.
-   */
-  canRedo$: Observable<boolean> = this.canRedoSubject.pipe(
-    distinctUntilChanged(),
-  );
-
-  /**
-   * An observable that emits the current state every time it changes.
-   */
-  state$: Observable<UndoStateType> = this.stateSubject.pipe(
-    distinctUntilChanged(),
-  );
-
-  /**
    * @param maxDepth The maximum size of the history before discarding the oldest state. `0` means no limit.
    */
   constructor(
@@ -45,6 +39,23 @@ export abstract class UndoManager<StateType, UndoStateType> {
     protected maxDepth = 0,
   ) {
     this.reset();
+    this.canUndo$ = this.canUndoSubject.pipe(distinctUntilChanged());
+    this.canRedo$ = this.canRedoSubject.pipe(distinctUntilChanged());
+    this.state$ = this.stateSubject.pipe(distinctUntilChanged());
+  }
+
+  /**
+   * Returns the current undo state that was most recently pushed or applied. Calls to `undo` will apply the state before this in teh stack, and `redo` will apply the state after this.
+   */
+  get currentUndoState(): UndoStateType {
+    return this.stack[this.currentStateIndex];
+  }
+
+  /**
+   * Returns a view of the internal undo stack, from oldest to newest. Note that this contains states that would be applied by calls to both `.undo()` and `.redo`.
+   */
+  get undoStack(): UndoStateType[] {
+    return this.stack.slice();
   }
 
   /**
@@ -62,9 +73,9 @@ export abstract class UndoManager<StateType, UndoStateType> {
    * @param collectDebounce If at least this many milliseconds elapse with no other push, the next one will be to a new undo state regardless of its `collectKey`. Defaults to `undefined`, which sets no such timeout.
    */
   pushCurrentState({
-    collectKey = undefined as string | undefined,
-    collectDebounce = undefined as number | undefined,
-  } = {}): void {
+    collectKey,
+    collectDebounce,
+  }: { collectKey?: string; collectDebounce?: number } = {}): void {
     const nextState = this.extractUndoState(this.store.state());
     if (this.currentStateIndex >= 0 && !this.shouldPush(nextState)) {
       return;
@@ -131,36 +142,6 @@ export abstract class UndoManager<StateType, UndoStateType> {
   }
 
   /**
-   * Returns the current undo state that was most recently pushed or applied. Calls to `undo` will apply the state before this in teh stack, and `redo` will apply the state after this.
-   */
-  get currentUndoState(): UndoStateType {
-    return this.stack[this.currentStateIndex];
-  }
-
-  /**
-   * Returns a view of the internal undo stack, from oldest to newest. Note that this contains states that would be applied by calls to both `.undo()` and `.redo`.
-   */
-  get undoStack(): UndoStateType[] {
-    return this.stack.slice();
-  }
-
-  /**
-   * Return the information needed to reconstruct the given state. This will be passed to `applyUndoState()` when the store should be reset to this state.
-   */
-  protected abstract extractUndoState(state: StateType): UndoStateType;
-
-  /**
-   * Reset the store to the given state.
-   *
-   * The `undoOrRedo` and `stateToOverwrite` parameters can be useful e.g. if a scroll position is kept in the undo state. In such a case you want to change the scrolling so the user can see what just changed by undoing/redoing. To do that, set the scoll to what it was in `stateToOverwrite` when undoing, and to what it is in `stateToApply` when redoing.
-   */
-  protected abstract applyUndoState(
-    stateToApply: UndoStateType,
-    undoOrRedo: UndoOrRedo,
-    stateToOverwrite: UndoStateType,
-  ): void;
-
-  /**
    * Used to determine whether `.pushCurrentState()` actually does anything. Override this e.g. to prevent pushing a duplicate undo state using something like this:
    *
    * ```ts
@@ -173,15 +154,15 @@ export abstract class UndoManager<StateType, UndoStateType> {
     return true;
   }
 
-  private dropRedoHistory(): void {
-    this.stack.splice(this.currentStateIndex + 1, this.stack.length);
-  }
-
   /**
    * Each time a state is added to the history, this method will be called to determine whether the oldest state should be dropped. Override to implement more complex logic than the simple `maxDepth`.
    */
   protected isOverSize(size: number): boolean {
     return this.maxDepth > 0 && size > this.maxDepth;
+  }
+
+  private dropRedoHistory(): void {
+    this.stack.splice(this.currentStateIndex + 1, this.stack.length);
   }
 
   private changeState(change: -1 | 1, undoOrRedo: UndoOrRedo): void {
@@ -238,4 +219,20 @@ export abstract class UndoManager<StateType, UndoStateType> {
 
     this.emitUndoChanges(collectKey, collectDebounce);
   }
+
+  /**
+   * Return the information needed to reconstruct the given state. This will be passed to `applyUndoState()` when the store should be reset to this state.
+   */
+  protected abstract extractUndoState(state: StateType): UndoStateType;
+
+  /**
+   * Reset the store to the given state.
+   *
+   * The `undoOrRedo` and `stateToOverwrite` parameters can be useful e.g. if a scroll position is kept in the undo state. In such a case you want to change the scrolling so the user can see what just changed by undoing/redoing. To do that, set the scoll to what it was in `stateToOverwrite` when undoing, and to what it is in `stateToApply` when redoing.
+   */
+  protected abstract applyUndoState(
+    stateToApply: UndoStateType,
+    undoOrRedo: UndoOrRedo,
+    stateToOverwrite: UndoStateType,
+  ): void;
 }

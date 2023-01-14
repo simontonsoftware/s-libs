@@ -143,8 +143,8 @@ describe('isEqualAtDepth()', () => {
   });
 
   it('should compare objects with shared property values', () => {
-    const object1: any = { a: [1, 2] };
     const object2 = { a: [1, 2], b: [1, 2] };
+    const object1 = { a: [1, 2] } as typeof object2;
     object1.b = object1.a;
 
     expectToBecomeEqualAtDepth(2, object1, object2);

@@ -9,7 +9,7 @@ import { keys } from '../object';
  * - Micro-dash: 233 bytes
  */
 export function size(
-  collection: object | string | readonly any[] | Nil,
+  collection: Nil | object | string | readonly any[],
 ): number {
   return keys(collection).length;
 }
