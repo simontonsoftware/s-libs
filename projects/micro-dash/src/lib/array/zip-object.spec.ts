@@ -1,6 +1,50 @@
+import { staticTest } from '@s-libs/ng-dev';
+import { expectTypeOf } from 'expect-type';
 import { zipObject } from './zip-object';
 
 describe('zipObject()', () => {
+  it('has fancy typing', () => {
+    staticTest(() => {
+      expectTypeOf(zipObject(['a'], ['yes'])).toEqualTypeOf<
+        Record<string, string>
+      >();
+
+      expectTypeOf(zipObject(['a'], [1, 'no'])).toEqualTypeOf<
+        Record<string, number>
+      >();
+
+      expectTypeOf(zipObject([1, 'b'], [1, 'yes'])).toEqualTypeOf<
+        Record<number, number> & Record<string, string>
+      >();
+
+      expectTypeOf(zipObject([1, 'b'], [1, 2, 'no'])).toEqualTypeOf<
+        Record<number, number> & Record<string, number>
+      >();
+
+      expectTypeOf(zipObject([1, 'b', 'c'], [1, 2, 'yes'])).toEqualTypeOf<
+        Record<number, number> & Record<string, number> & Record<string, string>
+      >();
+
+      expectTypeOf(zipObject([1, 'b', 'c'], [1, 2, 3, 'no'])).toEqualTypeOf<
+        Record<number, number> & Record<string, number>
+      >();
+
+      expectTypeOf(
+        zipObject([1, 'b', 'c', 'd'], [1, 2, 3, 'yes']),
+      ).toEqualTypeOf<
+        Record<number, number> & Record<string, number> & Record<string, string>
+      >();
+
+      expectTypeOf(
+        zipObject([1, 'b', 'c', 'd'], [1, 2, 3, 4, 'no']),
+      ).toEqualTypeOf<Record<number, number> & Record<string, number>>();
+
+      expectTypeOf(zipObject(['a', 'b'] as string[], [1, 2])).toEqualTypeOf<
+        Record<string, number | undefined>
+      >();
+    });
+  });
+
   //
   // stolen from https://github.com/lodash/lodash
   //

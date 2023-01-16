@@ -5,9 +5,9 @@
     "noImplicitThis": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "lib": ["es2018", "dom"],
+    "lib": ["ES2022", "dom"],
     "noEmit": true,
-    "target": "es2015",
+    "target": "ES2022",
 
     "baseUrl": "../lib"
   }
