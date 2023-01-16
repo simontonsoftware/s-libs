@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.1.0](https://github.com/simontonsoftware/s-libs/compare/v15.0.0...v15.1.0) (2023-01-16)
+
+### Features
+
+- **js-core:** add `getCombinations()` ([a1ec141](https://github.com/simontonsoftware/s-libs/commit/a1ec141287d900996426a6cdc9b75dcfe6509aca)), closes [#84](https://github.com/simontonsoftware/s-libs/issues/84)
+- **ng-dev:** add `AngularContext.getHarnessOrNull()` ([c2bb4ba](https://github.com/simontonsoftware/s-libs/commit/c2bb4bac0e4c3f146196091b6b30f5f9a11dd23f)), closes [#88](https://github.com/simontonsoftware/s-libs/issues/88)
+- **ng-mat-core:** add helpers to set up complex themes easily ([0879e43](https://github.com/simontonsoftware/s-libs/commit/0879e4351bc9da23af4817c7657146f090d1caab))
+
+### Bug Fixes
+
+- **ng-dev:** `AngularContext` cleans up after itself better in error situations, to avoid all future tests failing "There is already another AngularContext in use (or it was not cleaned up)" ([81cbd5c](https://github.com/simontonsoftware/s-libs/commit/81cbd5c43344bfaf17c51106bf66d08353ad7ee0)), closes [#98](https://github.com/simontonsoftware/s-libs/issues/98)
+
 ## [15.0.0](https://github.com/simontonsoftware/s-libs/compare/v15.0.0-next.0...v15.0.0) (2022-12-05)
 
 ## [15.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v14.1.0...v15.0.0-next.0) (2022-11-24)
