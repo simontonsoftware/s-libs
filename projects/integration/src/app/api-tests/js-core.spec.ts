@@ -6,7 +6,7 @@ import {
   Debouncer,
   Deferred,
   elapsedToString,
-  // Encoding,
+  getCombinations,
   isDefined,
   isEqualAtDepth,
   isFalsy,
@@ -91,6 +91,10 @@ describe('js-core', () => {
 
     it('has elapsedToString', () => {
       expect(elapsedToString).toBeDefined();
+    });
+
+    it('has getCombinations', () => {
+      expect(getCombinations).toBeDefined();
     });
 
     it('has isDefined', () => {

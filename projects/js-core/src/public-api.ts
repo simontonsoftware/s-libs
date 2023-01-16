@@ -8,6 +8,7 @@ export * from './lib/predicates';
 export * from './lib/sets';
 export * from './lib/time';
 export { assert } from './lib/assert';
+export { getCombinations } from './lib/get-combinations';
 export {
   MigrateFunction,
   MigrationManager,
