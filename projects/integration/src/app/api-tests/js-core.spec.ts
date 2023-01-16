@@ -54,7 +54,7 @@ describe('js-core', () => {
       expect(Deferred).toBeDefined();
     });
 
-    // Everything was going great until trying to build the bundle. Then it gave not-very-helpful error message, "Do not know how to serialize a BigInt", and the build failed. With Angular 14.0.
+    // Everything was going great until trying to build the bundle. Then it gave not-very-helpful error message, "Do not know how to serialize a BigInt", and the build failed. Last attempted with Angular 15.0.
     // it('has Encoding', () => {
     //   expect(Encoding).toBeDefined();
     // });

@@ -1,4 +1,4 @@
-import { assert } from '@s-libs/js-core';
+import { assert } from './assert';
 import { sort } from './sort';
 
 /**
