@@ -148,7 +148,11 @@ export class AngularContext {
         this.tick();
         this.verifyPostTestConditions();
       } finally {
-        this.cleanUp();
+        try {
+          this.cleanUp();
+        } finally {
+          AngularContext.#current = undefined;
+        }
       }
     });
   }
@@ -247,6 +251,5 @@ export class AngularContext {
   protected cleanUp(): void {
     discardPeriodicTasks();
     flush();
-    AngularContext.#current = undefined;
   }
 }

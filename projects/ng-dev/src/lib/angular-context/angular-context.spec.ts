@@ -136,6 +136,29 @@ describe('AngularContext', () => {
         });
       }).toThrowError();
     });
+
+    describe('next test run', () => {
+      function runTest(): void {
+        // ensure that the _second_ run of this test does not throw the error "There is already another AngularContext in use (or it was not cleaned up)"
+
+        const ctx = new AngularContext();
+        expect(() => {
+          ctx.run(() => {
+            setTimeout(() => {
+              throw new Error('mess up cleanup');
+            }, 1);
+          });
+        }).toThrowError('mess up cleanup');
+      }
+
+      it('is OK when throwing an error during cleanup', () => {
+        runTest();
+      });
+
+      it('is OK when throwing an error during cleanup', () => {
+        runTest();
+      });
+    });
   });
 
   describe('.inject()', () => {
