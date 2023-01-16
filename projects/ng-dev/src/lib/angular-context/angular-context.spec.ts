@@ -193,6 +193,18 @@ describe('AngularContext', () => {
     });
   });
 
+  describe('.getHarnessOrNull()', () => {
+    it('returns a harness or null', () => {
+      const ctx = new SnackBarContext();
+      ctx.run(async () => {
+        expect(await ctx.getHarnessOrNull(MatSnackBarHarness)).toBe(null);
+
+        ctx.inject(MatSnackBar).open('hi');
+        expect(await ctx.getHarnessOrNull(MatSnackBarHarness)).not.toBe(null);
+      });
+    });
+  });
+
   describe('.getAllHarnesses()', () => {
     it('gets an array of harnesses', () => {
       const ctx = new SnackBarContext();

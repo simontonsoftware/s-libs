@@ -165,15 +165,16 @@ export class AngularContext {
   }
 
   /**
-   * A convenience method to determine whether a given harness can be found.
+   * Returns whether any components match the given `query`.
    */
-  async hasHarness(query: HarnessQuery<ComponentHarness>): Promise<boolean> {
-    const found = await this.getAllHarnesses(query);
-    return found.length > 0;
+  async hasHarness<H extends ComponentHarness>(
+    query: HarnessQuery<H>,
+  ): Promise<boolean> {
+    return this.#loader.hasHarness(query);
   }
 
   /**
-   * Gets a component harness, wrapped for use in a fakeAsync test so that you do not need to `await` its results. Throws an error if no match can be located.
+   * Gets a component harness, wrapped for use in a fakeAsync test. Throws an error if no matching component is found.
    */
   async getHarness<H extends ComponentHarness>(
     query: HarnessQuery<H>,
@@ -182,7 +183,16 @@ export class AngularContext {
   }
 
   /**
-   * Gets all component harnesses that match the query, wrapped for use in a fakeAsync test so that you do not need to `await` its results.
+   * Gets a component harness, wrapped for use in a fakeAsync test. Returns `null` if no matching component is found.
+   */
+  async getHarnessOrNull<H extends ComponentHarness>(
+    query: HarnessQuery<H>,
+  ): Promise<H | null> {
+    return this.#loader.getHarnessOrNull(query);
+  }
+
+  /**
+   * Gets all component harnesses that match the query, wrapped for use in a fakeAsync test.
    */
   async getAllHarnesses<H extends ComponentHarness>(
     query: HarnessQuery<H>,
