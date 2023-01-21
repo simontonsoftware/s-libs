@@ -1,11 +1,5 @@
-import {
-  Component,
-  ComponentMirror,
-  reflectComponentType,
-  Type,
-} from '@angular/core';
+import { Component, ComponentMirror } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { assert } from '@s-libs/js-core';
 
 // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- change detection is carefully orchestrated in the typescript */
 @Component({ template: '' })
@@ -14,13 +8,11 @@ export class WrapperComponent<T> {
   styles: Record<string, any> = {};
 
   static wrap<T>(
-    componentType: Type<T>,
+    componentMirror: ComponentMirror<T>,
     unboundInputs: Array<keyof T>,
   ): Array<keyof T> {
-    const mirror = reflectComponentType(componentType);
-    assert(mirror, 'That does not appear to be a component');
-    const selector = getSelector(mirror);
-    const inputs = mirror.inputs.filter(
+    const selector = getSelector(componentMirror);
+    const inputs = componentMirror.inputs.filter(
       ({ propName }) => !unboundInputs.includes(propName as keyof T),
     );
 

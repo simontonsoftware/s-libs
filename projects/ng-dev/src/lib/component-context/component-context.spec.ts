@@ -67,6 +67,26 @@ describe('ComponentContext', () => {
         expect(ctx.inject(ANIMATION_MODULE_TYPE)).toBe('NoopAnimations');
       });
     });
+
+    it('supports standalone components', () => {
+      @Component({ template: 'hi', standalone: true })
+      class StandaloneComponent {}
+
+      const ctx = new ComponentContext(StandaloneComponent);
+      ctx.run(() => {
+        expect(ctx.fixture.nativeElement.textContent).toBe('hi');
+      });
+    });
+
+    it('errors with a nice message when given a non-component', () => {
+      // eslint-disable-next-line @typescript-eslint/no-extraneous-class
+      class NotAComponent {}
+
+      expect(() => {
+        // eslint-disable-next-line no-new -- nothing more is needed for this test
+        new ComponentContext(NotAComponent);
+      }).toThrowError('That does not appear to be a component');
+    });
   });
 
   describe('.assignInputs()', () => {

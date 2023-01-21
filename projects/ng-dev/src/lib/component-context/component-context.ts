@@ -1,4 +1,8 @@
-import { ApplicationInitStatus, Type } from '@angular/core';
+import {
+  ApplicationInitStatus,
+  reflectComponentType,
+  Type,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -7,6 +11,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { assert } from '@s-libs/js-core';
 import { keys } from '@s-libs/micro-dash';
 import {
   AngularContext,
@@ -164,13 +169,13 @@ export class ComponentContext<T> extends AngularContext {
     moduleMetadata: TestModuleMetadata = {},
     unboundInputs: Array<keyof T> = [],
   ) {
-    const inputProperties = WrapperComponent.wrap(componentType, unboundInputs);
-    super(
-      extendMetadata(moduleMetadata, {
-        imports: [NoopAnimationsModule],
-        declarations: [WrapperComponent, componentType],
-      }),
-    );
+    const mirror = reflectComponentType(componentType);
+    assert(mirror, 'That does not appear to be a component');
+    const inputProperties = WrapperComponent.wrap(mirror, unboundInputs);
+    const imports: any[] = [NoopAnimationsModule];
+    const declarations: any[] = [WrapperComponent];
+    (mirror.isStandalone ? imports : declarations).push(componentType);
+    super(extendMetadata(moduleMetadata, { imports, declarations }));
 
     this.#componentType = componentType;
     this.#inputProperties = new Set(inputProperties);

@@ -126,14 +126,4 @@ describe('WrapperComponent', () => {
       expect(ctx.getComponentInstance().doNotBind).toBe('default value');
     });
   });
-
-  it('errors with a nice message when given a non-component', () => {
-    // eslint-disable-next-line @typescript-eslint/no-extraneous-class
-    class NotAComponent {}
-
-    expect(() => {
-      // eslint-disable-next-line no-new -- nothing more is needed for this test
-      new ComponentContext(NotAComponent);
-    }).toThrowError('That does not appear to be a component');
-  });
 });
