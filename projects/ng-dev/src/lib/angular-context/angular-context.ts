@@ -140,21 +140,21 @@ export class AngularContext {
    * 4. `this.cleanUp()`
    */
   run(test: () => Promise<void> | void): void {
-    this.#runWithMockedTime(() => {
-      this.init();
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        test();
-        this.tick();
-        this.verifyPostTestConditions();
-      } finally {
+    try {
+      this.#runWithMockedTime(() => {
+        this.init();
         try {
-          this.cleanUp();
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          test();
+          this.tick();
+          this.verifyPostTestConditions();
         } finally {
-          AngularContext.#current = undefined;
+          this.cleanUp();
         }
-      }
-    });
+      });
+    } finally {
+      AngularContext.#current = undefined;
+    }
   }
 
   /**

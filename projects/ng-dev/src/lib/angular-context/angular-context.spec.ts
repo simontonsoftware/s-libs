@@ -138,9 +138,20 @@ describe('AngularContext', () => {
     });
 
     describe('next test run', () => {
-      function runTest(): void {
-        // ensure that the _second_ run of this test does not throw the error "There is already another AngularContext in use (or it was not cleaned up)"
+      function runInitTest(): void {
+        class BadInitContext extends AngularContext {
+          protected override init(): void {
+            super.init();
+            throw new Error('mess up init');
+          }
+        }
+        const ctx = new BadInitContext();
+        expect(() => {
+          ctx.run(noop);
+        }).toThrowError('mess up init');
+      }
 
+      function runCleanupTest(): void {
         const ctx = new AngularContext();
         expect(() => {
           ctx.run(() => {
@@ -151,12 +162,20 @@ describe('AngularContext', () => {
         }).toThrowError('mess up cleanup');
       }
 
-      it('is OK when throwing an error during cleanup', () => {
-        runTest();
+      it('is OK when throwing an error during init', () => {
+        runInitTest();
+      });
+
+      it('is OK when throwing an error during init', () => {
+        runInitTest();
       });
 
       it('is OK when throwing an error during cleanup', () => {
-        runTest();
+        runCleanupTest();
+      });
+
+      it('is OK when throwing an error during cleanup', () => {
+        runCleanupTest();
       });
     });
   });
