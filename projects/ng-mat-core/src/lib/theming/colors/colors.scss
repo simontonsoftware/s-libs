@@ -30,12 +30,16 @@
     @include mat.divider-color($theme);
   } @else if $name == "expansion" {
     @include mat.expansion-color($theme);
+  } @else if $name == "fab" {
+    @include mat.fab-color($theme);
   } @else if $name == "form-field" {
     @include mat.form-field-color($theme);
   } @else if $name == "grid-list" {
     @include mat.grid-list-color($theme);
   } @else if $name == "icon" {
     @include mat.icon-color($theme);
+  } @else if $name == "icon-button" {
+    @include mat.icon-button-color($theme);
   } @else if $name == "input" {
     @include mat.input-color($theme);
   } @else if $name == "list" {

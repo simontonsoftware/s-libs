@@ -30,12 +30,16 @@
     @include mat.divider-theme($theme);
   } @else if $name == "expansion" {
     @include mat.expansion-theme($theme);
+  } @else if $name == "fab" {
+    @include mat.fab-theme($theme);
   } @else if $name == "form-field" {
     @include mat.form-field-theme($theme);
   } @else if $name == "grid-list" {
     @include mat.grid-list-theme($theme);
   } @else if $name == "icon" {
     @include mat.icon-theme($theme);
+  } @else if $name == "icon-button" {
+    @include mat.icon-button-theme($theme);
   } @else if $name == "input" {
     @include mat.input-theme($theme);
   } @else if $name == "list" {
