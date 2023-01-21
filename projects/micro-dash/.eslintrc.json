@@ -39,7 +39,6 @@
         "func-names": "off",
         "max-depth": "off",
         "max-lines-per-function": "off",
-        "max-params": "off",
         "no-bitwise": "off",
         "no-eq-null": "off",
         "no-multi-assign": "off",

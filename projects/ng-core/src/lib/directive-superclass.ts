@@ -86,7 +86,7 @@ export abstract class DirectiveSuperclass
   }
 
   /**
-   * Binds an observable to one of this directive's instance variables. When the observable emits the instance variable will be updated, and change detection will be triggered to propagate any changes. Use this an an alternative to repeating `| async` multiple times in your template.
+   * Binds an observable to one of this directive's instance variables. When the observable emits the instance variable will be updated, and change detection will be triggered to propagate any changes. Use this as an alternative to repeating `| async` multiple times in your template.
    */
   bindToInstance<K extends keyof this>(
     key: K,

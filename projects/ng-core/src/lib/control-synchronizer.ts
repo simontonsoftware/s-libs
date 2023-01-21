@@ -32,7 +32,6 @@ export class ControlSynchronizer {
     control.addValidators(() => this.#errorsFromPartner);
   }
 
-  // eslint-disable-next-line max-params
   static synchronize(
     outer: AbstractControl,
     inner: AbstractControl,

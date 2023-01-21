@@ -17,6 +17,7 @@
         ],
         "accessor-pairs": "off",
         "class-methods-use-this": "off",
+        "max-params": "off",
         "new-cap": "off", // This errs on decorators
 
         // Better compatibility with s-libs
@@ -72,6 +73,7 @@
         "@typescript-eslint/prefer-readonly": "off",
         "@typescript-eslint/prefer-readonly-parameter-types": "off",
         "@typescript-eslint/require-await": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
         "capitalized-comments": "off",
         "id-length": "off",
         "line-comment-position": "off",
@@ -80,6 +82,7 @@
         "multiline-comment-style": "off",
         "no-await-in-loop": "off",
         "no-console": "off",
+        "no-continue": "off",
         "no-else-return": "off",
         "no-implicit-coercion": ["error", { "allow": ["!!", "+"] }],
         "no-inline-comments": "off",
