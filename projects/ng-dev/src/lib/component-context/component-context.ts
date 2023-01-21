@@ -148,11 +148,11 @@ export class ComponentContext<T> extends AngularContext {
    */
   fixture!: ComponentFixture<unknown>;
 
-  private componentType: Type<T>;
-  private inputProperties: Set<keyof T>;
+  #componentType: Type<T>;
+  #inputProperties: Set<keyof T>;
 
-  private inputs: Partial<T>;
-  private wrapperStyles: Record<string, any>;
+  #inputs: Partial<T>;
+  #wrapperStyles: Record<string, any>;
 
   /**
    * @param componentType `run()` will create a component of this type before running the rest of your test.
@@ -172,10 +172,10 @@ export class ComponentContext<T> extends AngularContext {
       }),
     );
 
-    this.componentType = componentType;
-    this.inputProperties = new Set(inputProperties);
-    this.inputs = {};
-    this.wrapperStyles = {};
+    this.#componentType = componentType;
+    this.#inputProperties = new Set(inputProperties);
+    this.#inputs = {};
+    this.#wrapperStyles = {};
   }
 
   /**
@@ -191,10 +191,10 @@ export class ComponentContext<T> extends AngularContext {
    * ```
    */
   assignWrapperStyles(styles: Record<string, any>): void {
-    Object.assign(this.wrapperStyles, styles);
+    Object.assign(this.#wrapperStyles, styles);
 
-    if (this.isInitialized()) {
-      this.flushStylesToWrapper();
+    if (this.#isInitialized()) {
+      this.#flushStylesToWrapper();
       this.tick();
     }
   }
@@ -204,7 +204,7 @@ export class ComponentContext<T> extends AngularContext {
    */
   assignInputs(inputs: Partial<T>): void {
     for (const key of keys(inputs)) {
-      if (!this.inputProperties.has(key as keyof T)) {
+      if (!this.#inputProperties.has(key as keyof T)) {
         throw new Error(
           `Cannot bind to "${String(
             key,
@@ -213,9 +213,9 @@ export class ComponentContext<T> extends AngularContext {
       }
     }
 
-    Object.assign(this.inputs, inputs);
-    if (this.isInitialized()) {
-      this.flushInputsToWrapper();
+    Object.assign(this.#inputs, inputs);
+    if (this.#isInitialized()) {
+      this.#flushInputsToWrapper();
       this.tick();
     }
   }
@@ -224,7 +224,7 @@ export class ComponentContext<T> extends AngularContext {
    * Use within `run()` to get your instantiated component that is on the page.
    */
   getComponentInstance(): T {
-    return this.fixture.debugElement.query(By.directive(this.componentType))
+    return this.fixture.debugElement.query(By.directive(this.#componentType))
       .componentInstance as T;
   }
 
@@ -240,8 +240,8 @@ export class ComponentContext<T> extends AngularContext {
 
     this.fixture = TestBed.createComponent(WrapperComponent);
 
-    this.flushStylesToWrapper();
-    this.flushInputsToWrapper();
+    this.#flushStylesToWrapper();
+    this.#flushInputsToWrapper();
     this.fixture.detectChanges();
     this.tick();
   }
@@ -258,23 +258,23 @@ export class ComponentContext<T> extends AngularContext {
     super.cleanUp();
   }
 
-  private isInitialized(): boolean {
+  #isInitialized(): boolean {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- this actually can be undefined, but typing doesn't reflect it because once everything is initialized its defined
     return !!this.fixture;
   }
 
-  private flushInputsToWrapper(): void {
-    Object.assign(this.getWrapperComponentInstance().inputs, this.inputs);
+  #flushInputsToWrapper(): void {
+    Object.assign(this.#getWrapperComponentInstance().inputs, this.#inputs);
   }
 
-  private flushStylesToWrapper(): void {
+  #flushStylesToWrapper(): void {
     Object.assign(
-      this.getWrapperComponentInstance().styles,
-      this.wrapperStyles,
+      this.#getWrapperComponentInstance().styles,
+      this.#wrapperStyles,
     );
   }
 
-  private getWrapperComponentInstance(): WrapperComponent<T> {
+  #getWrapperComponentInstance(): WrapperComponent<T> {
     return this.fixture.componentInstance as WrapperComponent<T>;
   }
 }

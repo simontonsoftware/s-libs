@@ -1,12 +1,11 @@
-import { Component, Type } from '@angular/core';
+import {
+  Component,
+  ComponentMirror,
+  reflectComponentType,
+  Type,
+} from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { assert, isDefined } from '@s-libs/js-core';
-import { forOwn } from '@s-libs/micro-dash';
-
-interface InputMeta<T> {
-  binding: string;
-  property: keyof T;
-}
+import { assert } from '@s-libs/js-core';
 
 // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- change detection is carefully orchestrated in the typescript */
 @Component({ template: '' })
@@ -18,39 +17,32 @@ export class WrapperComponent<T> {
     componentType: Type<T>,
     unboundInputs: Array<keyof T>,
   ): Array<keyof T> {
-    const selector = getSelector(componentType);
-    const inputMetas = getInputMetas(componentType).filter(
-      ({ property }) => !unboundInputs.includes(property),
+    const mirror = reflectComponentType(componentType);
+    assert(mirror, 'That does not appear to be a component');
+    const selector = getSelector(mirror);
+    const inputs = mirror.inputs.filter(
+      ({ propName }) => !unboundInputs.includes(propName as keyof T),
     );
 
     TestBed.overrideComponent(WrapperComponent, {
-      set: { template: buildTemplate(selector, inputMetas) },
+      set: { template: buildTemplate(selector, inputs) },
     });
 
-    return inputMetas.map((meta) => meta.property);
+    return inputs.map((input) => input.propName as keyof T);
   }
 }
 
-function getSelector(componentType: Type<unknown>): string {
-  const annotations = Reflect.getOwnPropertyDescriptor(
-    componentType,
-    '__annotations__',
-  );
-  assert(annotations, 'That does not appear to be a component');
-
-  let selector = annotations.value.find(
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    (decorator: any) => decorator.selector,
-  )?.selector;
+function getSelector(mirror: ComponentMirror<unknown>): string {
+  let { selector } = mirror;
   if (!isValidSelector(selector)) {
     selector = 's-libs-component-under-test';
-    TestBed.overrideComponent(componentType, { set: { selector } });
+    TestBed.overrideComponent(mirror.type, { set: { selector } });
   }
-  return selector as string;
+  return selector;
 }
 
 function isValidSelector(selector: string): boolean {
-  if (!selector) {
+  if (selector === 'ng-component') {
     return false;
   }
   try {
@@ -61,37 +53,12 @@ function isValidSelector(selector: string): boolean {
   }
 }
 
-function getInputMetas<T>(componentType: Type<T>): Array<InputMeta<T>> {
-  let metas: Array<InputMeta<T>>;
-  const superType = Object.getPrototypeOf(componentType.prototype)?.constructor;
-  if (isDefined(superType)) {
-    metas = getInputMetas(superType);
-  } else {
-    metas = [];
-  }
-
-  // I tried making this support inputs with special characters in their names, but it turns out that *Angular* can only support that when using AOT. So our *dynamic* wrapper cannot.
-  forOwn(
-    (componentType as any).propDecorators,
-    (decorators: any[], property: any) => {
-      const inputDecorators = decorators.filter(
-        (decorator) => decorator.type.prototype.ngMetadataName === 'Input',
-      );
-      for (const decorator of inputDecorators) {
-        const binding = decorator.args?.[0] ?? property;
-        metas.push({ property, binding });
-      }
-    },
-  );
-  return metas;
-}
-
-function buildTemplate<T>(
+function buildTemplate(
   selector: string,
-  inputMetas: Array<InputMeta<T>>,
+  inputs: ComponentMirror<unknown>['inputs'],
 ): string {
-  const bindingStrings = inputMetas.map(
-    ({ binding, property }) => `[${binding}]="inputs.${String(property)}"`,
+  const bindingStrings = inputs.map(
+    (input) => `[${input.templateName}]="inputs.${input.propName}"`,
   );
   return `
     <div class="s-libs-dynamic-wrapper" [ngStyle]="styles">
