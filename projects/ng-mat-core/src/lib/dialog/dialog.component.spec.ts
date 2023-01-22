@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularContext } from '@s-libs/ng-dev';
 import {
-  DialogData,
   DEFAULT_OK_VALUE,
+  DialogData,
   SL_DIALOG_DATA,
 } from './dialog.component';
 import { SlDialogHarness } from './sl-dialog.harness';

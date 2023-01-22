@@ -1,3 +1,4 @@
+import { NgComponentOutlet, NgForOf, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,8 +7,9 @@ import {
   Injector,
   Type,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { ThemePalette } from '@angular/material/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 export type DialogButtonColor = NonNullable<ThemePalette> | 'default';
 
@@ -68,6 +70,8 @@ export const DEFAULT_OK_VALUE = Symbol('OK');
 
 @Component({
   selector: 'sl-dialog',
+  standalone: true,
+  imports: [MatButtonModule, MatDialogModule, NgComponentOutlet, NgForOf, NgIf],
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
