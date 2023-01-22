@@ -233,6 +233,26 @@ export class ComponentContext<T> extends AngularContext {
       .componentInstance as T;
   }
 
+  #isInitialized(): boolean {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- this actually can be undefined, but typing doesn't reflect it because once everything is initialized its defined
+    return !!this.fixture;
+  }
+
+  #flushInputsToWrapper(): void {
+    Object.assign(this.#getWrapperComponentInstance().inputs, this.#inputs);
+  }
+
+  #flushStylesToWrapper(): void {
+    Object.assign(
+      this.#getWrapperComponentInstance().styles,
+      this.#wrapperStyles,
+    );
+  }
+
+  #getWrapperComponentInstance(): WrapperComponent<T> {
+    return this.fixture.componentInstance as WrapperComponent<T>;
+  }
+
   /**
    * Constructs and initializes your component. Called during `run()` before it executes the rest of your test. Runs in the same `fakeAsync` zone as the rest of your test.
    */
@@ -261,25 +281,5 @@ export class ComponentContext<T> extends AngularContext {
   protected override cleanUp(): void {
     this.fixture.destroy();
     super.cleanUp();
-  }
-
-  #isInitialized(): boolean {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- this actually can be undefined, but typing doesn't reflect it because once everything is initialized its defined
-    return !!this.fixture;
-  }
-
-  #flushInputsToWrapper(): void {
-    Object.assign(this.#getWrapperComponentInstance().inputs, this.#inputs);
-  }
-
-  #flushStylesToWrapper(): void {
-    Object.assign(
-      this.#getWrapperComponentInstance().styles,
-      this.#wrapperStyles,
-    );
-  }
-
-  #getWrapperComponentInstance(): WrapperComponent<T> {
-    return this.fixture.componentInstance as WrapperComponent<T>;
   }
 }
