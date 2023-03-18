@@ -15,9 +15,8 @@
           "error",
           { "allowWithDecorator": true }
         ],
-        "accessor-pairs": "off",
-        "class-methods-use-this": "off",
-        "max-params": "off",
+        "accessor-pairs": "off", // a lone setter or getter is nice for bindings
+        "class-methods-use-this": "off", // lifecycle hooks can't be static
         "new-cap": "off", // This errs on decorators
 
         // Better compatibility with s-libs
@@ -97,7 +96,7 @@
         // Handled better by TypeScript
         "@typescript-eslint/no-unused-vars": "off",
 
-        // Rules the libraries themselves recommend not using /shrug
+        // Rules the libraries themselves recommend not using. /shrug
         "@typescript-eslint/lines-between-class-members": "off"
       }
     },
