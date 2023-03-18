@@ -1,6 +1,6 @@
 {
   "name": "@s-libs/ng-core",
-  "version": "15.1.0",
+  "version": "15.2.0",
   "author": "Simonton Software",
   "license": "MIT",
   "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-core",
@@ -12,9 +12,9 @@
   "peerDependencies": {
     "@angular/common": "^15.0.0",
     "@angular/core": "^15.0.0",
-    "@s-libs/js-core": "^15.1.0",
-    "@s-libs/micro-dash": "^15.1.0",
-    "@s-libs/rxjs-core": "^15.1.0"
+    "@s-libs/js-core": "^15.2.0",
+    "@s-libs/micro-dash": "^15.2.0",
+    "@s-libs/rxjs-core": "^15.2.0"
   },
   "dependencies": { "tslib": "^2.3.0" }
 }

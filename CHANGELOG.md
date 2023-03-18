@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.2.0](https://github.com/simontonsoftware/s-libs/compare/v15.1.0...v15.2.0) (2023-03-18)
+
+### Features
+
+- **ng-core:** add `LazyLoader` ([d157ec6](https://github.com/simontonsoftware/s-libs/commit/d157ec652ab04d0d96d887fac1ecf8e60ad2020d))
+- **ng-dev:** `ComponentContext` supports standalone components ([92eae17](https://github.com/simontonsoftware/s-libs/commit/92eae17461ef40a8a896b44307329c91bd2c8319))
+- **ng-mat-core:** `SlDialogService` is now provided in `SlDialogModule` instead of root, to be more friendly for lazy loading. ([6450155](https://github.com/simontonsoftware/s-libs/commit/64501557e7eb146cd4263ae4988a684dc427ce80))
+
+### Bug Fixes
+
+- **ng-dev:** `AngularContext` cleans up after itself even better in error situations, to avoid all future tests failing "There is already another AngularContext in use (or it was not cleaned up)" ([f208815](https://github.com/simontonsoftware/s-libs/commit/f20881586a7981a5f51a33cc83e5e54095518008))
+- **ng-mat-core:** support "fab" and "icon-button" when specifying specific modules to theme ([0b6bc02](https://github.com/simontonsoftware/s-libs/commit/0b6bc02b3c8dcae0a83c6aa60f019f74f4ce42c3))
+
 ## [15.1.0](https://github.com/simontonsoftware/s-libs/compare/v15.0.0...v15.1.0) (2023-01-16)
 
 ### Features
