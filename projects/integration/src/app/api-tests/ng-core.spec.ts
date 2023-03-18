@@ -2,7 +2,9 @@ import {
   DirectiveSuperclass,
   FormComponentSuperclass,
   InjectableSuperclass,
+  LazyLoader,
   mixInInjectableSuperclass,
+  provideEagerLoading,
   provideValueAccessor,
   WrappedControlSuperclass,
   WrappedFormControlSuperclass,
@@ -15,6 +17,10 @@ describe('ng-core', () => {
 
   it('has FormComponentSuperclass', () => {
     expect(FormComponentSuperclass).toBeDefined();
+  });
+
+  it('has LazyLoader', () => {
+    expect(LazyLoader).toBeDefined();
   });
 
   it('has InjectableSuperclass', () => {
@@ -31,6 +37,10 @@ describe('ng-core', () => {
 
   it('has mixInInjectableSuperclass', () => {
     expect(mixInInjectableSuperclass).toBeDefined();
+  });
+
+  it('has provideEagerLoading', () => {
+    expect(provideEagerLoading).toBeDefined();
   });
 
   it('has provideValueAccessor', () => {
