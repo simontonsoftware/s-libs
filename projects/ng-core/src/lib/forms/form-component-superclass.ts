@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, inject } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { noop } from '@s-libs/micro-dash';
-import { DirectiveSuperclass } from './directive-superclass';
+import { DirectiveSuperclass } from '../directive-superclass';
 
 /**
  * Extend this when creating a form control to reduce some boilerplate.

@@ -12,8 +12,8 @@ import {
   provideValueAccessor,
   WrappedControlSuperclass,
   WrappedFormControlSuperclass,
-} from '../public-api';
-import { find, findDirective, setValue } from '../test-helpers';
+} from '../../public-api';
+import { find, findDirective, setValue } from '../../test-helpers';
 
 abstract class AbstractValidatingComponent extends WrappedControlSuperclass<string> {
   syncError = false;

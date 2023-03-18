@@ -25,10 +25,10 @@ import {
   findButton,
   findDirective,
   setValue,
-} from '../test-helpers';
-import { DirectiveSuperclass } from './directive-superclass';
+} from '../../test-helpers';
+import { DirectiveSuperclass } from '../directive-superclass';
 import { FormComponentSuperclass } from './form-component-superclass';
-import { InjectableSuperclass } from './injectable-superclass';
+import { InjectableSuperclass } from '../injectable-superclass';
 import { provideValueAccessor } from './provide-value-accessor';
 import { WrappedControlSuperclass } from './wrapped-control-superclass';
 import { WrappedFormControlSuperclass } from './wrapped-form-control-superclass';
