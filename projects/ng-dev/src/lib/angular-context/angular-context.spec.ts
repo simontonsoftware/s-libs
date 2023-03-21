@@ -7,6 +7,7 @@ import {
   ComponentFactoryResolver,
   DoCheck,
   ErrorHandler,
+  inject,
   Injectable,
   InjectionToken,
   Injector,
@@ -127,6 +128,13 @@ describe('AngularContext', () => {
         ctx.tick(500);
       });
       expect(completed).toBeTrue();
+    });
+
+    it('sets an injector context', () => {
+      const token = new InjectionToken('', { factory: (): string => 'value' });
+      new AngularContext().run(() => {
+        expect(inject(token)).toBe('value');
+      });
     });
 
     it('does not swallow errors (production bug)', () => {
