@@ -5,6 +5,6 @@ To quickly see what is available, see the [api documentation](https://simontonso
 ## Installation
 
 ```
-yarn add @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash @angular/cdk
-yarn add -D @s-libs/ng-dev
+npm install @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash @angular/cdk
+npm install --save-dev @s-libs/ng-dev
 ```

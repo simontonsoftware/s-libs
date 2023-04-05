@@ -5,11 +5,7 @@ Painlessly integrate [`app-state`](https://github.com/simontonsoftware/s-libs/pr
 Install along with its peer dependencies using:
 
 ```shell script
-npm install --save @s-libs/ng-app-state @s-libs/app-state @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
-
-# OR
-
-yarn add @s-libs/ng-app-state @s-libs/app-state @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
+npm install @s-libs/ng-app-state @s-libs/app-state @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
 ```
 
 ## Setup

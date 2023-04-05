@@ -7,7 +7,7 @@ This library provides some default config you can use for ESLint in an Angular p
 # Installation
 
 1. First install [Angular ESLint](https://github.com/angular-eslint/angular-eslint), following their instructions for your situation. Make sure it is working with their default config.
-1. `yarn add -D @s-libs/eslint-config-ng`
+1. `npm install --save-dev @s-libs/eslint-config-ng`
 1. Change `.eslintrc.json` in your root directory to this, and make adjustments to suit your needs:
 
    ```json

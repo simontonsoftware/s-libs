@@ -25,11 +25,7 @@ A basic idea behind this library is to keep all the state of your app in one pla
 Install along with its peer dependencies using:
 
 ```shell script
-npm install --save @s-libs/app-state @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
-
-# OR
-
-yarn add @s-libs/app-state @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
+npm install @s-libs/app-state @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
 ```
 
 ## Setup

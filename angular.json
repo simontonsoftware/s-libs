@@ -5,7 +5,6 @@
     "analytics": "d2657102-efac-4510-9c45-87ca8fcdb63c",
     "cache": { "environment": "all" },
     "defaultCollection": "@angular-eslint/schematics",
-    "packageManager": "yarn",
     "schematicCollections": ["@angular-eslint/schematics"]
   },
   "newProjectRoot": "projects",
