@@ -17,6 +17,7 @@ export function mixInSubscriptionManager<B extends Constructor>(Base: B) {
   return class extends Base implements Unsubscribable {
     #subscriptions = new Subscription();
 
+    // eslint-disable-next-line max-params
     subscribeTo<T>(
       observable: Observable<T>,
       next?: (value: T) => void,

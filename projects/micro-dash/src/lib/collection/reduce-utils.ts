@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-params
 export function doReduce(
   iterationFn: Function,
   collection: any,
