@@ -13,7 +13,7 @@ So you want to contribute to Micro-dash? That's great! This guide shows everythi
    1. Search for everywhere the function is tested in [Lodash's test suite](https://raw.githubusercontent.com/lodash/lodash/4.17.10/test/test.js), and create equivalent tests in Micro-dash for the ones that apply.
       - The tests are written a very different style - compare with existing Micro-dash tests to get a feel for it.
       - If there are similar functions already in Micro-dash, use their spec as a guide. Sometimes many tests can copied from that function with only small tweaks.
-   1. Run the tests with `npm run test micro-dash`.
+   1. Run the tests with `npm run test -- micro-dash`.
 1. **Calculate the sizes.**
    1. Create 2 files:
       1. `projects/micro-dash-sizes/src/app/<category>/<function-name>.lodash.ts`

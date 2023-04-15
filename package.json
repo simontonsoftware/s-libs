@@ -8,12 +8,12 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "build-libs": "npm run ts-node scripts/build-libs",
+    "build-libs": "npm run ts-node -- scripts/build-libs",
     "dtslint": "dtslint --expectOnly --localTs node_modules/typescript/lib",
     "prettier-all": "prettier --write \"**/*.{html,js,json,md,scss,ts,yml}\"",
-    "docs": "npm run ts-node scripts/docs-libs",
+    "docs": "npm run ts-node -- scripts/docs-libs",
     "git-publish": "standard-version --commit-all",
-    "npm-publish": "npm run ts-node scripts/publish-libs",
+    "npm-publish": "npm run ts-node -- scripts/publish-libs",
     "calc-micro-dash-sizes": "cd projects/micro-dash-sizes && ts-node --project tsconfig.app.json -O \"{ \\\"module\\\": \\\"CommonJS\\\" }\" calc-sizes",
     "ts-node": "ts-node --project scripts/tsconfig.json"
   },
@@ -117,7 +117,7 @@
       }
     ],
     "scripts": {
-      "postbump": "npm run ts-node scripts/bump-peer-dependencies",
+      "postbump": "npm run ts-node -- scripts/bump-peer-dependencies",
       "postchangelog": "prettier --write CHANGELOG.md"
     }
   }
