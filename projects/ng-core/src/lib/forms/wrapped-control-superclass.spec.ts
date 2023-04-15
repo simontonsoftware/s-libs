@@ -10,7 +10,6 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  UntypedFormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
@@ -27,11 +26,10 @@ import {
   setValue,
 } from '../../test-helpers';
 import { DirectiveSuperclass } from '../directive-superclass';
-import { FormComponentSuperclass } from './form-component-superclass';
 import { InjectableSuperclass } from '../injectable-superclass';
+import { FormComponentSuperclass } from './form-component-superclass';
 import { provideValueAccessor } from './provide-value-accessor';
 import { WrappedControlSuperclass } from './wrapped-control-superclass';
-import { WrappedFormControlSuperclass } from './wrapped-form-control-superclass';
 
 describe('WrappedControlSuperclass', () => {
   it('adds ng-touched to the inner form control at the right time', () => {
@@ -49,62 +47,6 @@ describe('WrappedControlSuperclass', () => {
       ctx.tick();
 
       expect(debugElement.classes['ng-touched']).toBe(true);
-    });
-  });
-
-  // https://github.com/simontonsoftware/s-libs/pull/52
-  it('can wrap a form group', () => {
-    class FullName {
-      firstName = '';
-      lastName = '';
-    }
-
-    @Component({
-      selector: 'sl-full-name',
-      template: `
-        <div [formGroup]="control">
-          <input id="first" formControlName="firstName" />
-          <input id="last" formControlName="lastName" />
-        </div>
-      `,
-      providers: [provideValueAccessor(FullNameComponent)],
-    })
-    class FullNameComponent extends WrappedControlSuperclass<FullName> {
-      override control = new UntypedFormGroup({
-        firstName: new FormControl(),
-        lastName: new FormControl(),
-      });
-
-      protected override outerToInnerValue(outer: FullName | null): FullName {
-        // `outer` can come in as `null` during initialization when the user binds with `ngModel`
-        return outer ?? new FullName();
-      }
-    }
-
-    @Component({
-      template: `
-        <sl-full-name [ngModel]="fullName" [disabled]="disabled"></sl-full-name>
-      `,
-    })
-    class FormComponent {
-      @Input() disabled = false;
-      fullName = { firstName: 'Krick', lastName: 'Ray' };
-    }
-
-    const ctx = new ComponentContext(FormComponent, {
-      imports: [FormsModule, ReactiveFormsModule],
-      declarations: [FullNameComponent],
-    });
-    ctx.run(async () => {
-      const inputs = document.querySelectorAll('input');
-      expect(inputs[0].value).toBe('Krick');
-      expect(inputs[1].value).toBe('Ray');
-
-      expect(inputs[0].disabled).toBe(false);
-      expect(inputs[1].disabled).toBe(false);
-      ctx.assignInputs({ disabled: true });
-      expect(inputs[0].disabled).toBe(true);
-      expect(inputs[1].disabled).toBe(true);
     });
   });
 
@@ -266,7 +208,9 @@ describe('WrappedControlSuperclass', () => {
         template: `<input [formControl]="control" maxlength="2" />`,
         providers: [provideValueAccessor(InnerComponent)],
       })
-      class InnerComponent extends WrappedFormControlSuperclass<string> {
+      class InnerComponent extends WrappedControlSuperclass<string | null> {
+        control = new FormControl('');
+
         // this is an example in the docs
         protected override outerToInnerErrors(
           errors: ValidationErrors,
@@ -284,7 +228,9 @@ describe('WrappedControlSuperclass', () => {
       @Component({
         template: `<sl-inner [formControl]="control" required></sl-inner>`,
       })
-      class OuterComponent extends WrappedFormControlSuperclass<string> {}
+      class OuterComponent extends WrappedControlSuperclass<string | null> {
+        control = new FormControl('');
+      }
 
       const ctx = new ComponentContext(OuterComponent, {
         imports: [ReactiveFormsModule],
@@ -310,7 +256,9 @@ describe('WrappedControlSuperclass', () => {
         template: `<input [formControl]="control" required />`,
         providers: [provideValueAccessor(InnerComponent)],
       })
-      class InnerComponent extends WrappedFormControlSuperclass<string> {
+      class InnerComponent extends WrappedControlSuperclass<string | null> {
+        control = new FormControl('');
+
         // this is an example in the docs
         protected override setUpInnerToOuterErrors$(): Observable<ValidationErrors> {
           return EMPTY;
@@ -320,7 +268,9 @@ describe('WrappedControlSuperclass', () => {
       @Component({
         template: `<sl-inner [formControl]="control"></sl-inner>`,
       })
-      class OuterComponent extends WrappedFormControlSuperclass<string> {}
+      class OuterComponent extends WrappedControlSuperclass<string | null> {
+        control = new FormControl('');
+      }
 
       const ctx = new ComponentContext(OuterComponent, {
         imports: [ReactiveFormsModule],
@@ -339,14 +289,18 @@ describe('WrappedControlSuperclass', () => {
           template: `<input [formControl]="control" />`,
           providers: [provideValueAccessor(InnerComponent)],
         })
-        class InnerComponent extends WrappedFormControlSuperclass<string> {}
+        class InnerComponent extends WrappedControlSuperclass<string | null> {
+          control = new FormControl('');
+        }
 
         @Component({
           selector: `sl-middle`,
           template: `<sl-inner></sl-inner>`,
           providers: [provideValueAccessor(MiddleComponent)],
         })
-        class MiddleComponent extends WrappedFormControlSuperclass<string> {}
+        class MiddleComponent extends WrappedControlSuperclass<string | null> {
+          control = new FormControl('');
+        }
 
         @Component({ template: `<sl-middle ngModel required></sl-middle>` })
         class OuterComponent {}
@@ -369,7 +323,9 @@ describe('WrappedControlSuperclass', () => {
           template: `<input [formControl]="control" />`,
           providers: [provideValueAccessor(InnerComponent)],
         })
-        class InnerComponent extends WrappedFormControlSuperclass<string> {}
+        class InnerComponent extends WrappedControlSuperclass<string | null> {
+          control = new FormControl('');
+        }
 
         @Component({
           template: `
@@ -409,6 +365,154 @@ describe('WrappedControlSuperclass', () => {
       });
     });
   });
+
+  describe('doc example', () => {
+    it('works for the simple one', () => {
+      // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv begin example
+      @Component({
+        template: `<input [formControl]="control" />`,
+        providers: [provideValueAccessor(StringComponent)],
+      })
+      class StringComponent extends WrappedControlSuperclass<string | null> {
+        control = new FormControl('');
+      }
+      // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ end example
+
+      const ctx = new ComponentContext(StringComponent, {
+        imports: [ReactiveFormsModule],
+      });
+      ctx.run(async () => {
+        const input = find<HTMLInputElement>(ctx.fixture, 'input');
+        setValue(input, 'hi');
+        expect(ctx.getComponentInstance().control.value).toBe('hi');
+      });
+    });
+
+    it('works for the multiple inner components one', () => {
+      // The idea for being able to wrap a form group came from github user A77AY: https://github.com/simontonsoftware/s-libs/pull/52
+
+      // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv begin example
+      class FullName {
+        firstName = '';
+        lastName = '';
+      }
+
+      @Component({
+        selector: 'sl-full-name',
+        template: `
+          <div [formGroup]="control">
+            <input id="first" formControlName="firstName" />
+            <input id="last" formControlName="lastName" />
+          </div>
+        `,
+        providers: [provideValueAccessor(FullNameComponent)],
+      })
+      class FullNameComponent extends WrappedControlSuperclass<
+        FullName | null,
+        Partial<FullName>
+      > {
+        control = new FormGroup({
+          firstName: new FormControl('', { nonNullable: true }),
+          lastName: new FormControl('', { nonNullable: true }),
+        });
+
+        protected override outerToInnerValue(outer: FullName | null): FullName {
+          // `formControlName` binding can't handle a null value
+          return outer ?? new FullName();
+        }
+
+        protected override innerToOuterValue(
+          inner: Partial<FullName>,
+        ): FullName {
+          // the values in a `FormGroup` can be `undefined` when their corresponding controls are disabled
+          return {
+            firstName: inner.firstName ?? '',
+            lastName: inner.lastName ?? '',
+          };
+        }
+      }
+      // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ end example
+
+      @Component({
+        template: `
+          <sl-full-name
+            [ngModel]="fullName"
+            [disabled]="disabled"
+          ></sl-full-name>
+        `,
+      })
+      class TestComponent {
+        @Input() disabled = false;
+        fullName = { firstName: 'Rinat', lastName: 'Arsaev' };
+      }
+
+      const ctx = new ComponentContext(TestComponent, {
+        imports: [FormsModule, ReactiveFormsModule],
+        declarations: [FullNameComponent],
+      });
+      ctx.run(async () => {
+        const inputs = document.querySelectorAll('input');
+        expect(inputs[0].value).toBe('Rinat');
+        expect(inputs[1].value).toBe('Arsaev');
+
+        expect(inputs[0].disabled).toBe(false);
+        expect(inputs[1].disabled).toBe(false);
+        ctx.assignInputs({ disabled: true });
+        expect(inputs[0].disabled).toBe(true);
+        expect(inputs[1].disabled).toBe(true);
+      });
+    });
+
+    it('works for the one that modifies the value', () => {
+      // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv begin example
+      @Component({
+        selector: 'sl-date',
+        template: `<input type="datetime-local" [formControl]="control" />`,
+        providers: [provideValueAccessor(DateComponent)],
+      })
+      class DateComponent extends WrappedControlSuperclass<
+        Date | null,
+        string | null
+      > {
+        control = new FormControl<string | null>(null);
+
+        protected override innerToOuterValue(
+          inner: string | null,
+        ): Date | null {
+          return inner ? new Date(`${inner}Z`) : null;
+        }
+
+        protected override outerToInnerValue(
+          outer: Date | null,
+        ): string | null {
+          return outer ? outer.toISOString().substring(0, 16) : null;
+        }
+      }
+      // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ end example
+
+      @Component({ template: `<sl-date [(ngModel)]="date"></sl-date>` })
+      class TestComponent {
+        date = new Date();
+      }
+
+      const ctx = new ComponentContext(TestComponent, {
+        imports: [FormsModule, ReactiveFormsModule],
+        declarations: [DateComponent],
+      });
+      ctx.run(async () => {
+        const input = find<HTMLInputElement>(ctx.fixture, 'input');
+
+        ctx.getComponentInstance().date = new Date('2018-09-03T21:00Z');
+        ctx.tick();
+        expect(input.value).toBe('2018-09-03T21:00');
+
+        setValue(input, '1980-11-04T10:00');
+        expect(ctx.getComponentInstance().date).toEqual(
+          new Date('1980-11-04T10:00Z'),
+        );
+      });
+    });
+  });
 });
 
 describe('WrappedControlSuperclass tests using an old style fixture', () => {
@@ -422,14 +526,11 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
       ></sl-string-component>
       <div *ngIf="stringControl.touched">Touched!</div>
       <button (click)="shouldDisable = !shouldDisable">Toggle Disabled</button>
-      <hr />
-      <sl-date-component [(ngModel)]="date"></sl-date-component>
     `,
   })
   class TestComponent {
     emissions = 0;
     string = '';
-    date = new Date();
     shouldDisable = false;
   }
 
@@ -443,33 +544,11 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
     control = new FormControl();
   }
 
-  @Component({
-    selector: `sl-date-component`,
-    template: ` <input type="datetime-local" [formControl]="control" /> `,
-    providers: [provideValueAccessor(DateComponent)],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-  })
-  class DateComponent extends WrappedControlSuperclass<Date, string> {
-    control = new FormControl();
-
-    protected override innerToOuterValue(value: string): Date {
-      return new Date(`${value}Z`);
-    }
-
-    protected override outerToInnerValue(value: Date): string {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- happens during initialization
-      if (value === null) {
-        return '';
-      }
-      return value.toISOString().substr(0, 16);
-    }
-  }
-
   class TestComponentContext extends ComponentContext<TestComponent> {
     constructor() {
       super(TestComponent, {
         imports: [FormsModule, ReactiveFormsModule],
-        declarations: [DateComponent, StringComponent],
+        declarations: [StringComponent],
       });
     }
   }
@@ -481,10 +560,6 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
 
   function stringInput(): HTMLInputElement {
     return find<HTMLInputElement>(ctx.fixture, 'sl-string-component input');
-  }
-
-  function dateInput(): HTMLInputElement {
-    return find<HTMLInputElement>(ctx.fixture, 'sl-date-component input');
   }
 
   function toggleDisabledButton(): HTMLButtonElement {
@@ -499,19 +574,6 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
 
       setValue(stringInput(), 'edited value');
       expect(ctx.getComponentInstance().string).toBe('edited value');
-    });
-  });
-
-  it('can translate between inner and outer values', () => {
-    ctx.run(() => {
-      ctx.getComponentInstance().date = new Date('2018-09-03T21:00Z');
-      ctx.tick();
-      expect(dateInput().value).toBe('2018-09-03T21:00');
-
-      setValue(dateInput(), '1980-11-04T10:00');
-      expect(ctx.getComponentInstance().date).toEqual(
-        new Date('1980-11-04T10:00Z'),
-      );
     });
   });
 

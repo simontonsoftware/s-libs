@@ -23,13 +23,42 @@ import { FormComponentSuperclass } from './form-component-superclass';
 /**
  * Extend this when creating a form component that simply wraps existing ones, to reduce a lot of boilerplate.
  *
- * To wrap a single form control use the subclass {@linkcode WrappedFormControlSuperclass}:
+ * The most common case is to use a simple {@linkcode FormControl}:
  * ```ts
  * @Component({
- *   template: `<input [formControl]="control">`,
+ *   template: `<input [formControl]="control" />`,
  *   providers: [provideValueAccessor(StringComponent)],
  * })
- * class StringComponent extends WrappedFormControlSuperclass<string> {}
+ * class StringComponent extends WrappedControlSuperclass<string | null> {
+ *   control = new FormControl('');
+ * }
+ * ```
+ *
+ * Example when you need to modify the wrapped control's value:
+ * ```ts
+ * @Component({
+ *   selector: 'sl-date',
+ *   template: `<input type="datetime-local" [formControl]="control" />`,
+ *   providers: [provideValueAccessor(DateComponent)],
+ * })
+ * class DateComponent extends WrappedControlSuperclass<
+ *   Date | null,
+ *   string | null
+ * > {
+ *   control = new FormControl<string | null>(null);
+ *
+ *   protected override innerToOuterValue(
+ *     inner: string | null,
+ *   ): Date | null {
+ *     return inner ? new Date(`${inner}Z`) : null;
+ *   }
+ *
+ *   protected override outerToInnerValue(
+ *     outer: Date | null,
+ *   ): string | null {
+ *     return outer ? outer.toISOString().substring(0, 16) : null;
+ *   }
+ * }
  * ```
  *
  * Example of wrapping multiple inner components:
@@ -40,7 +69,7 @@ import { FormComponentSuperclass } from './form-component-superclass';
  * }
  *
  * @Component({
- *   selector: 'app-full-name',
+ *   selector: 'sl-full-name',
  *   template: `
  *     <div [formGroup]="control">
  *       <input id="first" formControlName="firstName" />
@@ -49,35 +78,28 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *   `,
  *   providers: [provideValueAccessor(FullNameComponent)],
  * })
- * class FullNameComponent extends WrappedControlSuperclass<FullName> {
+ * class FullNameComponent extends WrappedControlSuperclass<
+ *   FullName | null,
+ *   Partial<FullName>
+ * > {
  *   control = new FormGroup({
- *     firstName: new FormControl(),
- *     lastName: new FormControl(),
+ *     firstName: new FormControl('', { nonNullable: true }),
+ *     lastName: new FormControl('', { nonNullable: true }),
  *   });
  *
- *   protected outerToInnerValue(outer: FullName | null): FullName {
- *     // `outer` can come in as `null` during initialization when the user binds with `ngModel`
- *     return outer || new FullName();
- *   }
- * }
- * ```
- *
- * Example when you need to modify the wrapped control's value:
- * ```ts
- * @Component({
- *   template: `<input type="datetime-local" [control]="formControl">`,
- *   providers: [provideValueAccessor(DateComponent)],
- * })
- * class DateComponent extends WrappedFormControlSuperclass<Date, string> {
- *   protected innerToOuterValue(inner: string): Date {
- *     return new Date(inner + "Z");
+ *   protected override outerToInnerValue(outer: FullName | null): FullName {
+ *     // `formControlName` binding can't handle a null value
+ *     return outer ?? new FullName();
  *   }
  *
- *   protected outerToInnerValue(outer: Date): string {
- *     if (outer === null) {
- *       return ""; // happens during initialization
- *     }
- *     return outer.toISOString().substr(0, 16);
+ *   protected override innerToOuterValue(
+ *     inner: Partial<FullName>,
+ *   ): FullName {
+ *     // the values in a `FormGroup` can be `undefined` when their corresponding controls are disabled
+ *     return {
+ *       firstName: inner.firstName ?? '',
+ *       lastName: inner.lastName ?? '',
+ *     };
  *   }
  * }
  * ```
@@ -94,7 +116,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   #errorHandler = inject(ErrorHandler);
 
   /** Bind this to your inner form control to make all the magic happen. */
-  abstract control: AbstractControl;
+  abstract control: AbstractControl<InnerType>;
 
   constructor() {
     super();

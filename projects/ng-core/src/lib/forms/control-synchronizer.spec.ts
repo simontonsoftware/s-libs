@@ -11,13 +11,15 @@ import { delayWhen, Observable, Subject } from 'rxjs';
 import {
   provideValueAccessor,
   WrappedControlSuperclass,
-  WrappedFormControlSuperclass,
 } from '../../public-api';
 import { find, findDirective, setValue } from '../../test-helpers';
 
-abstract class AbstractValidatingComponent extends WrappedControlSuperclass<string> {
+abstract class AbstractValidatingComponent extends WrappedControlSuperclass<
+  string,
+  string | null
+> {
   syncError = false;
-  control = new FormControl(undefined, () =>
+  control = new FormControl<string | null>(null, () =>
     this.#makeError(this.syncError, 'Sync'),
   );
   failOnNeedlessAsync = false;
@@ -303,7 +305,9 @@ describe('ControlSynchronizer', () => {
       template: `<input [formControl]="control" />`,
       providers: [provideValueAccessor(InnerComponent)],
     })
-    class InnerComponent extends WrappedFormControlSuperclass<string> {
+    class InnerComponent extends WrappedControlSuperclass<string | null> {
+      control = new FormControl('');
+
       protected override outerToInnerErrors(
         errors: ValidationErrors,
       ): ValidationErrors {
@@ -317,8 +321,9 @@ describe('ControlSynchronizer', () => {
         <sl-inner *ngIf="showInner" [formControl]="control"></sl-inner>
       `,
     })
-    class OuterComponent extends WrappedFormControlSuperclass<string> {
+    class OuterComponent extends WrappedControlSuperclass<string | null> {
       @Input() showInner!: boolean;
+      control = new FormControl('');
     }
 
     const ctx = new ComponentContext(OuterComponent, {
