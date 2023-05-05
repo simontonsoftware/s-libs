@@ -3,8 +3,7 @@ import { expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
 import { skip, take } from 'rxjs/operators';
 import { InnerState, TestState } from '../test-helpers/test-state';
-import { RootStore } from './root-store';
-import { Store } from './store';
+import { RootStore, Store } from './index';
 
 describe('Store', () => {
   let store: RootStore<TestState>;

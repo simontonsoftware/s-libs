@@ -249,11 +249,11 @@ describe('omitBy()', () => {
       const sOrN = s as S | null;
 
       expectTypeOf(omitBy(s, keyIsString)).toEqualTypeOf<{}>();
-      expectTypeOf(omitBy(sOrU, keyIsString)).toEqualTypeOf<{} | {}>();
-      expectTypeOf(omitBy(sOrN, keyIsString)).toEqualTypeOf<{} | {}>();
+      expectTypeOf(omitBy(sOrU, keyIsString)).toEqualTypeOf<{}>();
+      expectTypeOf(omitBy(sOrN, keyIsString)).toEqualTypeOf<{}>();
       expectTypeOf(omitBy(o, keyIsString)).toEqualTypeOf<{}>();
-      expectTypeOf(omitBy(oOrU, keyIsString)).toEqualTypeOf<{} | {}>();
-      expectTypeOf(omitBy(oOrN, keyIsString)).toEqualTypeOf<{} | {}>();
+      expectTypeOf(omitBy(oOrU, keyIsString)).toEqualTypeOf<{}>();
+      expectTypeOf(omitBy(oOrN, keyIsString)).toEqualTypeOf<{}>();
 
       expectTypeOf(omitBy(s, keyIsNumber)).toEqualTypeOf<{
         a: number;

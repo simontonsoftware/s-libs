@@ -1,10 +1,11 @@
+import { buildChild } from './child-store';
 import { Store } from './index';
 
 export class RootStore<T extends object> extends Store<T> {
   private batchCount = 0;
 
   constructor(state: T) {
-    super(() => this);
+    super(() => this, buildChild);
     this.set(state);
   }
 

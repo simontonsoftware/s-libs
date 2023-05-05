@@ -9,10 +9,11 @@ type ErrorTransform = MonoTypeOperatorFunction<ValidationErrors>;
 
 export class ControlSynchronizer {
   #errorsFromPartner: ValidationErrors = {};
-  #originalSetErrors = this.control.setErrors.bind(this.control);
+  #originalSetErrors: AbstractControl['setErrors'];
   #finishingAsync = false;
 
   private constructor(private control: AbstractControl) {
+    this.#originalSetErrors = this.control.setErrors.bind(this.control);
     wrapMethod(control, 'updateValueAndValidity', {
       around: (original, ...args) => {
         // when finishing async validators we instructed our partner to re-run its own validators. That could in turn try to re-trigger ours, dropping the errors we just set, putting us into a pending state, and re-triggering our own async validators that just completed.

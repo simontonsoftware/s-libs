@@ -1,6 +1,6 @@
 import { noop } from '@s-libs/micro-dash';
 import { InnerState, TestState } from '../test-helpers/test-state';
-import { RootStore } from './root-store';
+import { RootStore } from './index';
 
 describe('RootStore', () => {
   let store: RootStore<TestState>;

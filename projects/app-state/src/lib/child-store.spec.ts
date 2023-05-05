@@ -1,5 +1,5 @@
 import { InnerState, TestState } from '../test-helpers/test-state';
-import { RootStore } from './root-store';
+import { RootStore } from './index';
 
 describe('ChildStore', () => {
   let store: RootStore<TestState>;

@@ -10,6 +10,12 @@
         "prettier"
       ],
       "rules": {
+        // Not sure what's going on here. Docs say these options are default, but it's not behaving that way.
+        "max-lines": [
+          "error",
+          { "skipBlankLines": true, "skipComments": true }
+        ],
+
         // Better compatibility with Angular
         "@typescript-eslint/no-extraneous-class": [
           "error",

@@ -35,9 +35,9 @@ abstract class AbstractValidatingComponent extends WrappedControlSuperclass<
     if (doAsyncValidation) {
       this.control.addAsyncValidators(
         async (): Promise<ValidationErrors | null> => {
-          console.log(this.tag, 'starting async validator');
+          // console.log(this.tag, 'starting async validator');
           if (this.#deferred) {
-            console.warn('async starting before last finished');
+            // console.warn('async starting before last finished');
             expect(this.failOnNeedlessAsync).toBe(false);
           }
           this.#deferred = new Deferred();
@@ -48,7 +48,7 @@ abstract class AbstractValidatingComponent extends WrappedControlSuperclass<
   }
 
   flushAsyncWith(error: boolean): void {
-    console.log(this.tag, 'resolving', { error });
+    // console.log(this.tag, 'resolving', { error });
     assert(this.#deferred, `${this.tag} has no pending validation to flush`);
     this.#deferred.resolve(this.#makeError(error, 'Async'));
     this.#deferred = undefined;
@@ -57,12 +57,12 @@ abstract class AbstractValidatingComponent extends WrappedControlSuperclass<
 
   #makeError(error: boolean, suffix: string): ValidationErrors | null {
     if (error) {
-      console.log(this.tag, suffix, 'validating with', {
-        [this.tag + suffix]: true,
-      });
+      // console.log(this.tag, suffix, 'validating with', {
+      //   [this.tag + suffix]: true,
+      // });
       return { [this.tag + suffix]: true };
     } else {
-      console.log(this.tag, suffix, 'validating with null');
+      // console.log(this.tag, suffix, 'validating with null');
       return null;
     }
   }
@@ -179,21 +179,21 @@ describe('ControlSynchronizer', () => {
       expect(inner.control.errors).toEqual({ innerAsync: true });
       expect(outer.control.errors).toEqual({ innerAsync: true });
 
-      console.log('------------------------------------- outer on, inner off');
+      // console.log('------------------------------------- outer on, inner off');
       setValue(input, '2');
       inner.flushAsyncWith(false);
       outer.flushAsyncWith(true);
       expect(inner.control.errors).toEqual({ outerAsync: true });
       expect(outer.control.errors).toEqual({ outerAsync: true });
 
-      console.log('----------------------------------------------- outer off');
+      // console.log('----------------------------------------------- outer off');
       setValue(input, '3');
       outer.flushAsyncWith(false);
       inner.flushAsyncWith(false);
       expect(inner.control.errors).toBe(null);
       expect(outer.control.errors).toBe(null);
 
-      console.log('------------------------------------------------ outer on');
+      // console.log('------------------------------------------------ outer on');
       setValue(input, '4');
       inner.flushAsyncWith(false);
       outer.flushAsyncWith(true);
@@ -201,7 +201,7 @@ describe('ControlSynchronizer', () => {
       expect(outer.control.errors).toEqual({ outerAsync: true });
 
       // bug during dev
-      console.log('------------------------------------- outer off, inner on');
+      // console.log('------------------------------------- outer off, inner on');
       setValue(input, '5');
       outer.flushAsyncWith(false);
       inner.flushAsyncWith(true);

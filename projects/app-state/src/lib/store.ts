@@ -1,6 +1,7 @@
 import { CallableObject } from '@s-libs/js-core';
 import { clone, every, isUndefined } from '@s-libs/micro-dash';
 import { Observable, Subscriber } from 'rxjs';
+import { buildChild } from './child-store';
 import { ChildStore, RootStore } from './index';
 
 /* eslint-disable @typescript-eslint/no-unsafe-return,@typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-unsafe-declaration-merging */
@@ -35,11 +36,14 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
 
   private lastKnownStateChanged = false;
 
-  constructor(public getRootStore: () => RootStore<object>) {
+  constructor(
+    public getRootStore: () => RootStore<object>,
+    makeChild: typeof buildChild,
+  ) {
     super(
       (childKey: any) =>
         this.activeChildren.get(childKey)?.values().next()?.value ??
-        new ChildStore(getRootStore, this, childKey),
+        makeChild(getRootStore, this, childKey),
     );
   }
 
@@ -55,7 +59,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
       if (every(value, (innerValue, key) => state[key] === innerValue)) {
         return state;
       } else {
-      return { ...state, ...(value as any) };
+        return { ...state, ...(value as any) };
       }
     });
   }

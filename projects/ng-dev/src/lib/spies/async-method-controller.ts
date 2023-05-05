@@ -162,6 +162,7 @@ export class AsyncMethodController<
   #ensureCallInfoIsSet(): void {
     for (let i = 1; i <= this.#testCalls.length; ++i) {
       const testCall = nth(this.#testCalls, -i);
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- we don't set typing to show that `callInfo` can be undefined because this is part of "initialization"
       testCall.callInfo ??= nth(this.#spy.calls.all(), -i);
     }
   }

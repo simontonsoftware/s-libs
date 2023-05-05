@@ -1,7 +1,7 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { isEqual } from '@s-libs/micro-dash';
 import { expectSingleCallAndReset } from '@s-libs/ng-dev';
-import { RootStore } from '../root-store';
+import { RootStore } from '../index';
 import { UndoManager, UndoOrRedo } from './undo-manager';
 
 class State {
@@ -669,7 +669,7 @@ describe('UndoManager', () => {
             --numToDrop;
             return true;
           } else {
-          return false;
+            return false;
           }
         }
       })();

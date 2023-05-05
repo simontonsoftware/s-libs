@@ -225,21 +225,6 @@ export class AngularContext {
     this.runChangeDetection();
   }
 
-  #runWithMockedTime(test: VoidFunction): void {
-    // https://github.com/angular/angular/issues/31677#issuecomment-573139551
-    const { now } = performance;
-    spyOn(performance, 'now').and.callFake(() => Date.now());
-
-    jasmine.clock().install();
-    fakeAsync(() => {
-      jasmine.clock().mockDate(this.startTime);
-      this.inject(EnvironmentInjector).runInContext(test);
-    })();
-    jasmine.clock().uninstall();
-
-    performance.now = now;
-  }
-
   /**
    * This is a hook for subclasses to override. It is called during `run()`, before the `test()` callback. This implementation does nothing, but if you override this it is still recommended to call `super.init()` in case this implementation does something in the future.
    */
@@ -264,5 +249,20 @@ export class AngularContext {
   protected cleanUp(): void {
     discardPeriodicTasks();
     flush();
+  }
+
+  #runWithMockedTime(test: VoidFunction): void {
+    // https://github.com/angular/angular/issues/31677#issuecomment-573139551
+    const { now } = performance;
+    spyOn(performance, 'now').and.callFake(() => Date.now());
+
+    jasmine.clock().install();
+    fakeAsync(() => {
+      jasmine.clock().mockDate(this.startTime);
+      this.inject(EnvironmentInjector).runInContext(test);
+    })();
+    jasmine.clock().uninstall();
+
+    performance.now = now;
   }
 }

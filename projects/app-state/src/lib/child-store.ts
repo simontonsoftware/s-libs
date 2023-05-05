@@ -3,13 +3,21 @@ import { RootStore, Store } from './index';
 
 /* eslint-disable @typescript-eslint/no-unsafe-return,@typescript-eslint/explicit-module-boundary-types */
 
+export function buildChild(
+  getRootStore: () => RootStore<object>,
+  parent: Store<any>,
+  key: any,
+): Store<unknown> {
+  return new ChildStore(getRootStore, parent, key);
+}
+
 export class ChildStore<T> extends Store<T> {
   constructor(
     getRootStore: () => RootStore<object>,
     private parent: Store<any>,
     private key: any,
   ) {
-    super(getRootStore);
+    super(getRootStore, buildChild);
   }
 
   set(value: T): void {
@@ -34,7 +42,7 @@ export class ChildStore<T> extends Store<T> {
     if (this.isActive()) {
       return this.lastKnownState!;
     } else {
-    return this.parent.state()?.[this.key];
+      return this.parent.state()?.[this.key];
     }
   }
 

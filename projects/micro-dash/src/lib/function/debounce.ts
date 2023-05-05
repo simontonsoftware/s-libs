@@ -17,7 +17,7 @@ export function debounce<T extends (...args: any[]) => any>(
   func: T,
   wait = 0,
 ): ((...args: Parameters<T>) => void) & { cancel: () => void } {
-  let timeoutId: ReturnType<typeof setTimeout>;
+  let timeoutId: number;
   const cancel = (): void => {
     clearTimeout(timeoutId);
   };

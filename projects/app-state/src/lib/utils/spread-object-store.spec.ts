@@ -1,7 +1,6 @@
 import { expectTypeOf } from 'expect-type';
 import { Observable } from 'rxjs';
-import { RootStore } from '../root-store';
-import { Store } from '../store';
+import { RootStore, Store } from '../index';
 import { spreadObjectStore$ } from './spread-object-store';
 
 describe('spreadObjectStore$()', () => {

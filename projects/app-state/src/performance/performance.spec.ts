@@ -1,4 +1,4 @@
-import { RootStore } from '../lib/root-store';
+import { RootStore } from '../lib/index';
 import { DeepState, runDeep, subscribeDeep } from './deep-performance';
 import { unsubscribe } from './performance-utils';
 import { runWide, subscribeWide, WideState } from './wide-performance';

@@ -1,6 +1,5 @@
 import { expectTypeOf } from 'expect-type';
-import { RootStore } from '../root-store';
-import { Store } from '../store';
+import { RootStore, Store } from '../index';
 import { pushToStoreArray } from './push-to-store-array';
 
 describe('pushToStoreArray', () => {

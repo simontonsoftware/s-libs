@@ -1,21 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "cli": {
-    "analytics": "d2657102-efac-4510-9c45-87ca8fcdb63c",
-    "cache": { "environment": "all" },
-    "defaultCollection": "@angular-eslint/schematics",
-    "schematicCollections": ["@angular-eslint/schematics"]
-  },
   "newProjectRoot": "projects",
-  "schematics": {
-    "@angular-eslint/schematics:application": {
-      "setParserOptionsProject": true
-    },
-    "@angular-eslint/schematics:library": {
-      "setParserOptionsProject": true
-    }
-  },
   "projects": {
     "app-state": {
       "projectType": "library",
@@ -499,5 +485,17 @@
         }
       }
     }
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    }
+  },
+  "cli": {
+    "analytics": "d2657102-efac-4510-9c45-87ca8fcdb63c",
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }

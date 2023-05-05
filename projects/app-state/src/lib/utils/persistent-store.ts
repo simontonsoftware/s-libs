@@ -5,7 +5,7 @@ import {
 } from '@s-libs/js-core';
 import { identity } from '@s-libs/micro-dash';
 import { skip } from 'rxjs/operators';
-import { RootStore } from '../root-store';
+import { RootStore } from '../index';
 
 export interface PersistenceCodec<State, Persisted> {
   /**

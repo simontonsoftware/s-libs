@@ -22,6 +22,7 @@ export function mixInInjectableSuperclass<B extends Constructor>(Base: B) {
     /**
      * An observable that emits once when this object is destroyed, then completes.
      */
+    // eslint-disable-next-line @typescript-eslint/member-ordering -- ordered like this to avoid writing a constructor, which causes a different error
     destruction$ = this.#destructionSubject.asObservable();
 
     ngOnDestroy(): void {

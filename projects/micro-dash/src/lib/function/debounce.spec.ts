@@ -1,8 +1,17 @@
 import { fakeAsync, tick } from '@angular/core/testing';
-import { expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-dev';
+import { expectTypeOf } from 'expect-type';
 import { debounce } from './debounce';
 
 describe('debounce()', () => {
+  it('has good typing', () => {
+    staticTest(() => {
+      expectTypeOf(debounce((_s: string, _n: number) => 'hi')).toEqualTypeOf<
+        ((_s: string, _n: number) => void) & { cancel: () => void }
+      >();
+    });
+  });
+
   it('defaults `wait` to 0', fakeAsync(() => {
     const spy = jasmine.createSpy();
     const debounced = debounce(spy);

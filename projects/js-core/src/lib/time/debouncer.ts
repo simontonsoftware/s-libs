@@ -21,7 +21,7 @@
  * ```
  */
 export class Debouncer {
-  private timeoutId?: ReturnType<typeof setTimeout>;
+  private timeoutId?: number;
 
   run<T extends (...args: any[]) => any>(
     func: T,

@@ -6,7 +6,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": ["jasmine"],
+    "types": ["jasmine"]
   },
   "exclude": [
     "**/*.spec.ts",

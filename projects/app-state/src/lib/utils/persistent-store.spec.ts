@@ -1,9 +1,7 @@
 import { fakeAsync, tick } from '@angular/core/testing';
-import { VersionedObject } from '@s-libs/js-core';
-import { MigrationManager } from '@s-libs/js-core';
+import { MigrationManager, VersionedObject } from '@s-libs/js-core';
 import { omit } from '@s-libs/micro-dash';
-import { PersistenceCodec } from './persistent-store';
-import { PersistentStore } from './persistent-store';
+import { PersistenceCodec, PersistentStore } from './persistent-store';
 
 describe('PersistentStore', () => {
   beforeEach(() => {
