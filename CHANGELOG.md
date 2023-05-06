@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v15.2.0...v16.0.0-next.0) (2023-05-06)
+
+### ⚠ BREAKING CHANGES
+
+- Angular dependencies are now at v16
+- RxJS dependencies are now at v7.8
+- ESLint dependencies are now at v8.39
+- **ng-core:** Subclasses of `WrappedControlSuperclass` may need to be adjusted if they were doing any type-unsafe things. For example you may need to add `| null` to its typing, or create your form control with the option `nonNullable: true`.
+
+### Features
+
+- **ng-core:** Deprecate `WrappedFormControlSuperclass` to encourage type safe alternatives ([bd78e3e](https://github.com/simontonsoftware/s-libs/commit/bd78e3e44d3f46d2fa5591014a482c44ab32f5e9))
+- **ng-core:** improve type safety of `WrappedControlSuperclass` ([da5e888](https://github.com/simontonsoftware/s-libs/commit/da5e888e122eead16c613a1adcc208c348373aba))
+- **ng-dev:** support Angular's new `inject()` for test code that executes during a `.run()` callback ([329b9a2](https://github.com/simontonsoftware/s-libs/commit/329b9a24f3e92f4bb04cb46458c04d05bcb37909))
+- upgrade dependencies ([df52c37](https://github.com/simontonsoftware/s-libs/commit/df52c3780d46c66b1f7d2c6d3d2902269581ae82))
+
 ## [15.2.0](https://github.com/simontonsoftware/s-libs/compare/v15.1.0...v15.2.0) (2023-03-18)
 
 ### Features

@@ -1,6 +1,6 @@
 {
   "name": "@s-libs/js-core",
-  "version": "15.2.0",
+  "version": "16.0.0-next.0",
   "author": "Simonton Software",
   "license": "MIT",
   "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/js-core",
@@ -9,11 +9,7 @@
     "url": "https://github.com/simontonsoftware/s-libs.git",
     "directory": "projects/js-core"
   },
-  "peerDependencies": {
-    "@s-libs/micro-dash": "^15.2.0"
-  },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
+  "peerDependencies": { "@s-libs/micro-dash": "^16.0.0-next.0" },
+  "dependencies": { "tslib": "^2.3.0" },
   "sideEffects": false
 }

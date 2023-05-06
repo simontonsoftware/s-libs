@@ -1,6 +1,6 @@
 {
   "name": "@s-libs/ng-mat-core",
-  "version": "15.2.0",
+  "version": "16.0.0-next.0",
   "author": "Simonton Software",
   "license": "MIT",
   "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-mat-core",
@@ -12,13 +12,11 @@
   "peerDependencies": {
     "@angular/common": "^16.0.0",
     "@angular/core": "^16.0.0",
-    "@s-libs/js-core": "^15.2.0",
-    "@s-libs/micro-dash": "^15.2.0",
-    "@s-libs/ng-core": "^15.2.0",
-    "@s-libs/rxjs-core": "^15.2.0"
+    "@s-libs/js-core": "^16.0.0-next.0",
+    "@s-libs/micro-dash": "^16.0.0-next.0",
+    "@s-libs/ng-core": "^16.0.0-next.0",
+    "@s-libs/rxjs-core": "^16.0.0-next.0"
   },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
+  "dependencies": { "tslib": "^2.3.0" },
   "sideEffects": false
 }
