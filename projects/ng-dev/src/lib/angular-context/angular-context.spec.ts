@@ -2,6 +2,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClient } from '@angular/common/http';
 import { HttpTestingController } from '@angular/common/http/testing';
 import {
+  APP_INITIALIZER,
   ApplicationRef,
   Component,
   ComponentFactoryResolver,
@@ -24,8 +25,10 @@ import { sleep } from '@s-libs/js-core';
 import { noop, Observable } from 'rxjs';
 import { ComponentContext } from '../component-context';
 import { MockErrorHandler } from '../mock-error-handler/mock-error-handler';
+import { expectSingleCallAndReset } from '../spies';
 import { AngularContext } from './angular-context';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
+import createSpy = jasmine.createSpy;
 
 describe('AngularContext', () => {
   class SnackBarContext extends AngularContext {
@@ -143,6 +146,27 @@ describe('AngularContext', () => {
           throw new Error();
         });
       }).toThrowError();
+    });
+
+    it('waits until after init to trigger app creation (pre-release bug)', () => {
+      const init = createSpy();
+      class InitContext extends AngularContext {
+        constructor() {
+          super({
+            providers: [
+              { provide: APP_INITIALIZER, useValue: init, multi: true },
+            ],
+          });
+        }
+
+        override init(): void {
+          super.init();
+          expect(init).not.toHaveBeenCalled();
+        }
+      }
+      new InitContext().run(() => {
+        expectSingleCallAndReset(init);
+      });
     });
 
     describe('next test run', () => {

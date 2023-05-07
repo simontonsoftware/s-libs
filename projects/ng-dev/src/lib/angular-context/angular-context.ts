@@ -8,6 +8,7 @@ import {
   ApplicationRef,
   EnvironmentInjector,
   InjectionToken,
+  runInInjectionContext,
   Type,
 } from '@angular/core';
 import {
@@ -146,7 +147,7 @@ export class AngularContext {
         this.init();
         try {
           // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          test();
+          runInInjectionContext(this.inject(EnvironmentInjector), test);
           this.tick();
           this.verifyPostTestConditions();
         } finally {
@@ -259,7 +260,7 @@ export class AngularContext {
     jasmine.clock().install();
     fakeAsync(() => {
       jasmine.clock().mockDate(this.startTime);
-      this.inject(EnvironmentInjector).runInContext(test);
+      test();
     })();
     jasmine.clock().uninstall();
 
