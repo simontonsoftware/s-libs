@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.0.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v16.0.0-next.0...v16.0.0-next.1) (2023-05-07)
+
+### Bug Fixes
+
+- **ng-dev:** Fix bug in `16.0.0-next.0` where `AngularContext` was triggering test bed init before `.init()` ([fe1d279](https://github.com/simontonsoftware/s-libs/commit/fe1d279438e7c9773af161cd00ecc08e8ed879ab))
+
 ## [16.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v15.2.0...v16.0.0-next.0) (2023-05-06)
 
 ### ⚠ BREAKING CHANGES
