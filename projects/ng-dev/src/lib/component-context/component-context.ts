@@ -10,7 +10,10 @@ import {
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  NoopAnimationsModule,
+  provideNoopAnimations,
+} from '@angular/platform-browser/animations';
 import { assert } from '@s-libs/js-core';
 import { keys } from '@s-libs/micro-dash';
 import {
@@ -172,10 +175,14 @@ export class ComponentContext<T> extends AngularContext {
     const mirror = reflectComponentType(componentType);
     assert(mirror, 'That does not appear to be a component');
     const inputProperties = WrapperComponent.wrap(mirror, unboundInputs);
-    const imports: any[] = [NoopAnimationsModule];
+    const imports: any[] = [];
     const declarations: any[] = [WrapperComponent];
     (mirror.isStandalone ? imports : declarations).push(componentType);
-    super(extendMetadata(moduleMetadata, { imports, declarations }));
+    super(
+      extendMetadata({ imports, declarations }, moduleMetadata, {
+        providers: [provideNoopAnimations()],
+      }),
+    );
 
     this.#componentType = componentType;
     this.#inputProperties = new Set(inputProperties);

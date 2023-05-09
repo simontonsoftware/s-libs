@@ -13,6 +13,7 @@ import { BrowserModule, By } from '@angular/platform-browser';
 import {
   ANIMATION_MODULE_TYPE,
   BrowserAnimationsModule,
+  provideAnimations,
 } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -58,10 +59,9 @@ describe('ComponentContext', () => {
     });
 
     it('disables animations', () => {
-      @NgModule({ imports: [BrowserAnimationsModule] })
-      class AnimatedModule {}
+      // do not use NoopAnimationsModule, because its timing is less finicky
       const ctx = new ComponentContext(TestComponent, {
-        imports: [AnimatedModule],
+        providers: [provideAnimations()],
       });
       ctx.run(() => {
         expect(ctx.inject(ANIMATION_MODULE_TYPE)).toBe('NoopAnimations');
