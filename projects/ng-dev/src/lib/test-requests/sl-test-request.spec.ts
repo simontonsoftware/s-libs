@@ -3,8 +3,10 @@ import {
   HttpErrorResponse,
   HttpRequest,
   HttpResponse,
+  provideHttpClient,
 } from '@angular/common/http';
 import { TestRequest } from '@angular/common/http/testing';
+import { inject } from '@angular/core';
 import { noop } from '@s-libs/micro-dash';
 import { Subject } from 'rxjs';
 import { AngularContext } from '../angular-context';
@@ -25,10 +27,10 @@ describe('SlTestRequest', () => {
 
   describe('.flush()', () => {
     it('resolves the request with the given body and options', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
         const spy = jasmine.createSpy();
-        ctx.inject(HttpClient).get('a url').subscribe(spy);
+        inject(HttpClient).get('a url').subscribe(spy);
         const req = expectRequest('GET', 'a url');
 
         const body = 'the body';
@@ -39,11 +41,10 @@ describe('SlTestRequest', () => {
     });
 
     it('passes along other arguments', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
         const spy = jasmine.createSpy();
-        ctx
-          .inject(HttpClient)
+        inject(HttpClient)
           .request('GET', 'a url', { observe: 'response' })
           .subscribe(spy);
         const req = expectRequest('GET', 'a url');
@@ -57,10 +58,10 @@ describe('SlTestRequest', () => {
     });
 
     it('runs tick if an AngularContext is in use', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContext({ providers: [provideHttpClient()] });
       const spy = spyOn(ctx, 'tick');
       ctx.run(() => {
-        ctx.inject(HttpClient).get('a url').subscribe();
+        inject(HttpClient).get('a url').subscribe();
         const req = expectRequest('GET', 'a url');
 
         req.flush('the body');
@@ -72,10 +73,10 @@ describe('SlTestRequest', () => {
 
   describe('.flushError()', () => {
     it('rejects the request with the given args', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
         const spy = jasmine.createSpy();
-        ctx.inject(HttpClient).get('a url').subscribe({ error: spy });
+        inject(HttpClient).get('a url').subscribe({ error: spy });
         const req = expectRequest('GET', 'a url');
 
         req.flushError(123, { statusText: 'bad', body: 'stop it' });
@@ -88,10 +89,10 @@ describe('SlTestRequest', () => {
     });
 
     it('has good default args', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
         const spy = jasmine.createSpy();
-        ctx.inject(HttpClient).get('a url').subscribe({ error: spy });
+        inject(HttpClient).get('a url').subscribe({ error: spy });
         const req = expectRequest('GET', 'a url');
 
         req.flushError();
@@ -104,10 +105,10 @@ describe('SlTestRequest', () => {
     });
 
     it('runs tick if an AngularContext is in use', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContext({ providers: [provideHttpClient()] });
       const spy = spyOn(ctx, 'tick');
       ctx.run(() => {
-        ctx.inject(HttpClient).get('a url').subscribe({ error: noop });
+        inject(HttpClient).get('a url').subscribe({ error: noop });
         const req = expectRequest('GET', 'a url');
 
         req.flushError();
@@ -119,9 +120,9 @@ describe('SlTestRequest', () => {
 
   describe('.isCancelled()', () => {
     it('returns whether the request has been cancelled', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
-        const subscription = ctx.inject(HttpClient).get('a url').subscribe();
+        const subscription = inject(HttpClient).get('a url').subscribe();
         const req = expectRequest('GET', 'a url');
 
         expect(req.isCancelled()).toBe(false);
@@ -140,6 +141,19 @@ describe('SlTestRequest', () => {
       expect(() => {
         req.flush('');
       }).not.toThrowError();
+    });
+  });
+
+  it('works for the example in the docs', () => {
+    const ctx = new AngularContext({ providers: [provideHttpClient()] });
+    ctx.run(() => {
+      inject(HttpClient)
+        .get('http://example.com', { params: { key: 'value' } })
+        .subscribe();
+      const request = expectRequest<string>('GET', 'http://example.com', {
+        params: { key: 'value' },
+      });
+      request.flush('my response body');
     });
   });
 });

@@ -8,10 +8,9 @@ import { HttpBody } from './expect-request';
  * Though it is possible to construct yourself, normally an instance of this class is obtained from {@linkcode expectRequest()}.
  *
  * ```ts
- * const ctx = new AngularContext();
+ * const ctx = new AngularContext({ providers: [provideHttpClient()] });
  * ctx.run(() => {
- *   ctx
- *     .inject(HttpClient)
+ *   inject(HttpClient)
  *     .get('http://example.com', { params: { key: 'value' } })
  *     .subscribe();
  *   const request = expectRequest<string>('GET', 'http://example.com', {

@@ -35,10 +35,9 @@ let pendingRequests: Array<HttpRequest<any>>;
  * This function only works when you are using an {@linkcode AngularContext}.
  *
  * ```ts
- * const ctx = new AngularContext();
+ * const ctx = new AngularContext({ providers: [provideHttpClient()] });
  * ctx.run(() => {
- *   ctx
- *     .inject(HttpClient)
+ *   inject(HttpClient)
  *     .get('http://example.com', { params: { key: 'value' } })
  *     .subscribe();
  *   const request = expectRequest<string>('GET', 'http://example.com', {

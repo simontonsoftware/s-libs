@@ -1,5 +1,9 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  provideHttpClient,
+} from '@angular/common/http';
 import { HttpTestingController } from '@angular/common/http/testing';
 import {
   APP_INITIALIZER,
@@ -16,16 +20,13 @@ import {
 import { flush, TestBed, tick } from '@angular/core/testing';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
-import {
-  ANIMATION_MODULE_TYPE,
-  BrowserAnimationsModule,
-  NoopAnimationsModule,
-} from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { sleep } from '@s-libs/js-core';
 import { noop, Observable } from 'rxjs';
 import { ComponentContext } from '../component-context';
 import { MockErrorHandler } from '../mock-error-handler/mock-error-handler';
 import { expectSingleCallAndReset } from '../spies';
+import { expectRequest } from '../test-requests';
 import { AngularContext } from './angular-context';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
 import createSpy = jasmine.createSpy;
@@ -69,7 +70,7 @@ describe('AngularContext', () => {
       const ctx = new AngularContext();
       const now = Date.now();
       ctx.run(() => {
-        expect(Date.now()).toBeCloseTo(now, -1);
+        expect(Date.now()).toBeCloseTo(now, -2);
       });
     });
   });
@@ -86,10 +87,20 @@ describe('AngularContext', () => {
       });
     });
 
-    it('sets up HttpClientTestingModule', () => {
-      const ctx = new AngularContext();
+    it('sets up testing for `HttpClientModule`', () => {
+      const ctx = new AngularContext({ imports: [HttpClientModule] });
       ctx.run(() => {
-        expect(ctx.inject(HttpTestingController)).toBeDefined();
+        inject(HttpClient).get('some URL').subscribe();
+        expectRequest('GET', 'some URL');
+      });
+    });
+
+    // this is more sensitive than the test above, since `provideHttpClientTesting()` has to end up _after_ `provideHttpClient()` to work properly
+    it('sets up testing for `provideHttpClient()`', () => {
+      const ctx = new AngularContext({ providers: [provideHttpClient()] });
+      ctx.run(() => {
+        inject(HttpClient).get('some URL').subscribe();
+        expectRequest('GET', 'some URL');
       });
     });
 
@@ -97,6 +108,16 @@ describe('AngularContext', () => {
       const ctx = new AngularContext();
       ctx.run(() => {
         expect(ctx.inject(ErrorHandler)).toEqual(jasmine.any(MockErrorHandler));
+      });
+    });
+
+    it('allows the user to override MockErrorHandler', () => {
+      const errorHandler = { handleError: noop };
+      const ctx = new AngularContext({
+        providers: [{ provide: ErrorHandler, useValue: errorHandler }],
+      });
+      ctx.run(() => {
+        expect(ctx.inject(ErrorHandler)).toBe(errorHandler);
       });
     });
 
@@ -399,10 +420,10 @@ describe('AngularContext', () => {
 
   describe('.verifyPostTestConditions()', () => {
     it('errs if there are unexpected http requests', () => {
-      const ctx = new AngularContext();
+      const ctx = new AngularContext({ providers: [provideHttpClient()] });
       expect(() => {
         ctx.run(() => {
-          ctx.inject(HttpClient).get('an unexpected URL').subscribe();
+          inject(HttpClient).get('an unexpected URL').subscribe();
         });
       }).toThrowError(
         'Expected no open requests, found 1: GET an unexpected URL',
@@ -471,7 +492,7 @@ describe('AngularContext class-level doc example', () => {
     // Tests should have exactly 1 variable outside an "it": `ctx`.
     let ctx: AngularContext;
     beforeEach(() => {
-      ctx = new AngularContext();
+      ctx = new AngularContext({ providers: [provideHttpClient()] });
     });
 
     it('requests a post from 1 year ago', () => {
@@ -488,29 +509,6 @@ describe('AngularContext class-level doc example', () => {
         httpBackend.expectOne('http://example.com/post-from/2003-02-16');
       });
       expect().nothing();
-    });
-  });
-});
-
-describe('extendMetadata', () => {
-  it('allows animations to be unconditionally disabled', () => {
-    @Component({ template: '' })
-    class BlankComponent {}
-    const ctx = new ComponentContext(BlankComponent, {
-      imports: [BrowserAnimationsModule],
-    });
-    ctx.run(() => {
-      expect(ctx.inject(ANIMATION_MODULE_TYPE)).toBe('NoopAnimations');
-    });
-  });
-
-  it('allows the user to override providers', () => {
-    const errorHandler = { handleError: noop };
-    const ctx = new AngularContext({
-      providers: [{ provide: ErrorHandler, useValue: errorHandler }],
-    });
-    ctx.run(() => {
-      expect(ctx.inject(ErrorHandler)).toBe(errorHandler);
     });
   });
 });

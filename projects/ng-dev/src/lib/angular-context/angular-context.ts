@@ -2,6 +2,7 @@ import { ComponentHarness, HarnessQuery } from '@angular/cdk/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
+  provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import {
   AbstractType,
@@ -21,27 +22,24 @@ import {
   tick,
 } from '@angular/core/testing';
 import { assert, convertTime } from '@s-libs/js-core';
-import { clone, forOwn, isUndefined } from '@s-libs/micro-dash';
+import { forOwn, isUndefined } from '@s-libs/micro-dash';
 import { MockErrorHandler } from '../mock-error-handler/mock-error-handler';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
 
 export function extendMetadata(
-  metadata: TestModuleMetadata,
-  toAdd: TestModuleMetadata,
+  ...allMetadata: TestModuleMetadata[]
 ): TestModuleMetadata {
-  const result: any = clone(metadata);
-  forOwn(toAdd, (val, key) => {
-    const existing = result[key];
-    if (isUndefined(existing)) {
-      result[key] = val;
-    } else if (key === 'imports') {
-      // to allow ComponentContext to unconditionally disable animations, added imports override previous imports
-      result[key] = [result[key], val];
-    } else {
-      // but for most things we want to let what comes in from subclasses and users win
-      result[key] = [val, result[key]];
-    }
-  });
+  const result: any = {};
+  for (const metadata of allMetadata) {
+    forOwn(metadata, (val, key) => {
+      const existing = result[key];
+      if (isUndefined(existing)) {
+        result[key] = val;
+      } else {
+        result[key] = [result[key], val];
+      }
+    });
+  }
   return result as TestModuleMetadata;
 }
 
@@ -53,7 +51,7 @@ export function extendMetadata(
  *   thrown away, so they cannot leak between tests.
  * - Clearly separates initialization code from the test itself.
  * - Gives control over the simulated date & time with a single line of code.
- * - Automatically includes [HttpClientTestingModule]{@link https://angular.io/api/common/http/testing/HttpClientTestingModule} to stub network requests without additional setup.
+ * - Automatically includes [provideHttpClientTesting()]{@link https://angular.io/api/common/http/testing/provideHttpClientTesting} to stub network requests without additional setup.
  * - Always verifies that no unexpected http requests were made.
  * - Automatically discards periodic tasks and flushes pending timers at the end of each test to avoid the error "X timer(s) still in the queue".
  *
@@ -77,7 +75,7 @@ export function extendMetadata(
  *   // Tests should have exactly 1 variable outside an "it": `ctx`.
  *   let ctx: AngularContext;
  *   beforeEach(() => {
- *     ctx = new AngularContext();
+ *     ctx = new AngularContext({ providers: [provideHttpClient()] });
  *   });
  *
  *   it('requests a post from 1 year ago', () => {
@@ -117,10 +115,11 @@ export class AngularContext {
     );
     AngularContext.#current = this;
     TestBed.configureTestingModule(
-      extendMetadata(moduleMetadata, {
-        imports: [HttpClientTestingModule],
-        providers: [MockErrorHandler.overrideProvider()],
-      }),
+      extendMetadata(
+        { providers: [MockErrorHandler.overrideProvider()] },
+        moduleMetadata,
+        { providers: [provideHttpClientTesting()] },
+      ),
     );
   }
 
