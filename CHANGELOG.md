@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.0.0-next.2](https://github.com/simontonsoftware/s-libs/compare/v16.0.0-next.1...v16.0.0-next.2) (2023-05-09)
+
+### ⚠ BREAKING CHANGES
+
+- **ng-dev:** `AngularContext` no longer automatically provides `HttpClient`. This is a good thing, because it will now catch when you forget to import/provide it in your production code. But it's technically a breaking change because any tests that relied on it will start to fail.
+
+### Features
+
+- **ng-dev:** `AngularContext` automatically sets up http testing when using `provideHttpClient()`. Previously it only worked with `HttpClientModule`. ([b734bc1](https://github.com/simontonsoftware/s-libs/commit/b734bc1ee024fdd10bdbe37378d0f34734f44c51))
+- **ng-dev:** `ComponentContext` now disables animations from `provideAnimations()`, not just `BrowserAnimationsModule` ([9f0c650](https://github.com/simontonsoftware/s-libs/commit/9f0c6501e07f2529fe1ea2d2be285055cb13f1c2))
+
 ## [16.0.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v16.0.0-next.0...v16.0.0-next.1) (2023-05-07)
 
 ### Bug Fixes
