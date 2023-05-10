@@ -4,7 +4,6 @@ import {
   provideHttpClient,
 } from '@angular/common/http';
 import { HttpTestingController } from '@angular/common/http/testing';
-import { inject } from '@angular/core';
 import { expectTypeOf } from 'expect-type';
 import { AngularContext } from '../angular-context';
 import { expectSingleCallAndReset } from '../spies';
@@ -168,7 +167,8 @@ describe('expectRequest() example in the docs', () => {
   it('works', () => {
     const ctx = new AngularContext({ providers: [provideHttpClient()] });
     ctx.run(() => {
-      inject(HttpClient)
+      ctx
+        .inject(HttpClient)
         .get('http://example.com', { params: { key: 'value' } })
         .subscribe();
       const request = expectRequest<string>('GET', 'http://example.com', {

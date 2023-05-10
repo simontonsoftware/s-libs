@@ -6,6 +6,7 @@ import {
 } from '@angular/common/http';
 import { HttpTestingController } from '@angular/common/http/testing';
 import {
+  APP_ID,
   APP_INITIALIZER,
   ApplicationRef,
   Component,
@@ -25,7 +26,6 @@ import { sleep } from '@s-libs/js-core';
 import { noop, Observable } from 'rxjs';
 import { ComponentContext } from '../component-context';
 import { MockErrorHandler } from '../mock-error-handler/mock-error-handler';
-import { expectSingleCallAndReset } from '../spies';
 import { expectRequest } from '../test-requests';
 import { AngularContext } from './angular-context';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
@@ -90,7 +90,7 @@ describe('AngularContext', () => {
     it('sets up testing for `HttpClientModule`', () => {
       const ctx = new AngularContext({ imports: [HttpClientModule] });
       ctx.run(() => {
-        inject(HttpClient).get('some URL').subscribe();
+        ctx.inject(HttpClient).get('some URL').subscribe();
         expectRequest('GET', 'some URL');
       });
     });
@@ -99,7 +99,7 @@ describe('AngularContext', () => {
     it('sets up testing for `provideHttpClient()`', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
-        inject(HttpClient).get('some URL').subscribe();
+        ctx.inject(HttpClient).get('some URL').subscribe();
         expectRequest('GET', 'some URL');
       });
     });
@@ -154,10 +154,12 @@ describe('AngularContext', () => {
       expect(completed).toBeTrue();
     });
 
-    it('sets an injector context', () => {
-      const token = new InjectionToken('', { factory: (): string => 'value' });
+    it('can catch "inject() must be called from an injection context" errors (pre-release design flaw)', () => {
+      // In 16.0.0-next.0 I added the ability to use `inject()` inside test code. That's cool, but it also could mask a production bug!
       new AngularContext().run(() => {
-        expect(inject(token)).toBe('value');
+        expect(() => {
+          inject(APP_ID);
+        }).toThrowError();
       });
     });
 
@@ -169,7 +171,7 @@ describe('AngularContext', () => {
       }).toThrowError();
     });
 
-    it('waits until after init to trigger app creation (pre-release bug)', () => {
+    it('does not finalize app setup (pre-release bug)', () => {
       const init = createSpy();
       class InitContext extends AngularContext {
         constructor() {
@@ -179,14 +181,9 @@ describe('AngularContext', () => {
             ],
           });
         }
-
-        override init(): void {
-          super.init();
-          expect(init).not.toHaveBeenCalled();
-        }
       }
       new InitContext().run(() => {
-        expectSingleCallAndReset(init);
+        expect(init).not.toHaveBeenCalled();
       });
     });
 
@@ -423,7 +420,7 @@ describe('AngularContext', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       expect(() => {
         ctx.run(() => {
-          inject(HttpClient).get('an unexpected URL').subscribe();
+          ctx.inject(HttpClient).get('an unexpected URL').subscribe();
         });
       }).toThrowError(
         'Expected no open requests, found 1: GET an unexpected URL',

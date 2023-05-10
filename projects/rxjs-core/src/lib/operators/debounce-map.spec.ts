@@ -1,6 +1,5 @@
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { HttpTestingController } from '@angular/common/http/testing';
-import { inject } from '@angular/core';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { Deferred } from '@s-libs/js-core';
 import {
@@ -102,7 +101,7 @@ describe('debounceMap()', () => {
     ctx.run(() => {
       const source = new Subject();
       source
-        .pipe(debounceMap(() => inject(HttpClient).get('a url')))
+        .pipe(debounceMap(() => ctx.inject(HttpClient).get('a url')))
         .subscribe();
 
       source.next(0);

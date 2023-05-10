@@ -6,7 +6,6 @@ import {
   provideHttpClient,
 } from '@angular/common/http';
 import { TestRequest } from '@angular/common/http/testing';
-import { inject } from '@angular/core';
 import { noop } from '@s-libs/micro-dash';
 import { Subject } from 'rxjs';
 import { AngularContext } from '../angular-context';
@@ -30,7 +29,7 @@ describe('SlTestRequest', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
         const spy = jasmine.createSpy();
-        inject(HttpClient).get('a url').subscribe(spy);
+        ctx.inject(HttpClient).get('a url').subscribe(spy);
         const req = expectRequest('GET', 'a url');
 
         const body = 'the body';
@@ -44,7 +43,8 @@ describe('SlTestRequest', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
         const spy = jasmine.createSpy();
-        inject(HttpClient)
+        ctx
+          .inject(HttpClient)
           .request('GET', 'a url', { observe: 'response' })
           .subscribe(spy);
         const req = expectRequest('GET', 'a url');
@@ -61,7 +61,7 @@ describe('SlTestRequest', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       const spy = spyOn(ctx, 'tick');
       ctx.run(() => {
-        inject(HttpClient).get('a url').subscribe();
+        ctx.inject(HttpClient).get('a url').subscribe();
         const req = expectRequest('GET', 'a url');
 
         req.flush('the body');
@@ -76,7 +76,7 @@ describe('SlTestRequest', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
         const spy = jasmine.createSpy();
-        inject(HttpClient).get('a url').subscribe({ error: spy });
+        ctx.inject(HttpClient).get('a url').subscribe({ error: spy });
         const req = expectRequest('GET', 'a url');
 
         req.flushError(123, { statusText: 'bad', body: 'stop it' });
@@ -92,7 +92,7 @@ describe('SlTestRequest', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
         const spy = jasmine.createSpy();
-        inject(HttpClient).get('a url').subscribe({ error: spy });
+        ctx.inject(HttpClient).get('a url').subscribe({ error: spy });
         const req = expectRequest('GET', 'a url');
 
         req.flushError();
@@ -108,7 +108,7 @@ describe('SlTestRequest', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       const spy = spyOn(ctx, 'tick');
       ctx.run(() => {
-        inject(HttpClient).get('a url').subscribe({ error: noop });
+        ctx.inject(HttpClient).get('a url').subscribe({ error: noop });
         const req = expectRequest('GET', 'a url');
 
         req.flushError();
@@ -122,7 +122,7 @@ describe('SlTestRequest', () => {
     it('returns whether the request has been cancelled', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
-        const subscription = inject(HttpClient).get('a url').subscribe();
+        const subscription = ctx.inject(HttpClient).get('a url').subscribe();
         const req = expectRequest('GET', 'a url');
 
         expect(req.isCancelled()).toBe(false);
@@ -147,7 +147,8 @@ describe('SlTestRequest', () => {
   it('works for the example in the docs', () => {
     const ctx = new AngularContext({ providers: [provideHttpClient()] });
     ctx.run(() => {
-      inject(HttpClient)
+      ctx
+        .inject(HttpClient)
         .get('http://example.com', { params: { key: 'value' } })
         .subscribe();
       const request = expectRequest<string>('GET', 'http://example.com', {

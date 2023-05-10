@@ -7,9 +7,7 @@ import {
 import {
   AbstractType,
   ApplicationRef,
-  EnvironmentInjector,
   InjectionToken,
-  runInInjectionContext,
   Type,
 } from '@angular/core';
 import {
@@ -146,7 +144,7 @@ export class AngularContext {
         this.init();
         try {
           // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          runInInjectionContext(this.inject(EnvironmentInjector), test);
+          test();
           this.tick();
           this.verifyPostTestConditions();
         } finally {
@@ -159,7 +157,7 @@ export class AngularContext {
   }
 
   /**
-   * Gets a service or other injectable from the root injector. Note that you can use Angular's [inject()]{@linkcode https://angular.io/api/core/inject} instead, for code that runs within the {@link .run()} callback.
+   * Gets a service or other injectable from the root injector.
    *
    * This implementation is a simple pass-through to [TestBed.inject()]{@linkcode https://angular.io/api/core/testing/TestBed#inject}, but subclasses may provide their own implementation. It is recommended to use this in your tests instead of using `TestBed` directly.
    */
