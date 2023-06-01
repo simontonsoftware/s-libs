@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.0.0](https://github.com/simontonsoftware/s-libs/compare/v16.0.0-next.2...v16.0.0) (2023-06-01)
+
+### Bug Fixes
+
+- **ng-dev:** Revert support for using `inject()` inside test code. It could mask a production bug when calling inject() without an injection context. ([5c28a8a](https://github.com/simontonsoftware/s-libs/commit/5c28a8a53aba0c023a437b7d39360b444555dd1b))
+
 ## [16.0.0-next.2](https://github.com/simontonsoftware/s-libs/compare/v16.0.0-next.1...v16.0.0-next.2) (2023-05-09)
 
 ### ⚠ BREAKING CHANGES
