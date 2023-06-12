@@ -1,7 +1,7 @@
 import { execSync } from 'child_process';
 import * as fs from 'fs';
 import { writeFileSync } from 'fs';
-import * as glob from 'glob';
+import { glob } from 'glob';
 import * as path from 'path';
 import * as readline from 'readline';
 import { explore } from 'source-map-explorer';
@@ -13,7 +13,8 @@ const appDir = path.join(mainDir, 'app');
 const bundleDir = path.join(rootDir, 'dist', 'micro-dash-sizes');
 const sourceDir = path.join(rootDir, 'projects', 'micro-dash', 'src', 'lib');
 
-await run();
+// eslint-disable-next-line @typescript-eslint/no-floating-promises -- `await` would be appropriate here, but it's not allowed with `commonjs` modules, which are needed for the imports
+run();
 
 async function run(): Promise<void> {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition,no-constant-condition
@@ -74,15 +75,7 @@ async function buildAndExplore(fileGlob: string): Promise<void> {
 }
 
 async function getPaths(fileGlob: string): Promise<string[]> {
-  return new Promise<string[]>((resolve) => {
-    glob(
-      fileGlob,
-      { cwd: appDir, matchBase: true, absolute: true },
-      (_err, files) => {
-        resolve(files);
-      },
-    );
-  });
+  return glob(fileGlob, { cwd: appDir, matchBase: true, absolute: true });
 }
 
 function build(inputPath: string): void {
