@@ -3,6 +3,14 @@ import { sortBy } from '../collection/sort-by';
 import { sortedIndex } from './sorted-index';
 
 describe('sortedIndex()', () => {
+  it('can find the end of the array (production bug)', () => {
+    // https://github.com/simontonsoftware/s-libs/issues/106
+
+    expect(sortedIndex([], 1)).toBe(0);
+    expect(sortedIndex([0], 1)).toBe(1);
+    expect(sortedIndex([1, 2, 3], 4)).toBe(3);
+  });
+
   //
   // stolen from https://github.com/lodash/lodash
   //
