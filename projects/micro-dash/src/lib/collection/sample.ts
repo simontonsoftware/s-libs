@@ -7,7 +7,7 @@ import { random } from '../math';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 3,884 bytes
- * - Micro-dash: 572 bytes
+ * - Micro-dash: 573 bytes
  */
 export function sample<T>(collection: ObjectWith<T> | readonly T[]): T {
   collection = toArray(collection as any);

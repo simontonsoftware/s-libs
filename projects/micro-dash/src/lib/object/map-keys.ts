@@ -5,7 +5,7 @@ import { IfCouldBe, Nil, ObjectIteratee } from '../interfaces';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 14,673 bytes
- * - Micro-dash: 143 bytes
+ * - Micro-dash: 142 bytes
  */
 export function mapKeys<A extends readonly any[], O extends PropertyKey>(
   array: A | Nil,

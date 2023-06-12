@@ -5,7 +5,7 @@ import { transform } from '../object';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 2,009 bytes
- * - Micro-dash: 356 bytes
+ * - Micro-dash: 357 bytes
  */
 
 export function zipObject<

@@ -3,7 +3,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 242 bytes
- * - Micro-dash: 77 bytes
+ * - Micro-dash: 75 bytes
  */
 export function initial<T>(array: readonly T[]): T[] {
   return array.slice(0, -1);

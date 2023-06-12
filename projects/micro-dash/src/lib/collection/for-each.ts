@@ -6,7 +6,7 @@ import { forOwnOfNonArray } from '../object/for-own';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 4,036 bytes
- * - Micro-dash: 257 bytes
+ * - Micro-dash: 258 bytes
  */
 
 export function forEach<T extends Nil | readonly any[]>(

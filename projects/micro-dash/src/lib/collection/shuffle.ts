@@ -7,7 +7,7 @@ import { size } from './size';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 4,083 bytes
- * - Micro-dash: 987 bytes
+ * - Micro-dash: 995 bytes
  */
 
 export function shuffle<T>(array: Nil | readonly T[]): T[];

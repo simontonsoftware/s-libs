@@ -15,7 +15,7 @@ import { forEach } from './for-each';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 14,707 bytes
- * - Micro-dash: 330 bytes
+ * - Micro-dash: 329 bytes
  */
 
 export function filter<I, O>(

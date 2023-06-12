@@ -12,7 +12,7 @@ import { map } from './map';
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 5,196 bytes
- * - Micro-dash: 846 bytes
+ * - Micro-dash: 845 bytes
  */
 
 export function sampleSize<T>(array: Nil | readonly T[], n?: number): T[];

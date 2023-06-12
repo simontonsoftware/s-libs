@@ -17,7 +17,7 @@ type PropertyAtPath<T, Path extends readonly any[]> = Path extends []
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 5,542 bytes
- * - Micro-dash: 231 bytes
+ * - Micro-dash: 232 bytes
  */
 
 export function property<K extends PropertyKey>(

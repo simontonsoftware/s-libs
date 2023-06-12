@@ -3,7 +3,7 @@
  *
  * Contribution to minified bundle size, when it is the only function imported:
  * - Lodash: 5,039 bytes
- * - Micro-dash: 83 bytes
+ * - Micro-dash: 84 bytes
  */
 export function uniq<T>(array: readonly T[]): T[] {
   return Array.from(new Set(array));
