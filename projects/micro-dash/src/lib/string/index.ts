@@ -7,6 +7,7 @@ export { padStart } from './pad-start';
 export { padEnd } from './pad-end';
 export { repeat } from './repeat';
 export { snakeCase } from './snake-case';
+export { startCase } from './start-case';
 export { toLower } from './to-lower';
 export { upperFirst } from './upper-first';
 export { words } from './words';
