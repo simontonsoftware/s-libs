@@ -20,7 +20,7 @@
 ///   ),
 ///
 ///   // The `color` value in the map passed to `mat.generate-light-theme()`.
-///   // Required when defining a light theme unless you call `dark-theme()`
+///   // Required when defining a light theme unless you call `light-theme()`
 ///   // directly and pass it a different `$palette-key`.
 ///   light-palettes: (
 ///     primary: mat.define-palette(mat.$blue-palette),
