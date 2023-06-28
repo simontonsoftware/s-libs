@@ -1,6 +1,7 @@
 import { decodeString, encodeString } from './transcode-string';
 
 describe('encodeString() and decodeString()', () => {
+  // eslint-disable-next-line max-params
   function test(
     value: string,
     alphabet: string,

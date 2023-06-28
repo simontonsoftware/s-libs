@@ -1,6 +1,7 @@
 import { staticTest } from '@s-libs/ng-dev';
 import { Encoding } from './encoding';
 
+/* eslint-disable no-warning-comments */
 // TODO: error message pushing non-integer
 // TODO: handle pushing with 1 option, or alphabet of length 1
 // TODO: handle/error/test alphabet of length 0
