@@ -14,6 +14,7 @@ import {
   isSetEqual,
   isSuperset,
   isTruthy,
+  MagicalMap,
   mapAsKeys,
   mapToObject,
   MigrationManager,
@@ -36,141 +37,143 @@ import { staticTest } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
 
 describe('js-core', () => {
-  describe('public API', () => {
-    it('has Constructor', () => {
-      const constructor: Constructor<Date> = Date;
-      expect(constructor).toBeDefined();
-    });
+  it('has Constructor', () => {
+    const constructor: Constructor<Date> = Date;
+    expect(constructor).toBeDefined();
+  });
 
-    it('has TimeUnit', () => {
-      expect(TimeUnit).toBeDefined();
-    });
+  it('has TimeUnit', () => {
+    expect(TimeUnit).toBeDefined();
+  });
 
-    it('has Debouncer', () => {
-      expect(Debouncer).toBeDefined();
-    });
+  it('has Debouncer', () => {
+    expect(Debouncer).toBeDefined();
+  });
 
-    it('has Deferred', () => {
-      expect(Deferred).toBeDefined();
-    });
+  it('has Deferred', () => {
+    expect(Deferred).toBeDefined();
+  });
 
-    // Everything was going great until trying to build the bundle. Then it gave not-very-helpful error message, "Do not know how to serialize a BigInt", and the build failed. Last attempted with Angular 15.0.
-    // it('has Encoding', () => {
-    //   expect(Encoding).toBeDefined();
-    // });
+  // Everything was going great until trying to build the bundle. Then it gave not-very-helpful error message, "Do not know how to serialize a BigInt", and the build failed. Last attempted with Angular 15.0.
+  // it('has Encoding', () => {
+  //   expect(Encoding).toBeDefined();
+  // });
 
-    it('has MigrationManager', () => {
-      expect(MigrationManager).toBeDefined();
-    });
+  it('has MagicalMap', () => {
+    expect(MagicalMap).toBeDefined();
+  });
 
-    it('has Persistence', () => {
-      expect(Persistence).toBeDefined();
-    });
+  it('has MigrationManager', () => {
+    expect(MigrationManager).toBeDefined();
+  });
 
-    it('has PublicInterface', () => {
-      staticTest(() => {
-        expectTypeOf<PublicInterface<Date>>().toEqualTypeOf<Date>();
-      });
-    });
+  it('has Persistence', () => {
+    expect(Persistence).toBeDefined();
+  });
 
-    it('has Stopwatch', () => {
-      expect(Stopwatch).toBeDefined();
+  it('has PublicInterface', () => {
+    staticTest(() => {
+      expectTypeOf<PublicInterface<Date>>().toEqualTypeOf<Date>();
     });
+  });
 
-    it('has assert', () => {
-      expect(assert).toBeDefined();
-    });
+  it('has Stopwatch', () => {
+    expect(Stopwatch).toBeDefined();
+  });
 
-    it('has convertTime', () => {
-      expect(convertTime).toBeDefined();
-    });
+  it('has assert', () => {
+    expect(assert).toBeDefined();
+  });
 
-    it('has createBuilder', () => {
-      expect(createBuilder).toBeDefined();
-    });
+  it('has convertTime', () => {
+    expect(convertTime).toBeDefined();
+  });
 
-    it('has elapsedToString', () => {
-      expect(elapsedToString).toBeDefined();
-    });
+  it('has createBuilder', () => {
+    expect(createBuilder).toBeDefined();
+  });
 
-    it('has getCombinations', () => {
-      expect(getCombinations).toBeDefined();
-    });
+  it('has elapsedToString', () => {
+    expect(elapsedToString).toBeDefined();
+  });
 
-    it('has isDefined', () => {
-      expect(isDefined).toBeDefined();
-    });
+  it('has getCombinations', () => {
+    expect(getCombinations).toBeDefined();
+  });
 
-    it('has isEqualAtDepth', () => {
-      expect(isEqualAtDepth).toBeDefined();
-    });
+  it('has isDefined', () => {
+    expect(isDefined).toBeDefined();
+  });
 
-    it('has isFalsy', () => {
-      expect(isFalsy).toBeDefined();
-    });
+  it('has isEqualAtDepth', () => {
+    expect(isEqualAtDepth).toBeDefined();
+  });
 
-    it('has isPromiseLike', () => {
-      expect(isPromiseLike).toBeDefined();
-    });
+  it('has isFalsy', () => {
+    expect(isFalsy).toBeDefined();
+  });
 
-    it('has isSetEqual', () => {
-      expect(isSetEqual).toBeDefined();
-    });
+  it('has isPromiseLike', () => {
+    expect(isPromiseLike).toBeDefined();
+  });
 
-    it('has isSuperset', () => {
-      expect(isSuperset).toBeDefined();
-    });
+  it('has isSetEqual', () => {
+    expect(isSetEqual).toBeDefined();
+  });
 
-    it('has isTruthy', () => {
-      expect(isTruthy).toBeDefined();
-    });
+  it('has isSuperset', () => {
+    expect(isSuperset).toBeDefined();
+  });
 
-    it('has mapAsKeys', () => {
-      expect(mapAsKeys).toBeDefined();
-    });
+  it('has isTruthy', () => {
+    expect(isTruthy).toBeDefined();
+  });
 
-    it('has mapToObject', () => {
-      expect(mapToObject).toBeDefined();
-    });
+  it('has mapAsKeys', () => {
+    expect(mapAsKeys).toBeDefined();
+  });
 
-    it('has roundToMultipleOf', () => {
-      expect(roundToMultipleOf).toBeDefined();
-    });
+  it('has mapToObject', () => {
+    expect(mapToObject).toBeDefined();
+  });
 
-    it('has setDifference', () => {
-      expect(setDifference).toBeDefined();
-    });
+  it('has roundToMultipleOf', () => {
+    expect(roundToMultipleOf).toBeDefined();
+  });
 
-    it('has setIntersection', () => {
-      expect(setIntersection).toBeDefined();
-    });
+  it('has setDifference', () => {
+    expect(setDifference).toBeDefined();
+  });
 
-    it('has setUnion', () => {
-      expect(setUnion).toBeDefined();
-    });
+  it('has setIntersection', () => {
+    expect(setIntersection).toBeDefined();
+  });
 
-    it('has sleep', () => {
-      expect(sleep).toBeDefined();
-    });
+  it('has setUnion', () => {
+    expect(setUnion).toBeDefined();
+  });
 
-    it('has sort', () => {
-      expect(sort).toBeDefined();
-    });
+  it('has sleep', () => {
+    expect(sleep).toBeDefined();
+  });
 
-    it('has symmetricSetDifference', () => {
-      expect(symmetricSetDifference).toBeDefined();
-    });
+  it('has sort', () => {
+    expect(sort).toBeDefined();
+  });
 
-    it('has toCsv', () => {
-      expect(toCsv).toBeDefined();
-    });
+  it('has symmetricSetDifference', () => {
+    expect(symmetricSetDifference).toBeDefined();
+  });
 
-    it('has wrapFunction', () => {
-      expect(wrapFunction).toBeDefined();
-    });
+  it('has toCsv', () => {
+    expect(toCsv).toBeDefined();
+  });
 
-    it('has wrapMethod', () => {
-      expect(wrapMethod).toBeDefined();
-    });
+  it('has wrapFunction', () => {
+    expect(wrapFunction).toBeDefined();
+  });
+
+  it('has wrapMethod', () => {
+    expect(wrapMethod).toBeDefined();
   });
 });

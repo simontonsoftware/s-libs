@@ -9,6 +9,7 @@ export * from './lib/sets';
 export * from './lib/time';
 export { assert } from './lib/assert';
 export { getCombinations } from './lib/get-combinations';
+export { MagicalMap } from './lib/magical-map';
 export {
   MigrateFunction,
   MigrationManager,
