@@ -1,4 +1,4 @@
-import { assert } from '@s-libs/js-core';
+import { assert } from '../assert';
 import { sort } from '../sort';
 
 const CHUNK_BOUND = 64;
@@ -12,18 +12,19 @@ const CHUNK_BOUND = 64;
  *
  * // encode some survey answers into a hex string
  * encoding = new Encoding();
- * encoding.pushNumber(5, 1, 5); // encode 5, where it could be between 1-5
+ * encoding.pushInteger(5, 1, 5); // encode 5, where it could be between 1-5
  * encoding.pushBoolean(true);
  * encoding.pushOption('agree', options);
- * const hexString = encoding.pullAllAsString(hexAlphabet);
+ * const hexString = encoding.popStringEncoding(hexAlphabet);
  * expect(hexString).toBe('1d');
  *
  * // later decode the string back into the survey answers
  * encoding = new Encoding();
- * encoding.pushString(hexString, hexAlphabet);
- * expect(encoding.pullOption(options)).toBe('agree');
- * expect(encoding.pullBoolean()).toBe(true);
- * expect(encoding.pullNumber(1, 5)).toBe(5);
+ * encoding.setStringEncoding(hexString, hexAlphabet);
+ * expect(encoding.popOption(options)).toBe('agree');
+ * expect(encoding.popBoolean()).toBe(true);
+ * expect(encoding.popInteger(1, 5)).toBe(5);
+ * ```
  */
 export class Encoding {
   #asNumber = 0n;

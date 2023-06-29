@@ -65,7 +65,7 @@ describe('Encoding', () => {
     expect(encoding.popBoolean()).toBe(true);
   });
 
-  describe('do options', () => {
+  describe('options', () => {
     it('works', () => {
       encoding.pushOption(4, [2, 4]);
       encoding.pushOption('hi', ['hi', 'there']);
@@ -87,7 +87,7 @@ describe('Encoding', () => {
     });
   });
 
-  describe('do integers', () => {
+  describe('integers', () => {
     it('uses the given bounds', () => {
       encoding.pushInteger(8, 5, 11);
       encoding.pushInteger(-2, -9);
