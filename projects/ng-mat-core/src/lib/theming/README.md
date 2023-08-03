@@ -25,7 +25,7 @@ If you only want one theme, that is possible.
 @include mat.core(); // needed when you don't use the `full-theming` mixin
 @include theming.light-theme(
   (
-    $light-palettes: (
+    light-palettes: (
       primary: mat.define-palette(mat.$blue-palette),
       accent: mat.define-palette(mat.$orange-palette, A400, A200, A700),
     ),
