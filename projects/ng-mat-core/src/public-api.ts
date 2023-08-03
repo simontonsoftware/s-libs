@@ -3,3 +3,4 @@
  */
 
 export * from './lib/dialog';
+export * from './lib/mat-button-harness-with-icon';
