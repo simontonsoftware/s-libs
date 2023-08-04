@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.0](https://github.com/simontonsoftware/s-libs/compare/v16.0.0...v16.1.0) (2023-08-04)
+
+### Features
+
+- **js-core:** add `MagicalMap` ([05fabf4](https://github.com/simontonsoftware/s-libs/commit/05fabf4c405cffa0027dbcb7b2eb68497af47a0e))
+- **micro-dash:** add `startCase()` ([dfc6bcc](https://github.com/simontonsoftware/s-libs/commit/dfc6bccce694e04e68aa4f30ad409e096875da67)), closes [#105](https://github.com/simontonsoftware/s-libs/issues/105)
+- **micro-dash:** reduce the size of `cloneDeep` by using the new [`structuredClone`](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) ([a7c5ece](https://github.com/simontonsoftware/s-libs/commit/a7c5eceec067577cc405dcf4cb9e53ab451f0fc1))
+- **ng-mat-core:** add `matButtonHarnessWithIcon` ([df25e25](https://github.com/simontonsoftware/s-libs/commit/df25e256f11c1d0090928a6cf6d7c9413b0fd860)), closes [#107](https://github.com/simontonsoftware/s-libs/issues/107)
+- **ng-mat-core:** add `provideMatIcons()` ([1d7374e](https://github.com/simontonsoftware/s-libs/commit/1d7374e9937915896193f3d0cd0b71e40501990e)), closes [#108](https://github.com/simontonsoftware/s-libs/issues/108)
+
+### Bug Fixes
+
+- **micro-dash:** `sortedIndex()` was giving the wrong value at the end of an array ([5909ee0](https://github.com/simontonsoftware/s-libs/commit/5909ee02075dcb49dea76daa9795bd1632217d21)), closes [#106](https://github.com/simontonsoftware/s-libs/issues/106)
+
 ## [16.0.0](https://github.com/simontonsoftware/s-libs/compare/v16.0.0-next.2...v16.0.0) (2023-06-01)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 {
   "name": "@s-libs/app-state",
-  "version": "16.0.0",
+  "version": "16.1.0",
   "author": "Simonton Software",
   "license": "MIT",
   "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/app-state",
@@ -10,9 +10,9 @@
     "directory": "projects/app-state"
   },
   "peerDependencies": {
-    "@s-libs/js-core": "^16.0.0",
-    "@s-libs/micro-dash": "^16.0.0",
-    "@s-libs/rxjs-core": "^16.0.0"
+    "@s-libs/js-core": "^16.1.0",
+    "@s-libs/micro-dash": "^16.1.0",
+    "@s-libs/rxjs-core": "^16.1.0"
   },
   "dependencies": { "tslib": "^2.3.0" },
   "sideEffects": false
