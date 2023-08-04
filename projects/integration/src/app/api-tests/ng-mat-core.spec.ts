@@ -1,5 +1,6 @@
 import {
   matButtonHarnessWithIcon,
+  provideMatIcons,
   SlDialogHarness,
   SlDialogModule,
   SlDialogService,
@@ -8,6 +9,10 @@ import {
 describe('ng-mat-core', () => {
   it('has matButtonHarnessWithIcon', () => {
     expect(matButtonHarnessWithIcon).toBeDefined();
+  });
+
+  it('has provideMatIcons', () => {
+    expect(provideMatIcons).toBeDefined();
   });
 
   it('has SlDialogHarness', () => {
