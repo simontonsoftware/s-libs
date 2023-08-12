@@ -30,7 +30,7 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *   providers: [provideValueAccessor(StringComponent)],
  * })
  * class StringComponent extends WrappedControlSuperclass<string | null> {
- *   control = new FormControl('');
+ *   protected control = new FormControl('');
  * }
  * ```
  *
@@ -45,7 +45,7 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *   Date | null,
  *   string | null
  * > {
- *   control = new FormControl<string | null>(null);
+ *   protected control = new FormControl<string | null>(null);
  *
  *   protected override innerToOuterValue(
  *     inner: string | null,
@@ -82,7 +82,7 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *   FullName | null,
  *   Partial<FullName>
  * > {
- *   control = new FormGroup({
+ *   protected control = new FormGroup({
  *     firstName: new FormControl('', { nonNullable: true }),
  *     lastName: new FormControl('', { nonNullable: true }),
  *   });
@@ -116,7 +116,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   #errorHandler = inject(ErrorHandler);
 
   /** Bind this to your inner form control to make all the magic happen. */
-  abstract control: AbstractControl<InnerType>;
+  protected abstract control: AbstractControl<InnerType>;
 
   constructor() {
     super();

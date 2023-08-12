@@ -35,7 +35,7 @@ describe('WrappedControlSuperclass', () => {
   it('adds ng-touched to the inner form control at the right time', () => {
     @Component({ template: `<input [formControl]="control" />` })
     class NgTouchedComponent extends WrappedControlSuperclass<string> {
-      control = new FormControl();
+      protected control = new FormControl();
     }
 
     const ctx = new ComponentContext(NgTouchedComponent, {
@@ -61,7 +61,7 @@ describe('WrappedControlSuperclass', () => {
         number,
         string
       > {
-        control = new FormControl();
+        protected control = new FormControl();
 
         protected override setUpOuterToInnerValue$(
           value$: Observable<number>,
@@ -118,8 +118,8 @@ describe('WrappedControlSuperclass', () => {
         providers: [provideValueAccessor(ErrorInComponent)],
       })
       class ErrorInComponent extends WrappedControlSuperclass<number> {
-        control = new FormControl();
         override outerToInnerValue = jasmine.createSpy();
+        protected control = new FormControl();
       }
 
       @Component({
@@ -162,8 +162,8 @@ describe('WrappedControlSuperclass', () => {
         providers: [provideValueAccessor(ErrorOutComponent)],
       })
       class ErrorOutComponent extends WrappedControlSuperclass<number> {
-        control = new FormControl();
         override innerToOuterValue = jasmine.createSpy();
+        protected control = new FormControl();
       }
 
       @Component({
@@ -257,7 +257,7 @@ describe('WrappedControlSuperclass', () => {
         providers: [provideValueAccessor(InnerComponent)],
       })
       class InnerComponent extends WrappedControlSuperclass<string | null> {
-        control = new FormControl('');
+        protected control = new FormControl('');
 
         // this is an example in the docs
         protected override setUpInnerToOuterErrors$(): Observable<ValidationErrors> {
@@ -324,7 +324,7 @@ describe('WrappedControlSuperclass', () => {
           providers: [provideValueAccessor(InnerComponent)],
         })
         class InnerComponent extends WrappedControlSuperclass<string | null> {
-          control = new FormControl('');
+          protected control = new FormControl('');
         }
 
         @Component({
@@ -337,8 +337,8 @@ describe('WrappedControlSuperclass', () => {
           `,
         })
         class OuterComponent {
-          control = new FormControl('', Validators.required);
-          group = new FormGroup({
+          protected control = new FormControl('', Validators.required);
+          protected group = new FormGroup({
             inner: new FormControl('', Validators.required),
           });
         }
@@ -411,7 +411,7 @@ describe('WrappedControlSuperclass', () => {
         FullName | null,
         Partial<FullName>
       > {
-        control = new FormGroup({
+        protected control = new FormGroup({
           firstName: new FormControl('', { nonNullable: true }),
           lastName: new FormControl('', { nonNullable: true }),
         });
@@ -474,7 +474,7 @@ describe('WrappedControlSuperclass', () => {
         Date | null,
         string | null
       > {
-        control = new FormControl<string | null>(null);
+        protected control = new FormControl<string | null>(null);
 
         protected override innerToOuterValue(
           inner: string | null,
@@ -541,7 +541,7 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
     changeDetection: ChangeDetectionStrategy.OnPush,
   })
   class StringComponent extends WrappedControlSuperclass<string> {
-    control = new FormControl();
+    protected control = new FormControl();
   }
 
   class TestComponentContext extends ComponentContext<TestComponent> {
