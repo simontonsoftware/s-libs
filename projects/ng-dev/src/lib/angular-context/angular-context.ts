@@ -101,6 +101,7 @@ export class AngularContext {
    */
   startTime = new Date();
 
+  #isRunning = false;
   #loader = FakeAsyncHarnessEnvironment.documentRootLoader(this);
 
   /**
@@ -140,6 +141,7 @@ export class AngularContext {
    */
   run(test: () => Promise<void> | void): void {
     try {
+      this.#isRunning = true;
       this.#runWithMockedTime(() => {
         this.init();
         try {
@@ -153,7 +155,15 @@ export class AngularContext {
       });
     } finally {
       AngularContext.#current = undefined;
+      this.#isRunning = false;
     }
+  }
+
+  /**
+   * Returns whether this context is currently executing the {@linkcode #run} callback.
+   */
+  isRunning(): boolean {
+    return this.#isRunning;
   }
 
   /**
@@ -207,9 +217,7 @@ export class AngularContext {
    * @param unit The unit of time `amount` represents. Accepts anything described in `@s-libs/s-core`'s [TimeUnit]{@linkcode https://simontonsoftware.github.io/s-js-utils/typedoc/enums/timeunit.html} enum.
    */
   tick(amount = 0, unit = 'ms'): void {
-    if (
-      isUndefined((window as any).Zone.current.get('FakeAsyncTestZoneSpec'))
-    ) {
+    if (!this.#isRunning) {
       throw new Error(
         '.tick() only works inside the .run() callback (because it needs to be in a fakeAsync zone)',
       );

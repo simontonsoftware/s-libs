@@ -230,6 +230,17 @@ describe('AngularContext', () => {
     });
   });
 
+  describe('.isRunning()', () => {
+    it('works', () => {
+      const ctx = new AngularContext();
+      expect(ctx.isRunning()).toBe(false);
+      ctx.run(() => {
+        expect(ctx.isRunning()).toBe(true);
+      });
+      expect(ctx.isRunning()).toBe(false);
+    });
+  });
+
   describe('.inject()', () => {
     it('fetches from the root injector', () => {
       const ctx = new AngularContext();
