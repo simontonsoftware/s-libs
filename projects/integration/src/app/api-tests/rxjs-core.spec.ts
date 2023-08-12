@@ -5,6 +5,7 @@ import {
   delayOnMicrotaskQueue,
   distinctUntilKeysChanged,
   filterBehavior,
+  isPageVisible$,
   keepWakeLock$,
   logValues,
   mapAndCacheArrayElements,
@@ -17,65 +18,67 @@ import {
 } from '@s-libs/rxjs-core';
 
 describe('rxjs-core', () => {
-  describe('public API', () => {
-    it('has SubscriptionManager', () => {
-      expect(SubscriptionManager).toBeDefined();
-    });
+  it('has SubscriptionManager', () => {
+    expect(SubscriptionManager).toBeDefined();
+  });
 
-    it('has mapAndCacheArrayElements', () => {
-      expect(mapAndCacheArrayElements).toBeDefined();
-    });
+  it('has mapAndCacheArrayElements', () => {
+    expect(mapAndCacheArrayElements).toBeDefined();
+  });
 
-    it('has mapAndCacheObjectElements', () => {
-      expect(mapAndCacheObjectElements).toBeDefined();
-    });
+  it('has mapAndCacheObjectElements', () => {
+    expect(mapAndCacheObjectElements).toBeDefined();
+  });
 
-    it('has cache', () => {
-      expect(cache).toBeDefined();
-    });
+  it('has cache', () => {
+    expect(cache).toBeDefined();
+  });
 
-    it('has createOperatorFunction', () => {
-      expect(createOperatorFunction).toBeDefined();
-    });
+  it('has createOperatorFunction', () => {
+    expect(createOperatorFunction).toBeDefined();
+  });
 
-    it('has debounceMap', () => {
-      expect(debounceMap).toBeDefined();
-    });
+  it('has debounceMap', () => {
+    expect(debounceMap).toBeDefined();
+  });
 
-    it('has delayOnMicrotaskQueue', () => {
-      expect(delayOnMicrotaskQueue).toBeDefined();
-    });
+  it('has delayOnMicrotaskQueue', () => {
+    expect(delayOnMicrotaskQueue).toBeDefined();
+  });
 
-    it('has distinctUntilKeysChanged', () => {
-      expect(distinctUntilKeysChanged).toBeDefined();
-    });
+  it('has distinctUntilKeysChanged', () => {
+    expect(distinctUntilKeysChanged).toBeDefined();
+  });
 
-    it('has filterBehavior', () => {
-      expect(filterBehavior).toBeDefined();
-    });
+  it('has filterBehavior', () => {
+    expect(filterBehavior).toBeDefined();
+  });
 
-    it('has keepWakeLock$', () => {
-      expect(keepWakeLock$).toBeDefined();
-    });
+  it('has isPageVisible$', () => {
+    expect(isPageVisible$).toBeDefined();
+  });
 
-    it('has logValues', () => {
-      expect(logValues).toBeDefined();
-    });
+  it('has keepWakeLock$', () => {
+    expect(keepWakeLock$).toBeDefined();
+  });
 
-    it('has mapToLatestFrom', () => {
-      expect(mapToLatestFrom).toBeDefined();
-    });
+  it('has logValues', () => {
+    expect(logValues).toBeDefined();
+  });
 
-    it('has mixInSubscriptionManager', () => {
-      expect(mixInSubscriptionManager).toBeDefined();
-    });
+  it('has mapToLatestFrom', () => {
+    expect(mapToLatestFrom).toBeDefined();
+  });
 
-    it('has skipAfter', () => {
-      expect(skipAfter).toBeDefined();
-    });
+  it('has mixInSubscriptionManager', () => {
+    expect(mixInSubscriptionManager).toBeDefined();
+  });
 
-    it('has withHistory', () => {
-      expect(withHistory).toBeDefined();
-    });
+  it('has skipAfter', () => {
+    expect(skipAfter).toBeDefined();
+  });
+
+  it('has withHistory', () => {
+    expect(withHistory).toBeDefined();
   });
 });

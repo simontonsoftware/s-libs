@@ -7,6 +7,7 @@ import {
   expectCallsAndReset,
   expectRequest,
   expectSingleCallAndReset,
+  IsPageVisibleHarness,
   logTimers,
   marbleTest,
   SlTestRequest,
@@ -29,6 +30,10 @@ describe('ng-dev', () => {
 
   it('has ComponentHarnessSuperclass', () => {
     expect(ComponentHarnessSuperclass).toBeDefined();
+  });
+
+  it('has IsPageVisibleHarness', () => {
+    expect(IsPageVisibleHarness).toBeDefined();
   });
 
   it('has TestCall', () => {

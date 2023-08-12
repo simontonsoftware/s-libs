@@ -2,6 +2,7 @@ import {
   AngularContext,
   AsyncMethodController,
   expectSingleCallAndReset,
+  IsPageVisibleHarness,
   TestCall,
 } from '@s-libs/ng-dev';
 import {
@@ -19,34 +20,13 @@ const nav = navigator as ExtendedNavigator;
 
 describe('keepWakeLock$()', () => {
   let ctx: AngularContext;
+  let isPageVisibleHarness: IsPageVisibleHarness;
   let request: AsyncMethodController<WakeLock, 'request'>;
-  let visibilityState: jasmine.Spy;
-  let notifyVisibilityChange: VoidFunction | undefined;
   beforeEach(() => {
     ctx = new AngularContext();
+    isPageVisibleHarness = new IsPageVisibleHarness();
     request = new AsyncMethodController(nav.wakeLock!, 'request');
-    visibilityState = spyOnProperty(
-      document,
-      'visibilityState',
-    ).and.returnValue('visible');
-    spyOn(document, 'addEventListener')
-      .withArgs('visibilitychange', jasmine.anything(), undefined)
-      .and.callFake(
-        (_: string, handler: EventListenerOrEventListenerObject) => {
-          notifyVisibilityChange = handler as VoidFunction;
-        },
-      );
   });
-
-  afterEach(() => {
-    notifyVisibilityChange = undefined;
-  });
-
-  function setVisibility(value: DocumentVisibilityState): void {
-    visibilityState.and.returnValue(value);
-    notifyVisibilityChange?.();
-    ctx.tick();
-  }
 
   function flushRequest(): MockSentinel {
     const sentinel = new MockSentinel();
@@ -68,10 +48,10 @@ describe('keepWakeLock$()', () => {
 
   it('waits until the screen is visible', () => {
     ctx.run(() => {
-      setVisibility('hidden');
+      isPageVisibleHarness.setVisible(false);
       keepWakeLock$().subscribe();
       request.verify();
-      setVisibility('visible');
+      isPageVisibleHarness.setVisible(true);
       expectRequest();
     });
   });
@@ -81,12 +61,12 @@ describe('keepWakeLock$()', () => {
       keepWakeLock$().subscribe();
       expectRequest();
 
-      setVisibility('hidden');
-      setVisibility('visible');
+      isPageVisibleHarness.setVisible(false);
+      isPageVisibleHarness.setVisible(true);
       expectRequest();
 
-      setVisibility('hidden');
-      setVisibility('visible');
+      isPageVisibleHarness.setVisible(false);
+      isPageVisibleHarness.setVisible(true);
       expectRequest();
     });
   });
@@ -109,15 +89,15 @@ describe('keepWakeLock$()', () => {
         expectRequest().error('battery is low');
       }).not.toThrowError();
 
-      setVisibility('hidden');
-      setVisibility('visible');
+      isPageVisibleHarness.setVisible(false);
+      isPageVisibleHarness.setVisible(true);
       expectRequest();
     });
   });
 
   it('handles unsubscribing when it never acquired a lock', () => {
     ctx.run(() => {
-      setVisibility('hidden');
+      isPageVisibleHarness.setVisible(false);
       expect(() => {
         keepWakeLock$().subscribe().unsubscribe();
       }).not.toThrowError();

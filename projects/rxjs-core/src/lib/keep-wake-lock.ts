@@ -1,5 +1,7 @@
-import { fromEvent, Observable } from 'rxjs';
-import { filter, finalize, startWith, switchMap } from 'rxjs/operators';
+import { isTruthy } from '@s-libs/js-core';
+import { Observable } from 'rxjs';
+import { filter, finalize, switchMap } from 'rxjs/operators';
+import { isPageVisible$ } from './is-page-visible';
 
 export interface WakeLockSentinel {
   release: () => Promise<void>;
@@ -21,9 +23,8 @@ export interface ExtendedNavigator {
 export function keepWakeLock$(): Observable<unknown> {
   let sentinel: WakeLockSentinel | undefined;
   const nav = navigator as ExtendedNavigator;
-  return fromEvent(document, 'visibilitychange').pipe(
-    startWith(0),
-    filter(() => document.visibilityState === 'visible'),
+  return isPageVisible$().pipe(
+    filter(isTruthy),
     switchMap(async () => {
       try {
         sentinel = await nav.wakeLock?.request('screen');
