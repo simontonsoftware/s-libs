@@ -30,11 +30,12 @@ Use these instructions for much stricter linting, start with the instructions ab
 
 1. Follow the instructions above for recommended config and ensure it works.
 1. `npm install --save-dev eslint-config-prettier`
+1. Change `extends` in `.eslintrc.json` to `@s-libs/eslint-config-ng/strict`
 1. Add the `parserOptions` to the `.eslintrc.json` file you created, so it looks like this:
 
    ```json
    {
-     "extends": "@s-libs/eslint-config-ng",
+     "extends": "@s-libs/eslint-config-ng/strict",
      "overrides": [
        {
          "files": ["*.ts"],
