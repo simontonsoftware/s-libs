@@ -44,7 +44,7 @@ export interface PersistenceCodec<State, Persisted> {
  * expect(store.state().my_state_key).toBe('my new value');
  * ```
  *
- * Later when you want to change the schema of the state, it's time to take advantage of the `{@link MigrationManager}:
+ * At this point, if you change `_version` the store will be reset to the default state. This is a convenience during initial development of your app. Once it is released to real users, you will want to use a {@link MigrationManager} to avoid wiping out your users' data:
  *
  * ```ts
  * class MyState implements VersionedObject {
@@ -128,8 +128,8 @@ export class PersistentStore<
     persistenceKey: string,
     defaultState: State,
     {
-      migrator = new MigrationManager<Persisted>(),
-      codec = new IdentityCodec() as PersistenceCodec<State, Persisted>,
+      migrator = new NonMigrationManager() as MigrationManager<Persisted>,
+      codec = new IdentityCodec<any>() as PersistenceCodec<State, Persisted>,
     } = {},
   ) {
     const persistence = new Persistence<Persisted>(persistenceKey);
@@ -149,4 +149,17 @@ export class PersistentStore<
 class IdentityCodec<T> implements PersistenceCodec<T, T> {
   decode = identity;
   encode = identity;
+}
+
+class NonMigrationManager<
+  T extends VersionedObject,
+> extends MigrationManager<T> {
+  override run(persistence: Persistence<T>, defaultValue: T): T {
+    let persisted = persistence.get() ?? defaultValue;
+    if (persisted._version !== defaultValue._version) {
+      persisted = defaultValue;
+    }
+    persistence.put(persisted);
+    return persisted;
+  }
 }

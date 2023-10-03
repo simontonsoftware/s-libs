@@ -24,6 +24,15 @@ describe('PersistentStore', () => {
     expect(store.state()).toBe(defaultState);
   });
 
+  it('overwrites the store with `defaultState` on a version change', () => {
+    localStorage.setItem('thekey', '{"_version": 0, "myKey": "saved"}');
+    const defaultState = { _version: 1, source: 'default' };
+
+    const store = new PersistentStore('thekey', defaultState);
+
+    expect(store.state()).toBe(defaultState);
+  });
+
   describe('documentation', () => {
     it('is working for the simple example', () => {
       /* eslint-disable camelcase */
