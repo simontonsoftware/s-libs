@@ -58,7 +58,10 @@ describe('MigrationManager', () => {
 
   describe('.run()', () => {
     class MyData implements VersionedObject {
-      constructor(public _version: number, public key: string) {}
+      constructor(
+        public _version: number,
+        public key: string,
+      ) {}
     }
 
     let persistence: Persistence<MyData>;

@@ -9,11 +9,11 @@ import { unsubscribe } from '../../../../../app-state/src/performance/performanc
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'sl-deep-performance',
-    templateUrl: './deep-performance.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [FormsModule],
+  selector: 'sl-deep-performance',
+  templateUrl: './deep-performance.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [FormsModule],
 })
 export class DeepPerformanceComponent {
   depth = 1000;

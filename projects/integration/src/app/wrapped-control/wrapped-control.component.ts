@@ -6,12 +6,12 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'sl-wrapped-control',
-    templateUrl: './wrapped-control.component.html',
-    styleUrls: ['./wrapped-control.component.scss'],
-    providers: [provideValueAccessor(WrappedControlComponent)],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [FormsModule, ReactiveFormsModule],
+  selector: 'sl-wrapped-control',
+  templateUrl: './wrapped-control.component.html',
+  styleUrls: ['./wrapped-control.component.scss'],
+  providers: [provideValueAccessor(WrappedControlComponent)],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule],
 })
 export class WrappedControlComponent extends WrappedFormControlSuperclass<string> {}

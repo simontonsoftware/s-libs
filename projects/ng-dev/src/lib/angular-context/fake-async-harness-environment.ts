@@ -5,7 +5,10 @@ import { bindKey } from '@s-libs/micro-dash';
 import { AngularContext } from './angular-context';
 
 export class FakeAsyncHarnessEnvironment extends HarnessEnvironment<Element> {
-  protected constructor(rawRootElement: Element, private ctx: AngularContext) {
+  protected constructor(
+    rawRootElement: Element,
+    private ctx: AngularContext,
+  ) {
     super(rawRootElement);
   }
 

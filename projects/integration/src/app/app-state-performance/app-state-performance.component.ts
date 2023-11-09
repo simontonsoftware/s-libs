@@ -3,11 +3,11 @@ import { DeepPerformanceComponent } from './deep-performance/deep-performance.co
 import { WidePerformanceComponent } from './wide-performance/wide-performance.component';
 
 @Component({
-    selector: 'sl-app-state-performance',
-    templateUrl: './app-state-performance.component.html',
-    styleUrls: ['./app-state-performance.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [WidePerformanceComponent, DeepPerformanceComponent],
+  selector: 'sl-app-state-performance',
+  templateUrl: './app-state-performance.component.html',
+  styleUrls: ['./app-state-performance.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [WidePerformanceComponent, DeepPerformanceComponent],
 })
 export class AppStatePerformanceComponent {}

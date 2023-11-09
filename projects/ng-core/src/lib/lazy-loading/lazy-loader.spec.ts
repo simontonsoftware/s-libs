@@ -89,9 +89,8 @@ describe('LazyLoader', () => {
         // wherever you want to open the dialog
         const dialogLoader = ctx.inject(dialogLoaderToken);
         const matDialog = await dialogLoader.inject('MatDialog');
-        const myDialogComponent = await dialogLoader.getToken(
-          'MyDialogComponent',
-        );
+        const myDialogComponent =
+          await dialogLoader.getToken('MyDialogComponent');
         matDialog.open(myDialogComponent);
 
         const dialog = await ctx.getHarness(MatDialogHarness);

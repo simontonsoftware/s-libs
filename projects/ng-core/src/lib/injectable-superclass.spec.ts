@@ -15,7 +15,10 @@ class DestroyableService extends InjectableSuperclass {}
   providers: [DestroyableService],
 })
 class DestroyableDirective extends InjectableSuperclass {
-  constructor(subject: Subject<any>, public service: DestroyableService) {
+  constructor(
+    subject: Subject<any>,
+    public service: DestroyableService,
+  ) {
     super();
     this.subscribeTo(subject);
     service.subscribeTo(subject);
