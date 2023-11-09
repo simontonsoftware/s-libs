@@ -54,11 +54,11 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/integration",
             "index": "projects/integration/src/index.html",
-            "main": "projects/integration/src/main.ts",
+            "browser": "projects/integration/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/integration/tsconfig.app.json",
             "assets": [
@@ -91,12 +91,9 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -105,10 +102,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "integration:build:production"
+              "buildTarget": "integration:build:production"
             },
             "development": {
-              "browserTarget": "integration:build:development"
+              "buildTarget": "integration:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -116,7 +113,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "integration:build"
+            "buildTarget": "integration:build"
           }
         },
         "test": {
@@ -232,11 +229,11 @@
       "prefix": "sl",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/micro-dash-sizes",
             "index": "projects/micro-dash-sizes/src/index.html",
-            "main": "projects/micro-dash-sizes/src/main.ts",
+            "browser": "projects/micro-dash-sizes/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/micro-dash-sizes/tsconfig.app.json",
             "assets": [
@@ -269,14 +266,14 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "micro-dash-sizes:build:production"
+              "buildTarget": "micro-dash-sizes:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "micro-dash-sizes:build"
+            "buildTarget": "micro-dash-sizes:build"
           }
         },
         "lint": {

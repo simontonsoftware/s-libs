@@ -1,10 +1,10 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
     //
     // from the Angular CLI
     //
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -12,6 +12,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
@@ -22,7 +23,7 @@
     "module": "ES2022",
     "useDefineForClassFields": false,
     "paths": {
-      "@s-libs/*": ["dist/*"]
+      "@s-libs/*": ["./dist/*"]
     },
     "lib": ["ES2022", "dom"],
 
