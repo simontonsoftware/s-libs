@@ -2,8 +2,8 @@
  * Creates a function that is restricted to invoking `func` once. Repeat calls to the function return the value of the first invocation. The `func` is invoked with the `this` binding and arguments of the created function.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 1,662 bytes
- * - Micro-dash: 120 bytes
+ * - Lodash: 1,809 bytes
+ * - Micro-dash: 100 bytes
  */
 export function once<T extends (...args: any[]) => any>(
   func: T,

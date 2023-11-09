@@ -8,8 +8,8 @@ import { isBoolean } from '../lang';
  * - does not coerce arguments into finite numbers. E.g. if you supply `NaN` or `Infinity`, results are not guaranteed.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 2,528 bytes
- * - Micro-dash: 402 bytes
+ * - Lodash: 2,740 bytes
+ * - Micro-dash: 380 bytes
  */
 
 export function random(floating?: boolean): number;

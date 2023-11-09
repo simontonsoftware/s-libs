@@ -14,8 +14,8 @@ import { forEach } from './for-each';
  * Iterates over elements of `collection`, returning an array of all elements `predicate` returns truthy for.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 14,707 bytes
- * - Micro-dash: 329 bytes
+ * - Lodash: 16,224 bytes
+ * - Micro-dash: 319 bytes
  */
 
 export function filter<I, O>(

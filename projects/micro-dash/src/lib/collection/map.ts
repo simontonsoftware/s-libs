@@ -5,8 +5,8 @@ import { forEach } from './for-each';
  * Creates an array of values by running each element in `collection` thru `iteratee`.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 14,746 bytes
- * - Micro-dash: 327 bytes
+ * - Lodash: 16,246 bytes
+ * - Micro-dash: 316 bytes
  */
 
 export function map<I, O>(

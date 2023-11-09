@@ -8,8 +8,8 @@ import { words } from './words';
  * - requires `string` to be a string
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 6,116 bytes
- * - Micro-dash: 335 bytes
+ * - Lodash: 6,730 bytes
+ * - Micro-dash: 321 bytes
  */
 export function startCase(string: string): string {
   return words(string).map(upperFirst).join(' ');

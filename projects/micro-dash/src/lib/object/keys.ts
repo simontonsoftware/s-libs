@@ -7,8 +7,8 @@ import { Nil, StringifiedKey } from '../interfaces';
  * - does not give any special consideration for arguments objects, strings, or prototype objects (e.g. many will have `'length'` in the returned array)
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 3,473 bytes
- * - Micro-dash: 184 bytes
+ * - Lodash: 3,866 bytes
+ * - Micro-dash: 165 bytes
  */
 
 export function keys<T>(object: Nil | T): Array<StringifiedKey<T>> {

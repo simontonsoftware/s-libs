@@ -5,8 +5,8 @@ import { forOwnOfNonArray } from '../object/for-own';
  * Iterates over elements of `collection` and invokes `iteratee` for each element. Iteratee functions may exit iteration early by explicitly returning `false`.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 4,036 bytes
- * - Micro-dash: 258 bytes
+ * - Lodash: 4,526 bytes
+ * - Micro-dash: 249 bytes
  */
 
 export function forEach<T extends Nil | readonly any[]>(

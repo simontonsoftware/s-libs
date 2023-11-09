@@ -10,7 +10,7 @@ import { forEach } from '../micro-dash/src/public-api';
 const rootDir = path.join(__dirname, '..', '..');
 const mainDir = path.join(__dirname, 'src');
 const appDir = path.join(mainDir, 'app');
-const bundleDir = path.join(rootDir, 'dist', 'micro-dash-sizes');
+const bundleDir = path.join(rootDir, 'dist', 'micro-dash-sizes', 'browser');
 const sourceDir = path.join(rootDir, 'projects', 'micro-dash', 'src', 'lib');
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises -- `await` would be appropriate here, but it's not allowed with `commonjs` modules, which are needed for the imports
@@ -93,7 +93,7 @@ function build(inputPath: string): void {
 }
 
 async function inspect(): Promise<string | undefined> {
-  const res = await explore(path.join(bundleDir, 'main.*.js'));
+  const res = await explore(path.join(bundleDir, 'main*.js'));
 
   let lodash = 0;
   let microdash = 0;
