@@ -1,6 +1,9 @@
+import { AsyncPipe, NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { mapToObject } from '@s-libs/js-core';
 import { forEach, padStart } from '@s-libs/micro-dash';
+import { NasModelModule } from '@s-libs/ng-app-state';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { City, NasModelState } from './nas-model-state';
@@ -11,6 +14,8 @@ import { NasModelStore } from './nas-model-store';
   templateUrl: './nas-model.component.html',
   styleUrls: ['./nas-model.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [AsyncPipe, FormsModule, NasModelModule, NgFor],
 })
 export class NasModelComponent {
   cities: City[] = ['San Francisco', 'Nairobi', 'Gulu'];

@@ -6,11 +6,14 @@ import {
   subscribeDeep,
 } from '../../../../../app-state/src/performance/deep-performance';
 import { unsubscribe } from '../../../../../app-state/src/performance/performance-utils';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'sl-deep-performance',
-  templateUrl: './deep-performance.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sl-deep-performance',
+    templateUrl: './deep-performance.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [FormsModule],
 })
 export class DeepPerformanceComponent {
   depth = 1000;

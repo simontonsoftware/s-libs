@@ -66,13 +66,7 @@
               "projects/integration/src/assets"
             ],
             "styles": ["projects/integration/src/styles.scss"],
-            "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "scripts": []
           },
           "configurations": {
             "production": {

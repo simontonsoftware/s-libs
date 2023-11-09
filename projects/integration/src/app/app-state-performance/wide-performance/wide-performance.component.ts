@@ -6,11 +6,14 @@ import {
   subscribeWide,
   WideState,
 } from '../../../../../app-state/src/performance/wide-performance';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'sl-wide-performance',
-  templateUrl: './wide-performance.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sl-wide-performance',
+    templateUrl: './wide-performance.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [FormsModule],
 })
 export class WidePerformanceComponent {
   width = 1000;
