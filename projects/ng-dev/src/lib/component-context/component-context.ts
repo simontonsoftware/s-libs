@@ -175,8 +175,8 @@ export class ComponentContext<T> extends AngularContext {
     const mirror = reflectComponentType(componentType);
     assert(mirror, 'That does not appear to be a component');
     const inputProperties = WrapperComponent.wrap(mirror, unboundInputs);
-    const imports: any[] = [WrapperComponent];
-    const declarations: any[] = [];
+    const imports: any[] = [];
+    const declarations: any[] = [WrapperComponent];
     (mirror.isStandalone ? imports : declarations).push(componentType);
     super(
       extendMetadata({ imports, declarations }, moduleMetadata, {

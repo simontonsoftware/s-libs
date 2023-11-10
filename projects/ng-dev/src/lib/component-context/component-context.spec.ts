@@ -78,6 +78,17 @@ describe('ComponentContext', () => {
       });
     });
 
+    it('supports non-standalone components', () => {
+      // eslint-disable-next-line @angular-eslint/prefer-standalone-component
+      @Component({ template: 'hi' })
+      class ModulizedComponent {}
+
+      const ctx = new ComponentContext(ModulizedComponent);
+      ctx.run(() => {
+        expect(ctx.fixture.nativeElement.textContent).toBe('hi');
+      });
+    });
+
     it('errors with a nice message when given a non-component', () => {
       // eslint-disable-next-line @typescript-eslint/no-extraneous-class
       class NotAComponent {}
