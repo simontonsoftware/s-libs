@@ -22,7 +22,6 @@
           { "allowWithDecorator": true }
         ],
         "accessor-pairs": "off", // a lone setter or getter is nice for bindings
-        "class-methods-use-this": "off", // lifecycle hooks can't be static
         "new-cap": "off", // This errs on decorators
 
         // Better compatibility with s-libs
@@ -47,6 +46,11 @@
           "error",
           { "prefer": "parameter-property" }
         ],
+        // this would be great if you could limit it to `[0]`. But even `[2]` is awkward to "fix".
+        "@typescript-eslint/prefer-destructuring": [
+          "error",
+          { "array": false }
+        ],
         "@typescript-eslint/restrict-template-expressions": [
           "error",
           {
@@ -59,12 +63,12 @@
         "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
         "one-var": ["error", "never"],
         "prefer-const": ["error", { "ignoreReadBeforeAssign": true }],
-        "prefer-destructuring": ["error", { "array": false }],
         "spaced-comment": ["error", "always", { "exceptions": ["/"] }],
 
         // Subjectively undesirable
         "@angular-eslint/use-component-selector": "off",
         "@angular-eslint/use-injectable-provided-in": "off",
+        "@typescript-eslint/class-methods-use-this": "off", // there are valid reasons, like to leverage polymorphism
         "@typescript-eslint/consistent-type-exports": "off",
         "@typescript-eslint/consistent-type-imports": "off",
         "@typescript-eslint/init-declarations": "off",

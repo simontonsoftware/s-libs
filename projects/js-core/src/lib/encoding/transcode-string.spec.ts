@@ -2,7 +2,7 @@ import { NUMERIC_ALPHABET, UNRESERVED_ALPHABET } from './alphabets';
 import { decodeString, encodeString } from './transcode-string';
 
 describe('encodeString() and decodeString()', () => {
-  // eslint-disable-next-line max-params
+  // eslint-disable-next-line @typescript-eslint/max-params
   function test(
     value: string,
     alphabet: string,
