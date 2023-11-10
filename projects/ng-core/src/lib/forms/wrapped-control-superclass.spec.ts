@@ -15,7 +15,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { RootStore } from '@s-libs/app-state';
 import { keys, omit } from '@s-libs/micro-dash';
+import { NasModelModule } from '@s-libs/ng-app-state';
 import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { EMPTY, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -50,6 +52,36 @@ describe('WrappedControlSuperclass', () => {
       ctx.tick();
 
       expect(debugElement.classes['ng-touched']).toBe(true);
+    });
+  });
+
+  // There is some kind of tricky timing issue when using NasModel and WrappedControlSuperclass that required moving a subscription from `ngOnInit()` to `constructor()` to fix.
+  it('catches the first incoming value from a nasModel', () => {
+    @Component({
+      selector: 'sl-wrapped-control',
+      standalone: true,
+      imports: [ReactiveFormsModule],
+      template: `<input [formControl]="control" />`,
+      providers: [provideValueAccessor(WrappedControlComponent)],
+    })
+    class WrappedControlComponent extends WrappedControlSuperclass<string> {
+      protected control = new FormControl();
+    }
+
+    @Component({
+      standalone: true,
+      imports: [WrappedControlComponent, NasModelModule],
+      template: `<sl-wrapped-control [nasModel]="store('value')" />`,
+    })
+    class WrapperComponent {
+      store = new RootStore({ value: 'initial value' });
+    }
+
+    const ctx = new ComponentContext(WrapperComponent);
+    ctx.run(() => {
+      const el = ctx.fixture.nativeElement as HTMLElement;
+      const input = el.querySelector('input')!;
+      expect(input.value).toBe('initial value');
     });
   });
 
