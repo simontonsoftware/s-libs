@@ -20,7 +20,6 @@ import {
   citySelectWithCustomCompareFnTemplate,
   citySelectWithNullTemplate,
   CityStore,
-  InnerNameComponent,
   MenuComponent,
   MenuStore,
   MultipleCityComponent,
@@ -65,18 +64,13 @@ function dispatchEvent(domElement: EventTarget, type: string): void {
 function initTest<C, S>(
   component: Type<C>,
   storeType: Type<S>,
-  {
-    extraDirectives = [] as Array<Type<any>>,
-    template = '',
-    beforeCreate = noop,
-  } = {},
+  { template = '', beforeCreate = noop } = {},
 ): S {
   if (template) {
     TestBed.overrideComponent(component, { set: { template } });
   }
   TestBed.configureTestingModule({
-    declarations: [component, ...extraDirectives],
-    imports: [FormsModule, NasModelModule],
+    imports: [component, FormsModule, NasModelModule],
     providers: [storeType],
   });
 
@@ -616,9 +610,7 @@ describe('value accessors', () => {
   describe('custom value accessors', () => {
     describe('in template-driven forms', () => {
       it('should support standard writing to view and model', waitForAsync(() => {
-        const store = initTest(NameComponent, NameStore, {
-          extraDirectives: [InnerNameComponent],
-        });
+        const store = initTest(NameComponent, NameStore);
 
         store('name').set('Nancy');
         detectChanges();

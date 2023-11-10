@@ -19,6 +19,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { sleep } from '@s-libs/js-core';
 import { noop } from '@s-libs/micro-dash';
+import { expectTypeOf } from 'expect-type';
+import { staticTest } from '../static-test/static-test';
 import { ComponentContext } from './component-context';
 
 describe('ComponentContext', () => {
@@ -277,6 +279,17 @@ describe('ComponentContext', () => {
       })
         // No error: "1 periodic timer(s) still in the queue."
         .not.toThrowError();
+    });
+  });
+
+  it('has fancy typing', () => {
+    staticTest(() => {
+      const ctx = new ComponentContext(TestComponent);
+      expectTypeOf(ctx.fixture).toEqualTypeOf<ComponentFixture<unknown>>();
+      expectTypeOf(ctx.assignInputs).toEqualTypeOf<
+        (inputs: Partial<TestComponent>) => void
+      >();
+      expectTypeOf(ctx.getComponentInstance()).toEqualTypeOf<TestComponent>();
     });
   });
 });

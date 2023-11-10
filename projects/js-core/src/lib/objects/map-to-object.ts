@@ -1,6 +1,7 @@
 import { transform } from '@s-libs/micro-dash';
 import {
   ArrayIteratee,
+  Prettify,
   Nil,
   ObjectIteratee,
   PartialExceptIndexes,
@@ -18,14 +19,16 @@ import {
  * ```
  */
 
+// `Prettify` is not just for looks. It also works around an apparent bug in expect-type for the tests.
+
 export function mapToObject<I, K extends keyof any, V>(
   array: Nil | readonly I[],
   iteratee: ArrayIteratee<I, Readonly<[K, V]>>,
-): PartialExceptIndexes<{ [k in K]: V }>;
+): Prettify<PartialExceptIndexes<{ [k in K]: V }>>;
 export function mapToObject<T, K extends keyof any, V>(
   object: Nil | T,
   iteratee: ObjectIteratee<T, Readonly<[K, V]>>,
-): PartialExceptIndexes<{ [k in K]: V }>;
+): Prettify<PartialExceptIndexes<{ [k in K]: V }>>;
 
 export function mapToObject(collection: any, iteratee: any): any {
   return transform(collection, (accumulator: any, origValue, keyOrIndex) => {

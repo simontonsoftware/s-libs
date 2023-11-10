@@ -76,7 +76,6 @@ class TestComponentContext extends ComponentContext<TestComponent> {
 
   constructor() {
     super(TestComponent, {
-      declarations: [ColorTextComponent],
       providers: [
         {
           provide: 'color$',
@@ -241,11 +240,7 @@ describe('DirectiveSuperclass', () => {
         }
       }
 
-      const ctx2 = new ComponentContext(
-        NoInputComponent,
-        { declarations: [NoInputComponent] },
-        ['myInput'],
-      );
+      const ctx2 = new ComponentContext(NoInputComponent, {}, ['myInput']);
       ctx2.run(() => {
         const testDirective = ctx2.fixture.debugElement
           .query(By.directive(NoInputComponent))

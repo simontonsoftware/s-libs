@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
@@ -33,7 +34,7 @@ class CounterComponent extends FormComponentSuperclass<number> {
 
 @Component({
   standalone: true,
-  imports: [CounterComponent, FormsModule],
+  imports: [CounterComponent, FormsModule, NgIf],
   template: `
     <sl-counter
       #counter="ngModel"

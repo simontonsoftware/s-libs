@@ -29,7 +29,11 @@ export class SingleValueStore extends RootStore<any> {
   }
 }
 
-@Component({ standalone: true, selector: 'nas-single-value' })
+@Component({
+  selector: 'nas-single-value',
+  standalone: true,
+  imports: [CommonModule, NasModelModule],
+})
 export class SingleValueComponent extends StoreComponent<any> {
   constructor(store: SingleValueStore) {
     super(store);

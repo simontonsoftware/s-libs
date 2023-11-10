@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { noop } from '@s-libs/micro-dash';
+import { expectTypeOf } from 'expect-type';
 import { ComponentContext } from '../component-context';
+import { staticTest } from '../static-test/static-test';
 import { AsyncMethodController } from './async-method-controller';
 import { expectSingleCallAndReset } from './expect-single-call-and-reset';
 
@@ -125,6 +127,29 @@ describe('TestCall', () => {
       expect(() => {
         controller.expectOne([]).flush('this is the clipboard content');
       }).not.toThrowError();
+    });
+  });
+
+  it('has fancy typing', () => {
+    staticTest(() => {
+      const writeController = new AsyncMethodController(
+        navigator.clipboard,
+        'writeText',
+      );
+      const readController = new AsyncMethodController(
+        navigator.clipboard,
+        'readText',
+      );
+
+      const writeTestCall = writeController.expectOne(['something I copied']);
+      const readTestCall = readController.expectOne([]);
+
+      expectTypeOf(writeTestCall.callInfo.args).toEqualTypeOf<[data: string]>();
+      expectTypeOf(readTestCall.callInfo.args).toEqualTypeOf<[]>();
+
+      // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+      expectTypeOf(writeTestCall.flush).toEqualTypeOf<(value: void) => void>();
+      expectTypeOf(readTestCall.flush).toEqualTypeOf<(value: string) => void>();
     });
   });
 });

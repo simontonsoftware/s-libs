@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import {
   FormControl,
@@ -323,10 +324,8 @@ describe('ControlSynchronizer', () => {
 
     @Component({
       standalone: true,
-      imports: [InnerComponent, ReactiveFormsModule],
-      template: `
-        <sl-inner *ngIf="showInner" [formControl]="control"></sl-inner>
-      `,
+      imports: [InnerComponent, NgIf, ReactiveFormsModule],
+      template: `<sl-inner *ngIf="showInner" [formControl]="control" />`,
     })
     class OuterComponent extends WrappedControlSuperclass<string | null> {
       @Input() showInner!: boolean;

@@ -1,4 +1,4 @@
-import { expectCallsAndReset } from '@s-libs/ng-dev';
+import { expectCallsAndReset, staticTest } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
 import { mapToObject } from './map-to-object';
 
@@ -38,56 +38,64 @@ describe('mapToObject()', () => {
 
   describe('typing', () => {
     it('is good for arrays', () => {
-      expect().nothing();
+      staticTest(() => {
+        type A = number[];
+        type AorU = A | undefined;
+        type AorN = A | null;
 
-      type A = number[];
-      type AorU = A | undefined;
-      type AorN = A | null;
+        const a = [] as A;
+        const aOrU = a as AorU;
+        const aOrN = a as AorN;
 
-      const a = [] as A;
-      const aOrU = a as AorU;
-      const aOrN = a as AorN;
+        interface Result {
+          a?: number;
+        }
+        expectTypeOf(mapToObject(a, () => ['a', 1])).toEqualTypeOf<Result>();
+        expectTypeOf(mapToObject(aOrN, () => ['a', 1])).toEqualTypeOf<Result>();
+        expectTypeOf(mapToObject(aOrU, () => ['a', 1])).toEqualTypeOf<Result>();
 
-      interface Result {
-        a?: number;
-      }
-      expectTypeOf(mapToObject(a, () => ['a', 1])).toEqualTypeOf<Result>();
-      expectTypeOf(mapToObject(aOrN, () => ['a', 1])).toEqualTypeOf<Result>();
-      expectTypeOf(mapToObject(aOrU, () => ['a', 1])).toEqualTypeOf<Result>();
-
-      const index: [string, number] = ['a', 1];
-      type IndexResult = Record<string, number>;
-      expectTypeOf(mapToObject(a, () => index)).toEqualTypeOf<IndexResult>();
-      expectTypeOf(mapToObject(aOrU, () => index)).toEqualTypeOf<IndexResult>();
-      expectTypeOf(mapToObject(aOrN, () => index)).toEqualTypeOf<IndexResult>();
+        const index: [string, number] = ['a', 1];
+        type IndexResult = Record<string, number>;
+        expectTypeOf(mapToObject(a, () => index)).toEqualTypeOf<IndexResult>();
+        expectTypeOf(
+          mapToObject(aOrU, () => index),
+        ).toEqualTypeOf<IndexResult>();
+        expectTypeOf(
+          mapToObject(aOrN, () => index),
+        ).toEqualTypeOf<IndexResult>();
+      });
     });
 
     it('is good for objects', () => {
-      expect().nothing();
+      staticTest(() => {
+        interface O {
+          a: string;
+          b: number;
+        }
+        type OorU = O | undefined;
+        type OorN = O | null;
 
-      interface O {
-        a: string;
-        b: number;
-      }
-      type OorU = O | undefined;
-      type OorN = O | null;
+        const o = {} as O;
+        const oOrU = o as OorU;
+        const oOrN = o as OorN;
 
-      const o = {} as O;
-      const oOrU = o as OorU;
-      const oOrN = o as OorN;
+        interface Result {
+          a?: number;
+        }
+        expectTypeOf(mapToObject(o, () => ['a', 1])).toEqualTypeOf<Result>();
+        expectTypeOf(mapToObject(oOrU, () => ['a', 1])).toEqualTypeOf<Result>();
+        expectTypeOf(mapToObject(oOrN, () => ['a', 1])).toEqualTypeOf<Result>();
 
-      interface Result {
-        a?: number;
-      }
-      expectTypeOf(mapToObject(o, () => ['a', 1])).toEqualTypeOf<Result>();
-      expectTypeOf(mapToObject(oOrU, () => ['a', 1])).toEqualTypeOf<Result>();
-      expectTypeOf(mapToObject(oOrN, () => ['a', 1])).toEqualTypeOf<Result>();
-
-      const index: [string, number] = ['a', 1];
-      type IndexResult = Record<string, number>;
-      expectTypeOf(mapToObject(o, () => index)).toEqualTypeOf<IndexResult>();
-      expectTypeOf(mapToObject(oOrU, () => index)).toEqualTypeOf<IndexResult>();
-      expectTypeOf(mapToObject(oOrN, () => index)).toEqualTypeOf<IndexResult>();
+        const index: [string, number] = ['a', 1];
+        type IndexResult = Record<string, number>;
+        expectTypeOf(mapToObject(o, () => index)).toEqualTypeOf<IndexResult>();
+        expectTypeOf(
+          mapToObject(oOrU, () => index),
+        ).toEqualTypeOf<IndexResult>();
+        expectTypeOf(
+          mapToObject(oOrN, () => index),
+        ).toEqualTypeOf<IndexResult>();
+      });
     });
   });
 });

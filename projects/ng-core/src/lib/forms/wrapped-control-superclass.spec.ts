@@ -390,10 +390,7 @@ describe('WrappedControlSuperclass', () => {
           });
         }
 
-        const ctx = new ComponentContext(OuterComponent, {
-          imports: [FormsModule, ReactiveFormsModule],
-          declarations: [InnerComponent],
-        });
+        const ctx = new ComponentContext(OuterComponent);
         ctx.run(async () => {
           const model = ctx.fixture.debugElement.query(
             By.css('#model'),
@@ -473,10 +470,7 @@ describe('WrappedControlSuperclass', () => {
         date = new Date();
       }
 
-      const ctx = new ComponentContext(TestComponent, {
-        imports: [FormsModule, ReactiveFormsModule],
-        declarations: [DateComponent],
-      });
+      const ctx = new ComponentContext(TestComponent);
       ctx.run(async () => {
         const input = find<HTMLInputElement>(ctx.fixture, 'input');
 
@@ -550,10 +544,7 @@ describe('WrappedControlSuperclass', () => {
         fullName = { firstName: 'Rinat', lastName: 'Arsaev' };
       }
 
-      const ctx = new ComponentContext(TestComponent, {
-        imports: [FormsModule, ReactiveFormsModule],
-        declarations: [FullNameComponent],
-      });
+      const ctx = new ComponentContext(TestComponent);
       ctx.run(async () => {
         const inputs = document.querySelectorAll('input');
         expect(inputs[0].value).toBe('Rinat');

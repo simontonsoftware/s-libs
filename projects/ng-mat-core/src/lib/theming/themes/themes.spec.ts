@@ -8,16 +8,16 @@ describe('themes.scss', () => {
   it('includes themes', () => {
     @Component({
       standalone: true,
-      imports: [MatToolbarModule],
+      imports: [MatButtonModule],
       styleUrls: ['./minimal-config.spec.scss'],
-      template: `<mat-toolbar />`,
+      template: `<button mat-button>Clickity click</button>`,
     })
     class TestComponent {}
 
     const ctx = new ComponentContext(TestComponent);
     ctx.run(async () => {
-      // if this has to change, also update the test in `colors.spec.ts` which shows the height is 0px
-      expect(getStyle('mat-toolbar').height).toBe('64px');
+      // if you change this, also change `colors.spec.ts` to show the opposite
+      expect(getStyle('button').fontFamily).toContain('Roboto');
     });
   });
 

@@ -8,16 +8,16 @@ describe('colors.scss', () => {
   it('does not include themes', () => {
     @Component({
       standalone: true,
-      imports: [MatToolbarModule],
-      template: ` <mat-toolbar />`,
-      styleUrl: './minimal-config.spec.scss',
+      imports: [MatButtonModule],
+      styleUrls: ['./minimal-config.spec.scss'],
+      template: `<button mat-button>Clickity click</button>`,
     })
     class TestComponent {}
 
     const ctx = new ComponentContext(TestComponent);
     ctx.run(async () => {
-      // to prove test, change minimal config to use themes instead of colors and see that the height is 64px
-      expect(getStyle('mat-toolbar').height).toBe('0px');
+      // if you change this, also change `theme.spec.ts` to show the opposite
+      expect(getStyle('button').fontFamily).not.toContain('Roboto');
     });
   });
 

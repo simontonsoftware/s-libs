@@ -1,4 +1,5 @@
-import { expectSingleCallAndReset } from '../../public-api';
+import { expectTypeOf } from 'expect-type';
+import { expectSingleCallAndReset, staticTest } from '../../public-api';
 import { createSpyObject } from './create-spy-object';
 
 class Superclass {
@@ -44,5 +45,11 @@ describe('createSpyObject()', () => {
     spyObject.greet.and.returnValue('Hello, stub!');
     expect(spyObject.greet('Eric')).toBe('Hello, stub!');
     expectSingleCallAndReset(spyObject.greet, 'Eric');
+  });
+
+  it('has fancy typing', () => {
+    staticTest(() => {
+      expectTypeOf(createSpyObject(Date)).toEqualTypeOf<jasmine.SpyObj<Date>>();
+    });
   });
 });
