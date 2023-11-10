@@ -330,7 +330,7 @@ describe('AngularContext', () => {
     it('runs change detection even if no tasks are queued', () => {
       let ranChangeDetection = false;
 
-      @Component({ template: '' })
+      @Component({ standalone: true, template: '' })
       class LocalComponent implements DoCheck {
         ngDoCheck(): void {
           ranChangeDetection = true;
@@ -355,7 +355,7 @@ describe('AngularContext', () => {
       let ranChangeDetection = false;
       let flushedMicroTasksBeforeChangeDetection = false;
 
-      @Component({ template: '' })
+      @Component({ standalone: true, template: '' })
       class LocalComponent implements DoCheck {
         ngDoCheck(): void {
           ranChangeDetection = true;
@@ -383,7 +383,7 @@ describe('AngularContext', () => {
       let ranTimeout = false;
       let ranChangeDetectionAfterTimeout = false;
 
-      @Component({ template: '' })
+      @Component({ standalone: true, template: '' })
       class LocalComponent implements DoCheck {
         ngDoCheck(): void {
           ranChangeDetectionAfterTimeout = ranTimeout;
@@ -439,7 +439,10 @@ describe('AngularContext', () => {
     });
 
     it('errs if there are unexpected errors', () => {
-      @Component({ template: '<button (click)="throwError()"></button>' })
+      @Component({
+        standalone: true,
+        template: '<button (click)="throwError()"></button>',
+      })
       class ThrowingComponent {
         throwError(): never {
           throw new Error();

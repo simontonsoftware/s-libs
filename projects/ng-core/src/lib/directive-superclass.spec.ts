@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -23,33 +24,8 @@ import { click, find, findButton } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
 
 @Component({
-  template: `
-    <button (click)="toggle('prefix', 'Dark')">Dark</button>
-    <button (click)="toggle('prefix2', 'Slate')">Slate</button>
-    <button (click)="toggle('prefix', 'Dark'); toggle('prefix2', 'Slate')">
-      Both
-    </button>
-    <button (click)="hide = !hide">Hide</button>
-    <sl-color-text
-      *ngIf="!hide"
-      [prefix]="prefix"
-      [prefix2]="prefix2"
-    ></sl-color-text>
-  `,
-})
-class TestComponent {
-  color$ = new BehaviorSubject('Green');
-  prefix?: string;
-  prefix2?: string;
-  hide = false;
-
-  toggle(key: 'prefix' | 'prefix2', value: string): void {
-    this[key] = isDefined(this[key]) ? undefined : value;
-  }
-}
-
-@Component({
   selector: 'sl-color-text',
+  standalone: true,
   template: ` <span [style.background]="color">{{ color }}</span> `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -68,6 +44,30 @@ class ColorTextComponent extends DirectiveSuperclass {
         color$,
       ]).pipe(map((parts) => parts.filter((p) => p).join(''))),
     );
+  }
+}
+
+@Component({
+  standalone: true,
+  imports: [ColorTextComponent, NgIf],
+  template: `
+    <button (click)="toggle('prefix', 'Dark')">Dark</button>
+    <button (click)="toggle('prefix2', 'Slate')">Slate</button>
+    <button (click)="toggle('prefix', 'Dark'); toggle('prefix2', 'Slate')">
+      Both
+    </button>
+    <button (click)="hide = !hide">Hide</button>
+    <sl-color-text *ngIf="!hide" [prefix]="prefix" [prefix2]="prefix2" />
+  `,
+})
+class TestComponent {
+  color$ = new BehaviorSubject('Green');
+  prefix?: string;
+  prefix2?: string;
+  hide = false;
+
+  toggle(key: 'prefix' | 'prefix2', value: string): void {
+    this[key] = isDefined(this[key]) ? undefined : value;
   }
 }
 
@@ -172,7 +172,7 @@ describe('DirectiveSuperclass', () => {
 
     // https://github.com/simontonsoftware/s-ng-utils/issues/10
     it('emits `undefined` for unspecified inputs', () => {
-      @Component({ template: '' })
+      @Component({ standalone: true, template: '' })
       class InputTrackingComponent extends DirectiveSuperclass {
         @Input() unspecified?: string;
         @Input() specified?: string;
@@ -196,7 +196,7 @@ describe('DirectiveSuperclass', () => {
 
     // https://github.com/simontonsoftware/s-libs/issues/14
     it('does not emit until ngOnChanges is called', () => {
-      @Component({ template: '' })
+      @Component({ standalone: true, template: '' })
       class StageTrackingComponent
         extends DirectiveSuperclass
         implements OnChanges
@@ -228,7 +228,7 @@ describe('DirectiveSuperclass', () => {
     });
 
     it('emits even if no inputs are provided to the component', () => {
-      @Component({ template: '' })
+      @Component({ standalone: true, template: '' })
       class NoInputComponent extends DirectiveSuperclass {
         @Input() myInput?: string;
         emitted = false;
@@ -255,7 +255,7 @@ describe('DirectiveSuperclass', () => {
     });
 
     it('emits immediately if ngOnChanges was already called (prerelease bug)', () => {
-      @Component({ template: `{{ boundValue.name }}` })
+      @Component({ standalone: true, template: `{{ boundValue.name }}` })
       class InputBindingComponent
         extends DirectiveSuperclass
         implements OnInit
@@ -281,7 +281,7 @@ describe('DirectiveSuperclass', () => {
     });
 
     it('emits immediately during the first call to ngOnChanges (prerelease bug) 2', () => {
-      @Component({ template: `{{ boundValue.name }}` })
+      @Component({ standalone: true, template: `{{ boundValue.name }}` })
       class InputBindingComponent extends DirectiveSuperclass {
         @Input() inputValue!: { name: string };
         boundValue!: { name: string };

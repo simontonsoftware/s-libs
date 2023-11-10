@@ -2,7 +2,7 @@ import { Component, ComponentMirror } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- change detection is carefully orchestrated in the typescript */
-@Component({ template: '' })
+@Component({ standalone: true, template: '' })
 export class WrapperComponent<T> {
   inputs: Partial<T> = {};
   styles: Record<string, any> = {};

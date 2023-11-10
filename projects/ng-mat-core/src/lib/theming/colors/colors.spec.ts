@@ -7,14 +7,14 @@ import { getStyle } from '../test-utils';
 describe('colors.scss', () => {
   it('does not include themes', () => {
     @Component({
-      styleUrls: ['./minimal-config.spec.scss'],
-      template: `<mat-toolbar></mat-toolbar>`,
+      standalone: true,
+      imports: [MatToolbarModule],
+      template: ` <mat-toolbar />`,
+      styleUrl: './minimal-config.spec.scss',
     })
     class TestComponent {}
 
-    const ctx = new ComponentContext(TestComponent, {
-      imports: [MatToolbarModule],
-    });
+    const ctx = new ComponentContext(TestComponent);
     ctx.run(async () => {
       // to prove test, change minimal config to use themes instead of colors and see that the height is 64px
       expect(getStyle('mat-toolbar').height).toBe('0px');
@@ -23,8 +23,10 @@ describe('colors.scss', () => {
 
   it('allows passing in a custom palette key', () => {
     @Component({
+      standalone: true,
+      imports: [MatToolbarModule],
       styleUrls: ['./custom-palette-key.spec.scss'],
-      template: `<mat-toolbar color="accent"></mat-toolbar>`,
+      template: `<mat-toolbar color="accent" />`,
     })
     class TestComponent {}
 
@@ -38,6 +40,8 @@ describe('colors.scss', () => {
 
   it('allows specifying only some components', () => {
     @Component({
+      standalone: true,
+      imports: [MatButtonModule, MatToolbarModule],
       styleUrls: ['./only-button.spec.scss'],
       template: `
         <button mat-button color="primary"></button>
@@ -46,9 +50,7 @@ describe('colors.scss', () => {
     })
     class TestComponent {}
 
-    const ctx = new ComponentContext(TestComponent, {
-      imports: [MatButtonModule, MatToolbarModule],
-    });
+    const ctx = new ComponentContext(TestComponent);
     ctx.run(async () => {
       expect(getStyle('button').color).toBe('rgb(3, 169, 244)');
       expect(getStyle('mat-toolbar').backgroundColor).toBe('rgba(0, 0, 0, 0)');

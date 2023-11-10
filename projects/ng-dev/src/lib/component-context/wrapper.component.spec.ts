@@ -11,7 +11,7 @@ import { ComponentContext } from './component-context';
 
 describe('WrapperComponent', () => {
   it("uses the component's selector if it is a tag name", () => {
-    @Component({ selector: 'sl-tag-name', template: '' })
+    @Component({ selector: 'sl-tag-name', standalone: true, template: '' })
     class TagNameComponent {}
 
     const ctx = new ComponentContext(TagNameComponent);
@@ -23,7 +23,7 @@ describe('WrapperComponent', () => {
   });
 
   it("can handle components that don't have a selector", () => {
-    @Component({ template: 'the template' })
+    @Component({ standalone: true, template: 'the template' })
     class NoSelectorComponent {}
 
     const ctx = new ComponentContext(NoSelectorComponent);
@@ -33,8 +33,12 @@ describe('WrapperComponent', () => {
   });
 
   it('can handle components whose selectors are not tag names', () => {
-    // eslint-disable-next-line @angular-eslint/component-selector
-    @Component({ selector: '[myAttribute]', template: 'the template' })
+    @Component({
+      // eslint-disable-next-line @angular-eslint/component-selector
+      selector: '[myAttribute]',
+      standalone: true,
+      template: 'the template',
+    })
     class AttributeSelectorComponent {}
     const ctx = new ComponentContext(AttributeSelectorComponent);
     ctx.run(() => {
@@ -43,7 +47,7 @@ describe('WrapperComponent', () => {
   });
 
   it('can handle renamed inputs', () => {
-    @Component({ template: '{{ propertyName }}' })
+    @Component({ standalone: true, template: '{{ propertyName }}' })
     class RenamedInputComponent {
       // eslint-disable-next-line @angular-eslint/no-input-rename
       @Input('bindingName') propertyName?: string;
@@ -57,7 +61,7 @@ describe('WrapperComponent', () => {
   });
 
   it('can handle inputs that are setters', () => {
-    @Component({ template: '' })
+    @Component({ standalone: true, template: '' })
     class SetterInputComponent {
       receivedValue?: string;
 
@@ -74,7 +78,7 @@ describe('WrapperComponent', () => {
   });
 
   it("can handle components that don't have inputs", () => {
-    @Component({ template: '' })
+    @Component({ standalone: true, template: '' })
     class NoInputComponent {}
 
     expect(() => {
@@ -83,7 +87,7 @@ describe('WrapperComponent', () => {
   });
 
   it('can handle components that use non-Input annotations in tricky ways', () => {
-    @Component({ template: '' })
+    @Component({ standalone: true, template: '' })
     class TrickyViewChildComponent {
       @Input() tricky?: string;
       @ViewChild('tricky') trickyChild!: ElementRef;
@@ -102,7 +106,7 @@ describe('WrapperComponent', () => {
       @Input() superclassInput?: string;
     }
 
-    @Component({ template: '' })
+    @Component({ standalone: true, template: '' })
     class SubclassComponent extends SuperclassComponent {
       @Input() subclassInput?: string;
     }
@@ -117,7 +121,7 @@ describe('WrapperComponent', () => {
   });
 
   it('allows using default values for inputs', () => {
-    @Component({ template: '' })
+    @Component({ standalone: true, template: '' })
     class UnboundInputComponent {
       @Input() doNotBind = 'default value';
     }

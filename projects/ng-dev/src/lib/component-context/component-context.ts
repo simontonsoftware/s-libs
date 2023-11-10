@@ -37,7 +37,7 @@ import { WrapperComponent } from './wrapper.component';
  *
  * A very simple example:
  * ```ts
- * @Component({ template: 'Hello, {{name}}!' })
+ * @Component({ standalone: true, template: 'Hello, {{name}}!' })
  * class GreeterComponent {
  *   @Input() name!: string;
  * }
@@ -120,7 +120,7 @@ import { WrapperComponent } from './wrapper.component';
  *   selector: 'app-root',
  *   template: `
  *     <a routerLink="/first-page">First Page</a>
- *     <router-outlet></router-outlet>
+ *     <router-outlet />
  *   `,
  * })
  * class AppComponent {}
@@ -175,8 +175,8 @@ export class ComponentContext<T> extends AngularContext {
     const mirror = reflectComponentType(componentType);
     assert(mirror, 'That does not appear to be a component');
     const inputProperties = WrapperComponent.wrap(mirror, unboundInputs);
-    const imports: any[] = [];
-    const declarations: any[] = [WrapperComponent];
+    const imports: any[] = [WrapperComponent];
+    const declarations: any[] = [];
     (mirror.isStandalone ? imports : declarations).push(componentType);
     super(
       extendMetadata({ imports, declarations }, moduleMetadata, {

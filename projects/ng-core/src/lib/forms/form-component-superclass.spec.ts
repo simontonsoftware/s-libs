@@ -10,23 +10,8 @@ import { InjectableSuperclass } from '../injectable-superclass';
 import { provideValueAccessor } from './provide-value-accessor';
 
 @Component({
-  template: `
-    <sl-counter
-      #counter="ngModel"
-      [disabled]="shouldDisable"
-      [(ngModel)]="value"
-    ></sl-counter>
-    <div *ngIf="counter.touched">Touched!</div>
-    <button (click)="shouldDisable = !shouldDisable">Toggle Disabled</button>
-  `,
-})
-class TestComponent {
-  @Input() value = 0;
-  @Input() shouldDisable = false;
-}
-
-@Component({
   selector: `sl-counter`,
+  standalone: true,
   template: `
     <button [disabled]="isDisabled" (click)="increment()">{{ counter }}</button>
   `,
@@ -46,12 +31,28 @@ class CounterComponent extends FormComponentSuperclass<number> {
   }
 }
 
+@Component({
+  standalone: true,
+  imports: [CounterComponent, FormsModule],
+  template: `
+    <sl-counter
+      #counter="ngModel"
+      [disabled]="shouldDisable"
+      [(ngModel)]="value"
+    />
+    <div *ngIf="counter.touched">Touched!</div>
+    <button (click)="shouldDisable = !shouldDisable">Toggle Disabled</button>
+  `,
+})
+class TestComponent {
+  @Input() value = 0;
+  @Input() shouldDisable = false;
+}
+
 describe('FormComponentSuperclass', () => {
   let ctx: ComponentContext<TestComponent>;
   beforeEach(() => {
     ctx = new ComponentContext(TestComponent, {
-      imports: [FormsModule],
-      declarations: [CounterComponent],
       // this can go away with component harnesses eventually
       providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
     });

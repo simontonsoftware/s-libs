@@ -22,12 +22,12 @@ import { noop } from '@s-libs/micro-dash';
 import { ComponentContext } from './component-context';
 
 describe('ComponentContext', () => {
-  @Component({ template: 'Hello, {{name}}!' })
+  @Component({ standalone: true, template: 'Hello, {{name}}!' })
   class TestComponent {
     @Input() name!: string;
   }
 
-  @Component({ template: '' })
+  @Component({ standalone: true, template: '' })
   class ChangeDetectingComponent implements OnChanges {
     @Input() myInput?: string;
     ngOnChangesSpy = jasmine.createSpy();
@@ -111,7 +111,7 @@ describe('ComponentContext', () => {
     });
 
     it('errors with a nice message when given a non-input', () => {
-      @Component({ template: '' })
+      @Component({ standalone: true, template: '' })
       class NonInputComponent {
         // eslint-disable-next-line @angular-eslint/no-input-rename
         @Input('nonInput') letsTryToTrickIt?: string;
@@ -128,7 +128,7 @@ describe('ComponentContext', () => {
     });
 
     it('errors with a nice message when given an unbound input', () => {
-      @Component({ template: '' })
+      @Component({ standalone: true, template: '' })
       class UnboundInputComponent {
         @Input() doNotBind?: string;
       }
@@ -206,7 +206,7 @@ describe('ComponentContext', () => {
       const appInitSpy = jasmine.createSpy('app init');
       const componentInitSpy = jasmine.createSpy('component init');
 
-      @Component({ template: '' })
+      @Component({ standalone: true, template: '' })
       class InitializingComponent {
         constructor() {
           componentInitSpy();
@@ -272,7 +272,7 @@ describe('ComponentContext', () => {
 
 describe('ComponentContext class-level doc examples', () => {
   describe('simple example', () => {
-    @Component({ template: 'Hello, {{name}}!' })
+    @Component({ standalone: true, template: 'Hello, {{name}}!' })
     class GreeterComponent {
       @Input() name!: string;
     }
@@ -354,7 +354,7 @@ describe('ComponentContext class-level doc examples', () => {
       selector: 'app-root',
       template: `
         <a routerLink="/first-page">First Page</a>
-        <router-outlet></router-outlet>
+        <router-outlet />
       `,
     })
     class AppComponent {}

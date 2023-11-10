@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, Type } from '@angular/core';
 import {
   ComponentFixture,
@@ -687,14 +688,16 @@ describe('NasModelDirective', () => {
   }));
 
   it('handles `null` for the store (for async pipe compatibility)', () => {
-    @Component({ template: `<input [nasModel]="store$ | async" />` })
+    @Component({
+      standalone: true,
+      imports: [AsyncPipe, NasModelModule],
+      template: `<input [nasModel]="store$ | async" />`,
+    })
     class StoreStreamComponent {
       store$ = new Subject<Store<string>>();
     }
 
-    const ctx = new ComponentContext(StoreStreamComponent, {
-      imports: [NasModelModule],
-    });
+    const ctx = new ComponentContext(StoreStreamComponent);
     expect(() => {
       ctx.run(() => {
         const input: HTMLInputElement = ctx.fixture.debugElement.query(
@@ -707,6 +710,8 @@ describe('NasModelDirective', () => {
 
   it('handles `null` for disabled (for async pipe compatibility)', () => {
     @Component({
+      standalone: true,
+      imports: [AsyncPipe, NasModelModule],
       template: `<input
         [nasModel]="store('val')"
         [disabled]="disabled$ | async"
@@ -717,9 +722,7 @@ describe('NasModelDirective', () => {
       disabled$ = new Subject<boolean>();
     }
 
-    const ctx = new ComponentContext(StoreStreamComponent, {
-      imports: [NasModelModule],
-    });
+    const ctx = new ComponentContext(StoreStreamComponent);
     expect(() => {
       ctx.run(() => {
         const input: HTMLInputElement = ctx.fixture.debugElement.query(

@@ -50,7 +50,7 @@ describe('DialogComponent', () => {
   });
 
   it('displays a component', () => {
-    @Component({ template: 'Show me this.' })
+    @Component({ standalone: true, template: 'Show me this.' })
     class ContentComponent {}
 
     ctx.run(async () => {
@@ -62,7 +62,7 @@ describe('DialogComponent', () => {
   });
 
   it('displays the title from a component', () => {
-    @Component({ template: '' })
+    @Component({ standalone: true, template: '' })
     class TitledComponent {
       static title = 'Component Title';
     }
@@ -76,7 +76,7 @@ describe('DialogComponent', () => {
   });
 
   it('overrides the component title with the direct title', () => {
-    @Component({ template: '' })
+    @Component({ standalone: true, template: '' })
     class TitledComponent {
       static title = 'Component Title';
     }
@@ -90,7 +90,7 @@ describe('DialogComponent', () => {
   });
 
   it('can inject input to a component', () => {
-    @Component({ template: '{{ myInput }}' })
+    @Component({ standalone: true, template: '{{ myInput }}' })
     class MyDialogComponent {
       constructor(@Inject(SL_DIALOG_DATA) public myInput: string) {}
     }

@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, Directive, Injectable } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
@@ -12,6 +13,7 @@ class DestroyableService extends InjectableSuperclass {}
 
 @Directive({
   selector: `[slDestroyableDirective]`,
+  standalone: true,
   providers: [DestroyableService],
 })
 class DestroyableDirective extends InjectableSuperclass {
@@ -26,6 +28,8 @@ class DestroyableDirective extends InjectableSuperclass {
 }
 
 @Component({
+  standalone: true,
+  imports: [NgIf, DestroyableDirective],
   template: `<p *ngIf="showThings" slDestroyableDirective>I'm showing.</p>`,
 })
 class TestComponent {
@@ -37,7 +41,6 @@ class TestComponentContext extends ComponentContext<TestComponent> {
 
   constructor() {
     super(TestComponent, {
-      declarations: [DestroyableDirective],
       providers: [
         { provide: Subject, useFactory: (): Subject<unknown> => this.subject },
       ],

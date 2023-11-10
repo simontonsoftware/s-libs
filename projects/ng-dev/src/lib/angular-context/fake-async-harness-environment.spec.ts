@@ -8,6 +8,7 @@ import { ComponentContext } from '../component-context';
 
 describe('FakeAsyncHarnessEnvironment', () => {
   @Component({
+    standalone: true,
     template: `
       <button mat-button (click)="clicked = true">{{ clicked }}</button>
     `,
@@ -44,7 +45,7 @@ describe('FakeAsyncHarnessEnvironment', () => {
     ctx.run(async () => {
       ctx
         .inject(MatSnackBar)
-        // When using the built-in TestBedHarnessEnvironment, fetching the harness would flush the duration and it would disappear before being selected
+        // When using the built-in TestBedHarnessEnvironment, fetching the harness would flush the duration, and it would disappear before being selected
         .open('Hello, snackbar!', 'OK', { duration: 5000 });
       expect(await ctx.getHarness(MatSnackBarHarness)).toBeDefined();
     });

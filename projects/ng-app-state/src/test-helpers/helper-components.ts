@@ -1,7 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, Injectable } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { RootStore } from '@s-libs/app-state';
 import { noop } from '@s-libs/micro-dash';
+import { NasModelModule } from '../lib/nas-model.module';
 
 /* eslint-disable @typescript-eslint/no-useless-constructor -- this file does injection in funny ways */
 /* eslint-disable @angular-eslint/component-max-inline-declarations,@angular-eslint/prefer-on-push-component-change-detection -- this file is for specs, and these rules are disabled for specs */
@@ -23,7 +29,7 @@ export class SingleValueStore extends RootStore<any> {
   }
 }
 
-@Component({ selector: 'nas-single-value' })
+@Component({ standalone: true, selector: 'nas-single-value' })
 export class SingleValueComponent extends StoreComponent<any> {
   constructor(store: SingleValueStore) {
     super(store);
@@ -64,6 +70,8 @@ export const citySelectWithCustomCompareFnTemplate = `
 
 @Component({
   selector: 'nas-city',
+  standalone: true,
+  imports: [CommonModule, NasModelModule, FormsModule],
   template: `
     <select [nasModel]="store('selectedCity')">
       <option *ngFor="let c of store('cities').$ | async" [ngValue]="c">
@@ -108,6 +116,8 @@ export const multipleCityWithCustomCompareFnTemplate = `
 
 @Component({
   selector: 'nas-multiple-city',
+  standalone: true,
+  imports: [CommonModule, NasModelModule, FormsModule],
   template: `
     <select multiple [nasModel]="store('selectedCities')">
       <option *ngFor="let c of store('cities').$ | async" [ngValue]="c">
@@ -142,6 +152,8 @@ export class MenuStore extends RootStore<MenuState> {
 
 @Component({
   selector: 'nas-menu',
+  standalone: true,
+  imports: [NasModelModule],
   template: `
     <form>
       <input type="radio" value="chicken" [nasModel]="store('food')" />
@@ -175,22 +187,9 @@ export class NameStore extends RootStore<NameState> {
 }
 
 @Component({
-  selector: 'nas-ng-model-custom-wrapper',
-  template: `
-    <nas-inner-name
-      [nasModel]="store('name')"
-      [disabled]="store('isDisabled').$ | async"
-    ></nas-inner-name>
-  `,
-})
-export class NameComponent extends StoreComponent<NameState> {
-  constructor(store: NameStore) {
-    super(store);
-  }
-}
-
-@Component({
   selector: 'nas-inner-name',
+  standalone: true,
+  imports: [NasModelModule, FormsModule],
   template: `
     <input
       name="custom"
@@ -224,5 +223,22 @@ export class InnerNameComponent implements ControlValueAccessor {
 
   setDisabledState(disabled: boolean): void {
     this.disabled = disabled;
+  }
+}
+
+@Component({
+  selector: 'nas-ng-model-custom-wrapper',
+  standalone: true,
+  imports: [CommonModule, NasModelModule, InnerNameComponent],
+  template: `
+    <nas-inner-name
+      [nasModel]="store('name')"
+      [disabled]="store('isDisabled').$ | async"
+    />
+  `,
+})
+export class NameComponent extends StoreComponent<NameState> {
+  constructor(store: NameStore) {
+    super(store);
   }
 }

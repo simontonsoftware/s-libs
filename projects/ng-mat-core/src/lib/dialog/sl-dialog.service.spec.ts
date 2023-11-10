@@ -23,6 +23,7 @@ describe('SlDialogService', () => {
 
   it('does not autoscroll down to a focusable element', () => {
     @Component({
+      standalone: true,
       template: `
         <div style="height: 150vh"></div>
         <a href>Link</a>

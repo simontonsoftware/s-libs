@@ -5,7 +5,7 @@ import { IsPageVisibleHarness } from './is-page-visible.harness';
 
 describe('IsPageVisibleHarness', () => {
   it('triggers change detection in an `AngularContext`', () => {
-    @Component({ template: 'Hi mom' })
+    @Component({ standalone: true, template: 'Hi mom' })
     class TestComponent implements DoCheck {
       change = jasmine.createSpy();
 

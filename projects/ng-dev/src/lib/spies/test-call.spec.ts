@@ -8,7 +8,7 @@ import { expectSingleCallAndReset } from './expect-single-call-and-reset';
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
 describe('TestCall', () => {
-  @Component({ template: 'Hello, {{name}}!' })
+  @Component({ standalone: true, template: 'Hello, {{name}}!' })
   class TestComponent {
     @Input() name!: string;
   }

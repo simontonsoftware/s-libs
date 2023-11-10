@@ -72,6 +72,8 @@ describe('ControlSynchronizer', () => {
   it('synchronizes validation 2 ways', () => {
     @Component({
       selector: `sl-inner`,
+      standalone: true,
+      imports: [ReactiveFormsModule],
       template: `<input [formControl]="control" />`,
       providers: [provideValueAccessor(InnerComponent)],
       changeDetection: ChangeDetectionStrategy.OnPush,
@@ -83,6 +85,8 @@ describe('ControlSynchronizer', () => {
     }
 
     @Component({
+      standalone: true,
+      imports: [InnerComponent, ReactiveFormsModule],
       template: `<sl-inner [formControl]="control"></sl-inner>`,
       changeDetection: ChangeDetectionStrategy.OnPush,
     })
@@ -92,10 +96,7 @@ describe('ControlSynchronizer', () => {
       }
     }
 
-    const ctx = new ComponentContext(OuterComponent, {
-      imports: [ReactiveFormsModule],
-      declarations: [InnerComponent],
-    });
+    const ctx = new ComponentContext(OuterComponent);
     ctx.run(async () => {
       const outer = ctx.getComponentInstance();
       const inner = findDirective(ctx, InnerComponent);
@@ -142,6 +143,8 @@ describe('ControlSynchronizer', () => {
   it('handles async validation', () => {
     @Component({
       selector: `sl-inner`,
+      standalone: true,
+      imports: [ReactiveFormsModule],
       template: `<input [formControl]="control" />`,
       providers: [provideValueAccessor(InnerComponent)],
       changeDetection: ChangeDetectionStrategy.OnPush,
@@ -153,6 +156,8 @@ describe('ControlSynchronizer', () => {
     }
 
     @Component({
+      standalone: true,
+      imports: [InnerComponent, ReactiveFormsModule],
       template: `<sl-inner [formControl]="control"></sl-inner>`,
       changeDetection: ChangeDetectionStrategy.OnPush,
     })
@@ -162,10 +167,7 @@ describe('ControlSynchronizer', () => {
       }
     }
 
-    const ctx = new ComponentContext(OuterComponent, {
-      imports: [ReactiveFormsModule],
-      declarations: [InnerComponent],
-    });
+    const ctx = new ComponentContext(OuterComponent);
     ctx.run(async () => {
       const outer = ctx.getComponentInstance();
       const inner = findDirective(ctx, InnerComponent);
@@ -213,6 +215,8 @@ describe('ControlSynchronizer', () => {
   it('handles delays when transforming errors', () => {
     @Component({
       selector: `sl-inner`,
+      standalone: true,
+      imports: [ReactiveFormsModule],
       template: `<input [formControl]="control" />`,
       providers: [provideValueAccessor(InnerComponent)],
     })
@@ -244,6 +248,8 @@ describe('ControlSynchronizer', () => {
     }
 
     @Component({
+      standalone: true,
+      imports: [InnerComponent, ReactiveFormsModule],
       template: `<sl-inner [formControl]="control"></sl-inner>`,
     })
     class OuterComponent extends AbstractValidatingComponent {
@@ -252,10 +258,7 @@ describe('ControlSynchronizer', () => {
       }
     }
 
-    const ctx = new ComponentContext(OuterComponent, {
-      imports: [ReactiveFormsModule],
-      declarations: [InnerComponent],
-    });
+    const ctx = new ComponentContext(OuterComponent);
     ctx.run(async () => {
       const outer = ctx.getComponentInstance();
       const inner = findDirective(ctx, InnerComponent);
@@ -302,6 +305,8 @@ describe('ControlSynchronizer', () => {
 
     @Component({
       selector: 'sl-inner',
+      standalone: true,
+      imports: [ReactiveFormsModule],
       template: `<input [formControl]="control" />`,
       providers: [provideValueAccessor(InnerComponent)],
     })
@@ -317,6 +322,8 @@ describe('ControlSynchronizer', () => {
     }
 
     @Component({
+      standalone: true,
+      imports: [InnerComponent, ReactiveFormsModule],
       template: `
         <sl-inner *ngIf="showInner" [formControl]="control"></sl-inner>
       `,
@@ -326,10 +333,7 @@ describe('ControlSynchronizer', () => {
       control = new FormControl('');
     }
 
-    const ctx = new ComponentContext(OuterComponent, {
-      imports: [ReactiveFormsModule],
-      declarations: [InnerComponent],
-    });
+    const ctx = new ComponentContext(OuterComponent);
     ctx.assignInputs({ showInner: true });
     ctx.run(async () => {
       const outer = ctx.getComponentInstance();
