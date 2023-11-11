@@ -1,21 +1,25 @@
 import { ComponentHarness } from '@angular/cdk/testing';
 import {
   APP_INITIALIZER,
+  ApplicationConfig,
   Component,
   InjectionToken,
   Input,
-  NgModule,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import {
   ANIMATION_MODULE_TYPE,
-  BrowserAnimationsModule,
   provideAnimations,
 } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
+import {
+  provideRouter,
+  RouterLink,
+  RouterOutlet,
+  Routes,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { sleep } from '@s-libs/js-core';
 import { noop } from '@s-libs/micro-dash';
@@ -259,7 +263,7 @@ describe('ComponentContext', () => {
     it('destroys the fixture', () => {
       const ctx = new ComponentContext(TestComponent);
       ctx.run(noop);
-      // This was the test in Angular 13, and still fails if the fixure is not destroyed in 14
+      // This was the test in Angular 13, and still fails if the fixture is not destroyed in 14
       // ctx.getComponentInstance().name = 'Changed Guy';
       // ctx.fixture.detectChanges();
       // expect(ctx.fixture.nativeElement.textContent).not.toContain(
@@ -318,12 +322,10 @@ describe('ComponentContext class-level doc examples', () => {
     class AppContext extends ComponentContext<AppComponent> {
       constructor() {
         super(AppComponent, {
-          imports: [
-            // This is your production `AppModule`. Make 1 tweak there: export `AppComponent`
-            AppModule,
-            // Import `routes` from your `app-routing.module.ts`
-            RouterTestingModule.withRoutes(routes),
-          ],
+          // Import `routes` from `app.routes.ts`
+          imports: [RouterTestingModule.withRoutes(routes)],
+          // Import `appConfig` from `app.config.ts`
+          providers: appConfig.providers,
         });
       }
     }
@@ -355,10 +357,10 @@ describe('ComponentContext class-level doc examples', () => {
     class AppComponentHarness extends ComponentHarness {
       static hostSelector = 'app-root';
 
-      private getFirstPageLink = this.locatorFor('a');
+      #getFirstPageLink = this.locatorFor('a');
 
       async navigateToFirstPage(): Promise<void> {
-        const link = await this.getFirstPageLink();
+        const link = await this.#getFirstPageLink();
         await link.click();
       }
     }
@@ -367,7 +369,7 @@ describe('ComponentContext class-level doc examples', () => {
     // first.component.ts
 
     // A minimal component for demonstration purposes
-    @Component({ template: '<p>First works!</p>' })
+    @Component({ standalone: true, template: '<p>First works!</p>' })
     class FirstComponent {}
 
     ///////////////////
@@ -376,6 +378,8 @@ describe('ComponentContext class-level doc examples', () => {
     // A minimal app component with routing for demonstration purposes
     @Component({
       selector: 'app-root',
+      standalone: true,
+      imports: [RouterOutlet, RouterLink],
       template: `
         <a routerLink="/first-page">First Page</a>
         <router-outlet />
@@ -384,27 +388,13 @@ describe('ComponentContext class-level doc examples', () => {
     class AppComponent {}
 
     ////////////////////////
-    // app-routing.module.ts
+    // app.routes.ts
 
-    // exported for use in tests
     const routes: Routes = [{ path: 'first-page', component: FirstComponent }];
 
-    @NgModule({
-      imports: [RouterModule.forRoot(routes)],
-      exports: [RouterModule],
-    })
-    class AppRoutingModule {}
-
     ////////////////
-    // app.module.ts
+    // app.config.ts
 
-    // A minimal app module. Notice the added export.
-    @NgModule({
-      declarations: [AppComponent, FirstComponent],
-      imports: [AppRoutingModule, BrowserAnimationsModule, BrowserModule],
-      bootstrap: [AppComponent],
-      exports: [AppComponent], // exported for use in tests
-    })
-    class AppModule {}
+    const appConfig: ApplicationConfig = { providers: [provideRouter(routes)] };
   });
 });
