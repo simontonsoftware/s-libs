@@ -10,7 +10,7 @@
     "directory": "projects/ng-dev"
   },
   "peerDependencies": {
-    "@angular/cdk": "^16.0.0",
+    "@angular/cdk": "^17.0.0",
     "@angular/common": "^17.0.0",
     "@angular/core": "^17.0.0",
     "@s-libs/js-core": "^17.0.0-next.0",
@@ -19,6 +19,8 @@
     "@s-libs/rxjs-core": "^17.0.0-next.0",
     "jasmine-core": "^4.5.0"
   },
-  "dependencies": { "tslib": "^2.3.0" },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
   "sideEffects": false
 }
