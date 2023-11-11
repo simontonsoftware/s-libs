@@ -1,6 +1,6 @@
 {
   "name": "@s-libs/micro-dash",
-  "version": "16.1.0",
+  "version": "17.0.0-next.0",
   "description": "Lightweight implementations of simplified lodash functions",
   "author": "Simonton Software",
   "license": "MIT",
@@ -10,9 +10,6 @@
     "url": "https://github.com/simontonsoftware/s-libs.git",
     "directory": "projects/micro-dash"
   },
-  "dependencies": {
-    "tslib": "^2.3.0",
-    "utility-types": "^3.10.0"
-  },
+  "dependencies": { "tslib": "^2.3.0", "utility-types": "^3.10.0" },
   "sideEffects": false
 }

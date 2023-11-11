@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v16.1.0...v17.0.0-next.0) (2023-11-11)
+
+### ⚠ BREAKING CHANGES
+
+- **ng-core:** `WrappedFormControlSuperclass`, which was deprecated in 16.0, is now gone.
+- Requires newer versions of peer dependencies
+- **app-state:** If you rely on the old behavior of `PersistentStore` throwing an exception when `_version` changes, you should pass an empty migration manager: `new PersistentStore('myKey', myDefaultState, { migrationManager: new MigrationManager() })`
+
+### Features
+
+- **app-state:** by default `PersistentStore` now resets to the default state when `_version` changes ([770330c](https://github.com/simontonsoftware/s-libs/commit/770330cc290ee240a246967d3245a90781ceaf2f))
+- **eslint-config-ng:** officially release strict config ([11c8d02](https://github.com/simontonsoftware/s-libs/commit/11c8d02f491ad083d949931ea52f0636d51c8959))
+- **ng-core:** Mark the abstract `WrappedControlSuperclass.control` protected. So now your subclasses can too, if you desire. ([c424860](https://github.com/simontonsoftware/s-libs/commit/c424860402ee2279527bdfabe39568b1bdff7144)), closes [#109](https://github.com/simontonsoftware/s-libs/issues/109)
+- **ng-core:** remove `WrappedFormControlSuperclass` ([29d76c7](https://github.com/simontonsoftware/s-libs/commit/29d76c7b2e63b4414833d06a83ce9c88f4e3de53))
+- **ng-div:** add `AngularContext.isRunning()` ([ce1a8bb](https://github.com/simontonsoftware/s-libs/commit/ce1a8bb1e278cc8cc6bdb4cf29993bea74478ece))
+- **rxjs-core:** add `isPageVisible$()` ([ad1bd8d](https://github.com/simontonsoftware/s-libs/commit/ad1bd8db35ab5999a7c83249dbc1363d33569679))
+- upgrade Angular, Typescript, Eslint ([0b20a33](https://github.com/simontonsoftware/s-libs/commit/0b20a33b172bfdee46d72c340a04267b32bb8ee6))
+
 ## [16.1.0](https://github.com/simontonsoftware/s-libs/compare/v16.0.0...v16.1.0) (2023-08-04)
 
 ### Features
