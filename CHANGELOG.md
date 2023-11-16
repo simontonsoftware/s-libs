@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v17.0.0-next.0...v17.0.0-next.1) (2023-11-16)
+
+### Bug Fixes
+
+- update peer dependencies for @angular/eslint and @angular/cdk ([e06f71e](https://github.com/simontonsoftware/s-libs/commit/e06f71e7a2149d1530e3b106e5279873372bf0b6))
+
 ## [17.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v16.1.0...v17.0.0-next.0) (2023-11-11)
 
 ### ⚠ BREAKING CHANGES
