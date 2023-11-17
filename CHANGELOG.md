@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.0-next.2](https://github.com/simontonsoftware/s-libs/compare/v17.0.0-next.1...v17.0.0-next.2) (2023-11-17)
+
+### Bug Fixes
+
+- update peer dependencies for @typescript/eslint, eslint, and jasmine-core ([e24576e](https://github.com/simontonsoftware/s-libs/commit/e24576ed3e11c9c10e74b812a3d42be352fc6892))
+
 ## [17.0.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v17.0.0-next.0...v17.0.0-next.1) (2023-11-16)
 
 ### Bug Fixes
