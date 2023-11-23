@@ -110,6 +110,10 @@
         "type": "json"
       },
       {
+        "filename": "projects/ng-signal-state/package.json",
+        "type": "json"
+      },
+      {
         "filename": "projects/rxjs-core/package.json",
         "type": "json"
       }

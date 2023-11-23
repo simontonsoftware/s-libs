@@ -437,6 +437,45 @@
         }
       }
     },
+    "ng-signal-state": {
+      "projectType": "library",
+      "root": "projects/ng-signal-state",
+      "sourceRoot": "projects/ng-signal-state/src",
+      "prefix": "s",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ng-signal-state/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-signal-state/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-signal-state/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/ng-signal-state/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ng-signal-state/**/*.ts",
+              "projects/ng-signal-state/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "rxjs-core": {
       "projectType": "library",
       "root": "projects/rxjs-core",

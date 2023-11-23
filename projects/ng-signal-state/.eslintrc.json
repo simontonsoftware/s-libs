@@ -1,0 +1,14 @@
+{
+  "extends": "../../.eslintrc.json",
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["projects/ng-signal-state/tsconfig.(lib|spec).json"]
+      },
+      "rules": {}
+    },
+    { "files": ["*.html"], "rules": {} }
+  ]
+}
