@@ -30,6 +30,7 @@ import {
   symmetricSetDifference,
   TimeUnit,
   toCsv,
+  WeakValueMap,
   wrapFunction,
   wrapMethod,
 } from '@s-libs/js-core';
@@ -79,6 +80,10 @@ describe('js-core', () => {
 
   it('has Stopwatch', () => {
     expect(Stopwatch).toBeDefined();
+  });
+
+  it('has WeakValueMap', () => {
+    expect(WeakValueMap).toBeDefined();
   });
 
   it('has assert', () => {
