@@ -8,6 +8,6 @@ import { WidePerformanceComponent } from './wide-performance/wide-performance.co
   styleUrls: ['./signal-state-performance.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [WidePerformanceComponent, DeepPerformanceComponent],
+  imports: [DeepPerformanceComponent, WidePerformanceComponent],
 })
 export class SignalStatePerformanceComponent {}

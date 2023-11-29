@@ -1,6 +1,6 @@
+import { effect, Injector } from '@angular/core';
 import { times } from '@s-libs/micro-dash';
-import { Subscription } from 'rxjs';
-import { Store } from '../public-api';
+import { Store } from '../lib';
 import { CounterState } from './counter-state';
 
 export class WideState {
@@ -11,31 +11,42 @@ export class WideState {
   }
 }
 
-export function subscribeWide(store: Store<WideState>): {
-  elapsed: number;
-  subscription: Subscription;
-} {
+export function subscribeWide(
+  store: Store<WideState>,
+  injector: Injector,
+): number {
   const arrayStore = store('array');
   const width = arrayStore.state().length;
-  const subscription = new Subscription();
 
   const start = performance.now();
   for (let i = width; --i >= 0; ) {
-    subscription.add(arrayStore(i)('counter').$.subscribe());
+    const myStore = arrayStore(i)('counter');
+    effect(
+      () => {
+        myStore.state();
+        // console.log(myStore.state());
+      },
+      { injector },
+    );
   }
   const elapsed = performance.now() - start;
 
   console.log('ms to subscribe wide:', elapsed);
   console.log(' - per subscription:', elapsed / width);
-  return { elapsed, subscription };
+  return elapsed;
 }
 
-export function runWide(store: Store<WideState>, iterations: number): number {
+export async function runWide(
+  store: Store<WideState>,
+  iterations: number,
+  flushEffects: (() => Promise<unknown>) | (() => void),
+): Promise<number> {
   const counterStore = store('array')(0)('counter');
 
   const start = performance.now();
   for (let i = iterations; --i; ) {
     counterStore.setUsing(increment);
+    await flushEffects();
   }
   const elapsed = performance.now() - start;
 

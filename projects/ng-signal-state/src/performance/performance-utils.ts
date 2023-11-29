@@ -1,8 +1,11 @@
-import { Subscription } from 'rxjs';
+import { EnvironmentInjector } from '@angular/core';
 
-export function unsubscribe(subscription: Subscription, count: number): number {
+export function unsubscribe(
+  count: number,
+  injector: EnvironmentInjector,
+): number {
   const start = performance.now();
-  subscription.unsubscribe();
+  injector.destroy();
   const elapsed = performance.now() - start;
 
   console.log('ms to unsubscribe', elapsed);

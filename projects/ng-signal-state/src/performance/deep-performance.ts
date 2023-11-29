@@ -1,5 +1,5 @@
-import { Subscription } from 'rxjs';
-import { Store } from '../public-api';
+import { effect, Injector } from '@angular/core';
+import { Store } from '../lib';
 import { CounterState } from './counter-state';
 
 export class DeepState extends CounterState {
@@ -7,36 +7,47 @@ export class DeepState extends CounterState {
 
   constructor(depth: number) {
     super();
-    if (depth > 0) {
+    if (depth > 1) {
       this.next = new DeepState(depth - 1);
     }
   }
 }
 
-export function subscribeDeep(store: Store<DeepState>): {
-  elapsed: number;
-  subscription: Subscription;
-} {
+export function subscribeDeep(
+  store: Store<DeepState>,
+  injector: Injector,
+): number {
   const { depth } = analyze(store);
-  const subscriptions: Subscription[] = [];
 
   const start = performance.now();
   for (let i = depth; --i >= 0; store = store('next')) {
-    subscriptions.push(store.$.subscribe());
+    const myStore = store;
+    effect(
+      () => {
+        myStore.state();
+        // console.log(myStore.state());
+      },
+      { injector },
+    );
   }
   const elapsed = performance.now() - start;
 
   console.log('ms to subscribe deep:', elapsed);
   console.log(' - per subscription:', elapsed / depth);
-  return { elapsed, subscription: consolidateSubscriptions(subscriptions) };
+  return elapsed;
 }
 
-export function runDeep(store: Store<DeepState>, iterations: number): number {
+export async function runDeep(
+  store: Store<DeepState>,
+  iterations: number,
+  flushEffects: (() => Promise<unknown>) | (() => void),
+): Promise<number> {
   const { leafStore } = analyze(store);
 
   const start = performance.now();
   for (let i = iterations; --i >= 0; ) {
     leafStore('counter').setUsing(increment);
+    await flushEffects();
   }
   const elapsed = performance.now() - start;
 
@@ -54,14 +65,6 @@ function analyze(store: Store<DeepState>): {
     store = store('next');
   }
   return { depth, leafStore: store };
-}
-
-function consolidateSubscriptions(subscriptions: Subscription[]): Subscription {
-  const subscription = new Subscription();
-  for (const s of subscriptions.reverse()) {
-    subscription.add(s);
-  }
-  return subscription;
 }
 
 function increment(n: number): number {

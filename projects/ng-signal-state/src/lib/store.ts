@@ -1,8 +1,7 @@
-import { CallableObject } from '@s-libs/js-core';
+import { Signal } from '@angular/core';
+import { CallableObject, WeakValueMap } from '@s-libs/js-core';
 import { clone, every, isUndefined } from '@s-libs/micro-dash';
-import { Observable, Subscriber } from 'rxjs';
 import { buildChild } from './child-store';
-import { ChildStore, RootStore } from './index';
 
 /* eslint-disable @typescript-eslint/no-unsafe-return,@typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-unsafe-declaration-merging */
 
@@ -16,35 +15,27 @@ export interface Store<T> extends GetSlice<T> {
 }
 
 export abstract class Store<T> extends CallableObject<GetSlice<T>> {
-  /**
-   * An `Observable` of the state of this store object.
-   */
-  readonly $ = new Observable<T>((subscriber) => {
-    const value = this.state();
-    this.subscribers.set(subscriber, value);
-    this.maybeActivate();
-    subscriber.next(value);
-    return (): void => {
-      this.subscribers.delete(subscriber);
-      this.maybeDeactivate();
-    };
-  });
-
-  protected subscribers = new Map<Subscriber<T>, T | undefined>();
-  protected activeChildren = new Map<string, Set<Store<unknown>>>();
-  protected lastKnownState?: T;
-
-  private lastKnownStateChanged = false;
+  #children = new WeakValueMap<keyof any, Store<any>>();
 
   constructor(
-    public getRootStore: () => RootStore<object>,
+    private signal: Signal<T>,
     makeChild: typeof buildChild,
   ) {
-    super(
-      (childKey: any) =>
-        this.activeChildren.get(childKey)?.values().next()?.value ??
-        makeChild(getRootStore, this, childKey),
-    );
+    super((childKey) => {
+      let child = this.#children.get(childKey);
+      if (child === undefined) {
+        child = makeChild(this, childKey);
+        this.#children.set(childKey, child);
+      }
+      return child;
+    });
+  }
+
+  /**
+   * Retrieve the current state represented by this store object. This is backed by a singal, so it will trigger updates in templates and derived signals accordingly.
+   */
+  state(): T {
+    return this.signal();
   }
 
   /**
@@ -90,80 +81,6 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     this.set(state);
   }
 
-  protected updateState(value: any): void {
-    if (value === this.lastKnownState) {
-      return;
-    }
-
-    this.lastKnownState = value;
-    this.lastKnownStateChanged = true;
-    this.activeChildren.forEach((children, key) => {
-      for (const child of children) {
-        child.updateState(value?.[key]);
-      }
-    });
-  }
-
-  protected maybeEmit(): void {
-    if (!this.lastKnownStateChanged) {
-      return;
-    }
-
-    this.lastKnownStateChanged = false;
-    this.subscribers.forEach((lastEmitted, subscriber) => {
-      if (lastEmitted !== this.lastKnownState) {
-        subscriber.next(this.lastKnownState);
-        this.subscribers.set(subscriber, this.lastKnownState);
-      }
-    });
-    this.activeChildren.forEach((children) => {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- `children` can be undefined if emitting from a previous key removed all subscribers to this key
-      for (const child of children ?? []) {
-        child.maybeEmit();
-      }
-    });
-  }
-
-  protected isChildActive(
-    parent: Store<any>,
-    key: any,
-    child: ChildStore<any>,
-  ): boolean {
-    return parent.activeChildren.get(key)?.has(child) ?? false;
-  }
-
-  protected activateChild(
-    parent: Store<any>,
-    key: any,
-    child: ChildStore<any>,
-  ): void {
-    let set = parent.activeChildren.get(key);
-    if (!set) {
-      set = new Set<ChildStore<any>>();
-      parent.activeChildren.set(key, set);
-    }
-    set.add(child);
-    parent.maybeActivate();
-  }
-
-  protected deactivateChild(
-    parent: Store<any>,
-    key: any,
-    child: ChildStore<any>,
-  ): void {
-    const set = parent.activeChildren.get(key)!;
-    set.delete(child);
-    if (set.size === 0) {
-      parent.activeChildren.delete(key);
-      parent.maybeDeactivate();
-    }
-  }
-
-  /**
-   * Retrieve the current state represented by this store object.
-   */
-  abstract state(): T;
-
   /**
    * Replace the state represented by this store object with the given value.
    */
@@ -177,13 +94,4 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
    * ```
    */
   abstract delete(): void;
-
-  /**
-   * @returns whether the given `Store` operates on the same slice of the store as this object.
-   */
-  abstract refersToSameStateAs(other: Store<T>): boolean;
-
-  protected abstract maybeActivate(): void;
-
-  protected abstract maybeDeactivate(): void;
 }
