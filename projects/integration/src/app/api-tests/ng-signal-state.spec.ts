@@ -1,6 +1,6 @@
-import { PersistentStore, RootStore, Store } from '@s-libs/ng-signal-state';
+import { PersistentStore, RootStore, Store } from '@s-libs/signal-store';
 
-describe('ng-signal-state', () => {
+describe('signal-store', () => {
   it('has PersistentStore', () => {
     expect(PersistentStore).toBeDefined();
   });

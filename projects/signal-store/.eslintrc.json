@@ -5,7 +5,7 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": ["projects/ng-signal-state/tsconfig.(lib|spec).json"]
+        "project": ["projects/signal-store/tsconfig.(lib|spec).json"]
       },
       "rules": {}
     },

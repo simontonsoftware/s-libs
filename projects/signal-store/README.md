@@ -1,10 +1,10 @@
-TODO: update from app-state to ng-signal-state
+TODO: update from app-state to signal-store
 
 An observable state management library. Think of it like Redux, but without actions or reducers. That makes it a natural fit for anyone who wants the benefits of centralized state management, without adopting a function style of programming.
 
 ## API Documentation
 
-Once you are familiar with the basics, it may help to see the [api documentation](https://simontonsoftware.github.io/s-libs/ng-signal-state).
+Once you are familiar with the basics, it may help to see the [api documentation](https://simontonsoftware.github.io/s-libs/signal-store).
 
 ## Introduction
 
@@ -27,7 +27,7 @@ A basic idea behind this library is to keep all the state of your app in one pla
 Install along with its peer dependencies using:
 
 ```shell script
-npm install @s-libs/ng-signal-state @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
+npm install @s-libs/signal-store @s-libs/ng-core @s-libs/rxjs-core @s-libs/js-core @s-libs/micro-dash
 ```
 
 ## Setup
@@ -60,7 +60,7 @@ Then create a subclass of `RootStore`. A single instance of that class will serv
 // state/my-store.service.ts
 
 import { Injectable } from "@angular/core";
-import { RootStore } from "@s-libs/ng-signal-state";
+import { RootStore } from "@s-libs/signal-store";
 import { MyState } from "./my-state";
 
 @Injectable({ providedIn: "root" })
@@ -76,7 +76,7 @@ export class MyStore extends RootStore<MyState> {
 Consider this translation of the counter example from the `ngrx/store` readme:
 
 ```ts
-// ng-signal-state.ts
+// app-state.ts
 export class AppState {
   counter = 0;
 }

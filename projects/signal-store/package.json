@@ -1,13 +1,13 @@
 {
-  "name": "@s-libs/ng-signal-state",
+  "name": "@s-libs/signal-store",
   "version": "17.0.0",
   "author": "Simonton Software",
   "license": "MIT",
-  "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-signal-state",
+  "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/signal-store",
   "repository": {
     "type": "git",
     "url": "https://github.com/simontonsoftware/s-libs.git",
-    "directory": "projects/ng-signal-state"
+    "directory": "projects/signal-store"
   },
   "peerDependencies": {
     "@s-libs/js-core": "^17.0.0",

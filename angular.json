@@ -437,23 +437,23 @@
         }
       }
     },
-    "ng-signal-state": {
+    "signal-store": {
       "projectType": "library",
-      "root": "projects/ng-signal-state",
-      "sourceRoot": "projects/ng-signal-state/src",
+      "root": "projects/signal-store",
+      "sourceRoot": "projects/signal-store/src",
       "prefix": "s",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ng-signal-state/ng-package.json"
+            "project": "projects/signal-store/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ng-signal-state/tsconfig.lib.prod.json"
+              "tsConfig": "projects/signal-store/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ng-signal-state/tsconfig.lib.json"
+              "tsConfig": "projects/signal-store/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -461,7 +461,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/ng-signal-state/tsconfig.spec.json",
+            "tsConfig": "projects/signal-store/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
@@ -469,8 +469,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/ng-signal-state/**/*.ts",
-              "projects/ng-signal-state/**/*.html"
+              "projects/signal-store/**/*.ts",
+              "projects/signal-store/**/*.html"
             ]
           }
         }

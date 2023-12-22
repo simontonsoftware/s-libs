@@ -3,11 +3,11 @@ import { DeepPerformanceComponent } from './deep-performance/deep-performance.co
 import { WidePerformanceComponent } from './wide-performance/wide-performance.component';
 
 @Component({
-  selector: 'sl-signal-state-performance',
-  templateUrl: './signal-state-performance.component.html',
-  styleUrls: ['./signal-state-performance.component.scss'],
+  selector: 'sl-signal-store-performance',
+  templateUrl: './signal-store-performance.component.html',
+  styleUrls: ['./signal-store-performance.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [DeepPerformanceComponent, WidePerformanceComponent],
 })
-export class SignalStatePerformanceComponent {}
+export class SignalStorePerformanceComponent {}

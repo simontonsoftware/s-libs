@@ -110,7 +110,7 @@
         "type": "json"
       },
       {
-        "filename": "projects/ng-signal-state/package.json",
+        "filename": "projects/signal-store/package.json",
         "type": "json"
       },
       {

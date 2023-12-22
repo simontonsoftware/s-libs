@@ -1,5 +1,5 @@
 /*
- * Public API Surface of ng-signal-state
+ * Public API Surface of signal-store
  */
 
 export * from './lib/utils';

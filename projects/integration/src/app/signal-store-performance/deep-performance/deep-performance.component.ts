@@ -6,13 +6,13 @@ import {
   inject,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RootStore } from '@s-libs/ng-signal-state';
+import { RootStore } from '@s-libs/signal-store';
 import {
   DeepState,
   runDeep,
   subscribeDeep,
-} from '../../../../../ng-signal-state/src/performance/deep-performance';
-import { unsubscribe } from '../../../../../ng-signal-state/src/performance/performance-utils';
+} from '../../../../../signal-store/src/performance/deep-performance';
+import { unsubscribe } from '../../../../../signal-store/src/performance/performance-utils';
 
 @Component({
   selector: 'sl-deep-performance',
@@ -28,7 +28,7 @@ export class DeepPerformanceComponent {
   #injector = inject(EnvironmentInjector);
 
   protected async run(): Promise<void> {
-    // `any` because we import functions directly from `ng-signal-state` and TS doesn't like that
+    // `any` because we import functions directly from `signal-store` and TS doesn't like that
     const store: any = new RootStore(new DeepState(this.depth));
     const injector = createEnvironmentInjector([], this.#injector);
 
