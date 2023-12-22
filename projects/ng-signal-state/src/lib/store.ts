@@ -18,7 +18,8 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
   #children = new WeakValueMap<keyof any, Store<any>>();
 
   constructor(
-    private signal: Signal<T>,
+    // TODO: document and test
+    public signal: Signal<T>,
     makeChild: typeof buildChild,
   ) {
     super((childKey) => {
@@ -31,18 +32,19 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     });
   }
 
-  /**
-   * Retrieve the current state represented by this store object. This is backed by a singal, so it will trigger updates in templates and derived signals accordingly.
-   */
-  state(): T {
+  get state(): T {
     return this.signal();
+  }
+
+  set state(value: T) {
+    this.set(value);
   }
 
   /**
    * Assigns the given values to state of this store object. The resulting state will be like `Object.assign(store.state(), value)`.
    */
   assign(value: Partial<T>): void {
-    this.setUsing((state: any) => {
+    this.update((state: any) => {
       if (isUndefined(state)) {
         throw new Error('cannot assign to undefined state');
       }
@@ -60,11 +62,8 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
    *
    * WARNING: You SHOULD NOT use a function that will mutate the state.
    */
-  setUsing<A extends any[]>(
-    func: (state: T, ...args: A) => T,
-    ...args: A
-  ): void {
-    this.set(func(this.state(), ...args));
+  update<A extends any[]>(func: (state: T, ...args: A) => T, ...args: A): void {
+    this.set(func(this.state, ...args));
   }
 
   /**
@@ -76,15 +75,10 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     func: (state: T, ...args: A) => void,
     ...args: A
   ): void {
-    const state = clone(this.state());
+    const state = clone(this.state);
     func(state, ...args);
     this.set(state);
   }
-
-  /**
-   * Replace the state represented by this store object with the given value.
-   */
-  abstract set(value: T): void;
 
   /**
    * Removes the state represented by this store object from its parent. E.g. to remove the current user:
@@ -94,4 +88,9 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
    * ```
    */
   abstract delete(): void;
+
+  /**
+   * Replace the state represented by this store object with the given value.
+   */
+  protected abstract set(value: T): void;
 }

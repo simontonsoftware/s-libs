@@ -22,7 +22,7 @@ describe('PersistentStore', () => {
 
       const store = new PersistentStore('meh', defaultState, { codec });
 
-      expect(store.state()).toBe(defaultState);
+      expect(store.state).toBe(defaultState);
     });
   });
 
@@ -33,7 +33,7 @@ describe('PersistentStore', () => {
 
       const store = new PersistentStore('thekey', defaultState);
 
-      expect(store.state()).toBe(defaultState);
+      expect(store.state).toBe(defaultState);
     });
   });
 
@@ -54,13 +54,13 @@ describe('PersistentStore', () => {
         }
 
         let store = new MyStore();
-        store('my_state_key').set('my new value');
+        store('my_state_key').state = 'my new value';
 
         // simulate the user leaving the page and coming back later ...
         TestBed.flushEffects();
         store = new MyStore();
 
-        expect(store.state().my_state_key).toBe('my new value');
+        expect(store('my_state_key').state).toBe('my new value');
       });
     });
 
@@ -97,7 +97,7 @@ describe('PersistentStore', () => {
 
         // the store gets the value persisted from version 1 in our previous example
         const store = new MyStore();
-        expect(store.state().myStateKey).toBe('my persisted value');
+        expect(store('myStateKey').state).toBe('my persisted value');
       });
     });
 
@@ -128,14 +128,14 @@ describe('PersistentStore', () => {
 
         const session1Start = Date.now();
         let store = new MyStore();
-        expect(store.state().sessionStart).toBe(session1Start);
+        expect(store('sessionStart').state).toBe(session1Start);
         expect(localStorage.getItem('myPersistenceKey')).toBe('{"_version":1}');
 
         // the user leaves the page and comes back later...
 
         tick(300_000); // 5 minutes pass
         store = new MyStore();
-        expect(store.state().sessionStart).toBe(session1Start + 300_000);
+        expect(store('sessionStart').state).toBe(session1Start + 300_000);
       });
     }));
   });

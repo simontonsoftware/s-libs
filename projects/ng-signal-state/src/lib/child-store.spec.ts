@@ -11,24 +11,41 @@ describe('ChildStore', () => {
   describe('()', () => {
     it('throws with a useful message when used to modify missing state', () => {
       expect(() => {
-        store<'optional', InnerState>('optional')('state').set(2);
+        store<'optional', InnerState>('optional')('state').state = 2;
       }).toThrowError('cannot modify when parent state is missing');
     });
 
     it('throws with a useful message even when the root key is missing', () => {
       store.delete();
       expect(() => {
-        store<'optional', InnerState>('optional')('state').set(2);
+        store<'optional', InnerState>('optional')('state').state = 2;
       }).toThrowError('cannot modify when parent state is missing');
+    });
+  });
+
+  describe('.delete()', () => {
+    it('removes sub-trees from the store', () => {
+      store('optional').state = new InnerState();
+      store<'optional', InnerState>('optional')('left').state =
+        new InnerState();
+      expect(store('optional').state!.left).toEqual(new InnerState());
+
+      store<'optional', InnerState>('optional')('left').delete();
+      expect(store('optional').state).not.toBe(undefined);
+      expect(store('optional').state!.left).toBe(undefined);
+
+      store('optional').delete();
+      expect(store.state as any).not.toBe(undefined);
+      expect(store('optional').state).toBe(undefined);
     });
   });
 
   describe('.set()', () => {
     it('stores the exact object given', () => {
-      const before = store.state().nested;
+      const before = store('nested').state;
       const set = new InnerState();
-      store('nested').set(set);
-      const after = store.state().nested;
+      store('nested').state = set;
+      const after = store('nested').state;
 
       expect(before).not.toBe(after);
       expect(after).toBe(set);
@@ -36,26 +53,10 @@ describe('ChildStore', () => {
     });
 
     it('works with undefined', () => {
-      store('optional').set(new InnerState());
-      expect(store.state().optional).not.toBeUndefined();
-      store('optional').set(undefined);
-      expect(store.state().optional).toBeUndefined();
-    });
-  });
-
-  describe('.delete()', () => {
-    it('removes sub-trees from the store', () => {
-      store('optional').set(new InnerState());
-      store<'optional', InnerState>('optional')('left').set(new InnerState());
-      expect(store.state().optional!.left).toEqual(new InnerState());
-
-      store<'optional', InnerState>('optional')('left').delete();
-      expect(store.state().optional).not.toBe(undefined);
-      expect(store.state().optional!.left).toBe(undefined);
-
-      store('optional').delete();
-      expect(store.state() as any).not.toBe(undefined);
-      expect(store.state().optional).toBe(undefined);
+      store('optional').state = new InnerState();
+      expect(store('optional').state).not.toBeUndefined();
+      store('optional').state = undefined;
+      expect(store('optional').state).toBeUndefined();
     });
   });
 });

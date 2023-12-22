@@ -5,7 +5,7 @@ import {
   VersionedObject,
 } from '@s-libs/js-core';
 import { identity } from '@s-libs/micro-dash';
-import { RootStore } from '../index';
+import { RootStore } from '../root-store';
 
 export interface PersistenceCodec<State, Persisted> {
   /**
@@ -141,7 +141,7 @@ export class PersistentStore<
     super(defaultState);
 
     effect(() => {
-      persistence.put(codec.encode(this.state()));
+      persistence.put(codec.encode(this.state));
     });
   }
 }

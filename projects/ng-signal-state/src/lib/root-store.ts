@@ -1,6 +1,6 @@
 import { signal, WritableSignal } from '@angular/core';
 import { buildChild } from './child-store';
-import { Store } from './index';
+import { Store } from './store';
 
 export class RootStore<T extends object> extends Store<T> {
   #signal: WritableSignal<T>;
@@ -11,11 +11,11 @@ export class RootStore<T extends object> extends Store<T> {
     this.#signal = backingSignal;
   }
 
-  set(value: T): void {
-    this.#signal.set(value);
+  override delete(): void {
+    this.set(undefined as any);
   }
 
-  delete(): void {
-    this.set(undefined as any);
+  protected override set(value: T): void {
+    this.#signal.set(value);
   }
 }

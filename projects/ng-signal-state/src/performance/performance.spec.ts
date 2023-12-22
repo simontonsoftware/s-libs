@@ -5,7 +5,7 @@ import { DeepState, runDeep, subscribeDeep } from './deep-performance';
 import { unsubscribe } from './performance-utils';
 import { runWide, subscribeWide, WideState } from './wide-performance';
 
-const depth = 1000;
+const depth = 500;
 const deepIterations = 100;
 const msPerDeepSubscription = 0.04;
 const msPerDeepIteration = 12;

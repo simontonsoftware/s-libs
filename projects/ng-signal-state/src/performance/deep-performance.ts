@@ -24,7 +24,7 @@ export function subscribeDeep(
     const myStore = store;
     effect(
       () => {
-        myStore.state();
+        myStore.signal();
         // console.log(myStore.state());
       },
       { injector },
@@ -46,7 +46,7 @@ export async function runDeep(
 
   const start = performance.now();
   for (let i = iterations; --i >= 0; ) {
-    leafStore('counter').setUsing(increment);
+    leafStore('counter').update(increment);
     await flushEffects();
   }
   const elapsed = performance.now() - start;
@@ -61,7 +61,7 @@ function analyze(store: Store<DeepState>): {
   leafStore: Store<DeepState>;
 } {
   let depth = 1;
-  for (; store('next').state(); ++depth) {
+  for (; store('next').state; ++depth) {
     store = store('next');
   }
   return { depth, leafStore: store };

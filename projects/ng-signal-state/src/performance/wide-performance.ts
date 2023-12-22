@@ -16,14 +16,14 @@ export function subscribeWide(
   injector: Injector,
 ): number {
   const arrayStore = store('array');
-  const width = arrayStore.state().length;
+  const width = arrayStore.state.length;
 
   const start = performance.now();
   for (let i = width; --i >= 0; ) {
     const myStore = arrayStore(i)('counter');
     effect(
       () => {
-        myStore.state();
+        myStore.signal();
         // console.log(myStore.state());
       },
       { injector },
@@ -45,7 +45,7 @@ export async function runWide(
 
   const start = performance.now();
   for (let i = iterations; --i; ) {
-    counterStore.setUsing(increment);
+    counterStore.update(increment);
     await flushEffects();
   }
   const elapsed = performance.now() - start;

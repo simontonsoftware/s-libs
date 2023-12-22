@@ -11,19 +11,26 @@ describe('RootStore', () => {
   describe('constructor', () => {
     it('uses the given constructor arguments', () => {
       const state = { initial: true };
-      expect(new RootStore(state).state()).toBe(state);
+      expect(new RootStore(state).state).toBe(state);
+    });
+  });
+
+  describe('.delete()', () => {
+    it('sets the state to `undefined`', () => {
+      store.delete();
+      expect(store.state as any).toEqual(undefined);
     });
   });
 
   describe('.set()', () => {
     it('works', () => {
-      const before = store.state();
+      const before = store.state;
       const set = {
         counter: 2,
         nested: new InnerState(),
       };
-      store.set(set);
-      const after = store.state();
+      store.state = set;
+      const after = store.state;
 
       expect(before).not.toBe(after);
       expect(after).toBe(set);
@@ -31,13 +38,6 @@ describe('RootStore', () => {
         counter: 2,
         nested: new InnerState(),
       });
-    });
-  });
-
-  describe('.delete()', () => {
-    it('sets the state to `undefined`', () => {
-      store.delete();
-      expect(store.state() as any).toEqual(undefined);
     });
   });
 });
