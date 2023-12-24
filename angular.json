@@ -437,45 +437,6 @@
         }
       }
     },
-    "signal-store": {
-      "projectType": "library",
-      "root": "projects/signal-store",
-      "sourceRoot": "projects/signal-store/src",
-      "prefix": "s",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/signal-store/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/signal-store/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/signal-store/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/signal-store/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/signal-store/**/*.ts",
-              "projects/signal-store/**/*.html"
-            ]
-          }
-        }
-      }
-    },
     "rxjs-core": {
       "projectType": "library",
       "root": "projects/rxjs-core",
@@ -510,6 +471,45 @@
             "lintFilePatterns": [
               "projects/rxjs-core/**/*.ts",
               "projects/rxjs-core/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "signal-store": {
+      "projectType": "library",
+      "root": "projects/signal-store",
+      "sourceRoot": "projects/signal-store/src",
+      "prefix": "s",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/signal-store/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/signal-store/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/signal-store/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/signal-store/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/signal-store/**/*.ts",
+              "projects/signal-store/**/*.html"
             ]
           }
         }
