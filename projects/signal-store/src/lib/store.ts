@@ -18,8 +18,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
   #children = new WeakValueMap<keyof any, Store<any>>();
 
   constructor(
-    // TODO: document and test
-    public signal: Signal<T>,
+    private signal: Signal<T>,
     makeChild: typeof buildChild,
   ) {
     super((childKey) => {
@@ -71,7 +70,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
    *
    * WARNING: You SHOULD NOT use a function that will mutate nested objects within the state.
    */
-  mutateUsing<A extends any[]>(
+  mutate<A extends any[]>(
     func: (state: T, ...args: A) => void,
     ...args: A
   ): void {

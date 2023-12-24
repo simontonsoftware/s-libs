@@ -160,16 +160,16 @@ describe('Store', () => {
     });
   });
 
-  describe('.mutateUsing()', () => {
+  describe('.mutate()', () => {
     it('uses the passed-in arguments', () => {
       store('array').state = [];
 
-      store('array').mutateUsing((array) => {
+      store('array').mutate((array) => {
         array!.push(1);
       });
       expect(store('array').state).toEqual([1]);
 
-      store('array').mutateUsing(
+      store('array').mutate(
         (array, a, b) => {
           array!.push(a, b);
         },
@@ -180,7 +180,7 @@ describe('Store', () => {
     });
 
     it('works when the state is undefined', () => {
-      store('optional').mutateUsing((value) => {
+      store('optional').mutate((value) => {
         expect(value).toBe(undefined);
       });
     });
@@ -195,7 +195,7 @@ describe('Store', () => {
         ary!: boolean[];
       }
 
-      const str = new RootStore<State>(new State());
+      const str = new RootStore(new State());
 
       expectTypeOf(str('a')).toEqualTypeOf<Store<number>>();
       expectTypeOf(str('obj')).toEqualTypeOf<Store<{ c: Date }>>();
