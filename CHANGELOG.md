@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 - **js-core:** add `WeakValueMap` ([6df8150](https://github.com/simontonsoftware/s-libs/commit/6df8150ac950fda1bfd3052f4940c694b4721c28))
-- **signal-state:** Introducing a new library to the S-Libs family: Signal State! A state management library similar to App State, built on Angular Signals instead of RxJS. ([e7f8797](https://github.com/simontonsoftware/s-libs/commit/e7f8797e611d0b7a751b18feae94cf6a01fd59fc))
+- **signal-store:** Introducing a new library to the S-Libs family: Signal Store! A state management library similar to App State, built on Angular Signals instead of RxJS. ([e7f8797](https://github.com/simontonsoftware/s-libs/commit/e7f8797e611d0b7a751b18feae94cf6a01fd59fc))
 
 ## [17.0.0](https://github.com/simontonsoftware/s-libs/compare/v17.0.0-next.2...v17.0.0) (2023-11-19)
 
