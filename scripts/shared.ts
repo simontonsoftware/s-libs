@@ -10,6 +10,7 @@ export const buildableLibraries = [
   'ng-core',
   'ng-app-state',
   'ng-mat-core',
+  'signal-store',
   'ng-dev',
 ];
 

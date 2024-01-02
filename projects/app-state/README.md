@@ -1,4 +1,4 @@
-An observable state management library. Think of it like Redux, but without actions or reducers. That makes it a natural fit for anyone who wants the benefits of centralized state management, without adopting a function style of programming.
+An observable state management library. Directly read, write, and observe any part of your state without writing any selectors, actions, or reducers.
 
 ## API Documentation
 
@@ -9,11 +9,11 @@ Once you are familiar with the basics, it may help to see the [api documentation
 A basic idea behind this library is to keep all the state of your app in one place, accessible for any component or service to access, modify and subscribe to changes. This has several benefits:
 
 - Components no longer need multiple inputs and outputs to route state and mutations to the proper components. Instead they can obtain the store via dependency injection.
-- During debugging you can look in one place to see the state of your entire app. Moreover, development tools can be used to see this information at a glance along with a full history of changes leading up to the current state ([Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)).
+- During debugging, you can look in one place to see the state of your entire app. Moreover, development tools can be used to see this information at a glance along with a full history of changes leading up to the current state ([Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)).
 - The objects in the store are immutable (as long as you only modify the state via the store, as you should), which enables more benefits:
-  - Immutable objects allow you to use Angular's on-push change detection, which can be a huge performance gain for apps with a large state.
+  - Immutable objects allow efficient comparison using `===` to determine if they changed. Note that if you are using Angular this enables on-push change detection, but you should consider the newer [`signal-store`](https://github.com/simontonsoftware/s-libs/tree/master/projects/signal-store) instead!
   - Undo/redo features become very simple. This library includes a helper to make it even easier (more info below).
-- Every piece of state is observable. You can subscribe to the root of the store to get notified of every state change anywhere in the app, for a specific boolean buried deep within your state, or anywhere in between.
+- Every piece of state is observable. You can subscribe to the root of the store to get notified of every state change anywhere in the app, a specific boolean buried deep within your state, or anywhere in between.
 
 2 terms are worth defining immediately. As they are used in this library, they mean:
 
@@ -52,69 +52,17 @@ export class User {
 }
 ```
 
-Then create a subclass of `RootStore`. A single instance of that class will serve as the entry point to obtain and modify the state it holds. Most often you will make that class an Angular service that can be injected anywhere in your app. For example:
+Then create a subclass of `RootStore`. A single instance of that class will serve as the entry point to obtain and modify the state it holds.
 
 ```ts
-// state/my-store.service.ts
+// state/my-store.ts
 
-import { Injectable } from "@angular/core";
 import { RootStore } from "@s-libs/app-state";
 import { MyState } from "./my-state";
 
-@Injectable({ providedIn: "root" })
 export class MyStore extends RootStore<MyState> {
   constructor() {
     super(new MyState());
-  }
-}
-```
-
-## Usage
-
-Consider this translation of the counter example from the `ngrx/store` readme:
-
-```ts
-// app-state.ts
-export class AppState {
-  counter = 0;
-}
-
-// app-store.ts
-@Injectable({ providedIn: "root" })
-export class AppStore extends RootStore<AppState> {
-  constructor() {
-    super(new AppState());
-  }
-}
-
-// my-app-component.ts
-@Component({
-  selector: "my-app",
-  template: `
-    <button (click)="increment()">Increment</button>
-    <div>Current Count: {{ counterStore.$ | async }}</div>
-    <button (click)="decrement()">Decrement</button>
-
-    <button (click)="reset()">Reset Counter</button>
-  `,
-})
-export class MyAppComponent {
-  counterStore: Store<number>;
-
-  constructor(store: AppStore) {
-    this.counterStore = store("counter");
-  }
-
-  increment() {
-    this.counterStore.set(this.counterStore.state() + 1);
-  }
-
-  decrement() {
-    this.counterStore.set(this.counterStore.state() - 1);
-  }
-
-  reset() {
-    this.counterStore.set(0);
   }
 }
 ```
@@ -139,7 +87,6 @@ export class MyAppComponent {
 This package includes an abstract class, `UndoManager`, to assist you in creating undo/redo functionality. For example, a simple subclass that captures every state change into the undo history:
 
 ```ts
-@Injectable()
 class UndoService extends UndoManager<MyAppState, MyAppState> {
   private skipNextChange = true;
 

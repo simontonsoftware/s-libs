@@ -1,5 +1,7 @@
 Painlessly integrate [`app-state`](https://github.com/simontonsoftware/s-libs/projects/app-state) into template-driven Angular forms.
 
+**PLEASE NOTE:** [`signal-store`](https://github.com/simontonsoftware/s-libs/tree/master/projects/signal-store) is now available for Angular apps, based on Angular signals instead of RxJS. Its updated design does not require a separate library like this for integration into forms. Instead, with that library you simply use `[(ngModel)]="store.state"`.
+
 ## Installation
 
 Install along with its peer dependencies using:
