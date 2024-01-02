@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.1.0](https://github.com/simontonsoftware/s-libs/compare/v17.0.0...v17.1.0) (2024-01-02)
+
+### Features
+
+- **js-core:** add `WeakValueMap` ([6df8150](https://github.com/simontonsoftware/s-libs/commit/6df8150ac950fda1bfd3052f4940c694b4721c28))
+- **signal-state:** Introducing a new library to the S-Libs family: Signal State! A state management library similar to App State, built on Angular Signals instead of RxJS. ([e7f8797](https://github.com/simontonsoftware/s-libs/commit/e7f8797e611d0b7a751b18feae94cf6a01fd59fc))
+
 ## [17.0.0](https://github.com/simontonsoftware/s-libs/compare/v17.0.0-next.2...v17.0.0) (2023-11-19)
 
 ## [17.0.0-next.2](https://github.com/simontonsoftware/s-libs/compare/v17.0.0-next.1...v17.0.0-next.2) (2023-11-17)
