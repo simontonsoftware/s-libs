@@ -26,7 +26,7 @@ export interface PersistenceCodec<State, Persisted> {
  * class MyState implements VersionedObject {
  *   _version = 1;
  *   // eslint-disable-next-line camelcase -- will fix in next version
- *   my_state_key = 'my state value';
+ *   my_state_key = 'my default value';
  * }
  *
  * class MyStore extends PersistentStore<MyState> {
@@ -36,12 +36,13 @@ export interface PersistenceCodec<State, Persisted> {
  * }
  *
  * let store = new MyStore();
- * store('my_state_key').set('my new value');
+ * store('my_state_key').state ='my persisted value';
  *
  * // the user leaves the page and comes back later ...
+ * TestBed.flushEffects();
  *
  * store = new MyStore();
- * expect(store.state().my_state_key).toBe('my new value');
+ * expect(store('my_state_key').state).toBe('my persisted value');
  * ```
  *
  * At this point, if you change `_version` the store will be reset to the default state. This is a convenience during initial development of your app. Once it is released to real users, you will want to use a {@link MigrationManager} to avoid wiping out your users' data:
@@ -49,7 +50,7 @@ export interface PersistenceCodec<State, Persisted> {
  * ```ts
  * class MyState implements VersionedObject {
  *   _version = 2; // bump version to 2
- *   myStateKey = 'my state value'; // schema change: my_state_key => myStateKey
+ *   myStateKey = 'my default value'; // schema change: my_state_key => myStateKey
  * }
  *
  * class MyMigrationManager extends MigrationManager<MyState> {
@@ -74,7 +75,7 @@ export interface PersistenceCodec<State, Persisted> {
  *
  * // the store gets the value persisted from version 1 in our previous example
  * const store = new MyStore();
- * expect(store.state().myStateKey).toBe('my new value');
+ * expect(store('myStateKey').state).toBe('my persisted value');
  * ```
  *
  * If you want to persist something a little different from what is in the store, for example to omit some properties, use a {@linkcode PersistenceCodec}:
@@ -104,14 +105,14 @@ export interface PersistenceCodec<State, Persisted> {
  *
  * const session1Start = Date.now();
  * let store = new MyStore();
- * expect(store.state().sessionStart).toBe(session1Start);
+ * expect(store('sessionStart').state).toBe(session1Start);
  * expect(localStorage.getItem('myPersistenceKey')).toBe('{"_version":1}');
  *
  * // the user leaves the page and comes back later...
  *
  * tick(300_000); // 5 minutes pass
  * store = new MyStore();
- * expect(store.state().sessionStart).toBe(session1Start + 300_000);
+ * expect(store('sessionStart').state).toBe(session1Start + 300_000);
  * ```
  */
 export class PersistentStore<
@@ -119,10 +120,12 @@ export class PersistentStore<
   Persisted extends VersionedObject = State,
 > extends RootStore<State> {
   /**
+   * Must be instantiated in an injection context. This should naturally be the case for subclasses that are services (which is the common case).
+   *
    * @param persistenceKey the key in local storage at which to persist the state
    * @param defaultState used when the state has not been persisted yet
-   * @param __namedParameters.migrator used to update the state when it was at a lower {@link VersionedObject._version} when it was last persisted
-   * @param __namedParameters.codec use to persist a different format than what is kept in the store
+   * @param __namedParameters.migrator used to update state that was at a lower {@link VersionedObject._version} when it was persisted
+   * @param __namedParameters.codec used to persist a different format than what is kept in the store
    */
   constructor(
     persistenceKey: string,

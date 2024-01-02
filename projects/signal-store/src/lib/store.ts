@@ -3,7 +3,7 @@ import { CallableObject, WeakValueMap } from '@s-libs/js-core';
 import { clone, every, isUndefined } from '@s-libs/micro-dash';
 import { buildChild } from './child-store';
 
-/* eslint-disable @typescript-eslint/no-unsafe-return,@typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-unsafe-declaration-merging */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 
 type GetSlice<T> = <K extends keyof T>(attr: K) => Store<T[K]>;
 
@@ -31,16 +31,22 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     });
   }
 
+  /**
+   * Get the current state of this store object. This is backed by a signal, so it will trigger change detection when accessed in templates, etc.
+   */
   get state(): T {
     return this.signal();
   }
 
+  /**
+   * Change the value of this store. Following the pattern of immutable objects, the parent store will also update with shallow copy but with this value swapped in, and so on for all ancestors.
+   */
   set state(value: T) {
     this.set(value);
   }
 
   /**
-   * Assigns the given values to state of this store object. The resulting state will be like `Object.assign(store.state(), value)`.
+   * Assigns the given values to the state of this store object. The resulting state will be like `Object.assign(store.state, value)`.
    */
   assign(value: Partial<T>): void {
     this.update((state: any) => {
@@ -79,17 +85,5 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     this.set(state);
   }
 
-  /**
-   * Removes the state represented by this store object from its parent. E.g. to remove the current user:
-   *
-   * ```ts
-   * store('currentUser').delete();
-   * ```
-   */
-  abstract delete(): void;
-
-  /**
-   * Replace the state represented by this store object with the given value.
-   */
   protected abstract set(value: T): void;
 }

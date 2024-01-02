@@ -1,14 +1,14 @@
-A state management library build on Angular signals. An API inspired by [`app-state`](https://github.com/simontonsoftware/s-libs/tree/master/projects/app-state) allows you to directly read, write and observe any part of your state without writing any selectors, actions, or reducers. Directly bind any part of it in your templates using `[(ngModel)]`.
+A state management library build on Angular signals. An API inspired by [`app-state`](https://github.com/simontonsoftware/s-libs/tree/master/projects/app-state) allows you to directly read, write and observe any part of your state without writing any selectors, actions, or reducers. Directly bind any part of the store using `[(ngModel)]`.
 
 ## API Documentation
 
-Once you are familiar with the basics, it may help to see the [api documentation](https://simontonsoftware.github.io/s-libs/signal-store).
+Once you are familiar with the basics, definitely check out the [api documentation](https://simontonsoftware.github.io/s-libs/signal-store) to find more details and utilities.
 
 ## Introduction
 
 A basic idea behind this library is to keep all the state of your app in one place, accessible for any component or service to access, modify and subscribe to changes. This has several benefits:
 
-- Components no longer need multiple inputs and outputs to route state and mutations to the proper components. Instead they can obtain the store via dependency injection.
+- Components no longer need multiple inputs and outputs to route state and mutations to the proper components. Instead, they can obtain the store via dependency injection.
 - During debugging, you can look in one place to see the state of your entire app. Moreover, development tools can be used to see this information at a glance along with a full history of changes leading up to the current state ([Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)).
 - The objects in the store are immutable (as long as you only modify the state via the store, as you should), which enables more benefits:
   - Immutable objects allow you to use on-push change detection, which can be a huge performance gain for apps with a large state.

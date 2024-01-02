@@ -23,7 +23,7 @@ export function subscribeWide(
     const myStore = arrayStore(i)('counter');
     effect(
       () => {
-        myStore.signal();
+        access(myStore.state);
         // console.log(myStore.state());
       },
       { injector },
@@ -34,6 +34,10 @@ export function subscribeWide(
   console.log('ms to subscribe wide:', elapsed);
   console.log(' - per subscription:', elapsed / width);
   return elapsed;
+
+  function access(_value: any): void {
+    // we just need something to make access the state valid
+  }
 }
 
 export async function runWide(

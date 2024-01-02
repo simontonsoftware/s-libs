@@ -38,13 +38,14 @@ describe('PersistentStore', () => {
   });
 
   describe('documentation', () => {
-    it('is working for the simple example', async () => {
+    it('is working for the first two examples (that build on each other)', async () => {
       TestBed.runInInjectionContext(() => {
-        /* eslint-disable camelcase */
+        // vvvv example 1 below
 
         class MyState implements VersionedObject {
           _version = 1;
-          my_state_key = 'my state value';
+          // eslint-disable-next-line camelcase -- will fix in next version
+          my_state_key = 'my default value';
         }
 
         class MyStore extends PersistentStore<MyState> {
@@ -54,22 +55,19 @@ describe('PersistentStore', () => {
         }
 
         let store = new MyStore();
-        store('my_state_key').state = 'my new value';
+        store('my_state_key').state = 'my persisted value';
 
-        // simulate the user leaving the page and coming back later ...
+        // the user leaves the page and comes back later ...
         TestBed.flushEffects();
+
         store = new MyStore();
+        expect(store('my_state_key').state).toBe('my persisted value');
 
-        expect(store('my_state_key').state).toBe('my new value');
+        // ^^^^ example 1 above
       });
-    });
-
-    it('is working for the migration example', () => {
-      localStorage.setItem(
-        'myPersistenceKey',
-        '{ "_version": 1, "my_state_key": "my persisted value" }',
-      );
       TestBed.runInInjectionContext(() => {
+        // vvvv example 2 below
+
         class MyState implements VersionedObject {
           _version = 2; // bump version to 2
           myStateKey = 'my default value'; // schema change: my_state_key => myStateKey
@@ -98,6 +96,8 @@ describe('PersistentStore', () => {
         // the store gets the value persisted from version 1 in our previous example
         const store = new MyStore();
         expect(store('myStateKey').state).toBe('my persisted value');
+
+        // ^^^^ example 2 above
       });
     });
 

@@ -15,13 +15,6 @@ describe('RootStore', () => {
     });
   });
 
-  describe('.delete()', () => {
-    it('sets the state to `undefined`', () => {
-      store.delete();
-      expect(store.state as any).toEqual(undefined);
-    });
-  });
-
   describe('.set()', () => {
     it('works', () => {
       const before = store.state;

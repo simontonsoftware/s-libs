@@ -1,12 +1,12 @@
 import { computed, Signal } from '@angular/core';
-import { clone, omit } from '@s-libs/micro-dash';
+import { clone } from '@s-libs/micro-dash';
 import { Store } from './store';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 // defined here and passed to `Store` to work around some problems with circular imports
 export function buildChild(parent: Store<any>, childKey: any): Store<unknown> {
-  const childSignal = computed((): any => parent.signal()?.[childKey]);
+  const childSignal = computed((): any => parent.state?.[childKey]);
   return new ChildStore(parent, childKey, childSignal);
 }
 
@@ -17,10 +17,6 @@ export class ChildStore<T> extends Store<T> {
     signal: Signal<T>,
   ) {
     super(signal, buildChild);
-  }
-
-  override delete(): void {
-    this.parent.state = omit(this.parent.state, this.key);
   }
 
   protected override set(value: T): void {

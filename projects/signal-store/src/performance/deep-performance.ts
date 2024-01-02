@@ -24,7 +24,7 @@ export function subscribeDeep(
     const myStore = store;
     effect(
       () => {
-        myStore.signal();
+        access(myStore.state);
         // console.log(myStore.state());
       },
       { injector },
@@ -35,6 +35,10 @@ export function subscribeDeep(
   console.log('ms to subscribe deep:', elapsed);
   console.log(' - per subscription:', elapsed / depth);
   return elapsed;
+
+  function access(_value: any): void {
+    // we just need something to make access the state valid
+  }
 }
 
 export async function runDeep(
