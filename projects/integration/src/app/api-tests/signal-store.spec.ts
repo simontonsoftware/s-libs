@@ -3,6 +3,7 @@ import {
   RootStore,
   Store,
   spreadArrayStore,
+  pushToArrayStore,
 } from '@s-libs/signal-store';
 
 describe('signal-store', () => {
@@ -20,5 +21,9 @@ describe('signal-store', () => {
 
   it('has spreadArrayStore()', () => {
     expect(spreadArrayStore).toBeDefined();
+  });
+
+  it('has pushToArrayStore()', () => {
+    expect(pushToArrayStore).toBeDefined();
   });
 });

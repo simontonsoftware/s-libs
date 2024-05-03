@@ -3,7 +3,7 @@ import { buildChild } from './child-store';
 import { Store } from './store';
 
 /** See documentation at {@linkcode Store}. */
-export class RootStore<T extends object> extends Store<T> {
+export class RootStore<T> extends Store<T> {
   #signal: WritableSignal<T>;
 
   constructor(state: T) {

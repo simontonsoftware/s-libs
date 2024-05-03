@@ -1,6 +1,7 @@
 import { expectTypeOf } from 'expect-type';
 import { RootStore, Store } from '../index';
 import { pushToStoreArray } from './push-to-store-array';
+import { staticTest } from '@s-libs/ng-dev';
 
 describe('pushToStoreArray', () => {
   let store: Store<number[]>;
@@ -49,8 +50,8 @@ describe('pushToStoreArray', () => {
   });
 
   it('has fancy typing', () => {
-    expect().nothing();
-
-    expectTypeOf(pushToStoreArray(store, 5)).toEqualTypeOf<Store<number>>();
+    staticTest(() => {
+      expectTypeOf(pushToStoreArray(store, 5)).toEqualTypeOf<Store<number>>();
+    });
   });
 });
