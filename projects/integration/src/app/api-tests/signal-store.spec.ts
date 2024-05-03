@@ -1,4 +1,9 @@
-import { PersistentStore, RootStore, Store } from '@s-libs/signal-store';
+import {
+  PersistentStore,
+  RootStore,
+  Store,
+  spreadArrayStore,
+} from '@s-libs/signal-store';
 
 describe('signal-store', () => {
   it('has PersistentStore', () => {
@@ -11,5 +16,9 @@ describe('signal-store', () => {
 
   it('has Store', () => {
     expect(Store).toBeDefined();
+  });
+
+  it('has spreadArrayStore()', () => {
+    expect(spreadArrayStore).toBeDefined();
   });
 });

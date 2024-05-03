@@ -3,23 +3,24 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Store } from '../index';
 
 /**
- * Returns an observable that emits an array of store objects, one for each element in `source`'s state. The resulting arrays will have references to the exact store objects included in the previous emission when possible, making them performant to use in `*ngFor` expressions without the need to use `trackBy`.
+ * Returns an observable that emits an array of store objects, one for each element in `source`'s state. The emitted arrays will have references to the exact store objects included in the previous emission when possible, making them performant to use in `*ngFor` expressions without the need to use `trackBy`.
  *
  * ```ts
  * @Component({
+ *   standalone: true,
  *   template: `
- *     <hero
- *       *ngFor="let heroStore of heroStores$ | async"
- *       [heroStore]="heroStore"
- *     ></hero>
+ *     @for (heroStore of heroStores$ | async; track heroStore) {
+ *       <app-hero [heroStore]="heroStore" />
+ *     }
  *   `,
+ *   imports: [HeroComponent, AsyncPipe],
  * })
- * class HeroListComponent {
- *   heroStores$: Observable<Array<Store<Hero>>>;
- *   @Input() private heroesStore: Store<Array<Hero>>;
+ * class HeroListComponent implements OnChanges {
+ *   @Input() heroesStore!: Store<Hero[]>;
+ *   protected heroStores$!: Observable<Array<Store<Hero>>>;
  *
- *   ngOnChanges() {
- *     this.heroStores$ = spreadArrayStore(this.heroesStore);
+ *   ngOnChanges(): void {
+ *     this.heroStores$ = spreadArrayStore$(this.heroesStore);
  *   }
  * }
  * ```
