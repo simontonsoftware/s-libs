@@ -1,4 +1,4 @@
-import { Store } from '../index';
+import { Store } from '../store';
 
 /**
  * Adds `item` to the end of the array in `store`. Returns a store object representing the newly added item.
@@ -10,7 +10,8 @@ import { Store } from '../index';
  * ```
  */
 export function pushToArrayStore<T>(store: Store<T[]>, item: T): Store<T> {
-  const itemStore = store(store('length').state);
+  const length = store('length').state;
+  const itemStore = store(length);
   itemStore.state = item;
   return itemStore;
 }

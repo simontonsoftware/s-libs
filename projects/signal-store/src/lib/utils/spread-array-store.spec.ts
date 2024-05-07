@@ -2,7 +2,8 @@ import { Component, effect, Input, OnChanges, Signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ComponentContext, staticTest } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
-import { RootStore, Store } from '../index';
+import { RootStore } from '../root-store';
+import { ReadonlyStore, Store } from '../store';
 import { spreadArrayStore } from './spread-array-store';
 
 describe('spreadArrayStore()', () => {
@@ -17,13 +18,13 @@ describe('spreadArrayStore()', () => {
         Signal<Array<Store<number>>>
       >();
       expectTypeOf(spreadArrayStore(arrayOrNull)).toEqualTypeOf<
-        Signal<Array<Store<number>>>
+        Signal<Array<ReadonlyStore<number | undefined>>>
       >();
       expectTypeOf(spreadArrayStore(arrayOrUndefined)).toEqualTypeOf<
-        Signal<Array<Store<number>>>
+        Signal<Array<ReadonlyStore<number | undefined>>>
       >();
       expectTypeOf(spreadArrayStore(arrayOrNil)).toEqualTypeOf<
-        Signal<Array<Store<number>>>
+        Signal<Array<ReadonlyStore<number | undefined>>>
       >();
     });
   });
@@ -114,7 +115,7 @@ describe('spreadArrayStore()', () => {
 
       const store = new RootStore<State>({})('array');
       const subStores = spreadArrayStore(store);
-      let emitted!: Array<Store<number>>;
+      let emitted!: Array<ReadonlyStore<number | undefined>>;
       effect(() => {
         emitted = subStores();
       });

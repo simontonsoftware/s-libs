@@ -5,7 +5,7 @@ import {
   Injectable,
 } from '@angular/core';
 import { ComponentContext } from '@s-libs/ng-dev';
-import { RootStore } from '../lib';
+import { RootStore } from '../lib/root-store';
 
 describe('Readme code', () => {
   it('works for counter app', () => {

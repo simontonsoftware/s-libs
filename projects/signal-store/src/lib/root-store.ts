@@ -1,9 +1,9 @@
 import { signal, WritableSignal } from '@angular/core';
 import { buildChild } from './child-store';
-import { Store } from './store';
+import { AbstractStore } from './abstract-store';
 
 /** See documentation at {@linkcode Store}. */
-export class RootStore<T> extends Store<T> {
+export class RootStore<T> extends AbstractStore<T> {
   #signal: WritableSignal<T>;
 
   constructor(state: T) {

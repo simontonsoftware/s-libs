@@ -1,6 +1,6 @@
 import { effect, Injector } from '@angular/core';
 import { times } from '@s-libs/micro-dash';
-import { Store } from '../lib';
+import { Store } from '../lib/store';
 import { CounterState } from './counter-state';
 
 export class WideState {
