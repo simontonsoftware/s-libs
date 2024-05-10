@@ -3,6 +3,7 @@ import { buildChild } from './child-store';
 import { AbstractStore } from './abstract-store';
 
 /** See documentation at {@linkcode Store}. */
+// TODO: restrict nil types
 export class RootStore<T> extends AbstractStore<T> {
   #signal: WritableSignal<T>;
 

@@ -1,42 +1,59 @@
-// import { expectTypeOf } from 'expect-type';
-// import { Store } from './store';
-//
-// describe('Store', () => {
-//   // it('slices to store objects', () => {
-//   //   staticTest(() => {
-//   //     class State {
-//   //       a!: number;
-//   //       b!: string;
-//   //       obj!: { c: Date };
-//   //       ary!: boolean[];
-//   //     }
-//   //
-//   //     const str = new RootStore(new State());
-//   //
-//   //     expectTypeOf(str('a')).toEqualTypeOf<Store<number>>();
-//   //     expectTypeOf(str('obj')).toEqualTypeOf<Store<{ c: Date }>>();
-//   //     expectTypeOf(str('obj')('c')).toEqualTypeOf<Store<Date>>();
-//   //     expectTypeOf(str('ary')).toEqualTypeOf<Store<boolean[]>>();
-//   //     expectTypeOf(str('ary')(1)).toEqualTypeOf<Store<boolean>>();
-//   //   });
-//   // });
-//
-//   it('slices to a readonly store when value could be nil', () => {
-//     staticTest(() => {
-//       const store: Store<{ ary?: boolean[] }> = null as any;
-//       const date = new Date();
-//
-//       const slice = date('ary');
-//       expectTypeOf(slice).toEqualTypeOf<Date>();
-//     });
-//   });
-//
-//   it('slices to a deletable store for optional fields', () => {
-//     fail('TODO');
-//   });
-//
-//   it('autocompletes keys', () => {
-//     // even for things that could be undefined
-//     fail('TODO');
-//   });
-// });
+import { staticTest } from '@s-libs/ng-dev';
+import { expectTypeOf } from 'expect-type';
+import { DeletableStore, ReadonlyStore, Store } from './store';
+
+describe('Store', () => {
+  describe('()', () => {
+    it('slices to store objects', () => {
+      staticTest(() => {
+        const store: Store<{ date: Date }> = null as any;
+        expectTypeOf(store('date')).toEqualTypeOf<Store<Date>>();
+      });
+    });
+
+    it('potentially nil values slice to a readonly store', () => {
+      staticTest(() => {
+        const store: Store<{ ary?: boolean[] }> = null as any;
+        expectTypeOf(store('ary')('length')).toEqualTypeOf<
+          ReadonlyStore<number | undefined>
+        >();
+      });
+    });
+
+    it('slices to a deletable store for optional fields', () => {
+      staticTest(() => {
+        const store: Store<{ name?: string }> = null as any;
+        expectTypeOf(store('name')).toEqualTypeOf<
+          DeletableStore<string | undefined>
+        >();
+      });
+    });
+  });
+});
+
+describe('DeletableStore', () => {
+  describe('()', () => {
+    it('can only slice to readonly stores', () => {
+      staticTest(() => {
+        const store: DeletableStore<{ s: string; opt?: number }> = null as any;
+        const ss = store('s');
+        expectTypeOf(ss).toEqualTypeOf<ReadonlyStore<string | undefined>>();
+      });
+    });
+  });
+});
+
+describe('ReadonlyStore', () => {
+  describe('()', () => {
+    it('can only slice to readonly stores', () => {
+      fail('TODO');
+      staticTest(() => {});
+    });
+
+    it('autocompletes keys', () => {
+      // even for things that could be undefined
+      fail('TODO');
+      staticTest(() => {});
+    });
+  });
+});

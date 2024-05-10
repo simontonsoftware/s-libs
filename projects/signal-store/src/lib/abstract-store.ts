@@ -2,7 +2,7 @@ import { Signal } from '@angular/core';
 import { CallableObject, WeakValueMap } from '@s-libs/js-core';
 import { clone, every, isUndefined } from '@s-libs/micro-dash';
 import { buildChild, ChildStore } from './child-store';
-import { GetSlice, Slice, Store } from './store';
+import { GetSlice, NonNullableStore, NullableStore, Slice } from './store';
 
 export interface AbstractStore<T> {
   <K extends keyof NonNullable<T>>(attr: K): Slice<T, K>;
@@ -10,7 +10,7 @@ export interface AbstractStore<T> {
 
 export abstract class AbstractStore<T>
   extends CallableObject<GetSlice<T>>
-  implements Store<T>
+  implements NonNullableStore<T>, NullableStore<T>
 {
   #children = new WeakValueMap<keyof NonNullable<T>, ChildStore<any>>();
 
@@ -28,8 +28,8 @@ export abstract class AbstractStore<T>
     });
   }
 
-  get nonNull(): Store<NonNullable<T>> {
-    return this as Store<NonNullable<T>>;
+  get nonNull(): NonNullableStore<NonNullable<T>> {
+    return this as NonNullableStore<NonNullable<T>>;
   }
 
   /**
@@ -50,15 +50,17 @@ export abstract class AbstractStore<T>
    * Assigns the given values to the state of this store object. The resulting state will be like `Object.assign(store.state, value)`.
    */
   assign(value: Partial<T>): void {
-    this.update((state: any) => {
+    this.update((state) => {
       if (isUndefined(state)) {
         throw new Error('cannot assign to undefined state');
       }
 
-      if (every(value, (innerValue, key) => state[key] === innerValue)) {
+      if (
+        every(value, (innerValue, key) => state[key as keyof T] === innerValue)
+      ) {
         return state;
       } else {
-        return { ...state, ...(value as any) };
+        return { ...state, ...value };
       }
     });
   }

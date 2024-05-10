@@ -79,15 +79,15 @@ describe('AbstractStore', () => {
 
       store.assign(pick(startingState, 'counter', 'nested'));
       expect(store.state).toBe(startingState);
-      expect(cloneDeep(store.state)).toEqual(stateClone);
+      expect(store.state).toEqual(stateClone);
 
       store.assign({});
       expect(store.state).toBe(startingState);
-      expect(cloneDeep(store.state)).toEqual(stateClone);
+      expect(store.state).toEqual(stateClone);
 
       store('nested').assign(startingState.nested);
       expect(store.state).toBe(startingState);
-      expect(cloneDeep(store.state)).toEqual(stateClone);
+      expect(store.state).toEqual(stateClone);
     });
 
     it('throws with a useful message when the state is missing', () => {
