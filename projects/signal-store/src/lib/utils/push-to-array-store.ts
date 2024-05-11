@@ -10,8 +10,7 @@ import { Store } from '../store';
  * ```
  */
 export function pushToArrayStore<T>(store: Store<T[]>, item: T): Store<T> {
-  const length = store('length').state;
-  const itemStore = store(length);
+  const itemStore = store(store('length').state);
   itemStore.state = item;
   return itemStore;
 }
