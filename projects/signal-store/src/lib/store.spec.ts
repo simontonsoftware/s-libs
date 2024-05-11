@@ -54,13 +54,15 @@ describe('Store', () => {
   });
 
   describe('.assign()', () => {
-    it('is only available for non-nil stores', () => {
+    it('is only available for non-nil objects', () => {
       staticTest(() => {
         const store: Store<{
-          norm: Date;
-          opt?: Date;
-          null: Date | null;
-          any?: Date | null;
+          norm: { a: string };
+          opt?: { a: string };
+          null: { a: string } | null;
+          any?: { a: string } | null;
+          ary: string[];
+          num: number;
         }> = null as any;
         store('norm').assign({});
         // @ts-expect-error -- can't assign to undefined
@@ -69,6 +71,10 @@ describe('Store', () => {
         store('null').assign({});
         // @ts-expect-error -- can't assign to null+undefined
         store('any').assign({});
+        // @ts-expect-error -- can't assign arrays
+        store('ary').assign({});
+        // @ts-expect-error -- can't assign numbers
+        store('num').assign({});
       });
     });
   });

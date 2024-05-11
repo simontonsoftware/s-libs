@@ -1,4 +1,4 @@
-import { IfCouldBe, Nil } from '@s-libs/micro-dash/lib/interfaces';
+import { IfCouldBe, Nil, Primitive } from '@s-libs/micro-dash/lib/interfaces';
 
 export type Slice<T, K extends keyof NonNullable<T>> = IfCouldBe<
   T,
@@ -14,7 +14,12 @@ export type GetSlice<T> = <K extends keyof NonNullable<T>>(
 export interface Store<T> extends GetSlice<T> {
   state: T;
   nonNull: Store<NonNullable<T>>;
-  assign: IfCouldBe<T, Nil, never, (value: Partial<T>) => void>;
+  assign: IfCouldBe<
+    T,
+    any[] | Nil | Primitive,
+    never,
+    (value: Partial<T>) => void
+  >;
   update: <A extends any[]>(
     func: (state: T, ...args: A) => T,
     ...args: A
@@ -25,10 +30,12 @@ export interface Store<T> extends GetSlice<T> {
   ) => void;
 }
 
+export type ReadonlySlice<T, K extends keyof NonNullable<T>> = ReadonlyStore<
+  IfCouldBe<T, Nil, undefined> | NonNullable<T>[K]
+>;
+
 export interface ReadonlyStore<T> {
-  <K extends keyof NonNullable<T>>(
-    attr: K,
-  ): ReadonlyStore<IfCouldBe<T, Nil, undefined> | NonNullable<T>[K]>;
+  <K extends keyof NonNullable<T>>(attr: K): ReadonlySlice<T, K>;
 
   readonly state: T;
   nonNull: Store<NonNullable<T>>;
