@@ -4,7 +4,10 @@ import { AbstractStore } from './abstract-store';
 import { Store } from './store';
 
 // defined here and passed to `Store` to work around some problems with circular imports
-export function buildChild(parent: Store<any>, childKey: any): ChildStore<any> {
+export function buildChild(
+  parent: Store<any>,
+  childKey: keyof any,
+): ChildStore<any> {
   const childSignal = computed((): any => parent.state?.[childKey]);
   return new ChildStore(parent, childKey, childSignal);
 }
@@ -12,7 +15,7 @@ export function buildChild(parent: Store<any>, childKey: any): ChildStore<any> {
 export class ChildStore<T> extends AbstractStore<T> {
   constructor(
     private parent: Store<any>,
-    private key: any,
+    private key: keyof any,
     signal: Signal<T>,
   ) {
     super(signal, buildChild);

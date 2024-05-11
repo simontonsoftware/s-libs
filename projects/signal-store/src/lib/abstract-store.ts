@@ -5,6 +5,7 @@ import { buildChild, ChildStore } from './child-store';
 import { GetSlice, Slice, Store } from './store';
 
 export interface AbstractStore<T> {
+  // eslint-disable-next-line @typescript-eslint/prefer-function-type -- this syntax is required to merge with the class below
   <K extends keyof NonNullable<T>>(attr: K): Slice<T, K>;
 }
 
