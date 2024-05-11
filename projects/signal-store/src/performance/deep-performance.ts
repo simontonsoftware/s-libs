@@ -1,5 +1,5 @@
 import { effect, Injector } from '@angular/core';
-import { Store } from '../lib';
+import { Store } from '../lib/store';
 import { CounterState } from './counter-state';
 
 export class DeepState extends CounterState {
@@ -20,7 +20,7 @@ export function subscribeDeep(
   const { depth } = analyze(store);
 
   const start = performance.now();
-  for (let i = depth; --i >= 0; store = store('next')) {
+  for (let i = depth; --i >= 0; store = store('next').nonNull) {
     const myStore = store;
     effect(
       () => {
@@ -37,7 +37,7 @@ export function subscribeDeep(
   return elapsed;
 
   function access(_value: any): void {
-    // we just need something to make access the state valid
+    // we just need something to make accessing the state valid
   }
 }
 
@@ -66,7 +66,7 @@ function analyze(store: Store<DeepState>): {
 } {
   let depth = 1;
   for (; store('next').state; ++depth) {
-    store = store('next');
+    store = store('next').nonNull;
   }
   return { depth, leafStore: store };
 }

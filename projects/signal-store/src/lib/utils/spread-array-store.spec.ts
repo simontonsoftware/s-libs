@@ -2,32 +2,11 @@ import { Component, effect, Input, OnChanges, Signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ComponentContext, staticTest } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
-import { RootStore, Store } from '../index';
+import { RootStore } from '../root-store';
+import { ReadonlyStore, Store } from '../store';
 import { spreadArrayStore } from './spread-array-store';
 
 describe('spreadArrayStore()', () => {
-  it('has fancy typing', () => {
-    staticTest(() => {
-      const array = new RootStore([1]);
-      const arrayOrNull = array as Store<number[] | null>;
-      const arrayOrUndefined = array as Store<number[] | undefined>;
-      const arrayOrNil = array as Store<number[] | null | undefined>;
-
-      expectTypeOf(spreadArrayStore(array)).toEqualTypeOf<
-        Signal<Array<Store<number>>>
-      >();
-      expectTypeOf(spreadArrayStore(arrayOrNull)).toEqualTypeOf<
-        Signal<Array<Store<number>>>
-      >();
-      expectTypeOf(spreadArrayStore(arrayOrUndefined)).toEqualTypeOf<
-        Signal<Array<Store<number>>>
-      >();
-      expectTypeOf(spreadArrayStore(arrayOrNil)).toEqualTypeOf<
-        Signal<Array<Store<number>>>
-      >();
-    });
-  });
-
   it('emits a separate store object for each element in the array', () => {
     TestBed.runInInjectionContext(() => {
       const store = new RootStore([1, 2]);
@@ -114,7 +93,7 @@ describe('spreadArrayStore()', () => {
 
       const store = new RootStore<State>({})('array');
       const subStores = spreadArrayStore(store);
-      let emitted!: Array<Store<number>>;
+      let emitted!: Array<ReadonlyStore<number | undefined>>;
       effect(() => {
         emitted = subStores();
       });
@@ -170,6 +149,52 @@ describe('spreadArrayStore()', () => {
       ctx.assignInputs({ heroesStore: new RootStore([{ name: 'Alice' }]) });
       ctx.run(() => {
         expect(ctx.fixture.nativeElement.textContent.trim()).toBe('Alice');
+      });
+    });
+  });
+
+  describe('typing', () => {
+    it('is fancy for writable stores', () => {
+      staticTest(() => {
+        const array = null as unknown as Store<number[]>;
+        const arrayOrNull = array as Store<number[] | null>;
+        const arrayOrUndefined = array as Store<number[] | undefined>;
+        const arrayOrNil = array as Store<number[] | null | undefined>;
+
+        expectTypeOf(spreadArrayStore(array)).toEqualTypeOf<
+          Signal<Array<Store<number>>>
+        >();
+        expectTypeOf(spreadArrayStore(arrayOrNull)).toEqualTypeOf<
+          Signal<Array<ReadonlyStore<number | undefined>>>
+        >();
+        expectTypeOf(spreadArrayStore(arrayOrUndefined)).toEqualTypeOf<
+          Signal<Array<ReadonlyStore<number | undefined>>>
+        >();
+        expectTypeOf(spreadArrayStore(arrayOrNil)).toEqualTypeOf<
+          Signal<Array<ReadonlyStore<number | undefined>>>
+        >();
+      });
+    });
+
+    it('is fancy for readonly stores', () => {
+      staticTest(() => {
+        const array = null as unknown as ReadonlyStore<number[]>;
+        const arrayOrNull = array as ReadonlyStore<number[] | null>;
+        const arrayOrUndefined = array as ReadonlyStore<number[] | undefined>;
+        const arrayOrNil = array as ReadonlyStore<number[] | null | undefined>;
+
+        expectTypeOf(spreadArrayStore(array)).toEqualTypeOf<
+          Signal<Array<ReadonlyStore<number>>>
+        >();
+        expectTypeOf(spreadArrayStore(arrayOrNull)).toEqualTypeOf<
+          Signal<Array<ReadonlyStore<number | undefined>>>
+        >();
+        expectTypeOf(spreadArrayStore(arrayOrUndefined)).toEqualTypeOf<
+          Signal<Array<ReadonlyStore<number | undefined>>>
+        >();
+        expectTypeOf(spreadArrayStore(arrayOrNil)).toEqualTypeOf<
+          Signal<Array<ReadonlyStore<number | undefined>>>
+        >();
       });
     });
   });

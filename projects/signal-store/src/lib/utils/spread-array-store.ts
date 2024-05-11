@@ -1,6 +1,6 @@
-import { Store } from '../store';
 import { computed, Signal } from '@angular/core';
 import { times } from '@s-libs/micro-dash';
+import { ReadonlySlice, ReadonlyStore, Slice, Store } from '../store';
 
 /**
  * Return a signal that emits an array of store objects, one for each element in `source`'s state. The emitted arrays will have references to the exact store objects included in the previous emission when possible, making them performant for direct comparison in change detection.
@@ -25,12 +25,16 @@ import { times } from '@s-libs/micro-dash';
  * }
  * ```
  */
-export function spreadArrayStore<T>(
-  source: Store<T[] | null | undefined>,
-): Signal<Array<Store<T>>> {
-  return computed(() =>
-    times((source as any)('length').state ?? 0, (i) =>
-      (source as Store<T[]>)(i),
-    ),
-  );
+
+export function spreadArrayStore<T extends any[] | null | undefined>(
+  source: Store<T>,
+): Signal<Array<Slice<T, number>>>;
+export function spreadArrayStore<T extends any[] | null | undefined>(
+  source: ReadonlyStore<T>,
+): Signal<Array<ReadonlySlice<T, number>>>;
+
+export function spreadArrayStore<T extends any[] | null | undefined>(
+  source: ReadonlyStore<T> | Store<T>,
+): Signal<any> {
+  return computed(() => times(source('length').state ?? 0, (i) => source(i)));
 }

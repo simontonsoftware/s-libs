@@ -1,6 +1,7 @@
 import { staticTest } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
-import { RootStore, Store } from '../index';
+import { RootStore } from '../root-store';
+import { Store } from '../store';
 import { pushToArrayStore } from './push-to-array-store';
 
 describe('pushToArrayStore', () => {

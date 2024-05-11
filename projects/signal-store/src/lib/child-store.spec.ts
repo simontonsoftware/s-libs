@@ -1,5 +1,5 @@
 import { InnerState, TestState } from '../test-helpers/test-state';
-import { RootStore } from './index';
+import { RootStore } from './root-store';
 
 describe('ChildStore', () => {
   let store: RootStore<TestState>;
@@ -11,7 +11,7 @@ describe('ChildStore', () => {
   describe('()', () => {
     it('throws with a useful message when used to modify missing state', () => {
       expect(() => {
-        store<'optional', InnerState>('optional')('state').state = 2;
+        store('optional').nonNull('state').state = 2;
       }).toThrowError('cannot modify when parent state is missing');
     });
   });

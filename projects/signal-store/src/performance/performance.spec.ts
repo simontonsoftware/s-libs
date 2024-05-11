@@ -1,6 +1,6 @@
 import { createEnvironmentInjector, EnvironmentInjector } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { RootStore } from '../lib';
+import { RootStore } from '../lib/root-store';
 import { DeepState, runDeep, subscribeDeep } from './deep-performance';
 import { unsubscribe } from './performance-utils';
 import { runWide, subscribeWide, WideState } from './wide-performance';

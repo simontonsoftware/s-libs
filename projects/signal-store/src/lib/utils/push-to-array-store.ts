@@ -1,4 +1,4 @@
-import { Store } from '../index';
+import { Store } from '../store';
 
 /**
  * Adds `item` to the end of the array in `store`. Returns a store object representing the newly added item.

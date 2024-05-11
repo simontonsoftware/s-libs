@@ -1,13 +1,8 @@
+import { staticTest } from '@s-libs/ng-dev';
 import { InnerState, TestState } from '../test-helpers/test-state';
-import { RootStore } from './index';
+import { RootStore } from './root-store';
 
 describe('RootStore', () => {
-  let store: RootStore<TestState>;
-
-  beforeEach(() => {
-    store = new RootStore(new TestState());
-  });
-
   describe('constructor', () => {
     it('uses the given constructor arguments', () => {
       const state = { initial: true };
@@ -17,6 +12,7 @@ describe('RootStore', () => {
 
   describe('.set()', () => {
     it('works', () => {
+      const store = new RootStore(new TestState());
       const before = store.state;
       const set = {
         counter: 2,
@@ -31,6 +27,15 @@ describe('RootStore', () => {
         counter: 2,
         nested: new InnerState(),
       });
+    });
+  });
+
+  it('has fancy typing', () => {
+    staticTest(() => {
+      const store = new RootStore<string | undefined>('hi');
+      store.state = undefined;
+      // @ts-expect-error -- can't assign when could be undefined
+      store.assign({});
     });
   });
 });
