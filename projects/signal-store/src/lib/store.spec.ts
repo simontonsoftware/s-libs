@@ -1,91 +1,137 @@
+import { pick } from '@s-libs/micro-dash';
+import { staticTest } from '@s-libs/ng-dev';
+import { expectTypeOf } from 'expect-type';
+import { ReadonlyStore, Store } from './store';
+
 describe('Store', () => {
   describe('()', () => {
-    it('slices to store or readonly store objects depending on nullability');
+    it('slices to store or readonly store objects depending on nullability', () => {
+      staticTest(() => {
+        const store: Store<{
+          norm: string;
+          opt?: string;
+          null: string | null;
+          any?: string | null;
+        }> = null as any;
+        expectTypeOf(store('norm')('length')).toEqualTypeOf<Store<number>>();
+        expectTypeOf(store('opt')('length')).toEqualTypeOf<
+          ReadonlyStore<number | undefined>
+        >();
+        expectTypeOf(store('null')('length')).toEqualTypeOf<
+          ReadonlyStore<number | undefined>
+        >();
+        expectTypeOf(store('any')('length')).toEqualTypeOf<
+          ReadonlyStore<number | undefined>
+        >();
+      });
+    });
   });
 
   describe('.state', () => {
-    it('is read-write');
+    it('is read-write', () => {
+      staticTest(() => {
+        const store: Store<number> = null as any;
+        store.state = 1;
+      });
+    });
   });
 
-  describe('.update()', () => {
-    it('picks up arg types from the function');
-  });
-
-  describe('.mutate()', () => {
-    it('picks up arg types from the function');
+  describe('.nonNull', () => {
+    it('removes nil values from the state type', () => {
+      staticTest(() => {
+        const store: Store<{
+          norm: string;
+          opt?: string;
+          null: string | null;
+          any?: string | null;
+        }> = null as any;
+        expectTypeOf(store('norm').nonNull).toEqualTypeOf<Store<string>>();
+        expectTypeOf(store('opt').nonNull).toEqualTypeOf<Store<string>>();
+        expectTypeOf(store('null').nonNull).toEqualTypeOf<Store<string>>();
+        expectTypeOf(store('any').nonNull).toEqualTypeOf<Store<string>>();
+      });
+    });
   });
 
   describe('.assign()', () => {
-    it('is only available for non-nullable stores');
+    it('is only available for non-nil stores', () => {
+      staticTest(() => {
+        const store: Store<{
+          norm: Date;
+          opt?: Date;
+          null: Date | null;
+          any?: Date | null;
+        }> = null as any;
+        store('norm').assign({});
+        // @ts-expect-error -- can't assign to undefined
+        store('opt').assign({});
+        // @ts-expect-error -- can't assign to null
+        store('null').assign({});
+        // @ts-expect-error -- can't assign to null+undefined
+        store('any').assign({});
+      });
+    });
+  });
+
+  describe('.update()', () => {
+    it('picks up arg types from the function', () => {
+      staticTest(() => {
+        const store: Store<number> = null as any;
+        store.update(Math.pow, 2);
+      });
+    });
+  });
+
+  describe('.mutate()', () => {
+    it('picks up arg types from the function', () => {
+      staticTest(() => {
+        const store: Store<{ a: number; b?: string }> = null as any;
+        store.update(pick, 'a' as const);
+      });
+    });
   });
 });
 
 describe('ReadonlyStore', () => {
   describe('()', () => {
-    it('always slices to readonly store objects');
+    it('always slices to readonly store objects', () => {
+      staticTest(() => {
+        const store: ReadonlyStore<{ norm: string; any?: string | null }> =
+          null as any;
+        expectTypeOf(store('norm')('length')).toEqualTypeOf<
+          ReadonlyStore<number>
+        >();
+        expectTypeOf(store('any')('length')).toEqualTypeOf<
+          ReadonlyStore<number | undefined>
+        >();
+      });
+    });
   });
 
   describe('.state', () => {
-    it('is readonly');
+    it('is readonly', () => {
+      staticTest(() => {
+        const store: ReadonlyStore<number> = null as any;
+        // @ts-expect-error -- is readonly
+        store.state = 1;
+      });
+    });
   });
 
   describe('.nonNull', () => {
-    it('allows all the slicing and mutating again');
+    it('removes nil values and converts to a writeable store', () => {
+      staticTest(() => {
+        const store: ReadonlyStore<{
+          norm: string;
+          opt?: string;
+          null: string | null;
+          any?: string | null;
+        }> = null as any;
+        expectTypeOf(store('norm').nonNull).toEqualTypeOf<Store<string>>();
+        expectTypeOf(store('opt').nonNull).toEqualTypeOf<Store<string>>();
+        expectTypeOf(store('null').nonNull).toEqualTypeOf<Store<string>>();
+        expectTypeOf(store('any').nonNull).toEqualTypeOf<Store<string>>();
+      });
+    });
   });
 });
-
-// describe('Store', () => {
-//   describe('()', () => {
-//     it('slices to store objects', () => {
-//       staticTest(() => {
-//         const store: Store<{ date: Date }> = null as any;
-//         expectTypeOf(store('date')).toEqualTypeOf<Store<Date>>();
-//       });
-//     });
-//
-//     it('potentially nil values slice to a readonly store', () => {
-//       staticTest(() => {
-//         const store: Store<{ ary?: boolean[] }> = null as any;
-//         expectTypeOf(store('ary')('length')).toEqualTypeOf<
-//           ReadonlyStore<number | undefined>
-//         >();
-//       });
-//     });
-//
-//     it('slices to a deletable store for optional fields', () => {
-//       staticTest(() => {
-//         const store: Store<{ name?: string }> = null as any;
-//         expectTypeOf(store('name')).toEqualTypeOf<
-//           DeletableStore<string | undefined>
-//         >();
-//       });
-//     });
-//   });
-// });
-//
-// describe('DeletableStore', () => {
-//   describe('()', () => {
-//     it('can only slice to readonly stores', () => {
-//       staticTest(() => {
-//         const store: DeletableStore<{ s: string; opt?: number }> = null as any;
-//         const ss = store('s');
-//         expectTypeOf(ss).toEqualTypeOf<ReadonlyStore<string | undefined>>();
-//       });
-//     });
-//   });
-// });
-//
-// describe('ReadonlyStore', () => {
-//   describe('()', () => {
-//     it('can only slice to readonly stores', () => {
-//       fail('TODO');
-//       staticTest(() => {});
-//     });
-//
-//     it('autocompletes keys', () => {
-//       // even for things that could be undefined
-//       fail('TODO');
-//       staticTest(() => {});
-//     });
-//   });
-// });

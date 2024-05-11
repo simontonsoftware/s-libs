@@ -14,6 +14,7 @@ export type GetSlice<T> = <K extends keyof NonNullable<T>>(
 export interface Store<T> extends GetSlice<T> {
   state: T;
   nonNull: Store<NonNullable<T>>;
+  assign: IfCouldBe<T, Nil, never, (value: Partial<T>) => void>;
   update: <A extends any[]>(
     func: (state: T, ...args: A) => T,
     ...args: A
@@ -22,7 +23,6 @@ export interface Store<T> extends GetSlice<T> {
     func: (state: T, ...args: A) => void,
     ...args: A
   ) => void;
-  assign: IfCouldBe<T, Nil, never, (value: Partial<T>) => void>;
 }
 
 export interface ReadonlyStore<T> {
