@@ -9,7 +9,7 @@ import { spreadArrayStore } from './spread-array-store';
 describe('spreadArrayStore()', () => {
   it('has fancy typing', () => {
     staticTest(() => {
-      const array = new RootStore([1]);
+      const array = null as unknown as Store<number[]>;
       const arrayOrNull = array as Store<number[] | null>;
       const arrayOrUndefined = array as Store<number[] | undefined>;
       const arrayOrNil = array as Store<number[] | null | undefined>;

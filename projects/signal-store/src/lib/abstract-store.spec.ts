@@ -79,21 +79,20 @@ describe('AbstractStore', () => {
 
       store.assign(pick(startingState, 'counter', 'nested'));
       expect(store.state).toBe(startingState);
-      expect(store.state).toEqual(stateClone);
+      expect(cloneDeep(store.state)).toEqual(stateClone);
 
       store.assign({});
       expect(store.state).toBe(startingState);
-      expect(store.state).toEqual(stateClone);
+      expect(cloneDeep(store.state)).toEqual(stateClone);
 
       store('nested').assign(startingState.nested);
       expect(store.state).toBe(startingState);
-      expect(store.state).toEqual(stateClone);
+      expect(cloneDeep(store.state)).toEqual(stateClone);
     });
 
     it('throws with a useful message when the state is missing', () => {
       expect(() => {
-        // TODO: this should give a typing error, right?
-        store('optional').assign({ state: 3 });
+        store('optional').nonNull.assign({ state: 3 });
       }).toThrowError('cannot assign to undefined state');
     });
   });

@@ -2,7 +2,7 @@ import { Signal } from '@angular/core';
 import { CallableObject, WeakValueMap } from '@s-libs/js-core';
 import { clone, every, isUndefined } from '@s-libs/micro-dash';
 import { buildChild, ChildStore } from './child-store';
-import { GetSlice, NonNullableStore, NullableStore, Slice } from './store';
+import { GetSlice, Slice, Store } from './store';
 
 export interface AbstractStore<T> {
   <K extends keyof NonNullable<T>>(attr: K): Slice<T, K>;
@@ -10,8 +10,13 @@ export interface AbstractStore<T> {
 
 export abstract class AbstractStore<T>
   extends CallableObject<GetSlice<T>>
-  implements NonNullableStore<T>, NullableStore<T>
+  implements Store<T>
 {
+  /**
+   * Assigns the given values to the state of this store object. The resulting state will be like `Object.assign(store.state, value)`.
+   */
+  assign = this.#assign as Store<T>['assign'];
+
   #children = new WeakValueMap<keyof NonNullable<T>, ChildStore<any>>();
 
   constructor(
@@ -28,8 +33,8 @@ export abstract class AbstractStore<T>
     });
   }
 
-  get nonNull(): NonNullableStore<NonNullable<T>> {
-    return this as NonNullableStore<NonNullable<T>>;
+  get nonNull(): Store<NonNullable<T>> {
+    return this as unknown as Store<NonNullable<T>>;
   }
 
   /**
@@ -44,25 +49,6 @@ export abstract class AbstractStore<T>
    */
   set state(value: T) {
     this.set(value);
-  }
-
-  /**
-   * Assigns the given values to the state of this store object. The resulting state will be like `Object.assign(store.state, value)`.
-   */
-  assign(value: Partial<T>): void {
-    this.update((state) => {
-      if (isUndefined(state)) {
-        throw new Error('cannot assign to undefined state');
-      }
-
-      if (
-        every(value, (innerValue, key) => state[key as keyof T] === innerValue)
-      ) {
-        return state;
-      } else {
-        return { ...state, ...value };
-      }
-    });
   }
 
   /**
@@ -86,6 +72,22 @@ export abstract class AbstractStore<T>
     const state = clone(this.state);
     func(state, ...args);
     this.set(state);
+  }
+
+  #assign(value: Partial<T>): void {
+    this.update((state) => {
+      if (isUndefined(state)) {
+        throw new Error('cannot assign to undefined state');
+      }
+
+      if (
+        every(value, (innerValue, key) => state[key as keyof T] === innerValue)
+      ) {
+        return state;
+      } else {
+        return { ...state, ...value };
+      }
+    });
   }
 
   protected abstract set(value: T): void;

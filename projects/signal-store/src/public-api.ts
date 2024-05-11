@@ -3,5 +3,5 @@
  */
 
 export * from './lib/utils';
-export { Store, DeletableStore, ReadonlyStore } from './lib/store';
+export { Store, ReadonlyStore } from './lib/store';
 export { RootStore } from './lib/root-store';
