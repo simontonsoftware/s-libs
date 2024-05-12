@@ -1,4 +1,4 @@
-import { Falsey } from 'utility-types';
+import { Falsy } from '../interfaces';
 import { identity } from '../util';
 
 /**
@@ -8,7 +8,7 @@ import { identity } from '../util';
  * - Lodash: 113 bytes
  * - Micro-dash: 62 bytes
  */
-export function compact<T>(array: readonly T[]): Array<Exclude<T, Falsey>> {
+export function compact<T>(array: readonly T[]): Array<Exclude<T, Falsy>> {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- not sure why this rule triggers
-  return array.filter(identity) as Array<Exclude<T, Falsey>>;
+  return array.filter(identity) as Array<Exclude<T, Falsy>>;
 }

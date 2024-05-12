@@ -1,3 +1,6 @@
+import { staticTest } from '@s-libs/ng-dev';
+import { expectTypeOf } from 'expect-type';
+import { Nil } from '../interfaces';
 import { invoke } from './invoke';
 
 describe('invoke()', () => {
@@ -8,6 +11,106 @@ describe('invoke()', () => {
     invoke(obj, ['a']);
 
     expect(spy.calls.first().object).toBe(obj);
+  });
+
+  it('has fancy typing', () => {
+    staticTest(() => {
+      //
+      // empty path
+      //
+
+      expectTypeOf(invoke({ a: () => 1 }, [])).toEqualTypeOf<undefined>();
+      expectTypeOf(
+        invoke({} as { a: () => string } | undefined, []),
+      ).toEqualTypeOf<undefined>();
+
+      //
+      // 1 element path
+      //
+
+      expectTypeOf(invoke({ a: () => 1 }, ['a'])).toEqualTypeOf<number>();
+      expectTypeOf(
+        invoke({ a: (a: boolean) => a }, ['a'], true),
+      ).toEqualTypeOf<boolean>();
+      expectTypeOf(invoke({} as { a?: () => string }, ['a'])).toEqualTypeOf<
+        string | undefined
+      >();
+      expectTypeOf(
+        invoke({} as Nil | { a: () => string }, ['a']),
+      ).toEqualTypeOf<string | undefined>();
+
+      //
+      // 2 element path
+      //
+
+      expectTypeOf(
+        invoke({ a: { b: () => 1 } }, ['a', 'b']),
+      ).toEqualTypeOf<number>();
+      expectTypeOf(
+        invoke({ a: { b: (a: boolean) => a } }, ['a', 'b'], true),
+      ).toEqualTypeOf<boolean>();
+      expectTypeOf(
+        invoke({} as { a: { b?: () => string } }, ['a', 'b']),
+      ).toEqualTypeOf<string | undefined>();
+      expectTypeOf(
+        invoke({} as { a?: { b: () => string } }, ['a', 'b']),
+      ).toEqualTypeOf<string | undefined>();
+      expectTypeOf(
+        invoke({} as Nil | { a: { b: () => string } }, ['a', 'b']),
+      ).toEqualTypeOf<string | undefined>();
+
+      //
+      // 3 element path
+      //
+
+      const path3: ['a', 'b', 'c'] = ['a', 'b', 'c'];
+      expectTypeOf(
+        invoke({ a: { b: { c: () => 1 } } }, path3),
+      ).toEqualTypeOf<number>();
+      expectTypeOf(
+        invoke({ a: { b: { c: (a: boolean) => a } } }, path3, true),
+      ).toEqualTypeOf<boolean>();
+      expectTypeOf(
+        invoke({} as { a: { b: { c?: () => string } } }, path3),
+      ).toEqualTypeOf<string | undefined>();
+      expectTypeOf(
+        invoke({} as { a: { b?: { c: () => string } } }, path3),
+      ).toEqualTypeOf<string | undefined>();
+      expectTypeOf(
+        invoke({} as { a?: { b: { c: () => string } } }, path3),
+      ).toEqualTypeOf<string | undefined>();
+      expectTypeOf(
+        invoke({} as Nil | { a: { b: { c: () => string } } }, path3),
+      ).toEqualTypeOf<string | undefined>();
+
+      // //
+      // // 4 element path
+      // //
+      //
+      // const path4: ["a", "b", "c", "d"] = ["a", "b", "c", "d"];
+      // // $ExpectType number
+      // invoke({ a: { b: { c: { d: () => 1 } } } }, path4);
+      // // $ExpectType boolean
+      // invoke({ a: { b: { c: { d: (a: boolean) => a } } } }, path4, true);
+      // // $ExpectType string | undefined
+      // invoke({} as { a: { b: { c: { d?: () => string } } } }, path4);
+      // // $ExpectType string | undefined
+      // invoke({} as { a: { b: { c?: { d: () => string } } } }, path4);
+      // // $ExpectType string | undefined
+      // invoke({} as { a: { b?: { c: { d: () => string } } } }, path4);
+      // // $ExpectType string | undefined
+      // invoke({} as { a?: { b: { c: { d: () => string } } } }, path4);
+      // // $ExpectType string | undefined
+      // invoke({} as { a: { b: { c: { d: () => string } } } } | Nil, path4);
+
+      //
+      // fallback: n element path
+      //
+
+      const pathN: string[] = ['a'];
+      // $ExpectType any
+      invoke({ a: () => 1 }, pathN);
+    });
   });
 
   //

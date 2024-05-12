@@ -1,5 +1,4 @@
-import { Falsey } from 'utility-types';
-import { ObjectWith } from '../interfaces';
+import { Falsy, ObjectWith } from '../interfaces';
 import { isMatch } from './is-match';
 
 describe('isMatch()', () => {
@@ -102,7 +101,7 @@ describe('isMatch()', () => {
   });
 
   it('should return `true` when comparing an empty `source`', () => {
-    const object = { a: 1 } as any[] | Falsey | { a: 1 };
+    const object = { a: 1 } as any[] | Falsy | { a: 1 };
     expect(isMatch(object, [])).toBe(true);
     expect(isMatch(object, {})).toBe(true);
     expect(isMatch(object, null)).toBe(true);

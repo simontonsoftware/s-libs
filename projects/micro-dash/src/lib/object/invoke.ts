@@ -1,9 +1,9 @@
-import { NonUndefined } from 'utility-types';
 import { Existent, Nil } from '../interfaces';
 import { isFunction } from '../lang';
 import { get } from './get';
 
 type Fn = (...args: any[]) => any;
+type NonUndefined<T> = T extends undefined ? never : T;
 
 type Obj1<K1 extends PropertyKey, V> = { [key in K1]?: V };
 type Path1<
