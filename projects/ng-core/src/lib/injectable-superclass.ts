@@ -1,4 +1,4 @@
-import { OnDestroy } from '@angular/core';
+import { DestroyRef, inject } from '@angular/core';
 import { Constructor } from '@s-libs/js-core';
 import { mixInSubscriptionManager } from '@s-libs/rxjs-core';
 import { Subject } from 'rxjs';
@@ -16,7 +16,7 @@ import { Subject } from 'rxjs';
  */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/explicit-module-boundary-types -- I'm not sure how to describe the return type
 export function mixInInjectableSuperclass<B extends Constructor>(Base: B) {
-  return class extends mixInSubscriptionManager(Base) implements OnDestroy {
+  return class extends mixInSubscriptionManager(Base) {
     #destructionSubject = new Subject<void>();
 
     /**
@@ -25,16 +25,19 @@ export function mixInInjectableSuperclass<B extends Constructor>(Base: B) {
     // eslint-disable-next-line @typescript-eslint/member-ordering -- ordered like this to avoid writing a constructor, which causes a different error
     destruction$ = this.#destructionSubject.asObservable();
 
-    ngOnDestroy(): void {
-      this.unsubscribe();
-      this.#destructionSubject.next();
-      this.#destructionSubject.complete();
+    constructor(...args: any[]) {
+      super(...args);
+      inject(DestroyRef).onDestroy(() => {
+        this.unsubscribe();
+        this.#destructionSubject.next();
+        this.#destructionSubject.complete();
+      });
     }
   };
 }
 
 /**
- * Use as the superclass for anything managed by angular's dependency injection for care-free use of `subscribeTo()`. It simply calls `unsubscribe()` during `ngOnDestroy()`. If you override `ngOnDestroy()` in your subclass, be sure to invoke the super implementation.
+ * Use as the superclass for anything managed by Angular's dependency injection for care-free use of `subscribeTo()`. It simply calls `unsubscribe()` when the object is destroyed. Note that the object must be created in an [injection context]{@link https://angular.io/guide/dependency-injection-context}.
  *
  * ```ts
  * @Injectable() // or @Component(), @Directive() or @Pipe(), but consider DirectiveSuperclass
@@ -42,11 +45,6 @@ export function mixInInjectableSuperclass<B extends Constructor>(Base: B) {
  *   constructor(somethingObservable: Observable) {
  *     super();
  *     this.subscribeTo(somethingObservable);
- *   }
- *
- *   ngOnDestroy() {
- *     // if you override ngOnDestroy, be sure to call this too
- *     super.ngOnDestroy();
  *   }
  * }
  * ```

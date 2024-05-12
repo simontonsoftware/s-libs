@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, Directive, Injectable } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { Subject } from 'rxjs';
@@ -84,22 +85,26 @@ describe('InjectableSuperclass', () => {
 
 describe('mixInInjectableSuperclass()', () => {
   it('add InjectableSuperclass abilities to a subclass', () => {
-    class InjectableDate extends mixInInjectableSuperclass(Date) {}
-    const spy = jasmine.createSpy();
-    const subject = new Subject();
-    const dateManager = new InjectableDate();
+    TestBed.runInInjectionContext(() => {
+      class InjectableDate extends mixInInjectableSuperclass(Date) {}
+      const spy = jasmine.createSpy();
+      const subject = new Subject();
+      const dateManager = new InjectableDate();
 
-    dateManager.subscribeTo(subject, spy);
-    subject.next('value');
+      dateManager.subscribeTo(subject, spy);
+      subject.next('value');
 
-    expectSingleCallAndReset(spy, 'value');
+      expectSingleCallAndReset(spy, 'value');
+    });
   });
 
   it('retains the abilities of the other superclass', () => {
-    class InjectableDate extends mixInInjectableSuperclass(Date) {}
+    TestBed.runInInjectionContext(() => {
+      class InjectableDate extends mixInInjectableSuperclass(Date) {}
 
-    const dateManager = new InjectableDate('2020-11-27');
+      const dateManager = new InjectableDate('2020-11-27');
 
-    expect(dateManager.getFullYear()).toBe(2020);
+      expect(dateManager.getFullYear()).toBe(2020);
+    });
   });
 });
