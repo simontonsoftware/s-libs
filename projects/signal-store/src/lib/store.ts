@@ -1,4 +1,4 @@
-import { IfCouldBe, Nil, Primitive } from '@s-libs/micro-dash/lib/interfaces';
+import { IfCouldBe, Nil, Primitive } from './interfaces';
 
 export type Slice<T, K extends keyof NonNullable<T>> = IfCouldBe<
   T,
