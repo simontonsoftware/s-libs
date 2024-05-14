@@ -1,11 +1,11 @@
 import { Action, ActionCreator } from './actions';
 
-// copied from https://github.com/zalmoxisus/redux-devtools-extension/blob/3df4d939b548b8ec891c73dabe2ffdd5dd2a8119/npm-package/index.d.ts, to avoid required `redux-devtools-extension` as an installed dependency just for this typing.
-
 /* eslint-disable */
 
 /**
- * Copied from `redux-devtools-extension`, to avoid requiring it as an installed dependency just for this interface.
+ * Copied from `@redux-devtools/extension`, v3.3.0. This avoids requiring it as an installed dependency just for this interface.
+ *
+ * Modified to remove references to immutablejs, for the sake of simpified typing.
  *
  * @hidden
  */
@@ -18,7 +18,11 @@ export interface EnhancerOptions {
   /**
    * action creators functions to be available in the Dispatcher.
    */
-  actionCreators?: ActionCreator<any>[] | { [key: string]: ActionCreator<any> };
+  actionCreators?:
+    | ActionCreator<any>[]
+    | {
+        [key: string]: ActionCreator<any>;
+      };
   /**
    * if more than one action is dispatched in the indicated interval, all new actions will be collected and sent at once.
    * It is the joint between performance and speed. When set to `0`, all actions will be sent instantly.
@@ -34,25 +38,60 @@ export interface EnhancerOptions {
    */
   maxAge?: number;
   /**
-   * - `undefined` - will use regular `JSON.stringify` to send data (it's the fast mode).
-   * - `false` - will handle also circular references.
-   * - `true` - will handle also date, regex, undefined, error objects, symbols, maps, sets and functions.
-   * - object, which contains `date`, `regex`, `undefined`, `error`, `symbol`, `map`, `set` and `function` keys.
-   *   For each of them you can indicate if to include (by setting as `true`).
-   *   For `function` key you can also specify a custom function which handles serialization.
-   *   See [`jsan`](https://github.com/kolodny/jsan) for more details.
+   * Customizes how actions and state are serialized and deserialized. Can be a boolean or object. If given a boolean, the behavior is the same as if you
+   * were to pass an object and specify `options` as a boolean. Giving an object allows fine-grained customization using the `replacer` and `reviver`
+   * functions.
    */
   serialize?:
     | boolean
     | {
-        date?: boolean;
-        regex?: boolean;
-        undefined?: boolean;
-        error?: boolean;
-        symbol?: boolean;
-        map?: boolean;
-        set?: boolean;
-        function?: boolean | Function;
+        /**
+         * - `undefined` - will use regular `JSON.stringify` to send data (it's the fast mode).
+         * - `false` - will handle also circular references.
+         * - `true` - will handle also date, regex, undefined, error objects, symbols, maps, sets and functions.
+         * - object, which contains `date`, `regex`, `undefined`, `error`, `symbol`, `map`, `set` and `function` keys.
+         *   For each of them you can indicate if to include (by setting as `true`).
+         *   For `function` key you can also specify a custom function which handles serialization.
+         *   See [`jsan`](https://github.com/kolodny/jsan) for more details.
+         */
+        options?:
+          | undefined
+          | boolean
+          | {
+              date?: true;
+              regex?: true;
+              undefined?: true;
+              error?: true;
+              symbol?: true;
+              map?: true;
+              set?: true;
+              function?: true | ((fn: (...args: any[]) => any) => string);
+            };
+        /**
+         * [JSON replacer function](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_replacer_parameter) used for both actions and states stringify.
+         * In addition, you can specify a data type by adding a [`__serializedType__`](https://github.com/zalmoxisus/remotedev-serialize/blob/master/helpers/index.js#L4)
+         * key. So you can deserialize it back while importing or persisting data.
+         * Moreover, it will also [show a nice preview showing the provided custom type](https://cloud.githubusercontent.com/assets/7957859/21814330/a17d556a-d761-11e6-85ef-159dd12f36c5.png):
+         */
+        replacer?: (key: string, value: unknown) => any;
+        /**
+         * [JSON `reviver` function](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#Using_the_reviver_parameter)
+         * used for parsing the imported actions and states. See [`remotedev-serialize`](https://github.com/zalmoxisus/remotedev-serialize/blob/master/immutable/serialize.js#L8-L41)
+         * as an example on how to serialize special data types and get them back.
+         */
+        reviver?: (key: string, value: unknown) => any;
+
+        // Removing this to avoid spidering to include typing from immutablejs.
+        // /**
+        //  * Automatically serialize/deserialize immutablejs via [remotedev-serialize](https://github.com/zalmoxisus/remotedev-serialize).
+        //  * Just pass the Immutable library. It will support all ImmutableJS structures. You can even export them into a file and get them back.
+        //  * The only exception is `Record` class, for which you should pass this in addition the references to your classes in `refs`.
+        //  */
+        // immutable?: typeof Immutable;
+        // /**
+        //  * ImmutableJS `Record` classes used to make possible restore its instances back when importing, persisting...
+        //  */
+        // refs?: Immutable.Record.Factory<any>[];
       };
   /**
    * function which takes `action` object and id number as arguments, and should return `action` object back.
@@ -65,16 +104,28 @@ export interface EnhancerOptions {
   /**
    * *string or array of strings as regex* - actions types to be hidden / shown in the monitors (while passed to the reducers).
    * If `actionsWhitelist` specified, `actionsBlacklist` is ignored.
+   * @deprecated Use actionsDenylist instead.
    */
   actionsBlacklist?: string | string[];
   /**
    * *string or array of strings as regex* - actions types to be hidden / shown in the monitors (while passed to the reducers).
    * If `actionsWhitelist` specified, `actionsBlacklist` is ignored.
+   * @deprecated Use actionsAllowlist instead.
    */
   actionsWhitelist?: string | string[];
   /**
+   * *string or array of strings as regex* - actions types to be hidden / shown in the monitors (while passed to the reducers).
+   * If `actionsAllowlist` specified, `actionsDenylist` is ignored.
+   */
+  actionsDenylist?: string | string[];
+  /**
+   * *string or array of strings as regex* - actions types to be hidden / shown in the monitors (while passed to the reducers).
+   * If `actionsAllowlist` specified, `actionsDenylist` is ignored.
+   */
+  actionsAllowlist?: string | string[];
+  /**
    * called for every action before sending, takes `state` and `action` object, and returns `true` in case it allows sending the current data to the monitor.
-   * Use it as a more advanced version of `actionsBlacklist`/`actionsWhitelist` parameters.
+   * Use it as a more advanced version of `actionsDenylist`/`actionsAllowlist` parameters.
    */
   predicate?: <S, A extends Action>(state: S, action: A) => boolean;
   /**

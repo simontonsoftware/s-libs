@@ -10,9 +10,9 @@ export interface Extension {
 }
 
 /**
- * Log the values emitted from any observable to the [redux devtools extension](https://github.com/zalmoxisus/redux-devtools-extension).
+ * Log the values emitted from any observable to the [redux devtools extension](https://github.com/reduxjs/redux-devtools).
  *
- * @param options These are passed along to the extension as is. See its documentation [here](http://extension.remotedev.io/docs/API/Arguments.html).
+ * @param options These are passed along to the extension as is. See its documentation [here](https://github.com/reduxjs/redux-devtools/blob/main/extension/docs/API/Arguments.md).
  */
 export function logToReduxDevtoolsExtension(
   observable: Observable<any>,
