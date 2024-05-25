@@ -1,4 +1,4 @@
-import { pick } from '@s-libs/micro-dash';
+import { omit, pick } from '@s-libs/micro-dash';
 import { staticTest } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
 import { ReadonlyStore, Store } from './store';
@@ -82,8 +82,10 @@ describe('Store', () => {
   describe('.update()', () => {
     it('picks up arg types from the function', () => {
       staticTest(() => {
-        const store: Store<number> = null as any;
-        store.update(Math.pow, 2);
+        const store: Store<{ a: number; b?: string }> = null as any;
+        store('a').update(Math.pow, 2);
+        store.update(pick, 'a' as const);
+        store.update(omit, 'b' as const);
       });
     });
   });
@@ -92,7 +94,8 @@ describe('Store', () => {
     it('picks up arg types from the function', () => {
       staticTest(() => {
         const store: Store<{ a: number; b?: string }> = null as any;
-        store.update(pick, 'a' as const);
+        store.mutate(pick, 'a' as const);
+        store.mutate(omit, 'b' as const);
       });
     });
   });
