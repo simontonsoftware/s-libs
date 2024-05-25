@@ -43,4 +43,4 @@ Below are the main differences between the implementations in this library compa
 
 - **[Lodash](https://github.com/lodash/lodash)** - on which this entire project's API is based, most of its tests, and some of its source.
 - **[DefinitelyTyped/lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/lodash)** - on which some of the more complicated type definitions are based.
-- **[Angular CLI](https://cli.angular.io/)** - which provides most of the project setup and buildchain for this library.
+- **[Angular CLI](https://angular.dev/cli)** - which provides most of the project setup and buildchain for this library.

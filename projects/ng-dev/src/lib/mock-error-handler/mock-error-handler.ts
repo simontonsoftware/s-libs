@@ -39,7 +39,7 @@ export class MockErrorHandler extends ErrorHandler {
   }
 
   /**
-   * In addition to tracking the error, this call's Angular's [ErrorHandler.handleError]{@linkcode https://angular.io/api/core/ErrorHandler#handleError}, prints the error to the console and may print additional information that could be helpful for finding the source of the error.
+   * In addition to tracking the error, this call's Angular's {@linkcode https://angular.dev/api/core/ErrorHandler#handleError | ErrorHandler.handleError}, prints the error to the console and may print additional information that could be helpful for finding the source of the error.
    */
   override handleError(error: ErrorType): void {
     super.handleError(error);

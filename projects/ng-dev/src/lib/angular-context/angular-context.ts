@@ -49,7 +49,7 @@ export function extendMetadata(
  *   thrown away, so they cannot leak between tests.
  * - Clearly separates initialization code from the test itself.
  * - Gives control over the simulated date & time with a single line of code.
- * - Automatically includes [provideHttpClientTesting()]{@link https://angular.io/api/common/http/testing/provideHttpClientTesting} to stub network requests without additional setup.
+ * - Automatically includes {@link https://angular.dev/api/common/http/testing/provideHttpClientTesting | provideHttpClientTesting()} to stub network requests without additional setup.
  * - Always verifies that no unexpected http requests were made.
  * - Automatically discards periodic tasks and flushes pending timers at the end of each test to avoid the error "X timer(s) still in the queue".
  *
@@ -105,7 +105,7 @@ export class AngularContext {
   #loader = FakeAsyncHarnessEnvironment.documentRootLoader(this);
 
   /**
-   * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link HttpClientTestingModule} for you.
+   * @param moduleMetadata passed along to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#configureTestingModule | TestBed.configureTestingModule()}. Automatically includes {@link HttpClientTestingModule} for you.
    */
   constructor(moduleMetadata: TestModuleMetadata = {}) {
     assert(
@@ -169,7 +169,7 @@ export class AngularContext {
   /**
    * Gets a service or other injectable from the root injector.
    *
-   * This implementation is a simple pass-through to [TestBed.inject()]{@linkcode https://angular.io/api/core/testing/TestBed#inject}, but subclasses may provide their own implementation. It is recommended to use this in your tests instead of using `TestBed` directly.
+   * This implementation is a simple pass-through to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#inject | TestBed.inject()}, but subclasses may provide their own implementation. It is recommended to use this in your tests instead of using `TestBed` directly.
    */
   inject<T>(token: AbstractType<T> | InjectionToken<T> | Type<T>): T {
     return TestBed.inject(token);
@@ -242,7 +242,7 @@ export class AngularContext {
   }
 
   /**
-   * Runs post-test verifications. This base implementation runs [HttpTestingController.verify]{@linkcode https://angular.io/api/common/http/testing/HttpTestingController#verify} and {@linkcode MockErrorHandler.verify}. Unlike {@linkcode #cleanUp}, it is OK for this method to throw an error to indicate a violation.
+   * Runs post-test verifications. This base implementation runs {@linkcode https://angular.dev/api/common/http/testing/HttpTestingController#verify | HttpTestingController.verify} and {@linkcode MockErrorHandler.verify}. Unlike {@linkcode #cleanUp}, it is OK for this method to throw an error to indicate a violation.
    */
   protected verifyPostTestConditions(): void {
     this.inject(HttpTestingController).verify();
@@ -250,7 +250,7 @@ export class AngularContext {
   }
 
   /**
-   * Performs any cleanup needed at the end of each test. This base implementation calls {@linkcode https://angular.io/api/core/testing/discardPeriodicTasks|discardPeriodicTasks} and [flush]{https://angular.io/api/core/testing/flush|flush} to avoid an error from the `fakeAsync` zone.
+   * Performs any cleanup needed at the end of each test. This base implementation calls {@linkcode https://angular.dev/api/core/testing/discardPeriodicTasks | discardPeriodicTasks} and {@linkcode https://angular.dev/api/core/testing/flush | flush} to avoid an error from the `fakeAsync` zone.
    */
   protected cleanUp(): void {
     discardPeriodicTasks();

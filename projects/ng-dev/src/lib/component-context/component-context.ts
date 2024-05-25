@@ -29,9 +29,9 @@ import { WrapperComponent } from './wrapper.component';
  * - Automatically creates your component at the beginning of `run()`.
  * - Sets up Angular to call `ngOnChanges()` like it would in production. This is not the case if you use the standard `TestBed.createComponent()` directly.
  * - Wraps your component in a parent that you can easily style however you like.
- * - Lets you use {@link https://material.angular.io/cdk/test-harnesses/overview|component harnesses} in the `fakeAsync` zone, which is normally a challenge.
+ * - Lets you use {@link https://material.angular.io/cdk/test-harnesses/overview | component harnesses} in the `fakeAsync` zone, which is normally a challenge.
  * - Automatically disables animations.
- * - Causes async {@link https://angular.io/api/core/APP_INITIALIZER APP_INITIALIZER}s to complete before instantiating the component. Two caveats:
+ * - Causes async {@link https://angular.dev/api/core/APP_INITIALIZER | APP_INITIALIZER}s to complete before instantiating the component. Two caveats:
  *   - this requires all work in your initializers to complete with a call to `tick()`
  *   - this requires delaying app initialization until inside the `fakeAsync` zone, i.e. with the callback to {@link #run}. If you have async initializers, you must be careful not to do things that finalize the app setup before then, such as {@link #inject}.
  *
@@ -150,7 +150,7 @@ export class ComponentContext<T> extends AngularContext {
 
   /**
    * @param componentType `run()` will create a component of this type before running the rest of your test.
-   * @param moduleMetadata passed along to [TestBed.configureTestingModule()]{@linkcode https://angular.io/api/core/testing/TestBed#configureTestingModule}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContext}.
+   * @param moduleMetadata passed along to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#configureTestingModule | TestBed.configureTestingModule()}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContext}.
    * @param unboundInputs By default a synthetic parent component will be created that binds to all your component's inputs. Pass input names here that should NOT be bound. This is useful e.g. to test the default value of an input.
    */
   constructor(
@@ -177,7 +177,7 @@ export class ComponentContext<T> extends AngularContext {
   }
 
   /**
-   * Assign css styles to the div wrapping your component. Can be called before or during `run()`. Accepts an object with the same structure as the {@link https://angular.io/api/common/NgStyle|ngStyle directive}.
+   * Assign css styles to the div wrapping your component. Can be called before or during `run()`. Accepts an object with the same structure as the {@link https://angular.dev/api/common/NgStyle | ngStyle directive}.
    *
    * ```ts
    * ctx.assignWrapperStyles({

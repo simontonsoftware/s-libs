@@ -3,7 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 /**
- * Registers a Material [icon set]{@link https://material.angular.io/components/icon/overview#icon-sets} in the default namespace.
+ * Registers a Material {@link https://material.angular.io/components/icon/overview#icon-sets | icon set} in the default namespace.
  *
  * **WARNING:** The `icons` string you pass in will bypass Angular's security measures! Including untrusted user data will expose your application to XSS security risks!
  *

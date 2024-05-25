@@ -3,7 +3,7 @@ import { AngularContext } from '../angular-context';
 import { HttpBody } from './expect-request';
 
 /**
- * A class very similar to Angular's [TestRequest]{@linkcode https://angular.io/api/common/http/testing/TestRequest} for use with an {@linkcode AngularContext}. If you are using an `AngularContext`, this will trigger change detection automatically after you flush a response, like production behavior.
+ * A class very similar to Angular's {@linkcode https://angular.dev/api/common/http/testing/TestRequest | TestRequest} for use with an {@linkcode AngularContext}. If you are using an `AngularContext`, this will trigger change detection automatically after you flush a response, like production behavior.
  *
  * Though it is possible to construct yourself, normally an instance of this class is obtained from {@linkcode expectRequest()}.
  *
@@ -22,14 +22,14 @@ import { HttpBody } from './expect-request';
  */
 export class SlTestRequest<Body extends HttpBody> {
   /**
-   * The underlying [TestRequest]{@linkcode https://angular.io/api/common/http/testing/TestRequest} object from Angular.
+   * The underlying {@linkcode https://angular.dev/api/common/http/testing/TestRequest | TestRequest} object from Angular.
    */
   request = this.req.request;
 
   constructor(private req: TestRequest) {}
 
   /**
-   * Resolve the request with the given body and options, like [TestRequest.flush()]{@linkcode https://angular.io/api/common/http/testing/TestRequest#flush}.
+   * Resolve the request with the given body and options, like {@linkcode https://angular.dev/api/common/http/testing/TestRequest#flush | TestRequest.flush()}.
    */
   flush(body: Body, opts?: Parameters<TestRequest['flush']>[1]): void {
     this.req.flush(body, opts);
