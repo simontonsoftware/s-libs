@@ -1,9 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import {
-  HttpClient,
-  HttpClientModule,
-  provideHttpClient,
-} from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { HttpTestingController } from '@angular/common/http/testing';
 import {
   APP_ID,

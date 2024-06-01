@@ -10,11 +10,9 @@
     "directory": "projects/eslint-config-ng"
   },
   "peerDependencies": {
-    "@angular-eslint/eslint-plugin": "^17.0.0",
-    "@angular-eslint/eslint-plugin-template": "^17.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.10.0",
-    "@typescript-eslint/parser": "^6.10.0",
-    "eslint": "^8.53.0"
+    "angular-eslint": "^18.0.0",
+    "typescript-eslint": "^8.0.0-alpha.20",
+    "eslint": "^9.3.0"
   },
   "sideEffects": false
 }

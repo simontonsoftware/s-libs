@@ -1,8 +1,5 @@
 import { HttpRequest } from '@angular/common/http';
-import {
-  HttpTestingController,
-  TestRequest,
-} from '@angular/common/http/testing';
+import { HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { assert, mapAsKeys } from '@s-libs/js-core';
 import { isEqual } from '@s-libs/micro-dash';
 import { AngularContext } from '../angular-context';

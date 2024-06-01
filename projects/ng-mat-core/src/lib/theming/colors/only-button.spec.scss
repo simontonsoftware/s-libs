@@ -4,8 +4,8 @@
 @include theming.dark-theme-colors(
   (
     dark-palettes: (
-      primary: mat.define-palette(mat.$light-blue-palette),
-      accent: mat.define-palette(mat.$orange-palette),
+      primary: mat.m2-define-palette(mat.$m2-light-blue-palette),
+      accent: mat.m2-define-palette(mat.$m2-orange-palette),
     ),
     modules: (
       "core",

@@ -1,8 +1,4 @@
-import {
-  HttpClient,
-  HttpRequest,
-  provideHttpClient,
-} from '@angular/common/http';
+import { HttpClient, HttpRequest, provideHttpClient } from '@angular/common/http';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { expectTypeOf } from 'expect-type';
 import { AngularContext } from '../angular-context';

@@ -37,7 +37,8 @@
             "lintFilePatterns": [
               "projects/app-state/**/*.ts",
               "projects/app-state/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/app-state/eslint.config.js"
           }
         }
       }
@@ -62,8 +63,10 @@
             "polyfills": ["zone.js"],
             "tsConfig": "projects/integration/tsconfig.app.json",
             "assets": [
-              "projects/integration/src/favicon.ico",
-              "projects/integration/src/assets"
+              {
+                "glob": "**/*",
+                "input": "projects/integration/public"
+              }
             ],
             "styles": ["projects/integration/src/styles.scss"],
             "scripts": []
@@ -73,13 +76,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "3mb"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
                 }
               ],
               "outputHashing": "all"
@@ -105,10 +108,7 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "integration:build"
-          }
+          "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -116,8 +116,10 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/integration/tsconfig.spec.json",
             "assets": [
-              "projects/integration/src/favicon.ico",
-              "projects/integration/src/assets"
+              {
+                "glob": "**/*",
+                "input": "projects/integration/public"
+              }
             ],
             "styles": [
               "projects/integration/src/styles.scss",
@@ -132,7 +134,8 @@
             "lintFilePatterns": [
               "projects/integration/**/*.ts",
               "projects/integration/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/the-application/eslint.config.js"
           }
         }
       }
@@ -171,7 +174,8 @@
             "lintFilePatterns": [
               "projects/js-core/**/*.ts",
               "projects/js-core/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/js-core/eslint.config.js"
           }
         }
       }
@@ -210,7 +214,8 @@
             "lintFilePatterns": [
               "projects/micro-dash/**/*.ts",
               "projects/micro-dash/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/micro-dash/eslint.config.js"
           }
         }
       }
@@ -231,8 +236,10 @@
             "polyfills": ["zone.js"],
             "tsConfig": "projects/micro-dash-sizes/tsconfig.app.json",
             "assets": [
-              "projects/micro-dash-sizes/src/favicon.ico",
-              "projects/micro-dash-sizes/src/assets"
+              {
+                "glob": "**/*",
+                "input": "projects/micro-dash-sizes/public"
+              }
             ],
             "styles": [],
             "scripts": []
@@ -242,16 +249,21 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
                 }
               ],
               "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -261,14 +273,15 @@
           "configurations": {
             "production": {
               "buildTarget": "micro-dash-sizes:build:production"
+            },
+            "development": {
+              "buildTarget": "micro-dash-sizes:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "micro-dash-sizes:build"
-          }
+          "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -276,7 +289,8 @@
             "lintFilePatterns": [
               "projects/micro-dash-sizes/**/*.ts",
               "projects/micro-dash-sizes/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/micro-dash-sizes/eslint.config.js"
           }
         }
       }
@@ -315,7 +329,8 @@
             "lintFilePatterns": [
               "projects/ng-app-state/**/*.ts",
               "projects/ng-app-state/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/ng-app-state/eslint.config.js"
           }
         }
       }
@@ -354,7 +369,8 @@
             "lintFilePatterns": [
               "projects/ng-core/**/*.ts",
               "projects/ng-core/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/ng-core/eslint.config.js"
           }
         }
       }
@@ -393,7 +409,8 @@
             "lintFilePatterns": [
               "projects/ng-dev/**/*.ts",
               "projects/ng-dev/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/ng-dev/eslint.config.js"
           }
         }
       }
@@ -432,7 +449,8 @@
             "lintFilePatterns": [
               "projects/ng-mat-core/**/*.ts",
               "projects/ng-mat-core/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/ng-mat-core/eslint.config.js"
           }
         }
       }
@@ -471,7 +489,8 @@
             "lintFilePatterns": [
               "projects/rxjs-core/**/*.ts",
               "projects/rxjs-core/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/rxjs-core/eslint.config.js"
           }
         }
       }
@@ -510,7 +529,8 @@
             "lintFilePatterns": [
               "projects/signal-store/**/*.ts",
               "projects/signal-store/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/signal-store/eslint.config.js"
           }
         }
       }

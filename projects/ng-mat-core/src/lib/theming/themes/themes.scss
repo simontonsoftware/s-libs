@@ -91,7 +91,7 @@
 @function _build-theme-arg($config, $palette-key) {
   $typography: map.get($config, "typography");
   @if not map.has-key($config, "typography") {
-    $typography: mat.define-typography-config();
+    $typography: mat.m2-define-typography-config();
   }
   @return (
     color: map.get($config, $palette-key),
@@ -105,7 +105,7 @@
 /// @param {Map} $config - The config object used for multiple mixins in this library. See the example in [`mixin-full-theming()`](#mixin-full-theming) for a description of all its options.
 /// @param {String} $palette-key ["dark-palettes"] - Which color to use from `$config`.
 @mixin dark-theme($config, $palette-key: "dark-palettes") {
-  $theme: mat.define-dark-theme(_build-theme-arg($config, $palette-key));
+  $theme: mat.m2-define-dark-theme(_build-theme-arg($config, $palette-key));
   @include _module-themes($theme, $config);
 }
 
@@ -114,6 +114,6 @@
 /// @param {Map} $config - The config object used for multiple mixins in this library. See the example in [`mixin-full-theming()`](#mixin-full-theming) for a description of all its options.
 /// @param {String} $palette-key ["light-palettes"] - Which color to use from `$config`.
 @mixin light-theme($config, $palette-key: "light-palettes") {
-  $theme: mat.define-light-theme(_build-theme-arg($config, $palette-key));
+  $theme: mat.m2-define-light-theme(_build-theme-arg($config, $palette-key));
   @include _module-themes($theme, $config);
 }

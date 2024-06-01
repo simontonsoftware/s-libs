@@ -1,10 +1,4 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpRequest,
-  HttpResponse,
-  provideHttpClient,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpRequest, HttpResponse, provideHttpClient } from '@angular/common/http';
 import { TestRequest } from '@angular/common/http/testing';
 import { noop } from '@s-libs/micro-dash';
 import { Subject } from 'rxjs';
