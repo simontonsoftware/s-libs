@@ -5,7 +5,7 @@ import { WidePerformanceComponent } from './wide-performance/wide-performance.co
 @Component({
   selector: 'sl-signal-store-performance',
   templateUrl: './signal-store-performance.component.html',
-  styleUrls: ['./signal-store-performance.component.scss'],
+  styleUrl: './signal-store-performance.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [DeepPerformanceComponent, WidePerformanceComponent],

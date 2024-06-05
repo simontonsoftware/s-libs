@@ -1,21 +1,24 @@
 <h2 mat-dialog-title>{{ data.title ?? data.component?.title }}</h2>
 
 <mat-dialog-content class="mat-typography">
-  <p *ngIf="data.text">{{ data.text }}</p>
-  <ng-container *ngIf="data.component">
+  @if (data.text) {
+    <p>{{ data.text }}</p>
+  }
+  @if (data.component) {
     <ng-container
       *ngComponentOutlet="data.component; injector: componentInjector"
     />
-  </ng-container>
+  }
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button
-    *ngFor="let button of data.buttons"
-    mat-button
-    [mat-dialog-close]="button.value ?? button.text"
-    [color]="button.color ?? 'primary'"
-  >
-    {{ button.text }}
-  </button>
+  @for (button of data.buttons; track button) {
+    <button
+      mat-button
+      [mat-dialog-close]="button.value ?? button.text"
+      [color]="button.color ?? 'primary'"
+    >
+      {{ button.text }}
+    </button>
+  }
 </mat-dialog-actions>

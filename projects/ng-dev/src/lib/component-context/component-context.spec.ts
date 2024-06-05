@@ -85,7 +85,7 @@ describe('ComponentContext', () => {
     });
 
     it('supports non-standalone components', () => {
-      // eslint-disable-next-line @angular-eslint/prefer-standalone-component
+      // eslint-disable-next-line @angular-eslint/prefer-standalone
       @Component({ template: 'hi' })
       class ModulizedComponent {}
 

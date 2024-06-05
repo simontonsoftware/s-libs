@@ -1,12 +1,14 @@
 @use "@angular/material" as mat;
 @use ".." as theming;
 
-@include theming.dark-theme(
-  (
-    dark-palettes: (
-      primary: mat.m2-define-palette(mat.$m2-light-blue-palette),
-      accent: mat.m2-define-palette(mat.$m2-orange-palette),
-    ),
-    typography: null,
-  )
-);
+:host {
+  @include theming.dark-theme(
+    (
+      dark-palettes: (
+        primary: mat.m2-define-palette(mat.$m2-light-blue-palette),
+        accent: mat.m2-define-palette(mat.$m2-orange-palette),
+      ),
+      typography: null,
+    )
+  );
+}

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   templateUrl: './playground.component.html',
-  styleUrls: ['./playground.component.scss'],
+  styleUrl: './playground.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })

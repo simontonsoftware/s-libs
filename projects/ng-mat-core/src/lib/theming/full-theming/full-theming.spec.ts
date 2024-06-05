@@ -6,7 +6,7 @@ describe('full-theming()', () => {
   it('works for the minimal example in the docs', () => {
     @Component({
       standalone: true,
-      styleUrls: ['./minimal-example-from-docs.spec.scss'],
+      styleUrl: './minimal-example-from-docs.spec.scss',
       template: '<div class="mat-app-background"></div>',
     })
     class TestComponent {}

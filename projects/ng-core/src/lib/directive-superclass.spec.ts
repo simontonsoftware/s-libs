@@ -57,7 +57,9 @@ class ColorTextComponent extends DirectiveSuperclass {
       Both
     </button>
     <button (click)="hide = !hide">Hide</button>
-    <sl-color-text *ngIf="!hide" [prefix]="prefix" [prefix2]="prefix2" />
+    @if (!hide) {
+      <sl-color-text [prefix]="prefix" [prefix2]="prefix2" />
+    }
   `,
 })
 class TestComponent {
@@ -115,7 +117,7 @@ describe('DirectiveSuperclass', () => {
   }
 
   it('can be used as the superclass to a pipe (production bug)', () => {
-    @Pipe({ name: 'not' })
+    @Pipe({ name: 'not', standalone: true })
     class NotPipe extends DirectiveSuperclass implements PipeTransform {
       transform(value: any): boolean {
         return isFalsy(value);

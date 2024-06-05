@@ -1,5 +1,8 @@
 import { HttpRequest } from '@angular/common/http';
-import { HttpTestingController, TestRequest } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  TestRequest,
+} from '@angular/common/http/testing';
 import { assert, mapAsKeys } from '@s-libs/js-core';
 import { isEqual } from '@s-libs/micro-dash';
 import { AngularContext } from '../angular-context';
@@ -56,7 +59,7 @@ export function expectRequest<ResponseBody extends HttpBody>(
   const opts = { method, url, params: {}, headers: {}, body: null, ...options };
   try {
     return matchRequest(ctx, opts);
-  } catch (error) {
+  } catch {
     console.error(
       'Expected 1 request to match:',
       opts,

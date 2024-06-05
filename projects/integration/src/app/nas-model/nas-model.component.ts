@@ -12,7 +12,7 @@ import { NasModelStore } from './nas-model-store';
 @Component({
   selector: 'sl-nas-model',
   templateUrl: './nas-model.component.html',
-  styleUrls: ['./nas-model.component.scss'],
+  styleUrl: './nas-model.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [AsyncPipe, FormsModule, NasModelModule, NgFor],

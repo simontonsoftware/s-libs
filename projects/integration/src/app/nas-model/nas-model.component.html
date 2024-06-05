@@ -61,25 +61,29 @@ Url <br />
 <hr />
 
 <select [nasModel]="store('chooseOne')">
-  <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+  @for (city of cities; track city) {
+    <option [value]="city">{{ city }}</option>
+  }
 </select>
-<ng-container *ngFor="let city of cities">
+@for (city of cities; track city) {
   <br />
   <label>
     <input type="radio" [value]="city" [nasModel]="store('chooseOne')" />
     {{ city }}
   </label>
-</ng-container>
+}
 
 <hr />
 
 <select multiple [nasModel]="store('chooseMany')">
-  <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+  @for (city of cities; track city) {
+    <option [value]="city">{{ city }}</option>
+  }
 </select>
 <br />
 <button (click)="chooseToCheck()">v</button>
 <button (click)="checkToChoose()">^</button>
-<ng-container *ngFor="let city of cities">
+@for (city of cities; track city) {
   <br />
   <label>
     <input
@@ -89,7 +93,7 @@ Url <br />
     />
     {{ city }}
   </label>
-</ng-container>
+}
 
 <hr />
 

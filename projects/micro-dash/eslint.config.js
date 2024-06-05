@@ -20,6 +20,7 @@ module.exports = tseslint.config(
           extendDefaults: true,
         },
       ],
+      "@typescript-eslint/no-empty-object-type": "off",
 
       // lodash tests that we copy commonly violate these
       "@typescript-eslint/no-confusing-void-expression": "off",
@@ -56,10 +57,13 @@ module.exports = tseslint.config(
     },
   },
   {
-    files: ["*.spec.ts"],
+    files: ["**/*.spec.ts"],
     rules: {
       // several tests use an anonymous function just to get an `arguments` object
       "func-names": "off",
+
+      // tests copied from lodash use this technique
+      "@typescript-eslint/no-array-delete": "off",
     },
   },
   {

@@ -1,4 +1,7 @@
 // @ts-check
-const libraryConfig = require("./projects/eslint-config-ng/index.js");
+const tseslint = require("typescript-eslint");
+const libraryConfig = require("./projects/eslint-config-ng/strict.js");
 
-module.exports = libraryConfig;
+module.exports = tseslint.config(...libraryConfig, {
+  ignores: ["**/*.dts-spec.ts"],
+});

@@ -78,9 +78,9 @@ export const citySelectWithCustomCompareFnTemplate = `
   imports: [CommonModule, NasModelModule, FormsModule],
   template: `
     <select [nasModel]="store('selectedCity')">
-      <option *ngFor="let c of store('cities').$ | async" [ngValue]="c">
-        {{ c.name }}
-      </option>
+      @for (c of store('cities').$ | async; track c) {
+        <option [ngValue]="c">{{ c.name }}</option>
+      }
     </select>
   `,
 })
@@ -124,9 +124,9 @@ export const multipleCityWithCustomCompareFnTemplate = `
   imports: [CommonModule, NasModelModule, FormsModule],
   template: `
     <select multiple [nasModel]="store('selectedCities')">
-      <option *ngFor="let c of store('cities').$ | async" [ngValue]="c">
-        {{ c.name }}
-      </option>
+      @for (c of store('cities').$ | async; track c) {
+        <option [ngValue]="c">{{ c.name }}</option>
+      }
     </select>
   `,
 })

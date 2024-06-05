@@ -71,7 +71,7 @@ describe('TestCall', () => {
         navigator.clipboard,
         'readText',
       );
-      const spy = jasmine.createSpy();
+      const spy = jasmine.createSpy<(e: unknown) => void>();
       navigator.clipboard.readText().catch(spy);
       const testCall = controller.match(() => true)[0];
 

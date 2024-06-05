@@ -9,7 +9,7 @@ describe('themes.scss', () => {
     @Component({
       standalone: true,
       imports: [MatButtonModule],
-      styleUrls: ['./minimal-config.spec.scss'],
+      styleUrl: './minimal-config.spec.scss',
       template: `<button mat-button>Clickity click</button>`,
     })
     class TestComponent {}
@@ -25,7 +25,7 @@ describe('themes.scss', () => {
     @Component({
       standalone: true,
       imports: [MatButtonModule, MatToolbarModule],
-      styleUrls: ['./only-button.spec.scss'],
+      styleUrl: './only-button.spec.scss',
       template: `
         <button mat-button color="primary"></button>
         <mat-toolbar color="accent"></mat-toolbar>
@@ -44,7 +44,7 @@ describe('themes.scss', () => {
     @Component({
       standalone: true,
       imports: [MatButtonModule],
-      styleUrls: ['./custom-density.spec.scss'],
+      styleUrl: './custom-density.spec.scss',
       template: `<button mat-button></button>`,
     })
     class TestComponent {}
@@ -59,7 +59,7 @@ describe('themes.scss', () => {
     @Component({
       standalone: true,
       imports: [MatToolbarModule],
-      styleUrls: ['./custom-palette-key.spec.scss'],
+      styleUrl: './custom-palette-key.spec.scss',
       template: `<mat-toolbar color="accent" />`,
     })
     class TestComponent {}
@@ -75,7 +75,7 @@ describe('themes.scss', () => {
       @Component({
         standalone: true,
         imports: [MatButtonModule],
-        styleUrls: ['./minimal-config.spec.scss'],
+        styleUrl: './minimal-config.spec.scss',
         template: `<button mat-button></button>`,
       })
       class TestComponent {}
@@ -90,7 +90,7 @@ describe('themes.scss', () => {
       @Component({
         standalone: true,
         imports: [MatButtonModule],
-        styleUrls: ['./custom-typography.spec.scss'],
+        styleUrl: './custom-typography.spec.scss',
         template: `<button mat-button></button>`,
       })
       class TestComponent {}
@@ -105,7 +105,7 @@ describe('themes.scss', () => {
       @Component({
         standalone: true,
         imports: [MatButtonModule],
-        styleUrls: ['./no-typography.spec.scss'],
+        styleUrl: './no-typography.spec.scss',
         template: `
           <div style="font-family: Arial">
             <button mat-button></button>

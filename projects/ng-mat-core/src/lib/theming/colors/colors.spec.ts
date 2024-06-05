@@ -9,7 +9,7 @@ describe('colors.scss', () => {
     @Component({
       standalone: true,
       imports: [MatButtonModule],
-      styleUrls: ['./minimal-config.spec.scss'],
+      styleUrl: './minimal-config.spec.scss',
       template: `<button mat-button>Clickity click</button>`,
     })
     class TestComponent {}
@@ -25,7 +25,7 @@ describe('colors.scss', () => {
     @Component({
       standalone: true,
       imports: [MatToolbarModule],
-      styleUrls: ['./custom-palette-key.spec.scss'],
+      styleUrl: './custom-palette-key.spec.scss',
       template: `<mat-toolbar color="accent" />`,
     })
     class TestComponent {}
@@ -42,7 +42,7 @@ describe('colors.scss', () => {
     @Component({
       standalone: true,
       imports: [MatButtonModule, MatToolbarModule],
-      styleUrls: ['./only-button.spec.scss'],
+      styleUrl: './only-button.spec.scss',
       template: `
         <button mat-button color="primary"></button>
         <mat-toolbar color="accent"></mat-toolbar>

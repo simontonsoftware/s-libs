@@ -73,7 +73,7 @@ export const DEFAULT_OK_VALUE = Symbol('OK');
   standalone: true,
   imports: [MatButtonModule, MatDialogModule, NgComponentOutlet, NgForOf, NgIf],
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss'],
+  styleUrl: './dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogComponent {

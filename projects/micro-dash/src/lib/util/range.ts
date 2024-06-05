@@ -26,5 +26,5 @@ export function range(start: number, end?: number, step?: number): number[] {
   if (isUndefined(step)) {
     step = end < start ? -1 : 1;
   }
-  return times(Math.abs((end - start) / (step || 1)), (i) => start + step! * i);
+  return times(Math.abs((end - start) / (step || 1)), (i) => start + step * i);
 }

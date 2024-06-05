@@ -112,6 +112,7 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *
  * If you bind to your component using an {@linkcode NgControl} (e.g. when using `ngModel`), validation errors will be synchronized between it and the control inside your component. You can override various methods below to control or disable that process. Note that validation, `statuschanges`, and `valuechanges` may all happen more often as a result of this synchronization.
  */
+// eslint-disable-next-line @angular-eslint/prefer-standalone
 @Directive()
 export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   extends FormComponentSuperclass<OuterType>

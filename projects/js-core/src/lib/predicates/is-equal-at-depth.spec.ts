@@ -10,7 +10,7 @@ function expectToBecomeEqualAtDepth(
     expect(isEqualAtDepth(i, value, other)).toBe(false);
   }
   expect(isEqualAtDepth(i++, value, other)).toBe(true);
-  expect(isEqualAtDepth(i++, value, other)).toBe(true);
+  expect(isEqualAtDepth(i, value, other)).toBe(true);
 }
 
 function expectNeverEqual(value: any, other: any): void {

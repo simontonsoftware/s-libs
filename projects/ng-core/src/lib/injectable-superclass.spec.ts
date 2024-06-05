@@ -31,7 +31,9 @@ class DestroyableDirective extends InjectableSuperclass {
 @Component({
   standalone: true,
   imports: [NgIf, DestroyableDirective],
-  template: `<p *ngIf="showThings" slDestroyableDirective>I'm showing.</p>`,
+  template: `@if (showThings) {
+    <p slDestroyableDirective>I'm showing.</p>
+  }`,
 })
 class TestComponent {
   showThings = true;

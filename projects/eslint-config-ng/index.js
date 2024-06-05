@@ -26,7 +26,7 @@ module.exports = tseslint.config(
       ],
       "max-nested-callbacks": ["error", { max: 2 }],
 
-      // I have not found good alternatives to `object` for the cases I've used it
+      // I have not found good alternatives to `object` in the cases I've used it
       "@typescript-eslint/ban-types": [
         "error",
         { types: { object: false }, extendDefaults: true },
@@ -34,7 +34,7 @@ module.exports = tseslint.config(
     },
   },
   {
-    files: ["*.spec.ts"],
+    files: ["**/*.spec.ts"],
     rules: {
       "max-lines": "off",
       "max-lines-per-function": "off",

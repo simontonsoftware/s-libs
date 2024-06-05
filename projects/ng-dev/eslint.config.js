@@ -16,7 +16,7 @@ module.exports = tseslint.config(
         "error",
         {
           type: "attribute",
-          prefix: "sl",
+          prefix: ["app", "sl"],
           style: "camelCase",
         },
       ],
@@ -24,14 +24,17 @@ module.exports = tseslint.config(
         "error",
         {
           type: "element",
-          prefix: "sl",
+          prefix: ["app", "sl"],
           style: "kebab-case",
         },
       ],
+
+      // Like other libraries, sometimes we use `any` to do fancy things so that users don't have to
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
   {
     files: ["**/*.html"],
     rules: {},
-  }
+  },
 );

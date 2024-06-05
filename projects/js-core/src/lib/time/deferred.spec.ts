@@ -37,7 +37,7 @@ describe('Deferred', () => {
 
     it('runs error callback on the micro queue', async () => {
       const deferred = new Deferred<boolean>();
-      const spy = jasmine.createSpy();
+      const spy = jasmine.createSpy<(e: unknown) => void>();
       deferred.promise.catch(spy);
 
       deferred.reject();

@@ -28,6 +28,9 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
+
+      // ng-app-state is not ready for this
+      "@angular-eslint/prefer-standalone": "off",
     },
   },
   {

@@ -6,8 +6,8 @@ import { By } from '@angular/platform-browser';
 import { ComponentContext } from '@s-libs/ng-dev';
 import { click, find, findButton } from '../../test-helpers';
 import { DirectiveSuperclass } from '../directive-superclass';
-import { FormComponentSuperclass } from './form-component-superclass';
 import { InjectableSuperclass } from '../injectable-superclass';
+import { FormComponentSuperclass } from './form-component-superclass';
 import { provideValueAccessor } from './provide-value-accessor';
 
 @Component({
@@ -41,7 +41,9 @@ class CounterComponent extends FormComponentSuperclass<number> {
       [disabled]="shouldDisable"
       [(ngModel)]="value"
     />
-    <div *ngIf="counter.touched">Touched!</div>
+    @if (counter.touched) {
+      Touched!
+    }
     <button (click)="shouldDisable = !shouldDisable">Toggle Disabled</button>
   `,
 })

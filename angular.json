@@ -135,7 +135,7 @@
               "projects/integration/**/*.ts",
               "projects/integration/**/*.html"
             ],
-            "eslintConfig": "projects/the-application/eslint.config.js"
+            "eslintConfig": "projects/integration/eslint.config.js"
           }
         }
       }

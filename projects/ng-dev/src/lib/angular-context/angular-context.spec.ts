@@ -83,8 +83,8 @@ describe('AngularContext', () => {
       });
     });
 
-    it('sets up testing for `HttpClientModule`', () => {
-      const ctx = new AngularContext({ imports: [HttpClientModule] });
+    it('sets up http client testing', () => {
+      const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
         ctx.inject(HttpClient).get('some URL').subscribe();
         expectRequest('GET', 'some URL');

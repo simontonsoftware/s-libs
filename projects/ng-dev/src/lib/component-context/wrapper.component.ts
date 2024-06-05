@@ -1,7 +1,7 @@
 import { Component, ComponentMirror } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection,@angular-eslint/prefer-standalone-component -- change detection is carefully orchestrated in the typescript, and if this is standalone we can no longer test non-standalone components */
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection,@angular-eslint/prefer-standalone -- change detection is carefully orchestrated in the typescript, and if this is standalone we can no longer test non-standalone components */
 @Component({ template: '' })
 export class WrapperComponent<T> {
   inputs: Partial<T> = {};

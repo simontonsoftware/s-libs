@@ -101,6 +101,7 @@ describe('WrapperComponent', () => {
 
   // https://github.com/simontonsoftware/s-libs/issues/40
   it('can handle inputs defined by a superclass (production bug)', () => {
+    // eslint-disable-next-line @angular-eslint/prefer-standalone
     @Directive()
     class SuperclassComponent {
       @Input() superclassInput?: string;

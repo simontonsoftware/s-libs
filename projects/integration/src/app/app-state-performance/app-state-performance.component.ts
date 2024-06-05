@@ -5,7 +5,7 @@ import { WidePerformanceComponent } from './wide-performance/wide-performance.co
 @Component({
   selector: 'sl-app-state-performance',
   templateUrl: './app-state-performance.component.html',
-  styleUrls: ['./app-state-performance.component.scss'],
+  styleUrl: './app-state-performance.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [WidePerformanceComponent, DeepPerformanceComponent],

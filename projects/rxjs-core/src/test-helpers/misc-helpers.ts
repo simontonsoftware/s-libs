@@ -30,7 +30,7 @@ export function testUserFunctionError(
 ): () => void {
   return marbleTest(({ hot, expectObservable, expectSubscriptions }) => {
     const thrower = (): never => {
-      // eslint-disable-next-line @typescript-eslint/no-throw-literal -- this is the error TestScheduler expects when it sees "#"
+      // eslint-disable-next-line @typescript-eslint/only-throw-error -- this is the error TestScheduler expects when it sees "#"
       throw 'error';
     };
     const source = hot('-1-', { 1: upstreamValue });

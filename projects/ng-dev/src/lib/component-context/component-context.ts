@@ -10,10 +10,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  NoopAnimationsModule,
-  provideNoopAnimations,
-} from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { assert } from '@s-libs/js-core';
 import { keys } from '@s-libs/micro-dash';
 import {

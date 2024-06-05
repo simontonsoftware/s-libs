@@ -115,7 +115,7 @@ describe('update()', () => {
     const object = { a: [{ b: { c: oldValue } }] };
     update(object, ['a', 0, 'b', 'c'], (n: any) => {
       expect(n).toBe(oldValue);
-      return ++n;
+      return n + 1;
     });
     expect(object.a[0].b.c).toBe(oldValue + 1);
   });
