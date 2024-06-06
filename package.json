@@ -10,6 +10,7 @@
     "lint": "ng lint",
     "build-libs": "npm run ts-node -- scripts/build-libs",
     "dtslint": "dtslint --expectOnly --localTs node_modules/typescript/lib",
+    "prettier-lint": "prettier --check \"**/*.{html,js,json,md,scss,ts,yml}\"",
     "prettier-all": "prettier --write \"**/*.{html,js,json,md,scss,ts,yml}\"",
     "docs": "npm run ts-node -- scripts/docs-libs",
     "git-publish": "standard-version --commit-all",
