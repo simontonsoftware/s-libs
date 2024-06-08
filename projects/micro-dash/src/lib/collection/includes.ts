@@ -12,8 +12,8 @@ export function includes<T extends object | string | readonly any[]>(
   value: T extends readonly any[]
     ? T[0]
     : T extends string
-    ? string
-    : T[keyof T],
+      ? string
+      : T[keyof T],
   fromIndex = 0,
 ): boolean {
   if (isString(collection)) {

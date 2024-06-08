@@ -31,11 +31,11 @@ module.exports = tseslint.config(
 
       // several utility functions define typying carefully in overloads, and use `any` in the code
       "@typescript-eslint/explicit-module-boundary-types": "off",
-      "@typescript-eslint/no-unsafe-return": "off"
+      "@typescript-eslint/no-unsafe-return": "off",
     },
   },
   {
     files: ["**/*.html"],
     rules: {},
-  }
+  },
 );

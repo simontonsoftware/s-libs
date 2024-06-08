@@ -13,8 +13,8 @@ export type EmptyObject = Record<string, never>;
 type IfIndexType<T, If, Else = never> = string extends T
   ? If
   : number extends T
-  ? If
-  : Else;
+    ? If
+    : Else;
 
 type IndexKeys<T> = { [K in keyof T]: IfIndexType<K, K> }[keyof T];
 type NonIndexKeys<T> = { [K in keyof T]: IfIndexType<K, never, K> }[keyof T];

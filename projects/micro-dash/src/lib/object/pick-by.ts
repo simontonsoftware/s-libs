@@ -12,9 +12,8 @@ import {
 } from '../interfaces';
 import { forOwn } from './for-own';
 
-type IfDefinitelyIncluded<T, O, If, Else = never> = Exclude<T, O> extends never
-  ? If
-  : Else;
+type IfDefinitelyIncluded<T, O, If, Else = never> =
+  Exclude<T, O> extends never ? If : Else;
 type IfMaybeIncluded<T, O, If, Else = never> = IfDefinitelyIncluded<
   T,
   O,

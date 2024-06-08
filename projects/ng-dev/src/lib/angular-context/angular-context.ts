@@ -1,5 +1,8 @@
 import { ComponentHarness, HarnessQuery } from '@angular/cdk/testing';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 import {
   AbstractType,
   ApplicationRef,

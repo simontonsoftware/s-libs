@@ -26,14 +26,13 @@ export type ValueIteratee<T, O> = (value: T) => O;
 // coercion
 export type Cast<I, O> = Exclude<I, O> extends never ? I : O;
 export type Narrow<I, O> = Extract<I, O> | Extract<O, I>;
-export type IfCouldBe<T1, T2, If, Else = never> = Narrow<T1, T2> extends never
-  ? Else
-  : If;
+export type IfCouldBe<T1, T2, If, Else = never> =
+  Narrow<T1, T2> extends never ? Else : If;
 export type IfIndexType<T, If, Else = never> = string extends T
   ? If
   : number extends T
-  ? If
-  : Else;
+    ? If
+    : Else;
 
 // object parts
 type IndexKeys<T> = { [K in keyof T]: IfIndexType<K, K> }[keyof T];
@@ -45,15 +44,16 @@ export type StringifiedKey<T> = Cast<keyof T, string>;
 export type ValuesType<T> = T extends readonly []
   ? T[number]
   : T extends ArrayLike<any>
-  ? T[number]
-  : T extends object
-  ? T[keyof T]
-  : never;
-export type DeepPartial<T> = T extends Array<infer E>
-  ? Array<DeepPartial<E>>
-  : T extends object
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : T | undefined;
+    ? T[number]
+    : T extends object
+      ? T[keyof T]
+      : never;
+export type DeepPartial<T> =
+  T extends Array<infer E>
+    ? Array<DeepPartial<E>>
+    : T extends object
+      ? { [K in keyof T]?: DeepPartial<T[K]> }
+      : T | undefined;
 
 // misc
 export type Evaluate<T> = T extends infer I ? { [K in keyof I]: T[K] } : never;

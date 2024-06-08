@@ -130,7 +130,7 @@ describe('spreadArrayStore()', () => {
         standalone: true,
         template: `
           @for (heroStore of heroStores(); track heroStore) {
-          <app-hero [heroStore]="heroStore" />
+            <app-hero [heroStore]="heroStore" />
           }
         `,
         imports: [HeroComponent],

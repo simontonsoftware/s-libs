@@ -4,10 +4,12 @@ import { getWithoutDefault } from '../object/get';
 type PropertyAtPath<T, Path extends readonly any[]> = Path extends []
   ? T
   : Path extends readonly [infer First, ...infer Rest]
-  ? First extends keyof NonNullable<T>
-    ? IfCouldBe<T, Nil, undefined> | PropertyAtPath<NonNullable<T>[First], Rest>
-    : undefined
-  : unknown;
+    ? First extends keyof NonNullable<T>
+      ?
+          | IfCouldBe<T, Nil, undefined>
+          | PropertyAtPath<NonNullable<T>[First], Rest>
+      : undefined
+    : unknown;
 
 /**
  * Creates a function that returns the value at `path` of a given object.

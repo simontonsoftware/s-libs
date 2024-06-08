@@ -17,12 +17,8 @@ type LazyImport<B extends LazyBundle> = Promise<{ default: B }>;
 type TokenMapOf<B extends LazyBundle> = B['tokenMap'];
 type KeysOf<B extends LazyBundle> = keyof TokenMapOf<B>;
 type TokenOf<B extends LazyBundle, K extends KeysOf<B>> = TokenMapOf<B>[K];
-type InjectableOf<B extends LazyBundle, K extends KeysOf<B>> = TokenOf<
-  B,
-  K
-> extends ProviderToken<infer I>
-  ? I
-  : never;
+type InjectableOf<B extends LazyBundle, K extends KeysOf<B>> =
+  TokenOf<B, K> extends ProviderToken<infer I> ? I : never;
 
 /**
  * A helper to lazy-load Angular services that are not associated with a lazy route. For example, you can split snack bar code into a separate bundle like this:

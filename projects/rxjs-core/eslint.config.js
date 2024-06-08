@@ -33,5 +33,5 @@ module.exports = tseslint.config(
   {
     files: ["**/*.html"],
     rules: {},
-  }
+  },
 );
