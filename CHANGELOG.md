@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [18.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v17.1.0...v18.0.0-next.0) (2024-06-08)
+
+### ⚠ BREAKING CHANGES
+
+- libraries with dependencies are now at versions: Typescript 5.4, Angular 18, Jasmine 5.1, ESLint 9.3
+- **rxjs-core:** Typing for `logToReduxDevtoolsExtension()` now accepts the format from extension v3.3. The only breaking change appears to be in the `serialize` option.
+- **ng-core:** Subclasses of `InjectableSuperclass` and `DirectiveSuperclass` can no longer call `super.ngOnDestroy()`. Simply remove those calls; they are no longer needed.
+- **signal-store:** The typing for stores in the new @s-libs/signal-store is more strict, e.g. forbidding `.assign()` when the state could be undefined.
+
+### Features
+
+- **micro-dash:** remove dependency on the `utility-types` library ([e0d6a21](https://github.com/simontonsoftware/s-libs/commit/e0d6a21fb79233ee5763ad3eeb006cd390509be0))
+- **ng-core:** `InjectableSuperclass` no longer requires `super.ngOnDestroy()`. Previously if you implemnted `ngOnDestroy()` for a subclass of `InjectableSuperclass` (and therefore `DirectiveSuperclass`), you would have to call `super.ngOnDestroy()` to maintain its functionality. That is no longer necessary (or possible!). ([c194c63](https://github.com/simontonsoftware/s-libs/commit/c194c636b1081da307f737cf859539b75813ecc0))
+- **rxjs-core:** Updating typing for the options of `logToReduxDevtoolsExtension()` ([6c10750](https://github.com/simontonsoftware/s-libs/commit/6c10750e9d82dcce987527eef1c5f973d92fffeb))
+- **signal-store:** add `pushToArrayStore()` ([2f35dd1](https://github.com/simontonsoftware/s-libs/commit/2f35dd14004ca2ff00fb67e8ad717486af263c46))
+- **signal-store:** add `spreadArrayStore()` ([7cc374b](https://github.com/simontonsoftware/s-libs/commit/7cc374b66e1ac8ee62534f31352d9fdab31fddff))
+- **signal-store:** Selecting into a store whose value can be undefined now works, returning a `ReadonlyStore` ([3c015bd](https://github.com/simontonsoftware/s-libs/commit/3c015bd6f471bd69593d306aa2fab434b87178c0))
+- update dependencies ([81cc8ff](https://github.com/simontonsoftware/s-libs/commit/81cc8fffd7fa11824a0d0bc08616724bbc62abbd))
+
 ## [17.1.0](https://github.com/simontonsoftware/s-libs/compare/v17.0.0...v17.1.0) (2024-01-02)
 
 ### Features
