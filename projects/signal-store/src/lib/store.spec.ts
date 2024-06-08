@@ -84,8 +84,8 @@ describe('Store', () => {
       staticTest(() => {
         const store: Store<{ a: number; b?: string }> = null as any;
         store('a').update(Math.pow, 2);
-        store.update(pick, 'a' as const);
-        store.update(omit, 'b' as const);
+        store.update(pick, 'a');
+        store.update(omit, 'b');
       });
     });
   });
@@ -94,8 +94,8 @@ describe('Store', () => {
     it('picks up arg types from the function', () => {
       staticTest(() => {
         const store: Store<{ a: number; b?: string }> = null as any;
-        store.mutate(pick, 'a' as const);
-        store.mutate(omit, 'b' as const);
+        store.mutate(pick, 'a');
+        store.mutate(omit, 'b');
       });
     });
   });

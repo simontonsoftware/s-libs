@@ -20,11 +20,11 @@ export interface Store<T> extends GetSlice<T> {
     never,
     (value: Partial<T>) => void
   >;
-  update: <A extends any[]>(
+  update: <const A extends any[]>(
     func: (state: T, ...args: A) => T,
     ...args: A
   ) => void;
-  mutate: <A extends any[]>(
+  mutate: <const A extends any[]>(
     func: (state: T, ...args: A) => void,
     ...args: A
   ) => void;
