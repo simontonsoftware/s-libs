@@ -2,6 +2,7 @@
  * Public API Surface of js-core
  */
 
+// export * from './lib/encoding';
 export * from './lib/functions';
 export * from './lib/maps';
 export * from './lib/objects';
