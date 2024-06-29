@@ -1,8 +1,8 @@
-import { NgComponentOutlet, NgForOf, NgIf } from '@angular/common';
+import { NgComponentOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
+  inject,
   InjectionToken,
   Injector,
   Type,
@@ -71,22 +71,19 @@ export const DEFAULT_OK_VALUE = Symbol('OK');
 @Component({
   selector: 'sl-dialog',
   standalone: true,
-  imports: [MatButtonModule, MatDialogModule, NgComponentOutlet, NgForOf, NgIf],
+  imports: [MatButtonModule, MatDialogModule, NgComponentOutlet],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogComponent {
-  componentInjector: Injector;
+  protected data: DialogData<unknown> = inject(MAT_DIALOG_DATA);
+  protected componentInjector = Injector.create({
+    providers: [{ provide: SL_DIALOG_DATA, useValue: this.data.slDialogData }],
+    parent: inject(Injector),
+  });
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: DialogData<unknown>,
-    injector: Injector,
-  ) {
-    data.buttons ??= [{ text: 'OK', value: DEFAULT_OK_VALUE }];
-    this.componentInjector = Injector.create({
-      providers: [{ provide: SL_DIALOG_DATA, useValue: data.slDialogData }],
-      parent: injector,
-    });
+  constructor() {
+    this.data.buttons ??= [{ text: 'OK', value: DEFAULT_OK_VALUE }];
   }
 }

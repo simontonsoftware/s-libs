@@ -95,6 +95,7 @@ describe('LazyLoader', () => {
 
         const dialog = await ctx.getHarness(MatDialogHarness);
         expect(await dialog.getActionsText()).toBe('OK');
+        expect(await dialog.getContentText()).toBe('This is a dialog');
       });
     });
   });
