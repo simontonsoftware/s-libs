@@ -17,6 +17,8 @@
     "@s-libs/ng-core": "^18.0.0-next.0",
     "@s-libs/rxjs-core": "^18.0.0-next.0"
   },
-  "dependencies": { "tslib": "^2.3.0" },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
   "sideEffects": false
 }
