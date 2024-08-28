@@ -1,0 +1,11 @@
+@use "@angular/material" as mat;
+@use "../index" as theming;
+
+$light: theming.from-flat(
+  $primary: mat.$blue-palette,
+);
+$dark: theming.from-flat(
+  $primary: mat.$blue-palette,
+  $theme-type: "dark",
+);
+@include theming.full($light, $dark, ("core"));

@@ -1,0 +1,131 @@
+@use "sass:meta";
+@use "sass:map";
+@use "@angular/material" as mat;
+
+// after removing deprecated material 2 stuff, thin can become the new index.scss
+
+@mixin _apply($modules, $suffix, $args...) {
+  @each $module in $modules {
+    @include meta.apply(meta.get-mixin("#{$module}#{$suffix}", mat), $args...);
+  }
+}
+
+@function _add-config($config, $opts, $category, $keys) {
+  @each $key in $keys {
+    @if map.has-key($opts, $key) {
+      $config: map.deep-merge(
+        $config,
+        ($category: ($key: map.get($opts, $key)))
+      );
+    }
+  }
+  @return $config;
+}
+
+/// A simple wrapper to create material theme objects with simplified syntax.
+///
+/// @param {Map} $args - Can contain any of `theme-type`, `primary`, `tertiary`, `plain-family`, `brand-family`, `bold-weight`, `medium-weight`, `regular-weight`, `scale`.
+///
+/// @example
+/// // Do this
+/// $dark-and-slim: m3-theming.from-flat(
+///   $primary: mat.$blue-palette,
+///   $theme-type: "dark",
+///   $scale: -3,
+/// );
+///
+/// // Instead of this
+/// $dark-and-slim: mat.define-theme(
+///   (
+///     color: (
+///       primary: mat.$blue-palette,
+///       theme-type: "dark",
+///     ),
+///     density: (
+///       scale: -3,
+///     ),
+///   )
+/// );
+@function from-flat($args...) {
+  $opts: meta.keywords($args);
+  $config: ();
+  $config: _add-config(
+    (),
+    $opts,
+    "color",
+    ("theme-type", "primary", "tertiary")
+  );
+  $config: _add-config(
+    $config,
+    $opts,
+    "typography",
+    (
+      "plain-family",
+      "brand-family",
+      "bold-weight",
+      "medium-weight",
+      "regular-weight"
+    )
+  );
+  $config: _add-config($config, $opts, "density", ("scale"));
+  @return mat.define-theme($config);
+}
+
+///
+@mixin themes($theme, $modules: null) {
+  @if $modules == null {
+    @include mat.all-component-themes($theme);
+  } @else {
+    @include _apply($modules, "-theme", $theme);
+  }
+}
+
+@mixin bases($theme, $modules: null) {
+  @if $modules == null {
+    @include mat.all-component-bases($theme);
+  } @else {
+    @include _apply($modules, "-base", $theme);
+  }
+}
+
+@mixin colors($theme, $modules: null) {
+  @if $modules == null {
+    @include mat.all-component-colors($theme);
+  } @else {
+    @include _apply($modules, "-color", $theme);
+  }
+}
+
+@mixin typographies($theme, $modules: null) {
+  @if $modules == null {
+    @include mat.all-component-typographies($theme);
+  } @else {
+    @include _apply($modules, "-typography", $theme);
+  }
+}
+
+@mixin densities($theme, $modules: null) {
+  @if $modules == null {
+    @include mat.all-component-densities($theme);
+  } @else {
+    @include _apply($modules, "-density", $theme);
+  }
+}
+
+/// A convenience mixin to set up all Angular Material theming for your app, including separate light and dark themes that respect `prefers-color-scheme`.
+///
+/// **Note:** This applies styles to `:root`, so you cannot nest it inside any selectors.
+///
+/// **Important:** This even `@include mat.core()` for you, so do not include it yourself.
+///
+/// @param {Map} $light - An Angular Material theme object to apply when the user prefers a light color scheme.
+/// @param {Map} $dark - An Angular Material theme object to apply at other times.
+@mixin full($light, $dark, $modules: null) {
+  @include mat.core();
+  :root {
+    @include themes($dark, $modules);
+    @media (prefers-color-scheme: light) {
+      @include colors($light, $modules);
+    }
+  }
+}
