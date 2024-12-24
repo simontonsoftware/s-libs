@@ -1,3 +1,4 @@
+import { HttpRequest } from '@angular/common/http';
 import { TestRequest } from '@angular/common/http/testing';
 import { AngularContext } from '../angular-context';
 import { HttpBody } from './expect-request';
@@ -24,9 +25,11 @@ export class SlTestRequest<Body extends HttpBody> {
   /**
    * The underlying {@linkcode https://angular.dev/api/common/http/testing/TestRequest | TestRequest} object from Angular.
    */
-  request = this.req.request;
+  request: HttpRequest<any>;
 
-  constructor(private req: TestRequest) {}
+  constructor(private req: TestRequest) {
+    this.request = this.req.request;
+  }
 
   /**
    * Resolve the request with the given body and options, like {@linkcode https://angular.dev/api/common/http/testing/TestRequest#flush | TestRequest.flush()}.

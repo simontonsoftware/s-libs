@@ -7,7 +7,6 @@ import { getStyle } from '../test-utils';
 describe('colors.scss', () => {
   it('does not include themes', () => {
     @Component({
-      standalone: true,
       imports: [MatButtonModule],
       styleUrl: './minimal-config.spec.scss',
       template: `<button mat-button>Clickity click</button>`,
@@ -23,7 +22,6 @@ describe('colors.scss', () => {
 
   it('allows passing in a custom palette key', () => {
     @Component({
-      standalone: true,
       imports: [MatToolbarModule],
       styleUrl: './custom-palette-key.spec.scss',
       template: `<mat-toolbar color="accent" />`,
@@ -40,7 +38,6 @@ describe('colors.scss', () => {
 
   it('allows specifying only some components', () => {
     @Component({
-      standalone: true,
       imports: [MatButtonModule, MatToolbarModule],
       styleUrl: './only-button.spec.scss',
       template: `

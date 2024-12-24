@@ -50,7 +50,8 @@
 /// );
 @mixin full-theming($args...) {
   $config: meta.keywords($args);
-  @include mat.core();
+  @include mat.elevation-classes();
+  @include mat.app-background();
   @include themes.dark-theme($config);
   @media (prefers-color-scheme: light) {
     @include colors.light-theme-colors($config);

@@ -21,7 +21,8 @@
   } @else if $name == "chips" {
     @include mat.chips-color($theme);
   } @else if $name == "core" {
-    @include mat.core-color($theme);
+    @include mat.elevation-classes();
+    @include mat.app-background();
   } @else if $name == "datepicker" {
     @include mat.datepicker-color($theme);
   } @else if $name == "dialog" {

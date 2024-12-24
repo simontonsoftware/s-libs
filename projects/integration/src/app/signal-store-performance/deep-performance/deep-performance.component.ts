@@ -18,7 +18,6 @@ import { unsubscribe } from '../../../../../signal-store/src/performance/perform
   selector: 'sl-deep-performance',
   templateUrl: './deep-performance.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [FormsModule],
 })
 export class DeepPerformanceComponent {

@@ -109,7 +109,6 @@ describe('spreadArrayStore$()', () => {
       }
 
       @Component({
-        standalone: true,
         selector: 'app-hero',
         template: `{{ heroStore('name').$ | async }}`,
         imports: [AsyncPipe],
@@ -120,7 +119,6 @@ describe('spreadArrayStore$()', () => {
 
       // vvvv documentation below
       @Component({
-        standalone: true,
         template: `
           @for (heroStore of heroStores$ | async; track heroStore) {
             <app-hero [heroStore]="heroStore" />

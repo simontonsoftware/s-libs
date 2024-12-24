@@ -10,13 +10,15 @@
     "directory": "projects/ng-app-state"
   },
   "peerDependencies": {
-    "@angular/common": "^18.0.0",
-    "@angular/core": "^18.0.0",
+    "@angular/common": "^19.0.0",
+    "@angular/core": "^19.0.0",
     "@s-libs/js-core": "^18.0.0",
     "@s-libs/micro-dash": "^18.0.0",
     "@s-libs/ng-core": "^18.0.0",
     "@s-libs/rxjs-core": "^18.0.0"
   },
-  "dependencies": { "tslib": "^2.3.0" },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
   "sideEffects": false
 }

@@ -48,7 +48,6 @@ class ColorTextComponent extends DirectiveSuperclass {
 }
 
 @Component({
-  standalone: true,
   imports: [ColorTextComponent, NgIf],
   template: `
     <button (click)="toggle('prefix', 'Dark')">Dark</button>

@@ -33,7 +33,6 @@ class CounterComponent extends FormComponentSuperclass<number> {
 }
 
 @Component({
-  standalone: true,
   imports: [CounterComponent, FormsModule, NgIf],
   template: `
     <sl-counter

@@ -14,7 +14,6 @@ describe('ComponentHarnessSuperclass', () => {
     class InnerComponent {}
 
     @Component({
-      standalone: true,
       imports: [InnerComponent, MatButtonModule],
       template: `
         <button mat-button>Outer Button</button>
@@ -47,7 +46,6 @@ describe('ComponentHarnessSuperclass', () => {
     class InnerComponent {}
 
     @Component({
-      standalone: true,
       imports: [InnerComponent, MatButtonModule],
       template: `
         <button mat-button>Button 1</button>
@@ -76,14 +74,12 @@ describe('ComponentHarnessSuperclass', () => {
   it('allows harness to restrict their loaders to sub-components (a bug that bugged me for a long time!)', () => {
     @Component({
       selector: 'sl-inner-component',
-      standalone: true,
       imports: [MatButtonModule],
       template: `<button mat-button>Inner Button</button>`,
     })
     class InnerComponent {}
 
     @Component({
-      standalone: true,
       imports: [InnerComponent, MatButtonModule],
       template: `
         <button mat-button>Outer Button</button>

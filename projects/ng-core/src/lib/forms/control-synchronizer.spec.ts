@@ -73,7 +73,6 @@ describe('ControlSynchronizer', () => {
   it('synchronizes validation 2 ways', () => {
     @Component({
       selector: `sl-inner`,
-      standalone: true,
       imports: [ReactiveFormsModule],
       template: `<input [formControl]="control" />`,
       providers: [provideValueAccessor(InnerComponent)],
@@ -86,7 +85,6 @@ describe('ControlSynchronizer', () => {
     }
 
     @Component({
-      standalone: true,
       imports: [InnerComponent, ReactiveFormsModule],
       template: `<sl-inner [formControl]="control"></sl-inner>`,
       changeDetection: ChangeDetectionStrategy.OnPush,
@@ -144,7 +142,6 @@ describe('ControlSynchronizer', () => {
   it('handles async validation', () => {
     @Component({
       selector: `sl-inner`,
-      standalone: true,
       imports: [ReactiveFormsModule],
       template: `<input [formControl]="control" />`,
       providers: [provideValueAccessor(InnerComponent)],
@@ -157,7 +154,6 @@ describe('ControlSynchronizer', () => {
     }
 
     @Component({
-      standalone: true,
       imports: [InnerComponent, ReactiveFormsModule],
       template: `<sl-inner [formControl]="control"></sl-inner>`,
       changeDetection: ChangeDetectionStrategy.OnPush,
@@ -216,7 +212,6 @@ describe('ControlSynchronizer', () => {
   it('handles delays when transforming errors', () => {
     @Component({
       selector: `sl-inner`,
-      standalone: true,
       imports: [ReactiveFormsModule],
       template: `<input [formControl]="control" />`,
       providers: [provideValueAccessor(InnerComponent)],
@@ -249,7 +244,6 @@ describe('ControlSynchronizer', () => {
     }
 
     @Component({
-      standalone: true,
       imports: [InnerComponent, ReactiveFormsModule],
       template: `<sl-inner [formControl]="control"></sl-inner>`,
     })
@@ -306,7 +300,6 @@ describe('ControlSynchronizer', () => {
 
     @Component({
       selector: 'sl-inner',
-      standalone: true,
       imports: [ReactiveFormsModule],
       template: `<input [formControl]="control" />`,
       providers: [provideValueAccessor(InnerComponent)],
@@ -323,7 +316,6 @@ describe('ControlSynchronizer', () => {
     }
 
     @Component({
-      standalone: true,
       imports: [InnerComponent, NgIf, ReactiveFormsModule],
       template: `<sl-inner *ngIf="showInner" [formControl]="control" />`,
     })

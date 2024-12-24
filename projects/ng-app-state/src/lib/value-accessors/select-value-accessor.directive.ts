@@ -17,5 +17,6 @@ import { provideValueAccessor } from '@s-libs/ng-core';
       useExisting: SelectValueAccessorDirective,
     },
   ],
+  standalone: false,
 })
 export class SelectValueAccessorDirective extends SelectControlValueAccessor {}

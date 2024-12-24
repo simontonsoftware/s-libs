@@ -7,7 +7,6 @@ import { WidePerformanceComponent } from './wide-performance/wide-performance.co
   templateUrl: './app-state-performance.component.html',
   styleUrl: './app-state-performance.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [WidePerformanceComponent, DeepPerformanceComponent],
 })
 export class AppStatePerformanceComponent {}

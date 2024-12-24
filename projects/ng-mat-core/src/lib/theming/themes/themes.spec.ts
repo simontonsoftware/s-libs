@@ -7,7 +7,6 @@ import { getStyle } from '../test-utils';
 describe('themes.scss', () => {
   it('includes themes', () => {
     @Component({
-      standalone: true,
       imports: [MatButtonModule],
       styleUrl: './minimal-config.spec.scss',
       template: `<button mat-button>Clickity click</button>`,
@@ -23,7 +22,6 @@ describe('themes.scss', () => {
 
   it('allows specifying only some components', () => {
     @Component({
-      standalone: true,
       imports: [MatButtonModule, MatToolbarModule],
       styleUrl: './only-button.spec.scss',
       template: `
@@ -42,7 +40,6 @@ describe('themes.scss', () => {
 
   it('allows specifying density', () => {
     @Component({
-      standalone: true,
       imports: [MatButtonModule],
       styleUrl: './custom-density.spec.scss',
       template: `<button mat-button></button>`,
@@ -57,7 +54,6 @@ describe('themes.scss', () => {
 
   it('allows passing in a custom palette key', () => {
     @Component({
-      standalone: true,
       imports: [MatToolbarModule],
       styleUrl: './custom-palette-key.spec.scss',
       template: `<mat-toolbar color="accent" />`,
@@ -73,7 +69,6 @@ describe('themes.scss', () => {
   describe('typography', () => {
     it('defaults to include typography', () => {
       @Component({
-        standalone: true,
         imports: [MatButtonModule],
         styleUrl: './minimal-config.spec.scss',
         template: `<button mat-button></button>`,
@@ -88,7 +83,6 @@ describe('themes.scss', () => {
 
     it('allows specifying typography', () => {
       @Component({
-        standalone: true,
         imports: [MatButtonModule],
         styleUrl: './custom-typography.spec.scss',
         template: `<button mat-button></button>`,
@@ -103,7 +97,6 @@ describe('themes.scss', () => {
 
     it('allows opting out of typography', () => {
       @Component({
-        standalone: true,
         imports: [MatButtonModule],
         styleUrl: './no-typography.spec.scss',
         template: `

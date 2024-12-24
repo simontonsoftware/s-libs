@@ -41,7 +41,6 @@ describe('AbstractStore', () => {
       }
 
       @Component({
-        standalone: true,
         template: `<sl-inner />`,
         imports: [InnerComponent],
         changeDetection: ChangeDetectionStrategy.OnPush,

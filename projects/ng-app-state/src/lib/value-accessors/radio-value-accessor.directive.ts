@@ -6,6 +6,7 @@ import { AbstractInputValueAccessorDirective } from './abstract-input-value-acce
 @Directive({
   selector: 'input[type=radio][nasModel]',
   providers: [provideValueAccessor(RadioValueAccessorDirective)],
+  standalone: false,
 })
 export class RadioValueAccessorDirective extends AbstractInputValueAccessorDirective {
   override async writeValue(obj: unknown): Promise<void> {

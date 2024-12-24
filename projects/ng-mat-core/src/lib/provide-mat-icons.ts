@@ -1,4 +1,8 @@
-import { APP_INITIALIZER, inject, Provider } from '@angular/core';
+import {
+  EnvironmentProviders,
+  inject,
+  provideAppInitializer,
+} from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -45,11 +49,9 @@ import { DomSanitizer } from '@angular/platform-browser';
  * 5. Delete any hard-coded colors (e.g. `fill="#000000"`)
  * 6. At this point your icon should be working. If you care to, you can delete unnecessary attributes from the SVG, such as `xmlns`, `width` and `height`. Experiment to see if anything else can be eliminated.
  */
-export function provideMatIcons(icons: string): Provider {
-  return {
-    provide: APP_INITIALIZER,
-    multi: true,
-    useFactory: (): VoidFunction => {
+export function provideMatIcons(icons: string): EnvironmentProviders {
+  return provideAppInitializer(() => {
+    const initializerFn = ((): VoidFunction => {
       const registry = inject(MatIconRegistry);
       const sanitizer = inject(DomSanitizer);
       return () => {
@@ -57,6 +59,7 @@ export function provideMatIcons(icons: string): Provider {
           sanitizer.bypassSecurityTrustHtml(`<svg><defs>${icons}</defs></svg>`),
         );
       };
-    },
-  };
+    })();
+    return initializerFn();
+  });
 }

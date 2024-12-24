@@ -14,7 +14,6 @@ import { NasModelStore } from './nas-model-store';
   templateUrl: './nas-model.component.html',
   styleUrl: './nas-model.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [AsyncPipe, FormsModule, NasModelModule, NgFor],
 })
 export class NasModelComponent {

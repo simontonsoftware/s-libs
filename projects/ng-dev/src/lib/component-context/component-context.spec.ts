@@ -86,7 +86,10 @@ describe('ComponentContext', () => {
 
     it('supports non-standalone components', () => {
       // eslint-disable-next-line @angular-eslint/prefer-standalone
-      @Component({ template: 'hi' })
+      @Component({
+        template: 'hi',
+        standalone: false,
+      })
       class ModulizedComponent {}
 
       const ctx = new ComponentContext(ModulizedComponent);
@@ -378,7 +381,6 @@ describe('ComponentContext class-level doc examples', () => {
     // A minimal app component with routing for demonstration purposes
     @Component({
       selector: 'app-root',
-      standalone: true,
       imports: [RouterOutlet, RouterLink],
       template: `
         <a routerLink="/first-page">First Page</a>

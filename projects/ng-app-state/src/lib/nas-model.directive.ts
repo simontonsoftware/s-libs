@@ -10,7 +10,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@s-libs/app-state';
 import { Subscription } from 'rxjs';
 
-@Directive({ selector: '[nasModel]' })
+@Directive({
+  selector: '[nasModel]',
+  standalone: false,
+})
 export class NasModelDirective<T> implements AfterViewInit, OnDestroy {
   #store!: Store<T> | null;
   #subscription?: Subscription;

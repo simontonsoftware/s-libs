@@ -5,7 +5,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   selector: 'sl-root',
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [RouterLink, RouterOutlet],
 })
 export class AppComponent {}

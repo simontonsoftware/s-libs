@@ -41,7 +41,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     makeChild: typeof buildChild,
   ) {
     super(
-      (childKey: any) =>
+      (childKey: any): Store<any> =>
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         this.activeChildren.get(childKey)?.values().next()?.value ??
         makeChild(getRootStore, this, childKey),

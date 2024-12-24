@@ -12,7 +12,6 @@ import { FormsModule } from '@angular/forms';
   selector: 'sl-deep-performance',
   templateUrl: './deep-performance.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [FormsModule],
 })
 export class DeepPerformanceComponent {

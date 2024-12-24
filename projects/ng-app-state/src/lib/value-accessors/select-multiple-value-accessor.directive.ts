@@ -14,5 +14,6 @@ import { provideValueAccessor } from '@s-libs/ng-core';
       useExisting: SelectMultipleValueAccessorDirective,
     },
   ],
+  standalone: false,
 })
 export class SelectMultipleValueAccessorDirective extends SelectMultipleControlValueAccessor {}

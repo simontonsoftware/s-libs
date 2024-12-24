@@ -31,7 +31,6 @@ export class SingleValueStore extends RootStore<any> {
 
 @Component({
   selector: 'nas-single-value',
-  standalone: true,
   imports: [CommonModule, NasModelModule],
 })
 export class SingleValueComponent extends StoreComponent<any> {
@@ -74,7 +73,6 @@ export const citySelectWithCustomCompareFnTemplate = `
 
 @Component({
   selector: 'nas-city',
-  standalone: true,
   imports: [CommonModule, NasModelModule, FormsModule],
   template: `
     <select [nasModel]="store('selectedCity')">
@@ -120,7 +118,6 @@ export const multipleCityWithCustomCompareFnTemplate = `
 
 @Component({
   selector: 'nas-multiple-city',
-  standalone: true,
   imports: [CommonModule, NasModelModule, FormsModule],
   template: `
     <select multiple [nasModel]="store('selectedCities')">
@@ -156,7 +153,6 @@ export class MenuStore extends RootStore<MenuState> {
 
 @Component({
   selector: 'nas-menu',
-  standalone: true,
   imports: [NasModelModule],
   template: `
     <form>
@@ -192,7 +188,6 @@ export class NameStore extends RootStore<NameState> {
 
 @Component({
   selector: 'nas-inner-name',
-  standalone: true,
   imports: [NasModelModule, FormsModule],
   template: `
     <input
@@ -232,7 +227,6 @@ export class InnerNameComponent implements ControlValueAccessor {
 
 @Component({
   selector: 'nas-ng-model-custom-wrapper',
-  standalone: true,
   imports: [CommonModule, NasModelModule, InnerNameComponent],
   template: `
     <nas-inner-name

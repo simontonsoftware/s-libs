@@ -20,6 +20,7 @@ import { provideValueAccessor } from '@s-libs/ng-core';
     '(compositionend)': '$any(this)._compositionEnd($event.target.value)',
   },
   providers: [provideValueAccessor(InputValueAccessorDirective)],
+  standalone: false,
 })
 export class InputValueAccessorDirective extends DefaultValueAccessor {
   constructor(

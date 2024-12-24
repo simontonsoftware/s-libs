@@ -1,8 +1,8 @@
 export {
   DEFAULT_OK_VALUE,
-  DialogButton,
-  DialogButtonColor,
-  DialogData,
+  type DialogButton,
+  type DialogButtonColor,
+  type DialogData,
   SL_DIALOG_DATA,
 } from './dialog.component';
 export { SlDialogHarness } from './sl-dialog.harness';

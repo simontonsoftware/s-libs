@@ -681,7 +681,6 @@ describe('NasModelDirective', () => {
 
   it('handles `null` for the store (for async pipe compatibility)', () => {
     @Component({
-      standalone: true,
       imports: [AsyncPipe, NasModelModule],
       template: `<input [nasModel]="store$ | async" />`,
     })
@@ -702,7 +701,6 @@ describe('NasModelDirective', () => {
 
   it('handles `null` for disabled (for async pipe compatibility)', () => {
     @Component({
-      standalone: true,
       imports: [AsyncPipe, NasModelModule],
       template: `<input
         [nasModel]="store('val')"

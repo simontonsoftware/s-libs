@@ -7,7 +7,6 @@ import { WidePerformanceComponent } from './wide-performance/wide-performance.co
   templateUrl: './signal-store-performance.component.html',
   styleUrl: './signal-store-performance.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [DeepPerformanceComponent, WidePerformanceComponent],
 })
 export class SignalStorePerformanceComponent {}

@@ -127,7 +127,6 @@ describe('spreadArrayStore()', () => {
 
       // vvvv documentation below
       @Component({
-        standalone: true,
         template: `
           @for (heroStore of heroStores(); track heroStore) {
             <app-hero [heroStore]="heroStore" />

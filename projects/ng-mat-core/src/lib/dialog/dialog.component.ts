@@ -70,7 +70,6 @@ export const DEFAULT_OK_VALUE = Symbol('OK');
 
 @Component({
   selector: 'sl-dialog',
-  standalone: true,
   imports: [MatButtonModule, MatDialogModule, NgComponentOutlet],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.scss',

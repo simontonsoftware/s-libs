@@ -7,6 +7,7 @@ import { AbstractInputValueAccessorDirective } from './abstract-input-value-acce
 @Directive({
   selector: 'input[type=number][nasModel]',
   providers: [provideValueAccessor(NumberValueAccessorDirective)],
+  standalone: false,
 })
 export class NumberValueAccessorDirective extends AbstractInputValueAccessorDirective {
   override registerOnChange(fn: (value: number | null) => void): void {

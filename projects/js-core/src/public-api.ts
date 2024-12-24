@@ -12,9 +12,9 @@ export * from './lib/time';
 export { assert } from './lib/assert';
 export { getCombinations } from './lib/get-combinations';
 export {
-  MigrateFunction,
+  type MigrateFunction,
   MigrationManager,
-  VersionedObject,
+  type VersionedObject,
 } from './lib/migration-manager';
 export { Persistence } from './lib/persistence';
 export { roundToMultipleOf } from './lib/round-to-multiple-of';

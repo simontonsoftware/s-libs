@@ -18,7 +18,6 @@ import { FormsModule } from '@angular/forms';
   selector: 'sl-wide-performance',
   templateUrl: './wide-performance.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [FormsModule],
 })
 export class WidePerformanceComponent {
