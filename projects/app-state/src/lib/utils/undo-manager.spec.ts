@@ -218,16 +218,16 @@ describe('UndoManager', () => {
       expectSingleCallAndReset(next, new State());
 
       store('counter').set(1);
-      expectSingleCallAndReset(next, { counter: 1 });
+      expectSingleCallAndReset(next, { ...new State(), counter: 1 });
 
       undoManager.undo();
       expectSingleCallAndReset(next, new State());
 
       undoManager.redo();
-      expectSingleCallAndReset(next, { counter: 1 });
+      expectSingleCallAndReset(next, { ...new State(), counter: 1 });
 
       store('counter').set(10);
-      expectSingleCallAndReset(next, { counter: 10 });
+      expectSingleCallAndReset(next, { ...new State(), counter: 10 });
 
       undoManager.reset();
       expect(next).not.toHaveBeenCalled();
@@ -238,7 +238,7 @@ describe('UndoManager', () => {
       const next = jasmine.createSpy();
 
       undoManager.state$.subscribe(next);
-      expectSingleCallAndReset(next, { counter: 1 });
+      expectSingleCallAndReset(next, { ...new State(), counter: 1 });
 
       undoManager.undo();
       expectSingleCallAndReset(next, new State());
@@ -374,9 +374,10 @@ describe('UndoManager', () => {
       expect(undoManager.lastApplicationStateToOverwrite).toBeUndefined();
 
       undoManager.undo();
-      expect(store.state()).toEqual({ counter: 1 });
+      expect(store.state()).toEqual({ ...new State(), counter: 1 });
       expect(undoManager.lastApplicationUndoOrRedo).toEqual('undo');
       expect(undoManager.lastApplicationStateToOverwrite).toEqual({
+        ...new State(),
         counter: 2,
       });
 
@@ -384,6 +385,7 @@ describe('UndoManager', () => {
       expect(store.state()).toEqual(new State());
       expect(undoManager.lastApplicationUndoOrRedo).toEqual('undo');
       expect(undoManager.lastApplicationStateToOverwrite).toEqual({
+        ...new State(),
         counter: 1,
       });
     });
@@ -427,14 +429,15 @@ describe('UndoManager', () => {
       undoManager.undo();
 
       undoManager.redo();
-      expect(store.state()).toEqual({ counter: 1 });
+      expect(store.state()).toEqual({ ...new State(), counter: 1 });
       expect(undoManager.lastApplicationUndoOrRedo).toEqual('redo');
       expect(undoManager.lastApplicationStateToOverwrite).toEqual(new State());
 
       undoManager.redo();
-      expect(store.state()).toEqual({ counter: 2 });
+      expect(store.state()).toEqual({ ...new State(), counter: 2 });
       expect(undoManager.lastApplicationUndoOrRedo).toEqual('redo');
       expect(undoManager.lastApplicationStateToOverwrite).toEqual({
+        ...new State(),
         counter: 1,
       });
     });

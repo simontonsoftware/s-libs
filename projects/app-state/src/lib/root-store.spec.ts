@@ -76,7 +76,11 @@ describe('RootStore', () => {
       });
 
       expect(next).toHaveBeenCalledTimes(2);
-      expect(store.state()).toEqual({ counter: 3, nested: { state: 6 } });
+      expect(store.state()).toEqual({
+        ...new TestState(),
+        counter: 3,
+        nested: { ...new InnerState(), state: 6 },
+      });
     });
 
     it('works when nested', () => {
@@ -135,9 +139,11 @@ describe('RootStore', () => {
           store('nested')('state').set(2);
         });
       });
-      expect(store.state()).toEqual(
-        jasmine.objectContaining({ counter: 1, nested: { state: 2 } }),
-      );
+      expect(store.state()).toEqual({
+        ...new TestState(),
+        counter: 1,
+        nested: { ...new InnerState(), state: 2 },
+      });
     });
   });
 

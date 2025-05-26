@@ -19,7 +19,12 @@ describe('LazyLoader', () => {
       class LazyService {}
       const bundle = { tokenMap: { LazyService } };
       const loader = new LazyLoader(Promise.resolve({ default: bundle }));
-      expectTypeOf(loader.inject).parameter(0).toEqualTypeOf<'LazyService'>();
+
+      // during upgrade to Angular 19, this workaround popped up
+      const p0 = {} as Parameters<typeof loader.inject>[0];
+      expectTypeOf(p0).toEqualTypeOf<'LazyService'>();
+      // expectTypeOf(loader.inject).parameter(0).toEqualTypeOf<'LazyService'>();
+
       expectTypeOf(loader.getToken).parameter(0).toEqualTypeOf<'LazyService'>();
     });
   });
