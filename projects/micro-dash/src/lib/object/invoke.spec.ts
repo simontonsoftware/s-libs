@@ -28,7 +28,7 @@ describe('invoke()', () => {
       // 1 element path
       //
 
-      expectTypeOf(invoke({ a: () => 1 }, ['a'])).toEqualTypeOf<number>();
+      expectTypeOf(invoke({ a: () => 1 }, ['a'])).toEqualTypeOf<1>();
       expectTypeOf(
         invoke({ a: (a: boolean) => a }, ['a'], true),
       ).toEqualTypeOf<boolean>();
@@ -45,7 +45,7 @@ describe('invoke()', () => {
 
       expectTypeOf(
         invoke({ a: { b: () => 1 } }, ['a', 'b']),
-      ).toEqualTypeOf<number>();
+      ).toEqualTypeOf<1>();
       expectTypeOf(
         invoke({ a: { b: (a: boolean) => a } }, ['a', 'b'], true),
       ).toEqualTypeOf<boolean>();
@@ -63,10 +63,10 @@ describe('invoke()', () => {
       // 3 element path
       //
 
-      const path3: ['a', 'b', 'c'] = ['a', 'b', 'c'];
+      const path3 = ['a', 'b', 'c'] as const;
       expectTypeOf(
         invoke({ a: { b: { c: () => 1 } } }, path3),
-      ).toEqualTypeOf<number>();
+      ).toEqualTypeOf<1>();
       expectTypeOf(
         invoke({ a: { b: { c: (a: boolean) => a } } }, path3, true),
       ).toEqualTypeOf<boolean>();
@@ -83,33 +83,40 @@ describe('invoke()', () => {
         invoke({} as Nil | { a: { b: { c: () => string } } }, path3),
       ).toEqualTypeOf<string | undefined>();
 
-      // //
-      // // 4 element path
-      // //
       //
-      // const path4: ["a", "b", "c", "d"] = ["a", "b", "c", "d"];
-      // // $ExpectType number
-      // invoke({ a: { b: { c: { d: () => 1 } } } }, path4);
-      // // $ExpectType boolean
-      // invoke({ a: { b: { c: { d: (a: boolean) => a } } } }, path4, true);
-      // // $ExpectType string | undefined
-      // invoke({} as { a: { b: { c: { d?: () => string } } } }, path4);
-      // // $ExpectType string | undefined
-      // invoke({} as { a: { b: { c?: { d: () => string } } } }, path4);
-      // // $ExpectType string | undefined
-      // invoke({} as { a: { b?: { c: { d: () => string } } } }, path4);
-      // // $ExpectType string | undefined
-      // invoke({} as { a?: { b: { c: { d: () => string } } } }, path4);
-      // // $ExpectType string | undefined
-      // invoke({} as { a: { b: { c: { d: () => string } } } } | Nil, path4);
+      // 4 element path
+      //
+
+      const path4: ['a', 'b', 'c', 'd'] = ['a', 'b', 'c', 'd'];
+      expectTypeOf(
+        invoke({ a: { b: { c: { d: () => 1 } } } }, path4),
+      ).toEqualTypeOf<1>();
+      expectTypeOf(
+        invoke({ a: { b: { c: { d: (a: boolean) => a } } } }, path4, true),
+      ).toEqualTypeOf<boolean>();
+      expectTypeOf(
+        invoke({} as { a: { b: { c: { d?: () => string } } } }, path4),
+      ).toEqualTypeOf<string | undefined>();
+      expectTypeOf(
+        invoke({} as { a: { b: { c?: { d: () => string } } } }, path4),
+      ).toEqualTypeOf<string | undefined>();
+      expectTypeOf(
+        invoke({} as { a: { b?: { c: { d: () => string } } } }, path4),
+      ).toEqualTypeOf<string | undefined>();
+      expectTypeOf(
+        invoke({} as { a?: { b: { c: { d: () => string } } } }, path4),
+      ).toEqualTypeOf<string | undefined>();
+      expectTypeOf(
+        invoke({} as { a: { b: { c: { d: () => string } } } } | Nil, path4),
+      ).toEqualTypeOf<string | undefined>();
 
       //
       // fallback: n element path
       //
 
       const pathN: string[] = ['a'];
-      // $ExpectType any
-      invoke({ a: () => 1 }, pathN);
+      expectTypeOf(invoke({ a: () => 1 }, pathN)).toEqualTypeOf<any>();
+      expectTypeOf(invoke({ a: () => 1 }, pathN, true)).toEqualTypeOf<any>();
     });
   });
 
