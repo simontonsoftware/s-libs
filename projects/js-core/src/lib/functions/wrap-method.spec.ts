@@ -1,4 +1,5 @@
-import { expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-dev';
+import { expectTypeOf } from 'expect-type';
 import { wrapMethod } from './wrap-method';
 
 describe('wrapMethod()', () => {
@@ -75,5 +76,35 @@ describe('wrapMethod()', () => {
 
     expectSingleCallAndReset(consoleError, 'blah');
     unwrap();
+  });
+
+  it('has fancy typing', () => {
+    staticTest(() => {
+      expectTypeOf(
+        wrapMethod({ method(): void {} }, 'method', {}),
+      ).toEqualTypeOf<() => void>();
+      // @ts-expect-error
+      wrapMethod({ method(): void {} }, 'notTheMethod', {});
+      expectTypeOf(
+        wrapMethod({ method(_arg: string): void {} }, 'method', {
+          before(_arg: string): void {},
+        }),
+      ).toEqualTypeOf<() => void>();
+      wrapMethod({ method(_arg: string): void {} }, 'method', {
+        // @ts-expect-error arg should be string
+        before(_arg: number): void {},
+      });
+
+      // Production bug: this was showing an error because the typing thought it was trying to wrap the wrong method
+      class EventTrackingService {
+        sendError(_message: string): void {}
+        track(_name: string, _category: string): void {}
+      }
+      expectTypeOf(
+        wrapMethod(new EventTrackingService(), 'track', {
+          before(_name: string, _category: string): void {},
+        }),
+      ).toEqualTypeOf<() => void>();
+    });
   });
 });

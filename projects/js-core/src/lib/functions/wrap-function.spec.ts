@@ -1,4 +1,6 @@
+import { noop } from '@s-libs/micro-dash';
 import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-dev';
+import { expectTypeOf } from 'expect-type';
 import { wrapFunction } from './wrap-function';
 
 describe('wrapFunction()', () => {
@@ -155,6 +157,12 @@ describe('wrapFunction()', () => {
         return 1;
       }
 
+      expectTypeOf(wrapFunction(noop, {})).toEqualTypeOf<
+        (this: unknown) => void
+      >();
+      expectTypeOf(wrapFunction(f, {})).toEqualTypeOf<
+        (this: O, a1: string, a2: Date) => number
+      >();
       wrapFunction(f, {
         // @ts-expect-error wrong "this" type
         // eslint-disable-next-line @typescript-eslint/no-empty-function
