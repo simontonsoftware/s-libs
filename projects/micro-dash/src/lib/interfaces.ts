@@ -58,6 +58,13 @@ export type DeepPartial<T> =
 // misc
 export type Evaluate<T> = T extends infer I ? { [K in keyof I]: T[K] } : never;
 
+// https://stackoverflow.com/a/50375286/1836506
+export type UnionToIntersection<U> = (
+  U extends any ? (k: U) => void : never
+) extends (k: infer I) => void
+  ? I
+  : never;
+
 // very special-case
 export type Drop1Arg<T extends Function> = T extends (
   arg1: any,

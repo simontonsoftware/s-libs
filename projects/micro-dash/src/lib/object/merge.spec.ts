@@ -1,4 +1,5 @@
-import { reduce } from '../collection/reduce';
+import { staticTest } from '@s-libs/ng-dev';
+import { expectTypeOf } from 'expect-type';
 import { merge } from './';
 
 describe('merge()', () => {
@@ -9,6 +10,51 @@ describe('merge()', () => {
 
     expect(merge(o1, o2).c).toBe(origC);
     expect(merge(o2, o1).c).toBe(origC);
+  });
+
+  it('has fancy typing', () => {
+    staticTest(() => {
+      // simple properties
+      expectTypeOf(merge({ a: 1 })).toEqualTypeOf<{ a: number }>();
+      expectTypeOf(merge({ a: 1 }, { b: '2' })).toEqualTypeOf<
+        { a: number } & { b: string }
+      >();
+      expectTypeOf(merge({}, { a: 1 }, { b: '2' })).toEqualTypeOf<
+        { a: number } & { b: string }
+      >();
+
+      // deep merging
+      expectTypeOf(
+        merge({ a: { b: 1 } }, { a: { c: 2 } }),
+      ).branded.toEqualTypeOf<{
+        a: { b: number; c: number };
+      }>();
+
+      // passing in array
+      interface Elem {
+        a: number;
+        b: { c: string };
+      }
+      const elem = {} as Elem;
+      const partE = {} as Partial<Elem>;
+      expectTypeOf(merge(elem, ...([] as Elem[]))).toEqualTypeOf<Elem>();
+      expectTypeOf(merge(partE, ...([] as Array<Partial<Elem>>))).toEqualTypeOf<
+        Partial<Elem>
+      >();
+
+      // @ts-expect-error don't allow mutating type of `a`
+      merge({ a: 1 }, { a: 'b' });
+      // @ts-expect-error don't allow mutating type of nestest `b`
+      merge({ a: { b: 1 } }, { a: { b: 'b' } });
+      // @ts-expect-error require objects
+      merge(1);
+      // @ts-expect-error require objects
+      merge(null);
+      // @ts-expect-error require objects
+      merge(undefined);
+      // @ts-expect-error require objects
+      merge({ a: 1 }, 2);
+    });
   });
 
   //
@@ -51,19 +97,11 @@ describe('merge()', () => {
   // stolen from https://github.com/lodash/lodash
   //
 
-  it('should throws strict mode errors', () => {
-    const object = Object.freeze({ a: undefined });
+  it('should throw strict mode errors', () => {
+    const object = Object.freeze({ a: 1 });
     expect(() => {
       merge(object, { a: 1 });
     }).toThrowError(/^Cannot assign to read only property/u);
-  });
-
-  it('should work as an iteratee for methods like `reduce`', () => {
-    expect(reduce([{ a: 1 }, { b: 2 }, { c: 3 }], merge, { a: '0' })).toEqual({
-      a: 1,
-      b: 2,
-      c: 3,
-    });
   });
 
   it('should merge `source` into `object`', () => {
@@ -91,14 +129,15 @@ describe('merge()', () => {
   });
 
   it('should assign `null` values', () => {
-    expect(merge({ a: 1 }, { a: null })).toEqual({ a: null } as any);
+    const obj: { a: number | null } = { a: 1 };
+    expect(merge(obj, { a: null })).toEqual({ a: null });
   });
 
   it('should treat sparse arrays as dense', () => {
     const array = [1];
     array[2] = 3;
 
-    const actual = merge([], array);
+    const actual = merge([] as number[], array);
 
     expect('1' in actual).toBeTruthy();
     expect(actual as any).toEqual([1, undefined, 3]);
