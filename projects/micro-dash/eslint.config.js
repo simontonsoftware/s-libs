@@ -13,14 +13,10 @@ module.exports = tseslint.config(
     },
     rules: {
       // It would be nice to remove these and fix up the code. Or at least put more thought into it before declaring these exceptions final.
-      "@typescript-eslint/ban-types": [
-        "error",
-        {
-          types: { Function: false, object: false, "{}": false },
-          extendDefaults: true,
-        },
-      ],
       "@typescript-eslint/no-empty-object-type": "off",
+
+      // The typing gets very verbose when handling rest params. It may be possible to rewrite these with more modern TypeScript, so this could be revisited in the future.
+      "@typescript-eslint/max-params": "off",
 
       // lodash tests that we copy commonly violate these
       "@typescript-eslint/no-confusing-void-expression": "off",
@@ -32,9 +28,11 @@ module.exports = tseslint.config(
       "prefer-regex-literals": "off",
       "prefer-rest-params": "off",
 
-      // we often define typying carefully in overloads, and use `any` in the code
+      // we often define typing carefully in overloads, and use `any` or `Function` in the code
+      "@typescript-eslint/no-unsafe-type-assertion": "off",
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-unsafe-function-type": "off",
 
       // we knowingly violate some standards for the sake of smaller bundle size
       "@typescript-eslint/restrict-plus-operands": "off",

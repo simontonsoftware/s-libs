@@ -24,7 +24,7 @@ describe('wrapFunction()', () => {
     before = jasmine.createSpy();
     around = jasmine.createSpy().and.callFake(
       (
-        // eslint-disable-next-line @typescript-eslint/ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         orig: Function,
         ...args: any[]
       ): [any, symbol] => [

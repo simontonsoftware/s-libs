@@ -26,7 +26,6 @@ describe('isString()', () => {
   });
 
   it('should not pass for undefined', () => {
-    /* eslint-disable no-undefined */
     expect(isString(undefined)).toBe(false);
   });
 

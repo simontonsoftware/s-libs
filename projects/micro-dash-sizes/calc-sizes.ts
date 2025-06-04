@@ -85,7 +85,7 @@ function build(inputPath: string): void {
   // lodash files come first, so print only on those
   const lodashIndex = importPath.indexOf('.lodash');
   if (lodashIndex > 0) {
-    console.log(importPath.substr(0, lodashIndex));
+    console.log(importPath.substring(0, lodashIndex));
   }
 
   writeFileSync(path.join(mainDir, 'main.ts'), `import "${importPath}";`);

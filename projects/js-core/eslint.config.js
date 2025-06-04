@@ -29,9 +29,17 @@ module.exports = tseslint.config(
         },
       ],
 
-      // several utility functions define typying carefully in overloads, and use `any` in the code
+      // several utility functions define typing carefully in overloads, and use `any` in the code
+      "@typescript-eslint/no-unsafe-type-assertion": "off",
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/no-unsafe-return": "off",
+    },
+  },
+  {
+    files: ["**/*.spec.ts"],
+    rules: {
+      // tests use empty functions just to satisfy parameters
+      "@typescript-eslint/no-empty-function": "off",
     },
   },
   {

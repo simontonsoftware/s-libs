@@ -28,6 +28,11 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
+
+      // this library hides some type gymnastics from the user
+      "@typescript-eslint/no-unsafe-type-assertion": "off",
+      // this library a bit legacy - it's built around observables not signals
+      "@angular-eslint/prefer-signals": "off",
     },
   },
   {

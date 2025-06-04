@@ -12,11 +12,11 @@ import { forEach } from './for-each';
 export function keyBy<T, K extends PropertyKey>(
   array: Nil | readonly T[],
   iteratee: ValueIteratee<T, K>,
-): IfIndexType<K, { [key in K]: T }, { [key in K]?: T }>;
+): IfIndexType<K, Record<K, T>, Partial<Record<K, T>>>;
 export function keyBy<T, K extends PropertyKey>(
   object: Nil | T,
   iteratee: ValueIteratee<T[keyof T], K>,
-): IfIndexType<K, { [key in K]: T[keyof T] }, { [key in K]?: T[keyof T] }>;
+): IfIndexType<K, Record<K, T[keyof T]>, Partial<Record<K, T[keyof T]>>>;
 
 export function keyBy(collection: any, iteratee: Function): any {
   const obj: any = {};

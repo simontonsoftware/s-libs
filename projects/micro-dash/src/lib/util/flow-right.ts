@@ -6,8 +6,8 @@ type FlowRight<
   Rest extends Function[],
 > = Rest extends []
   ? (...a: In) => Next
-  : Rest extends [...infer Rest extends Function[], (a: Next) => infer Cur]
-    ? FlowRight<In, Cur, Rest>
+  : Rest extends [...infer Rest2 extends Function[], (a: Next) => infer Cur2]
+    ? FlowRight<In, Cur2, Rest2>
     : never;
 
 /**

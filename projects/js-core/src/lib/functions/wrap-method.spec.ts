@@ -83,7 +83,7 @@ describe('wrapMethod()', () => {
       expectTypeOf(
         wrapMethod({ method(): void {} }, 'method', {}),
       ).toEqualTypeOf<() => void>();
-      // @ts-expect-error
+      // @ts-expect-error not a valid method name
       wrapMethod({ method(): void {} }, 'notTheMethod', {});
       expectTypeOf(
         wrapMethod({ method(_arg: string): void {} }, 'method', {

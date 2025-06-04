@@ -54,7 +54,7 @@ describe('ChildStore', () => {
       expect(store.state().optional!.left).toBe(undefined);
 
       store('optional').delete();
-      expect(store.state() as any).not.toBe(undefined);
+      expect(store.state()).toBeDefined();
       expect(store.state().optional).toBe(undefined);
     });
   });

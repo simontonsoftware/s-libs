@@ -634,7 +634,7 @@ describe('value accessors', () => {
   });
 });
 
-// `nasModel` is tested pretty thoroughly above, by the tests adapted from angular's suite. Here we hit a few more cases to complete code coverage.
+// `nasModel` is tested pretty thoroughly above, by the tests adapted from Angular's suite. Here we hit a few more cases to complete code coverage.
 describe('NasModelDirective', () => {
   it('can bind to different store objects over time', fakeAsync(() => {
     const store = initTest(MenuComponent, MenuStore, {

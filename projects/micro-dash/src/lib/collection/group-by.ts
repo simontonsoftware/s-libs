@@ -11,7 +11,7 @@ import { transform } from '../object/transform';
 export function groupBy<T, K extends PropertyKey>(
   collection: Nil | ObjectWith<T> | readonly T[],
   iteratee: ValueIteratee<T, K>,
-): { [k in K]: IfIndexType<K, T[], T[] | undefined> } {
+): Record<K, IfIndexType<K, T[], T[] | undefined>> {
   return transform(
     collection as any,
     (accumulator, value: any) => {

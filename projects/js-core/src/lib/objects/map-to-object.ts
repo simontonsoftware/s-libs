@@ -1,10 +1,10 @@
 import { transform } from '@s-libs/micro-dash';
 import {
   ArrayIteratee,
-  Prettify,
   Nil,
   ObjectIteratee,
   PartialExceptIndexes,
+  Prettify,
 } from '../interfaces';
 
 /**
@@ -24,11 +24,11 @@ import {
 export function mapToObject<I, K extends keyof any, V>(
   array: Nil | readonly I[],
   iteratee: ArrayIteratee<I, Readonly<[K, V]>>,
-): Prettify<PartialExceptIndexes<{ [k in K]: V }>>;
+): Prettify<PartialExceptIndexes<Record<K, V>>>;
 export function mapToObject<T, K extends keyof any, V>(
   object: Nil | T,
   iteratee: ObjectIteratee<T, Readonly<[K, V]>>,
-): Prettify<PartialExceptIndexes<{ [k in K]: V }>>;
+): Prettify<PartialExceptIndexes<Record<K, V>>>;
 
 export function mapToObject(collection: any, iteratee: any): any {
   return transform(collection, (accumulator: any, origValue, keyOrIndex) => {

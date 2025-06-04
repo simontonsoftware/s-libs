@@ -5,7 +5,6 @@ import { provideValueAccessor } from '@s-libs/ng-core';
 /** @hidden */
 @Directive({
   selector: 'select:not([multiple])[nasModel]',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '(change)': 'onChange($event.target.value)',
     '(blur)': 'onTouched()',

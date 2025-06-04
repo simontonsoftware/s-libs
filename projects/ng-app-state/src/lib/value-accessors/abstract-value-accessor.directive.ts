@@ -9,14 +9,14 @@ export abstract class AbstractValueAccessorDirective<T extends HTMLElement>
   onChangeFn!: (value: any) => void;
   onTouchedFn = noop;
 
-  private elementRef: ElementRef;
+  private elementRef: ElementRef<T>;
 
   constructor(injector: Injector) {
     this.elementRef = injector.get(ElementRef);
   }
 
   protected get element(): T {
-    return this.elementRef.nativeElement as T;
+    return this.elementRef.nativeElement;
   }
 
   registerOnChange(fn: (value: any) => void): void {

@@ -4,7 +4,7 @@ import { curry, head, identity } from 'lodash';
 import { flowRight } from './flow-right';
 
 describe('flowRight()', () => {
-  const two = () => 2;
+  const two = (): number => 2;
   const add = (x: number, y: number): number => x + y;
   const square = (x: number): number => x * x;
   const fixed = (n: number): string => n.toFixed(1);

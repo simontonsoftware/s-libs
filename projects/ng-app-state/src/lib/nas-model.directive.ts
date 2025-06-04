@@ -1,54 +1,40 @@
-import {
-  AfterViewInit,
-  Directive,
-  Inject,
-  Input,
-  OnDestroy,
-  Self,
-} from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AfterViewInit, Directive, effect, inject, input } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@s-libs/app-state';
-import { Subscription } from 'rxjs';
+import { DirectiveSuperclass } from '@s-libs/ng-core';
 
-@Directive({
-  selector: '[nasModel]',
-  standalone: false,
-})
-export class NasModelDirective<T> implements AfterViewInit, OnDestroy {
-  #store!: Store<T> | null;
-  #subscription?: Subscription;
-  #valueAccessor: ControlValueAccessor;
+@Directive({ selector: '[nasModel]', standalone: false })
+export class NasModelDirective<T>
+  extends DirectiveSuperclass
+  implements AfterViewInit
+{
+  protected readonly nasModel = input.required<Store<T> | null>();
+  protected readonly disabled = input(false);
+  #valueAccessor = inject(NG_VALUE_ACCESSOR, { self: true })[0];
 
-  constructor(
-    @Self()
-    @Inject(NG_VALUE_ACCESSOR)
-    valueAccessors: ControlValueAccessor[],
-  ) {
-    this.#valueAccessor = valueAccessors[0];
-  }
+  constructor() {
+    super();
 
-  @Input()
-  set nasModel(store: Store<T> | null) {
-    this.#subscription?.unsubscribe();
+    effect(() => {
+      this.unsubscribe();
 
-    this.#store = store;
-    this.#subscription = store?.$.subscribe((value) => {
-      this.#valueAccessor.writeValue(value);
+      const store = this.nasModel();
+      if (store) {
+        this.manage(
+          store.$.subscribe((value) => {
+            this.#valueAccessor.writeValue(value);
+          }),
+        );
+      }
     });
-  }
-
-  @Input()
-  set disabled(isDisabled: boolean | null) {
-    this.#valueAccessor.setDisabledState?.(isDisabled ?? false);
+    effect(() => {
+      this.#valueAccessor.setDisabledState?.(this.disabled());
+    });
   }
 
   ngAfterViewInit(): void {
     this.#valueAccessor.registerOnChange((value: T) => {
-      this.#store?.set(value);
+      this.nasModel()?.set(value);
     });
-  }
-
-  ngOnDestroy(): void {
-    this.#subscription?.unsubscribe();
   }
 }

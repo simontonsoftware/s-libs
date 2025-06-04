@@ -16,19 +16,19 @@ import { mapToObject } from './map-to-object';
 export function mapAsKeys<K extends keyof any, V>(
   array: K[],
   iteratee: ArrayIteratee<K, V>,
-): { [k in K]: V };
+): Record<K, V>;
 export function mapAsKeys<K extends keyof any, V>(
   array: K[] | Nil,
   iteratee: ArrayIteratee<K, V>,
-): EmptyObject | { [k in K]: V };
+): EmptyObject | Record<K, V>;
 export function mapAsKeys<T extends Record<keyof T, keyof any>, V>(
   object: T,
   iteratee: ObjectIteratee<T, V>,
-): { [k in T[keyof T]]: V };
+): Record<T[keyof T], V>;
 export function mapAsKeys<T extends Record<keyof T, keyof any>, V>(
   object: Nil | T,
   iteratee: ObjectIteratee<T, V>,
-): EmptyObject | { [k in T[keyof T]]: V };
+): EmptyObject | Record<T[keyof T], V>;
 
 export function mapAsKeys(collection: any, iteratee: any): any {
   return mapToObject(collection, (value, keyOrIndex) => [

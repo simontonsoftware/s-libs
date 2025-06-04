@@ -2,8 +2,8 @@ import { identity } from './identity';
 
 type Flow<In extends any[], Next, Rest extends Function[]> = Rest extends []
   ? (...a: In) => Next
-  : Rest extends [(a: Next) => infer Cur, ...infer Rest extends Function[]]
-    ? Flow<In, Cur, Rest>
+  : Rest extends [(a: Next) => infer Next2, ...infer Rest2 extends Function[]]
+    ? Flow<In, Next2, Rest2>
     : never;
 
 /**

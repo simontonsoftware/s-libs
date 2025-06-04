@@ -2,8 +2,6 @@ import { bind } from 'lodash';
 import { ObjectWith } from '../interfaces';
 import { curry } from './curry';
 
-/* eslint-disable @typescript-eslint/max-params */
-
 describe('curry()', () => {
   //
   // stolen from https://github.com/lodash/lodash

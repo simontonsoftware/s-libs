@@ -67,7 +67,6 @@ describe('clone()', () => {
     'objects with object values': { b: ['B'], c: { C: 1 } },
   };
   for (const [kind, object] of toPairs(clonable)) {
-    // eslint-disable-next-line @typescript-eslint/no-loop-func
     it(`should clone ${kind}`, () => {
       const actual = clone(object);
 

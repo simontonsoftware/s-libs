@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/max-params
 export function doReduce(
   iterationFn: Function,
   collection: any,
