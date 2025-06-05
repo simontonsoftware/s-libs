@@ -13,6 +13,7 @@ export function mapAndCacheElements<UpstreamType, DownstreamType>(
 ): OperatorFunction<UpstreamType | null | undefined, DownstreamType[]> {
   let cache = new Map<any, DownstreamType>();
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return map((upstreamItems: any) => {
     const nextCache = new Map<any, DownstreamType>();
 
@@ -34,5 +35,5 @@ export function mapAndCacheElements<UpstreamType, DownstreamType>(
 
     cache = nextCache;
     return downstreamItems;
-  }) as OperatorFunction<UpstreamType | null | undefined, DownstreamType[]>;
+  });
 }

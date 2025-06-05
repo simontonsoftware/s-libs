@@ -22,10 +22,12 @@ export function findButton(
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters -- this popped up during upgrade to Angular 19 and is not worth migrating now
 export function find<T extends Element>(
   fixture: ComponentFixture<unknown>,
   cssSelector: string,
 ): T {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- this popped up during upgrade to Angular 19 and is not worth migrating now
   const found = fixture.nativeElement.querySelector(cssSelector) as T | null;
   if (found === null) {
     throw new Error(`could not find ${cssSelector}`);
@@ -35,8 +37,7 @@ export function find<T extends Element>(
 }
 
 export function findDirective<T>(ctx: ComponentContext<any>, type: Type<T>): T {
-  return ctx.fixture.debugElement.query(By.directive(type))
-    .componentInstance as T;
+  return ctx.fixture.debugElement.query(By.directive(type)).componentInstance;
 }
 
 export function click(element: Element): void {

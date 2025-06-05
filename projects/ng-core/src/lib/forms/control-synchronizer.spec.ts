@@ -1,5 +1,4 @@
-import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import {
   FormControl,
   ReactiveFormsModule,
@@ -99,7 +98,7 @@ describe('ControlSynchronizer', () => {
     ctx.run(async () => {
       const outer = ctx.getComponentInstance();
       const inner = findDirective(ctx, InnerComponent);
-      const input = find<HTMLInputElement>(ctx.fixture, 'input');
+      const inputEl = find<HTMLInputElement>(ctx.fixture, 'input');
 
       // without sync runs: inner outer inner
       expect(inner.control.errors).toEqual({ outerSync: true });
@@ -109,14 +108,14 @@ describe('ControlSynchronizer', () => {
       // console.log('------------------------------------- outer off, inner on');
       outer.syncError = false;
       inner.syncError = true;
-      setValue(input, '1');
+      setValue(inputEl, '1');
       expect(inner.control.errors).toEqual({ innerSync: true });
       expect(outer.control.errors).toEqual({ innerSync: true });
 
       // without sync runs: inner outer
       // console.log('----------------------------------------------- inner off');
       inner.syncError = false;
-      setValue(input, '2');
+      setValue(inputEl, '2');
       expect(inner.control.errors).toBe(null);
       expect(outer.control.errors).toBe(null);
 
@@ -124,7 +123,7 @@ describe('ControlSynchronizer', () => {
       // without sync runs: inner outer
       // console.log('------------------------------------------------ inner on');
       inner.syncError = true;
-      setValue(input, '3');
+      setValue(inputEl, '3');
       expect(inner.control.errors).toEqual({ innerSync: true });
       expect(outer.control.errors).toEqual({ innerSync: true });
 
@@ -133,7 +132,7 @@ describe('ControlSynchronizer', () => {
       // console.log('------------------------------------- outer on, inner off');
       outer.syncError = true;
       inner.syncError = false;
-      setValue(input, '4');
+      setValue(inputEl, '4');
       expect(inner.control.errors).toEqual({ outerSync: true });
       expect(outer.control.errors).toEqual({ outerSync: true });
     });
@@ -168,7 +167,7 @@ describe('ControlSynchronizer', () => {
     ctx.run(async () => {
       const outer = ctx.getComponentInstance();
       const inner = findDirective(ctx, InnerComponent);
-      const input = find<HTMLInputElement>(ctx.fixture, 'input');
+      const inputEl = find<HTMLInputElement>(ctx.fixture, 'input');
       outer.failOnNeedlessAsync = true;
       inner.failOnNeedlessAsync = true;
 
@@ -179,21 +178,21 @@ describe('ControlSynchronizer', () => {
       expect(outer.control.errors).toEqual({ innerAsync: true });
 
       // console.log('------------------------------------- outer on, inner off');
-      setValue(input, '2');
+      setValue(inputEl, '2');
       inner.flushAsyncWith(false);
       outer.flushAsyncWith(true);
       expect(inner.control.errors).toEqual({ outerAsync: true });
       expect(outer.control.errors).toEqual({ outerAsync: true });
 
       // console.log('----------------------------------------------- outer off');
-      setValue(input, '3');
+      setValue(inputEl, '3');
       outer.flushAsyncWith(false);
       inner.flushAsyncWith(false);
       expect(inner.control.errors).toBe(null);
       expect(outer.control.errors).toBe(null);
 
       // console.log('------------------------------------------------ outer on');
-      setValue(input, '4');
+      setValue(inputEl, '4');
       inner.flushAsyncWith(false);
       outer.flushAsyncWith(true);
       expect(inner.control.errors).toEqual({ outerAsync: true });
@@ -201,7 +200,7 @@ describe('ControlSynchronizer', () => {
 
       // bug during dev
       // console.log('------------------------------------- outer off, inner on');
-      setValue(input, '5');
+      setValue(inputEl, '5');
       outer.flushAsyncWith(false);
       inner.flushAsyncWith(true);
       expect(inner.control.errors).toEqual({ innerAsync: true });
@@ -257,7 +256,7 @@ describe('ControlSynchronizer', () => {
     ctx.run(async () => {
       const outer = ctx.getComponentInstance();
       const inner = findDirective(ctx, InnerComponent);
-      const input = find<HTMLInputElement>(ctx.fixture, 'input');
+      const inputEl = find<HTMLInputElement>(ctx.fixture, 'input');
 
       expect(inner.control.errors).toEqual({ innerSync: true });
       expect(outer.control.errors).toEqual({ outerSync: true });
@@ -281,7 +280,7 @@ describe('ControlSynchronizer', () => {
 
       inner.syncError = false;
       outer.syncError = false;
-      setValue(input, '1');
+      setValue(inputEl, '1');
       expect(inner.control.errors).toEqual({ outerSync: true });
       expect(outer.control.errors).toEqual({ innerSync: true });
 
@@ -316,11 +315,13 @@ describe('ControlSynchronizer', () => {
     }
 
     @Component({
-      imports: [InnerComponent, NgIf, ReactiveFormsModule],
-      template: `<sl-inner *ngIf="showInner" [formControl]="control" />`,
+      imports: [InnerComponent, ReactiveFormsModule],
+      template: `@if (showInner()) {
+        <sl-inner [formControl]="control" />
+      }`,
     })
     class OuterComponent extends WrappedControlSuperclass<string | null> {
-      @Input() showInner!: boolean;
+      readonly showInner = input.required<boolean>();
       control = new FormControl('');
     }
 

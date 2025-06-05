@@ -34,7 +34,7 @@ export function cache<T>(): MonoTypeOperatorFunction<T> {
       // teardown logic
       return (): void => {
         subscription.unsubscribe();
-        if (middleMan!.observers.length === 0) {
+        if (!middleMan!.observed) {
           upstreamSubscription.unsubscribe();
           middleMan = undefined;
         }

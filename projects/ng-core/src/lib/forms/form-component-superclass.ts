@@ -29,6 +29,7 @@ import { DirectiveSuperclass } from '../directive-superclass';
  * ```
  */
 export abstract class FormComponentSuperclass<T>
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- if `DirectiveSuperclass` is removed, this will extend InjectableSuperclass. All methods on `DirectiveSuperclass` are marked deprecated to warn users.
   extends DirectiveSuperclass
   implements ControlValueAccessor
 {
@@ -43,23 +44,23 @@ export abstract class FormComponentSuperclass<T>
 
   #changeDetectorRef = inject(ChangeDetectorRef);
 
-  /** Called as angular propagates value changes to this `ControlValueAccessor`. You normally do not need to use it. */
+  /** Called as Angular propagates value changes to this `ControlValueAccessor`. You normally do not need to use it. */
   writeValue(value: T): void {
     this.handleIncomingValue(value);
     this.#changeDetectorRef.markForCheck();
   }
 
-  /** Called as angular sets up the binding to this `ControlValueAccessor`. You normally do not need to use it. */
+  /** Called as Angular sets up the binding to this `ControlValueAccessor`. You normally do not need to use it. */
   registerOnChange(fn: (value: T) => void): void {
     this.emitOutgoingValue = fn;
   }
 
-  /** Called as angular sets up the binding to this `ControlValueAccessor`. You normally do not need to use it. */
+  /** Called as Angular sets up the binding to this `ControlValueAccessor`. You normally do not need to use it. */
   registerOnTouched(fn: VoidFunction): void {
     this.onTouched = fn;
   }
 
-  /** Called as angular propagates disabled changes to this `ControlValueAccessor`. You normally do not need to use it. */
+  /** Called as Angular propagates disabled changes to this `ControlValueAccessor`. You normally do not need to use it. */
   setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
     this.#changeDetectorRef.markForCheck();

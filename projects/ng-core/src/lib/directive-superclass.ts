@@ -11,7 +11,11 @@ import { BehaviorSubject, merge, Observable, of, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { InjectableSuperclass } from './injectable-superclass';
 
+/* eslint-disable @typescript-eslint/no-deprecated -- this class itself is deprecated */
+
 /**
+ * @deprecated This class may be removed in a future version. Its purpose beyond {@link InjectableSuperclass} is now handled by Angular elegantly with signals. Consider migrating to signal inputs.
+ *
  * Extend this when creating a directive (including a component, which is a kind of directive) to gain access to the helpers demonstrated below.
  *
  * ```ts
@@ -46,17 +50,16 @@ import { InjectableSuperclass } from './injectable-superclass';
  */
 // maybe this won't need the fake selector after https://github.com/angular/angular/issues/36427
 // eslint-disable-next-line @angular-eslint/prefer-standalone
-@Directive({
-  selector: '[slDirectiveSuperclass]',
-  standalone: false,
-})
+@Directive({ selector: '[slDirectiveSuperclass]', standalone: false })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class DirectiveSuperclass
   extends InjectableSuperclass
   implements OnChanges
 {
   /**
-   *  Emits the set of `@Input()` property names that change during each call to `ngOnChanges()`.
+   * @deprecated: This method may be removed in a future version. Its purpose is now handled by Angular elegantly with signals. Consider migrating to signal inputs.
+   *
+   * Emits the set of `@Input()` property names that change during each call to `ngOnChanges()`.
    */
   inputChanges$ = new Subject<Set<keyof this>>();
 
@@ -65,12 +68,15 @@ export abstract class DirectiveSuperclass
 
   ngOnChanges(changes: SimpleChanges): void {
     this.inputChanges$.next(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Angular's signature for `SimpleChanges` doesn't let us do any better
       new Set(Object.getOwnPropertyNames(changes) as Array<keyof this>),
     );
     this.#onChangesRan$.next(true);
   }
 
   /**
+   * @deprecated: This method may be removed in a future version. Its purpose is now handled by Angular elegantly with signals. Consider migrating to signal inputs.
+   *
    * @return an observable of the values for one of this directive's `@Input()` properties
    */
   getInput$<K extends keyof this>(key: K): Observable<this[K]> {
@@ -90,6 +96,8 @@ export abstract class DirectiveSuperclass
   }
 
   /**
+   * @deprecated: This method may be removed in a future version. Consider whether moving to signals will suit your needs.
+   *
    * Binds an observable to one of this directive's instance variables. When the observable emits the instance variable will be updated, and change detection will be triggered to propagate any changes. Use this as an alternative to repeating `| async` multiple times in your template.
    */
   bindToInstance<K extends keyof this>(

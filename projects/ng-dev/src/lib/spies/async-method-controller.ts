@@ -67,7 +67,7 @@ export class AsyncMethodController<
     methodName: FunctionName,
     { autoTick = true } = {},
   ) {
-    // it wasn't immediately clear how avoid `any` in this constructor, and this will be invisible to users. So I gave up. (For now?)
+    /* eslint-disable @typescript-eslint/no-unsafe-type-assertion,@typescript-eslint/no-unsafe-return -- it wasn't immediately clear how to avoid `any` in this constructor, and this will be invisible to users. So I gave up. (For now?) */
     this.#spy = spyOn(obj, methodName as any) as any;
     this.#spy.and.callFake((async () => {
       const deferred = new Deferred<any>();

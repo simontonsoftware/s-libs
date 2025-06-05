@@ -24,6 +24,7 @@ type ObjectIteratee<T, O> = <K extends keyof T>(
  * mapWithCaching: -[2, 3]-----------[2, 3, 4]--------------[3]--|
  * ```
  */
+// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 export const mapAndCacheObjectElements = mapAndCacheElements as <
   UpstreamType,
   DownstreamType = UpstreamType[keyof UpstreamType],

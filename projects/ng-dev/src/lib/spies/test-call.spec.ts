@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { noop } from '@s-libs/micro-dash';
 import { expectTypeOf } from 'expect-type';
@@ -12,7 +12,7 @@ import { expectSingleCallAndReset } from './expect-single-call-and-reset';
 describe('TestCall', () => {
   @Component({ standalone: true, template: 'Hello, {{name}}!' })
   class TestComponent {
-    @Input() name!: string;
+    name!: string;
   }
 
   describe('.callInfo', () => {

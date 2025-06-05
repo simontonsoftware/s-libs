@@ -88,7 +88,11 @@ describe('SubscriptionManager', () => {
       expect(complete).toHaveBeenCalledTimes(1);
 
       resetSpies();
-      manager.subscribeTo(throwError('throw this'), undefined, error);
+      manager.subscribeTo(
+        throwError(() => 'throw this'),
+        undefined,
+        error,
+      );
       expect(error).toHaveBeenCalledTimes(1);
       expect(error).toHaveBeenCalledWith('throw this');
     });

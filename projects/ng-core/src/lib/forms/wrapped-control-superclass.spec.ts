@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ErrorHandler,
-  Input,
+  input,
 } from '@angular/core';
 import { flushMicrotasks } from '@angular/core/testing';
 import {
@@ -76,9 +76,8 @@ describe('WrappedControlSuperclass', () => {
 
     const ctx = new ComponentContext(WrapperComponent);
     ctx.run(() => {
-      const el = ctx.fixture.nativeElement as HTMLElement;
-      const input = el.querySelector('input')!;
-      expect(input.value).toBe('initial value');
+      const el = ctx.fixture.nativeElement;
+      expect(el.querySelector('input')!.value).toBe('initial value');
     });
   });
 
@@ -114,27 +113,29 @@ describe('WrappedControlSuperclass', () => {
 
       @Component({
         imports: [ObservableTranslationComponent, FormsModule],
-        template: `<sl-observable-translation [(ngModel)]="outerValue" />`,
+        template: `<sl-observable-translation
+          [ngModel]="38"
+          (ngModelChange)="valueOut = $event"
+        />`,
       })
       class WrapperComponent {
-        @Input() outerValue!: number;
+        valueOut?: number;
       }
 
       const ctx = new ComponentContext(WrapperComponent);
-      ctx.assignInputs({ outerValue: 38 });
       ctx.run(() => {
-        const input: HTMLInputElement = ctx.fixture.debugElement.query(
+        const inputEl: HTMLInputElement = ctx.fixture.debugElement.query(
           By.css('input'),
         ).nativeElement;
-        expect(input.value).toBe('19');
+        expect(inputEl.value).toBe('19');
 
-        setValue(input, '6');
+        setValue(inputEl, '6');
         ctx.tick();
-        expect(ctx.getComponentInstance().outerValue).toBe(12);
+        expect(ctx.getComponentInstance().valueOut).toBe(12);
 
-        setValue(input, "you can't double me");
+        setValue(inputEl, "you can't double me");
         ctx.tick();
-        expect(ctx.getComponentInstance().outerValue).toBe(12);
+        expect(ctx.getComponentInstance().valueOut).toBe(12);
       });
     });
 
@@ -152,10 +153,10 @@ describe('WrappedControlSuperclass', () => {
 
       @Component({
         imports: [ErrorInComponent, FormsModule],
-        template: `<sl-error-in [(ngModel)]="value" />`,
+        template: `<sl-error-in [ngModel]="value()" />`,
       })
       class WrapperComponent {
-        @Input() value!: string;
+        readonly value = input.required<string>();
       }
 
       const handleError = jasmine.createSpy();
@@ -166,7 +167,7 @@ describe('WrappedControlSuperclass', () => {
         const control: ErrorInComponent = ctx.fixture.debugElement.query(
           By.directive(ErrorInComponent),
         ).componentInstance;
-        const input: HTMLInputElement = ctx.fixture.debugElement.query(
+        const inputEl: HTMLInputElement = ctx.fixture.debugElement.query(
           By.css('input'),
         ).nativeElement;
 
@@ -174,11 +175,11 @@ describe('WrappedControlSuperclass', () => {
         control.outerToInnerValue.and.throwError(error);
         ctx.assignInputs({ value: 'wont show' });
         expectSingleCallAndReset(handleError, error);
-        expect(input.value).toBe('');
+        expect(inputEl.value).toBe('');
 
         control.outerToInnerValue.and.returnValue('restored');
         ctx.assignInputs({ value: 'will show' });
-        expect(input.value).toBe('restored');
+        expect(inputEl.value).toBe('restored');
       });
     });
 
@@ -211,18 +212,18 @@ describe('WrappedControlSuperclass', () => {
         const control: ErrorOutComponent = ctx.fixture.debugElement.query(
           By.directive(ErrorOutComponent),
         ).componentInstance;
-        const input: HTMLInputElement = ctx.fixture.debugElement.query(
+        const inputEl: HTMLInputElement = ctx.fixture.debugElement.query(
           By.css('input'),
         ).nativeElement;
 
         const error = new Error();
         control.innerToOuterValue.and.throwError(error);
-        setValue(input, 'wont show');
+        setValue(inputEl, 'wont show');
         expectSingleCallAndReset(handleError, error);
         expect(wrapper.value).toBe('initial value');
 
         control.innerToOuterValue.and.returnValue('restored');
-        setValue(input, 'will show');
+        setValue(inputEl, 'will show');
         expect(wrapper.value).toBe('restored');
       });
     });
@@ -265,12 +266,12 @@ describe('WrappedControlSuperclass', () => {
       ctx.run(async () => {
         const outer = ctx.getComponentInstance();
         const inner = findDirective(ctx, InnerComponent);
-        const input = find<HTMLInputElement>(ctx.fixture, 'input');
+        const inputEl = find<HTMLInputElement>(ctx.fixture, 'input');
 
         expect(inner.control.errors).toBe(null);
         expect(outer.control.errors).toEqual({ required: true });
 
-        setValue(input, '123');
+        setValue(inputEl, '123');
         expect(keys(inner.control.errors)).toEqual(['maxlength']);
         expect(outer.control.errors).toBe(null);
       });
@@ -407,8 +408,7 @@ describe('WrappedControlSuperclass', () => {
 
       const ctx = new ComponentContext(StringComponent);
       ctx.run(async () => {
-        const input = find<HTMLInputElement>(ctx.fixture, 'input');
-        setValue(input, 'hi');
+        setValue(find<HTMLInputElement>(ctx.fixture, 'input'), 'hi');
         expect(ctx.getComponentInstance().control.value).toBe('hi');
       });
     });
@@ -451,13 +451,13 @@ describe('WrappedControlSuperclass', () => {
 
       const ctx = new ComponentContext(TestComponent);
       ctx.run(async () => {
-        const input = find<HTMLInputElement>(ctx.fixture, 'input');
+        const inputEl = find<HTMLInputElement>(ctx.fixture, 'input');
 
         ctx.getComponentInstance().date = new Date('2018-09-03T21:00Z');
         ctx.tick();
-        expect(input.value).toBe('2018-09-03T21:00');
+        expect(inputEl.value).toBe('2018-09-03T21:00');
 
-        setValue(input, '1980-11-04T10:00');
+        setValue(inputEl, '1980-11-04T10:00');
         expect(ctx.getComponentInstance().date).toEqual(
           new Date('1980-11-04T10:00Z'),
         );
@@ -513,11 +513,11 @@ describe('WrappedControlSuperclass', () => {
       @Component({
         imports: [FullNameComponent, FormsModule],
         template: `
-          <sl-full-name [ngModel]="fullName" [disabled]="disabled" />
+          <sl-full-name [ngModel]="fullName" [disabled]="disabled()" />
         `,
       })
       class TestComponent {
-        @Input() disabled = false;
+        readonly disabled = input(false);
         fullName = { firstName: 'Rinat', lastName: 'Arsaev' };
       }
 
@@ -645,6 +645,7 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
         By.directive(StringComponent),
       ).componentInstance;
       expect(component instanceof InjectableSuperclass).toBe(true);
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       expect(component instanceof DirectiveSuperclass).toBe(true);
       expect(component instanceof FormComponentSuperclass).toBe(true);
     });

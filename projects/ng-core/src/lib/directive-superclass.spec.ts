@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -22,6 +21,9 @@ import { BehaviorSubject, combineLatest, noop, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { click, find, findButton } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
+
+/* eslint-disable @angular-eslint/prefer-signals -- this class's purpose is pre-signals */
+/* eslint-disable @typescript-eslint/no-deprecated -- the class we are testing is deprecated */
 
 @Component({
   selector: 'sl-color-text',
@@ -48,7 +50,7 @@ class ColorTextComponent extends DirectiveSuperclass {
 }
 
 @Component({
-  imports: [ColorTextComponent, NgIf],
+  imports: [ColorTextComponent],
   template: `
     <button (click)="toggle('prefix', 'Dark')">Dark</button>
     <button (click)="toggle('prefix2', 'Slate')">Slate</button>
@@ -91,8 +93,9 @@ class TestComponentContext extends ComponentContext<TestComponent> {
 
 describe('DirectiveSuperclass', () => {
   function colorTextComponent(ctx: TestComponentContext): ColorTextComponent {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return ctx.fixture.debugElement.query(By.directive(ColorTextComponent))
-      .componentInstance as ColorTextComponent;
+      .componentInstance;
   }
 
   function darkButton(ctx: TestComponentContext): HTMLButtonElement {

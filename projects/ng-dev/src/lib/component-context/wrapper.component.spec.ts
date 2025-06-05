@@ -1,10 +1,4 @@
-import {
-  Component,
-  Directive,
-  ElementRef,
-  Input,
-  ViewChild,
-} from '@angular/core';
+import { Component, Directive, input, Input, viewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { noop } from '@s-libs/micro-dash';
 import { ComponentContext } from './component-context';
@@ -50,7 +44,7 @@ describe('WrapperComponent', () => {
     @Component({ standalone: true, template: '{{ propertyName }}' })
     class RenamedInputComponent {
       // eslint-disable-next-line @angular-eslint/no-input-rename
-      @Input('bindingName') propertyName?: string;
+      readonly propertyName = input('', { alias: 'bindingName' });
     }
 
     const ctx = new ComponentContext(RenamedInputComponent);
@@ -65,6 +59,7 @@ describe('WrapperComponent', () => {
     class SetterInputComponent {
       receivedValue?: string;
 
+      // eslint-disable-next-line @angular-eslint/prefer-signals -- this test is about supporting a legacy behavior
       @Input() set setterInput(value: string) {
         this.receivedValue = value;
       }
@@ -89,33 +84,32 @@ describe('WrapperComponent', () => {
   it('can handle components that use non-Input annotations in tricky ways', () => {
     @Component({ standalone: true, template: '' })
     class TrickyViewChildComponent {
-      @Input() tricky?: string;
-      @ViewChild('tricky') trickyChild!: ElementRef;
+      readonly tricky = input('');
+      readonly trickyChild = viewChild('tricky');
     }
     const ctx = new ComponentContext(TrickyViewChildComponent);
     ctx.assignInputs({ tricky: 'the value' });
     ctx.run(() => {
-      expect(ctx.getComponentInstance().tricky).toBe('the value');
+      expect(ctx.getComponentInstance().tricky()).toBe('the value');
     });
   });
 
   // https://github.com/simontonsoftware/s-libs/issues/40
   it('can handle inputs defined by a superclass (production bug)', () => {
-    // eslint-disable-next-line @angular-eslint/prefer-standalone
     @Directive()
     class SuperclassComponent {
-      @Input() superclassInput?: string;
+      readonly superclassInput = input('');
     }
 
     @Component({ standalone: true, template: '' })
     class SubclassComponent extends SuperclassComponent {
-      @Input() subclassInput?: string;
+      readonly subclassInput = input('');
     }
 
     const ctx = new ComponentContext(SubclassComponent);
     ctx.assignInputs({ superclassInput: 'an actual value' });
     ctx.run(async () => {
-      expect(ctx.getComponentInstance().superclassInput).toBe(
+      expect(ctx.getComponentInstance().superclassInput()).toBe(
         'an actual value',
       );
     });
@@ -124,11 +118,11 @@ describe('WrapperComponent', () => {
   it('allows using default values for inputs', () => {
     @Component({ standalone: true, template: '' })
     class UnboundInputComponent {
-      @Input() doNotBind = 'default value';
+      readonly doNotBind = input('default value');
     }
     const ctx = new ComponentContext(UnboundInputComponent, {}, ['doNotBind']);
     ctx.run(() => {
-      expect(ctx.getComponentInstance().doNotBind).toBe('default value');
+      expect(ctx.getComponentInstance().doNotBind()).toBe('default value');
     });
   });
 });

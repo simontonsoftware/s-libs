@@ -73,7 +73,7 @@ describe('filterBehavior()', () => {
       ),
     );
 
-    expect(source.observers.length).toBe(3);
+    expect(source.observed).toBeTrue();
     sub1.expectNoCalls();
     sub2.expectNoCalls();
     sub3.expectNoCalls();
@@ -84,7 +84,7 @@ describe('filterBehavior()', () => {
     sub3.expectReceivedOnlyValue(1);
 
     source.next(2);
-    expect(source.observers.length).toBe(0);
+    expect(source.observed).toBeFalse();
     sub1.expectReceivedOnlyError(ex);
     sub2.expectReceivedOnlyError(ex);
     sub3.expectReceivedOnlyValue(-1);

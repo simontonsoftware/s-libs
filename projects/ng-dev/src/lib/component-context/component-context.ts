@@ -34,9 +34,9 @@ import { Inputs, WrapperComponent } from './wrapper.component';
  *
  * A very simple example:
  * ```ts
- * @Component({ standalone: true, template: 'Hello, {{name}}!' })
+ * @Component({ standalone: true, template: 'Hello, {{name()}}!' })
  * class GreeterComponent {
- *   @Input() name!: string;
+ *   readonly name = input.required<string>();
  * }
  *
  * it('greets you by name', () => {
@@ -56,12 +56,8 @@ import { Inputs, WrapperComponent } from './wrapper.component';
  *  // To re-use your context setup, make a subclass of ComponentContext to import into any spec
  *  class AppContext extends ComponentContext<AppComponent> {
  *    constructor() {
- *      super(AppComponent, {
- *        // Import `routes` from `app.routes.ts`
- *        imports: [RouterTestingModule.withRoutes(routes)],
- *        // Import `appConfig` from `app.config.ts`
- *        providers: appConfig.providers,
- *      });
+ *      // Import `appConfig` from `app.config.ts`
+ *      super(AppComponent, appConfig);
  *    }
  *  }
  *
@@ -219,8 +215,9 @@ export class ComponentContext<T> extends AngularContext {
    * Use within `run()` to get your instantiated component that is on the page.
    */
   getComponentInstance(): T {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return this.fixture.debugElement.query(By.directive(this.#componentType))
-      .componentInstance as T;
+      .componentInstance;
   }
 
   /**
@@ -254,7 +251,6 @@ export class ComponentContext<T> extends AngularContext {
   }
 
   #isInitialized(): boolean {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- this actually can be undefined, but typing doesn't reflect it because once everything is initialized its defined
     return !!this.fixture;
   }
 
@@ -270,6 +266,7 @@ export class ComponentContext<T> extends AngularContext {
   }
 
   #getWrapperComponentInstance(): WrapperComponent<T> {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
     return this.fixture.componentInstance as WrapperComponent<T>;
   }
 }

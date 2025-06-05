@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component, Directive, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -29,7 +28,7 @@ class DestroyableDirective extends InjectableSuperclass {
 }
 
 @Component({
-  imports: [NgIf, DestroyableDirective],
+  imports: [DestroyableDirective],
   template: `@if (showThings) {
     <p slDestroyableDirective>I'm showing.</p>
   }`,
@@ -58,11 +57,11 @@ describe('InjectableSuperclass', () => {
 
   it('cleans up subscriptions when destroyed by angular', () => {
     ctx.run(() => {
-      expect(ctx.subject.observers.length).toBe(2);
+      expect(ctx.subject.observed).toBeTrue();
 
       ctx.getComponentInstance().showThings = false;
       ctx.fixture.detectChanges();
-      expect(ctx.subject.observers.length).toBe(0);
+      expect(ctx.subject.observed).toBeFalse();
     });
   });
 

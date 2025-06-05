@@ -10,10 +10,9 @@ import {
 import { logValues } from './log-values';
 
 describe('logValue()', () => {
-  const consoleSpy = console as jasmine.SpyObj<Console>;
-
+  let consoleSpy: jasmine.SpyObj<Console>;
   beforeEach(() => {
-    spyOnAllFunctions(console);
+    consoleSpy = spyOnAllFunctions(console);
   });
 
   it('has defaults for all arguments', () => {
@@ -25,7 +24,9 @@ describe('logValue()', () => {
       ['[complete]'],
     );
 
-    throwError('an error').pipe(logValues()).subscribe(noop, noop);
+    throwError(() => 'an error')
+      .pipe(logValues())
+      .subscribe({ error: noop });
     expectCallsAndReset(consoleSpy.log, ['[error]', 'an error']);
   });
 
@@ -38,7 +39,9 @@ describe('logValue()', () => {
       ['[complete]', 'prefix'],
     );
 
-    throwError('an error').pipe(logValues('prefix')).subscribe(noop, noop);
+    throwError(() => 'an error')
+      .pipe(logValues('prefix'))
+      .subscribe({ error: noop });
     expectCallsAndReset(consoleSpy.log, ['[error]', 'prefix', 'an error']);
   });
 
@@ -46,9 +49,9 @@ describe('logValue()', () => {
     of(1).pipe(logValues(undefined, 'warn')).subscribe();
     expectCallsAndReset(consoleSpy.warn, ['[value]', 1], ['[complete]']);
 
-    throwError('an error')
+    throwError(() => 'an error')
       .pipe(logValues(undefined, 'debug'))
-      .subscribe(noop, noop);
+      .subscribe({ error: noop });
     expectCallsAndReset(consoleSpy.debug, ['[error]', 'an error']);
   });
 

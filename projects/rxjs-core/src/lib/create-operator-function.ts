@@ -1,7 +1,7 @@
-import { Observable, Observer, OperatorFunction, Subscriber } from 'rxjs';
+import { Observable, Observer, OperatorFunction, Subscription } from 'rxjs';
 
 /**
- * Use this to create a complex pipeable operator. It is usually better style to compose existing operators than to create a brand new one, but when you need full control this can reduce some boilerplate.
+ * Use this to create a complex pipeable operator. It is usually a better style to compose existing operators than to create a brand new one, but when you need full control, this can reduce some boilerplate.
  *
  * The supplied `subscriber` will act as a simple pass-through of all values, errors, and completion to `destination`. Modify it for your needs.
  *
@@ -25,21 +25,46 @@ export function createOperatorFunction<
   DestinationType = SourceType,
 >(
   modifySubscriber: (
-    subscriber: RequiredSubscriber<SourceType>,
+    subscriber: SubscriberCompat<SourceType>,
     destination: Observer<DestinationType>,
   ) => void,
 ): OperatorFunction<SourceType, DestinationType> {
   return (source: Observable<SourceType>): Observable<DestinationType> =>
     new Observable<DestinationType>((destination) => {
-      const subscriber = new Subscriber<SourceType>(destination);
+      const subscriber = new SubscriberCompat<SourceType>(
+        destination as Observer<any>,
+      );
       modifySubscriber(subscriber, destination);
       return source.subscribe(subscriber);
     });
 }
 
-interface RequiredSubscriber<T> extends Subscriber<T> {
-  /**
-   * `value` is optional in `Subscriber`. We need it to be required.
-   */
-  next: (value: T) => void;
+/**
+ * RxJS deprecated all the ways to create their `Subscriber` class. This recreates the parts of its functionality we surfaced.
+ */
+export class SubscriberCompat<T> extends Subscription implements Observer<T> {
+  constructor(private destination: Observer<unknown>) {
+    super();
+  }
+
+  next(value: T): void {
+    this.destination.next(value);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types -- just following the `Observer` interface
+  error(err: any): void {
+    try {
+      this.destination.error(err);
+    } finally {
+      this.unsubscribe();
+    }
+  }
+
+  complete(): void {
+    try {
+      this.destination.complete();
+    } finally {
+      this.unsubscribe();
+    }
+  }
 }

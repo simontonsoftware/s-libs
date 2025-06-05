@@ -105,6 +105,7 @@ describe('keepWakeLock$()', () => {
   });
 
   it('gracefully handles a browser without navigator.wakelock', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- we're simulating a browser that doesn't adhere to the same typing as a modern one
     spyOnProperty(navigator as any, 'wakeLock').and.returnValue(undefined);
     ctx.run(async () => {
       expect(() => {

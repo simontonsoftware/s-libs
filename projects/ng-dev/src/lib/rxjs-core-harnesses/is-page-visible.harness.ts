@@ -1,7 +1,7 @@
 import { AngularContext } from '../angular-context';
 
 /**
- * Use to control {@link isPageVisible$()} in tests. Create only one per test, before anything calls `isPageVisible$()`.
+ * Use to control {@link isPageVisible$()} in tests. Create only one per test before anything calls `isPageVisible$()`.
  *
  * ```ts
  * const isPageVisibleHarness = new IsPageVisibleHarness();
@@ -38,6 +38,7 @@ export class IsPageVisibleHarness {
       .withArgs('visibilitychange', jasmine.anything(), undefined)
       .and.callFake(
         (_: string, handler: EventListenerOrEventListenerObject) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- we know that `isPageVisible$()` will only call this with a function
           this.#notifyVisibilityChange = handler as VoidFunction;
         },
       );

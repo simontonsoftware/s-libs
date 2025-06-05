@@ -9,6 +9,12 @@ export interface Extension {
   connect: (options?: EnhancerOptions) => Connection;
 }
 
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION__?: Extension;
+  }
+}
+
 /**
  * Log the values emitted from any observable to the [redux devtools extension](https://github.com/reduxjs/redux-devtools).
  *
@@ -18,8 +24,7 @@ export function logToReduxDevtoolsExtension(
   observable: Observable<any>,
   options?: EnhancerOptions,
 ): Subscription {
-  const extension: Extension | undefined = (window as any)
-    .__REDUX_DEVTOOLS_EXTENSION__;
+  const extension = window.__REDUX_DEVTOOLS_EXTENSION__;
   if (!extension) {
     return new Subscription();
   }

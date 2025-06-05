@@ -1,5 +1,5 @@
-import { EMPTY, Subject } from 'rxjs';
 import { expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { EMPTY, Subject } from 'rxjs';
 import {
   Connection,
   Extension,
@@ -13,7 +13,7 @@ describe('logToReduxDevtoolsExtension()', () => {
   let connect: jasmine.Spy;
 
   beforeEach(() => {
-    realExtension = (window as any)[extensionKey];
+    realExtension = window[extensionKey];
 
     send = jasmine.createSpy();
     const connection: jasmine.SpyObj<Connection> = { send };
@@ -21,11 +21,11 @@ describe('logToReduxDevtoolsExtension()', () => {
     connect = jasmine.createSpy().and.returnValue(connection);
     const extension: jasmine.SpyObj<Extension> = { connect };
 
-    (window as any)[extensionKey] = extension;
+    window[extensionKey] = extension;
   });
 
   afterEach(() => {
-    (window as any)[extensionKey] = realExtension;
+    window[extensionKey] = realExtension;
   });
 
   it('sends each emitted value to the extension', () => {
@@ -51,7 +51,7 @@ describe('logToReduxDevtoolsExtension()', () => {
 
   it('gracefully handles when there is no extension', () => {
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- I insist
-    delete (window as any)[extensionKey];
+    delete window[extensionKey];
     const subject = new Subject();
 
     logToReduxDevtoolsExtension(subject);

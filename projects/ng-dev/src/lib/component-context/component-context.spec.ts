@@ -6,6 +6,7 @@ import {
   InjectionToken,
   input,
   Input,
+  model,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
@@ -21,7 +22,6 @@ import {
   RouterOutlet,
   Routes,
 } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { sleep } from '@s-libs/js-core';
 import { noop } from '@s-libs/micro-dash';
 import { expectTypeOf } from 'expect-type';
@@ -29,14 +29,14 @@ import { staticTest } from '../static-test/static-test';
 import { ComponentContext } from './component-context';
 
 describe('ComponentContext', () => {
-  @Component({ standalone: true, template: 'Hello, {{name}}!' })
+  @Component({ standalone: true, template: 'Hello, {{name()}}!' })
   class TestComponent {
-    @Input() name!: string;
+    readonly name = model.required<string>();
   }
 
   @Component({ standalone: true, template: '' })
   class ChangeDetectingComponent implements OnChanges {
-    @Input() myInput?: string;
+    readonly myInput = input<string>();
     ngOnChangesSpy = jasmine.createSpy();
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -86,10 +86,8 @@ describe('ComponentContext', () => {
     });
 
     it('supports non-standalone components', () => {
-      // eslint-disable-next-line @angular-eslint/prefer-standalone
       @Component({
         template: 'hi',
-        standalone: false,
       })
       class ModulizedComponent {}
 
@@ -135,7 +133,7 @@ describe('ComponentContext', () => {
       @Component({ standalone: true, template: '' })
       class NonInputComponent {
         // eslint-disable-next-line @angular-eslint/no-input-rename
-        @Input('nonInput') letsTryToTrickIt?: string;
+        readonly letsTryToTrickIt = input('', { alias: 'nonInput' });
         nonInput?: string;
       }
 
@@ -151,7 +149,7 @@ describe('ComponentContext', () => {
     it('errors with a nice message when given an unbound input', () => {
       @Component({ standalone: true, template: '' })
       class UnboundInputComponent {
-        @Input() doNotBind?: string;
+        readonly doNotBind = input('');
       }
       const ctx = new ComponentContext(UnboundInputComponent, {}, [
         'doNotBind',
@@ -170,9 +168,10 @@ describe('ComponentContext', () => {
         template: '{{optional()}} {{required()}} {{legacy}}',
       })
       class SignalComponent {
-        optional = input<string>();
-        required = input.required<string>();
+        // eslint-disable-next-line @angular-eslint/prefer-signals -- this is the point of the test
         @Input() legacy!: string;
+        readonly optional = input<string>();
+        readonly required = input.required<string>();
       }
       const ctx = new ComponentContext(SignalComponent);
       ctx.run(() => {
@@ -225,7 +224,7 @@ describe('ComponentContext', () => {
       const ctx = new ComponentContext(TestComponent);
       ctx.assignInputs({ name: 'instantiated name' });
       ctx.run(() => {
-        expect(ctx.getComponentInstance().name).toBe('instantiated name');
+        expect(ctx.getComponentInstance().name()).toBe('instantiated name');
       });
     });
   });
@@ -279,7 +278,10 @@ describe('ComponentContext', () => {
     it('gets change detection working inside the fixture', () => {
       const ctx = new ComponentContext(TestComponent);
       ctx.run(() => {
-        ctx.getComponentInstance().name = 'Changed Guy';
+        ctx.getComponentInstance().name.set('Changed Guy');
+        expect(ctx.fixture.nativeElement.textContent).not.toContain(
+          'Changed Guy',
+        );
         ctx.tick();
         expect(ctx.fixture.nativeElement.textContent).toContain('Changed Guy');
       });
@@ -317,9 +319,10 @@ describe('ComponentContext', () => {
     staticTest(() => {
       const ctx = new ComponentContext(TestComponent);
       expectTypeOf(ctx.fixture).toEqualTypeOf<ComponentFixture<unknown>>();
-      expectTypeOf(ctx.assignInputs).toEqualTypeOf<
-        (inputs: Partial<TestComponent>) => void
-      >();
+      ctx.assignInputs({});
+      ctx.assignInputs({ name: 'blah' });
+      // @ts-expect-error -- name must be a string
+      ctx.assignInputs({ name: 2 });
       expectTypeOf(ctx.getComponentInstance()).toEqualTypeOf<TestComponent>();
     });
   });
@@ -327,9 +330,9 @@ describe('ComponentContext', () => {
 
 describe('ComponentContext class-level doc examples', () => {
   describe('simple example', () => {
-    @Component({ standalone: true, template: 'Hello, {{name}}!' })
+    @Component({ standalone: true, template: 'Hello, {{name()}}!' })
     class GreeterComponent {
-      @Input() name!: string;
+      readonly name = input.required<string>();
     }
 
     it('greets you by name', () => {
@@ -348,12 +351,8 @@ describe('ComponentContext class-level doc examples', () => {
     // To re-use your context setup, make a subclass of ComponentContext to import into any spec
     class AppContext extends ComponentContext<AppComponent> {
       constructor() {
-        super(AppComponent, {
-          // Import `routes` from `app.routes.ts`
-          imports: [RouterTestingModule.withRoutes(routes)],
-          // Import `appConfig` from `app.config.ts`
-          providers: appConfig.providers,
-        });
+        // Import `appConfig` from `app.config.ts`
+        super(AppComponent, appConfig);
       }
     }
 

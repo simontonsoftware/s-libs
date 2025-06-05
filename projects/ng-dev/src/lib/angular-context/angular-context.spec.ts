@@ -5,7 +5,6 @@ import {
   APP_ID,
   ApplicationRef,
   Component,
-  ComponentFactoryResolver,
   DoCheck,
   ErrorHandler,
   inject,
@@ -334,10 +333,8 @@ describe('AngularContext', () => {
 
       const ctx = new AngularContext();
       ctx.run(() => {
-        const resolver = ctx.inject(ComponentFactoryResolver);
-        const factory = resolver.resolveComponentFactory(LocalComponent);
-        const componentRef = factory.create(ctx.inject(Injector));
-        ctx.inject(ApplicationRef).attachView(componentRef.hostView);
+        const fixture = TestBed.createComponent(LocalComponent);
+        ctx.inject(ApplicationRef).attachView(fixture.componentRef.hostView);
 
         expect(ranChangeDetection).toBe(false);
         ctx.tick();
@@ -359,10 +356,8 @@ describe('AngularContext', () => {
 
       const ctx = new AngularContext();
       ctx.run(() => {
-        const resolver = ctx.inject(ComponentFactoryResolver);
-        const factory = resolver.resolveComponentFactory(LocalComponent);
-        const componentRef = factory.create(ctx.inject(Injector));
-        ctx.inject(ApplicationRef).attachView(componentRef.hostView);
+        const fixture = TestBed.createComponent(LocalComponent);
+        ctx.inject(ApplicationRef).attachView(fixture.componentRef.hostView);
 
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         Promise.resolve().then(() => {
@@ -387,10 +382,8 @@ describe('AngularContext', () => {
 
       const ctx = new AngularContext();
       ctx.run(() => {
-        const resolver = ctx.inject(ComponentFactoryResolver);
-        const factory = resolver.resolveComponentFactory(LocalComponent);
-        const componentRef = factory.create(ctx.inject(Injector));
-        ctx.inject(ApplicationRef).attachView(componentRef.hostView);
+        const fixture = TestBed.createComponent(LocalComponent);
+        ctx.inject(ApplicationRef).attachView(fixture.componentRef.hostView);
 
         setTimeout(() => {
           ranTimeout = true;
