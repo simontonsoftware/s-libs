@@ -1,13 +1,14 @@
-import { Component, ComponentMirror } from '@angular/core';
+import { Component, ComponentMirror, Signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection,@angular-eslint/prefer-standalone -- change detection is carefully orchestrated in the typescript, and if this is standalone we can no longer test non-standalone components */
-@Component({
-  template: '',
-  standalone: false,
-})
+export type Inputs<T> = {
+  [K in keyof T]?: T[K] extends Signal<infer U> ? U : T[K];
+};
+
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection,@angular-eslint/prefer-standalone -- change detection is carefully orchestrated in the TypeScript, and if this is standalone we can no longer test non-standalone components */
+@Component({ template: '', standalone: false })
 export class WrapperComponent<T> {
-  inputs: Partial<T> = {};
+  inputs: Inputs<T> = {};
   styles: Record<string, any> = {};
 
   static wrap<T>(

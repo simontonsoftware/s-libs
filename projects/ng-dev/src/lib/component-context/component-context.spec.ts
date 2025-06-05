@@ -4,6 +4,7 @@ import {
   ApplicationConfig,
   Component,
   InjectionToken,
+  input,
   Input,
   OnChanges,
   SimpleChanges,
@@ -161,6 +162,29 @@ describe('ComponentContext', () => {
         'Cannot bind to "doNotBind" (it is not an input, or you passed it in `unboundProperties`)',
       );
       ctx.run(noop);
+    });
+
+    it('supports signal and non-signal inputs', () => {
+      @Component({
+        standalone: true,
+        template: '{{optional()}} {{required()}} {{legacy}}',
+      })
+      class SignalComponent {
+        optional = input<string>();
+        required = input.required<string>();
+        @Input() legacy!: string;
+      }
+      const ctx = new ComponentContext(SignalComponent);
+      ctx.run(() => {
+        ctx.assignInputs({
+          optional: 'optional',
+          required: 'required',
+          legacy: 'legacy',
+        });
+        expect(ctx.fixture.nativeElement.textContent).toBe(
+          'optional required legacy',
+        );
+      });
     });
   });
 

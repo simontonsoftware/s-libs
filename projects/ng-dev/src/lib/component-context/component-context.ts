@@ -17,7 +17,7 @@ import {
   AngularContext,
   extendMetadata,
 } from '../angular-context/angular-context';
-import { WrapperComponent } from './wrapper.component';
+import { Inputs, WrapperComponent } from './wrapper.component';
 
 /**
  * Provides the foundation for an opinionated pattern for component tests.
@@ -142,7 +142,7 @@ export class ComponentContext<T> extends AngularContext {
   #componentType: Type<T>;
   #inputProperties: Set<keyof T>;
 
-  #inputs: Partial<T>;
+  #inputs: Inputs<T>;
   #wrapperStyles: Record<string, any>;
 
   /**
@@ -197,7 +197,7 @@ export class ComponentContext<T> extends AngularContext {
   /**
    * Assign inputs passed into your component. Can be called before `run()` to set the initial inputs, or within `run()` to update them and trigger all the appropriate change detection and lifecycle hooks.
    */
-  assignInputs(inputs: Partial<T>): void {
+  assignInputs(inputs: Inputs<T>): void {
     for (const key of keys(inputs)) {
       if (!this.#inputProperties.has(key as keyof T)) {
         throw new Error(
