@@ -5,6 +5,8 @@ import { RootStore } from '../root-store';
 import { ReadonlyStore, Store } from '../store';
 import { spreadArrayStore } from './spread-array-store';
 
+/* eslint-disable @angular-eslint/prefer-signals -- this is a legacy function designed for components that still use @Input() decorators */
+
 describe('spreadArrayStore()', () => {
   // just the test for documentation is good enough. We only need a sanity check because all the details are tested in `spreadArrayStoreSignal.spec.ts`
 

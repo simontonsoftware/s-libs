@@ -28,6 +28,9 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
+
+      // We do a lot of type gymnastics! End users should not need to, but within this library there's lots of "unsafe" casting.
+      "@typescript-eslint/no-unsafe-type-assertion": "off",
     },
   },
   {

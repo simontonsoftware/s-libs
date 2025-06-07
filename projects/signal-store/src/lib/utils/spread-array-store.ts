@@ -37,6 +37,7 @@ export function spreadArrayStore<T extends any[] | null | undefined>(
 
 export function spreadArrayStore<T extends any[] | null | undefined>(
   source: ReadonlyStore<T> | Store<T>,
-): Signal<any> {
+): Signal<any[]> {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return computed(() => impl(source));
 }

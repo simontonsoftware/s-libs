@@ -32,7 +32,7 @@ export function spreadArrayStoreSignal<T extends any[] | null | undefined>(
 export function spreadArrayStoreSignal<T extends any[] | null | undefined>(
   source: Signal<ReadonlyStore<T>> | Signal<Store<T>>,
 ): Signal<any> {
-  return computed(() => spreadArrayStore(source()));
+  return computed((): any[] => spreadArrayStore(source()));
 }
 
 export function spreadArrayStore<T extends any[] | null | undefined>(
