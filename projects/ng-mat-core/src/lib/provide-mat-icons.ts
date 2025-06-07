@@ -51,15 +51,10 @@ import { DomSanitizer } from '@angular/platform-browser';
  */
 export function provideMatIcons(icons: string): EnvironmentProviders {
   return provideAppInitializer(() => {
-    const initializerFn = ((): VoidFunction => {
-      const registry = inject(MatIconRegistry);
-      const sanitizer = inject(DomSanitizer);
-      return () => {
-        registry.addSvgIconSetLiteral(
-          sanitizer.bypassSecurityTrustHtml(`<svg><defs>${icons}</defs></svg>`),
-        );
-      };
-    })();
-    return initializerFn();
+    inject(MatIconRegistry).addSvgIconSetLiteral(
+      inject(DomSanitizer).bypassSecurityTrustHtml(
+        `<svg><defs>${icons}</defs></svg>`,
+      ),
+    );
   });
 }
