@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { mapToObject } from '@s-libs/js-core';
@@ -14,13 +14,13 @@ import { NasModelStore } from './nas-model-store';
   templateUrl: './nas-model.component.html',
   styleUrl: './nas-model.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, FormsModule, NasModelModule, NgFor],
+  imports: [AsyncPipe, FormsModule, NasModelModule],
 })
 export class NasModelComponent {
   cities: City[] = ['San Francisco', 'Nairobi', 'Gulu'];
   stateString$: Observable<string>;
 
-  constructor(public store: NasModelStore) {
+  constructor(protected store: NasModelStore) {
     this.stateString$ = store.$.pipe(
       map((state) => JSON.stringify(state, null, 2)),
     );

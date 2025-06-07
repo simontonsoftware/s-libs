@@ -1,53 +1,53 @@
 <input
   [nasModel]="store('freeText')"
-  [disabled]="store('disabled').$ | async"
+  [disabled]="(store('disabled').$ | async) ?? false"
 />
 <br />
 <input
   type="text"
   [nasModel]="store('freeText')"
-  [disabled]="store('disabled').$ | async"
+  [disabled]="(store('disabled').$ | async) ?? false"
 />
 Text <br />
 <input
   type="search"
   [nasModel]="store('freeText')"
-  [disabled]="store('disabled').$ | async"
+  [disabled]="(store('disabled').$ | async) ?? false"
 />
 Search <br />
 <input
   type="tel"
   [nasModel]="store('freeText')"
-  [disabled]="store('disabled').$ | async"
+  [disabled]="(store('disabled').$ | async) ?? false"
 />
 Tel <br />
 <input
   type="password"
   [nasModel]="store('freeText')"
-  [disabled]="store('disabled').$ | async"
+  [disabled]="(store('disabled').$ | async) ?? false"
 />
 Password <br />
 <input
   type="email"
   [nasModel]="store('freeText')"
-  [disabled]="store('disabled').$ | async"
+  [disabled]="(store('disabled').$ | async) ?? false"
 />
 Email <br />
 <input
   type="url"
   [nasModel]="store('freeText')"
-  [disabled]="store('disabled').$ | async"
+  [disabled]="(store('disabled').$ | async) ?? false"
 />
 Url <br />
 <input
   type="color"
   [nasModel]="store('freeText')"
-  [disabled]="store('disabled').$ | async"
+  [disabled]="(store('disabled').$ | async) ?? false"
 />
 <br />
 <textarea
   [nasModel]="store('freeText')"
-  [disabled]="store('disabled').$ | async"
+  [disabled]="(store('disabled').$ | async) ?? false"
 ></textarea>
 <br />
 <button (click)="store('freeText').delete()">Clear</button>

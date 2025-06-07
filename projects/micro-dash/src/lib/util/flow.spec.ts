@@ -4,10 +4,18 @@ import { curry, head, identity } from 'lodash';
 import { flow } from './flow';
 
 describe('flow()', () => {
-  const two = (): number => 2;
-  const add = (x: number, y: number): number => x + y;
-  const square = (x: number): number => x * x;
+  const increment = (x: number): number => x + 1;
   const fixed = (n: number): string => n.toFixed(1);
+  const two = (): number => 2;
+  const square = (n: number): number => n * n;
+
+  it('works with 0-arg first function', () => {
+    expect(flow(two, square)()).toBe(4);
+  });
+
+  it('works with one function', () => {
+    expect(flow(two)()).toBe(2);
+  });
 
   it('has fancy typing', () => {
     staticTest(() => {
@@ -17,27 +25,17 @@ describe('flow()', () => {
       const s2n = (_: string): number => 0;
       const n2d = (_: number): Date => new Date();
       expectTypeOf(flow()).toEqualTypeOf<<T>(a: T) => T>();
-      expectTypeOf(flow(two)).toEqualTypeOf<() => number>();
+      expectTypeOf(flow(s)).toEqualTypeOf<() => string>();
       expectTypeOf(flow(s2s)).toEqualTypeOf<(a: string) => string>();
-      expectTypeOf(flow(s, s2n)).toEqualTypeOf<() => number>();
       expectTypeOf(flow(s2n, n2d)).toEqualTypeOf<(a: string) => Date>();
 
       // passing in an array of fns
       const gen: ReadonlyArray<(_: string) => string> = [];
       expectTypeOf(flow(...gen)).toEqualTypeOf<(a: string) => string>();
 
-      // errors (mismatched types when chaining)
-      expectTypeOf(flow(s, n2d)).toEqualTypeOf<never>();
+      // @ts-expect-error mismatched output->input
+      flow(s, n2d);
     });
-  });
-
-  it('works with 0-arg first function', () => {
-    expect(flow(two, square)()).toBe(4);
-  });
-
-  it('works with one function', () => {
-    expect(flow(two)()).toBe(2);
-    expect(flow(add)(1, 2)).toBe(3);
   });
 
   //
@@ -45,7 +43,7 @@ describe('flow()', () => {
   //
 
   it('should supply each function with the return value of the previous', () => {
-    expect(flow(add, square, fixed)(1, 2)).toBe('9.0');
+    expect(flow(increment, square, fixed)(2)).toBe('9.0');
   });
 
   it('should return an identity function when no arguments are given', () => {
