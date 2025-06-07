@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [19.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v18.0.0...v19.0.0-next.0) (2025-06-07)
+
+### ⚠ BREAKING CHANGES
+
+- Peer dependencies must be upgraded
+
+### Features
+
+- **micro-dash:** improve typing of `flow()`, `flowRight()`, and `merge()` ([a69b0c9](https://github.com/simontonsoftware/s-libs/commit/a69b0c98cae705bc96c011314b3b6498f4fe65f5))
+- **micro-dash:** Improve typing of `invoke()` ([57eeedd](https://github.com/simontonsoftware/s-libs/commit/57eeedd66b10663aa7e043aa772d6dc9cf909ea2))
+- **ng-dev:** `ComponentContext.assignInputs` supports signal inputs ([c4e0fd9](https://github.com/simontonsoftware/s-libs/commit/c4e0fd9c69fc439eb0c97b71ca9de72f2facf3b7)), closes [#1250](https://github.com/simontonsoftware/s-libs/issues/1250)
+- **signal-store:** add `spreadArrayStoreSignal()` ([1dec519](https://github.com/simontonsoftware/s-libs/commit/1dec5192aa8cc328ad237401fdee511c3bf42e4e))
+- Upgrade dependencies ([a831cc4](https://github.com/simontonsoftware/s-libs/commit/a831cc45fb39a662028393802d7f31cd691a6d31))
+
 ## [18.0.0](https://github.com/simontonsoftware/s-libs/compare/v18.0.0-next.0...v18.0.0) (2024-06-29)
 
 ## [18.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v17.1.0...v18.0.0-next.0) (2024-06-08)
