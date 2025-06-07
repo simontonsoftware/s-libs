@@ -1,10 +1,8 @@
 import { computed, Signal } from '@angular/core';
+import { times } from '@s-libs/micro-dash';
 import { ReadonlySlice, ReadonlyStore, Slice, Store } from '../store';
-import { spreadArrayStore as impl } from './spread-array-store-signal';
 
 /**
- * Just like {@link spreadArrayStoreSignal}, but accepts a `Store` or `ReadonlyStore` directly instead of a `Signal<Store>` or `Signal<ReadonlyStore>`. This is useful for legacy components that still use `@Input()` decorators instead of signal inputs.
- *
  * Return a signal that emits an array of store objects, one for each element in `source`'s state. The emitted arrays will have references to the exact store objects included in the previous emission when possible, making them performant for direct comparison in change detection.
  *
  * ```ts
@@ -17,26 +15,28 @@ import { spreadArrayStore as impl } from './spread-array-store-signal';
  *   `,
  *   imports: [HeroComponent],
  * })
- * class HeroListComponent implements OnChanges {
- *   @Input() heroesStore!: Store<Hero[]>;
- *   protected heroStores!: Signal<Array<Store<Hero>>>;
- *
- *   ngOnChanges(): void {
- *     this.heroStores = spreadArrayStore(this.heroesStore);
- *   }
+ * class HeroListComponent {
+ *   readonly heroesStore = input.required<Store<Hero[]>>();
+ *   protected heroStores = spreadArrayStoreSignal(this.heroesStore);
  * }
  * ```
  */
 
-export function spreadArrayStore<T extends any[] | null | undefined>(
-  source: Store<T>,
+export function spreadArrayStoreSignal<T extends any[] | null | undefined>(
+  source: Signal<Store<T>>,
 ): Signal<Array<Slice<T, number>>>;
-export function spreadArrayStore<T extends any[] | null | undefined>(
-  source: ReadonlyStore<T>,
+export function spreadArrayStoreSignal<T extends any[] | null | undefined>(
+  source: Signal<ReadonlyStore<T>>,
 ): Signal<Array<ReadonlySlice<T, number>>>;
+
+export function spreadArrayStoreSignal<T extends any[] | null | undefined>(
+  source: Signal<ReadonlyStore<T>> | Signal<Store<T>>,
+): Signal<any> {
+  return computed(() => spreadArrayStore(source()));
+}
 
 export function spreadArrayStore<T extends any[] | null | undefined>(
   source: ReadonlyStore<T> | Store<T>,
-): Signal<any> {
-  return computed(() => impl(source));
+): any[] {
+  return times(source('length').state ?? 0, (i) => source(i));
 }
