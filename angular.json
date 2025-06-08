@@ -10,10 +10,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/app-state/ng-package.json"
-          },
+          "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
               "tsConfig": "projects/app-state/tsconfig.lib.prod.json"
@@ -25,7 +22,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/app-state/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
@@ -55,10 +52,8 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/integration",
-            "index": "projects/integration/src/index.html",
             "browser": "projects/integration/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/integration/tsconfig.app.json",
@@ -68,8 +63,7 @@
                 "input": "projects/integration/public"
               }
             ],
-            "styles": ["projects/integration/src/styles.scss"],
-            "scripts": []
+            "styles": ["projects/integration/src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -96,7 +90,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "integration:build:production"
@@ -108,10 +102,10 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
+          "builder": "@angular/build:extract-i18n"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/integration/tsconfig.spec.json",
@@ -124,8 +118,7 @@
             "styles": [
               "projects/integration/src/styles.scss",
               "projects/integration/src/app/api-tests/ng-mat-core.spec.scss"
-            ],
-            "scripts": []
+            ]
           }
         },
         "lint": {
@@ -147,10 +140,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/js-core/ng-package.json"
-          },
+          "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
               "tsConfig": "projects/js-core/tsconfig.lib.prod.json"
@@ -162,7 +152,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/js-core/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
@@ -187,10 +177,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/micro-dash/ng-package.json"
-          },
+          "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
               "tsConfig": "projects/micro-dash/tsconfig.lib.prod.json"
@@ -202,7 +189,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/micro-dash/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
@@ -228,10 +215,8 @@
       "prefix": "sl",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/micro-dash-sizes",
-            "index": "projects/micro-dash-sizes/src/index.html",
             "browser": "projects/micro-dash-sizes/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/micro-dash-sizes/tsconfig.app.json",
@@ -241,8 +226,7 @@
                 "input": "projects/micro-dash-sizes/public"
               }
             ],
-            "styles": [],
-            "scripts": []
+            "styles": []
           },
           "configurations": {
             "production": {
@@ -269,7 +253,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "micro-dash-sizes:build:production"
@@ -281,7 +265,7 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
+          "builder": "@angular/build:extract-i18n"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -302,10 +286,7 @@
       "prefix": "nas",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/ng-app-state/ng-package.json"
-          },
+          "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-app-state/tsconfig.lib.prod.json"
@@ -317,7 +298,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/ng-app-state/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
@@ -342,10 +323,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/ng-core/ng-package.json"
-          },
+          "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-core/tsconfig.lib.prod.json"
@@ -357,7 +335,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/ng-core/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
@@ -382,10 +360,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/ng-dev/ng-package.json"
-          },
+          "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-dev/tsconfig.lib.prod.json"
@@ -397,7 +372,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/ng-dev/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
@@ -422,10 +397,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/ng-mat-core/ng-package.json"
-          },
+          "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-mat-core/tsconfig.lib.prod.json"
@@ -437,7 +409,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/ng-mat-core/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
@@ -462,10 +434,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/rxjs-core/ng-package.json"
-          },
+          "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
               "tsConfig": "projects/rxjs-core/tsconfig.lib.prod.json"
@@ -477,7 +446,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/rxjs-core/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
@@ -502,10 +471,7 @@
       "prefix": "s",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/signal-store/ng-package.json"
-          },
+          "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
               "tsConfig": "projects/signal-store/tsconfig.lib.prod.json"
@@ -517,7 +483,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/signal-store/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
@@ -542,6 +508,30 @@
     },
     "@angular-eslint/schematics:library": {
       "setParserOptionsProject": true
+    },
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
   },
   "cli": {

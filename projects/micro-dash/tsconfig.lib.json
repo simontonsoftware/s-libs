@@ -12,6 +12,7 @@
     // Special just for micro-dash library functions, to reduce bundle size
     "noImplicitReturns": false
   },
+  "include": ["src/**/*.ts"],
   "exclude": [
     "**/*.spec.ts",
     // excluded for the sake of TSDoc

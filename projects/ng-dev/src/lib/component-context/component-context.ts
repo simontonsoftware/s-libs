@@ -26,7 +26,7 @@ import { Inputs, WrapperComponent } from './wrapper.component';
  * - Automatically creates your component at the beginning of `run()`.
  * - Sets up Angular to call `ngOnChanges()` like it would in production. This is not the case if you use the standard `TestBed.createComponent()` directly.
  * - Wraps your component in a parent that you can easily style however you like.
- * - Lets you use {@link https://material.angular.io/cdk/test-harnesses/overview | component harnesses} in the `fakeAsync` zone, which is normally a challenge.
+ * - Lets you use {@link https://material.angular.dev/cdk/testing/overview | component harnesses} in the `fakeAsync` zone, which is normally a challenge.
  * - Automatically disables animations.
  * - Causes async {@link https://angular.dev/api/core/APP_INITIALIZER | APP_INITIALIZER}s to complete before instantiating the component. Two caveats:
  *   - this requires all work in your initializers to complete with a call to `tick()`

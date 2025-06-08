@@ -9,6 +9,7 @@
     "inlineSources": true,
     "types": ["jasmine"]
   },
+  "include": ["src/**/*.ts"],
   "exclude": [
     "**/*.spec.ts",
     // excluded for the sake of TSDoc
