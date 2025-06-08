@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -550,17 +550,19 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
   }
 
   @Component({
-    imports: [CommonModule, FormsModule, StringComponent],
+    imports: [FormsModule, StringComponent],
     template: `
       <sl-string-component
         [(ngModel)]="string"
         (ngModelChange)="emissions = emissions + 1"
         #stringControl="ngModel"
         [disabled]="shouldDisable"
-      />
-      <div *ngIf="stringControl.touched">Touched!</div>
-      <button (click)="shouldDisable = !shouldDisable">Toggle Disabled</button>
-    `,
+        />
+        @if (stringControl.touched) {
+          <div>Touched!</div>
+        }
+        <button (click)="shouldDisable = !shouldDisable">Toggle Disabled</button>
+      `,
   })
   class TestComponent {
     emissions = 0;
