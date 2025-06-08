@@ -10,6 +10,8 @@
     "url": "https://github.com/simontonsoftware/s-libs.git",
     "directory": "projects/micro-dash"
   },
-  "dependencies": { "tslib": "^2.3.0" },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
   "sideEffects": false
 }
