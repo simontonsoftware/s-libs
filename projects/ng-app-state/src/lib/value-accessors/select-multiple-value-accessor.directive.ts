@@ -5,7 +5,7 @@ import { provideValueAccessor } from '@s-libs/ng-core';
 /** @hidden */
 @Directive({
   selector: 'select[multiple][nasModel]',
-  host: { '(change)': 'onChange($event.target)', '(blur)': 'onTouched()' },
+  standalone: false,
   providers: [
     provideValueAccessor(SelectMultipleValueAccessorDirective),
     {
@@ -13,6 +13,6 @@ import { provideValueAccessor } from '@s-libs/ng-core';
       useExisting: SelectMultipleValueAccessorDirective,
     },
   ],
-  standalone: false,
+  host: { '(change)': 'onChange($event.target)', '(blur)': 'onTouched()' },
 })
 export class SelectMultipleValueAccessorDirective extends SelectMultipleControlValueAccessor {}

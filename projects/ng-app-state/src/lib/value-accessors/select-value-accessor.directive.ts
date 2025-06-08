@@ -5,10 +5,7 @@ import { provideValueAccessor } from '@s-libs/ng-core';
 /** @hidden */
 @Directive({
   selector: 'select:not([multiple])[nasModel]',
-  host: {
-    '(change)': 'onChange($any($event.target).value)',
-    '(blur)': 'onTouched()',
-  },
+  standalone: false,
   providers: [
     provideValueAccessor(SelectValueAccessorDirective),
     {
@@ -16,6 +13,9 @@ import { provideValueAccessor } from '@s-libs/ng-core';
       useExisting: SelectValueAccessorDirective,
     },
   ],
-  standalone: false,
+  host: {
+    '(change)': 'onChange($any($event.target).value)',
+    '(blur)': 'onTouched()',
+  },
 })
 export class SelectValueAccessorDirective extends SelectControlValueAccessor {}

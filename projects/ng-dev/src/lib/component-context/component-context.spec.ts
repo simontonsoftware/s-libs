@@ -8,6 +8,7 @@ import {
   Input,
   model,
   OnChanges,
+  provideAppInitializer,
   SimpleChanges,
 } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
@@ -76,7 +77,10 @@ describe('ComponentContext', () => {
     });
 
     it('supports standalone components', () => {
-      @Component({ template: 'hi', standalone: true })
+      @Component({
+        standalone: true,
+        template: 'hi',
+      })
       class StandaloneComponent {}
 
       const ctx = new ComponentContext(StandaloneComponent);
@@ -245,7 +249,32 @@ describe('ComponentContext', () => {
       });
     });
 
+    it('causes provided initializers to complete before instantiating the component', () => {
+      const appInitSpy = jasmine.createSpy('app init');
+      const componentInitSpy = jasmine.createSpy('component init');
+
+      @Component({ standalone: true, template: '' })
+      class InitializingComponent {
+        constructor() {
+          componentInitSpy();
+        }
+      }
+
+      const ctx = new ComponentContext(InitializingComponent, {
+        providers: [
+          provideAppInitializer(async () => {
+            await sleep(0);
+            appInitSpy();
+          }),
+        ],
+      });
+      ctx.run(async () => {
+        expect(appInitSpy).toHaveBeenCalledBefore(componentInitSpy);
+      });
+    });
+
     it('causes APP_INITIALIZERs to complete before instantiating the component', () => {
+      /* eslint-disable @typescript-eslint/no-deprecated -- APP_INITIALIZER is deprecated. When that is removed from Angular this test can also be removed. */
       const appInitSpy = jasmine.createSpy('app init');
       const componentInitSpy = jasmine.createSpy('component init');
 

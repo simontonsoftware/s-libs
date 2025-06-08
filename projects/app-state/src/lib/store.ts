@@ -4,7 +4,7 @@ import { Observable, Subscriber } from 'rxjs';
 import { buildChild } from './child-store';
 import { ChildStore, RootStore } from './index';
 
-/* eslint-disable @typescript-eslint/no-unsafe-return,@typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-unsafe-declaration-merging */
+/* eslint-disable @typescript-eslint/no-unsafe-return,@typescript-eslint/explicit-module-boundary-types */
 
 type GetSlice<T> = <K extends keyof T>(attr: K) => Store<T[K]>;
 

@@ -233,7 +233,7 @@ describe('WrappedControlSuperclass', () => {
       @Component({
         selector: 'sl-inner',
         imports: [ReactiveFormsModule],
-        template: `<input [formControl]="control" maxlength="2" />`,
+        template: `<input maxlength="2" [formControl]="control" />`,
         providers: [provideValueAccessor(InnerComponent)],
       })
       class InnerComponent extends WrappedControlSuperclass<string | null> {
@@ -255,7 +255,7 @@ describe('WrappedControlSuperclass', () => {
 
       @Component({
         imports: [InnerComponent, ReactiveFormsModule],
-        template: `<sl-inner [formControl]="control" required />`,
+        template: `<sl-inner required [formControl]="control" />`,
       })
       class OuterComponent extends WrappedControlSuperclass<string | null> {
         control = new FormControl('');
@@ -280,7 +280,7 @@ describe('WrappedControlSuperclass', () => {
       @Component({
         selector: 'sl-inner',
         imports: [ReactiveFormsModule],
-        template: `<input [formControl]="control" required />`,
+        template: `<input required [formControl]="control" />`,
         providers: [provideValueAccessor(InnerComponent)],
       })
       class InnerComponent extends WrappedControlSuperclass<string | null> {
@@ -358,7 +358,7 @@ describe('WrappedControlSuperclass', () => {
         @Component({
           imports: [FormsModule, InnerComponent, ReactiveFormsModule],
           template: `
-            <sl-inner id="model" [ngModel]="''" required />
+            <sl-inner id="model" ngModel="" required />
             <sl-inner id="control" [formControl]="control" />
             <form [formGroup]="group">
               <sl-inner id="name" formControlName="inner" />
@@ -552,10 +552,10 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
     imports: [FormsModule, StringComponent],
     template: `
       <sl-string-component
-        [(ngModel)]="string"
-        (ngModelChange)="emissions = emissions + 1"
         #stringControl="ngModel"
         [disabled]="shouldDisable"
+        [(ngModel)]="string"
+        (ngModelChange)="emissions = emissions + 1"
       />
       @if (stringControl.touched) {
         <div>Touched!</div>

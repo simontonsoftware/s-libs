@@ -25,6 +25,7 @@ describe('Readme code', () => {
     // my-app-component.ts
     @Component({
       selector: 'sl-my-app',
+      standalone: true,
       template: `
         <button (click)="counter.state = counter.state + 1">Increment</button>
         <div>Current Count: {{ counter.state }}</div>
@@ -32,7 +33,6 @@ describe('Readme code', () => {
 
         <button (click)="counter.state = 0">Reset Counter</button>
       `,
-      standalone: true,
       changeDetection: ChangeDetectionStrategy.OnPush,
     })
     class MyAppComponent {

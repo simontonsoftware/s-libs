@@ -41,8 +41,8 @@ describe('AbstractStore', () => {
       }
 
       @Component({
-        template: `<sl-inner />`,
         imports: [InnerComponent],
+        template: `<sl-inner />`,
         changeDetection: ChangeDetectionStrategy.OnPush,
       })
       class TestComponent {}

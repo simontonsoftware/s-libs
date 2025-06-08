@@ -19,7 +19,7 @@ export function mapKeys<T, O extends PropertyKey>(
   | Record<O, NonNullable<T>[keyof NonNullable<T>]>;
 export function mapKeys(object: any, iteratee: Function): any {
   let obj: any = {};
-  Object.keys(object || obj).forEach(
+  Object.keys(object ?? obj).forEach(
     (key) => (obj[iteratee(object[key], key)] = object[key]),
   );
   return obj;

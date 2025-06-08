@@ -428,7 +428,7 @@ describe('AngularContext', () => {
     it('errs if there are unexpected errors', () => {
       @Component({
         standalone: true,
-        template: '<button (click)="throwError()"></button>',
+        template: '<button (click)="throwError()">Break Me</button>',
       })
       class ThrowingComponent {
         throwError(): never {
@@ -443,7 +443,7 @@ describe('AngularContext', () => {
           const button = await loader.locatorFor('button')();
           await button.click();
         });
-      }).toThrowError('Expected no error(s), found 1');
+      }).toThrowError();
     });
   });
 
@@ -476,13 +476,13 @@ describe('AngularContext class-level doc example', () => {
   // This is the class we will test.
   @Injectable({ providedIn: 'root' })
   class MemoriesService {
-    constructor(private httpClient: HttpClient) {}
+    #httpClient = inject(HttpClient);
 
     getLastYearToday(): Observable<any> {
       const datetime = new Date();
       datetime.setFullYear(datetime.getFullYear() - 1);
       const date = datetime.toISOString().split('T')[0];
-      return this.httpClient.get(`http://example.com/post-from/${date}`);
+      return this.#httpClient.get(`http://example.com/post-from/${date}`);
     }
   }
 

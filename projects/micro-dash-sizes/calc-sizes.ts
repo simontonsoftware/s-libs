@@ -17,7 +17,7 @@ const sourceDir = path.join(rootDir, 'projects', 'micro-dash', 'src', 'lib');
 run();
 
 async function run(): Promise<void> {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition,no-constant-condition
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   while (true) {
     const base = await getFileBaseInput();
     const library = await getLibraryInput();

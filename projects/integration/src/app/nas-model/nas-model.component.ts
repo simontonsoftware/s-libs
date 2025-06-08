@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { mapToObject } from '@s-libs/js-core';
 import { forEach, padStart } from '@s-libs/micro-dash';
@@ -11,17 +11,19 @@ import { NasModelStore } from './nas-model-store';
 
 @Component({
   selector: 'sl-nas-model',
+  imports: [AsyncPipe, FormsModule, NasModelModule],
   templateUrl: './nas-model.component.html',
   styleUrl: './nas-model.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, FormsModule, NasModelModule],
 })
 export class NasModelComponent {
   cities: City[] = ['San Francisco', 'Nairobi', 'Gulu'];
   stateString$: Observable<string>;
 
-  constructor(protected store: NasModelStore) {
-    this.stateString$ = store.$.pipe(
+  protected store = inject(NasModelStore);
+
+  constructor() {
+    this.stateString$ = this.store.$.pipe(
       map((state) => JSON.stringify(state, null, 2)),
     );
   }

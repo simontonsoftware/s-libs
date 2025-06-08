@@ -17,8 +17,8 @@ describe('spreadArrayStore()', () => {
       }
 
       @Component({
-        standalone: true,
         selector: 'app-hero',
+        standalone: true,
         template: `{{ heroStore('name').state }}`,
       })
       class HeroComponent {
@@ -27,13 +27,13 @@ describe('spreadArrayStore()', () => {
 
       // vvvv documentation below
       @Component({
+        imports: [HeroComponent],
         standalone: true,
         template: `
           @for (heroStore of heroStores(); track heroStore) {
             <app-hero [heroStore]="heroStore" />
           }
         `,
-        imports: [HeroComponent],
       })
       class HeroListComponent implements OnChanges {
         @Input() heroesStore!: Store<Hero[]>;

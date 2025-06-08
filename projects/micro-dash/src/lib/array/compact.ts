@@ -9,6 +9,5 @@ import { identity } from '../util';
  * - Micro-dash: 62 bytes
  */
 export function compact<T>(array: readonly T[]): Array<Exclude<T, Falsy>> {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- not sure why this rule triggers
   return array.filter(identity) as Array<Exclude<T, Falsy>>;
 }

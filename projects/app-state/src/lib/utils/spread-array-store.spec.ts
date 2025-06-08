@@ -110,8 +110,8 @@ describe('spreadArrayStore$()', () => {
 
       @Component({
         selector: 'app-hero',
-        template: `{{ heroStore('name').$ | async }}`,
         imports: [AsyncPipe],
+        template: `{{ heroStore('name').$ | async }}`,
       })
       class HeroComponent {
         @Input() heroStore!: Store<Hero>;
@@ -119,12 +119,12 @@ describe('spreadArrayStore$()', () => {
 
       // vvvv documentation below
       @Component({
+        imports: [HeroComponent, AsyncPipe],
         template: `
           @for (heroStore of heroStores$ | async; track heroStore) {
             <app-hero [heroStore]="heroStore" />
           }
         `,
-        imports: [HeroComponent, AsyncPipe],
       })
       class HeroListComponent implements OnChanges {
         @Input() heroesStore!: Store<Hero[]>;

@@ -5,11 +5,11 @@ import { provideValueAccessor } from '@s-libs/ng-core';
 /** @hidden */
 @Directive({
   selector: 'input[type=checkbox][nasModel]',
+  standalone: false,
+  providers: [provideValueAccessor(CheckboxValueAccessorDirective)],
   host: {
     '(change)': 'onChange($any($event.target).checked)',
     '(blur)': 'onTouched()',
   },
-  providers: [provideValueAccessor(CheckboxValueAccessorDirective)],
-  standalone: false,
 })
 export class CheckboxValueAccessorDirective extends CheckboxControlValueAccessor {}

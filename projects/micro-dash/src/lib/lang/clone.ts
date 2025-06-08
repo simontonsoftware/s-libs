@@ -9,6 +9,7 @@ export function clone<T>(value: T): T {
   if (Array.isArray(value)) {
     return value.slice() as any;
   } else if (value instanceof Object) {
+    // eslint-disable-next-line @typescript-eslint/no-misused-spread
     return { ...value };
   } else {
     return value;

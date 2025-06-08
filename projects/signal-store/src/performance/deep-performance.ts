@@ -44,14 +44,14 @@ export function subscribeDeep(
 export async function runDeep(
   store: Store<DeepState>,
   iterations: number,
-  flushEffects: (() => Promise<unknown>) | (() => void),
+  tick: (() => Promise<unknown>) | (() => void),
 ): Promise<number> {
   const { leafStore } = analyze(store);
 
   const start = performance.now();
   for (let i = iterations; --i >= 0; ) {
     leafStore('counter').update(increment);
-    await flushEffects();
+    await tick();
   }
   const elapsed = performance.now() - start;
 

@@ -85,7 +85,7 @@ describe('ControlSynchronizer', () => {
 
     @Component({
       imports: [InnerComponent, ReactiveFormsModule],
-      template: `<sl-inner [formControl]="control"></sl-inner>`,
+      template: `<sl-inner [formControl]="control" />`,
       changeDetection: ChangeDetectionStrategy.OnPush,
     })
     class OuterComponent extends AbstractValidatingComponent {
@@ -154,7 +154,7 @@ describe('ControlSynchronizer', () => {
 
     @Component({
       imports: [InnerComponent, ReactiveFormsModule],
-      template: `<sl-inner [formControl]="control"></sl-inner>`,
+      template: `<sl-inner [formControl]="control" />`,
       changeDetection: ChangeDetectionStrategy.OnPush,
     })
     class OuterComponent extends AbstractValidatingComponent {
@@ -244,7 +244,7 @@ describe('ControlSynchronizer', () => {
 
     @Component({
       imports: [InnerComponent, ReactiveFormsModule],
-      template: `<sl-inner [formControl]="control"></sl-inner>`,
+      template: `<sl-inner [formControl]="control" />`,
     })
     class OuterComponent extends AbstractValidatingComponent {
       constructor() {

@@ -17,14 +17,14 @@ describe('spreadArrayStoreSignal()', () => {
       });
 
       // initial value
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(emitted.length).toBe(2);
       expect(emitted[0].state).toBe(1);
       expect(emitted[1].state).toBe(2);
 
       // increase length
       source.set(new RootStore([3, 4, 5]));
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(emitted.length).toBe(3);
       expect(emitted[0].state).toBe(3);
       expect(emitted[1].state).toBe(4);
@@ -32,13 +32,13 @@ describe('spreadArrayStoreSignal()', () => {
 
       // decrease length
       source().state = [6];
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(emitted.length).toBe(1);
       expect(emitted[0].state).toBe(6);
 
       // empty
       source.set(new RootStore<number[]>([]));
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(emitted.length).toBe(0);
     });
   });
@@ -52,15 +52,15 @@ describe('spreadArrayStoreSignal()', () => {
         emissions++;
         subStores();
       });
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(emissions).toBe(1);
 
       source().state = [3, 4];
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(emissions).toBe(1);
 
       source().state = [7, 8, 9];
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(emissions).toBe(2);
     });
   });
@@ -74,11 +74,11 @@ describe('spreadArrayStoreSignal()', () => {
         emissions++;
         subStores();
       });
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(emissions).toBe(1);
 
       source.set(new RootStore([1, 2]));
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(emissions).toBe(2);
     });
   });
@@ -94,15 +94,15 @@ describe('spreadArrayStoreSignal()', () => {
         previousEmit = lastEmit;
         lastEmit = subStores();
       });
-      TestBed.flushEffects();
+      TestBed.tick();
 
       source().state = [3, 4, 5];
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(lastEmit![0]).toBe(previousEmit![0]);
       expect(lastEmit![1]).toBe(previousEmit![1]);
 
       source().state = [6];
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(lastEmit![0]).toBe(previousEmit![0]);
     });
   });
@@ -119,15 +119,15 @@ describe('spreadArrayStoreSignal()', () => {
       effect(() => {
         emitted = subStores();
       });
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(emitted.length).toBe(0);
 
       source().state = [1];
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(emitted.length).toBe(1);
 
       source().state = null;
-      TestBed.flushEffects();
+      TestBed.tick();
       expect(emitted.length).toBe(0);
     });
   });
@@ -139,8 +139,8 @@ describe('spreadArrayStoreSignal()', () => {
       }
 
       @Component({
-        standalone: true,
         selector: 'app-hero',
+        standalone: true,
         template: `{{ heroStore()('name').state }}`,
       })
       class HeroComponent {
@@ -149,13 +149,13 @@ describe('spreadArrayStoreSignal()', () => {
 
       // vvvv documentation below
       @Component({
+        imports: [HeroComponent],
         standalone: true,
         template: `
           @for (heroStore of heroStores(); track heroStore) {
             <app-hero [heroStore]="heroStore" />
           }
         `,
-        imports: [HeroComponent],
       })
       class HeroListComponent {
         readonly heroesStore = input.required<Store<Hero[]>>();

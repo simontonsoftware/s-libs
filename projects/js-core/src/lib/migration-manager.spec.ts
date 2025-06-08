@@ -38,17 +38,20 @@ describe('MigrationManager', () => {
       show = jasmine.createSpy();
     }
 
+    /* eslint-disable @typescript-eslint/no-misused-spread */
+    // vv example starts here
     class MigrationService extends MigrationManager<MyState> {
       constructor(private messaging: MessagingService) {
         super();
-        this.registerMigration(1, this.migrateFrom1); // no special binding
+        this.registerMigration(1, this.#migrateFrom1); // no special binding
       }
 
-      private migrateFrom1(source: MyState): MyState {
+      #migrateFrom1(source: MyState): MyState {
         this.messaging.show("You've been upgraded!"); // you can still use `this`
         return { ...source, _version: 2 };
       }
     }
+    // ^^ example ends here
 
     const messagingService = new MessagingService();
     const migrater = new MigrationService(messagingService);

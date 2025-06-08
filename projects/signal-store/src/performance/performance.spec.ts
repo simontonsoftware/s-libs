@@ -26,11 +26,7 @@ describe('performance', () => {
     );
 
     const timeToSubscribe = subscribeDeep(store, injector);
-    const timeToChange = await runDeep(
-      store,
-      deepIterations,
-      TestBed.flushEffects,
-    );
+    const timeToChange = await runDeep(store, deepIterations, TestBed.tick);
     const timeToUnsubscribe = unsubscribe(depth, injector);
 
     expect(timeToSubscribe / depth).toBeLessThan(msPerDeepSubscription);
@@ -46,11 +42,7 @@ describe('performance', () => {
     );
 
     const timeToSubscribe = subscribeWide(store, injector);
-    const timeToChange = await runWide(
-      store,
-      wideIterations,
-      TestBed.flushEffects,
-    );
+    const timeToChange = await runWide(store, wideIterations, TestBed.tick);
     const timeToUnsubscribe = unsubscribe(width, injector);
 
     expect(timeToSubscribe / width).toBeLessThan(msPerWideSubscription);
