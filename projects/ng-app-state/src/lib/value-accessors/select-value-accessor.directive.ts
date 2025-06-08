@@ -6,7 +6,7 @@ import { provideValueAccessor } from '@s-libs/ng-core';
 @Directive({
   selector: 'select:not([multiple])[nasModel]',
   host: {
-    '(change)': 'onChange($event.target.value)',
+    '(change)': 'onChange($any($event.target).value)',
     '(blur)': 'onTouched()',
   },
   providers: [

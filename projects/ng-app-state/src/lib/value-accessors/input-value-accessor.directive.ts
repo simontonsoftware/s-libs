@@ -13,10 +13,10 @@ import { provideValueAccessor } from '@s-libs/ng-core';
   selector:
     'input:not([type=checkbox]):not([type=number]):not([type=radio]):not([type=range])[nasModel],textarea[nasModel]',
   host: {
-    '(input)': '$any(this)._handleInput($event.target.value)',
+    '(input)': '$any(this)._handleInput($any($event.target).value)',
     '(blur)': 'onTouched()',
     '(compositionstart)': '$any(this)._compositionStart()',
-    '(compositionend)': '$any(this)._compositionEnd($event.target.value)',
+    '(compositionend)': '$any(this)._compositionEnd($any($event.target).value)',
   },
   providers: [provideValueAccessor(InputValueAccessorDirective)],
   standalone: false,
