@@ -10,13 +10,15 @@
     "directory": "projects/ng-mat-core"
   },
   "peerDependencies": {
-    "@angular/common": "^19.0.0",
-    "@angular/core": "^19.0.0",
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0",
     "@s-libs/js-core": "^19.0.0-next.0",
     "@s-libs/micro-dash": "^19.0.0-next.0",
     "@s-libs/ng-core": "^19.0.0-next.0",
     "@s-libs/rxjs-core": "^19.0.0-next.0"
   },
-  "dependencies": { "tslib": "^2.3.0" },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
   "sideEffects": false
 }

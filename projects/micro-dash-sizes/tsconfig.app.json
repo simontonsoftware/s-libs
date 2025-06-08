@@ -9,7 +9,10 @@
     // Special just for micro-dash library functions, to reduce bundle size
     "noImplicitReturns": false
   },
-  "files": ["src/main.ts"],
-  // include all ts files because they are not captured by `main.ts`, and will be linted
-  "include": ["**/*.ts"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts"
+  ]
 }

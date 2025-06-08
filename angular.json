@@ -11,9 +11,6 @@
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/app-state/ng-package.json"
-          },
           "configurations": {
             "production": {
               "tsConfig": "projects/app-state/tsconfig.lib.prod.json"
@@ -57,8 +54,6 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/integration",
-            "index": "projects/integration/src/index.html",
             "browser": "projects/integration/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/integration/tsconfig.app.json",
@@ -68,8 +63,7 @@
                 "input": "projects/integration/public"
               }
             ],
-            "styles": ["projects/integration/src/styles.scss"],
-            "scripts": []
+            "styles": ["projects/integration/src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -124,8 +118,7 @@
             "styles": [
               "projects/integration/src/styles.scss",
               "projects/integration/src/app/api-tests/ng-mat-core.spec.scss"
-            ],
-            "scripts": []
+            ]
           }
         },
         "lint": {
@@ -148,9 +141,6 @@
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/js-core/ng-package.json"
-          },
           "configurations": {
             "production": {
               "tsConfig": "projects/js-core/tsconfig.lib.prod.json"
@@ -188,9 +178,6 @@
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/micro-dash/ng-package.json"
-          },
           "configurations": {
             "production": {
               "tsConfig": "projects/micro-dash/tsconfig.lib.prod.json"
@@ -230,8 +217,6 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/micro-dash-sizes",
-            "index": "projects/micro-dash-sizes/src/index.html",
             "browser": "projects/micro-dash-sizes/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/micro-dash-sizes/tsconfig.app.json",
@@ -241,8 +226,7 @@
                 "input": "projects/micro-dash-sizes/public"
               }
             ],
-            "styles": [],
-            "scripts": []
+            "styles": []
           },
           "configurations": {
             "production": {
@@ -303,9 +287,6 @@
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/ng-app-state/ng-package.json"
-          },
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-app-state/tsconfig.lib.prod.json"
@@ -343,9 +324,6 @@
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/ng-core/ng-package.json"
-          },
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-core/tsconfig.lib.prod.json"
@@ -383,9 +361,6 @@
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/ng-dev/ng-package.json"
-          },
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-dev/tsconfig.lib.prod.json"
@@ -423,9 +398,6 @@
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/ng-mat-core/ng-package.json"
-          },
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-mat-core/tsconfig.lib.prod.json"
@@ -463,9 +435,6 @@
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/rxjs-core/ng-package.json"
-          },
           "configurations": {
             "production": {
               "tsConfig": "projects/rxjs-core/tsconfig.lib.prod.json"
@@ -503,9 +472,6 @@
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/signal-store/ng-package.json"
-          },
           "configurations": {
             "production": {
               "tsConfig": "projects/signal-store/tsconfig.lib.prod.json"

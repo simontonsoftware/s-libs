@@ -9,5 +9,5 @@
     // Special just for micro-dash library functions, to reduce bundle size
     "noImplicitReturns": false
   },
-  "include": ["**/*.spec.ts", "**/*.d.ts"]
+  "include": ["src/**/*.ts"]
 }
