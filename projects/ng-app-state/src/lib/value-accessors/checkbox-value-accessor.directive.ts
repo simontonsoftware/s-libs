@@ -6,7 +6,7 @@ import { provideValueAccessor } from '@s-libs/ng-core';
 @Directive({
   selector: 'input[type=checkbox][nasModel]',
   host: {
-    '(change)': 'onChange($event.target.checked)',
+    '(change)': 'onChange($any($event.target).checked)',
     '(blur)': 'onTouched()',
   },
   providers: [provideValueAccessor(CheckboxValueAccessorDirective)],

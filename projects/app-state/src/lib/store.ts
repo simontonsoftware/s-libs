@@ -34,7 +34,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
   protected activeChildren = new Map<string, Set<Store<unknown>>>();
   protected lastKnownState?: T;
 
-  private lastKnownStateChanged = false;
+  #lastKnownStateChanged = false;
 
   constructor(
     public getRootStore: () => RootStore<object>,
@@ -97,7 +97,7 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
     }
 
     this.lastKnownState = value;
-    this.lastKnownStateChanged = true;
+    this.#lastKnownStateChanged = true;
     this.activeChildren.forEach((children, key) => {
       for (const child of children) {
         child.updateState(value?.[key]);
@@ -106,14 +106,15 @@ export abstract class Store<T> extends CallableObject<GetSlice<T>> {
   }
 
   protected maybeEmit(): void {
-    if (!this.lastKnownStateChanged) {
+    if (!this.#lastKnownStateChanged) {
       return;
     }
 
-    this.lastKnownStateChanged = false;
+    this.#lastKnownStateChanged = false;
     this.subscribers.forEach((lastEmitted, subscriber) => {
       if (lastEmitted !== this.lastKnownState) {
-        subscriber.next(this.lastKnownState);
+        // Non-null assertion added in upgrade to 20. There may be times we emit `undefined` while deleting a key in a way that breaks type safety - but at that point we already broke type safety...
+        subscriber.next(this.lastKnownState!);
         this.subscribers.set(subscriber, this.lastKnownState);
       }
     });
