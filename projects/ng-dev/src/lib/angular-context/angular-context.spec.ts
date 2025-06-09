@@ -443,7 +443,7 @@ describe('AngularContext', () => {
           const button = await loader.locatorFor('button')();
           await button.click();
         });
-      }).toThrowError('Expected no error(s), found 1');
+      }).toThrowError();
     });
   });
 

@@ -39,7 +39,7 @@ export interface PersistenceCodec<State, Persisted> {
  * store('my_state_key').state ='my persisted value';
  *
  * // the user leaves the page and comes back later ...
- * TestBed.flushEffects();
+ * TestBed.tick();
  *
  * store = new MyStore();
  * expect(store('my_state_key').state).toBe('my persisted value');

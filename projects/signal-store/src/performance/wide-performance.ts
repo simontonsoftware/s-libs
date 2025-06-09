@@ -43,14 +43,14 @@ export function subscribeWide(
 export async function runWide(
   store: Store<WideState>,
   iterations: number,
-  flushEffects: (() => Promise<unknown>) | (() => void),
+  tick: (() => Promise<unknown>) | (() => void),
 ): Promise<number> {
   const counterStore = store('array')(0)('counter');
 
   const start = performance.now();
   for (let i = iterations; --i; ) {
     counterStore.update(increment);
-    await flushEffects();
+    await tick();
   }
   const elapsed = performance.now() - start;
 
