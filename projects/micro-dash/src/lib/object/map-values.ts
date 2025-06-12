@@ -17,7 +17,7 @@ export function mapValues<T, O>(
 ): IfCouldBe<T, Nil, {}> | Record<keyof NonNullable<T>, O>;
 export function mapValues(object: any, iteratee: Function): any {
   let obj: any = {};
-  Object.keys(object || obj).forEach(
+  Object.keys(object ?? obj).forEach(
     (key) => (obj[key] = iteratee(object[key], key)),
   );
   return obj;

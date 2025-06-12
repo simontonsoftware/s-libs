@@ -16,9 +16,9 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'sl-wide-performance',
+  imports: [FormsModule],
   templateUrl: './wide-performance.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule],
 })
 export class WidePerformanceComponent {
   protected width = 1000;

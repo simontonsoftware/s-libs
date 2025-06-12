@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { firstValueFrom } from 'rxjs';
 import { DialogComponent, DialogData } from './dialog.component';
@@ -38,13 +38,13 @@ import { SlDialogModule } from './sl-dialog.module';
  */
 @Injectable({ providedIn: SlDialogModule })
 export class SlDialogService {
-  constructor(private matDialog: MatDialog) {}
+  #matDialog = inject(MatDialog);
 
   /**
    * Resolves when the dialog is closed. Resolves to the {@link DialogButton.value} of the clicked button, or to `undefined` if the dialog was closed another way (such as clicking off it).
    */
   async open<T>(data: DialogData<T>): Promise<T | undefined> {
-    const ref = this.matDialog.open(DialogComponent, {
+    const ref = this.#matDialog.open(DialogComponent, {
       data,
       autoFocus: false,
     });

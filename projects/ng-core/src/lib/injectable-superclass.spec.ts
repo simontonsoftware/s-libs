@@ -1,4 +1,4 @@
-import { Component, Directive, Injectable } from '@angular/core';
+import { Component, Directive, Injectable, inject } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
@@ -17,13 +17,12 @@ class DestroyableService extends InjectableSuperclass {}
   providers: [DestroyableService],
 })
 class DestroyableDirective extends InjectableSuperclass {
-  constructor(
-    subject: Subject<any>,
-    public service: DestroyableService,
-  ) {
+  constructor() {
     super();
+
+    const subject = inject(Subject);
     this.subscribeTo(subject);
-    service.subscribeTo(subject);
+    inject(DestroyableService).subscribeTo(subject);
   }
 }
 

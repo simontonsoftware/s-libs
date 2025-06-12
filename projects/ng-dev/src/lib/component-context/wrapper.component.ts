@@ -6,7 +6,7 @@ export type Inputs<T> = {
 };
 
 // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection,@angular-eslint/prefer-standalone -- change detection is carefully orchestrated in the TypeScript, and if this is standalone we can no longer test non-standalone components */
-@Component({ template: '', standalone: false })
+@Component({ standalone: false, template: '' })
 export class WrapperComponent<T> {
   inputs: Inputs<T> = {};
   styles: Record<string, any> = {};
@@ -17,6 +17,7 @@ export class WrapperComponent<T> {
   ): Array<keyof T> {
     const selector = getSelector(componentMirror);
     const inputs = componentMirror.inputs.filter(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
       ({ propName }) => !unboundInputs.includes(propName as keyof T),
     );
 
@@ -24,6 +25,7 @@ export class WrapperComponent<T> {
       set: { template: buildTemplate(selector, inputs) },
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
     return inputs.map((input) => input.propName as keyof T);
   }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Injectable } from '@angular/core';
+import { Component, inject, Injectable } from '@angular/core';
 import {
   ControlValueAccessor,
   FormsModule,
@@ -9,7 +9,6 @@ import { RootStore } from '@s-libs/app-state';
 import { noop } from '@s-libs/micro-dash';
 import { NasModelModule } from '../lib/nas-model.module';
 
-/* eslint-disable @typescript-eslint/no-useless-constructor -- this file does injection in funny ways */
 /* eslint-disable @angular-eslint/component-max-inline-declarations,@angular-eslint/prefer-on-push-component-change-detection -- this file is for specs, and these rules are disabled for specs */
 
 class StoreComponent<T extends object> {
@@ -34,8 +33,8 @@ export class SingleValueStore extends RootStore<any> {
   imports: [CommonModule, NasModelModule],
 })
 export class SingleValueComponent extends StoreComponent<any> {
-  constructor(store: SingleValueStore) {
-    super(store);
+  constructor() {
+    super(inject(SingleValueStore));
   }
 }
 
@@ -57,17 +56,17 @@ export class CityStore extends RootStore<CityState> {
 
 export const citySelectWithNullTemplate = `
   <select [nasModel]="store('selectedCity')">
-    <option *ngFor="let c of store('cities').$ | async" [ngValue]="c">
-      {{c.name}}
-    </option>
+      @for (c of store('cities').$ | async; track c) {
+        <option [ngValue]="c">{{c.name}}</option>
+      }
     <option [ngValue]="null">Unspecified</option>
   </select>
 `;
 export const citySelectWithCustomCompareFnTemplate = `
   <select [nasModel]="store('selectedCity')" [compareWith]="compareFn">
-    <option *ngFor="let c of store('cities').$ | async" [ngValue]="c">
-      {{c.name}}
-    </option>
+    @for (c of store('cities').$ | async; track c) {
+      <option [ngValue]="c">{{c.name}}</option>
+    }
   </select>
 `;
 
@@ -83,8 +82,8 @@ export const citySelectWithCustomCompareFnTemplate = `
   `,
 })
 export class CityComponent extends StoreComponent<CityState> {
-  constructor(store: CityStore) {
-    super(store);
+  constructor() {
+    super(inject(CityStore));
   }
 }
 
@@ -110,9 +109,9 @@ export const multipleCityWithCustomCompareFnTemplate = `
     [nasModel]="store('selectedCities')"
     [compareWith]="compareFn"
   >
-    <option *ngFor="let c of store('cities').$ | async" [ngValue]="c">
-      {{c.name}}
-    </option>
+    @for (c of store('cities').$ | async; track c) {
+      <option [ngValue]="c">{{c.name}}</option>
+    }
   </select>
 `;
 
@@ -128,8 +127,8 @@ export const multipleCityWithCustomCompareFnTemplate = `
   `,
 })
 export class MultipleCityComponent extends StoreComponent<MultipleCityState> {
-  constructor(store: MultipleCityStore) {
-    super(store);
+  constructor() {
+    super(inject(MultipleCityStore));
   }
 }
 
@@ -164,8 +163,8 @@ export class MenuStore extends RootStore<MenuState> {
   `,
 })
 export class MenuComponent extends StoreComponent<MenuState> {
-  constructor(store: MenuStore) {
-    super(store);
+  constructor() {
+    super(inject(MenuStore));
   }
 }
 
@@ -236,7 +235,7 @@ export class InnerNameComponent implements ControlValueAccessor {
   `,
 })
 export class NameComponent extends StoreComponent<NameState> {
-  constructor(store: NameStore) {
-    super(store);
+  constructor() {
+    super(inject(NameStore));
   }
 }

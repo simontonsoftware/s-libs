@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularContext } from '@s-libs/ng-dev';
 import {
@@ -92,7 +92,7 @@ describe('DialogComponent', () => {
   it('can inject input to a component', () => {
     @Component({ standalone: true, template: '{{ myInput }}' })
     class MyDialogComponent {
-      constructor(@Inject(SL_DIALOG_DATA) public myInput: string) {}
+      protected myInput = inject(SL_DIALOG_DATA);
     }
 
     ctx.run(async () => {

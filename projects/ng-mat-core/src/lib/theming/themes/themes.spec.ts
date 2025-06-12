@@ -8,8 +8,8 @@ describe('themes.scss', () => {
   it('includes themes', () => {
     @Component({
       imports: [MatButtonModule],
-      styleUrl: './minimal-config.spec.scss',
       template: `<button mat-button>Clickity click</button>`,
+      styleUrl: './minimal-config.spec.scss',
     })
     class TestComponent {}
 
@@ -23,11 +23,11 @@ describe('themes.scss', () => {
   it('allows specifying only some components', () => {
     @Component({
       imports: [MatButtonModule, MatToolbarModule],
-      styleUrl: './only-button.spec.scss',
       template: `
-        <button mat-button color="primary"></button>
-        <mat-toolbar color="accent"></mat-toolbar>
+        <button mat-button color="primary">👋</button>
+        <mat-toolbar color="accent" />
       `,
+      styleUrl: './only-button.spec.scss',
     })
     class TestComponent {}
 
@@ -41,8 +41,8 @@ describe('themes.scss', () => {
   it('allows specifying density', () => {
     @Component({
       imports: [MatButtonModule],
+      template: `<button mat-button>👋</button>`,
       styleUrl: './custom-density.spec.scss',
-      template: `<button mat-button></button>`,
     })
     class TestComponent {}
 
@@ -55,8 +55,8 @@ describe('themes.scss', () => {
   it('allows passing in a custom palette key', () => {
     @Component({
       imports: [MatToolbarModule],
-      styleUrl: './custom-palette-key.spec.scss',
       template: `<mat-toolbar color="accent" />`,
+      styleUrl: './custom-palette-key.spec.scss',
     })
     class TestComponent {}
 
@@ -70,8 +70,8 @@ describe('themes.scss', () => {
     it('defaults to include typography', () => {
       @Component({
         imports: [MatButtonModule],
+        template: `<button mat-button>👋</button>`,
         styleUrl: './minimal-config.spec.scss',
-        template: `<button mat-button></button>`,
       })
       class TestComponent {}
 
@@ -84,8 +84,8 @@ describe('themes.scss', () => {
     it('allows specifying typography', () => {
       @Component({
         imports: [MatButtonModule],
+        template: `<button mat-button>👋</button>`,
         styleUrl: './custom-typography.spec.scss',
-        template: `<button mat-button></button>`,
       })
       class TestComponent {}
 
@@ -98,12 +98,12 @@ describe('themes.scss', () => {
     it('allows opting out of typography', () => {
       @Component({
         imports: [MatButtonModule],
-        styleUrl: './no-typography.spec.scss',
         template: `
           <div style="font-family: Arial">
-            <button mat-button></button>
+            <button mat-button>👋</button>
           </div>
         `,
+        styleUrl: './no-typography.spec.scss',
       })
       class TestComponent {}
 

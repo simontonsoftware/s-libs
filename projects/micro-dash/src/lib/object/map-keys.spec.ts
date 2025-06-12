@@ -5,6 +5,10 @@ import { EmptyObject } from '../interfaces';
 import { mapKeys } from './map-keys';
 
 describe('mapKeys()', () => {
+  it('maps strings', () => {
+    expect(mapKeys('12', String) as any).toEqual({ 1: '1', 2: '2' });
+  });
+
   it('has fancy typing', () => {
     staticTest(() => {
       type A = number[];
@@ -52,10 +56,6 @@ describe('mapKeys()', () => {
         EmptyObject | O
       >();
     });
-  });
-
-  it('maps strings', () => {
-    expect(mapKeys('12', String) as any).toEqual({ 1: '1', 2: '2' });
   });
 
   //

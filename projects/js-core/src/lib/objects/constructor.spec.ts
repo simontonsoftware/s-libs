@@ -14,8 +14,8 @@ describe('Constructor', () => {
 
       class DateSomething extends mixInSomething(Date) {}
 
-      expectTypeOf<DateSomething>().toMatchTypeOf<Date>();
-      expectTypeOf<DateSomething>().toMatchTypeOf<{ something: boolean }>();
+      expectTypeOf<DateSomething>().toExtend<Date>();
+      expectTypeOf<DateSomething>().toExtend<{ something: boolean }>();
     });
   });
 });

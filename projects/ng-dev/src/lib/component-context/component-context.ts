@@ -195,6 +195,7 @@ export class ComponentContext<T> extends AngularContext {
    */
   assignInputs(inputs: Inputs<T>): void {
     for (const key of keys(inputs)) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
       if (!this.#inputProperties.has(key as keyof T)) {
         throw new Error(
           `Cannot bind to "${String(

@@ -1,7 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
+  inject,
+  InjectionToken,
   Input,
   OnChanges,
   OnInit,
@@ -17,13 +18,17 @@ import {
   ComponentContext,
   expectSingleCallAndReset,
 } from '@s-libs/ng-dev';
-import { BehaviorSubject, combineLatest, noop, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, noop } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { click, find, findButton } from '../test-helpers';
 import { DirectiveSuperclass } from './directive-superclass';
 
 /* eslint-disable @angular-eslint/prefer-signals -- this class's purpose is pre-signals */
 /* eslint-disable @typescript-eslint/no-deprecated -- the class we are testing is deprecated */
+
+const colorToken = new InjectionToken('color$', {
+  factory: (): BehaviorSubject<string> => new BehaviorSubject('Grey'),
+});
 
 @Component({
   selector: 'sl-color-text',
@@ -36,14 +41,14 @@ class ColorTextComponent extends DirectiveSuperclass {
   @Input() prefix2?: string;
   color!: string;
 
-  constructor(@Inject('color$') color$: Observable<string>) {
+  constructor() {
     super();
     this.bindToInstance(
       'color',
       combineLatest([
         this.getInput$('prefix'),
         this.getInput$('prefix2'),
-        color$,
+        inject(colorToken),
       ]).pipe(map((parts) => parts.filter((p) => p).join(''))),
     );
   }
@@ -75,15 +80,9 @@ class TestComponent {
 }
 
 class TestComponentContext extends ComponentContext<TestComponent> {
-  color$ = new BehaviorSubject('Grey');
-
   constructor() {
     super(TestComponent, {
       providers: [
-        {
-          provide: 'color$',
-          useFactory: (): Observable<string> => this.color$,
-        },
         // this can go away with component harnesses eventually
         { provide: ComponentFixtureAutoDetect, useValue: true },
       ],
@@ -323,7 +322,7 @@ describe('DirectiveSuperclass', () => {
     it('triggers change detection', () => {
       const ctx = new TestComponentContext();
       ctx.run(() => {
-        ctx.color$.next('Blue');
+        ctx.inject(colorToken).next('Blue');
         ctx.fixture.detectChanges();
         expect(colorSpan(ctx).innerText).toBe('Blue');
         expect(colorSpan(ctx).style.backgroundColor).toBe('blue');
@@ -339,10 +338,11 @@ describe('DirectiveSuperclass', () => {
     it('cleans up subscriptions', () => {
       const ctx = new TestComponentContext();
       ctx.run(() => {
-        expect(ctx.color$.observers.length).toBe(1);
+        const color$ = ctx.inject(colorToken);
+        expect(color$.observed).toBe(true);
 
         click(hideButton(ctx));
-        expect(ctx.color$.observers.length).toBe(0);
+        expect(color$.observed).toBe(false);
       });
     });
   });

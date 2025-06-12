@@ -139,8 +139,8 @@ describe('spreadArrayStoreSignal()', () => {
       }
 
       @Component({
-        standalone: true,
         selector: 'app-hero',
+        standalone: true,
         template: `{{ heroStore()('name').state }}`,
       })
       class HeroComponent {
@@ -149,13 +149,13 @@ describe('spreadArrayStoreSignal()', () => {
 
       // vvvv documentation below
       @Component({
+        imports: [HeroComponent],
         standalone: true,
         template: `
           @for (heroStore of heroStores(); track heroStore) {
             <app-hero [heroStore]="heroStore" />
           }
         `,
-        imports: [HeroComponent],
       })
       class HeroListComponent {
         readonly heroesStore = input.required<Store<Hero[]>>();

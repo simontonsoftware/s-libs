@@ -16,9 +16,9 @@ import { unsubscribe } from '../../../../../signal-store/src/performance/perform
 
 @Component({
   selector: 'sl-deep-performance',
+  imports: [FormsModule],
   templateUrl: './deep-performance.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule],
 })
 export class DeepPerformanceComponent {
   protected depth = 1000;

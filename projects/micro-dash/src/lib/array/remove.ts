@@ -11,8 +11,8 @@ import { ArrayIteratee, ArrayNarrowingIteratee } from '../interfaces';
  * - Micro-dash: 118 bytes
  */
 
-export function remove<I, O>(
-  array: I[],
+export function remove<O>(
+  array: any[],
   predicate: ArrayNarrowingIteratee<O>,
 ): O[];
 export function remove<T>(

@@ -5,8 +5,8 @@ import { AbstractInputValueAccessorDirective } from './abstract-input-value-acce
 /** @hidden */
 @Directive({
   selector: 'input[type=radio][nasModel]',
-  providers: [provideValueAccessor(RadioValueAccessorDirective)],
   standalone: false,
+  providers: [provideValueAccessor(RadioValueAccessorDirective)],
 })
 export class RadioValueAccessorDirective extends AbstractInputValueAccessorDirective {
   // eslint-disable-next-line @typescript-eslint/no-misused-promises -- adding during upgrade to 19. Unsure of alternative.

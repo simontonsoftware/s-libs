@@ -59,13 +59,13 @@ export function extendMetadata(
  * // This is the class we will test.
  * @Injectable({ providedIn: 'root' })
  * class MemoriesService {
- *   constructor(private httpClient: HttpClient) {}
+ *   #httpClient = inject(HttpClient);
  *
  *   getLastYearToday(): Observable<any> {
  *     const datetime = new Date();
  *     datetime.setFullYear(datetime.getFullYear() - 1);
  *     const date = datetime.toISOString().split('T')[0];
- *     return this.httpClient.get(`http://example.com/post-from/${date}`);
+ *     return this.#httpClient.get(`http://example.com/post-from/${date}`);
  *   }
  * }
  *

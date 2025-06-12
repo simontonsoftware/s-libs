@@ -10,9 +10,9 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'sl-deep-performance',
+  imports: [FormsModule],
   templateUrl: './deep-performance.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule],
 })
 export class DeepPerformanceComponent {
   depth = 1000;
