@@ -1,6 +1,6 @@
 {
   "name": "@s-libs/signal-store",
-  "version": "19.0.0-next.0",
+  "version": "20.0.0-next.0",
   "author": "Simonton Software",
   "license": "MIT",
   "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/signal-store",
@@ -12,11 +12,9 @@
   "peerDependencies": {
     "@angular/common": "^20.0.0",
     "@angular/core": "^20.0.0",
-    "@s-libs/js-core": "^19.0.0-next.0",
-    "@s-libs/micro-dash": "^19.0.0-next.0"
+    "@s-libs/js-core": "^20.0.0-next.0",
+    "@s-libs/micro-dash": "^20.0.0-next.0"
   },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
+  "dependencies": { "tslib": "^2.3.0" },
   "sideEffects": false
 }

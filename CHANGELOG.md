@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [20.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v19.0.0-next.0...v20.0.0-next.0) (2025-06-13)
+
+### ⚠ BREAKING CHANGES
+
+- Peer dependencies must be upgraded
+
+### Features
+
+- Upgrade dependencies ([716b94a](https://github.com/simontonsoftware/s-libs/commit/716b94ae52ae201cca49730fa4a943744bb50077))
+
 ## [19.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v18.0.0...v19.0.0-next.0) (2025-06-07)
 
 ### ⚠ BREAKING CHANGES
