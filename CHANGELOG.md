@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [20.0.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v20.0.0-next.0...v20.0.0-next.1) (2025-06-15)
+
+### Bug Fixes
+
+- **eslint-config-ng:** update declared peerDependencies ([e19893f](https://github.com/simontonsoftware/s-libs/commit/e19893f54d7f3b2bf12577b6483fbf9596ca643a))
+
 ## [20.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v19.0.0-next.0...v20.0.0-next.0) (2025-06-13)
 
 ### ⚠ BREAKING CHANGES
