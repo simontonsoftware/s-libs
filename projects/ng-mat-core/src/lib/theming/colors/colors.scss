@@ -93,19 +93,13 @@
   @return (color: map.get($config, $palette-key));
 }
 
-/// Includes just the colors for a dark theme.
-///
-/// @param {Map} $config - The config object used for multiple mixins in this library. See the example in [`mixin-full-theming()`](#mixin-full-theming) for a description of all its options.
-/// @param {String} $palette-key ["dark-palettes"] - Which color to use from `$config`.
+/// Deprecated. Angular Material's latest API is much easier to use. Recommend updating to latest techniques here: https://material.angular.dev/guide/theming.
 @mixin dark-theme-colors($config, $palette-key: "dark-palettes") {
   $theme: mat.m2-define-dark-theme(_build-color-arg($config, $palette-key));
   @include _module-colors($theme, $config);
 }
 
-/// Includes just the colors for a light theme.
-///
-/// @param {Map} $config - The config object used for multiple mixins in this library. See the example in [`mixin-full-theming()`](#mixin-full-theming) for a description of all its options.
-/// @param {String} $palette-key ["light-palettes"] - Which color to use from `$config`.
+/// Deprecated. Angular Material's latest API is much easier to use. Recommend updating to latest techniques here: https://material.angular.dev/guide/theming.
 @mixin light-theme-colors($config, $palette-key: "light-palettes") {
   $theme: mat.m2-define-light-theme(_build-color-arg($config, $palette-key));
   @include _module-colors($theme, $config);

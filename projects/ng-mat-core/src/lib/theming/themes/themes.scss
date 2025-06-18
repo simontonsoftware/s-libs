@@ -101,19 +101,13 @@
   );
 }
 
-/// Includes a dark theme for your app. This defines colors, typography, and density.
-///
-/// @param {Map} $config - The config object used for multiple mixins in this library. See the example in [`mixin-full-theming()`](#mixin-full-theming) for a description of all its options.
-/// @param {String} $palette-key ["dark-palettes"] - Which color to use from `$config`.
+/// Deprecated. Angular Material's latest API is much easier to use. Recommend updating to latest techniques here: https://material.angular.dev/guide/theming.
 @mixin dark-theme($config, $palette-key: "dark-palettes") {
   $theme: mat.m2-define-dark-theme(_build-theme-arg($config, $palette-key));
   @include _module-themes($theme, $config);
 }
 
-/// Includes a light theme for your app. This defines colors, typography, and density.
-///
-/// @param {Map} $config - The config object used for multiple mixins in this library. See the example in [`mixin-full-theming()`](#mixin-full-theming) for a description of all its options.
-/// @param {String} $palette-key ["light-palettes"] - Which color to use from `$config`.
+/// Deprecated. Angular Material's latest API is much easier to use. Recommend updating to latest techniques here: https://material.angular.dev/guide/theming.
 @mixin light-theme($config, $palette-key: "light-palettes") {
   $theme: mat.m2-define-light-theme(_build-theme-arg($config, $palette-key));
   @include _module-themes($theme, $config);
