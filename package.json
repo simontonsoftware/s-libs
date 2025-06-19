@@ -8,15 +8,14 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "build-libs": "npm run ts-node -- scripts/build-libs",
+    "build-libs": "tsx scripts/build-libs",
     "dtslint": "dtslint --expectOnly --localTs node_modules/typescript/lib",
     "prettier-lint": "prettier --check \"**/*.{html,js,json,md,scss,ts,yml}\"",
     "prettier-all": "prettier --write \"**/*.{html,js,json,md,scss,ts,yml}\"",
-    "docs": "npm run ts-node -- scripts/docs-libs",
+    "docs": "tsx scripts/docs-libs",
     "git-publish": "standard-version --commit-all",
-    "npm-publish": "npm run ts-node -- scripts/publish-libs",
-    "calc-micro-dash-sizes": "cd projects/micro-dash-sizes && ts-node --project tsconfig.app.json -O \"{ \\\"module\\\": \\\"CommonJS\\\" }\" calc-sizes",
-    "ts-node": "ts-node --project scripts/tsconfig.json"
+    "npm-publish": "tsx scripts/publish-libs",
+    "calc-micro-dash-sizes": "cd projects/micro-dash-sizes && tsx calc-sizes"
   },
   "dependencies": {
     "@angular/animations": "^20.0.0",
@@ -56,7 +55,7 @@
     "sassdoc": "^2.7.4",
     "source-map-explorer": "^2.5.3",
     "standard-version": "^9.5.0",
-    "ts-node": "^10.9.1",
+    "tsx": "^4.20.3",
     "typedoc": "^0.28.5",
     "typescript": "~5.8.2",
     "typescript-eslint": "8.33.1"
@@ -109,7 +108,7 @@
       }
     ],
     "scripts": {
-      "postbump": "npm run ts-node -- scripts/bump-peer-dependencies",
+      "postbump": "tsx scripts/bump-peer-dependencies",
       "postchangelog": "prettier --write CHANGELOG.md"
     }
   }

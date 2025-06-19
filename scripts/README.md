@@ -10,8 +10,8 @@
 
 1. `micro-dash sizes`
 2. `git-publish`
-3. `docs`
-4. `build-libs`
-5. Inspect `CHANGELOG.md`
+3. Inspect `CHANGELOG.md`
+4. `docs`
+5. `build-libs`
 6. `npm-publish`
 7. Push to GitHub
