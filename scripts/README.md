@@ -9,9 +9,9 @@
 # Cutting a release
 
 1. `micro-dash sizes`
-2. `git-publish`
-3. Inspect `CHANGELOG.md`
-4. `docs`
+2. `docs`
+3. `git-publish`
+4. Inspect `CHANGELOG.md`
 5. `build-libs`
 6. `npm-publish`
 7. Push to GitHub
