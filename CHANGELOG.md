@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [20.0.0](https://github.com/simontonsoftware/s-libs/compare/v20.0.0-next.1...v20.0.0) (2025-06-19)
+
+### Features
+
+- **ng-mat-core:** Deprecated theming helpers for Angular Material. Their latest API is much easier to use, so the helpers are no longer needed. ([3cc977a](https://github.com/simontonsoftware/s-libs/commit/3cc977a7f499c5c92f68385ac00b6ad393850f70))
+
 ## [20.0.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v20.0.0-next.0...v20.0.0-next.1) (2025-06-15)
 
 ### Bug Fixes
