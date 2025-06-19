@@ -17,6 +17,7 @@ export const buildableLibraries = [
 export const libraries = [...buildableLibraries, 'eslint-config-ng'];
 
 export function runCommand(command: string): void {
+  console.log('Running command:', command);
   execSync(command, { stdio: 'inherit' });
 }
 
