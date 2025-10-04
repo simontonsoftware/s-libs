@@ -105,6 +105,10 @@ module.exports = tseslint.config(
       // Rules the libraries themselves recommend not using. /shrug
       "@angular-eslint/prefer-standalone-component": "off", // deprecated
       "@typescript-eslint/lines-between-class-members": "off",
+
+      // no longer recommended by the Angular team
+      "@angular-eslint/component-class-suffix": "off",
+      "@angular-eslint/directive-class-suffix": "off",
     },
   },
   {
