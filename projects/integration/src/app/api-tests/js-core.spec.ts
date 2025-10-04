@@ -28,6 +28,7 @@ import {
   sort,
   Stopwatch,
   symmetricSetDifference,
+  Tally,
   TimeUnit,
   toCsv,
   WeakValueMap,
@@ -41,10 +42,6 @@ describe('js-core', () => {
   it('has Constructor', () => {
     const constructor: Constructor<Date> = Date;
     expect(constructor).toBeDefined();
-  });
-
-  it('has TimeUnit', () => {
-    expect(TimeUnit).toBeDefined();
   });
 
   it('has Debouncer', () => {
@@ -80,6 +77,14 @@ describe('js-core', () => {
 
   it('has Stopwatch', () => {
     expect(Stopwatch).toBeDefined();
+  });
+
+  it('has Tally', () => {
+    expect(Tally).toBeDefined();
+  });
+
+  it('has TimeUnit', () => {
+    expect(TimeUnit).toBeDefined();
   });
 
   it('has WeakValueMap', () => {
