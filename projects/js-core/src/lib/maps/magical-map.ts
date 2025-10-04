@@ -37,4 +37,8 @@ export class MagicalMap<Key, Value> {
   values(): Iterable<Value> {
     return this.#map.values();
   }
+
+  entries(): Iterable<[Key, Value]> {
+    return this.#map.entries();
+  }
 }

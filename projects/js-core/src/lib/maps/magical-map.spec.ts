@@ -59,4 +59,16 @@ describe('MagicalMap', () => {
       expect([...map.values()]).toEqual([2, 0]);
     });
   });
+
+  describe('.entries()', () => {
+    it('gets the entries', () => {
+      const map = new MagicalMap<number, number>(() => 0);
+      map.set(1, 2);
+      map.get(-2);
+      expect([...map.entries()]).toEqual([
+        [1, 2],
+        [-2, 0],
+      ]);
+    });
+  });
 });
