@@ -1,5 +1,6 @@
 import { staticTest } from '@s-libs/ng-dev';
 import {
+  DetachedStore,
   PersistentStore,
   pushToArrayStore,
   RootStore,
@@ -10,6 +11,10 @@ import {
 import { expectTypeOf } from 'expect-type';
 
 describe('signal-store', () => {
+  it('has DetachedStore', () => {
+    expect(DetachedStore).toBeDefined();
+  });
+
   it('has PersistentStore', () => {
     expect(PersistentStore).toBeDefined();
   });

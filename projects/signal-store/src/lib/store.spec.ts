@@ -14,6 +14,7 @@ describe('Store', () => {
           any?: string | null;
         }> = null as any;
         expectTypeOf(store('norm')('length')).toEqualTypeOf<Store<number>>();
+        expectTypeOf(store('opt')).toEqualTypeOf<Store<string | undefined>>();
         expectTypeOf(store('opt')('length')).toEqualTypeOf<
           ReadonlyStore<number | undefined>
         >();

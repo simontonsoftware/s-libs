@@ -1,27 +1,36 @@
 import { computed, Signal } from '@angular/core';
 import { clone } from '@s-libs/micro-dash';
 import { AbstractStore } from './abstract-store';
+import { Key } from './interfaces';
 import { Store } from './store';
-
-// defined here and passed to `Store` to work around some problems with circular imports
-export function buildChild(
-  parent: Store<any>,
-  childKey: keyof any,
-): ChildStore<any> {
-  const childSignal = computed((): any => parent.state?.[childKey]);
-  return new ChildStore(parent, childKey, childSignal);
-}
 
 export class ChildStore<T> extends AbstractStore<T> {
   constructor(
     private parent: Store<any>,
-    private key: keyof any,
-    signal: Signal<T>,
+    private key: Key,
+    private signal: Signal<T>,
   ) {
-    super(signal, buildChild);
+    super(
+      (childKey) =>
+        new ChildStore(
+          this,
+          childKey,
+          computed(() => this.state?.[childKey as keyof T]),
+        ),
+    );
   }
 
-  protected override set(value: T): void {
+  /**
+   * Get the current state of this store object. This is backed by a signal, so it will trigger change detection when accessed in templates, etc.
+   */
+  override get state(): T {
+    return this.signal();
+  }
+
+  /**
+   * Change the value of this store. Following the pattern of immutable objects, the parent store will also update with shallow copy but with this value swapped in, and so on for all ancestors.
+   */
+  override set state(value: T) {
     if (value === this.state) {
       return;
     }
