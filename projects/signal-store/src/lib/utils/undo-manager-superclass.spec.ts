@@ -7,8 +7,9 @@ import { Store } from '../store';
 import { UndoManagerSuperclass, UndoOrRedo } from './undo-manager-superclass';
 
 class State {
-  counter = 0;
   object?: never;
+
+  constructor(public counter = 0) {}
 }
 
 class TestImpl extends UndoManagerSuperclass<State, State> {
@@ -23,7 +24,8 @@ class TestImpl extends UndoManagerSuperclass<State, State> {
     super(store, maxDepth);
     TestBed.runInInjectionContext(() => {
       effect(() => {
-        store.state; // unconditionally read state so the effect keeps running
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- read the state so the effect keeps running
+        store.state;
 
         if (this.#skipNextChange) {
           this.#skipNextChange = false;
@@ -146,7 +148,7 @@ describe('UndoManagerSuperclass', () => {
       expectSingleCallAndReset(next, new State());
 
       setCounter(1);
-      expectSingleCallAndReset(next, { ...new State(), counter: 1 });
+      expectSingleCallAndReset(next, new State(1));
 
       undoManager.undo();
       TestBed.tick();
@@ -288,20 +290,14 @@ describe('UndoManagerSuperclass', () => {
       expect(undoManager.lastApplicationStateToOverwrite).toBeUndefined();
 
       undoManager.undo();
-      expect(store.state).toEqual({ ...new State(), counter: 1 });
+      expect(store.state).toEqual(new State(1));
       expect(undoManager.lastApplicationUndoOrRedo).toEqual('undo');
-      expect(undoManager.lastApplicationStateToOverwrite).toEqual({
-        ...new State(),
-        counter: 2,
-      });
+      expect(undoManager.lastApplicationStateToOverwrite).toEqual(new State(2));
 
       undoManager.undo();
       expect(store.state).toEqual(new State());
       expect(undoManager.lastApplicationUndoOrRedo).toEqual('undo');
-      expect(undoManager.lastApplicationStateToOverwrite).toEqual({
-        ...new State(),
-        counter: 1,
-      });
+      expect(undoManager.lastApplicationStateToOverwrite).toEqual(new State(1));
     });
 
     it('throws an error if at the beginning of the stack', () => {
@@ -343,17 +339,14 @@ describe('UndoManagerSuperclass', () => {
       undoManager.undo();
 
       undoManager.redo();
-      expect(store.state).toEqual({ ...new State(), counter: 1 });
+      expect(store.state).toEqual(new State(1));
       expect(undoManager.lastApplicationUndoOrRedo).toEqual('redo');
       expect(undoManager.lastApplicationStateToOverwrite).toEqual(new State());
 
       undoManager.redo();
-      expect(store.state).toEqual({ ...new State(), counter: 2 });
+      expect(store.state).toEqual(new State(2));
       expect(undoManager.lastApplicationUndoOrRedo).toEqual('redo');
-      expect(undoManager.lastApplicationStateToOverwrite).toEqual({
-        ...new State(),
-        counter: 1,
-      });
+      expect(undoManager.lastApplicationStateToOverwrite).toEqual(new State(1));
     });
 
     it('throws an error if at the end of the stack', () => {
@@ -597,13 +590,13 @@ describe('UndoManagerSuperclass', () => {
           super(inject(MyAppStore));
         }
 
-        protected extractUndoState(state: MyAppState) {
-          // In practice, you'll usually want to track only part of the state.
+        protected extractUndoState(state: MyAppState): MyAppState {
+          // In practice, you'll usually want to track only part of the state...
           return state;
         }
 
-        protected applyUndoState(stateToApply: MyAppState) {
-          // And restore only those parts here.
+        protected applyUndoState(stateToApply: MyAppState): void {
+          // ...and restore only those parts here.
           this.store.state = stateToApply;
         }
       }

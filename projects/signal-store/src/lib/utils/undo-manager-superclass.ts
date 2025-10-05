@@ -14,12 +14,12 @@ export type UndoOrRedo = 'redo' | 'undo';
  *     super(inject(MyAppStore));
  *   }
  *
- *   protected extractUndoState(state: MyAppState) {
+ *   protected extractUndoState(state: MyAppState): MyAppState {
  *     // In practice, you'll usually want to track only part of the state...
  *     return state;
  *   }
  *
- *   protected applyUndoState(stateToApply: MyAppState) {
+ *   protected applyUndoState(stateToApply: MyAppState): void {
  *     // ...and restore only those parts here.
  *     this.store.state = stateToApply;
  *   }
@@ -53,8 +53,8 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
    */
   readonly state = computed<UndoStateType>(() => this.#stack()[this.#index()]);
 
-  #stack = signal<UndoStateType[]>([]);
-  #index = signal(-1);
+  readonly #stack = signal<UndoStateType[]>([]);
+  readonly #index = signal(-1);
 
   #collectKey?: string;
   #collectDebouncer = new Debouncer();

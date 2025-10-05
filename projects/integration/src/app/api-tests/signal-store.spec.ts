@@ -36,6 +36,7 @@ describe('signal-store', () => {
   });
 
   it('has spreadArrayStore()', () => {
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     expect(spreadArrayStore).toBeDefined();
   });
 
@@ -44,6 +45,7 @@ describe('signal-store', () => {
   });
 
   it('has spreadArrayStoreSignal()', () => {
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     expect(spreadArrayStoreSignal).toBeDefined();
   });
 

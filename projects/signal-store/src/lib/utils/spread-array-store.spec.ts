@@ -1,12 +1,4 @@
-import {
-  Component,
-  computed,
-  effect,
-  input,
-  Input,
-  OnChanges,
-  Signal,
-} from '@angular/core';
+import { Component, computed, effect, input, Signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ComponentContext, staticTest } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
@@ -15,54 +7,9 @@ import { RootStore } from '../root-store';
 import { ReadonlyStore, Store } from '../store';
 import { spreadArrayStore, spreadArrayStoreNew } from './spread-array-store';
 
-/* eslint-disable @angular-eslint/prefer-signals -- this is a legacy function designed for components that still use @Input() decorators */
+/* eslint-disable @typescript-eslint/no-deprecated -- this spec exists to test a deprecated function */
 
 describe('spreadArrayStore()', () => {
-  // just the test for documentation is good enough. We only need a sanity check because all the details are tested in `spreadArrayStoreSignal.spec.ts`
-
-  describe('documentation', () => {
-    it('is working', async () => {
-      interface Hero {
-        name: string;
-      }
-
-      @Component({
-        selector: 'app-hero',
-        standalone: true,
-        template: `{{ heroStore('name').state }}`,
-      })
-      class HeroComponent {
-        @Input() heroStore!: Store<Hero>;
-      }
-
-      // vvvv documentation below
-      @Component({
-        imports: [HeroComponent],
-        standalone: true,
-        template: `
-          @for (heroStore of heroStores(); track heroStore) {
-            <app-hero [heroStore]="heroStore" />
-          }
-        `,
-      })
-      class HeroListComponent implements OnChanges {
-        @Input() heroesStore!: Store<Hero[]>;
-        protected heroStores!: Signal<Array<Store<Hero>>>;
-
-        ngOnChanges(): void {
-          this.heroStores = spreadArrayStore(this.heroesStore);
-        }
-      }
-      // ^^^^ documentation above
-
-      const ctx = new ComponentContext(HeroListComponent);
-      ctx.assignInputs({ heroesStore: new RootStore([{ name: 'Alice' }]) });
-      ctx.run(() => {
-        expect(ctx.fixture.nativeElement.textContent.trim()).toBe('Alice');
-      });
-    });
-  });
-
   describe('typing', () => {
     it('is fancy for writable stores', () => {
       staticTest(() => {
@@ -217,7 +164,7 @@ describe('spreadArrayStoreNew()', () => {
       })
       class HeroListComponent {
         readonly heroesStore = input.required<Store<Hero[]>>();
-        protected heroStores = computed(() =>
+        protected readonly heroStores = computed(() =>
           spreadArrayStoreNew(this.heroesStore()),
         );
       }

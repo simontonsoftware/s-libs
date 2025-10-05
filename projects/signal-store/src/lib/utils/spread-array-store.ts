@@ -13,7 +13,7 @@ export function spreadArrayStore<T extends any[] | null | undefined>(
   source: ReadonlyStore<T>,
 ): Signal<Array<ReadonlySlice<T, number>>>;
 
-export function spreadArrayStore(source: any): any {
+export function spreadArrayStore(source: Store<any> | ReadonlyStore<any>): any {
   return computed(() => spreadArrayStoreNew(source));
 }
 
@@ -32,7 +32,7 @@ export function spreadArrayStore(source: any): any {
  * })
  * class HeroListComponent {
  *   readonly heroesStore = input.required<Store<Hero[]>>();
- *   protected heroStores = computed(() =>
+ *   protected readonly heroStores = computed(() =>
  *     spreadArrayStoreNew(this.heroesStore()),
  *   );
  * }

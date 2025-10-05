@@ -6,6 +6,8 @@ import { RootStore } from '../root-store';
 import { ReadonlyStore, Store } from '../store';
 import { spreadArrayStoreSignal } from './spread-array-store-signal';
 
+/* eslint-disable @typescript-eslint/no-deprecated -- the purpose of this file is to test a deprecated function */
+
 describe('spreadArrayStoreSignal()', () => {
   it('emits a separate store object for each element in the array', () => {
     TestBed.runInInjectionContext(() => {

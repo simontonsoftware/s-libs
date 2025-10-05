@@ -24,6 +24,7 @@ class DetachedChild<T> extends AbstractStore<T> {
   }
 
   get state(): T {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return -- T is unknown
     return get(this.root.state, this.path);
   }
 

@@ -3,7 +3,7 @@ import { ReadonlySlice, ReadonlyStore, Slice, Store } from '../store';
 import { spreadArrayStoreNew } from './spread-array-store';
 
 /**
- * @deprecated This function has not proven useful and will be removed in a future release.
+ * @deprecated This function will be removed in a future release. Use {@link spreadArrayStoreNew} directly.
  */
 
 export function spreadArrayStoreSignal<T extends any[] | null | undefined>(
