@@ -21,6 +21,7 @@ import {
   MigrationManager,
   Persistence,
   PublicInterface,
+  randomString,
   roundToMultipleOf,
   setDifference,
   setIntersection,
@@ -145,6 +146,10 @@ describe('js-core', () => {
 
   it('has mapToObject', () => {
     expect(mapToObject).toBeDefined();
+  });
+
+  it('has randomString', () => {
+    expect(randomString).toBeDefined();
   });
 
   it('has roundToMultipleOf', () => {

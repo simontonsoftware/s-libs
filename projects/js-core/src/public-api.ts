@@ -17,6 +17,7 @@ export {
   type VersionedObject,
 } from './lib/migration-manager';
 export { Persistence } from './lib/persistence';
+export { randomString } from './lib/random-string';
 export { roundToMultipleOf } from './lib/round-to-multiple-of';
 export { sort } from './lib/sort';
 export { toCsv } from './lib/to-csv';
