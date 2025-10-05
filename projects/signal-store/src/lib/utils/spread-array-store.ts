@@ -1,31 +1,9 @@
 import { computed, Signal } from '@angular/core';
+import { times } from '@s-libs/micro-dash';
 import { ReadonlySlice, ReadonlyStore, Slice, Store } from '../store';
-import { spreadArrayStore as impl } from './spread-array-store-signal';
 
 /**
- * Just like {@link spreadArrayStoreSignal}, but accepts a `Store` or `ReadonlyStore` directly instead of a `Signal<Store>` or `Signal<ReadonlyStore>`. This is useful for legacy components that still use `@Input()` decorators instead of signal inputs.
- *
- * Return a signal that emits an array of store objects, one for each element in `source`'s state. The emitted arrays will have references to the exact store objects included in the previous emission when possible, making them performant for direct comparison in change detection.
- *
- * ```ts
- * @Component({
- *   standalone: true,
- *   template: `
- *     @for (heroStore of heroStores(); track heroStore) {
- *       <app-hero [heroStore]="heroStore" />
- *     }
- *   `,
- *   imports: [HeroComponent],
- * })
- * class HeroListComponent implements OnChanges {
- *   @Input() heroesStore!: Store<Hero[]>;
- *   protected heroStores!: Signal<Array<Store<Hero>>>;
- *
- *   ngOnChanges(): void {
- *     this.heroStores = spreadArrayStore(this.heroesStore);
- *   }
- * }
- * ```
+ * @deprecated This function will be removed in a future major version, and {@linkcode spreadArrayStoreNew} will be renamed to take its place.
  */
 
 export function spreadArrayStore<T extends any[] | null | undefined>(
@@ -35,9 +13,41 @@ export function spreadArrayStore<T extends any[] | null | undefined>(
   source: ReadonlyStore<T>,
 ): Signal<Array<ReadonlySlice<T, number>>>;
 
-export function spreadArrayStore<T extends any[] | null | undefined>(
+export function spreadArrayStore(source: any): any {
+  return computed(() => spreadArrayStoreNew(source));
+}
+
+/**
+ * Return an array of store objects, one for each element in `source`'s state. The emitted arrays will have references to the exact store objects included in the previous emission when possible, making them performant for direct comparison in change detection.
+ *
+ * ```ts
+ * @Component({
+ *   imports: [HeroComponent],
+ *   standalone: true,
+ *   template: `
+ *     @for (heroStore of heroStores(); track heroStore) {
+ *       <app-hero [heroStore]="heroStore" />
+ *     }
+ *   `,
+ * })
+ * class HeroListComponent {
+ *   readonly heroesStore = input.required<Store<Hero[]>>();
+ *   protected heroStores = computed(() =>
+ *     spreadArrayStoreNew(this.heroesStore()),
+ *   );
+ * }
+ * ```
+ */
+
+export function spreadArrayStoreNew<T extends any[] | null | undefined>(
+  source: Store<T>,
+): Array<Slice<T, number>>;
+export function spreadArrayStoreNew<T extends any[] | null | undefined>(
+  source: ReadonlyStore<T>,
+): Array<ReadonlySlice<T, number>>;
+
+export function spreadArrayStoreNew<T extends any[] | null | undefined>(
   source: ReadonlyStore<T> | Store<T>,
-): Signal<any[]> {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return computed(() => impl(source));
+): any[] {
+  return times(source('length').state ?? 0, (i) => source(i));
 }

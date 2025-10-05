@@ -5,6 +5,7 @@ import {
   pushToArrayStore,
   RootStore,
   spreadArrayStore,
+  spreadArrayStoreNew,
   spreadArrayStoreSignal,
   Store,
 } from '@s-libs/signal-store';
@@ -31,6 +32,10 @@ describe('signal-store', () => {
 
   it('has spreadArrayStore()', () => {
     expect(spreadArrayStore).toBeDefined();
+  });
+
+  it('has spreadArrayStoreNew()', () => {
+    expect(spreadArrayStoreNew).toBeDefined();
   });
 
   it('has spreadArrayStoreSignal()', () => {

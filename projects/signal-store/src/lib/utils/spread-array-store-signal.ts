@@ -1,25 +1,9 @@
 import { computed, Signal } from '@angular/core';
-import { times } from '@s-libs/micro-dash';
 import { ReadonlySlice, ReadonlyStore, Slice, Store } from '../store';
+import { spreadArrayStoreNew } from './spread-array-store';
 
 /**
- * Return a signal that emits an array of store objects, one for each element in `source`'s state. The emitted arrays will have references to the exact store objects included in the previous emission when possible, making them performant for direct comparison in change detection.
- *
- * ```ts
- * @Component({
- *   standalone: true,
- *   template: `
- *     @for (heroStore of heroStores(); track heroStore) {
- *       <app-hero [heroStore]="heroStore" />
- *     }
- *   `,
- *   imports: [HeroComponent],
- * })
- * class HeroListComponent {
- *   readonly heroesStore = input.required<Store<Hero[]>>();
- *   protected heroStores = spreadArrayStoreSignal(this.heroesStore);
- * }
- * ```
+ * @deprecated This function has not proven useful and will be removed in a future release.
  */
 
 export function spreadArrayStoreSignal<T extends any[] | null | undefined>(
@@ -29,14 +13,6 @@ export function spreadArrayStoreSignal<T extends any[] | null | undefined>(
   source: Signal<ReadonlyStore<T>>,
 ): Signal<Array<ReadonlySlice<T, number>>>;
 
-export function spreadArrayStoreSignal<T extends any[] | null | undefined>(
-  source: Signal<ReadonlyStore<T>> | Signal<Store<T>>,
-): Signal<any> {
-  return computed((): any[] => spreadArrayStore(source()));
-}
-
-export function spreadArrayStore<T extends any[] | null | undefined>(
-  source: ReadonlyStore<T> | Store<T>,
-): any[] {
-  return times(source('length').state ?? 0, (i) => source(i));
+export function spreadArrayStoreSignal(source: Signal<any>): Signal<any> {
+  return computed((): any[] => spreadArrayStoreNew(source()));
 }
