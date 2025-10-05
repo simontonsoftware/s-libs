@@ -8,6 +8,7 @@ import {
   spreadArrayStoreNew,
   spreadArrayStoreSignal,
   Store,
+  UndoManagerSuperclass,
 } from '@s-libs/signal-store';
 import { expectTypeOf } from 'expect-type';
 
@@ -22,6 +23,10 @@ describe('signal-store', () => {
 
   it('has RootStore', () => {
     expect(RootStore).toBeDefined();
+  });
+
+  it('has UndoManagerSuperclass', () => {
+    expect(UndoManagerSuperclass).toBeDefined();
   });
 
   it('has Store', () => {

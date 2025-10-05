@@ -1,35 +1,63 @@
+import { computed, signal } from '@angular/core';
 import { Debouncer, isDefined } from '@s-libs/js-core';
-import { Observable, ReplaySubject } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/operators';
-import { Store } from '../index';
+import { Store } from '../store';
 
 export type UndoOrRedo = 'redo' | 'undo';
 
-export abstract class UndoManager<StateType, UndoStateType> {
+/**
+ * Assists in creating undo/redo functionality. Below is a minimal undo service.
+ *
+ * ```ts
+ * @Injectable({ providedIn: 'root' })
+ * class UndoService extends UndoManagerSuperclass<MyAppState, MyAppState> {
+ *   constructor() {
+ *     super(inject(MyAppStore));
+ *   }
+ *
+ *   protected extractUndoState(state: MyAppState) {
+ *     // In practice, you'll usually want to track only part of the state...
+ *     return state;
+ *   }
+ *
+ *   protected applyUndoState(stateToApply: MyAppState) {
+ *     // ...and restore only those parts here.
+ *     this.store.state = stateToApply;
+ *   }
+ * }
+ * ```
+ *
+ * Then in your app you can simply call `service.pushCurrentState()` after any user interaction to preserve it in the undo stack.
+ * ```ts
+ * ++myStore('counter').state;
+ * undoService.pushCurrentState();
+ *
+ * undoService.undo(); // sets the store back to 0
+ * undoService.redo(); // sets the store to 1 again
+ * ```
+ */
+export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
   /**
-   * An observable that emits the result of `canUndo()` every time that value changes.
+   * Emits whether any states are available for `undo()`.
    */
-  canUndo$: Observable<boolean>;
+  readonly canUndo = computed<boolean>(() => this.#index() > 0);
 
   /**
-   * An observable that emits the result of `canRedo()` every time that value changes.
+   * Emits whether any states are available for `redo()`.
    */
-  canRedo$: Observable<boolean>;
+  readonly canRedo = computed<boolean>(
+    () => this.#index() < this.#stack().length - 1,
+  );
 
   /**
-   * An observable that emits the current state every time it changes.
+   * Emits the current undo state that was most recently pushed or applied. Calls to `undo` will apply the state before this in the stack, and `redo` will apply the state after this.
    */
-  state$: Observable<UndoStateType>;
+  readonly state = computed<UndoStateType>(() => this.#stack()[this.#index()]);
 
-  private stack: UndoStateType[] = [];
-  private currentStateIndex!: number;
+  #stack = signal<UndoStateType[]>([]);
+  #index = signal(-1);
 
-  private canUndoSubject = new ReplaySubject<boolean>(1);
-  private canRedoSubject = new ReplaySubject<boolean>(1);
-  private stateSubject = new ReplaySubject<UndoStateType>(1);
-
-  private currentCollectKey?: string;
-  private collectDebouncer = new Debouncer();
+  #collectKey?: string;
+  #collectDebouncer = new Debouncer();
 
   /**
    * @param maxDepth The maximum size of the history before discarding the oldest state. `0` means no limit.
@@ -39,30 +67,20 @@ export abstract class UndoManager<StateType, UndoStateType> {
     protected maxDepth = 0,
   ) {
     this.reset();
-    this.canUndo$ = this.canUndoSubject.pipe(distinctUntilChanged());
-    this.canRedo$ = this.canRedoSubject.pipe(distinctUntilChanged());
-    this.state$ = this.stateSubject.pipe(distinctUntilChanged());
-  }
-
-  /**
-   * Returns the current undo state that was most recently pushed or applied. Calls to `undo` will apply the state before this in the stack, and `redo` will apply the state after this.
-   */
-  get currentUndoState(): UndoStateType {
-    return this.stack[this.currentStateIndex];
   }
 
   /**
    * Returns a view of the internal undo stack, from oldest to newest. Note that this contains states that would be applied by calls to both `.undo()` and `.redo`.
    */
-  get undoStack(): UndoStateType[] {
-    return this.stack.slice();
+  get stack(): UndoStateType[] {
+    return this.#stack().slice();
   }
 
   /**
    * Discard all history and push the current state.
    */
   reset(): void {
-    this.currentStateIndex = -1;
+    this.#index.set(-1);
     this.pushCurrentState();
   }
 
@@ -76,28 +94,14 @@ export abstract class UndoManager<StateType, UndoStateType> {
     collectKey,
     collectDebounce,
   }: { collectKey?: string; collectDebounce?: number } = {}): void {
-    const nextState = this.extractUndoState(this.store.state());
-    if (this.currentStateIndex >= 0 && !this.shouldPush(nextState)) {
+    const nextState = this.extractUndoState(this.store.state);
+    if (this.#index() >= 0 && !this.shouldPush(nextState)) {
       return;
     }
 
-    if (this.prepush(nextState, collectKey)) {
-      this.actuallyPush(nextState, collectKey, collectDebounce);
+    if (this.#prepush(nextState, collectKey)) {
+      this.#actuallyPush(nextState, collectKey, collectDebounce);
     }
-  }
-
-  /**
-   * @returns whether any states are available for `undo()`
-   */
-  canUndo(): boolean {
-    return this.currentStateIndex > 0;
-  }
-
-  /**
-   * @returns whether any states are available for `redo()`
-   */
-  canRedo(): boolean {
-    return this.currentStateIndex < this.stack.length - 1;
   }
 
   /**
@@ -110,7 +114,7 @@ export abstract class UndoManager<StateType, UndoStateType> {
       throw new Error('Cannot undo');
     }
 
-    this.changeState(-1, 'undo');
+    this.#changeState(-1, 'undo');
   }
 
   /**
@@ -123,7 +127,7 @@ export abstract class UndoManager<StateType, UndoStateType> {
       throw new Error('Cannot redo');
     }
 
-    this.changeState(1, 'redo');
+    this.#changeState(1, 'redo');
   }
 
   /**
@@ -136,9 +140,9 @@ export abstract class UndoManager<StateType, UndoStateType> {
       throw new Error('Nothing to drop');
     }
 
-    --this.currentStateIndex;
-    this.dropRedoHistory();
-    this.emitUndoChanges();
+    this.#index.update((i) => i - 1);
+    this.#dropRedoHistory();
+    this.#manageCollectKey(undefined);
   }
 
   /**
@@ -161,40 +165,18 @@ export abstract class UndoManager<StateType, UndoStateType> {
     return this.maxDepth > 0 && size > this.maxDepth;
   }
 
-  private dropRedoHistory(): void {
-    this.stack.splice(this.currentStateIndex + 1, this.stack.length);
+  #changeState(change: -1 | 1, undoOrRedo: UndoOrRedo): void {
+    const stateToOverwrite = this.state();
+    this.#index.update((i) => i + change);
+    const stateToApply = this.state();
+    this.applyUndoState(stateToApply, undoOrRedo, stateToOverwrite);
+    this.#manageCollectKey(undefined);
   }
 
-  private changeState(change: -1 | 1, undoOrRedo: UndoOrRedo): void {
-    const stateToOverwrite = this.currentUndoState;
-    this.currentStateIndex += change;
-    const stateToApply = this.currentUndoState;
-    this.store.getRootStore().batch(() => {
-      this.applyUndoState(stateToApply, undoOrRedo, stateToOverwrite);
-    });
-    this.emitUndoChanges();
-  }
-
-  private emitUndoChanges(collectKey?: string, collectDebounce?: number): void {
-    this.canUndoSubject.next(this.canUndo());
-    this.canRedoSubject.next(this.canRedo());
-    this.stateSubject.next(this.stack[this.currentStateIndex]);
-
-    this.currentCollectKey = collectKey;
-    if (collectDebounce !== undefined) {
-      this.collectDebouncer.run(() => {
-        this.currentCollectKey = undefined;
-      }, collectDebounce);
-    }
-  }
-
-  private prepush(
-    nextState: UndoStateType,
-    collectKey: string | undefined,
-  ): boolean {
-    if (isDefined(collectKey) && this.currentCollectKey === collectKey) {
-      --this.currentStateIndex;
-      this.dropRedoHistory();
+  #prepush(nextState: UndoStateType, collectKey: string | undefined): boolean {
+    if (isDefined(collectKey) && this.#collectKey === collectKey) {
+      this.#index.update((i) => i - 1);
+      this.#dropRedoHistory();
       if (!this.shouldPush(nextState)) {
         return false;
       }
@@ -203,21 +185,34 @@ export abstract class UndoManager<StateType, UndoStateType> {
     return true;
   }
 
-  private actuallyPush(
+  #actuallyPush(
     nextState: UndoStateType,
     collectKey: string | undefined,
     collectDebounce: number | undefined,
   ): void {
-    ++this.currentStateIndex;
-    this.stack[this.currentStateIndex] = nextState;
-    this.dropRedoHistory();
+    this.#dropRedoHistory();
+    this.#index.update((i) => i + 1);
+    this.#stack.update((stack) => [...stack, nextState]);
 
-    while (this.stack.length > 1 && this.isOverSize(this.stack.length)) {
-      this.stack.shift();
-      --this.currentStateIndex;
+    while (this.#stack().length > 1 && this.isOverSize(this.#stack().length)) {
+      this.#stack.update((stack) => stack.slice(1));
+      this.#index.update((i) => i - 1);
     }
 
-    this.emitUndoChanges(collectKey, collectDebounce);
+    this.#manageCollectKey(collectKey, collectDebounce);
+  }
+
+  #dropRedoHistory(): void {
+    this.#stack.update((stack) => stack.slice(0, this.#index() + 1));
+  }
+
+  #manageCollectKey(key: string | undefined, collectDebounce?: number): void {
+    this.#collectKey = key;
+    if (collectDebounce !== undefined) {
+      this.#collectDebouncer.run(() => {
+        this.#collectKey = undefined;
+      }, collectDebounce);
+    }
   }
 
   /**
