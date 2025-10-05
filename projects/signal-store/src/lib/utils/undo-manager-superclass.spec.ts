@@ -148,7 +148,7 @@ describe('UndoManagerSuperclass', () => {
       expectSingleCallAndReset(next, new State());
 
       setCounter(1);
-      expectSingleCallAndReset(next, new State(1));
+      expectSingleCallAndReset(next, changedState(1));
 
       undoManager.undo();
       TestBed.tick();
@@ -290,14 +290,18 @@ describe('UndoManagerSuperclass', () => {
       expect(undoManager.lastApplicationStateToOverwrite).toBeUndefined();
 
       undoManager.undo();
-      expect(store.state).toEqual(new State(1));
+      expect(store.state).toEqual(changedState(1));
       expect(undoManager.lastApplicationUndoOrRedo).toEqual('undo');
-      expect(undoManager.lastApplicationStateToOverwrite).toEqual(new State(2));
+      expect(undoManager.lastApplicationStateToOverwrite).toEqual(
+        changedState(2),
+      );
 
       undoManager.undo();
       expect(store.state).toEqual(new State());
       expect(undoManager.lastApplicationUndoOrRedo).toEqual('undo');
-      expect(undoManager.lastApplicationStateToOverwrite).toEqual(new State(1));
+      expect(undoManager.lastApplicationStateToOverwrite).toEqual(
+        changedState(1),
+      );
     });
 
     it('throws an error if at the beginning of the stack', () => {
@@ -339,14 +343,16 @@ describe('UndoManagerSuperclass', () => {
       undoManager.undo();
 
       undoManager.redo();
-      expect(store.state).toEqual(new State(1));
+      expect(store.state).toEqual(changedState(1));
       expect(undoManager.lastApplicationUndoOrRedo).toEqual('redo');
       expect(undoManager.lastApplicationStateToOverwrite).toEqual(new State());
 
       undoManager.redo();
-      expect(store.state).toEqual(new State(2));
+      expect(store.state).toEqual(changedState(2));
       expect(undoManager.lastApplicationUndoOrRedo).toEqual('redo');
-      expect(undoManager.lastApplicationStateToOverwrite).toEqual(new State(1));
+      expect(undoManager.lastApplicationStateToOverwrite).toEqual(
+        changedState(1),
+      );
     });
 
     it('throws an error if at the end of the stack', () => {
@@ -623,6 +629,11 @@ describe('UndoManagerSuperclass', () => {
     TestBed.tick();
     store('counter').state = value;
     TestBed.tick();
+  }
+
+  function changedState(counter: number): State {
+    // eslint-disable-next-line @typescript-eslint/no-misused-spread
+    return { ...new State(), counter };
   }
 
   function expectStack(...states: number[]): void {
