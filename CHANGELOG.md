@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [20.1.0](https://github.com/simontonsoftware/s-libs/compare/v20.0.0...v20.1.0) (2025-10-10)
+
+### Features
+
+- **eslint-config-ng:** remove component & directive class suffix rules; they are no longer recommended by the Angular team ([e35b2a9](https://github.com/simontonsoftware/s-libs/commit/e35b2a91ccf5af943614ea4c41561b056352673b))
+- **js-core:** add `Encoding`, `encodeString`, and `decodeString` ([7753e03](https://github.com/simontonsoftware/s-libs/commit/7753e03059fe6640613351d215712c8db260fc61))
+- **js-core:** add `MagicalMap.entries()` ([7e4e4a1](https://github.com/simontonsoftware/s-libs/commit/7e4e4a16a5f73787df2453db37d8330d02bcd08a))
+- **js-core:** add `randomString()` ([0bca0ec](https://github.com/simontonsoftware/s-libs/commit/0bca0ec4a510843a425e690baf807f4e27377d01))
+- **js-core:** add `Tally` ([2cf512d](https://github.com/simontonsoftware/s-libs/commit/2cf512d29d57084b1a78ef24aad2a2beeab23aa6))
+- **signal-store:** add `DetachedStore` ([e62f35b](https://github.com/simontonsoftware/s-libs/commit/e62f35bd9605285134063bbaf7e555a9d9e7555f))
+- **signal-store:** Add `UndoManagerSuperclass` ([3c5d958](https://github.com/simontonsoftware/s-libs/commit/3c5d958f973006fb5d4255d62e2bf972fd31a491))
+- **signal-store:** Deprecate `spreadArrayStore()` and `spreadArrayStoreSignal()`. These are replaced with `spreadArrayStoreNew()`, which will be renamed to `spreadArrayStore()` in a future version. ([8bbe44b](https://github.com/simontonsoftware/s-libs/commit/8bbe44b3d1968f0090c670a45d74667c8ccd1dc2))
+
 ## [20.0.0](https://github.com/simontonsoftware/s-libs/compare/v20.0.0-next.1...v20.0.0) (2025-06-19)
 
 ### Features
