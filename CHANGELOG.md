@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [20.2.0](https://github.com/simontonsoftware/s-libs/compare/v20.1.1...v20.2.0) (2025-10-13)
+
+### Features
+
+- **ng-app-state:** `NasModel.disabled` accepts more values ([78be53c](https://github.com/simontonsoftware/s-libs/commit/78be53c09a1c6a9e6b1080cbce58206d799c86c0))
+
+### Bug Fixes
+
+- **ng-dev:** avoid "ApplicationRef.tick is called recursively" ([efd8afc](https://github.com/simontonsoftware/s-libs/commit/efd8afcc6039c9a09ca096bb8f5e672703a5055d))
+
 ### [20.1.1](https://github.com/simontonsoftware/s-libs/compare/v20.1.0...v20.1.1) (2025-10-13)
 
 ### Bug Fixes
