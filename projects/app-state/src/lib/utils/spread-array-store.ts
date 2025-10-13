@@ -7,7 +7,6 @@ import { Store } from '../index';
  *
  * ```ts
  * @Component({
- *   standalone: true,
  *   template: `
  *     @for (heroStore of heroStores$ | async; track heroStore) {
  *       <app-hero [heroStore]="heroStore" />

@@ -32,7 +32,6 @@ const colorToken = new InjectionToken('color$', {
 
 @Component({
   selector: 'sl-color-text',
-  standalone: true,
   template: ` <span [style.background]="color">{{ color }}</span> `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -118,7 +117,7 @@ describe('DirectiveSuperclass', () => {
   }
 
   it('can be used as the superclass to a pipe (production bug)', () => {
-    @Pipe({ name: 'not', standalone: true })
+    @Pipe({ name: 'not', })
     class NotPipe extends DirectiveSuperclass implements PipeTransform {
       transform(value: any): boolean {
         return isFalsy(value);
@@ -174,7 +173,7 @@ describe('DirectiveSuperclass', () => {
 
     // https://github.com/simontonsoftware/s-ng-utils/issues/10
     it('emits `undefined` for unspecified inputs', () => {
-      @Component({ standalone: true, template: '' })
+      @Component({  })
       class InputTrackingComponent extends DirectiveSuperclass {
         @Input() unspecified?: string;
         @Input() specified?: string;
@@ -198,7 +197,7 @@ describe('DirectiveSuperclass', () => {
 
     // https://github.com/simontonsoftware/s-libs/issues/14
     it('does not emit until ngOnChanges is called', () => {
-      @Component({ standalone: true, template: '' })
+      @Component({  })
       class StageTrackingComponent
         extends DirectiveSuperclass
         implements OnChanges
@@ -230,7 +229,7 @@ describe('DirectiveSuperclass', () => {
     });
 
     it('emits even if no inputs are provided to the component', () => {
-      @Component({ standalone: true, template: '' })
+      @Component({ })
       class NoInputComponent extends DirectiveSuperclass {
         @Input() myInput?: string;
         emitted = false;
@@ -253,7 +252,7 @@ describe('DirectiveSuperclass', () => {
     });
 
     it('emits immediately if ngOnChanges was already called (prerelease bug)', () => {
-      @Component({ standalone: true, template: `{{ boundValue.name }}` })
+      @Component({  template: `{{ boundValue.name }}` })
       class InputBindingComponent
         extends DirectiveSuperclass
         implements OnInit
@@ -279,7 +278,7 @@ describe('DirectiveSuperclass', () => {
     });
 
     it('emits immediately during the first call to ngOnChanges (prerelease bug) 2', () => {
-      @Component({ standalone: true, template: `{{ boundValue.name }}` })
+      @Component({ template: `{{ boundValue.name }}` })
       class InputBindingComponent extends DirectiveSuperclass {
         @Input() inputValue!: { name: string };
         boundValue!: { name: string };

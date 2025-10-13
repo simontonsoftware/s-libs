@@ -6,7 +6,7 @@ export type Inputs<T> = {
 };
 
 // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection,@angular-eslint/prefer-standalone -- change detection is carefully orchestrated in the TypeScript, and if this is standalone we can no longer test non-standalone components */
-@Component({ standalone: false, template: '' })
+@Component({ standalone: false })
 export class WrapperComponent<T> {
   inputs: Inputs<T> = {};
   styles: Record<string, any> = {};

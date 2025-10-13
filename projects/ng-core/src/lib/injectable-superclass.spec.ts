@@ -13,7 +13,6 @@ class DestroyableService extends InjectableSuperclass {}
 
 @Directive({
   selector: `[slDestroyableDirective]`,
-  standalone: true,
   providers: [DestroyableService],
 })
 class DestroyableDirective extends InjectableSuperclass {

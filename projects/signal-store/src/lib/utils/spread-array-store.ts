@@ -23,7 +23,6 @@ export function spreadArrayStore(source: Store<any> | ReadonlyStore<any>): any {
  * ```ts
  * @Component({
  *   imports: [HeroComponent],
- *   standalone: true,
  *   template: `
  *     @for (heroStore of heroStores(); track heroStore) {
  *       <app-hero [heroStore]="heroStore" />

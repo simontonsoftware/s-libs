@@ -322,7 +322,7 @@ describe('AngularContext', () => {
     it('runs change detection even if no tasks are queued', () => {
       let ranChangeDetection = false;
 
-      @Component({ standalone: true, template: '' })
+      @Component({})
       class LocalComponent implements DoCheck {
         ngDoCheck(): void {
           ranChangeDetection = true;
@@ -345,7 +345,7 @@ describe('AngularContext', () => {
       let ranChangeDetection = false;
       let flushedMicroTasksBeforeChangeDetection = false;
 
-      @Component({ standalone: true, template: '' })
+      @Component({})
       class LocalComponent implements DoCheck {
         ngDoCheck(): void {
           ranChangeDetection = true;
@@ -426,7 +426,6 @@ describe('AngularContext', () => {
 
     it('errs if there are unexpected errors', () => {
       @Component({
-        standalone: true,
         template: '<button (click)="throwError()">Break Me</button>',
       })
       class ThrowingComponent {

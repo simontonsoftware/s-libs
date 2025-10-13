@@ -97,7 +97,6 @@ class AppStore extends RootStore<AppState> {
 
     <button (click)="counter.state = 0">Reset Counter</button>
   `,
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class MyAppComponent {

@@ -91,7 +91,6 @@ export class LazyLoader<B extends LazyBundle> {
    *       <button mat-button mat-dialog-close>OK</button>
    *     </mat-dialog-actions>
    *   `,
-   *   standalone: true,
    *   imports: [MatButtonModule, MatDialogModule],
    * })
    * export class MyDialogComponent {}

@@ -11,7 +11,6 @@ import { provideValueAccessor } from './provide-value-accessor';
 
 @Component({
   selector: `sl-counter`,
-  standalone: true,
   template: `
     <button [disabled]="isDisabled" (click)="increment()">{{ counter }}</button>
   `,
