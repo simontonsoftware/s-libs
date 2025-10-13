@@ -24,7 +24,6 @@ import { MockErrorHandler } from '../mock-error-handler/mock-error-handler';
 import { expectRequest } from '../test-requests';
 import { AngularContext } from './angular-context';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
-import createSpy = jasmine.createSpy;
 
 describe('AngularContext', () => {
   class SnackBarContext extends AngularContext {
@@ -167,7 +166,7 @@ describe('AngularContext', () => {
     });
 
     it('does not finalize app setup (pre-release bug)', () => {
-      const init = createSpy();
+      const init = jasmine.createSpy();
       class InitContext extends AngularContext {
         constructor() {
           super({
@@ -316,7 +315,7 @@ describe('AngularContext', () => {
       const start = ctx.startTime.getTime();
       ctx.run(() => {
         ctx.tick(10, 'sec');
-        expect(Date.now()).toBe(start + 10000);
+        expect(Date.now()).toBe(start + 10_000);
       });
     });
 
@@ -372,7 +371,7 @@ describe('AngularContext', () => {
       let ranTimeout = false;
       let ranChangeDetectionAfterTimeout = false;
 
-      @Component({ standalone: true, template: '' })
+      @Component({})
       class LocalComponent implements DoCheck {
         ngDoCheck(): void {
           ranChangeDetectionAfterTimeout = ranTimeout;
