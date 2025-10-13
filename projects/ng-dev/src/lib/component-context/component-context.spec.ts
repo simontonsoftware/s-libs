@@ -89,6 +89,7 @@ describe('ComponentContext', () => {
     });
 
     it('supports non-standalone components', () => {
+      // eslint-disable-next-line @angular-eslint/prefer-standalone
       @Component({ standalone: false, template: 'hi' })
       class ModulizedComponent {}
 
@@ -300,7 +301,7 @@ describe('ComponentContext', () => {
       const trigger = signal(false);
 
       @Component({})
-      class TestComponent {
+      class LocalComponent {
         constructor() {
           effect(() => {
             trigger();
@@ -308,7 +309,7 @@ describe('ComponentContext', () => {
         }
       }
 
-      const ctx = new ComponentContext(TestComponent);
+      const ctx = new ComponentContext(LocalComponent);
       expect(() => {
         ctx.run(() => {
           trigger.set(true);
@@ -331,12 +332,13 @@ describe('ComponentContext', () => {
     });
 
     it('settles microtasks queued from effects (prod bug)', () => {
-      let source = signal(false);
+      const source = signal(false);
       let result = false;
 
       @Component({})
       class LocalComponent {
         constructor() {
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           effect(async () => {
             const val = source();
             await Promise.resolve();
