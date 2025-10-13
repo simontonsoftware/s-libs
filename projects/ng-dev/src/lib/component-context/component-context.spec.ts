@@ -296,50 +296,28 @@ describe('ComponentContext', () => {
       });
     });
 
-    describe('change detection', () => {
-      it('workings inside the fixture', () => {
-        const ctx = new ComponentContext(TestComponent);
-        ctx.run(() => {
-          ctx.getComponentInstance().name.set('Changed Guy');
-          expect(ctx.fixture.nativeElement.textContent).not.toContain(
-            'Changed Guy',
-          );
-          ctx.tick();
-          expect(ctx.fixture.nativeElement.textContent).toContain(
-            'Changed Guy',
-          );
-        });
-      });
+    it('does not trigger "ApplicationRef.tick is called recursively" (prod bug)', () => {
+      const trigger = signal(false);
 
-      it('attaches the component to application', () => {
-        // Before using `ApplicationRef.attach()`, we called `fixture.detectChanges()` in this subclass instead of relying on the superclass calling `ApplicationRef.tick()`. That was a less complete solution for which the following test failed.
-
-        let source = signal(false);
-        let result = false;
-
-        @Component({})
-        class LocalComponent {
-          constructor() {
-            effect(async () => {
-              const val = source();
-              await Promise.resolve();
-              result = val;
-            });
-          }
-        }
-
-        const ctx = new ComponentContext(LocalComponent);
-        ctx.run(async () => {
-          setTimeout(() => {
-            source.set(true);
+      @Component({})
+      class TestComponent {
+        constructor() {
+          effect(() => {
+            trigger();
           });
-          ctx.tick();
+        }
+      }
 
-          expect(result).toBe(true);
+      const ctx = new ComponentContext(TestComponent);
+      expect(() => {
+        ctx.run(() => {
+          trigger.set(true);
         });
-      });
+      }).not.toThrowError();
     });
+  });
 
+  describe('.runChangeDetection()', () => {
     it('gets change detection working inside the fixture', () => {
       const ctx = new ComponentContext(TestComponent);
       ctx.run(() => {
@@ -349,6 +327,32 @@ describe('ComponentContext', () => {
         );
         ctx.tick();
         expect(ctx.fixture.nativeElement.textContent).toContain('Changed Guy');
+      });
+    });
+
+    it('settles microtasks queued from effects (prod bug)', () => {
+      let source = signal(false);
+      let result = false;
+
+      @Component({})
+      class LocalComponent {
+        constructor() {
+          effect(async () => {
+            const val = source();
+            await Promise.resolve();
+            result = val;
+          });
+        }
+      }
+
+      const ctx = new ComponentContext(LocalComponent);
+      ctx.run(async () => {
+        setTimeout(() => {
+          source.set(true);
+        });
+        ctx.tick();
+
+        expect(result).toBe(true);
       });
     });
   });
