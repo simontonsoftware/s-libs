@@ -226,11 +226,10 @@ export class AngularContext {
 
     // To simulate real life, trigger change detection before processing macro tasks. To further simulate real life, wait until the micro task queue is empty.
     flushMicrotasks();
-    const appRef = this.inject(ApplicationRef);
-    appRef.tick(); // runs change detection
+    this.runChangeDetection();
 
     tick(convertTime(amount, unit, 'ms'));
-    appRef.tick(); // runs change detection
+    this.runChangeDetection();
   }
 
   /**
@@ -238,6 +237,10 @@ export class AngularContext {
    */
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected init(): void {}
+
+  protected runChangeDetection(): void {
+    this.inject(ApplicationRef).tick();
+  }
 
   /**
    * Runs post-test verifications. This base implementation runs {@linkcode https://angular.dev/api/common/http/testing/HttpTestingController#verify | HttpTestingController.verify} and {@linkcode MockErrorHandler.verify}. Unlike {@linkcode #cleanUp}, it is OK for this method to throw an error to indicate a violation.

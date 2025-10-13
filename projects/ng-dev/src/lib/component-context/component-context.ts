@@ -1,11 +1,11 @@
 import {
   ApplicationInitStatus,
-  ApplicationRef,
   reflectComponentType,
   Type,
 } from '@angular/core';
 import {
   ComponentFixture,
+  flushMicrotasks,
   TestBed,
   TestModuleMetadata,
   tick,
@@ -232,12 +232,16 @@ export class ComponentContext<T> extends AngularContext {
     tick(); // can't use `this.tick()` until the component exists
 
     this.fixture = TestBed.createComponent(WrapperComponent);
-    this.inject(ApplicationRef).attachView(this.fixture.componentRef.hostView);
 
     this.#flushStylesToWrapper();
     this.#flushInputsToWrapper();
     this.fixture.detectChanges();
     this.tick();
+  }
+
+  protected override runChangeDetection(): void {
+    this.fixture.detectChanges();
+    flushMicrotasks();
   }
 
   /**
