@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [20.1.1](https://github.com/simontonsoftware/s-libs/compare/v20.1.0...v20.1.1) (2025-10-13)
+
+### Bug Fixes
+
+- **ng-dev:** `ComponentContext` did not fully settle after change detection in some edge cases ([e8620d6](https://github.com/simontonsoftware/s-libs/commit/e8620d6af2e8f1b305fe7aaa1425ab4c69a5dccf))
+
 ## [20.1.0](https://github.com/simontonsoftware/s-libs/compare/v20.0.0...v20.1.0) (2025-10-10)
 
 ### Features
