@@ -1,4 +1,11 @@
-import { AfterViewInit, Directive, effect, inject, input } from '@angular/core';
+import {
+  AfterViewInit,
+  booleanAttribute,
+  Directive,
+  effect,
+  inject,
+  input,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@s-libs/app-state';
 import { InjectableSuperclass } from '@s-libs/ng-core';
@@ -9,7 +16,7 @@ export class NasModelDirective<T>
   implements AfterViewInit
 {
   readonly nasModel = input.required<Store<T> | null>();
-  readonly disabled = input(false);
+  readonly disabled = input(false, { transform: booleanAttribute });
   #valueAccessor = inject(NG_VALUE_ACCESSOR, { self: true })[0];
 
   constructor() {

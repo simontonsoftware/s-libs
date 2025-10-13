@@ -679,6 +679,26 @@ describe('NasModelDirective', () => {
     expect(input.disabled).toBe(false);
   }));
 
+  it('uses `transformBoolean` for disabled', () => {
+    @Component({
+      imports: [NasModelModule],
+      template: `<input disabled [nasModel]="store('val')" />`,
+    })
+    class StoreStreamComponent {
+      store = new RootStore({ val: 'hi' });
+    }
+
+    const ctx = new ComponentContext(StoreStreamComponent);
+    expect(() => {
+      ctx.run(() => {
+        const input: HTMLInputElement = ctx.fixture.debugElement.query(
+          By.css('input'),
+        ).nativeElement;
+        expect(input.disabled).toBe(true);
+      });
+    }).not.toThrowError();
+  });
+
   it('handles `null` for the store (for async pipe compatibility)', () => {
     @Component({
       imports: [AsyncPipe, NasModelModule],
