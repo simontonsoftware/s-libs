@@ -8,7 +8,6 @@ import { ComponentContext } from '../component-context';
 
 describe('FakeAsyncHarnessEnvironment', () => {
   @Component({
-    standalone: true,
     template: `
       <button mat-button (click)="clicked = true">{{ clicked }}</button>
     `,

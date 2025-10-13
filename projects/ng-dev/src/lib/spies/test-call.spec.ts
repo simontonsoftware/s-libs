@@ -10,7 +10,7 @@ import { expectSingleCallAndReset } from './expect-single-call-and-reset';
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
 describe('TestCall', () => {
-  @Component({ standalone: true, template: 'Hello, {{name}}!' })
+  @Component({ template: 'Hello, {{name}}!' })
   class TestComponent {
     name!: string;
   }

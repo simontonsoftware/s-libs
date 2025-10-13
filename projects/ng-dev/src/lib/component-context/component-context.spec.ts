@@ -32,12 +32,12 @@ import { staticTest } from '../static-test/static-test';
 import { ComponentContext } from './component-context';
 
 describe('ComponentContext', () => {
-  @Component({ standalone: true, template: 'Hello, {{name()}}!' })
+  @Component({ template: 'Hello, {{name()}}!' })
   class TestComponent {
     readonly name = model.required<string>();
   }
 
-  @Component({ standalone: true, template: '' })
+  @Component({})
   class ChangeDetectingComponent implements OnChanges {
     readonly myInput = input<string>();
     ngOnChangesSpy = jasmine.createSpy();
@@ -79,10 +79,7 @@ describe('ComponentContext', () => {
     });
 
     it('supports standalone components', () => {
-      @Component({
-        standalone: true,
-        template: 'hi',
-      })
+      @Component({ standalone: true, template: 'hi' })
       class StandaloneComponent {}
 
       const ctx = new ComponentContext(StandaloneComponent);
@@ -92,9 +89,7 @@ describe('ComponentContext', () => {
     });
 
     it('supports non-standalone components', () => {
-      @Component({
-        template: 'hi',
-      })
+      @Component({ standalone: false, template: 'hi' })
       class ModulizedComponent {}
 
       const ctx = new ComponentContext(ModulizedComponent);
@@ -136,7 +131,7 @@ describe('ComponentContext', () => {
     });
 
     it('errors with a nice message when given a non-input', () => {
-      @Component({ standalone: true, template: '' })
+      @Component({})
       class NonInputComponent {
         // eslint-disable-next-line @angular-eslint/no-input-rename
         readonly letsTryToTrickIt = input('', { alias: 'nonInput' });
@@ -153,7 +148,7 @@ describe('ComponentContext', () => {
     });
 
     it('errors with a nice message when given an unbound input', () => {
-      @Component({ standalone: true, template: '' })
+      @Component({})
       class UnboundInputComponent {
         readonly doNotBind = input('');
       }
@@ -169,10 +164,7 @@ describe('ComponentContext', () => {
     });
 
     it('supports signal and non-signal inputs', () => {
-      @Component({
-        standalone: true,
-        template: '{{optional()}} {{required()}} {{legacy}}',
-      })
+      @Component({ template: '{{optional()}} {{required()}} {{legacy}}' })
       class SignalComponent {
         // eslint-disable-next-line @angular-eslint/prefer-signals -- this is the point of the test
         @Input() legacy!: string;
@@ -255,7 +247,7 @@ describe('ComponentContext', () => {
       const appInitSpy = jasmine.createSpy('app init');
       const componentInitSpy = jasmine.createSpy('component init');
 
-      @Component({ standalone: true, template: '' })
+      @Component({})
       class InitializingComponent {
         constructor() {
           componentInitSpy();
@@ -280,7 +272,7 @@ describe('ComponentContext', () => {
       const appInitSpy = jasmine.createSpy('app init');
       const componentInitSpy = jasmine.createSpy('component init');
 
-      @Component({ standalone: true, template: '' })
+      @Component({})
       class InitializingComponent {
         constructor() {
           componentInitSpy();
@@ -403,7 +395,7 @@ describe('ComponentContext', () => {
 
 describe('ComponentContext class-level doc examples', () => {
   describe('simple example', () => {
-    @Component({ standalone: true, template: 'Hello, {{name()}}!' })
+    @Component({ template: 'Hello, {{name()}}!' })
     class GreeterComponent {
       readonly name = input.required<string>();
     }
@@ -468,7 +460,7 @@ describe('ComponentContext class-level doc examples', () => {
     // first.component.ts
 
     // A minimal component for demonstration purposes
-    @Component({ standalone: true, template: '<p>First works!</p>' })
+    @Component({ template: '<p>First works!</p>' })
     class FirstComponent {}
 
     ///////////////////

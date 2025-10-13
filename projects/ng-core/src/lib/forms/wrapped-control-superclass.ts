@@ -26,7 +26,6 @@ import { FormComponentSuperclass } from './form-component-superclass';
  * The most common case is to use a simple {@linkcode FormControl}:
  * ```ts
  * @Component({
- *   standalone: true,
  *   imports: [ReactiveFormsModule],
  *   template: `<input [formControl]="control" />`,
  *   providers: [provideValueAccessor(StringComponent)],
@@ -40,7 +39,6 @@ import { FormComponentSuperclass } from './form-component-superclass';
  * ```ts
  * @Component({
  *   selector: 'sl-date',
- *   standalone: true,
  *   imports: [ReactiveFormsModule],
  *   template: `<input type="datetime-local" [formControl]="control" />`,
  *   providers: [provideValueAccessor(DateComponent)],
@@ -74,7 +72,6 @@ import { FormComponentSuperclass } from './form-component-superclass';
  *
  * @Component({
  *   selector: 'sl-full-name',
- *   standalone: true,
  *   imports: [ReactiveFormsModule],
  *   template: `
  *     <div [formGroup]="control">

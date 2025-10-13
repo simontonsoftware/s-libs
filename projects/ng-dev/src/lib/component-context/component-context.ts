@@ -35,7 +35,7 @@ import { Inputs, WrapperComponent } from './wrapper.component';
  *
  * A very simple example:
  * ```ts
- * @Component({ standalone: true, template: 'Hello, {{name()}}!' })
+ * @Component({ template: 'Hello, {{name()}}!' })
  * class GreeterComponent {
  *   readonly name = input.required<string>();
  * }
@@ -101,7 +101,7 @@ import { Inputs, WrapperComponent } from './wrapper.component';
  *  // first.component.ts
  *
  *  // A minimal component for demonstration purposes
- *  @Component({ standalone: true, template: '<p>First works!</p>' })
+ *  @Component({ template: '<p>First works!</p>' })
  *  class FirstComponent {}
  *
  *  ///////////////////
@@ -110,7 +110,6 @@ import { Inputs, WrapperComponent } from './wrapper.component';
  *  // A minimal app component with routing for demonstration purposes
  *  @Component({
  *    selector: 'app-root',
- *    standalone: true,
  *    imports: [RouterOutlet, RouterLink],
  *    template: `
  *      <a routerLink="/first-page">First Page</a>
