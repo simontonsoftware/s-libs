@@ -26,7 +26,7 @@ import { AngularContext } from '../angular-context';
  */
 export class IsPageVisibleHarness {
   #visibilityState: jasmine.Spy;
-  #notifyVisibilityChange: VoidFunction | undefined;
+  #listeners: VoidFunction[] = [];
 
   constructor() {
     this.#visibilityState = spyOnProperty(
@@ -35,11 +35,12 @@ export class IsPageVisibleHarness {
     ).and.returnValue('visible');
 
     spyOn(document, 'addEventListener')
+      .and.callThrough()
       .withArgs('visibilitychange', jasmine.anything(), undefined)
       .and.callFake(
         (_: string, handler: EventListenerOrEventListenerObject) => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- we know that `isPageVisible$()` will only call this with a function
-          this.#notifyVisibilityChange = handler as VoidFunction;
+          this.#listeners.push(handler as VoidFunction);
         },
       );
   }
@@ -49,7 +50,9 @@ export class IsPageVisibleHarness {
    */
   setVisible(visible: boolean): void {
     this.#visibilityState.and.returnValue(visible ? 'visible' : 'hidden');
-    this.#notifyVisibilityChange?.();
+    for (const listener of this.#listeners) {
+      listener();
+    }
     AngularContext.getCurrent()?.tick();
   }
 }

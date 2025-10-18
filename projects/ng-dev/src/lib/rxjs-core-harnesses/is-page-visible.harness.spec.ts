@@ -1,4 +1,5 @@
 import { Component, DoCheck } from '@angular/core';
+import { noop } from '@s-libs/micro-dash';
 import { isPageVisible$ } from '@s-libs/rxjs-core';
 import { ComponentContext } from '../component-context';
 import { IsPageVisibleHarness } from './is-page-visible.harness';
@@ -16,13 +17,37 @@ describe('IsPageVisibleHarness', () => {
 
     const ctx = new ComponentContext(TestComponent);
     ctx.run(async () => {
-      const isPageVisibleHarness = new IsPageVisibleHarness();
+      const harness = new IsPageVisibleHarness();
       const { change } = ctx.getComponentInstance();
       change.calls.reset();
 
-      isPageVisibleHarness.setVisible(false);
+      harness.setVisible(false);
       expect(change).toHaveBeenCalled();
     });
+  });
+
+  it('allows multiple listeners', () => {
+    const harness = new IsPageVisibleHarness();
+    const listener1 = jasmine.createSpy();
+    const listener2 = jasmine.createSpy();
+    isPageVisible$().subscribe(listener1);
+    isPageVisible$().subscribe(listener2);
+
+    harness.setVisible(false);
+
+    expect(listener1).toHaveBeenCalled();
+    expect(listener2).toHaveBeenCalled();
+  });
+
+  it('allows document listeners for other events (prod bug)', () => {
+    new IsPageVisibleHarness();
+    expect(() => {
+      try {
+        document.addEventListener('keydown', noop);
+      } finally {
+        document.removeEventListener('keydown', noop);
+      }
+    }).not.toThrow();
   });
 
   describe('example from the docs', () => {
