@@ -1,4 +1,3 @@
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularContext } from '@s-libs/ng-dev';
 import { DialogData } from './dialog.component';
 import { SlDialogHarness } from './sl-dialog.harness';
@@ -8,9 +7,7 @@ import { SlDialogService } from './sl-dialog.service';
 describe('SlDialogHarness', () => {
   let ctx: AngularContext;
   beforeEach(() => {
-    ctx = new AngularContext({
-      imports: [NoopAnimationsModule, SlDialogModule],
-    });
+    ctx = new AngularContext({ imports: [SlDialogModule] });
   });
 
   function open(data: DialogData<unknown>): void {

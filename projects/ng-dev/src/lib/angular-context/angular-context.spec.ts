@@ -16,7 +16,6 @@ import {
 import { flush, TestBed, tick } from '@angular/core/testing';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { sleep } from '@s-libs/js-core';
 import { noop, Observable } from 'rxjs';
 import { ComponentContext } from '../component-context';
@@ -28,7 +27,7 @@ import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
 describe('AngularContext', () => {
   class SnackBarContext extends AngularContext {
     constructor() {
-      super({ imports: [MatSnackBarModule, NoopAnimationsModule] });
+      super({ imports: [MatSnackBarModule] });
     }
 
     protected override cleanUp(): void {

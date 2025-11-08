@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularContext } from '@s-libs/ng-dev';
 import {
   DEFAULT_OK_VALUE,
@@ -13,9 +12,7 @@ import { SlDialogService } from './sl-dialog.service';
 describe('DialogComponent', () => {
   let ctx: AngularContext;
   beforeEach(() => {
-    ctx = new AngularContext({
-      imports: [SlDialogModule, NoopAnimationsModule],
-    });
+    ctx = new AngularContext({ imports: [SlDialogModule] });
   });
 
   function open(data: DialogData<unknown>): void {

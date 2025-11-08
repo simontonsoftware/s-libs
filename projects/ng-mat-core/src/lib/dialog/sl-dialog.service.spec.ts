@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MatDialogHarness } from '@angular/material/dialog/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { assert } from '@s-libs/js-core';
 import { AngularContext } from '@s-libs/ng-dev';
 import { DialogData } from './dialog.component';
@@ -10,9 +9,7 @@ import { SlDialogService } from './sl-dialog.service';
 describe('SlDialogService', () => {
   let ctx: AngularContext;
   beforeEach(() => {
-    ctx = new AngularContext({
-      imports: [SlDialogModule, NoopAnimationsModule],
-    });
+    ctx = new AngularContext({ imports: [SlDialogModule] });
   });
 
   async function show<T>(data: DialogData<T>): Promise<T | undefined> {

@@ -16,10 +16,6 @@ import {
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  ANIMATION_MODULE_TYPE,
-  provideAnimations,
-} from '@angular/platform-browser/animations';
-import {
   provideRouter,
   RouterLink,
   RouterOutlet,
@@ -65,16 +61,6 @@ describe('ComponentContext', () => {
       });
       ctx.run(() => {
         expect(ctx.inject(token)).toBe(value);
-      });
-    });
-
-    it('disables animations', () => {
-      // do not use NoopAnimationsModule, because its timing is less finicky
-      const ctx = new ComponentContext(TestComponent, {
-        providers: [provideAnimations()],
-      });
-      ctx.run(() => {
-        expect(ctx.inject(ANIMATION_MODULE_TYPE)).toBe('NoopAnimations');
       });
     });
 

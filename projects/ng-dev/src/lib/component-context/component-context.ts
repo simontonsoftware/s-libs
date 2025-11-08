@@ -11,7 +11,6 @@ import {
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { assert } from '@s-libs/js-core';
 import { keys } from '@s-libs/micro-dash';
 import {
@@ -28,7 +27,6 @@ import { Inputs, WrapperComponent } from './wrapper.component';
  * - Sets up Angular to call `ngOnChanges()` like it would in production. This is not the case if you use the standard `TestBed.createComponent()` directly.
  * - Wraps your component in a parent that you can easily style however you like.
  * - Lets you use {@link https://material.angular.dev/cdk/testing/overview | component harnesses} in the `fakeAsync` zone, which is normally a challenge.
- * - Automatically disables animations.
  * - Causes async {@link https://angular.dev/api/core/APP_INITIALIZER | APP_INITIALIZER}s to complete before instantiating the component. Two caveats:
  *   - this requires all work in your initializers to complete with a call to `tick()`
  *   - this requires delaying app initialization until inside the `fakeAsync` zone, i.e. with the callback to {@link #run}. If you have async initializers, you must be careful not to do things that finalize the app setup before then, such as {@link #inject}.
@@ -143,7 +141,7 @@ export class ComponentContext<T> extends AngularContext {
 
   /**
    * @param componentType `run()` will create a component of this type before running the rest of your test.
-   * @param moduleMetadata passed along to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#configureTestingModule | TestBed.configureTestingModule()}. Automatically includes {@link NoopAnimationsModule}, in addition to those provided by {@link AngularContext}.
+   * @param moduleMetadata passed along to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#configureTestingModule | TestBed.configureTestingModule()}. Automatically includes those provided by {@link AngularContext}.
    * @param unboundInputs By default a synthetic parent component will be created that binds to all your component's inputs. Pass input names here that should NOT be bound. This is useful e.g. to test the default value of an input.
    */
   constructor(
@@ -157,11 +155,7 @@ export class ComponentContext<T> extends AngularContext {
     const imports: any[] = [];
     const declarations: any[] = [WrapperComponent];
     (mirror.isStandalone ? imports : declarations).push(componentType);
-    super(
-      extendMetadata({ imports, declarations }, moduleMetadata, {
-        providers: [provideNoopAnimations()],
-      }),
-    );
+    super(extendMetadata({ imports, declarations }, moduleMetadata));
 
     this.#componentType = componentType;
     this.#inputProperties = new Set(inputProperties);

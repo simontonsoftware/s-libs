@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentContext } from '../component-context';
 
 describe('FakeAsyncHarnessEnvironment', () => {
@@ -28,9 +27,7 @@ describe('FakeAsyncHarnessEnvironment', () => {
   it('does not flush timeouts that are not yet due', () => {
     class SnackBarContext extends ComponentContext<ClickableButtonComponent> {
       constructor() {
-        super(ClickableButtonComponent, {
-          imports: [MatSnackBarModule, NoopAnimationsModule],
-        });
+        super(ClickableButtonComponent, { imports: [MatSnackBarModule] });
       }
 
       protected override cleanUp(): void {
