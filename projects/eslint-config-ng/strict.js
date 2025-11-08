@@ -56,6 +56,14 @@ module.exports = tseslint.config(
           allowRegExp: true,
         },
       ],
+      "@typescript-eslint/switch-exhaustiveness-check": [
+        "error",
+        {
+          allowDefaultCaseForExhaustiveSwitch: false,
+          considerDefaultExhaustiveForUnions: true,
+          requireDefaultForNonUnion: true,
+        },
+      ],
       "func-style": ["error", "declaration", { allowArrowFunctions: true }],
       "one-var": ["error", "never"],
       "prefer-const": ["error", { ignoreReadBeforeAssign: true }],
@@ -80,6 +88,7 @@ module.exports = tseslint.config(
       "@typescript-eslint/require-await": "off",
       "@typescript-eslint/strict-boolean-expressions": "off",
       "capitalized-comments": "off",
+      "default-case": "off", // conflicts with "@typescript-eslint/switch-exhaustiveness-check"
       "id-length": "off",
       "line-comment-position": "off",
       "max-classes-per-file": "off",
