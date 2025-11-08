@@ -42,8 +42,4 @@ module.exports = tseslint.config(
       "@typescript-eslint/no-misused-spread": "off",
     },
   },
-  {
-    files: ["**/*.html"],
-    rules: {},
-  },
 );

@@ -42,8 +42,4 @@ module.exports = tseslint.config(
       "@typescript-eslint/no-empty-function": "off",
     },
   },
-  {
-    files: ["**/*.html"],
-    rules: {},
-  },
 );

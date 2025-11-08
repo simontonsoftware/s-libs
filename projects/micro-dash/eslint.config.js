@@ -64,8 +64,4 @@ module.exports = tseslint.config(
       "@typescript-eslint/no-array-delete": "off",
     },
   },
-  {
-    files: ["**/*.html"],
-    rules: {},
-  },
 );

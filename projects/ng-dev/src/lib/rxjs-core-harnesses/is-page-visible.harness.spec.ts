@@ -40,6 +40,7 @@ describe('IsPageVisibleHarness', () => {
   });
 
   it('allows document listeners for other events (prod bug)', () => {
+    // eslint-disable-next-line no-new -- the purpose is to test the side effect
     new IsPageVisibleHarness();
     expect(() => {
       try {
