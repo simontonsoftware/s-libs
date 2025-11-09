@@ -135,6 +135,51 @@ describe('UndoManagerSuperclass', () => {
     });
   });
 
+  describe('.snapshot()', () => {
+    it('works', () => {
+      expect(undoManager.snapshot()).toEqual({
+        stack: [new State()],
+        index: 0,
+      });
+
+      setCounter(1);
+      expect(undoManager.snapshot()).toEqual({
+        stack: [new State(), changedState(1)],
+        index: 1,
+      });
+
+      setCounter(2);
+      expect(undoManager.snapshot()).toEqual({
+        stack: [new State(), changedState(1), changedState(2)],
+        index: 2,
+      });
+
+      undoManager.undo();
+      expect(undoManager.snapshot()).toEqual({
+        stack: [new State(), changedState(1), changedState(2)],
+        index: 1,
+      });
+
+      undoManager.undo();
+      expect(undoManager.snapshot()).toEqual({
+        stack: [new State(), changedState(1), changedState(2)],
+        index: 0,
+      });
+
+      undoManager.redo();
+      expect(undoManager.snapshot()).toEqual({
+        stack: [new State(), changedState(1), changedState(2)],
+        index: 1,
+      });
+
+      undoManager.redo();
+      expect(undoManager.snapshot()).toEqual({
+        stack: [new State(), changedState(1), changedState(2)],
+        index: 2,
+      });
+    });
+  });
+
   describe('.state()', () => {
     it('works', () => {
       expect(undoManager.state().counter).toBe(0);
@@ -205,6 +250,31 @@ describe('UndoManagerSuperclass', () => {
       // if `collectKey` was still intact, this would not create a new state:
       setCounter(2);
       expectStack(1, 2);
+    });
+  });
+
+  describe('.setSnapshot()', () => {
+    it('sets the internal state', () => {
+      undoManager.setSnapshot({
+        stack: [changedState(1), changedState(2), changedState(3)],
+        index: 1,
+      });
+      expectStack(1, 2, 3);
+      expect(undoManager.state()).toEqual(changedState(2));
+    });
+
+    it('clears a pending collectKey', () => {
+      // The snapshot is a total reset. We don't want a push from before the snapshot to cause one after to be collapsed.
+      undoManager.collectKey = 'k';
+      setCounter(1);
+
+      undoManager.setSnapshot({
+        stack: [changedState(2)],
+        index: 0,
+      });
+
+      setCounter(3);
+      expectStack(2, 3);
     });
   });
 
@@ -641,6 +711,6 @@ describe('UndoManagerSuperclass', () => {
   }
 
   function expectStack(...states: number[]): void {
-    expect(undoManager.stack.map((s) => s.counter)).toEqual(states);
+    expect(undoManager.snapshot().stack.map((s) => s.counter)).toEqual(states);
   }
 });

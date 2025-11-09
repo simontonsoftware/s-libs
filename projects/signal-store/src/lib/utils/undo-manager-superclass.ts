@@ -1,8 +1,21 @@
-import { computed, signal } from '@angular/core';
+import { computed } from '@angular/core';
 import { Debouncer, isDefined } from '@s-libs/js-core';
+import { RootStore } from '../root-store';
 import { Store } from '../store';
 
 export type UndoOrRedo = 'redo' | 'undo';
+
+export interface UndoSnapshot<UndoStateType> {
+  /**
+   * The internal undo stack, from oldest to newest. Note that this contains states that would be applied by calls to both `.undo()` and `.redo`.
+   */
+  stack: UndoStateType[];
+
+  /**
+   * The current index in the undo stack. Calls to `undo` will apply the state before this in the stack, and `redo` will apply the state after this.
+   */
+  index: number;
+}
 
 /**
  * Assists in creating undo/redo functionality. Below is a minimal undo service.
@@ -39,22 +52,34 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
   /**
    * Emits whether any states are available for `undo()`.
    */
-  readonly canUndo = computed<boolean>(() => this.#index() > 0);
+  readonly canUndo = computed<boolean>(() => this.#index.state > 0);
 
   /**
    * Emits whether any states are available for `redo()`.
    */
   readonly canRedo = computed<boolean>(
-    () => this.#index() < this.#stack().length - 1,
+    () => this.#index.state < this.#length.state - 1,
   );
+
+  /**
+   * Emits the current undo snapshot. Useful if you want to persist this to restore when the user returns to your app later, via {@linkcode #setSnapshot}.
+   */
+  readonly snapshot = computed(() => this.#store.state);
 
   /**
    * Emits the current undo state that was most recently pushed or applied. Calls to `undo` will apply the state before this in the stack, and `redo` will apply the state after this.
    */
-  readonly state = computed<UndoStateType>(() => this.#stack()[this.#index()]);
+  readonly state = computed<UndoStateType>(
+    () => this.#stack.state[this.#index.state],
+  );
 
-  readonly #stack = signal<UndoStateType[]>([]);
-  readonly #index = signal(-1);
+  readonly #store = new RootStore<UndoSnapshot<UndoStateType>>({
+    stack: [],
+    index: -1,
+  });
+  readonly #stack = this.#store('stack');
+  readonly #length = this.#stack('length');
+  readonly #index = this.#store('index');
 
   #collectKey?: string;
   #collectDebouncer = new Debouncer();
@@ -70,18 +95,19 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
   }
 
   /**
-   * Returns a view of the internal undo stack, from oldest to newest. Note that this contains states that would be applied by calls to both `.undo()` and `.redo`.
-   */
-  get stack(): UndoStateType[] {
-    return this.#stack().slice();
-  }
-
-  /**
    * Discard all history and push the current state.
    */
   reset(): void {
-    this.#index.set(-1);
+    this.#index.state = -1;
     this.pushCurrentState();
+  }
+
+  /**
+   * Reset the entire manager to the given snapshot. Useful combined with persisting the {@linkcode #snapshot} to restore undo history when the user returns to your app.
+   */
+  setSnapshot(snapshot: UndoSnapshot<UndoStateType>): void {
+    this.#store.state = snapshot;
+    this.#manageCollectKey(undefined);
   }
 
   /**
@@ -95,7 +121,7 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
     collectDebounce,
   }: { collectKey?: string; collectDebounce?: number } = {}): void {
     const nextState = this.extractUndoState(this.store.state);
-    if (this.#index() >= 0 && !this.shouldPush(nextState)) {
+    if (this.#index.state >= 0 && !this.shouldPush(nextState)) {
       return;
     }
 
@@ -193,7 +219,7 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
     this.#index.update((i) => i + 1);
     this.#stack.update((stack) => [...stack, nextState]);
 
-    while (this.#stack().length > 1 && this.isOverSize(this.#stack().length)) {
+    while (this.#length.state > 1 && this.isOverSize(this.#length.state)) {
       this.#stack.update((stack) => stack.slice(1));
       this.#index.update((i) => i - 1);
     }
@@ -202,7 +228,7 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
   }
 
   #dropRedoHistory(): void {
-    this.#stack.update((stack) => stack.slice(0, this.#index() + 1));
+    this.#stack.update((stack) => stack.slice(0, this.#index.state + 1));
   }
 
   #manageCollectKey(key: string | undefined, collectDebounce?: number): void {
@@ -224,7 +250,7 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
   /**
    * Reset the store to the given state.
    *
-   * The `undoOrRedo` and `stateToOverwrite` parameters can be useful e.g. if a scroll position is kept in the undo state. In such a case you want to change the scrolling so the user can see what just changed by undoing/redoing. To do that, set the scoll to what it was in `stateToOverwrite` when undoing, and to what it is in `stateToApply` when redoing.
+   * The `undoOrRedo` and `stateToOverwrite` parameters can be useful e.g. if a scroll position is kept in the undo state. In such a case you want to change the scrolling so the user can see what just changed by undoing/redoing. To do that, set the scroll to what it was in `stateToOverwrite` when undoing, and to what it is in `stateToApply` when redoing.
    */
   protected abstract applyUndoState(
     stateToApply: UndoStateType,
