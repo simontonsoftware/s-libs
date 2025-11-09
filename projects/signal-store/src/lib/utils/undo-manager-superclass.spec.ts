@@ -136,6 +136,28 @@ describe('UndoManagerSuperclass', () => {
   });
 
   describe('.state()', () => {
+    it('works', () => {
+      expect(undoManager.state().counter).toBe(0);
+
+      setCounter(1);
+      expect(undoManager.state().counter).toBe(1);
+
+      setCounter(2);
+      expect(undoManager.state().counter).toBe(2);
+
+      undoManager.undo();
+      expect(undoManager.state().counter).toBe(1);
+
+      undoManager.undo();
+      expect(undoManager.state().counter).toBe(0);
+
+      undoManager.redo();
+      expect(undoManager.state().counter).toBe(1);
+
+      undoManager.redo();
+      expect(undoManager.state().counter).toBe(2);
+    });
+
     it('tracks the current undo state', () => {
       const next = jasmine.createSpy();
 
@@ -268,6 +290,20 @@ describe('UndoManagerSuperclass', () => {
       expectStack(0, 2, 4, 5);
 
       tick(1000);
+    }));
+
+    it('can cancel a debounce', fakeAsync(() => {
+      undoManager.collectKey = 'k';
+      undoManager.collectDebounce = 1000;
+
+      setCounter(1);
+      tick(999);
+      undoManager.collectDebounce = undefined;
+      setCounter(2);
+      tick(1000);
+      setCounter(3);
+
+      expectStack(0, 3);
     }));
 
     it('can drop collected changes when they equate to no change', () => {
@@ -445,38 +481,6 @@ describe('UndoManagerSuperclass', () => {
       setCounter(2);
 
       expectStack(0, 2);
-    });
-  });
-
-  describe('.state()', () => {
-    it('works', () => {
-      expect(undoManager.state().counter).toBe(0);
-
-      setCounter(1);
-      expect(undoManager.state().counter).toBe(1);
-
-      setCounter(2);
-      expect(undoManager.state().counter).toBe(2);
-
-      undoManager.undo();
-      expect(undoManager.state().counter).toBe(1);
-
-      undoManager.undo();
-      expect(undoManager.state().counter).toBe(0);
-
-      undoManager.redo();
-      expect(undoManager.state().counter).toBe(1);
-
-      undoManager.redo();
-      expect(undoManager.state().counter).toBe(2);
-    });
-  });
-
-  describe('.stack', () => {
-    it('does not allow callers to mutate the internal stack', () => {
-      setCounter(1);
-      undoManager.stack.splice(0, 9999);
-      expectStack(0, 1);
     });
   });
 

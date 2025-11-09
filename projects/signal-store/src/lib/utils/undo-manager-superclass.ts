@@ -114,7 +114,7 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
       throw new Error('Cannot undo');
     }
 
-    this.#changeState(-1, 'undo');
+    this.#do('undo', -1);
   }
 
   /**
@@ -127,7 +127,7 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
       throw new Error('Cannot redo');
     }
 
-    this.#changeState(1, 'redo');
+    this.#do('redo', 1);
   }
 
   /**
@@ -165,11 +165,10 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
     return this.maxDepth > 0 && size > this.maxDepth;
   }
 
-  #changeState(change: -1 | 1, undoOrRedo: UndoOrRedo): void {
+  #do(undoOrRedo: UndoOrRedo, change: -1 | 1): void {
     const stateToOverwrite = this.state();
     this.#index.update((i) => i + change);
-    const stateToApply = this.state();
-    this.applyUndoState(stateToApply, undoOrRedo, stateToOverwrite);
+    this.applyUndoState(this.state(), undoOrRedo, stateToOverwrite);
     this.#manageCollectKey(undefined);
   }
 
@@ -208,7 +207,9 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
 
   #manageCollectKey(key: string | undefined, collectDebounce?: number): void {
     this.#collectKey = key;
-    if (collectDebounce !== undefined) {
+    if (collectDebounce === undefined) {
+      this.#collectDebouncer.cancel();
+    } else {
       this.#collectDebouncer.run(() => {
         this.#collectKey = undefined;
       }, collectDebounce);
