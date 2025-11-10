@@ -6,7 +6,11 @@
   }
   @if (data.component) {
     <ng-container
-      *ngComponentOutlet="data.component; injector: componentInjector"
+      *ngComponentOutlet="
+        data.component;
+        injector: componentInjector;
+        inputs: data.inputs
+      "
     />
   }
 </mat-dialog-content>

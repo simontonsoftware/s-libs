@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { AngularContext } from '@s-libs/ng-dev';
 import {
   DEFAULT_OK_VALUE,
@@ -97,6 +97,20 @@ describe('DialogComponent', () => {
 
       const dialog = await ctx.getHarness(SlDialogHarness);
       expect(await dialog.getContentText()).toBe('My input.');
+    });
+  });
+
+  it('can supply inputs to the component', () => {
+    @Component({ template: `{{ myInput() }}` })
+    class MyDialogComponent {
+      myInput = input.required<string>();
+    }
+
+    ctx.run(async () => {
+      open({ component: MyDialogComponent, inputs: { myInput: 'My value.' } });
+
+      const dialog = await ctx.getHarness(SlDialogHarness);
+      expect(await dialog.getContentText()).toContain('My value.');
     });
   });
 

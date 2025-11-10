@@ -36,9 +36,16 @@ export interface DialogData<T> {
   /**
    * A custom component to project into the dialog's content. It will appear below `text`, if both are defined. Note that you may put a static `title` attribute on the dialog class itself instead of using the {@link DialogData.title} option above. If both are defined, the option above will be used.
    */
-  component?: Type<any> & { title?: string };
+  component?: Type<unknown> & { title?: string };
 
   /**
+   * The inputs to pass to {@linkcode component}.
+   */
+  inputs?: Record<string, unknown>;
+
+  /**
+   * @deprecated Transition to {@linkcode inputs}. This may be removed in a future major version.
+   *
    * Use this to supply input to a custom component. Inject it into the component using the {@link SL_DIALOG_DATA} injection token.
    *
    * ```ts
