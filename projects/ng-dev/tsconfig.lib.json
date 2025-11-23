@@ -7,7 +7,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": ["jasmine"]
+    "types": []
   },
   "include": ["src/**/*.ts"],
   "exclude": [

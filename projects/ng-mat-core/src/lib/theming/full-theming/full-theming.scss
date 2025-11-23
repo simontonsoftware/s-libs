@@ -1,7 +1,7 @@
-@use "sass:meta";
-@use "@angular/material" as mat;
-@use "../colors/colors";
-@use "../themes/themes";
+@use 'sass:meta';
+@use '@angular/material' as mat;
+@use '../colors/colors';
+@use '../themes/themes';
 
 /// Deprecated. Angular Material's latest API is much easier to use. Recommend updating to latest techniques here: https://material.angular.dev/guide/theming.
 @mixin full-theming($args...) {

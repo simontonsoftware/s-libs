@@ -30,6 +30,6 @@ export function createSpyObject<T>(type: Type<T>): jasmine.SpyObj<T> {
       mock[key] = jasmine.createSpy(key);
     }
   }
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+   
   return mock as jasmine.SpyObj<T>;
 }

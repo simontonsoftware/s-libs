@@ -1,34 +1,38 @@
 // @ts-check
-const tseslint = require("typescript-eslint");
-const rootConfig = require("../../eslint.config.js");
+const { defineConfig } = require('eslint/config');
+const rootConfig = require('../../eslint.config.js');
 
-module.exports = tseslint.config(
+module.exports = defineConfig([
   ...rootConfig,
   {
-    files: ["**/*.ts"],
+    files: ['**/*.ts'],
     languageOptions: {
       parserOptions: {
         projectService: true,
       },
     },
     rules: {
-      "@angular-eslint/directive-selector": [
-        "error",
+      '@angular-eslint/directive-selector': [
+        'error',
         {
-          type: "attribute",
-          prefix: ["sl", "app"],
-          style: "camelCase",
+          type: 'attribute',
+          prefix: ['sl', 'app'],
+          style: 'camelCase',
         },
       ],
-      "@angular-eslint/component-selector": [
-        "error",
+      '@angular-eslint/component-selector': [
+        'error',
         {
-          type: "element",
-          prefix: ["sl", "app"],
-          style: "kebab-case",
+          type: 'element',
+          prefix: ['sl', 'app'],
+          style: 'kebab-case',
         },
       ],
     },
   },
-  { ignores: ["**/e2e/"] },
-);
+  {
+    files: ['**/*.html'],
+    rules: {},
+  },
+  { ignores: ['**/e2e/'] },
+]);

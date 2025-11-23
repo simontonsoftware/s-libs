@@ -9,6 +9,8 @@
     // Special just for micro-dash library functions, to reduce bundle size
     "noImplicitReturns": false
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.d.ts", "src/**/*.spec.ts"],
+
+  // Special adding to scaffolding, for as long as these hang around
   "exclude": ["src/typing-tests"]
 }

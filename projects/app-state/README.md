@@ -35,7 +35,7 @@ Define the shape of your application state using typescript classes or interface
 ```ts
 // state/my-state.ts
 
-import { User } from "./user";
+import { User } from './user';
 
 export class MyState {
   loading = true;
@@ -57,8 +57,8 @@ Then create a subclass of `RootStore`. A single instance of that class will serv
 ```ts
 // state/my-store.ts
 
-import { RootStore } from "@s-libs/app-state";
-import { MyState } from "./my-state";
+import { RootStore } from '@s-libs/app-state';
+import { MyState } from './my-state';
 
 export class MyStore extends RootStore<MyState> {
   constructor() {
@@ -74,12 +74,12 @@ export class MyStore extends RootStore<MyState> {
 - When obtaining the current state of a nested property, prefer calling `state()` early. E.g.:
   ```ts
   store.state().currentUser.name; // do this
-  store("currentUser")("name").state(); // not this
+  store('currentUser')('name').state(); // not this
   ```
   This allows the use of `!` to easily declare the presence of an intermediate object. E.g.:
   ```ts
   store.state().currentUser!.name; // do this
-  store<"currentUser", User>("currentUser")("name").state(); // not this
+  store<'currentUser', User>('currentUser')('name').state(); // not this
   ```
 
 ## UndoManager

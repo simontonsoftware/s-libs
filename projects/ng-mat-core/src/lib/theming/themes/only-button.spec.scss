@@ -1,5 +1,5 @@
-@use "@angular/material" as mat;
-@use ".." as theming;
+@use '@angular/material' as mat;
+@use '..' as theming;
 
 :host {
   @include theming.dark-theme(
@@ -9,8 +9,8 @@
         accent: mat.m2-define-palette(mat.$m2-orange-palette),
       ),
       modules: (
-        "core",
-        "button",
+        'core',
+        'button',
         // uncomment to see the test fail
          // "toolbar",,,
       ),

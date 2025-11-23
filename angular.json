@@ -1,7 +1,26 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "cli": {
+    "analytics": "d2657102-efac-4510-9c45-87ca8fcdb63c",
+    "packageManager": "npm",
+    "schematicCollections": ["angular-eslint"]
+  },
   "newProjectRoot": "projects",
+  "schematics": {
+    "@schematics/angular:application": {
+      "testRunner": "karma"
+    },
+    "@schematics/angular:library": {
+      "testRunner": "karma"
+    },
+    "angular-eslint:application": {
+      "setParserOptionsProject": true
+    },
+    "angular-eslint:library": {
+      "setParserOptionsProject": true
+    }
+  },
   "projects": {
     "app-state": {
       "projectType": "library",
@@ -57,13 +76,14 @@
             "browser": "projects/integration/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/integration/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
                 "input": "projects/integration/public"
               }
             ],
-            "styles": ["projects/integration/src/styles.scss"]
+            "styles": ["projects/integration/src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -101,24 +121,10 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
-        },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "tsConfig": "projects/integration/tsconfig.spec.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/integration/public"
-              }
-            ],
-            "styles": [
-              "projects/integration/src/styles.scss",
-              "projects/integration/src/app/api-tests/ng-mat-core.spec.scss"
-            ]
+            "runner": "karma"
           }
         },
         "lint": {
@@ -209,7 +215,11 @@
     },
     "micro-dash-sizes": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "projects/micro-dash-sizes",
       "sourceRoot": "projects/micro-dash-sizes/src",
       "prefix": "sl",
@@ -220,13 +230,14 @@
             "browser": "projects/micro-dash-sizes/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/micro-dash-sizes/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
                 "input": "projects/micro-dash-sizes/public"
               }
             ],
-            "styles": []
+            "styles": ["projects/micro-dash-sizes/src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -264,8 +275,11 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "runner": "karma"
+          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -501,41 +515,5 @@
         }
       }
     }
-  },
-  "schematics": {
-    "@angular-eslint/schematics:application": {
-      "setParserOptionsProject": true
-    },
-    "@angular-eslint/schematics:library": {
-      "setParserOptionsProject": true
-    },
-    "@schematics/angular:component": {
-      "type": "component"
-    },
-    "@schematics/angular:directive": {
-      "type": "directive"
-    },
-    "@schematics/angular:service": {
-      "type": "service"
-    },
-    "@schematics/angular:guard": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:interceptor": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:module": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:pipe": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:resolver": {
-      "typeSeparator": "."
-    }
-  },
-  "cli": {
-    "analytics": "d2657102-efac-4510-9c45-87ca8fcdb63c",
-    "schematicCollections": ["angular-eslint"]
   }
 }

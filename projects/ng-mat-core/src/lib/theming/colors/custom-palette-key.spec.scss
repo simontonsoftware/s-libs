@@ -1,5 +1,5 @@
-@use "@angular/material" as mat;
-@use ".." as theming;
+@use '@angular/material' as mat;
+@use '..' as theming;
 
 @include theming.dark-theme-colors(
   (
@@ -8,5 +8,5 @@
       accent: mat.m2-define-palette(mat.$m2-orange-palette),
     ),
   ),
-  $palette-key: "custom-palettes"
+  $palette-key: 'custom-palettes'
 );

@@ -1,5 +1,5 @@
-@use "@angular/material" as mat;
-@use "../../../../../dist/ng-mat-core/theming";
+@use '@angular/material' as mat;
+@use '../../../../../dist/ng-mat-core/theming';
 
 $palettes: (
   primary: mat.m2-define-palette(mat.$m2-teal-palette),

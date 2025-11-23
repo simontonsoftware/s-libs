@@ -17,7 +17,7 @@ In your module, import `NasModelModule`, e.g.:
 ```ts
 // app.module.ts
 
-import { NasModelModule } from "@s-libs/ng-app-state";
+import { NasModelModule } from '@s-libs/ng-app-state';
 
 @NgModule({
   imports: [NasModelModule],
@@ -37,7 +37,7 @@ class AccountSettingsComponent {
   nameStore: Store<string>;
 
   constructor(myStore: MyStore) {
-    this.nameStore = myStore("currentUser")("name");
+    this.nameStore = myStore('currentUser')('name');
   }
 }
 ```
