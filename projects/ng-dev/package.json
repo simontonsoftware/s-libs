@@ -10,15 +10,16 @@
     "directory": "projects/ng-dev"
   },
   "peerDependencies": {
-    "@angular/cdk": "^20.0.0",
-    "@angular/common": "^20.0.0",
-    "@angular/core": "^20.0.0",
+    "@angular/cdk": "^21.0.0",
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0",
     "@s-libs/js-core": "^20.2.0",
     "@s-libs/micro-dash": "^20.2.0",
     "@s-libs/ng-core": "^20.2.0",
-    "@s-libs/rxjs-core": "^20.2.0",
-    "jasmine-core": "^5.7.0"
+    "@s-libs/rxjs-core": "^20.2.0"
   },
-  "dependencies": { "tslib": "^2.3.0" },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
   "sideEffects": false
 }
