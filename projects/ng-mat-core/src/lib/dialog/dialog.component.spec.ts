@@ -103,7 +103,7 @@ describe('DialogComponent', () => {
   it('can supply inputs to the component', () => {
     @Component({ template: `{{ myInput() }}` })
     class MyDialogComponent {
-      myInput = input.required<string>();
+      readonly myInput = input.required<string>();
     }
 
     ctx.run(async () => {
