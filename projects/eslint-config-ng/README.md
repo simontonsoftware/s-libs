@@ -11,14 +11,14 @@ Follow these instructions to get all the community-recommended config from [`ESL
 
    ```js
    // @ts-check
-   const tseslint = require("typescript-eslint");
-   const slibs = require("@s-libs/eslint-config-ng");
+   const tseslint = require('typescript-eslint');
+   const slibs = require('@s-libs/eslint-config-ng');
 
    module.exports = tseslint.config(...slibs, {
-     files: ["**/*.ts"],
+     files: ['**/*.ts'],
      rules: {
-       "@angular-eslint/directive-selector": ["error", { type: "attribute", prefix: "app", style: "camelCase" }],
-       "@angular-eslint/component-selector": ["error", { type: "element", prefix: "app", style: "kebab-case" }],
+       '@angular-eslint/directive-selector': ['error', { type: 'attribute', prefix: 'app', style: 'camelCase' }],
+       '@angular-eslint/component-selector': ['error', { type: 'element', prefix: 'app', style: 'kebab-case' }],
      },
    });
    ```
@@ -34,15 +34,15 @@ Use these instructions for much stricter linting, start with the instructions ab
 
    ```js
    // @ts-check
-   const tseslint = require("typescript-eslint");
-   const slibs = require("@s-libs/eslint-config-ng/strict");
+   const tseslint = require('typescript-eslint');
+   const slibs = require('@s-libs/eslint-config-ng/strict');
 
    module.exports = tseslint.config(...slibs, {
-     files: ["**/*.ts"],
+     files: ['**/*.ts'],
      languageOptions: { parserOptions: { projectService: true } },
      rules: {
-       "@angular-eslint/directive-selector": ["error", { type: "attribute", prefix: "app", style: "camelCase" }],
-       "@angular-eslint/component-selector": ["error", { type: "element", prefix: "app", style: "kebab-case" }],
+       '@angular-eslint/directive-selector': ['error', { type: 'attribute', prefix: 'app', style: 'camelCase' }],
+       '@angular-eslint/component-selector': ['error', { type: 'element', prefix: 'app', style: 'kebab-case' }],
      },
    });
    ```

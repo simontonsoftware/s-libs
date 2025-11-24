@@ -35,7 +35,7 @@ Define the shape of your application state using typescript classes or interface
 ```ts
 // state/my-state.ts
 
-import { User } from "./user";
+import { User } from './user';
 
 export class MyState {
   loading = true;
@@ -57,11 +57,11 @@ Then create a subclass of `RootStore`. A single instance of that class will serv
 ```ts
 // state/my-store.ts
 
-import { Injectable } from "@angular/core";
-import { RootStore } from "@s-libs/signal-store";
-import { MyState } from "./my-state";
+import { Injectable } from '@angular/core';
+import { RootStore } from '@s-libs/signal-store';
+import { MyState } from './my-state';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class MyStore extends RootStore<MyState> {
   constructor() {
     super(new MyState());
@@ -80,7 +80,7 @@ class AppState {
 }
 
 // app-store.ts
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 class AppStore extends RootStore<AppState> {
   constructor() {
     super(new AppState());
@@ -89,7 +89,7 @@ class AppStore extends RootStore<AppState> {
 
 // my-app-component.ts
 @Component({
-  selector: "sl-my-app",
+  selector: 'sl-my-app',
   template: `
     <button (click)="counter.state = counter.state + 1">Increment</button>
     <div>Current Count: {{ counter.state }}</div>
@@ -100,7 +100,7 @@ class AppStore extends RootStore<AppState> {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class MyAppComponent {
-  protected counter = inject(AppStore)("counter");
+  protected counter = inject(AppStore)('counter');
 }
 ```
 
@@ -110,7 +110,7 @@ class MyAppComponent {
 - When possible, only use plain object in your state. State classes can have a constructor to assist when creating a new object, but avoid any other methods. This allows you to set properties on it and use other mutation methods freely. Mutating causes that object and all its ancestors to be recreated as plain objects or arrays, losing any methods defined by its prototype.
 - When obtaining the current state of a nested property, prefer using `.state` at the end of the chain. E.g.:
   ```ts
-  store("currentUser")("name").state; // do this
+  store('currentUser')('name').state; // do this
   store.state.currentUser.name; // not this
   ```
   This allows usage inside templates and effects to be marked dirty less often. When using `.state` any change at the level of the store or lower will mark it dirty, so delaying the use of `.state` until a leaf node in your state will trigger it less often.

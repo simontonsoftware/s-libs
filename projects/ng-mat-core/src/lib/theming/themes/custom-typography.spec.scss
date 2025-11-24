@@ -1,5 +1,5 @@
-@use "@angular/material" as mat;
-@use ".." as theming;
+@use '@angular/material' as mat;
+@use '..' as theming;
 
 :host {
   @include theming.dark-theme(
@@ -8,7 +8,7 @@
         primary: mat.m2-define-palette(mat.$m2-light-blue-palette),
         accent: mat.m2-define-palette(mat.$m2-orange-palette),
       ),
-      typography: mat.m2-define-typography-config("monospace"),
+      typography: mat.m2-define-typography-config('monospace'),
     )
   );
 }
