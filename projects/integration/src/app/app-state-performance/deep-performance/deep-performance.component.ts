@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RootStore } from '@s-libs/app-state';
 import {
   DeepState,
@@ -6,7 +7,6 @@ import {
   subscribeDeep,
 } from '../../../../../app-state/src/performance/deep-performance';
 import { unsubscribe } from '../../../../../app-state/src/performance/performance-utils';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'sl-deep-performance',
@@ -19,6 +19,7 @@ export class DeepPerformanceComponent {
   iterations = 1000;
 
   run(): void {
+    console.log('App Store - Depth Performance -----------------------------');
     // `any` because we import functions directly from `app-state` and TS doesn't like that
     const store: any = new RootStore(new DeepState(this.depth));
     const { subscription } = subscribeDeep(store);

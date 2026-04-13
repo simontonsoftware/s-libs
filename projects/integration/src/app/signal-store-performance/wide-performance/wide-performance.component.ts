@@ -5,6 +5,7 @@ import {
   EnvironmentInjector,
   inject,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RootStore } from '@s-libs/signal-store';
 import { unsubscribe } from '../../../../../signal-store/src/performance/performance-utils';
 import {
@@ -12,7 +13,6 @@ import {
   subscribeWide,
   WideState,
 } from '../../../../../signal-store/src/performance/wide-performance';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'sl-wide-performance',
@@ -27,6 +27,7 @@ export class WidePerformanceComponent {
   #injector = inject(EnvironmentInjector);
 
   protected async run(): Promise<void> {
+    console.log('Signal Store - Width Performance --------------------------');
     // `any` because we import functions directly from `signal-store` and TS doesn't like that
     const store: any = new RootStore(new WideState(this.width));
     const injector = createEnvironmentInjector([], this.#injector);

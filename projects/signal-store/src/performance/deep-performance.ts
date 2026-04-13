@@ -3,13 +3,17 @@ import { Store } from '../lib/store';
 import { CounterState } from './counter-state';
 
 export class DeepState extends CounterState {
-  next?: DeepState;
-
-  constructor(depth: number) {
-    super();
-    if (depth > 1) {
-      this.next = new DeepState(depth - 1);
+  static build(depth: number): DeepState {
+    // no recursion; avoid stack overflow
+    let state = new DeepState();
+    for (let i = depth; --i; ) {
+      state = new DeepState(state);
     }
+    return state;
+  }
+
+  constructor(public next?: DeepState) {
+    super();
   }
 }
 

@@ -5,21 +5,23 @@ import { DeepState, runDeep, subscribeDeep } from './deep-performance';
 import { unsubscribe } from './performance-utils';
 import { runWide, subscribeWide, WideState } from './wide-performance';
 
-const depth = 500;
+// To reset the baseline for these numbers, run them in the integration app & multiply by 10
+
+const depth = 1000;
 const deepIterations = 100;
-const msPerDeepSubscription = 0.04;
-const msPerDeepIteration = 12;
-const msPerDeepUnsubscribe = 0.02;
+const msPerDeepSubscription = 0.01;
+const msPerDeepIteration = 2;
+const msPerDeepUnsubscribe = 0.001;
 
 const width = 1000;
 const wideIterations = 100;
-const msPerWideSubscription = 0.07;
-const msPerWideIteration = 9;
-const msPerWideUnsubscribe = 0.02;
+const msPerWideSubscription = 0.04;
+const msPerWideIteration = 0.5;
+const msPerWideUnsubscribe = 0.004;
 
 describe('performance', () => {
   it('is good with a deep state', async () => {
-    const store = new RootStore(new DeepState(depth));
+    const store = new RootStore(DeepState.build(depth));
     const injector = createEnvironmentInjector(
       [],
       TestBed.inject(EnvironmentInjector),

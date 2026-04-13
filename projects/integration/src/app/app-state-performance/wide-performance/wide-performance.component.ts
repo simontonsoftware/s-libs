@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RootStore } from '@s-libs/app-state';
 import { unsubscribe } from '../../../../../app-state/src/performance/performance-utils';
 import {
@@ -6,7 +7,6 @@ import {
   subscribeWide,
   WideState,
 } from '../../../../../app-state/src/performance/wide-performance';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'sl-wide-performance',
@@ -19,6 +19,7 @@ export class WidePerformanceComponent {
   iterations = 1000;
 
   run(): void {
+    console.log('App Store - Width Performance -----------------------------');
     // `any` because we import functions directly from `app-state` and TS doesn't like that
     const store: any = new RootStore(new WideState(this.width));
     const { subscription } = subscribeWide(store);

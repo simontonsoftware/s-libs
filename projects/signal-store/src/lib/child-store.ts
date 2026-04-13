@@ -35,12 +35,22 @@ export class ChildStore<T> extends AbstractStore<T> {
       return;
     }
 
-    const parentState = clone(this.parent.state);
-    if (parentState === undefined) {
-      throw new Error('cannot modify when parent state is missing');
-    }
+    // avoid recursion so a deep state doesn't overflow the stack
+    let cur: ChildStore<any> = this;
+    while (true) {
+      const parentState = clone(cur.parent.state);
+      if (parentState === undefined) {
+        throw new Error('cannot modify when parent state is missing');
+      }
 
-    parentState[this.key] = value;
-    this.parent.state = parentState;
+      parentState[cur.key] = value;
+      if (cur.parent instanceof ChildStore) {
+        value = parentState;
+        cur = cur.parent;
+      } else {
+        cur.parent.state = parentState;
+        return;
+      }
+    }
   }
 }

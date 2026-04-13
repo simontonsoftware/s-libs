@@ -27,8 +27,9 @@ export class DeepPerformanceComponent {
   #injector = inject(EnvironmentInjector);
 
   protected async run(): Promise<void> {
+    console.log('Signal Store - Depth Performance --------------------------');
     // `any` because we import functions directly from `signal-store` and TS doesn't like that
-    const store: any = new RootStore(new DeepState(this.depth));
+    const store: any = new RootStore(DeepState.build(this.depth));
     const injector = createEnvironmentInjector([], this.#injector);
 
     subscribeDeep(store, injector);
