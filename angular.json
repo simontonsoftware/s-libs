@@ -83,7 +83,7 @@
                 "input": "projects/integration/public"
               }
             ],
-            "styles": ["projects/integration/src/styles.css"]
+            "styles": ["projects/integration/src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -236,8 +236,7 @@
                 "glob": "**/*",
                 "input": "projects/micro-dash-sizes/public"
               }
-            ],
-            "styles": ["projects/micro-dash-sizes/src/styles.scss"]
+            ]
           },
           "configurations": {
             "production": {

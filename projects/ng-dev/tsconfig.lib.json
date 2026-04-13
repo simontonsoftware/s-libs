@@ -7,7 +7,10 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": []
+    "types": [
+      // Added after scaffolding: ng-dev ships jasmine in its prod code
+      "jasmine"
+    ]
   },
   "include": ["src/**/*.ts"],
   "exclude": [

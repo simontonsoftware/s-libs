@@ -10,6 +10,7 @@ describe('SlDialogHarness', () => {
     ctx = new AngularContext({ imports: [SlDialogModule] });
   });
 
+  // Tests should not `await` `openWithPromise` directly. This helper makes that more obvious.
   function open(data: DialogData<unknown>): void {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     openWithPromise(data);
