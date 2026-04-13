@@ -1,6 +1,8 @@
 import { Directive, HostListener } from '@angular/core';
 import { AbstractValueAccessorDirective } from './abstract-value-accessor.directive';
 
+/* eslint-disable @angular-eslint/prefer-host-metadata-property */
+
 @Directive()
 export abstract class AbstractInputValueAccessorDirective extends AbstractValueAccessorDirective<HTMLInputElement> {
   @HostListener('change')

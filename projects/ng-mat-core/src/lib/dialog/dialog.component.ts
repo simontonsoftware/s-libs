@@ -85,6 +85,7 @@ export const DEFAULT_OK_VALUE = Symbol('OK');
 export class DialogComponent {
   protected data: DialogData<unknown> = inject(MAT_DIALOG_DATA);
   protected componentInjector = Injector.create({
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     providers: [{ provide: SL_DIALOG_DATA, useValue: this.data.slDialogData }],
     parent: inject(Injector),
   });

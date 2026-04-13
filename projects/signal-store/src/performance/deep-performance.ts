@@ -3,6 +3,10 @@ import { Store } from '../lib/store';
 import { CounterState } from './counter-state';
 
 export class DeepState extends CounterState {
+  constructor(public next?: DeepState) {
+    super();
+  }
+
   static build(depth: number): DeepState {
     // no recursion; avoid stack overflow
     let state = new DeepState();
@@ -10,10 +14,6 @@ export class DeepState extends CounterState {
       state = new DeepState(state);
     }
     return state;
-  }
-
-  constructor(public next?: DeepState) {
-    super();
   }
 }
 

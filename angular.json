@@ -236,7 +236,8 @@
                 "glob": "**/*",
                 "input": "projects/micro-dash-sizes/public"
               }
-            ]
+            ],
+            "styles": []
           },
           "configurations": {
             "production": {

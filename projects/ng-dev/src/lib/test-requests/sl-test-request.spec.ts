@@ -83,6 +83,7 @@ describe('SlTestRequest', () => {
 
         const resp: HttpErrorResponse = spy.calls.argsFor(0)[0];
         expect(resp.status).toBe(123);
+        // eslint-disable-next-line  @typescript-eslint/no-deprecated
         expect(resp.statusText).toBe('bad');
         expect(resp.error).toBe('stop it');
       });
@@ -99,6 +100,7 @@ describe('SlTestRequest', () => {
 
         const resp: HttpErrorResponse = spy.calls.argsFor(0)[0];
         expect(resp.status).toBe(500);
+        // eslint-disable-next-line  @typescript-eslint/no-deprecated
         expect(resp.statusText).toBe('simulated test error');
         expect(resp.error).toBeNull();
       });

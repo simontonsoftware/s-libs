@@ -6,7 +6,12 @@
     "outDir": "../../out-tsc/spec",
     "types": ["jasmine"]
   },
-  "include": ["src/**/*.d.ts", "src/**/*.spec.ts"],
+  "include": [
+    "src/**/*.d.ts",
+    "src/**/*.spec.ts",
+    // included b/c we had to exclude it from the .lib version
+    "src/test-helpers/**/*.ts"
+  ],
 
   // Special adding to scaffolding, for as long as these hang around
   "exclude": ["src/typing-tests"]

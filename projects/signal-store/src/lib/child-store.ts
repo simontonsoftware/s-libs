@@ -36,7 +36,9 @@ export class ChildStore<T> extends AbstractStore<T> {
     }
 
     // avoid recursion so a deep state doesn't overflow the stack
+    // eslint-disable-next-line consistent-this,@typescript-eslint/no-this-alias
     let cur: ChildStore<any> = this;
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     while (true) {
       const parentState = clone(cur.parent.state);
       if (parentState === undefined) {
