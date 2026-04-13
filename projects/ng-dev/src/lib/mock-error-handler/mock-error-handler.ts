@@ -6,7 +6,7 @@ type ErrorType = Parameters<ErrorHandler['handleError']>[0];
 type Match = RegExp | string | ((error: ErrorType) => boolean);
 
 /**
- * An error handler to be used in tests, that keeps track of all errors it handles and allows for expectations to run on them.
+ * An error handler to be used in tests, that keeps track of all errors it handles and allows for expectations to run on them. Automatically included in {@link AngularContext}.
  *
  * ```ts
  * it('tracks errors', () => {

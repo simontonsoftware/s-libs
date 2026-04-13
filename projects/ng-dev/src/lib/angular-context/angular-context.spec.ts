@@ -14,6 +14,7 @@ import {
   provideAppInitializer,
 } from '@angular/core';
 import { flush, TestBed, tick } from '@angular/core/testing';
+import { MATERIAL_ANIMATIONS } from '@angular/material/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
 import { sleep } from '@s-libs/js-core';
@@ -111,6 +112,24 @@ describe('AngularContext', () => {
       });
       ctx.run(() => {
         expect(ctx.inject(ErrorHandler)).toBe(errorHandler);
+      });
+    });
+
+    it('disables animations', () => {
+      const ctx = new AngularContext();
+      ctx.run(() => {
+        expect(ctx.inject(MATERIAL_ANIMATIONS)).toEqual({
+          animationsDisabled: true,
+        });
+      });
+    });
+
+    it('allows the user to override MATERIAL_ANIMATIONS', () => {
+      const ctx = new AngularContext({
+        providers: [{ provide: MATERIAL_ANIMATIONS, useValue: {} }],
+      });
+      ctx.run(() => {
+        expect(ctx.inject(MATERIAL_ANIMATIONS)).toEqual({});
       });
     });
 

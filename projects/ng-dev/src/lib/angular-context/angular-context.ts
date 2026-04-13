@@ -18,6 +18,7 @@ import {
   TestModuleMetadata,
   tick,
 } from '@angular/core/testing';
+import { MATERIAL_ANIMATIONS } from '@angular/material/core';
 import { assert, convertTime } from '@s-libs/js-core';
 import { forOwn, isUndefined } from '@s-libs/micro-dash';
 import { MockErrorHandler } from '../mock-error-handler/mock-error-handler';
@@ -44,17 +45,17 @@ export function extendMetadata(
 
 /**
  * Provides the foundation for an opinionated testing pattern.
- * - All tests are run in the `fakeAsync` zone. This gives you full control over
- *   the timing of everything by default.
- * - Variables that are initialized for each test exist in a context that is
- *   thrown away, so they cannot leak between tests.
+ * - All tests are run in the `fakeAsync` zone. This gives you full control over the timing of everything by default.
+ * - Variables that are initialized for each test exist in a context that is thrown away, so they cannot leak between tests.
  * - Clearly separates initialization code from the test itself.
- * - Gives control over the simulated date & time with a single line of code.
+ * - Gives control over the simulated date and time with a single line of code.
  * - Automatically includes {@link https://angular.dev/api/common/http/testing/provideHttpClientTesting | provideHttpClientTesting()} to stub network requests without additional setup.
  * - Always verifies that no unexpected http requests were made.
  * - Automatically discards periodic tasks and flushes pending timers at the end of each test to avoid the error "X timer(s) still in the queue".
+ * - Sets up {@link MockErrorHandler} and verifies it caught nothing during your test.
+ * - Disables Material animations so that you don't need to wait for them in your tests.
  *
- * This example tests a simple service that uses `HttpClient`, and is tested by using `AngularContext` directly. More often `AngularContext` will be used as a super class. See {@link ComponentContext} for more common use cases.
+ * This example tests a simple service that uses `HttpClient` and is tested by using `AngularContext` directly. More often, `AngularContext` will be used as a super class. See {@link ComponentContext} for more common use cases.
  *
  * ```ts
  * // This is the class we will test.
@@ -106,7 +107,7 @@ export class AngularContext {
   #loader = FakeAsyncHarnessEnvironment.documentRootLoader(this);
 
   /**
-   * @param moduleMetadata passed along to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#configureTestingModule | TestBed.configureTestingModule()}. Automatically includes {@link HttpClientTestingModule} for you.
+   * @param moduleMetadata passed along to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#configureTestingModule | TestBed.configureTestingModule()}. Automatically includes {@link provideHttpClientTesting}, {@link MockErrorHandler}, and {@link MATERIAL_ANIMATIONS} with `animationsDisabled: true`.
    */
   constructor(moduleMetadata: TestModuleMetadata = {}) {
     assert(
@@ -116,7 +117,15 @@ export class AngularContext {
     AngularContext.#current = this;
     TestBed.configureTestingModule(
       extendMetadata(
-        { providers: [MockErrorHandler.overrideProvider()] },
+        {
+          providers: [
+            MockErrorHandler.overrideProvider(),
+            {
+              provide: MATERIAL_ANIMATIONS,
+              useValue: { animationsDisabled: true },
+            },
+          ],
+        },
         moduleMetadata,
         { providers: [provideHttpClientTesting()] },
       ),
