@@ -1,8 +1,8 @@
 import { ErrorHandler } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { AngularContext } from '../angular-context';
-import { MockErrorHandler } from './mock-error-handler';
-import { expectSingleCallAndReset } from '../spies';
+import { MockErrorHandler } from '@s-libs/ng-dev';
+import { AngularContext, expectSingleCallAndReset } from '@s-libs/ng-jasmine';
+import { MockErrorHandler as LocalMockErrorHandler } from './mock-error-handler';
 
 describe('MockErrorHandler', () => {
   let consoleSpy: jasmine.Spy;
@@ -13,24 +13,24 @@ describe('MockErrorHandler', () => {
   describe('overrideProvider()', () => {
     it('makes MockErrorHandler the ErrorHandler', () => {
       TestBed.configureTestingModule({
-        providers: [MockErrorHandler.overrideProvider()],
+        providers: [LocalMockErrorHandler.overrideProvider()],
       });
       expect(TestBed.inject(ErrorHandler)).toBe(
-        TestBed.inject(MockErrorHandler),
+        TestBed.inject(LocalMockErrorHandler),
       );
     });
   });
 
   describe('handleError()', () => {
     it("calls through to Angular's handleError()", () => {
-      TestBed.inject(MockErrorHandler).handleError('blah');
+      TestBed.inject(LocalMockErrorHandler).handleError('blah');
       expectSingleCallAndReset(consoleSpy, 'ERROR', 'blah');
     });
   });
 
   describe('.expectOne()', () => {
     it('finds a matching error', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
       handler.handleError(new Error('error 1'));
       handler.handleError(new Error('error 2'));
 
@@ -40,7 +40,7 @@ describe('MockErrorHandler', () => {
     });
 
     it('throws when there is no match', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
       handler.handleError('blah');
 
       expect(() => {
@@ -51,7 +51,7 @@ describe('MockErrorHandler', () => {
     });
 
     it('throws when there have been no errors', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
 
       expect(() => {
         handler.expectOne(() => true);
@@ -61,7 +61,7 @@ describe('MockErrorHandler', () => {
     });
 
     it('throws when there is more than one match', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
       handler.handleError('blah');
       handler.handleError('blah');
 
@@ -75,7 +75,7 @@ describe('MockErrorHandler', () => {
 
   describe('expectNone()', () => {
     it('throws if any error matches', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
       handler.handleError(new Error('error 1'));
       handler.handleError(new Error('error 2'));
 
@@ -87,7 +87,7 @@ describe('MockErrorHandler', () => {
     });
 
     it('does not throw when no error matches', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
 
       expect(() => {
         handler.expectNone(() => false);
@@ -97,7 +97,7 @@ describe('MockErrorHandler', () => {
 
   describe('match()', () => {
     it('finds matching errors', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
       handler.handleError('error 1');
       handler.handleError('error 2');
       handler.handleError('error 3');
@@ -108,7 +108,7 @@ describe('MockErrorHandler', () => {
     });
 
     it('accepts string shorthand', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
       handler.handleError(new Error('error 1'));
       handler.handleError(new Error('error 2'));
       handler.handleError(new Error('error 3'));
@@ -119,7 +119,7 @@ describe('MockErrorHandler', () => {
     });
 
     it('accepts RegExp shorthand', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
       handler.handleError(new Error('error 1'));
       handler.handleError(new Error('error 2'));
       handler.handleError(new Error('error 3'));
@@ -130,7 +130,7 @@ describe('MockErrorHandler', () => {
     });
 
     it('removes the matching calls from future matching', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
       handler.handleError(new Error('error 1'));
       handler.handleError(new Error('error 2'));
 
@@ -140,17 +140,19 @@ describe('MockErrorHandler', () => {
     });
 
     it('returns an empty array when there have been no errors', () => {
-      expect(TestBed.inject(MockErrorHandler).match(() => false)).toEqual([]);
+      expect(TestBed.inject(LocalMockErrorHandler).match(() => false)).toEqual(
+        [],
+      );
     });
 
     it('gracefully handles when no errors match', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
       handler.handleError(new Error('error 1'));
       expect(handler.match(() => false)).toEqual([]);
     });
 
     it('gracefully handles cleverly constructed errors that try to cause errors', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
       handler.handleError(undefined);
       handler.handleError({ messages: new Date() });
       handler.handleError({ messages: { matches: new Date() } });
@@ -164,7 +166,7 @@ describe('MockErrorHandler', () => {
 
   describe('verify()', () => {
     it('does not throw when all errors have been expected', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
 
       // no error when no calls were made at all
       expect(() => {
@@ -180,7 +182,7 @@ describe('MockErrorHandler', () => {
     });
 
     it('throws if there is an outstanding error, including the number of them', () => {
-      const handler = TestBed.inject(MockErrorHandler);
+      const handler = TestBed.inject(LocalMockErrorHandler);
 
       // when multiple errors have not been expected
       handler.handleError(new Error('error 1'));

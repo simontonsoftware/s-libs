@@ -1,7 +1,7 @@
-import { Component, Directive, Injectable, inject } from '@angular/core';
+import { Component, Directive, inject, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-jasmine';
 import { Subject } from 'rxjs';
 import {
   InjectableSuperclass,

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ComponentContext } from '@s-libs/ng-dev';
+import { ComponentContext } from '@s-libs/ng-jasmine';
 import { getStyle } from '../test-utils';
 
 describe('themes.scss', () => {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { assert } from '@s-libs/js-core';
-import { AngularContext } from '@s-libs/ng-dev';
+import { AngularContext } from '@s-libs/ng-jasmine';
 import { DialogData } from './dialog.component';
 import { SlDialogModule } from './sl-dialog.module';
 import { SlDialogService } from './sl-dialog.service';

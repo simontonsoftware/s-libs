@@ -1,6 +1,6 @@
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
+import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
 import { Subject } from 'rxjs';
-import { expectSingleCallAndReset } from '@s-libs/ng-dev';
 import {
   testCompletionPropagation,
   testErrorPropagation,

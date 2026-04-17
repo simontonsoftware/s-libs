@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ComponentContext } from '@s-libs/ng-dev';
+import { ComponentContext } from '@s-libs/ng-jasmine';
 
 describe('full-theming()', () => {
   it('works for the minimal example in the docs', () => {

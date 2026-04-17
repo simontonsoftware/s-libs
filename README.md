@@ -12,5 +12,6 @@ This is a collection of libraries from Simonton Software, written in TypeScript 
 - [`ng-app-state`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-app-state): Painlessly integrate `app-state` into template-driven Angular forms
 - [`ng-mat-core`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-mat-core): Miscellaneous utilities for Angular Material
 - [`signal-store`](https://github.com/simontonsoftware/s-libs/tree/master/projects/signal-store): A state management library based on Angular signals
-- [`ng-dev`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-dev): Miscellaneous utilities to use while developing Angular apps
+- [`ng-dev`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-dev): Miscellaneous utilities for Angular tests
+- [`ng-jasmine`](https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-jasmine): Miscellaneous utilities for Angular tests that use the Karma test runner (which also uses Jasmine)
 - [`eslint-config-ng`](https://github.com/simontonsoftware/s-libs/tree/master/projects/eslint-config-ng): Recommended default config for ESLint in an Angular project.

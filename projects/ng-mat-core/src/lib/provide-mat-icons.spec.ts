@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { By } from '@angular/platform-browser';
-import { ComponentContext } from '@s-libs/ng-dev';
+import { ComponentContext } from '@s-libs/ng-jasmine';
 import { provideMatIcons } from './provide-mat-icons';
 
 describe('provideMatIcons()', () => {

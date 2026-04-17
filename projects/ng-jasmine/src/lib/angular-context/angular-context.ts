@@ -21,7 +21,7 @@ import {
 import { MATERIAL_ANIMATIONS } from '@angular/material/core';
 import { assert, convertTime } from '@s-libs/js-core';
 import { forOwn, isUndefined } from '@s-libs/micro-dash';
-import { MockErrorHandler } from '../mock-error-handler/mock-error-handler';
+import { MockErrorHandler } from '@s-libs/ng-dev';
 import { FakeAsyncHarnessEnvironment } from './fake-async-harness-environment';
 
 // overrides later it the list will take precedence
@@ -51,9 +51,9 @@ export function extendMetadata(
  * - Gives control over the simulated date and time with a single line of code.
  * - Automatically includes {@link https://angular.dev/api/common/http/testing/provideHttpClientTesting | provideHttpClientTesting()} to stub network requests without additional setup.
  * - Always verifies that no unexpected http requests were made.
- * - Automatically discards periodic tasks and flushes pending timers at the end of each test to avoid the error "X timer(s) still in the queue".
- * - Sets up {@link MockErrorHandler} and verifies it caught nothing during your test.
+ * - Always verifies that no unmatched errors were thrown (using {@link MockErrorHandler}).
  * - Disables Material animations so that you don't need to wait for them in your tests.
+ * - Automatically discards periodic tasks and flushes pending timers at the end of each test to avoid the error "X timer(s) still in the queue".
  *
  * This example tests a simple service that uses `HttpClient` and is tested by using `AngularContext` directly. More often, `AngularContext` will be used as a super class. See {@link ComponentContext} for more common use cases.
  *

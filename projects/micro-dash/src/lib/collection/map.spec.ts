@@ -1,4 +1,4 @@
-import { expectCallsAndReset } from '@s-libs/ng-dev';
+import { expectCallsAndReset } from '@s-libs/ng-jasmine';
 import { identity } from '../util';
 import { map } from './map';
 

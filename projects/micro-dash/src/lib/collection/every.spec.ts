@@ -1,5 +1,5 @@
+import { expectCallsAndReset } from '@s-libs/ng-jasmine';
 import { identity } from 'lodash';
-import { expectCallsAndReset } from '@s-libs/ng-dev';
 import { every } from './every';
 
 describe('every()', () => {

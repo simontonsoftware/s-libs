@@ -1,4 +1,5 @@
-import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-dev';
+import { staticTest } from '@s-libs/ng-dev';
+import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
 import { Deferred } from './deferred';
 
 /* eslint-disable @typescript-eslint/no-floating-promises */

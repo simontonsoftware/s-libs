@@ -1,5 +1,5 @@
 import { Component, inject, input } from '@angular/core';
-import { AngularContext } from '@s-libs/ng-dev';
+import { AngularContext } from '@s-libs/ng-jasmine';
 import {
   DEFAULT_OK_VALUE,
   DialogData,

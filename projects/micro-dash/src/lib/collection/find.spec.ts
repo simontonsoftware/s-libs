@@ -1,6 +1,9 @@
+import {
+  expectCallsAndReset,
+  expectSingleCallAndReset,
+} from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import { isDate, isMap, isNumber, isString, matches } from 'lodash-es';
-import { expectCallsAndReset, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import {
   isA,
   isDateOrString,

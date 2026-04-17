@@ -1,5 +1,5 @@
 import { noop } from '@s-libs/micro-dash';
-import { expectCallsAndReset } from '@s-libs/ng-dev';
+import { expectCallsAndReset } from '@s-libs/ng-jasmine';
 import { of, throwError } from 'rxjs';
 import {
   testCompletionPropagation,

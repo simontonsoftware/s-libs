@@ -1,4 +1,4 @@
-import { AsyncMethodController } from './spies';
+import { AsyncMethodController } from '@s-libs/ng-jasmine';
 
 /* eslint-disable @typescript-eslint/no-floating-promises */
 

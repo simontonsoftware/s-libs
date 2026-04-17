@@ -23,8 +23,8 @@ import {
 } from '@angular/router';
 import { sleep } from '@s-libs/js-core';
 import { noop } from '@s-libs/micro-dash';
+import { staticTest } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
-import { staticTest } from '../static-test/static-test';
 import { ComponentContext } from './component-context';
 
 describe('ComponentContext', () => {

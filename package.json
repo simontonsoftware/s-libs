@@ -106,6 +106,10 @@
         "type": "json"
       },
       {
+        "filename": "projects/ng-jasmine/package.json",
+        "type": "json"
+      },
+      {
         "filename": "projects/ng-mat-core/package.json",
         "type": "json"
       },

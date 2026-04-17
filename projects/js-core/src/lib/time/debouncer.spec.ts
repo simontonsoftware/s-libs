@@ -1,5 +1,5 @@
 import { fakeAsync, tick } from '@angular/core/testing';
-import { expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
 import { isDefined } from '../predicates';
 import { Debouncer } from './debouncer';
 

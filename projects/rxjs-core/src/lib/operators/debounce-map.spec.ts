@@ -6,7 +6,7 @@ import {
   AngularContext,
   expectRequest,
   expectSingleCallAndReset,
-} from '@s-libs/ng-dev';
+} from '@s-libs/ng-jasmine';
 import { BehaviorSubject, of, Subject } from 'rxjs';
 import {
   testCompletionPropagation,

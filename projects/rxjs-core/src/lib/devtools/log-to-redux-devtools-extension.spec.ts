@@ -1,4 +1,4 @@
-import { expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
 import { EMPTY, Subject } from 'rxjs';
 import {
   Connection,

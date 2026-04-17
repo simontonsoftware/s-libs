@@ -1,5 +1,8 @@
+import {
+  expectCallsAndReset,
+  expectSingleCallAndReset,
+} from '@s-libs/ng-jasmine';
 import { noop } from 'lodash';
-import { expectCallsAndReset, expectSingleCallAndReset } from '@s-libs/ng-dev';
 import { forOwnRight } from './for-own-right';
 
 describe('forOwnRight()', () => {

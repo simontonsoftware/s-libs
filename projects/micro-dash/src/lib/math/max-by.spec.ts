@@ -1,4 +1,4 @@
-import { expectCallsAndReset } from '@s-libs/ng-dev';
+import { expectCallsAndReset } from '@s-libs/ng-jasmine';
 import { identity, range } from 'lodash';
 import { maxBy } from './max-by';
 

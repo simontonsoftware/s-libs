@@ -1,6 +1,7 @@
+import { staticTest } from '@s-libs/ng-dev';
 import { expectTypeOf } from 'expect-type';
-import { expectSingleCallAndReset, staticTest } from '../../public-api';
 import { createSpyObject } from './create-spy-object';
+import { expectSingleCallAndReset } from './expect-single-call-and-reset';
 
 class Superclass {
   a(): string {

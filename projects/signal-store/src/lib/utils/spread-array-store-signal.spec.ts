@@ -1,10 +1,11 @@
 import { Component, effect, input, Signal, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ComponentContext, staticTest } from '@s-libs/ng-dev';
+import { staticTest } from '@s-libs/ng-dev';
+import { ComponentContext } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import { RootStore } from '../root-store';
 import { ReadonlyStore, Store } from '../store';
-import { spreadArrayStoreSignal } from './spread-array-store-signal';
+import { spreadArrayStoreSignal } from './spread-array-store-signal'; /* eslint-disable @typescript-eslint/no-deprecated -- the purpose of this file is to test a deprecated function */
 
 /* eslint-disable @typescript-eslint/no-deprecated -- the purpose of this file is to test a deprecated function */
 

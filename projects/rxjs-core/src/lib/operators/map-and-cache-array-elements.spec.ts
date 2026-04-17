@@ -1,5 +1,5 @@
 import { identity } from '@s-libs/micro-dash';
-import { expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
 import { Subject } from 'rxjs';
 import {
   expectPipeResult,

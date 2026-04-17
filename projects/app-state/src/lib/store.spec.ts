@@ -1,5 +1,5 @@
 import { cloneDeep, identity, pick } from '@s-libs/micro-dash';
-import { expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import { skip, take } from 'rxjs/operators';
 import { InnerState, TestState } from '../test-helpers/test-state';

@@ -404,6 +404,43 @@
         }
       }
     },
+    "ng-jasmine": {
+      "projectType": "library",
+      "root": "projects/ng-jasmine",
+      "sourceRoot": "projects/ng-jasmine/src",
+      "prefix": "s",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-jasmine/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-jasmine/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/ng-jasmine/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ng-jasmine/**/*.ts",
+              "projects/ng-jasmine/**/*.html"
+            ],
+            "eslintConfig": "projects/ng-jasmine/eslint.config.js"
+          }
+        }
+      }
+    },
     "ng-mat-core": {
       "projectType": "library",
       "root": "projects/ng-mat-core",
