@@ -5,7 +5,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { assert, Deferred } from '@s-libs/js-core';
-import { AngularContext, ComponentContext } from '@s-libs/ng-dev';
+import { AngularContext, ComponentContext } from '@s-libs/ng-jasmine';
 import { logValues } from '@s-libs/rxjs-core';
 import { delayWhen, Observable, Subject } from 'rxjs';
 import {

@@ -1,7 +1,7 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AngularContext, ComponentContext } from '@s-libs/ng-dev';
+import { AngularContext, ComponentContext } from '@s-libs/ng-jasmine';
 
 // These are disabled for spec files
 /* eslint-disable @typescript-eslint/no-unsafe-return */

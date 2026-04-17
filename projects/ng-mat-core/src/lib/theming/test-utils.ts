@@ -1,6 +1,6 @@
 import { By } from '@angular/platform-browser';
 import { assert } from '@s-libs/js-core';
-import { AngularContext, ComponentContext } from '@s-libs/ng-dev';
+import { AngularContext, ComponentContext } from '@s-libs/ng-jasmine';
 
 export function getStyle(selector: string): CSSStyleDeclaration {
   const ctx = AngularContext.getCurrent();

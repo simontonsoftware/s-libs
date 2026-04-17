@@ -12,6 +12,7 @@ export const buildableLibraries = [
   'ng-mat-core',
   'signal-store',
   'ng-dev',
+  'ng-jasmine',
 ];
 
 export const libraries = [...buildableLibraries, 'eslint-config-ng'];

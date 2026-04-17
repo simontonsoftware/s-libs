@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RootStore, Store } from '@s-libs/app-state';
 import { noop } from '@s-libs/micro-dash';
-import { ComponentContext } from '@s-libs/ng-dev';
+import { ComponentContext } from '@s-libs/ng-jasmine';
 import { Subject } from 'rxjs';
 import { setValue } from '../../../ng-core/src/test-helpers';
 import {

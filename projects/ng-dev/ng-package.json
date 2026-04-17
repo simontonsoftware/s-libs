@@ -3,10 +3,5 @@
   "dest": "../../dist/ng-dev",
   "lib": {
     "entryFile": "src/public-api.ts"
-  },
-  "allowedNonPeerDependencies": [
-    "@typescript-eslint/eslint-plugin",
-    "@typescript-eslint/parser",
-    "eslint"
-  ]
+  }
 }

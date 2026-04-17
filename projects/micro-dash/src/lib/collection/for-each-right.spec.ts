@@ -1,5 +1,5 @@
+import { expectCallsAndReset } from '@s-libs/ng-jasmine';
 import { noop } from 'lodash';
-import { expectCallsAndReset } from '@s-libs/ng-dev';
 import { forEachRight } from './for-each-right';
 
 describe('forEachRight()', () => {

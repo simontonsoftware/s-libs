@@ -4,7 +4,7 @@ import {
   expectSingleCallAndReset,
   IsPageVisibleHarness,
   TestCall,
-} from '@s-libs/ng-dev';
+} from '@s-libs/ng-jasmine';
 import {
   ExtendedNavigator,
   keepWakeLock$,

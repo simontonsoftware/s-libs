@@ -1,7 +1,7 @@
 import { effect, inject, Injectable, untracked } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { isEqual } from '@s-libs/micro-dash';
-import { expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
 import { RootStore } from '../root-store';
 import { Store } from '../store';
 import { UndoManagerSuperclass, UndoOrRedo } from './undo-manager-superclass';

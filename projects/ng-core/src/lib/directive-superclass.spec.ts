@@ -17,7 +17,7 @@ import {
   AngularContext,
   ComponentContext,
   expectSingleCallAndReset,
-} from '@s-libs/ng-dev';
+} from '@s-libs/ng-jasmine';
 import { BehaviorSubject, combineLatest, noop } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { click, find, findButton } from '../test-helpers';

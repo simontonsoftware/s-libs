@@ -4,7 +4,7 @@ import {
   inject,
   Injectable,
 } from '@angular/core';
-import { ComponentContext } from '@s-libs/ng-dev';
+import { ComponentContext } from '@s-libs/ng-jasmine';
 import { RootStore } from '../lib/root-store';
 
 describe('Readme code', () => {

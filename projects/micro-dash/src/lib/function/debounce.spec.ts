@@ -1,5 +1,6 @@
 import { fakeAsync, tick } from '@angular/core/testing';
-import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-dev';
+import { staticTest } from '@s-libs/ng-dev';
+import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import { debounce } from './debounce';
 

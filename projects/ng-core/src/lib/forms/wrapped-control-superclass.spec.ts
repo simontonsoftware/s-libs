@@ -17,7 +17,7 @@ import { By } from '@angular/platform-browser';
 import { RootStore } from '@s-libs/app-state';
 import { keys, omit } from '@s-libs/micro-dash';
 import { NasModelModule } from '@s-libs/ng-app-state';
-import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-jasmine';
 import { EMPTY, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import {

@@ -1,4 +1,4 @@
-import { AngularContext } from '@s-libs/ng-dev';
+import { AngularContext } from '@s-libs/ng-jasmine';
 import { DialogData } from './dialog.component';
 import { SlDialogHarness } from './sl-dialog.harness';
 import { SlDialogModule } from './sl-dialog.module';

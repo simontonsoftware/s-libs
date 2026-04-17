@@ -1,5 +1,5 @@
 import { isDefined } from '@s-libs/js-core';
-import { expectSingleCallAndReset } from '@s-libs/ng-dev';
+import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
 import { of, Subject, throwError } from 'rxjs';
 import {
   mixInSubscriptionManager,

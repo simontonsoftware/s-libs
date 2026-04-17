@@ -1,4 +1,4 @@
-import { expectCallsAndReset } from '@s-libs/ng-dev';
+import { expectCallsAndReset } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import {
   identity,
