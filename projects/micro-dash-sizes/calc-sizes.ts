@@ -5,6 +5,7 @@ import { glob } from 'glob';
 import * as path from 'path';
 import * as readline from 'readline';
 import { explore } from 'source-map-explorer';
+import { ExploreResult } from 'source-map-explorer/lib/types';
 import { forEach } from '../micro-dash/src/public-api';
 
 const rootDir = path.join(__dirname, '..', '..');
@@ -93,7 +94,15 @@ function build(inputPath: string): void {
 }
 
 async function inspect(): Promise<string | undefined> {
-  const res = await explore(path.join(bundleDir, 'main*.js'));
+  let res: ExploreResult;
+  try {
+    res = await explore(path.join(bundleDir, 'main*.js'), {
+      noBorderChecks: true,
+    });
+  } catch (e) {
+    console.error(e);
+    return;
+  }
 
   let lodash = 0;
   let microdash = 0;
