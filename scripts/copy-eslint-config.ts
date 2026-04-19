@@ -3,7 +3,7 @@ import { join } from 'path';
 
 export function copyEslintConfig() {
   const targetFolder = 'dist/eslint-config-ng';
-  rmSync(targetFolder, { recursive: true });
+  rmSync(targetFolder, { force: true, recursive: true });
   mkdirSync(targetFolder);
 
   const srcFolder = 'projects/eslint-config-ng';
