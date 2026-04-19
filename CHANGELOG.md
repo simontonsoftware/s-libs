@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [21.0.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v21.0.0-next.0...v21.0.0-next.1) (2026-04-19)
+
+### Bug Fixes
+
+- missed updating some peer dependency versions ([b39a35c](https://github.com/simontonsoftware/s-libs/commit/b39a35ca90cbd3d9ac26ec49b2700623b821a810))
+- **ng-jasmine:** publish under [@s-libs](https://github.com/s-libs) organization ([60632f3](https://github.com/simontonsoftware/s-libs/commit/60632f3518c4beddabfca1dad60974b9b7baf58b))
+
 ## [21.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v20.1.1...v21.0.0-next.0) (2026-04-19)
 
 ### ⚠ BREAKING CHANGES
