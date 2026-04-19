@@ -1,6 +1,6 @@
 {
   "name": "ng-jasmine",
-  "version": "20.2.0",
+  "version": "21.0.0-next.0",
   "author": "Simonton Software",
   "license": "MIT",
   "homepage": "https://github.com/simontonsoftware/s-libs/tree/master/projects/ng-jasmine",
@@ -12,14 +12,12 @@
   "peerDependencies": {
     "@angular/common": "^21.0.0",
     "@angular/core": "^21.0.0",
-    "@s-libs/js-core": "^20.2.0",
-    "@s-libs/micro-dash": "^20.2.0",
-    "@s-libs/ng-core": "^20.2.0",
-    "@s-libs/ng-dev": "^20.2.0",
+    "@s-libs/js-core": "^21.0.0-next.0",
+    "@s-libs/micro-dash": "^21.0.0-next.0",
+    "@s-libs/ng-core": "^21.0.0-next.0",
+    "@s-libs/ng-dev": "^21.0.0-next.0",
     "jasmine-core": "~6.0.0"
   },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
+  "dependencies": { "tslib": "^2.3.0" },
   "sideEffects": false
 }

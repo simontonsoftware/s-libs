@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [21.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v20.1.1...v21.0.0-next.0) (2026-04-19)
+
+### ⚠ BREAKING CHANGES
+
+- **ng-jasmine:** If you use any of the utilities that are now in `ng-jasmine`, you must install it and update your imports.
+- Requires newer versions of many peer dependencies
+- **signal-store:** Replace usages of `UndoManagerSuperclass.stack()` with `.snapshot().stack`.
+- **ng-dev:** `AngularContext` and `ComponentContext` no longer disable animations from `@angular/animations`. The Angular team deprecated that library. If you still use it, you can continue disabling them by passing `providers: [provideNoopAnimations()]` or `imports: [NoopAnimationsModule]` to the context constructor.
+
+### Features
+
+- **eslint-config-ng:** better defaults for switch statements in strict config ([8843124](https://github.com/simontonsoftware/s-libs/commit/88431243ed4c44f37850137010c2c1b4cec6d3d5))
+- **ng-app-state:** `NasModel.disabled` accepts more values ([8ae06e5](https://github.com/simontonsoftware/s-libs/commit/8ae06e52e639c2418b877656123fec0668e664fb))
+- **ng-dev:** `AngularContext` disables material animations ([3f24cfc](https://github.com/simontonsoftware/s-libs/commit/3f24cfc947221426334a7d3e69ed60156a807626))
+- **ng-dev:** no longer require `@angular/animations` to be installed ([3a67c28](https://github.com/simontonsoftware/s-libs/commit/3a67c28548fbcf2025f1a004d0288aaa4bb00ffb))
+- **ng-jasmine:** Moved all helpers that require Jasmine from `ng-dev` to `ng-jasmine`, now that using Karma/Jasmine is optional in Angular. ([499d24a](https://github.com/simontonsoftware/s-libs/commit/499d24a523bb51fb0d52ba93303d4f81686e6612))
+- **ng-mat-core:** `SlDialogService.open()` accepts inputs to pass to your component. Deprecate `DialogData.slDialogData` in favor of it. ([a055d36](https://github.com/simontonsoftware/s-libs/commit/a055d36ab88c51b1c750b4ffb4b5dc8dcea5fed0))
+- **signal-store:** stores can be deeper before causing a stack overflow ([c6b77b4](https://github.com/simontonsoftware/s-libs/commit/c6b77b41c2aae8ddf47fa5a572042377442ccc67))
+- **signal-store:** Upgrade `UndoManagerSuperclass.stack()` to `.snapshot()` and `setSnapshot()`. You can use these to save/restore the undo history when your user leaves & returns to your app. ([190abc4](https://github.com/simontonsoftware/s-libs/commit/190abc4445ca18490b3d1cffc6267392be158bb9))
+- Update dependencies ([4496cae](https://github.com/simontonsoftware/s-libs/commit/4496cae5a1af373c87c56b1350a073ee47b76cbd))
+
+### Bug Fixes
+
+- **ng-dev:** `IsPageVisibleHarness` no longer blocks unrelated document listeners ([a89061b](https://github.com/simontonsoftware/s-libs/commit/a89061ba9fea748d10f60ff9f485d743880e5652))
+- **ng-dev:** avoid "ApplicationRef.tick is called recursively" ([c82d504](https://github.com/simontonsoftware/s-libs/commit/c82d504ff03923fb9f110a9e9e418e5c9d630c86))
+- **signal-store:** `UndoManagerSuperclass` properly handles a debounced push followed by a non-debounced push ([b6fa453](https://github.com/simontonsoftware/s-libs/commit/b6fa453618b4537f8f7a83f19776e3f1701c5c28))
+
 ## [20.2.0](https://github.com/simontonsoftware/s-libs/compare/v20.1.1...v20.2.0) (2025-10-13)
 
 ### Features
