@@ -3,7 +3,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "esModuleInterop": true,
     //
     // from the Angular CLI
     //
