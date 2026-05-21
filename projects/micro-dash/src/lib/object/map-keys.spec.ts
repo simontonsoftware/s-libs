@@ -1,5 +1,4 @@
-import { staticTest } from '@s-libs/ng-jasmine';
-import { expectCallsAndReset } from '@s-libs/ng-jasmine';
+import { expectCallsAndReset, staticTest } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import { identity } from 'lodash-es';
 import { EmptyObject } from '../interfaces';

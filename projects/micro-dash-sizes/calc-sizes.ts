@@ -101,7 +101,7 @@ async function inspect(): Promise<string | undefined> {
     });
   } catch (e) {
     console.error(e);
-    return;
+    return undefined;
   }
 
   let lodash = 0;

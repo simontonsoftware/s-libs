@@ -1,8 +1,8 @@
 import { noop } from '@s-libs/micro-dash';
+import { staticTest } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import { of } from 'rxjs';
 import { concatMap, delay, throttleTime } from 'rxjs/operators';
-import { staticTest } from '../../public-api';
 import { marbleTest } from './marble-test';
 
 describe('marbleTest()', () => {

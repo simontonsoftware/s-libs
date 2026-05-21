@@ -1,6 +1,5 @@
 import { noop } from '@s-libs/micro-dash';
-import { staticTest } from '@s-libs/ng-jasmine';
-import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
+import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import { wrapFunction } from './wrap-function';
 
