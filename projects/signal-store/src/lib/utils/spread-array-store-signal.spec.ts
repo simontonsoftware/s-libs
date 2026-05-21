@@ -1,6 +1,6 @@
 import { Component, effect, input, Signal, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { staticTest } from '@s-libs/ng-dev';
+import { staticTest } from '@s-libs/ng-jasmine';
 import { ComponentContext } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import { RootStore } from '../root-store';

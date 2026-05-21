@@ -1,5 +1,5 @@
 import { omit, pick } from '@s-libs/micro-dash';
-import { staticTest } from '@s-libs/ng-dev';
+import { staticTest } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import { ReadonlyStore, Store } from './store';
 

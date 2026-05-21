@@ -1,4 +1,4 @@
-import { staticTest } from '@s-libs/ng-dev';
+import { staticTest } from '@s-libs/ng-jasmine';
 import { Encoding } from './encoding';
 
 /* eslint-disable no-warning-comments */

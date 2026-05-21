@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { cloneDeep, identity, pick } from '@s-libs/micro-dash';
-import { staticTest } from '@s-libs/ng-dev';
+import { staticTest } from '@s-libs/ng-jasmine';
 import { ComponentContext } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import { InnerState, TestState } from '../test-helpers/test-state';

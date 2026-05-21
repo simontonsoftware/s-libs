@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { noop } from '@s-libs/micro-dash';
-import { staticTest } from '@s-libs/ng-dev';
+import { staticTest } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import { ComponentContext } from '../component-context';
 import { AsyncMethodController } from './async-method-controller';

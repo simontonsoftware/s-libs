@@ -1,9 +1,4 @@
-import {
-  logTimers,
-  marbleTest,
-  MockErrorHandler,
-  staticTest,
-} from '@s-libs/ng-dev';
+import { logTimers, marbleTest, MockErrorHandler } from '@s-libs/ng-dev';
 
 describe('ng-dev', () => {
   it('has MockErrorHandler', () => {
@@ -16,9 +11,5 @@ describe('ng-dev', () => {
 
   it('has marbleTest', () => {
     expect(marbleTest).toBeDefined();
-  });
-
-  it('has staticTest', () => {
-    expect(staticTest).toBeDefined();
   });
 });

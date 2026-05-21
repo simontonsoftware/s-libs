@@ -8,3 +8,4 @@ export * from './lib/component-harness/component-harness-superclass';
 export * from './lib/rxjs-core-harnesses';
 export * from './lib/spies';
 export * from './lib/test-requests';
+export { staticTest } from './lib/static-test/static-test';

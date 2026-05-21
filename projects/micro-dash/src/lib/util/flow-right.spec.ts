@@ -1,4 +1,4 @@
-import { staticTest } from '@s-libs/ng-dev';
+import { staticTest } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 import { curry, head, identity } from 'lodash';
 import { flowRight } from './flow-right';

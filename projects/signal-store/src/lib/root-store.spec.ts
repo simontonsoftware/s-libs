@@ -1,4 +1,4 @@
-import { staticTest } from '@s-libs/ng-dev';
+import { staticTest } from '@s-libs/ng-jasmine';
 import { InnerState, TestState } from '../test-helpers/test-state';
 import { RootStore } from './root-store';
 

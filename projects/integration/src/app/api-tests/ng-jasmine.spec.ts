@@ -9,6 +9,7 @@ import {
   expectSingleCallAndReset,
   IsPageVisibleHarness,
   SlTestRequest,
+  staticTest,
   TestCall,
 } from '@s-libs/ng-jasmine';
 
@@ -55,5 +56,9 @@ describe('ng-dev', () => {
 
   it('has expectSingleCallAndReset()', () => {
     expect(expectSingleCallAndReset).toBeDefined();
+  });
+
+  it('has staticTest', () => {
+    expect(staticTest).toBeDefined();
   });
 });
