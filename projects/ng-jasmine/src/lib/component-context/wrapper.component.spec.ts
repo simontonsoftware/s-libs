@@ -40,7 +40,7 @@ describe('WrapperComponent', () => {
   });
 
   it('can handle renamed inputs', () => {
-    @Component({ template: '{{ propertyName }}' })
+    @Component({ template: '{{ propertyName() }}' })
     class RenamedInputComponent {
       // eslint-disable-next-line @angular-eslint/no-input-rename
       readonly propertyName = input('', { alias: 'bindingName' });
