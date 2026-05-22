@@ -76,7 +76,12 @@ async function buildAndExplore(fileGlob: string): Promise<void> {
 }
 
 async function getPaths(fileGlob: string): Promise<string[]> {
-  return glob(fileGlob, { cwd: appDir, matchBase: true, absolute: true });
+  return glob(fileGlob, {
+    cwd: appDir,
+    matchBase: true,
+    absolute: true,
+    ignore: '**/*.spec.ts',
+  });
 }
 
 function build(inputPath: string): void {
