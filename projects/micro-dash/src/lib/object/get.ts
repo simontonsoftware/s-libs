@@ -12,7 +12,7 @@ type WithDefault<V, D> =
  * - does not handle a dot-separated string for `path`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 6,051 bytes
+ * - Lodash: 6,053 bytes
  * - Micro-dash: 237 bytes
  */
 

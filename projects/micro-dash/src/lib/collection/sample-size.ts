@@ -11,7 +11,7 @@ import { map } from './map';
  * - no special treatment given to fraction values of `n`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 5,786 bytes
+ * - Lodash: 5,790 bytes
  * - Micro-dash: 826 bytes
  */
 

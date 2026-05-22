@@ -44,7 +44,7 @@ type MaybeIncludedKeys<T, O> = {
  * - does not treat sparse arrays as dense
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 17,091 bytes
+ * - Lodash: 17,099 bytes
  * - Micro-dash: 346 bytes
  */
 

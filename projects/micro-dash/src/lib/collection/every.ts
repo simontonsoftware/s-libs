@@ -7,7 +7,7 @@ import { forEach } from './for-each';
  * **Note:** This function returns `true` for [empty collections](https://en.wikipedia.org/wiki/Empty_set) because [everything is true](https://en.wikipedia.org/wiki/Vacuous_truth) of elements of empty collections.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 16,503 bytes
+ * - Lodash: 16,509 bytes
  * - Micro-dash: 323 bytes
  */
 

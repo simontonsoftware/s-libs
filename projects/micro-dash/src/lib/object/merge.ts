@@ -18,7 +18,7 @@ type Mergeable<O> = {
  * - when merging an array onto a non-array, the result is a non-array
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 11,996 bytes
+ * - Lodash: 12,006 bytes
  * - Micro-dash: 426 bytes
  */
 export function merge<O extends object, S extends Array<Mergeable<O>>>(

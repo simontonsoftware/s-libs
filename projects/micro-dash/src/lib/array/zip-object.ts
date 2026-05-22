@@ -4,7 +4,7 @@ import { transform } from '../object';
  * This function is like `fromPairs` except that it accepts two arrays, one of property identifiers and one of corresponding values.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 2,252 bytes
+ * - Lodash: 2,256 bytes
  * - Micro-dash: 349 bytes
  */
 

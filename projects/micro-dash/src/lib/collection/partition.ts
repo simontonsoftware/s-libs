@@ -12,7 +12,7 @@ import { forEach } from './for-each';
  * Creates an array of elements split into two groups, the first of which contains elements `predicate` returns truthy for, the second of which contains elements `predicate` returns falsey for.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 16,447 bytes
+ * - Lodash: 16,453 bytes
  * - Micro-dash: 333 bytes
  */
 

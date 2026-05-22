@@ -5,7 +5,7 @@
  * - Uses triple equals rather than `SameValueZero`.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 6,819 bytes
+ * - Lodash: 6,823 bytes
  * - Micro-dash: 60 bytes
  */
 export function without<T>(array: readonly T[], ...values: readonly T[]): T[] {

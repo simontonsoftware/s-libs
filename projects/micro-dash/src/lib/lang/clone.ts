@@ -2,7 +2,7 @@
  * Creates a shallow clone of `value`.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 14,214 bytes
+ * - Lodash: 14,224 bytes
  * - Micro-dash: 97 bytes
  */
 export function clone<T>(value: T): T {

@@ -27,7 +27,7 @@ type Invoke<
  * - only accepts an array for `path`, not a dot-separated string
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 7,407 bytes
+ * - Lodash: 7,411 bytes
  * - Micro-dash: 389 bytes
  */
 export function invoke<

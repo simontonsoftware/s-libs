@@ -8,7 +8,7 @@ import { Drop1Arg, Drop2Args, Drop3Args, Drop4Args } from '../interfaces';
  * - it will return plain functions; they will not inherit the prototype of `object[key]`
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 10,812 bytes
+ * - Lodash: 10,818 bytes
  * - Micro-dash: 70 bytes
  */
 

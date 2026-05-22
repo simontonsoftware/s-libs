@@ -6,7 +6,7 @@ import { map } from './map';
  * Creates a flattened array of values by running each element in `collection` thru `iteratee` and flattening the mapped results.
  *
  * Contribution to minified bundle size, when it is the only function imported:
- * - Lodash: 16,579 bytes
+ * - Lodash: 16,585 bytes
  * - Micro-dash: 481 bytes
  */
 
