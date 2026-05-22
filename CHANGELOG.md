@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [21.0.0](https://github.com/simontonsoftware/s-libs/compare/v21.0.0-next.1...v21.0.0) (2026-05-22)
+
+### Features
+
+- **micro-dash:** add `sum()` ([fcaf90f](https://github.com/simontonsoftware/s-libs/commit/fcaf90fd1cee30c8bd70ff97a539dcfcbbbc2611))
+
+### Bug Fixes
+
+- `staticTest` also belongs in `ng-jasmine`, not `ng-dev` ([3c24621](https://github.com/simontonsoftware/s-libs/commit/3c24621b27635de0ed041f64bcc89015736deec2))
+
 ## [21.0.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v21.0.0-next.0...v21.0.0-next.1) (2026-04-19)
 
 ### Bug Fixes
