@@ -8,7 +8,7 @@ jasmine.getEnv().addReporter({
   },
 });
 
-describe('testTyping()', () => {
+describe('staticTest()', () => {
   it('satisfies jasmine that the test expects something', () => {
     staticTest(noop);
     expect(curSpec.passedExpectations.length).toBe(1);

@@ -34,7 +34,7 @@ export interface DialogData<T> {
   text?: string;
 
   /**
-   * A custom component to project into the dialog's content. It will appear below `text`, if both are defined. Note that you may put a static `title` attribute on the dialog class itself instead of using the {@link DialogData.title} option above. If both are defined, the option above will be used.
+   * A custom component to project into the dialog's content. It will appear below {@link DialogData.text} if both are defined. Note that you may put a static `title` attribute on the dialog class itself instead of using the {@link DialogData.title} option above. If both are defined, the option above will be used.
    */
   component?: Type<unknown> & { title?: string };
 
