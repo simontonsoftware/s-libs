@@ -55,17 +55,20 @@ describe('Store', () => {
   });
 
   describe('.assign()', () => {
-    it('is only available for non-nil objects', () => {
+    it('is (only) available for non-nil objects', () => {
       staticTest(() => {
         const store: Store<{
-          norm: { a: string };
+          normal: { a: string };
+          record: Record<string, any>;
           opt?: { a: string };
           null: { a: string } | null;
           any?: { a: string } | null;
-          ary: string[];
+          array: string[];
+          readonlyArray: readonly number[];
           num: number;
         }> = null as any;
-        store('norm').assign({});
+        store('normal').assign({});
+        store('record').assign({});
         // @ts-expect-error -- can't assign to undefined
         store('opt').assign({});
         // @ts-expect-error -- can't assign to null
@@ -73,9 +76,13 @@ describe('Store', () => {
         // @ts-expect-error -- can't assign to null+undefined
         store('any').assign({});
         // @ts-expect-error -- can't assign arrays
-        store('ary').assign({});
+        store('array').assign([]);
+        // @ts-expect-error -- can't assign arrays
+        store('readonlyArray').assign([]);
+        // @ts-expect-error -- can't assign arrays
+        store('readonlyArray').assign([] as readonly []);
         // @ts-expect-error -- can't assign numbers
-        store('num').assign({});
+        store('num').assign(1);
       });
     });
   });

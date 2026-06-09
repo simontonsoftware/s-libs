@@ -1,6 +1,6 @@
-import { IfCouldBe, Nil, Primitive } from './interfaces';
+import { IfContainsAnyOf, Nil, Primitive } from './interfaces';
 
-export type Slice<T, K extends keyof NonNullable<T>> = IfCouldBe<
+export type Slice<T, K extends keyof NonNullable<T>> = IfContainsAnyOf<
   T,
   Nil,
   ReadonlyStore<NonNullable<T>[K] | undefined>,
@@ -14,9 +14,9 @@ export type GetSlice<T> = <K extends keyof NonNullable<T>>(
 export interface Store<T> extends GetSlice<T> {
   state: T;
   nonNull: Store<NonNullable<T>>;
-  assign: IfCouldBe<
+  assign: IfContainsAnyOf<
     T,
-    any[] | Nil | Primitive,
+    readonly any[] | Nil | Primitive,
     never,
     (value: Partial<T>) => void
   >;
@@ -31,7 +31,7 @@ export interface Store<T> extends GetSlice<T> {
 }
 
 export type ReadonlySlice<T, K extends keyof NonNullable<T>> = ReadonlyStore<
-  IfCouldBe<T, Nil, undefined> | NonNullable<T>[K]
+  IfContainsAnyOf<T, Nil, undefined> | NonNullable<T>[K]
 >;
 
 export interface ReadonlyStore<T> {
