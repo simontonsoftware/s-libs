@@ -2,7 +2,7 @@ import { Deferred } from '@s-libs/js-core';
 import { isEqual, isUndefined, nth, remove } from '@s-libs/micro-dash';
 import { MockParameters } from '@vitest/spy';
 import { Mock, onTestFinished } from 'vitest';
-import { buildErrorMessage } from '../../ng-dev/spies/utils';
+import { buildErrorMessage } from '../spies/utils';
 import { TestCall } from './test-call';
 
 type AsyncFunc = (...args: any[]) => Promise<any>;

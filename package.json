@@ -49,6 +49,7 @@
     "@types/jasmine": "~6.0.0",
     "@types/lodash-es": "^4.17.11",
     "@types/node": "^24.10.1",
+    "@vitest/browser-playwright": "^4.1.8",
     "angular-eslint": "21.0.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.5",
@@ -63,6 +64,7 @@
     "karma-jasmine-html-reporter": "~2.2.0",
     "lodash-es": "^4.17.21",
     "ng-packagr": "^21.2.0",
+    "playwright": "^1.60.0",
     "prettier": "^3.0.3",
     "sassdoc": "^2.7.4",
     "source-map-explorer": "^2.5.3",
@@ -116,11 +118,15 @@
         "type": "json"
       },
       {
-        "filename": "projects/signal-store/package.json",
+        "filename": "projects/ng-vitest/package.json",
         "type": "json"
       },
       {
         "filename": "projects/rxjs-core/package.json",
+        "type": "json"
+      },
+      {
+        "filename": "projects/signal-store/package.json",
         "type": "json"
       }
     ],
