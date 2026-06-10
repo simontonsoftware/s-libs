@@ -5,7 +5,7 @@ import { MockController } from './mock-controller';
 
 // adapted from https://github.com/ngneat/spectator/blob/e13c9554778bdb179dfc7235aedb4b3b90302850/projects/spectator/src/lib/mock.ts
 
-export type SpyObject<T> = {
+export type MockObject<T> = {
   [K in keyof T]: T[K] extends (...args: any[]) => any
     ? Mock<T[K]> & { controller: MockController<T[K]> }
     : never;
@@ -27,7 +27,7 @@ export type SpyObject<T> = {
  * expectSingleCallAndReset(spyObject.greet, "Eric");
  * ```
  */
-export function createSpyObject<T>(type: Type<T>): SpyObject<T> {
+export function createMockObject<T>(type: Type<T>): MockObject<T> {
   const mock: any = {};
   for (
     let proto = type.prototype;

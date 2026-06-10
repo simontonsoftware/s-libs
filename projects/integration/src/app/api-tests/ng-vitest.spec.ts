@@ -1,19 +1,19 @@
 import {
   AngularContext,
+  arrayWithMatch,
   AsyncMethodController,
   ComponentContext,
   ComponentHarnessSuperclass,
-  createSpyObject,
-  expectCallsAndReset,
+  createMockObject,
+  expectExactContents,
   expectRequest,
   expectSingleCallAndReset,
-  IsPageVisibleHarness,
   SlTestRequest,
   staticTest,
   TestCall,
-} from '@s-libs/ng-jasmine';
+} from '@s-libs/ng-vitest';
 
-describe('ng-jasmine', () => {
+describe('ng-vitest', () => {
   it('has AngularContext', () => {
     expect(AngularContext).toBeDefined();
   });
@@ -30,10 +30,6 @@ describe('ng-jasmine', () => {
     expect(ComponentHarnessSuperclass).toBeDefined();
   });
 
-  it('has IsPageVisibleHarness', () => {
-    expect(IsPageVisibleHarness).toBeDefined();
-  });
-
   it('has TestCall', () => {
     expect(TestCall).toBeDefined();
   });
@@ -42,12 +38,16 @@ describe('ng-jasmine', () => {
     expect(SlTestRequest).toBeDefined();
   });
 
-  it('has createSpyObject()', () => {
-    expect(createSpyObject).toBeDefined();
+  it('has arrayWithMatch()', () => {
+    expect(arrayWithMatch).toBeDefined();
   });
 
-  it('has expectCallsAndReset()', () => {
-    expect(expectCallsAndReset).toBeDefined();
+  it('has createMockObject()', () => {
+    expect(createMockObject).toBeDefined();
+  });
+
+  it('has expectExactContents()', () => {
+    expect(expectExactContents).toBeDefined();
   });
 
   it('has expectRequest()', () => {

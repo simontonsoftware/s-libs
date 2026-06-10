@@ -1,14 +1,14 @@
 import { InjectionToken, Provider, Type } from '@angular/core';
-import { createSpyObject, SpyObject } from './create-spy-object';
+import { createMockObject, MockObject } from './create-mock-object';
 
 export class MockBackendKit<T> {
-  token: InjectionToken<SpyObject<T>>;
+  token: InjectionToken<MockObject<T>>;
   providers: Provider[];
 
-  constructor(type: Type<T>, setUpMock?: (mock: SpyObject<T>) => void) {
+  constructor(type: Type<T>, setUpMock?: (mock: MockObject<T>) => void) {
     this.token = new InjectionToken('', {
-      factory: (): SpyObject<T> => {
-        const mock = createSpyObject(type);
+      factory: (): MockObject<T> => {
+        const mock = createMockObject(type);
         setUpMock?.(mock);
         return mock;
       },
