@@ -551,6 +551,43 @@
           }
         }
       }
+    },
+    "ng-vitest": {
+      "projectType": "library",
+      "root": "projects/ng-vitest",
+      "sourceRoot": "projects/ng-vitest/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-vitest/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-vitest/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/ng-vitest/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ng-vitest/**/*.ts",
+              "projects/ng-vitest/**/*.html"
+            ],
+            "eslintConfig": "projects/ng-vitest/eslint.config.js"
+          }
+        }
+      }
     }
   }
 }
