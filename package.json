@@ -55,6 +55,7 @@
     "expect-type": "^1.1.0",
     "glob": "^13.0.0",
     "jasmine-core": "~6.0.0",
+    "jsdom": "^27.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
@@ -69,7 +70,8 @@
     "tsx": "^4.20.3",
     "typedoc": "^0.28.5",
     "typescript": "~5.9.2",
-    "typescript-eslint": "8.46.4"
+    "typescript-eslint": "8.46.4",
+    "vitest": "^4.0.8"
   },
   "standard-version": {
     "bumpFiles": [

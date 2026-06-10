@@ -16,7 +16,7 @@ module.exports = defineConfig([
         'error',
         {
           type: 'attribute',
-          prefix: 'lib',
+          prefix: ['app', 'sl'],
           style: 'camelCase',
         },
       ],
@@ -24,7 +24,7 @@ module.exports = defineConfig([
         'error',
         {
           type: 'element',
-          prefix: 'lib',
+          prefix: ['app', 'sl'],
           style: 'kebab-case',
         },
       ],

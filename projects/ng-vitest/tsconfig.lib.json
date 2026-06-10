@@ -6,7 +6,10 @@
     "outDir": "../../out-tsc/lib",
     "declaration": true,
     "declarationMap": true,
-    "types": []
+    "types": [
+      // Added after scaffolding: this lib relies on vitest in prod code
+      "vitest/globals"
+    ]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["**/*.spec.ts"]

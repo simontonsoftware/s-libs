@@ -556,7 +556,7 @@
       "projectType": "library",
       "root": "projects/ng-vitest",
       "sourceRoot": "projects/ng-vitest/src",
-      "prefix": "lib",
+      "prefix": "s",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
@@ -571,10 +571,10 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "projects/ng-vitest/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "browsers": "chromium"
           }
         },
         "lint": {
