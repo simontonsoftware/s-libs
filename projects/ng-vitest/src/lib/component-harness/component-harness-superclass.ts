@@ -30,7 +30,7 @@ export class ComponentHarnessSuperclass extends ContentContainerComponentHarness
   }
 
   /**
-   * Gets a {@link HarnessLoader} for the document root element. This loader can be used for elements that a component creates outside its own root element (e.g. by appending to document.body).
+   * Gets a {@link HarnessLoader} for the document root element. This loader can be used for elements that a component creates outside its own root element (e.g. by appending to `document.body`).
    */
   protected async getTopLevelLoader(): Promise<HarnessLoader> {
     return this.documentRootLocatorFactory().rootHarnessLoader();

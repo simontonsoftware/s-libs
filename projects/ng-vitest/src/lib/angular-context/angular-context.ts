@@ -47,7 +47,6 @@ export function extendMetadata(
  * - Always verifies that no unexpected http requests were made.
  * - Always verifies that no unmatched errors were thrown (using {@link MockErrorHandler}).
  * - Disables Material animations so that you don't need to wait for them in your tests.
- * - Automatically discards periodic tasks and flushes pending timers at the end of each test to avoid the error "X timer(s) still in the queue".
  *
  * This example tests a simple service that uses `HttpClient` and is tested by using `AngularContext` directly. More often, `AngularContext` will be used as a super class. See {@link ComponentContext} for more common use cases.
  *
@@ -72,12 +71,12 @@ export function extendMetadata(
  *     ctx = new AngularContext({ providers: [provideHttpClient()] });
  *   });
  *
- *   it('requests a post from 1 year ago', () => {
+ *   it('requests a post from 1 year ago', async () => {
  *     // Before calling `run`, set up any context variables this test needs.
  *     ctx.startTime = new Date('2004-02-16T10:15:00.000Z');
  *
  *     // Pass the test itself as a callback to `run()`.
- *     ctx.run(() => {
+ *     await ctx.run(() => {
  *       const httpBackend = ctx.inject(HttpTestingController);
  *       const myService = ctx.inject(MemoriesService);
  *
@@ -134,9 +133,9 @@ export class AngularContext {
   }
 
   /**
-   * Runs `test` in a `fakeAsync` zone. It can use async/await, but be sure anything you `await` is already due to execute (e.g. if a timeout is due in 3 seconds, call `.tick(3000)` before `await`ing its result).
+   * Runs `test` with fake timers enabled. It can use async/await, but be sure anything you `await` is already due to execute (e.g. if a timeout is due in 3 seconds, call `.tick(3000)` before `await`ing its result).
    *
-   * Also runs the following in this order, all within the same zone:
+   * Also runs the following in this order:
    *
    * 1. `this.init()`
    * 2. `test()`
@@ -153,7 +152,7 @@ export class AngularContext {
       this.verifyPostTestConditions();
     } finally {
       try {
-        this.cleanUp();
+        await this.cleanUp();
       } finally {
         vi.useRealTimers();
         AngularContext.#current = undefined;
@@ -188,7 +187,7 @@ export class AngularContext {
   }
 
   /**
-   * Gets a component harness, wrapped for use in a fakeAsync test. Throws an error if no matching component is found.
+   * Gets a component harness. Throws an error if no matching component is found.
    */
   async getHarness<H extends ComponentHarness>(
     query: HarnessQuery<H>,
@@ -197,7 +196,7 @@ export class AngularContext {
   }
 
   /**
-   * Gets a component harness, wrapped for use in a fakeAsync test. Returns `null` if no matching component is found.
+   * Gets a component harness. Returns `null` if no matching component is found.
    */
   async getHarnessOrNull<H extends ComponentHarness>(
     query: HarnessQuery<H>,
@@ -206,7 +205,7 @@ export class AngularContext {
   }
 
   /**
-   * Gets all component harnesses that match the query, wrapped for use in a fakeAsync test.
+   * Gets all component harnesses that match the query.
    */
   async getAllHarnesses<H extends ComponentHarness>(
     query: HarnessQuery<H>,
@@ -231,9 +230,9 @@ export class AngularContext {
     await vi.advanceTimersByTimeAsync(0);
   }
 
-  // /**
-  //  * This is a hook for subclasses to override. It is called during `run()`, before the `test()` callback. This implementation does nothing, but if you override this it is still recommended to call `super.init()` in case this implementation does something in the future.
-  //  */
+  /**
+   * This is a hook for subclasses to override. It is called during `run()`, before the `test()` callback. This implementation does nothing, but if you override this it is still recommended to call `super.init()` in case this implementation does something in the future.
+   */
   protected async init(): Promise<void> {
     await this.inject(ApplicationInitStatus).donePromise;
   }
@@ -243,18 +242,15 @@ export class AngularContext {
   }
 
   /**
-   * Runs post-test verifications. This base implementation runs {@linkcode https://angular.dev/api/common/http/testing/HttpTestingController#verify | HttpTestingController.verify} and {@linkcode MockErrorHandler.verify}. Unlike {@linkcode #cleanUp}, it is OK for this method to throw an error to indicate a violation.
+   * Runs post-test verifications. This base implementation runs {@linkcode https://angular.dev/api/common/http/testing/HttpTestingController#verify | HttpTestingController.verify} and {@linkcode MockErrorHandler.verify}. It is OK for this method to throw an error to indicate a violation.
    */
   protected verifyPostTestConditions(): void {
     this.inject(HttpTestingController).verify();
     this.inject(MockErrorHandler).verify();
   }
 
-  // /**
-  //  * Performs any cleanup needed at the end of each test. This base implementation calls {@linkcode https://angular.dev/api/core/testing/discardPeriodicTasks | discardPeriodicTasks} and {@linkcode https://angular.dev/api/core/testing/flush | flush} to avoid an error from the `fakeAsync` zone.
-  //  */
-  protected cleanUp(): void {
-    // discardPeriodicTasks();
-    // flush();
-  }
+  /**
+   * This is a hook for subclasses to override. It is called as the last step during `run()`, even if a previous step errored. This implementation does nothing, but if you override this it is still recommended to call `super.cleanUp()` in case this implementation does something in the future.
+   */
+  protected async cleanUp(): Promise<void> {}
 }

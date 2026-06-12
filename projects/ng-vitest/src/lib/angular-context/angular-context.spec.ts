@@ -34,10 +34,9 @@ describe('AngularContext', () => {
       super({ imports: [MatSnackBarModule] });
     }
 
-    protected override cleanUp(): void {
+    protected override async cleanUp(): Promise<void> {
       this.inject(OverlayContainer).ngOnDestroy();
-      // flush();
-      super.cleanUp();
+      await super.cleanUp();
     }
   }
 
@@ -192,7 +191,7 @@ describe('AngularContext', () => {
 
       async function runCleanupTest(): Promise<void> {
         class NonCleanup extends AngularContext {
-          protected override cleanUp(): void {
+          protected override async cleanUp(): Promise<void> {
             throw new Error('mess up cleanup');
           }
         }
@@ -499,26 +498,6 @@ describe('AngularContext', () => {
       ).rejects.toThrow();
     });
   });
-
-  // describe('.cleanUp()', () => {
-  //   it('discards periodic tasks', async () => {
-  //     const ctx = new AngularContext();
-  //     await ctx.run(() => {
-  //       setInterval(noop, 10);
-  //     });
-  //   });
-  //
-  //   it('flushes pending timeouts', async () => {
-  //     const ctx = new AngularContext();
-  //     await expect(async () => {
-  //       await ctx.run(() => {
-  //         setTimeout(noop, 1);
-  //       });
-  //     })
-  //       // No error: "1 timer(s) still in the queue."
-  //       .resolves.not.toThrow();
-  //   });
-  // });
 });
 
 describe('AngularContext class-level doc example', () => {

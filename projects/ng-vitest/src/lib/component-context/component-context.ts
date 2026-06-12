@@ -1,26 +1,11 @@
 import { NgComponentOutlet, NgStyle } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  input,
-  inputBinding,
-  reflectComponentType,
-  Signal,
-  Type,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  TestModuleMetadata,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, Component, input, inputBinding, reflectComponentType, Signal, Type } from '@angular/core';
+import { ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { assert, mapToObject } from '@s-libs/js-core';
 import { forOwn } from '@s-libs/micro-dash';
 import { RootStore } from '@s-libs/signal-store';
-import {
-  AngularContext,
-  extendMetadata,
-} from '../angular-context/angular-context';
+import { AngularContext, extendMetadata } from '../angular-context/angular-context';
 
 type Inputs<T> = {
   [K in keyof T]?: T[K] extends Signal<infer U> ? U : T[K];
@@ -46,12 +31,10 @@ export class WrapperComponent<T> {
  *
  * - Includes all features from {@link AngularContext}
  * - Automatically creates your component at the beginning of `run()`.
- * - Sets up Angular to call `ngOnChanges()` like it would in production. This is not the case if you use the standard `TestBed.createComponent()` directly.
+ * - Sets up Angular change detection and lifecycle hooks like it would in production. This covers cases you would normally have to trigger manually if you use the standard `TestBed.createComponent()` directly.
  * - Wraps your component in a parent that you can easily style however you like.
- * - Lets you use {@link https://material.angular.dev/cdk/testing/overview | component harnesses} in the `fakeAsync` zone, which is normally a challenge.
- * - Causes async {@link https://angular.dev/api/core/APP_INITIALIZER | APP_INITIALIZER}s to complete before instantiating the component. Two caveats:
- *   - this requires all work in your initializers to complete with a call to `tick()`
- *   - this requires delaying app initialization until inside the `fakeAsync` zone, i.e. with the callback to {@link #run}. If you have async initializers, you must be careful not to do things that finalize the app setup before then, such as {@link #inject}.
+ * - Lets you use {@link https://material.angular.dev/cdk/testing/overview | component harnesses} with Vitest's fake timers, which is normally a challenge.
+ * - Causes async {@link https://angular.dev/api/core/APP_INITIALIZER | APP_INITIALIZER}s to complete before instantiating the component. A caveat, they must not include a `setTimeout` delay, or the test will hang.
  *
  * A very simple example:
  * ```ts
@@ -60,10 +43,10 @@ export class WrapperComponent<T> {
  *   readonly name = input.required<string>();
  * }
  *
- * it('greets you by name', () => {
+ * it('greets you by name', async () => {
  *   const ctx = new ComponentContext(GreeterComponent);
- *   ctx.assignInputs({ name: 'World' });
- *   ctx.run(() => {
+ *   await ctx.assignInputs({ name: 'World' });
+ *   await ctx.run(() => {
  *  expect(ctx.fixture.nativeElement.textContent).toBe('Hello, World!');
  *   });
  * });
@@ -91,8 +74,8 @@ export class WrapperComponent<T> {
  *      ctx = new AppContext();
  *    });
  *
- *    it('can navigate to the first page', () => {
- *      ctx.run(async () => {
+ *    it('can navigate to the first page', async () => {
+ *      await ctx.run(async () => {
  *        const app = await ctx.getHarness(AppComponentHarness);
  *        await app.navigateToFirstPage();
  *        expect(ctx.fixture.nativeElement.textContent).toContain(
@@ -151,7 +134,7 @@ export class WrapperComponent<T> {
  */
 export class ComponentContext<T> extends AngularContext {
   /**
-   * The {@link ComponentFixture} for a synthetic wrapper around your component. Available with the callback to `run()`.
+   * The {@link ComponentFixture} for a synthetic wrapper around your component. Available within the callback to `run()`.
    */
   fixture!: ComponentFixture<unknown>;
 
@@ -162,8 +145,7 @@ export class ComponentContext<T> extends AngularContext {
 
   /**
    * @param componentType `run()` will create a component of this type before running the rest of your test.
-   * @param moduleMetadata passed along to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#configureTestingModule | TestBed.configureTestingModule()}. Automatically includes those provided by {@link AngularContext}.
-   * @param unboundInputs By default a synthetic parent component will be created that binds to all your component's inputs. Pass input names here that should NOT be bound. This is useful e.g. to test the default value of an input.
+   * @param moduleMetadata passed along to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#configureTestingModule | TestBed.configureTestingModule()}. Automatically includes everything provided by {@link AngularContext}.
    */
   constructor(componentType: Type<T>, moduleMetadata: TestModuleMetadata = {}) {
     const mirror = reflectComponentType(componentType);
@@ -180,15 +162,8 @@ export class ComponentContext<T> extends AngularContext {
     ]);
   }
 
-  assignInitialWrapperStyles(styles: Record<string, unknown>): void {
-    assert(
-      !this.#isInitialized(),
-      'run() was already called; use `assignWrapperStyles()`',
-    );
-    this.#wrapperStyles.assign(styles);
-  }
   /**
-   * Assign css styles to the div wrapping your component. Can be called before or during `run()`. Accepts an object with the same structure as the {@link https://angular.dev/api/common/NgStyle | ngStyle directive}.
+   * Assign CSS styles to the div wrapping your component. Can be called before or during `run()`. Accepts an object with the same structure as the {@link https://angular.dev/api/common/NgStyle | ngStyle directive}.
    *
    * ```ts
    * ctx.assignWrapperStyles({
@@ -201,14 +176,13 @@ export class ComponentContext<T> extends AngularContext {
    */
   async assignWrapperStyles(styles: Record<string, unknown>): Promise<void> {
     this.#wrapperStyles.assign(styles);
-
     if (this.#isInitialized()) {
       await this.tick();
     }
   }
 
   /**
-   * Assign inputs passed into your component. Can be called before `run()` to set the initial inputs, or within `run()` to update them and trigger all the appropriate change detection and lifecycle hooks.
+   * Assign inputs to your component. Can be called before `run()` to set the initial inputs, or within `run()` to update them and trigger all the appropriate change detection and lifecycle hooks.
    */
   async assignInputs(inputs: Inputs<T>): Promise<void> {
     forOwn(inputs, (value, propName) => {
@@ -227,7 +201,7 @@ export class ComponentContext<T> extends AngularContext {
   }
 
   /**
-   * Use within `run()` to get your instantiated component that is on the page.
+   * Use within `run()` to get your instantiated component.
    */
   getComponentInstance(): T {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -236,7 +210,7 @@ export class ComponentContext<T> extends AngularContext {
   }
 
   /**
-   * Constructs and initializes your component. Called during `run()` before it executes the rest of your test. Runs in the same `fakeAsync` zone as the rest of your test.
+   * Constructs and initializes your component. Called during `run()` before it executes the rest of your test.
    */
   protected override async init(): Promise<void> {
     await super.init();
@@ -264,9 +238,9 @@ export class ComponentContext<T> extends AngularContext {
   /**
    * Performs any cleanup needed at the end of each test. This implementation destroys {@link fixture} and calls the super implementation.
    */
-  protected override cleanUp(): void {
+  protected override async cleanUp(): Promise<void> {
     this.fixture.destroy();
-    super.cleanUp();
+    await super.cleanUp();
   }
 
   #isInitialized(): boolean {

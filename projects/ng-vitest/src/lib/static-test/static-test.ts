@@ -1,5 +1,5 @@
 /**
- * Use this when you want to write test code that doesn't actually run, instead relying only on your static tools like Typescript or a linter to raise errors.
+ * Use this when you want to write test code that doesn't actually run, instead relying only on your static tools like TypeScript or a linter to raise errors.
  *
  * ```ts
  * function reject<T>(array: T[], predicate: (value: T) => boolean): T[] {
@@ -11,7 +11,8 @@
  *     // @ts-expect-error -- mismatch of number array w/ string function
  *     reject([1, 2, 3], (value: string) => value === '2');
  *   });
- * }); * ```
+ * });
+ * ```
  */
 export function staticTest(_: () => void | Promise<void>): void {
   // and that's all there is to it

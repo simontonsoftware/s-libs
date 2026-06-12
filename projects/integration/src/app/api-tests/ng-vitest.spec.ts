@@ -11,7 +11,8 @@ import {
   SlTestRequest,
   staticTest,
   TestCall,
-} from '@s-libs/ng-vitest';
+  withCleanup,
+} from "@s-libs/ng-vitest";
 
 describe('ng-vitest', () => {
   it('has AngularContext', () => {
@@ -61,4 +62,8 @@ describe('ng-vitest', () => {
   it('has staticTest', () => {
     expect(staticTest).toBeDefined();
   });
+
+  it('has withCleanup', () => {
+    expect(withCleanup).toBeDefined();
+  })
 });
