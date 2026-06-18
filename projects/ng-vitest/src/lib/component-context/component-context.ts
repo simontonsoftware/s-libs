@@ -1,11 +1,26 @@
 import { NgComponentOutlet, NgStyle } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input, inputBinding, reflectComponentType, Signal, Type } from '@angular/core';
-import { ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  inputBinding,
+  reflectComponentType,
+  Signal,
+  Type,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  TestModuleMetadata,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { assert, mapToObject } from '@s-libs/js-core';
 import { forOwn } from '@s-libs/micro-dash';
 import { RootStore } from '@s-libs/signal-store';
-import { AngularContext, extendMetadata } from '../angular-context/angular-context';
+import {
+  AngularContext,
+  extendMetadata,
+} from '../angular-context/angular-context';
 
 type Inputs<T> = {
   [K in keyof T]?: T[K] extends Signal<infer U> ? U : T[K];
