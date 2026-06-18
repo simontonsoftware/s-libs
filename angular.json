@@ -574,7 +574,8 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "projects/ng-vitest/tsconfig.spec.json",
-            "browsers": ["chromium"]
+            "browsers": ["chromium"],
+            "runnerConfig": true
           }
         },
         "lint": {

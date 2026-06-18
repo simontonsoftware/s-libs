@@ -22,4 +22,17 @@ describe('expectSingleCallAndReset()', () => {
     expectSingleCallAndReset(mock, 1);
     expect(mock).not.toHaveBeenCalled();
   });
+
+  it('requires exactly one call', () => {
+    const mock = vi.fn();
+    expect(() => {
+      expectSingleCallAndReset(mock);
+    }).toThrow();
+
+    mock();
+    mock();
+    expect(() => {
+      expectSingleCallAndReset(mock);
+    }).toThrow();
+  });
 });

@@ -10,14 +10,15 @@ import { HttpBody } from './expect-request';
  *
  * ```ts
  * const ctx = new AngularContext({ providers: [provideHttpClient()] });
- * ctx.run(() => {
- *   inject(HttpClient)
+ * await ctx.run(async () => {
+ *   ctx
+ *     .inject(HttpClient)
  *     .get('http://example.com', { params: { key: 'value' } })
  *     .subscribe();
  *   const request = expectRequest<string>('GET', 'http://example.com', {
  *     params: { key: 'value' },
  *   });
- *   request.flush('my response body');
+ *   await request.flush('my response body');
  * });
  * ```
  */

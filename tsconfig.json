@@ -37,83 +37,31 @@
   },
   "files": [],
   "references": [
-    {
-      "path": "./projects/app-state/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/app-state/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/integration/tsconfig.app.json"
-    },
-    {
-      "path": "./projects/integration/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/js-core/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/js-core/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/micro-dash/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/micro-dash/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/micro-dash-sizes/tsconfig.app.json"
-    },
-    {
-      "path": "./projects/micro-dash-sizes/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/ng-app-state/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/ng-app-state/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/ng-core/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/ng-core/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/ng-dev/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/ng-dev/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/ng-jasmine/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/ng-jasmine/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/ng-mat-core/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/ng-mat-core/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/rxjs-core/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/rxjs-core/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/signal-store/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/signal-store/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/ng-vitest/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/ng-vitest/tsconfig.spec.json"
-    }
+    { "path": "./projects/app-state/tsconfig.lib.json" },
+    { "path": "./projects/app-state/tsconfig.spec.json" },
+    { "path": "./projects/integration/tsconfig.app.json" },
+    { "path": "./projects/integration/tsconfig.spec.json" },
+    { "path": "./projects/js-core/tsconfig.lib.json" },
+    { "path": "./projects/js-core/tsconfig.spec.json" },
+    { "path": "./projects/micro-dash/tsconfig.lib.json" },
+    { "path": "./projects/micro-dash/tsconfig.spec.json" },
+    { "path": "./projects/micro-dash-sizes/tsconfig.app.json" },
+    { "path": "./projects/micro-dash-sizes/tsconfig.spec.json" },
+    { "path": "./projects/ng-app-state/tsconfig.lib.json" },
+    { "path": "./projects/ng-app-state/tsconfig.spec.json" },
+    { "path": "./projects/ng-core/tsconfig.lib.json" },
+    { "path": "./projects/ng-core/tsconfig.spec.json" },
+    { "path": "./projects/ng-dev/tsconfig.lib.json" },
+    { "path": "./projects/ng-dev/tsconfig.spec.json" },
+    { "path": "./projects/ng-jasmine/tsconfig.lib.json" },
+    { "path": "./projects/ng-jasmine/tsconfig.spec.json" },
+    { "path": "./projects/ng-mat-core/tsconfig.lib.json" },
+    { "path": "./projects/ng-mat-core/tsconfig.spec.json" },
+    { "path": "./projects/ng-vitest/tsconfig.lib.json" },
+    { "path": "./projects/ng-vitest/tsconfig.spec.json" },
+    { "path": "./projects/rxjs-core/tsconfig.lib.json" },
+    { "path": "./projects/rxjs-core/tsconfig.spec.json" },
+    { "path": "./projects/signal-store/tsconfig.lib.json" },
+    { "path": "./projects/signal-store/tsconfig.spec.json" }
   ]
 }

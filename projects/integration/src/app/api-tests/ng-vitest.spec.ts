@@ -2,17 +2,18 @@ import {
   AngularContext,
   arrayWithMatch,
   AsyncMethodController,
+  AsyncTestCall,
   ComponentContext,
   ComponentHarnessSuperclass,
   createMockObject,
   expectExactContents,
   expectRequest,
   expectSingleCallAndReset,
+  MockController,
   SlTestRequest,
   staticTest,
   TestCall,
-  withCleanup,
-} from "@s-libs/ng-vitest";
+} from '@s-libs/ng-vitest';
 
 describe('ng-vitest', () => {
   it('has AngularContext', () => {
@@ -23,12 +24,20 @@ describe('ng-vitest', () => {
     expect(AsyncMethodController).toBeDefined();
   });
 
+  it('has AsyncTestCall', () => {
+    expect(AsyncTestCall).toBeDefined();
+  });
+
   it('has ComponentContext', () => {
     expect(ComponentContext).toBeDefined();
   });
 
   it('has ComponentHarnessSuperclass', () => {
     expect(ComponentHarnessSuperclass).toBeDefined();
+  });
+
+  it('has MockController', () => {
+    expect(MockController).toBeDefined();
   });
 
   it('has TestCall', () => {
@@ -62,8 +71,4 @@ describe('ng-vitest', () => {
   it('has staticTest', () => {
     expect(staticTest).toBeDefined();
   });
-
-  it('has withCleanup', () => {
-    expect(withCleanup).toBeDefined();
-  })
 });

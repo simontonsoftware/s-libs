@@ -109,7 +109,7 @@ describe('expectRequest()', () => {
     });
   });
 
-  it('throws a friendly message when there are no matches', async () => {
+  it('throws a friendly message when there are no/multiple matches', async () => {
     await ctx.run(async () => {
       http.get('right').subscribe();
       http.get('right').subscribe();

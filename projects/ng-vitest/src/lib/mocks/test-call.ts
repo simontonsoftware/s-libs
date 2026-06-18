@@ -1,38 +1,61 @@
-import { Deferred } from '@s-libs/js-core';
-import { MockParameters } from '@vitest/spy';
-import { AngularContext } from '../angular-context';
-import { Func, ResolveType } from '../interfaces';
+import {
+  Mock,
+  MockParameters,
+  MockProcedureContext,
+  MockResult,
+  MockReturnType,
+  MockSettledResult,
+} from '@vitest/spy';
+import { Func } from '../interfaces';
 
 /**
- * A mock method call that was made and is ready to be answered. This interface allows access to the underlying <code>jasmine.CallInfo</code>, and allows resolving or rejecting the asynchronous call's result.
+ * Collects all the information about a single call to a vitest mock into a single object.
  */
 export class TestCall<F extends Func> {
-  args!: MockParameters<F>;
-
   constructor(
-    private deferred: Deferred<ResolveType<F>>,
-    private autoTick: boolean,
+    private mock: Mock<F>,
+    private index: number,
   ) {}
 
   /**
-   * Resolve the call with the given value.
+   * See {@link Mock.mock.calls}
    */
-  async flush(value: ResolveType<F>): Promise<void> {
-    this.deferred.resolve(value);
-    await this.#maybeTick();
+  getArgs(): MockParameters<F> {
+    return this.mock.mock.calls[this.index];
   }
 
   /**
-   * Reject the call with the given reason.
+   * See {@link Mock.mock.instances}
    */
-  async error(reason: unknown): Promise<void> {
-    this.deferred.reject(reason);
-    await this.#maybeTick();
+  getInstance(): MockProcedureContext<F> {
+    return this.mock.mock.instances[this.index];
   }
 
-  async #maybeTick(): Promise<void> {
-    if (this.autoTick) {
-      await AngularContext.getCurrent()?.tick();
-    }
+  /**
+   * See {@link Mock.mock.contexts}
+   */
+  getContext(): MockProcedureContext<F> {
+    return this.mock.mock.contexts[this.index];
+  }
+
+  /**
+   * See {@link Mock.mock.invocationCallOrder}
+   */
+  getInvocationCallOrder(): number {
+    return this.mock.mock.invocationCallOrder[this.index];
+  }
+
+  /**
+   * See {@link Mock.mock.results}
+   */
+  getResult(): MockResult<MockReturnType<F>> {
+    return this.mock.mock.results[this.index];
+  }
+
+  /**
+   * See {@link Mock.mock.settledResults}
+   */
+  getSettledResult(): MockSettledResult<Awaited<MockReturnType<F>>> {
+    return this.mock.mock.settledResults[this.index];
   }
 }

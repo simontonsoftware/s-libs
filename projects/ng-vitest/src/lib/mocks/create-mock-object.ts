@@ -5,6 +5,9 @@ import { MockController } from './mock-controller';
 
 // adapted from https://github.com/ngneat/spectator/blob/e13c9554778bdb179dfc7235aedb4b3b90302850/projects/spectator/src/lib/mock.ts
 
+/**
+ * Return type of {@link createMockObject}.
+ */
 export type MockObject<T> = {
   [K in keyof T]: T[K] extends (...args: any[]) => any
     ? Mock<T[K]> & { controller: MockController<T[K]> }
@@ -12,19 +15,19 @@ export type MockObject<T> = {
 };
 
 /**
- * Creates a new object with jasmine spies for each method in `type`.
+ * Creates a new object with Vitest mocks for each method in `type`. Each comes with a {@link MockController} you can use for targeted expectations.
  *
  * ```ts
  * class Greeter {
- *   greet(name: string) {
+ *   greet(name: string): string {
  *     return `Hello, ${name}!`;
  *   }
  * }
  *
- * const spyObject = createSpyObject(Greeter);
- * spyObject.greet.and.returnValue("Hello, stub!");
- * expect(spyObject.greet("Eric")).toBe("Hello, stub!");
- * expectSingleCallAndReset(spyObject.greet, "Eric");
+ * const mockObject = createMockObject(Greeter);
+ * mockObject.greet.mockReturnValue('Hello, stub!');
+ * expect(mockObject.greet('Eric')).toBe('Hello, stub!');
+ * expectSingleCallAndReset(mockObject.greet, 'Eric');
  * ```
  */
 export function createMockObject<T>(type: Type<T>): MockObject<T> {
