@@ -42,5 +42,6 @@ export function createMockObject<T>(type: Type<T>): MockObject<T> {
       mock[key].controller = new MockController(mock[key]);
     }
   }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return mock;
 }

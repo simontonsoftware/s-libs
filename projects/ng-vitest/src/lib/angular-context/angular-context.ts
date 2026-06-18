@@ -252,5 +252,6 @@ export class AngularContext {
   /**
    * This is a hook for subclasses to override. It is called as the last step during `run()`, even if a previous step errored. This implementation does nothing, but if you override this it is still recommended to call `super.cleanUp()` in case this implementation does something in the future.
    */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected async cleanUp(): Promise<void> {}
 }

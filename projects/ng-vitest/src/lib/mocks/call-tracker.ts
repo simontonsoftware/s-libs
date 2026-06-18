@@ -9,7 +9,7 @@ export type CallMatcher<T extends TestCall<Func>> =
   | ((call: T) => boolean);
 
 export abstract class CallTracker<T extends TestCall<Func>> {
-  #calls: Array<T> = [];
+  #calls: T[] = [];
   #sync: () => void;
 
   constructor(sync: (track: (call: T) => void) => void) {
@@ -53,7 +53,7 @@ export abstract class CallTracker<T extends TestCall<Func>> {
     this.#sync();
     let filterFn: (call: T) => boolean;
     if (Array.isArray(matcher)) {
-      filterFn = (call) => isEqual(call.getArgs(), matcher);
+      filterFn = (call): boolean => isEqual(call.getArgs(), matcher);
     } else {
       filterFn = matcher;
     }

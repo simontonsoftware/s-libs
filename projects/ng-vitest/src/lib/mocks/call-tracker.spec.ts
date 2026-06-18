@@ -88,7 +88,7 @@ describe('CallTracker', () => {
 
   describe('.match()', () => {
     it('finds matching method calls', () => {
-      const fn = vi.fn();
+      const fn = vi.fn<(arg: string) => void>();
       const controller = new MockController(fn);
       fn('value 1');
       fn('value 2');
@@ -105,7 +105,7 @@ describe('CallTracker', () => {
     });
 
     it('accepts an array of arguments to match against', () => {
-      const fn = vi.fn();
+      const fn = vi.fn<(arg: string) => void>();
       const controller = new MockController(fn);
       fn('value 1');
       fn('value 2');
@@ -120,7 +120,7 @@ describe('CallTracker', () => {
     });
 
     it('uses deep equality matching for the arguments shorthand', () => {
-      const fn = vi.fn();
+      const fn = vi.fn<(arg: { method: string }) => void>();
       const controller = new MockController(fn);
       fn({ method: 'GET' });
       fn({ method: 'POST' });

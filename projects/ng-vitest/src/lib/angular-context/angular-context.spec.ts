@@ -358,7 +358,7 @@ describe('AngularContext', () => {
         const source = signal(false);
         let result = false;
         TestBed.runInInjectionContext(() => {
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/strict-void-return
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           effect(async () => {
             const val = source();
             await Promise.resolve(); // must be native await, not .then(), to trigger one of the bugs

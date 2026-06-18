@@ -1,6 +1,5 @@
 import { Deferred } from '@s-libs/js-core';
 import { once } from '@s-libs/micro-dash';
-import { Mock } from '@vitest/spy';
 import { AsyncTestCall } from './async-test-call';
 import { CallTracker } from './call-tracker';
 
@@ -48,21 +47,17 @@ type AsyncMethod<
  */
 export class AsyncMethodController<
   WrappingObject extends object,
-  FunctionName extends AsyncMethodKeys<WrappingObject>,
-> extends CallTracker<
-  AsyncTestCall<AsyncMethod<WrappingObject, FunctionName>>
-> {
-  constructor(obj: WrappingObject, methodName: FunctionName) {
-    const mock = vi.spyOn(obj, methodName) as Mock<
-      AsyncMethod<WrappingObject, FunctionName>
-    >;
+  MethodName extends AsyncMethodKeys<WrappingObject>,
+> extends CallTracker<AsyncTestCall<AsyncMethod<WrappingObject, MethodName>>> {
+  constructor(obj: WrappingObject, methodName: MethodName) {
+    const mock: any = vi.spyOn(obj, methodName);
     super(
       once((track) => {
-        mock.mockImplementation((() => {
-          const deferred = new Deferred<any>();
+        mock.mockImplementation(async () => {
+          const deferred = new Deferred();
           track(new AsyncTestCall(mock, mock.mock.calls.length - 1, deferred));
           return deferred.promise;
-        }) as any);
+        });
       }),
     );
   }
