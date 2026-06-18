@@ -8,7 +8,7 @@ describe('AsyncMethodController', () => {
   }
 
   describe('constructor', () => {
-    it.only('sets up call tracking', () => {
+    it('sets up call tracking', () => {
       const controller = new AsyncMethodController(
         navigator.clipboard,
         'readText',
