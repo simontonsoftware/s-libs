@@ -17,7 +17,7 @@ type AsyncMethod<
   : never;
 
 /**
- * Controller to be used in tests, that allows for mocking and flushing any asynchronous method. If you are using an {@link AngularContext}, it automatically calls {@link AngularContext.tick} after each `.flush()` and `.error()` to trigger promise handlers and change detection. This is the normal production behavior of asynchronous browser APIs.
+ * Controller to be used in tests, that allows for mocking and flushing any asynchronous method. If you are using an {@linkcode AngularContext}, it automatically calls {@linkcode AngularContext#tick} after each `.flush()` and `.error()` to trigger promise handlers and change detection. This is the normal production behavior of asynchronous browser APIs.
  *
  * For example, to mock the browser's paste functionality:
  *

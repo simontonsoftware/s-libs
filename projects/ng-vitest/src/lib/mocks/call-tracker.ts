@@ -20,7 +20,7 @@ export abstract class CallTracker<T extends TestCall<Func>> {
   }
 
   /**
-   * Expect that a single call was made that matches the given condition, and return its {@link TestCall}.
+   * Expect that a single call was made that matches the given condition, and return its {@linkcode TestCall}.
    *
    * If no such call was made, or more than one such call was made, fail with an error message including the given request description, if any.
    */

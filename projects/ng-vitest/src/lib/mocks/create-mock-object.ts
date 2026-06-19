@@ -6,7 +6,7 @@ import { MockController } from './mock-controller';
 // adapted from https://github.com/ngneat/spectator/blob/e13c9554778bdb179dfc7235aedb4b3b90302850/projects/spectator/src/lib/mock.ts
 
 /**
- * Return type of {@link createMockObject}.
+ * Return type of {@linkcode createMockObject}.
  */
 export type MockObject<T> = {
   [K in keyof T]: T[K] extends (...args: any[]) => any
@@ -15,7 +15,7 @@ export type MockObject<T> = {
 };
 
 /**
- * Creates a new object with Vitest mocks for each method in `type`. Each comes with a {@link MockController} you can use for targeted expectations.
+ * Creates a new object with Vitest mocks for each method in `type`. Each comes with a {@linkcode MockController} you can use for targeted expectations.
  *
  * ```ts
  * class Greeter {

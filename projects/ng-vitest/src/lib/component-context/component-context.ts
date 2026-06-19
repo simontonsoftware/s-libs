@@ -44,12 +44,12 @@ export class WrapperComponent<T> {
 /**
  * Provides the foundation for an opinionated pattern for component tests.
  *
- * - Includes all features from {@link AngularContext}
+ * - Includes all features from {@linkcode AngularContext}
  * - Automatically creates your component at the beginning of `run()`.
  * - Sets up Angular change detection and lifecycle hooks like it would in production. This covers cases you would normally have to trigger manually if you use the standard `TestBed.createComponent()` directly.
  * - Wraps your component in a parent that you can easily style however you like.
  * - Lets you use {@link https://material.angular.dev/cdk/testing/overview | component harnesses} with Vitest's fake timers, which is normally a challenge.
- * - Causes async {@link https://angular.dev/api/core/APP_INITIALIZER | APP_INITIALIZER}s to complete before instantiating the component. A caveat, they must not include a `setTimeout` delay, or the test will hang.
+ * - Causes async {@linkcode https://angular.dev/api/core/APP_INITIALIZER | APP_INITIALIZER}s to complete before instantiating the component. A caveat, they must not include a `setTimeout` delay, or the test will hang.
  *
  * A very simple example:
  * ```ts
@@ -149,7 +149,7 @@ export class WrapperComponent<T> {
  */
 export class ComponentContext<T> extends AngularContext {
   /**
-   * The {@link ComponentFixture} for a synthetic wrapper around your component. Available within the callback to `run()`.
+   * The {@linkcode ComponentFixture} for a synthetic wrapper around your component. Available within the callback to `run()`.
    */
   fixture!: ComponentFixture<unknown>;
 
@@ -160,7 +160,7 @@ export class ComponentContext<T> extends AngularContext {
 
   /**
    * @param componentType `run()` will create a component of this type before running the rest of your test.
-   * @param moduleMetadata passed along to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#configureTestingModule | TestBed.configureTestingModule()}. Automatically includes everything provided by {@link AngularContext}.
+   * @param moduleMetadata passed along to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#configureTestingModule | TestBed.configureTestingModule()}. Automatically includes everything provided by {@linkcode AngularContext}.
    */
   constructor(componentType: Type<T>, moduleMetadata: TestModuleMetadata = {}) {
     const mirror = reflectComponentType(componentType);
@@ -251,7 +251,7 @@ export class ComponentContext<T> extends AngularContext {
   }
 
   /**
-   * Performs any cleanup needed at the end of each test. This implementation destroys {@link fixture} and calls the super implementation.
+   * Performs any cleanup needed at the end of each test. This implementation destroys {@linkcode fixture} and calls the super implementation.
    */
   protected override async cleanUp(): Promise<void> {
     this.fixture.destroy();

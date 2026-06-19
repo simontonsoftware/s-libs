@@ -43,12 +43,12 @@ export function extendMetadata(
  * - Variables that are initialized for each test exist in a context that is thrown away, so they cannot leak between tests.
  * - Clearly separates initialization code from the test itself.
  * - Gives control over the simulated date and time with a single line of code.
- * - Automatically includes {@link https://angular.dev/api/common/http/testing/provideHttpClientTesting | provideHttpClientTesting()} to stub network requests without additional setup.
+ * - Automatically includes {@linkcode https://angular.dev/api/common/http/testing/provideHttpClientTesting | provideHttpClientTesting()} to stub network requests without additional setup.
  * - Always verifies that no unexpected http requests were made.
- * - Always verifies that no unmatched errors were thrown (using {@link MockErrorHandler}).
+ * - Always verifies that no unmatched errors were thrown (using {@linkcode MockErrorHandler}).
  * - Disables Material animations so that you don't need to wait for them in your tests.
  *
- * This example tests a simple service that uses `HttpClient` and is tested by using `AngularContext` directly. More often, `AngularContext` will be used as a super class. See {@link ComponentContext} for more common use cases.
+ * This example tests a simple service that uses `HttpClient` and is tested by using `AngularContext` directly. More often, `AngularContext` will be used as a super class. See {@linkcode ComponentContext} for more common use cases.
  *
  * ```ts
  * // This is the class we will test.
@@ -100,7 +100,7 @@ export class AngularContext {
   #loader = FakeTimerHarnessEnvironment.documentRootLoader(this);
 
   /**
-   * @param moduleMetadata passed along to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#configureTestingModule | TestBed.configureTestingModule()}. Automatically includes {@link provideHttpClientTesting}, {@link MockErrorHandler}, and {@link MATERIAL_ANIMATIONS} with `animationsDisabled: true`.
+   * @param moduleMetadata passed along to {@linkcode https://angular.dev/api/core/testing/TestBedStatic#configureTestingModule | TestBed.configureTestingModule()}. Automatically includes {@linkcode provideHttpClientTesting}, {@linkcode MockErrorHandler}, and {@linkcode MATERIAL_ANIMATIONS} with `animationsDisabled: true`.
    */
   constructor(moduleMetadata: TestModuleMetadata = {}) {
     assert(
@@ -162,7 +162,7 @@ export class AngularContext {
   }
 
   /**
-   * Returns whether this context is currently executing the {@linkcode #run} callback.
+   * Returns whether this context is currently executing the {@linkcode AngularContext#run} callback.
    */
   isRunning(): boolean {
     return this.#isRunning;

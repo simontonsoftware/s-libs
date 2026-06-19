@@ -18,42 +18,42 @@ export class TestCall<F extends Func> {
   ) {}
 
   /**
-   * See {@link Mock.mock.calls}
+   * See {@linkcode Mock.mock.calls}
    */
   getArgs(): MockParameters<F> {
     return this.mock.mock.calls[this.index];
   }
 
   /**
-   * See {@link Mock.mock.instances}
+   * See {@linkcode Mock.mock.instances}
    */
   getInstance(): MockProcedureContext<F> {
     return this.mock.mock.instances[this.index];
   }
 
   /**
-   * See {@link Mock.mock.contexts}
+   * See {@linkcode Mock.mock.contexts}
    */
   getContext(): MockProcedureContext<F> {
     return this.mock.mock.contexts[this.index];
   }
 
   /**
-   * See {@link Mock.mock.invocationCallOrder}
+   * See {@linkcode Mock.mock.invocationCallOrder}
    */
   getInvocationCallOrder(): number {
     return this.mock.mock.invocationCallOrder[this.index];
   }
 
   /**
-   * See {@link Mock.mock.results}
+   * See {@linkcode Mock.mock.results}
    */
   getResult(): MockResult<MockReturnType<F>> {
     return this.mock.mock.results[this.index];
   }
 
   /**
-   * See {@link Mock.mock.settledResults}
+   * See {@linkcode Mock.mock.settledResults}
    */
   getSettledResult(): MockSettledResult<Awaited<MockReturnType<F>>> {
     return this.mock.mock.settledResults[this.index];
