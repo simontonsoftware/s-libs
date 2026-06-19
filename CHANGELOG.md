@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [21.1.0](https://github.com/simontonsoftware/s-libs/compare/v21.0.0...v21.1.0) (2026-06-19)
+
+### Features
+
+- **ng-vitest:** Introducing a new library: ng-vitest. Much like ng-jasmine, but for vitest. ([9a43b23](https://github.com/simontonsoftware/s-libs/commit/9a43b235e1bff5900f1877982034baf3756ebde0))
+
+### Bug Fixes
+
+- **signal-store:** Allow assigning to a `Record` store ([9524f31](https://github.com/simontonsoftware/s-libs/commit/9524f312e73edf5a1b0bb3fafae7998a6fd6624c))
+
 ## [21.0.0](https://github.com/simontonsoftware/s-libs/compare/v21.0.0-next.1...v21.0.0) (2026-05-22)
 
 ### Features
