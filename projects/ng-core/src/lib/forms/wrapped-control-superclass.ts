@@ -175,7 +175,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    * }
    * ```
    *
-   * For a simple transformation, see {@linkcode #outerToInnerValue} instead.
+   * For a simple transformation, see {@linkcode WrappedControlSuperclass#outerToInnerValue} instead.
    */
   protected setUpOuterToInnerValue$(
     outer$: Observable<OuterType>,
@@ -189,7 +189,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   /**
    * Override this to modify a value coming from the outside to the format needed within this component.
    *
-   * For more complex needs, see {@linkcode #setUpOuterToInnerValue$} instead.
+   * For more complex needs, see {@linkcode WrappedControlSuperclass#setUpOuterToInnerValue$} instead.
    */
   protected outerToInnerValue(outer: OuterType): InnerType {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- sadly, this is known to be unsafe. Maybe we can improve it with a breaking change some day.
@@ -208,7 +208,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    * }
    * ```
    *
-   * For a simple transformation, see {@linkcode #innerToOuterValue} instead.
+   * For a simple transformation, see {@linkcode WrappedControlSuperclass#innerToOuterValue} instead.
    */
   protected setUpInnerToOuterValue$(
     inner$: Observable<InnerType>,
@@ -222,7 +222,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   /**
    * Override this to modify a value coming from within this component to the format expected on the outside.
    *
-   * For more complex needs, see {@linkcode #setUpInnerToOuterValue$} instead.
+   * For more complex needs, see {@linkcode WrappedControlSuperclass#setUpInnerToOuterValue$} instead.
    */
   protected innerToOuterValue(inner: InnerType): OuterType {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- sadly, this is known to be unsafe. Maybe we can improve it with a breaking change some day.
@@ -232,7 +232,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   /**
    * Override this to for full control over the stream of validation errors synchronized in to your subclass.
    *
-   * For a simple transformation, see {@linkcode #outerToInnerErrors} instead.
+   * For a simple transformation, see {@linkcode WrappedControlSuperclass#outerToInnerErrors} instead.
    */
   protected setUpOuterToInnerErrors$(
     outer$: Observable<ValidationErrors>,
@@ -255,7 +255,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    * }
    * ```
    *
-   * For more complex needs, see {@linkcode #setUpOuterToInnerErrors$} instead.
+   * For more complex needs, see {@linkcode WrappedControlSuperclass#setUpOuterToInnerErrors$} instead.
    */
   protected outerToInnerErrors(errors: ValidationErrors): ValidationErrors {
     return errors;
@@ -271,7 +271,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
    * }
    * ```
    *
-   * For a simple transformation, see {@linkcode #innerToOuterErrors} instead.
+   * For a simple transformation, see {@linkcode WrappedControlSuperclass#innerToOuterErrors} instead.
    */
   protected setUpInnerToOuterErrors$(
     inner$: Observable<ValidationErrors>,
@@ -285,7 +285,7 @@ export abstract class WrappedControlSuperclass<OuterType, InnerType = OuterType>
   /**
    * Override this to modify validation errors that synchronize out from this component.
    *
-   * For more complex needs, see {@linkcode #setUpInnerToOuterErrors$} instead.
+   * For more complex needs, see {@linkcode WrappedControlSuperclass#setUpInnerToOuterErrors$} instead.
    */
   protected innerToOuterErrors(errors: ValidationErrors): ValidationErrors {
     return errors;

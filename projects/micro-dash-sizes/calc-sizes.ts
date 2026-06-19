@@ -5,7 +5,7 @@ import { glob } from 'glob';
 import * as path from 'path';
 import * as readline from 'readline';
 import { explore } from 'source-map-explorer';
-import { ExploreResult } from 'source-map-explorer/lib/types';
+import type { ExploreResult } from 'source-map-explorer/lib/types';
 import { forEach } from '../micro-dash/src/public-api';
 
 const rootDir = path.join(__dirname, '..', '..');

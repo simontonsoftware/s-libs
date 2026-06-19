@@ -8,8 +8,7 @@ jobs:
       - uses: ./.github/actions/build
 
       - run: npx playwright install --with-deps
-      # - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless
-      - run: npx tsx ./scripts/test-all.ts
+      - run: node ./scripts/test-all.ts
   lint:
     runs-on: ubuntu-latest
     steps:

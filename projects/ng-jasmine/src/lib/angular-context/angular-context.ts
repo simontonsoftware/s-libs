@@ -170,7 +170,7 @@ export class AngularContext {
   }
 
   /**
-   * Returns whether this context is currently executing the {@linkcode #run} callback.
+   * Returns whether this context is currently executing the {@linkcode AngularContext#run} callback.
    */
   isRunning(): boolean {
     return this.#isRunning;
@@ -252,7 +252,7 @@ export class AngularContext {
   }
 
   /**
-   * Runs post-test verifications. This base implementation runs {@linkcode https://angular.dev/api/common/http/testing/HttpTestingController#verify | HttpTestingController.verify} and {@linkcode MockErrorHandler.verify}. Unlike {@linkcode #cleanUp}, it is OK for this method to throw an error to indicate a violation.
+   * Runs post-test verifications. This base implementation runs {@linkcode https://angular.dev/api/common/http/testing/HttpTestingController#verify | HttpTestingController.verify} and {@linkcode MockErrorHandler.verify}. Unlike {@linkcode AngularContext#cleanUp}, it is OK for this method to throw an error to indicate a violation.
    */
   protected verifyPostTestConditions(): void {
     this.inject(HttpTestingController).verify();

@@ -62,7 +62,7 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
   );
 
   /**
-   * Emits the current undo snapshot. Useful if you want to persist this to restore when the user returns to your app later, via {@linkcode #setSnapshot}.
+   * Emits the current undo snapshot. Useful if you want to persist this to restore when the user returns to your app later, via {@linkcode UndoManagerSuperclass#setSnapshot}.
    */
   readonly snapshot = computed(() => this.#store.state);
 
@@ -103,7 +103,7 @@ export abstract class UndoManagerSuperclass<StateType, UndoStateType> {
   }
 
   /**
-   * Reset the entire manager to the given snapshot. Useful combined with persisting the {@linkcode #snapshot} to restore undo history when the user returns to your app.
+   * Reset the entire manager to the given snapshot. Useful combined with persisting the {@linkcode UndoManagerSuperclass#snapshot} to restore undo history when the user returns to your app.
    */
   setSnapshot(snapshot: UndoSnapshot<UndoStateType>): void {
     this.#store.state = snapshot;
