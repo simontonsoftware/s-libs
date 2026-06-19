@@ -37,6 +37,7 @@
   },
   "files": [],
   "references": [
+    { "path": "./scripts/tsconfig.json" },
     { "path": "./projects/app-state/tsconfig.lib.json" },
     { "path": "./projects/app-state/tsconfig.spec.json" },
     { "path": "./projects/integration/tsconfig.app.json" },

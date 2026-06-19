@@ -5,7 +5,7 @@
 // ```
 // So this script is a workaround. It runs the tests on one project at a time.
 
-import { buildableLibraries, runCommand } from './shared';
+import { buildableLibraries, runCommand } from './shared.ts';
 
 const vitestLibs = new Set(['ng-vitest']);
 

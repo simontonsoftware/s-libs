@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { format } from 'prettier';
-import { libraries } from './shared';
+import { libraries } from './shared.ts';
 
 run();
 

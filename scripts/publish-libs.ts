@@ -1,6 +1,6 @@
-import { copyEslintConfig } from './copy-eslint-config';
-import { getInput, libraries, runCommand } from './shared';
 import { join } from 'path';
+import { copyEslintConfig } from './copy-eslint-config.ts';
+import { getInput, libraries, runCommand } from './shared.ts';
 
 async function run(): Promise<void> {
   copyEslintConfig();

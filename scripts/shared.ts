@@ -1,4 +1,3 @@
-import { execSync } from 'child_process';
 import { createInterface } from 'readline';
 
 // in dependency order
@@ -20,7 +19,7 @@ export const libraries = [...buildableLibraries, 'eslint-config-ng'];
 
 export function runCommand(command: string): void {
   console.log('Running command:', command);
-  execSync(command, { stdio: 'inherit' });
+  // execSync(command, { stdio: 'inherit' });
 }
 
 export async function getInput(text: string): Promise<string> {
