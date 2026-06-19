@@ -13,7 +13,7 @@ import {
   TestCall,
 } from '@s-libs/ng-jasmine';
 
-describe('ng-dev', () => {
+describe('ng-jasmine', () => {
   it('has AngularContext', () => {
     expect(AngularContext).toBeDefined();
   });

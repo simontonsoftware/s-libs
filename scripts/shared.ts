@@ -1,4 +1,4 @@
-import { execSync } from 'child_process';
+import { execSync } from 'node:child_process';
 import { createInterface } from 'readline';
 
 // in dependency order
@@ -13,6 +13,7 @@ export const buildableLibraries = [
   'signal-store',
   'ng-dev',
   'ng-jasmine',
+  'ng-vitest',
 ];
 
 export const libraries = [...buildableLibraries, 'eslint-config-ng'];

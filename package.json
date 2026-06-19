@@ -8,14 +8,14 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "build-libs": "tsx scripts/build-libs",
+    "build-libs": "node scripts/build-libs.ts",
     "dtslint": "dtslint --expectOnly --localTs node_modules/typescript/lib",
     "prettier-lint": "prettier --check \"**/*.{html,js,json,md,scss,ts,yml}\"",
     "prettier-all": "prettier --write \"**/*.{html,js,json,md,scss,ts,yml}\"",
-    "docs": "tsx scripts/docs-libs",
+    "docs": "node scripts/docs-libs.ts",
     "git-publish": "standard-version --commit-all",
-    "npm-publish": "tsx scripts/publish-libs",
-    "calc-micro-dash-sizes": "cd projects/micro-dash-sizes && tsx calc-sizes"
+    "npm-publish": "node scripts/publish-libs.ts",
+    "calc-micro-dash-sizes": "cd projects/micro-dash-sizes && node calc-sizes.ts"
   },
   "prettier": {
     "singleQuote": true,
@@ -49,12 +49,14 @@
     "@types/jasmine": "~6.0.0",
     "@types/lodash-es": "^4.17.11",
     "@types/node": "^24.10.1",
+    "@vitest/browser-playwright": "^4.1.8",
     "angular-eslint": "21.0.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.5",
     "expect-type": "^1.1.0",
     "glob": "^13.0.0",
     "jasmine-core": "~6.0.0",
+    "jsdom": "^27.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
@@ -62,14 +64,15 @@
     "karma-jasmine-html-reporter": "~2.2.0",
     "lodash-es": "^4.17.21",
     "ng-packagr": "^21.2.0",
+    "playwright": "^1.60.0",
     "prettier": "^3.0.3",
     "sassdoc": "^2.7.4",
     "source-map-explorer": "^2.5.3",
     "standard-version": "^9.5.0",
-    "tsx": "^4.20.3",
     "typedoc": "^0.28.5",
     "typescript": "~5.9.2",
-    "typescript-eslint": "8.46.4"
+    "typescript-eslint": "8.46.4",
+    "vitest": "^4.0.8"
   },
   "standard-version": {
     "bumpFiles": [
@@ -114,11 +117,15 @@
         "type": "json"
       },
       {
-        "filename": "projects/signal-store/package.json",
+        "filename": "projects/ng-vitest/package.json",
         "type": "json"
       },
       {
         "filename": "projects/rxjs-core/package.json",
+        "type": "json"
+      },
+      {
+        "filename": "projects/signal-store/package.json",
         "type": "json"
       }
     ],

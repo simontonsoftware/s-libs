@@ -1,4 +1,4 @@
-import { buildableLibraries, runCommand } from './shared';
+import { buildableLibraries, runCommand } from './shared.ts';
 
 let projects = process.argv.slice(2);
 if (projects.length === 0) {

@@ -19,7 +19,8 @@
     "target": "ES2022",
     "module": "preserve",
     "paths": {
-      "@s-libs/*": ["./dist/*"]
+      "@s-libs/*": ["./dist/*"],
+      "ng-vitest": ["./dist/ng-vitest"]
     },
 
     //
@@ -36,6 +37,7 @@
   },
   "files": [],
   "references": [
+    { "path": "./scripts/tsconfig.json" },
     { "path": "./projects/app-state/tsconfig.lib.json" },
     { "path": "./projects/app-state/tsconfig.spec.json" },
     { "path": "./projects/integration/tsconfig.app.json" },
@@ -56,6 +58,8 @@
     { "path": "./projects/ng-jasmine/tsconfig.spec.json" },
     { "path": "./projects/ng-mat-core/tsconfig.lib.json" },
     { "path": "./projects/ng-mat-core/tsconfig.spec.json" },
+    { "path": "./projects/ng-vitest/tsconfig.lib.json" },
+    { "path": "./projects/ng-vitest/tsconfig.spec.json" },
     { "path": "./projects/rxjs-core/tsconfig.lib.json" },
     { "path": "./projects/rxjs-core/tsconfig.spec.json" },
     { "path": "./projects/signal-store/tsconfig.lib.json" },

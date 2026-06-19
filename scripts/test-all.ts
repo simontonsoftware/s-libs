@@ -5,11 +5,17 @@
 // ```
 // So this script is a workaround. It runs the tests on one project at a time.
 
-import { buildableLibraries, runCommand } from './shared';
+import { buildableLibraries, runCommand } from './shared.ts';
+
+const vitestLibs = new Set(['ng-vitest']);
 
 const testableProjects = [...buildableLibraries, 'integration'];
 for (const project of testableProjects) {
-  runCommand(
-    `npm run test -- ${project} --no-watch --no-progress --browsers=ChromeHeadless`,
-  );
+  if (vitestLibs.has(project)) {
+    runCommand(`npm run test -- ${project}`);
+  } else {
+    runCommand(
+      `npm run test -- ${project} --no-watch --no-progress --browsers=ChromeHeadless`,
+    );
+  }
 }

@@ -26,7 +26,7 @@
       "projectType": "library",
       "root": "projects/app-state",
       "sourceRoot": "projects/app-state/src",
-      "prefix": "s",
+      "prefix": "sl",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
@@ -68,7 +68,7 @@
       },
       "root": "projects/integration",
       "sourceRoot": "projects/integration/src",
-      "prefix": "s",
+      "prefix": "sl",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -143,7 +143,7 @@
       "projectType": "library",
       "root": "projects/js-core",
       "sourceRoot": "projects/js-core/src",
-      "prefix": "s",
+      "prefix": "sl",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
@@ -180,7 +180,7 @@
       "projectType": "library",
       "root": "projects/micro-dash",
       "sourceRoot": "projects/micro-dash/src",
-      "prefix": "s",
+      "prefix": "sl",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
@@ -334,7 +334,7 @@
       "projectType": "library",
       "root": "projects/ng-core",
       "sourceRoot": "projects/ng-core/src",
-      "prefix": "s",
+      "prefix": "sl",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
@@ -371,7 +371,7 @@
       "projectType": "library",
       "root": "projects/ng-dev",
       "sourceRoot": "projects/ng-dev/src",
-      "prefix": "s",
+      "prefix": "sl",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
@@ -408,7 +408,7 @@
       "projectType": "library",
       "root": "projects/ng-jasmine",
       "sourceRoot": "projects/ng-jasmine/src",
-      "prefix": "s",
+      "prefix": "sl",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
@@ -482,7 +482,7 @@
       "projectType": "library",
       "root": "projects/rxjs-core",
       "sourceRoot": "projects/rxjs-core/src",
-      "prefix": "s",
+      "prefix": "sl",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
@@ -519,7 +519,7 @@
       "projectType": "library",
       "root": "projects/signal-store",
       "sourceRoot": "projects/signal-store/src",
-      "prefix": "s",
+      "prefix": "sl",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
@@ -548,6 +548,44 @@
               "projects/signal-store/**/*.html"
             ],
             "eslintConfig": "projects/signal-store/eslint.config.js"
+          }
+        }
+      }
+    },
+    "ng-vitest": {
+      "projectType": "library",
+      "root": "projects/ng-vitest",
+      "sourceRoot": "projects/ng-vitest/src",
+      "prefix": "sl",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-vitest/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-vitest/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/ng-vitest/tsconfig.spec.json",
+            "browsers": ["chromium"],
+            "runnerConfig": true
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ng-vitest/**/*.ts",
+              "projects/ng-vitest/**/*.html"
+            ],
+            "eslintConfig": "projects/ng-vitest/eslint.config.js"
           }
         }
       }
