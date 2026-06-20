@@ -37,6 +37,7 @@ module.exports = tseslint.config(
       // we knowingly violate some standards for the sake of smaller bundle size
       '@typescript-eslint/restrict-plus-operands': 'off',
       '@typescript-eslint/strict-boolean-expressions': 'off',
+      '@typescript-eslint/strict-void-return': 'off',
       complexity: 'off',
       eqeqeq: 'off',
       'func-names': 'off',
@@ -62,6 +63,9 @@ module.exports = tseslint.config(
 
       // tests copied from lodash use this technique
       '@typescript-eslint/no-array-delete': 'off',
+
+      // sometimes we type-cast in order to test typing
+      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
     },
   },
 );

@@ -9,7 +9,7 @@ import { RootStore } from '@s-libs/app-state';
 import { noop } from '@s-libs/micro-dash';
 import { NasModelModule } from '../lib/nas-model.module';
 
-/* eslint-disable @angular-eslint/component-max-inline-declarations,@angular-eslint/prefer-on-push-component-change-detection -- this file is for specs, and these rules are disabled for specs */
+/* eslint-disable @angular-eslint/component-max-inline-declarations -- this file is for specs, and these rules are disabled for specs */
 
 class StoreComponent<T extends object> {
   constructor(public store: RootStore<T>) {}

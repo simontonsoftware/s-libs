@@ -125,7 +125,7 @@ describe('UndoManager', () => {
 
   describe('.canUndo$', () => {
     it('fires (only) when undoability changes', () => {
-      const next = jasmine.createSpy();
+      const next = jasmine.createSpy<(...args: any[]) => void>();
 
       undoManager.canUndo$.subscribe(next);
       expectSingleCallAndReset(next, false);
@@ -155,7 +155,7 @@ describe('UndoManager', () => {
 
     it('fires immediately with the current value', () => {
       store('counter').set(1);
-      const next = jasmine.createSpy();
+      const next = jasmine.createSpy<(...args: any[]) => void>();
 
       undoManager.canUndo$.subscribe(next);
       expectSingleCallAndReset(next, true);
@@ -167,7 +167,7 @@ describe('UndoManager', () => {
 
   describe('.canRedo$', () => {
     it('fires (only) when redoability changes', () => {
-      const next = jasmine.createSpy();
+      const next = jasmine.createSpy<(...args: any[]) => void>();
 
       undoManager.canRedo$.subscribe(next);
       expectSingleCallAndReset(next, false);
@@ -200,7 +200,7 @@ describe('UndoManager', () => {
 
     it('fires immediately with the current value', () => {
       store('counter').set(1);
-      const next = jasmine.createSpy();
+      const next = jasmine.createSpy<(...args: any[]) => void>();
 
       undoManager.canRedo$.subscribe(next);
       expectSingleCallAndReset(next, false);
@@ -212,7 +212,7 @@ describe('UndoManager', () => {
 
   describe('.state$', () => {
     it('fires (only) when the state changes', () => {
-      const next = jasmine.createSpy();
+      const next = jasmine.createSpy<(...args: any[]) => void>();
 
       undoManager.state$.subscribe(next);
       expectSingleCallAndReset(next, new State());
@@ -235,7 +235,7 @@ describe('UndoManager', () => {
 
     it('fires immediately with the current value', () => {
       store('counter').set(1);
-      const next = jasmine.createSpy();
+      const next = jasmine.createSpy<(...args: any[]) => void>();
 
       undoManager.state$.subscribe(next);
       expectSingleCallAndReset(next, { ...new State(), counter: 1 });
@@ -529,8 +529,8 @@ describe('UndoManager', () => {
       store('counter').set(2);
       store('counter').set(3);
       store('counter').set(4);
-      const undoStub = jasmine.createSpy('canUndo');
-      const redoStub = jasmine.createSpy('canRedo');
+      const undoStub = jasmine.createSpy<(...args: any[]) => void>('canUndo');
+      const redoStub = jasmine.createSpy<(...args: any[]) => void>('canRedo');
       undoManager.canUndo$.subscribe(undoStub);
       undoManager.canRedo$.subscribe(redoStub);
       expect(undoStub).toHaveBeenCalledTimes(1);

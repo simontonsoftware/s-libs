@@ -31,6 +31,9 @@ module.exports = defineConfig([
 
       // We do a lot of type gymnastics! End users should not need to, but within this library there's lots of "unsafe" casting.
       '@typescript-eslint/no-unsafe-type-assertion': 'off',
+
+      // ESLint had stack overflow errors on this rule. I didn't manage to solve them.
+      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
     },
   },
   {

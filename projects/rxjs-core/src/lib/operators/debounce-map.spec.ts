@@ -17,7 +17,7 @@ import { debounceMap } from './debounce-map';
 
 describe('debounceMap()', () => {
   it('emits the mapped values', fakeAsync(() => {
-    const next = jasmine.createSpy();
+    const next = jasmine.createSpy<(...args: any[]) => void>();
     of(3)
       .pipe(debounceMap(async (i) => i ** 2))
       .subscribe(next);
@@ -65,7 +65,7 @@ describe('debounceMap()', () => {
 
   it('lets emissions directly through when the previous one already completed', fakeAsync(() => {
     const source = new Subject();
-    const next = jasmine.createSpy();
+    const next = jasmine.createSpy<(...args: any[]) => void>();
     source.pipe(debounceMap(async () => 0)).subscribe(next);
 
     source.next(0);
@@ -80,7 +80,7 @@ describe('debounceMap()', () => {
   it('emits and debounces as long as the previous observable is going', fakeAsync(() => {
     const source = new Subject<number>();
     const subjects = [new Subject(), new Subject()];
-    const next = jasmine.createSpy();
+    const next = jasmine.createSpy<(...args: any[]) => void>();
     source.pipe(debounceMap((i) => subjects[i])).subscribe(next);
 
     source.next(0);
@@ -140,7 +140,7 @@ describe('debounceMap()', () => {
   it('completes only after both the source and mapped observable', fakeAsync(() => {
     const source = new Subject<number>();
     const subjects = [new Subject(), new Subject()];
-    const complete = jasmine.createSpy();
+    const complete = jasmine.createSpy<(...args: any[]) => void>();
     source.pipe(debounceMap((i) => subjects[i])).subscribe({ complete });
 
     // does not complete with only the mapped

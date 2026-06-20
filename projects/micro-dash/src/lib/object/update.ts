@@ -24,7 +24,7 @@ export function update<T>(
       let value = current[key];
       if (i < length - 1) {
         if (!(value instanceof Object)) {
-          value = Number.isInteger(path[i + 1] as any) ? [] : {};
+          value = Number.isInteger(path[i + 1]) ? [] : {};
         }
       } else {
         value = updater(value);

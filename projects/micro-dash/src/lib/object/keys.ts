@@ -16,7 +16,7 @@ export function keys<T>(object: Nil | T): Array<StringifiedKey<T>> {
   if (Array.isArray(object)) {
     val = val.filter((item) => item !== 'length');
   }
-  return val as any;
+  return val;
 }
 
 export function keysOfNonArray<T>(object: Nil | T): Array<StringifiedKey<T>> {

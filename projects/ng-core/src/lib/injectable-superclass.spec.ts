@@ -64,8 +64,8 @@ describe('InjectableSuperclass', () => {
   });
 
   it('has .destruction$ which emits and completes upon destruction', () => {
-    const next = jasmine.createSpy();
-    const complete = jasmine.createSpy();
+    const next = jasmine.createSpy<(...args: any[]) => void>();
+    const complete = jasmine.createSpy<(...args: any[]) => void>();
     ctx.run(() => {
       const host = ctx.fixture.debugElement.query(
         By.directive(DestroyableDirective),
@@ -85,7 +85,7 @@ describe('mixInInjectableSuperclass()', () => {
   it('add InjectableSuperclass abilities to a subclass', () => {
     TestBed.runInInjectionContext(() => {
       class InjectableDate extends mixInInjectableSuperclass(Date) {}
-      const spy = jasmine.createSpy();
+      const spy = jasmine.createSpy<(...args: any[]) => void>();
       const subject = new Subject();
       const dateManager = new InjectableDate();
 

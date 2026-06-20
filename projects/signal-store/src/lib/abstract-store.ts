@@ -33,7 +33,10 @@ export abstract class AbstractStore<T>
   }
 
   get nonNull(): Store<NonNullable<T>> {
-    return this as unknown as Store<NonNullable<T>>;
+    // eslint-disable-next-line @typescript-eslint/no-this-alias,consistent-this -- eslint was having trouble with a stack overflow when inlining
+    const self: any = this;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return self;
   }
 
   /**

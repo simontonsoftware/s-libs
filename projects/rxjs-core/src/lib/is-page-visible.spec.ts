@@ -11,7 +11,7 @@ describe('isPageVisible$()', () => {
   });
 
   it('emits changes to page visibility', () => {
-    const next = jasmine.createSpy();
+    const next = jasmine.createSpy<(...args: any[]) => void>();
     isPageVisible$().subscribe(next);
     next.calls.reset();
 
@@ -23,18 +23,18 @@ describe('isPageVisible$()', () => {
   });
 
   it('emits immediately upon subscription', () => {
-    const next1 = jasmine.createSpy();
+    const next1 = jasmine.createSpy<(...args: any[]) => void>();
     isPageVisible$().subscribe(next1);
     expectSingleCallAndReset(next1, true);
 
     harness.setVisible(false);
-    const next2 = jasmine.createSpy();
+    const next2 = jasmine.createSpy<(...args: any[]) => void>();
     isPageVisible$().subscribe(next2);
     expectSingleCallAndReset(next2, false);
   });
 
   it('is quiet about events that do not change visibility', () => {
-    const next = jasmine.createSpy();
+    const next = jasmine.createSpy<(...args: any[]) => void>();
     isPageVisible$().subscribe(next);
 
     harness.setVisible(true);

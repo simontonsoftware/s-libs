@@ -128,6 +128,7 @@ export class PersistentStore<
     persistenceKey: string,
     defaultState: State,
     {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- bug in eslint? It seems it does change things.
       migrator = new NonMigrationManager() as MigrationManager<Persisted>,
       codec = new IdentityCodec<any>() as PersistenceCodec<State, Persisted>,
     } = {},

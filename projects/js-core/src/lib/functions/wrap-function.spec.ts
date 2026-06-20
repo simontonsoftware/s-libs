@@ -15,9 +15,9 @@ describe('wrapFunction()', () => {
 
   let original: jasmine.Spy;
   let around: jasmine.Spy;
-  let before: jasmine.Spy;
+  let before: jasmine.Spy<(...args: any[]) => void>;
   let transform: jasmine.Spy;
-  let after: jasmine.Spy;
+  let after: jasmine.Spy<(...args: any[]) => void>;
 
   beforeEach(() => {
     original = jasmine.createSpy().and.returnValue(toReturn);

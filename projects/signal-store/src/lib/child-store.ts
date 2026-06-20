@@ -6,7 +6,9 @@ import { Store } from './store';
 
 export class ChildStore<T> extends AbstractStore<T> {
   constructor(
+    // eslint-disable-next-line @typescript-eslint/no-unused-private-class-members -- eslint bug? This is used.
     private parent: Store<any>,
+    // eslint-disable-next-line @typescript-eslint/no-unused-private-class-members -- eslint bug? This is used.
     private key: Key,
     private signal: Signal<T>,
   ) {

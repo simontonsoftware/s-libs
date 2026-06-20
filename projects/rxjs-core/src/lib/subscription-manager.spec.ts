@@ -7,9 +7,9 @@ import {
 } from './subscription-manager';
 
 describe('SubscriptionManager', () => {
-  let next: jasmine.Spy;
-  let error: jasmine.Spy;
-  let complete: jasmine.Spy;
+  let next: jasmine.Spy<(...args: any[]) => void>;
+  let error: jasmine.Spy<(error: any) => void>;
+  let complete: jasmine.Spy<() => void>;
   let manager: SubscriptionManager;
 
   beforeEach(() => {
@@ -156,7 +156,7 @@ describe('SubscriptionManager', () => {
 describe('mixInSubscriptionManager()', () => {
   it('add SubscriptionManager abilities to a subclass', () => {
     class DateManager extends mixInSubscriptionManager(Date) {}
-    const spy = jasmine.createSpy();
+    const spy = jasmine.createSpy<() => void>();
     const subject = new Subject();
     const dateManager = new DateManager();
 

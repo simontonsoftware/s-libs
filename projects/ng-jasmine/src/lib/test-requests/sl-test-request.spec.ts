@@ -28,7 +28,7 @@ describe('SlTestRequest', () => {
     it('resolves the request with the given body and options', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
-        const spy = jasmine.createSpy();
+        const spy = jasmine.createSpy<(...args: any[]) => void>();
         ctx.inject(HttpClient).get('a url').subscribe(spy);
         const req = expectRequest('GET', 'a url');
 
@@ -42,7 +42,7 @@ describe('SlTestRequest', () => {
     it('passes along other arguments', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
-        const spy = jasmine.createSpy();
+        const spy = jasmine.createSpy<(...args: any[]) => void>();
         ctx
           .inject(HttpClient)
           .request('GET', 'a url', { observe: 'response' })
@@ -75,7 +75,7 @@ describe('SlTestRequest', () => {
     it('rejects the request with the given args', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
-        const spy = jasmine.createSpy();
+        const spy = jasmine.createSpy<(...args: any[]) => void>();
         ctx.inject(HttpClient).get('a url').subscribe({ error: spy });
         const req = expectRequest('GET', 'a url');
 
@@ -92,7 +92,7 @@ describe('SlTestRequest', () => {
     it('has good default args', () => {
       const ctx = new AngularContext({ providers: [provideHttpClient()] });
       ctx.run(() => {
-        const spy = jasmine.createSpy();
+        const spy = jasmine.createSpy<(...args: any[]) => void>();
         ctx.inject(HttpClient).get('a url').subscribe({ error: spy });
         const req = expectRequest('GET', 'a url');
 

@@ -37,7 +37,7 @@ describe('spreadObjectStore$()', () => {
 
   it('only emits when the keys of the object change', () => {
     store.set({ a: 1, b: 2 });
-    const spy = jasmine.createSpy();
+    const spy = jasmine.createSpy<(...args: any[]) => void>();
     spreadObjectStore$(store).subscribe(spy);
     expect(spy).toHaveBeenCalledTimes(1);
 
@@ -97,13 +97,10 @@ describe('spreadObjectStore$()', () => {
     expect().nothing();
 
     const object = store;
-    const objectOrNull = object as Store<Record<string, number> | null>;
-    const objectOrUndefined = object as Store<
-      Record<string, number> | undefined
-    >;
-    const objectOrNil = object as Store<
-      Record<string, number> | null | undefined
-    >;
+    const objectOrNull: Store<Record<string, number> | null> = object;
+    const objectOrUndefined: Store<Record<string, number> | undefined> = object;
+    const objectOrNil: Store<Record<string, number> | null | undefined> =
+      object;
 
     expectTypeOf(spreadObjectStore$(object)).toEqualTypeOf<
       Observable<Array<Store<number>>>

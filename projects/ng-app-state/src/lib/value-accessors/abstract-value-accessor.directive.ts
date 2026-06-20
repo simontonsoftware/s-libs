@@ -3,9 +3,9 @@ import { ControlValueAccessor } from '@angular/forms';
 import { noop } from '@s-libs/micro-dash';
 
 @Directive()
-export abstract class AbstractValueAccessorDirective<T extends HTMLElement>
-  implements ControlValueAccessor
-{
+export abstract class AbstractValueAccessorDirective<
+  T extends HTMLElement,
+> implements ControlValueAccessor {
   onChangeFn!: (value: any) => void;
   onTouchedFn = noop;
 

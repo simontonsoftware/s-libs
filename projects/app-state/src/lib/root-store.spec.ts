@@ -64,7 +64,7 @@ describe('RootStore', () => {
 
   describe('.batch()', () => {
     it('causes a single update after multiple actions', () => {
-      const next = jasmine.createSpy();
+      const next = jasmine.createSpy<(...args: any[]) => void>();
 
       store.$.subscribe(next);
       expect(next).toHaveBeenCalledTimes(1);

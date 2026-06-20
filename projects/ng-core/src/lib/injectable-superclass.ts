@@ -16,21 +16,27 @@ import { Subject } from 'rxjs';
  */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/explicit-module-boundary-types -- I'm not sure how to describe the return type
 export function mixInInjectableSuperclass<B extends Constructor>(Base: B) {
-  return class extends mixInSubscriptionManager(Base) {
-    #destructionSubject = new Subject<void>();
+  // In TypeScript 6, it became illegal to have a private field inside an exported anonymous class.
+  const privateFieldWorkaround = new WeakMap<any, Subject<void>>();
+  function getDestructionSubject(key: any): Subject<void> {
+    if (!privateFieldWorkaround.has(key)) {
+      privateFieldWorkaround.set(key, new Subject());
+    }
+    return privateFieldWorkaround.get(key)!;
+  }
 
+  return class extends mixInSubscriptionManager(Base) {
     /**
      * An observable that emits once when this object is destroyed, then completes.
      */
-    // eslint-disable-next-line @typescript-eslint/member-ordering -- ordered like this to avoid writing a constructor, which causes a different error
-    destruction$ = this.#destructionSubject.asObservable();
+    destruction$ = getDestructionSubject(this).asObservable();
 
     constructor(...args: any[]) {
       super(...args);
       inject(DestroyRef).onDestroy(() => {
         this.unsubscribe();
-        this.#destructionSubject.next();
-        this.#destructionSubject.complete();
+        getDestructionSubject(this).next();
+        getDestructionSubject(this).complete();
       });
     }
   };

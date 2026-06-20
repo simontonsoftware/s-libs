@@ -37,7 +37,7 @@ export function spreadArrayStore$<T>(
       } else {
         cache = cache.slice();
         for (let i = cache.length; i < array.length; ++i) {
-          cache[i] = (source as Store<T[]>)(i);
+          cache[i] = source(i as never);
         }
       }
       return cache;

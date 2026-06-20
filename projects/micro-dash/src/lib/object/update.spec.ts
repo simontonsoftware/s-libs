@@ -16,7 +16,7 @@ describe('update()', () => {
   it('assigns values even if they are the same as their destination', () => {
     for (const equalValue of ['a', ['a'], { a: 1 }, NaN]) {
       const object = {};
-      const setter = jasmine.createSpy();
+      const setter = jasmine.createSpy<(...args: any[]) => void>();
       const theValue = constant(equalValue);
       Object.defineProperty(object, 'a', {
         configurable: true,

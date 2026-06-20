@@ -7,7 +7,7 @@ describe('wrapMethod()', () => {
     const toReturn = Symbol('toReturn');
     const method = jasmine.createSpy().and.returnValue(toReturn);
     const object = { method };
-    const before = jasmine.createSpy();
+    const before = jasmine.createSpy<() => void>();
     const arg1 = Symbol('arg1');
     const arg2 = Symbol('arg2');
 
@@ -23,7 +23,7 @@ describe('wrapMethod()', () => {
 
   it('returns a function to reset', () => {
     const method = jasmine.createSpy();
-    const before = jasmine.createSpy();
+    const before = jasmine.createSpy<() => void>();
     const object = { method };
     const unwrap = wrapMethod(object, 'method', { before });
 

@@ -47,7 +47,7 @@ export function spreadObjectStore$<T extends object>(
     }),
     mapAndCacheObjectElements(
       (_value, key) => key,
-      (_value, key) => (source as Store<T>)(key as keyof T),
+      (_value, key) => source(key as never),
     ),
   );
 }

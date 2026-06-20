@@ -32,7 +32,7 @@ describe('mapAndCacheObjectElements()', () => {
 
   it('emits the same object reference for items that have the same cache key', () => {
     const source = new Subject<ObjectWith<{ index: number }>>();
-    const next = jasmine.createSpy();
+    const next = jasmine.createSpy<(...args: any[]) => void>();
 
     source
       .pipe(
@@ -91,7 +91,7 @@ describe('mapAndCacheObjectElements()', () => {
 
   it('always returns the same object reference for a given cache key', () => {
     const source = new Subject<ObjectWith<{ index: number }>>();
-    const next = jasmine.createSpy();
+    const next = jasmine.createSpy<(...args: any[]) => void>();
 
     source
       .pipe(

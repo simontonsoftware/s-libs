@@ -14,9 +14,9 @@ describe('Store', () => {
 
   describe('.$', () => {
     it('fires immediately, and with every change', () => {
-      const rootNext = jasmine.createSpy();
-      const counterNext = jasmine.createSpy();
-      const nestedNext = jasmine.createSpy();
+      const rootNext = jasmine.createSpy<(...args: any[]) => void>();
+      const counterNext = jasmine.createSpy<(...args: any[]) => void>();
+      const nestedNext = jasmine.createSpy<(...args: any[]) => void>();
       store.$.subscribe(rootNext);
       store('counter').$.subscribe(counterNext);
       store('nested').$.subscribe(nestedNext);
@@ -48,7 +48,7 @@ describe('Store', () => {
     });
 
     it('gives undefined when a parent object is deleted', () => {
-      const next = jasmine.createSpy();
+      const next = jasmine.createSpy<(...args: any[]) => void>();
 
       store<'optional', InnerState>('optional')('state').$.subscribe(next);
       expectSingleCallAndReset(next, undefined);
@@ -61,8 +61,8 @@ describe('Store', () => {
     });
 
     it('does not fire when parent objects change', () => {
-      const counterNext = jasmine.createSpy();
-      const optionalNext = jasmine.createSpy();
+      const counterNext = jasmine.createSpy<(...args: any[]) => void>();
+      const optionalNext = jasmine.createSpy<(...args: any[]) => void>();
       store('counter').$.subscribe(counterNext);
       store<'optional', InnerState>('optional')('state').$.subscribe(
         optionalNext,
@@ -102,7 +102,7 @@ describe('Store', () => {
       nested.right = new InnerState();
       store('nested').set(nested);
 
-      const spy = jasmine.createSpy();
+      const spy = jasmine.createSpy<(...args: any[]) => void>();
       store('nested')('left').$.subscribe(spy).unsubscribe();
       expectSingleCallAndReset(spy, nested.left);
 
@@ -111,7 +111,7 @@ describe('Store', () => {
     });
 
     it('works when 2 child stores manage to get created for the same state (code coverage)', () => {
-      const spy = jasmine.createSpy();
+      const spy = jasmine.createSpy<(...args: any[]) => void>();
 
       const obs = store('counter').$;
       const sub = store('counter').$.subscribe();
@@ -125,7 +125,7 @@ describe('Store', () => {
 
     // https://github.com/simontonsoftware/ng-app-state/issues/13
     it('does not emit stale values in the middle of propagating a change (production bug)', () => {
-      let log: jasmine.Spy | undefined;
+      let log: jasmine.Spy<(...args: any[]) => void> | undefined;
       store.$.subscribe(() => {
         store('optional').$.subscribe(log);
       });
@@ -143,13 +143,13 @@ describe('Store', () => {
       const counterStore = store('counter');
       counterStore.$.subscribe().unsubscribe();
       counterStore.set(3);
-      const spy = jasmine.createSpy();
+      const spy = jasmine.createSpy<(...args: any[]) => void>();
       counterStore.$.subscribe(spy);
       expectSingleCallAndReset(spy, 3);
     });
 
     it('works when the number of subscribers changes mid-emit (production bug)', () => {
-      const spy = jasmine.createSpy();
+      const spy = jasmine.createSpy<(...args: any[]) => void>();
 
       store('counter').$.pipe(take(2)).subscribe();
       store('counter').$.subscribe(spy);

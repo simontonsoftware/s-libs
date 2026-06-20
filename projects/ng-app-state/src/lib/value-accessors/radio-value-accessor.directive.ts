@@ -9,10 +9,11 @@ import { AbstractInputValueAccessorDirective } from './abstract-input-value-acce
   providers: [provideValueAccessor(RadioValueAccessorDirective)],
 })
 export class RadioValueAccessorDirective extends AbstractInputValueAccessorDirective {
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises -- adding during upgrade to 19. Unsure of alternative.
-  override async writeValue(obj: unknown): Promise<void> {
+  override writeValue(obj: unknown): void {
     // delay because `button.value` may not be set yet as the component is being initialized
-    await Promise.resolve();
-    this.element.checked = this.element.value === obj;
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    Promise.resolve().then(() => {
+      this.element.checked = this.element.value === obj;
+    });
   }
 }

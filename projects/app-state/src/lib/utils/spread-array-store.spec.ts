@@ -33,7 +33,7 @@ describe('spreadArrayStore$()', () => {
 
   it('only emits when the length of the array changes', () => {
     const store = new RootStore([1, 2]);
-    const spy = jasmine.createSpy();
+    const spy = jasmine.createSpy<(...args: any[]) => void>();
     spreadArrayStore$(store).subscribe(spy);
     expect(spy).toHaveBeenCalledTimes(1);
 
@@ -83,9 +83,9 @@ describe('spreadArrayStore$()', () => {
   it('has fancy typing', () => {
     staticTest(() => {
       const array = new RootStore([1]);
-      const arrayOrNull = array as Store<number[] | null>;
-      const arrayOrUndefined = array as Store<number[] | undefined>;
-      const arrayOrNil = array as Store<number[] | null | undefined>;
+      const arrayOrNull: Store<number[] | null> = array;
+      const arrayOrUndefined: Store<number[] | undefined> = array;
+      const arrayOrNil: Store<number[] | null | undefined> = array;
 
       expectTypeOf(spreadArrayStore$(array)).toEqualTypeOf<
         Observable<Array<Store<number>>>

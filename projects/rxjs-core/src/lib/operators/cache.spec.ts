@@ -27,7 +27,7 @@ describe('cache()', () => {
   );
 
   it('does not run upstream pipe operators for new subscribers', () => {
-    const upstream = jasmine.createSpy();
+    const upstream = jasmine.createSpy<(...args: any[]) => void>();
     const cached = new Subject().pipe(tap(upstream), cache());
 
     cached.subscribe();
@@ -38,7 +38,7 @@ describe('cache()', () => {
   });
 
   it('only runs upstream operators once for any number of subscribers', () => {
-    const upstream = jasmine.createSpy();
+    const upstream = jasmine.createSpy<(...args: any[]) => void>();
     const cached = new BehaviorSubject(1).pipe(tap(upstream), cache());
 
     cached.subscribe();

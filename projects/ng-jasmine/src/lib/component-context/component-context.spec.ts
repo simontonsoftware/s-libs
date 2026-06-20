@@ -324,7 +324,7 @@ describe('ComponentContext', () => {
       @Component({})
       class LocalComponent {
         constructor() {
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises,@typescript-eslint/strict-void-return
           effect(async () => {
             const val = source();
             await Promise.resolve();

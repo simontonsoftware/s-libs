@@ -12,7 +12,7 @@ describe('Store', () => {
           opt?: string;
           null: string | null;
           any?: string | null;
-        }> = null as any;
+        }> = {} as any;
         expectTypeOf(store('norm')('length')).toEqualTypeOf<Store<number>>();
         expectTypeOf(store('opt')).toEqualTypeOf<Store<string | undefined>>();
         expectTypeOf(store('opt')('length')).toEqualTypeOf<
@@ -102,7 +102,9 @@ describe('Store', () => {
     it('picks up arg types from the function', () => {
       staticTest(() => {
         const store: Store<{ a: number; b?: string }> = null as any;
+        // eslint-disable-next-line @typescript-eslint/strict-void-return
         store.mutate(pick, 'a');
+        // eslint-disable-next-line @typescript-eslint/strict-void-return
         store.mutate(omit, 'b');
       });
     });

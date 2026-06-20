@@ -10,14 +10,16 @@
     "directory": "projects/ng-jasmine"
   },
   "peerDependencies": {
-    "@angular/common": "^21.0.0",
-    "@angular/core": "^21.0.0",
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
     "@s-libs/js-core": "^21.1.0",
     "@s-libs/micro-dash": "^21.1.0",
     "@s-libs/ng-core": "^21.1.0",
     "@s-libs/ng-dev": "^21.1.0",
-    "jasmine-core": "^6.0.0"
+    "jasmine-core": "^6.2.0"
   },
-  "dependencies": { "tslib": "^2.3.0" },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
   "sideEffects": false
 }

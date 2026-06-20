@@ -1,8 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { firstValueFrom } from 'rxjs';
 import { DialogComponent, DialogData } from './dialog.component';
-import { SlDialogModule } from './sl-dialog.module';
 
 /**
  * Shows simple text dialogs with just a method call, and reduces boilerplate for more complex dialogs.
@@ -36,7 +35,7 @@ import { SlDialogModule } from './sl-dialog.module';
  * });
  * ```
  */
-@Injectable({ providedIn: SlDialogModule })
+@Injectable()
 export class SlDialogService {
   #matDialog = inject(MatDialog);
 

@@ -82,7 +82,9 @@ describe('AngularContext', () => {
     });
 
     it('sets up http client testing', () => {
-      const ctx = new AngularContext({ providers: [provideHttpClient()] });
+      const ctx = new AngularContext({
+        providers: [provideHttpClient()],
+      });
       ctx.run(() => {
         ctx.inject(HttpClient).get('some URL').subscribe();
         expectRequest('GET', 'some URL');
@@ -91,7 +93,9 @@ describe('AngularContext', () => {
 
     // this is more sensitive than the test above, since `provideHttpClientTesting()` has to end up _after_ `provideHttpClient()` to work properly
     it('sets up testing for `provideHttpClient()`', () => {
-      const ctx = new AngularContext({ providers: [provideHttpClient()] });
+      const ctx = new AngularContext({
+        providers: [provideHttpClient()],
+      });
       ctx.run(() => {
         ctx.inject(HttpClient).get('some URL').subscribe();
         expectRequest('GET', 'some URL');
@@ -432,7 +436,9 @@ describe('AngularContext', () => {
 
   describe('.verifyPostTestConditions()', () => {
     it('errs if there are unexpected http requests', () => {
-      const ctx = new AngularContext({ providers: [provideHttpClient()] });
+      const ctx = new AngularContext({
+        providers: [provideHttpClient()],
+      });
       expect(() => {
         ctx.run(() => {
           ctx.inject(HttpClient).get('an unexpected URL').subscribe();

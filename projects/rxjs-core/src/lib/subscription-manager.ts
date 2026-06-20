@@ -14,9 +14,16 @@ import { Observable, Subscription, Unsubscribable } from 'rxjs';
  */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/explicit-module-boundary-types
 export function mixInSubscriptionManager<B extends Constructor>(Base: B) {
-  return class extends Base implements Unsubscribable {
-    #subscriptions = new Subscription();
+  // In TypeScript 6, it became illegal to have a private field inside an exported anonymous class.
+  const privateFieldWorkaround = new WeakMap<any, Subscription>();
+  function getSubscriptions(key: any): Subscription {
+    if (!privateFieldWorkaround.has(key)) {
+      privateFieldWorkaround.set(key, new Subscription());
+    }
+    return privateFieldWorkaround.get(key)!;
+  }
 
+  return class extends Base implements Unsubscribable {
     // eslint-disable-next-line @typescript-eslint/max-params
     subscribeTo<T>(
       observable: Observable<T>,
@@ -24,7 +31,7 @@ export function mixInSubscriptionManager<B extends Constructor>(Base: B) {
       error?: (error: any) => void,
       complete?: () => void,
     ): void {
-      this.#subscriptions.add(
+      getSubscriptions(this).add(
         observable.subscribe({
           next: next?.bind(this),
           error: error?.bind(this),
@@ -34,12 +41,12 @@ export function mixInSubscriptionManager<B extends Constructor>(Base: B) {
     }
 
     manage(subscription: Subscription): void {
-      this.#subscriptions.add(subscription);
+      getSubscriptions(this).add(subscription);
     }
 
     unsubscribe(): void {
-      this.#subscriptions.unsubscribe();
-      this.#subscriptions = new Subscription();
+      getSubscriptions(this).unsubscribe();
+      privateFieldWorkaround.set(this, new Subscription());
     }
   };
 }

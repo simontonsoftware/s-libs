@@ -28,8 +28,8 @@ describe('IsPageVisibleHarness', () => {
 
   it('allows multiple listeners', () => {
     const harness = new IsPageVisibleHarness();
-    const listener1 = jasmine.createSpy();
-    const listener2 = jasmine.createSpy();
+    const listener1 = jasmine.createSpy<(...args: any[]) => void>();
+    const listener2 = jasmine.createSpy<(...args: any[]) => void>();
     isPageVisible$().subscribe(listener1);
     isPageVisible$().subscribe(listener2);
 
@@ -56,7 +56,7 @@ describe('IsPageVisibleHarness', () => {
       const isPageVisibleHarness = new IsPageVisibleHarness();
       isPageVisibleHarness.setVisible(false);
 
-      const next = jasmine.createSpy();
+      const next = jasmine.createSpy<(...args: any[]) => void>();
       isPageVisible$().subscribe(next);
       expect(next).toHaveBeenCalledWith(false);
 

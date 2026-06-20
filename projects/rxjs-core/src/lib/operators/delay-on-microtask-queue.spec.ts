@@ -11,7 +11,7 @@ import { delayOnMicrotaskQueue } from './delay-on-microtask-queue';
 describe('delayOnMicrotaskQueue()', () => {
   it('passes along values asynchronously', fakeAsync(() => {
     const source = new Subject<number>();
-    const spy = jasmine.createSpy();
+    const spy = jasmine.createSpy<(...args: any[]) => void>();
     source.pipe(delayOnMicrotaskQueue()).subscribe(spy);
 
     source.next(1);
