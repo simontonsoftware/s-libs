@@ -27,7 +27,6 @@ import {
   findDirective,
   setValue,
 } from '../../test-helpers';
-import { DirectiveSuperclass } from '../directive-superclass';
 import { InjectableSuperclass } from '../injectable-superclass';
 import { FormComponentSuperclass } from './form-component-superclass';
 import { provideValueAccessor } from './provide-value-accessor';
@@ -646,8 +645,6 @@ describe('WrappedControlSuperclass tests using an old style fixture', () => {
         By.directive(StringComponent),
       ).componentInstance;
       expect(component instanceof InjectableSuperclass).toBe(true);
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      expect(component instanceof DirectiveSuperclass).toBe(true);
       expect(component instanceof FormComponentSuperclass).toBe(true);
     });
   });

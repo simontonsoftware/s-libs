@@ -40,7 +40,7 @@ export function mixInInjectableSuperclass<B extends Constructor>(Base: B) {
  * Use as the superclass for anything managed by Angular's dependency injection for care-free use of `subscribeTo()`. It simply calls `unsubscribe()` when the object is destroyed. Note that the object must be created in an {@link https://angular.dev/guide/di/dependency-injection-context | injection context}.
  *
  * ```ts
- * @Injectable() // or @Component(), @Directive() or @Pipe(), but consider DirectiveSuperclass
+ * @Injectable() // or @Component(), @Directive() or @Pipe()
  * class MyThing extends InjectableSuperclass {
  *   constructor(somethingObservable: Observable) {
  *     super();

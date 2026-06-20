@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, inject } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { noop } from '@s-libs/micro-dash';
-import { DirectiveSuperclass } from '../directive-superclass';
+import { InjectableSuperclass } from '../injectable-superclass';
 
 /**
  * Extend this when creating a form control to reduce some boilerplate.
@@ -29,8 +29,7 @@ import { DirectiveSuperclass } from '../directive-superclass';
  * ```
  */
 export abstract class FormComponentSuperclass<T>
-  // eslint-disable-next-line @typescript-eslint/no-deprecated -- if `DirectiveSuperclass` is removed, this will extend InjectableSuperclass. All methods on `DirectiveSuperclass` are marked deprecated to warn users.
-  extends DirectiveSuperclass
+  extends InjectableSuperclass
   implements ControlValueAccessor
 {
   /** Call this to emit a new value when it changes. */

@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ComponentContext } from '@s-libs/ng-jasmine';
 import { click, find, findButton } from '../../test-helpers';
-import { DirectiveSuperclass } from '../directive-superclass';
 import { InjectableSuperclass } from '../injectable-superclass';
 import { FormComponentSuperclass } from './form-component-superclass';
 import { provideValueAccessor } from './provide-value-accessor';
@@ -102,8 +101,6 @@ describe('FormComponentSuperclass', () => {
         By.directive(CounterComponent),
       ).componentInstance;
       expect(counter instanceof InjectableSuperclass).toBe(true);
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      expect(counter instanceof DirectiveSuperclass).toBe(true);
     });
   });
 });
