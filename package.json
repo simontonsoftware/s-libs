@@ -13,7 +13,7 @@
     "prettier-lint": "prettier --check \"**/*.{html,js,json,md,scss,ts,yml}\"",
     "prettier-all": "prettier --write \"**/*.{html,js,json,md,scss,ts,yml}\"",
     "docs": "node scripts/docs-libs.ts",
-    "git-publish": "standard-version --commit-all",
+    "git-publish": "git add . && standard-version --commit-all",
     "npm-publish": "node scripts/publish-libs.ts",
     "calc-micro-dash-sizes": "cd projects/micro-dash-sizes && tsx calc-sizes"
   },
