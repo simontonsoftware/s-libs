@@ -10,6 +10,7 @@ import {
   model,
   OnChanges,
   provideAppInitializer,
+  provideZoneChangeDetection,
   provideZonelessChangeDetection,
   signal,
   SimpleChanges,
@@ -98,15 +99,15 @@ describe('ComponentContext', () => {
   });
 
   describe('.assignInputs()', () => {
-    // it('updates the inputs with zone', async () => {
-    //   const ctx = new ComponentContext(TestComponent, {
-    //     providers: [provideZoneChangeDetection()],
-    //   });
-    //   await ctx.run(async () => {
-    //     await ctx.assignInputs({ name: 'New Guy' });
-    //     expect(ctx.fixture.nativeElement.textContent).toContain('New Guy');
-    //   });
-    // });
+    it('updates the inputs with zone', async () => {
+      const ctx = new ComponentContext(TestComponent, {
+        providers: [provideZoneChangeDetection()],
+      });
+      await ctx.run(async () => {
+        await ctx.assignInputs({ name: 'New Guy' });
+        expect(ctx.fixture.nativeElement.textContent).toContain('New Guy');
+      });
+    });
 
     it('updates the inputs without zone', async () => {
       const ctx = new ComponentContext(TestComponent, {
@@ -375,24 +376,8 @@ describe('ComponentContext', () => {
   });
 
   describe('.runChangeDetection()', () => {
-    // it('gets change detection working inside the fixture with zone', async () => {
-    //   const ctx = new ComponentContext(TestComponent, {
-    //     providers: [provideZoneChangeDetection()],
-    //   });
-    //   await ctx.run(async () => {
-    //     ctx.getComponentInstance().name.set('Changed Guy');
-    //     expect(ctx.fixture.nativeElement.textContent).not.toContain(
-    //       'Changed Guy',
-    //     );
-    //     await ctx.tick();
-    //     expect(ctx.fixture.nativeElement.textContent).toContain('Changed Guy');
-    //   });
-    // });
-
-    it('gets change detection working inside the fixture without zone', async () => {
-      const ctx = new ComponentContext(TestComponent, {
-        providers: [provideZonelessChangeDetection()],
-      });
+    async function runTest(providers: any[]): Promise<void> {
+      const ctx = new ComponentContext(TestComponent, { providers });
       await ctx.run(async () => {
         ctx.getComponentInstance().name.set('Changed Guy');
         expect(ctx.fixture.nativeElement.textContent).not.toContain(
@@ -401,6 +386,14 @@ describe('ComponentContext', () => {
         await ctx.tick();
         expect(ctx.fixture.nativeElement.textContent).toContain('Changed Guy');
       });
+    }
+
+    it('gets change detection working inside the fixture with zone', async () => {
+      await runTest([provideZoneChangeDetection()]);
+    });
+
+    it('gets change detection working inside the fixture without zone', async () => {
+      await runTest([provideZonelessChangeDetection()]);
     });
   });
 

@@ -574,6 +574,7 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "projects/ng-vitest/tsconfig.spec.json",
+            "setupFiles": ["projects/ng-vitest/src/zone-polyfills.ts"],
             "browsers": ["chromium"],
             "runnerConfig": true
           }

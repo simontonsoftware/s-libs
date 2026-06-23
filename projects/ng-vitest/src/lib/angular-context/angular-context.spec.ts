@@ -14,6 +14,7 @@ import {
   InjectionToken,
   Injector,
   provideAppInitializer,
+  provideZoneChangeDetection,
   provideZonelessChangeDetection,
   signal,
 } from '@angular/core';
@@ -421,9 +422,9 @@ describe('AngularContext', () => {
         });
       }
 
-      // it('runs with zone', async () => {
-      //   await runTest([provideZoneChangeDetection()], true);
-      // });
+      it('runs with zone', async () => {
+        await runTest([provideZoneChangeDetection()], true);
+      });
 
       it('does not run without zone', async () => {
         await runTest([provideZonelessChangeDetection()], false);
