@@ -1,3 +1,4 @@
+import { noop } from '@s-libs/micro-dash';
 import { expectTypeOf } from 'expect-type';
 import { AngularContext } from '../angular-context';
 import { staticTest } from '../static-test/static-test';
@@ -51,9 +52,7 @@ describe('AsyncTestCall', () => {
 
       await ctx.run(async () => {
         triggerRead();
-        const testCall = controller.expectOne([]);
-
-        await testCall.flush('this is the clipboard content');
+        await controller.expectOne([]).flush('this is the clipboard content');
         expect(ctx.ticked).toBe(true);
       });
     });
@@ -99,10 +98,8 @@ describe('AsyncTestCall', () => {
       );
 
       await ctx.run(async () => {
-        triggerRead();
-        const testCall = controller.expectOne([]);
-
-        await testCall.error('permission denied');
+        navigator.clipboard.readText().catch(noop);
+        await controller.expectOne([]).error('permission denied');
         expect(ctx.ticked).toBe(true);
       });
     });
@@ -113,7 +110,7 @@ describe('AsyncTestCall', () => {
         'readText',
       );
 
-      triggerRead();
+      navigator.clipboard.readText().catch(noop);
       await expect(
         controller.expectOne([]).error('permission denied'),
       ).resolves.not.toThrow();

@@ -1,4 +1,4 @@
-import { expectExactContents } from '../expectations';
+import { expectExactContents } from '../expectations/expect-exact-contents';
 import { staticTest } from '../static-test/static-test';
 import { MockController } from './mock-controller';
 import { TestCall } from './test-call';
