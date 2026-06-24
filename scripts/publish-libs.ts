@@ -3,6 +3,12 @@ import { copyEslintConfig } from './copy-eslint-config.ts';
 import { getInput, libraries, runCommand } from './shared.ts';
 
 async function run(): Promise<void> {
+  try {
+    runCommand('npm whoami');
+  } catch {
+    runCommand('npm login');
+  }
+
   copyEslintConfig();
 
   const otp = await getInput('Enter OTP: ');
