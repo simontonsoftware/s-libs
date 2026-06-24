@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [22.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v21.1.0...v22.0.0-next.0) (2026-06-24)
+
+### ⚠ BREAKING CHANGES
+
+- peer dependencies for relevant projects updated to Angular 22.0, ESLint 10.3, Jasmine 6.2
+- **ng-core:** You must now directly extend `InjectableSuperclass` instead of `DirectiveSuperclass`.
+
+### Features
+
+- **ng-core:** Simplify API by removing the deprecated `DirectiveSuperclass` ([cf43e9e](https://github.com/simontonsoftware/s-libs/commit/cf43e9e5fcbb86f7dce34d1242ea9bba21974b51))
+- Update dependencies ([be3f23a](https://github.com/simontonsoftware/s-libs/commit/be3f23ace51fbb5acede3aed323d4ebe3675da20))
+
 ## [21.1.0](https://github.com/simontonsoftware/s-libs/compare/v21.0.0...v21.1.0) (2026-06-19)
 
 ### Features
