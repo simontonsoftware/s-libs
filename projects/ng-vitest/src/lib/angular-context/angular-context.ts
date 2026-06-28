@@ -15,7 +15,7 @@ import { MATERIAL_ANIMATIONS } from '@angular/material/core';
 import { assert, convertTime } from '@s-libs/js-core';
 import { forOwn, isUndefined } from '@s-libs/micro-dash';
 import { MockErrorHandler } from '@s-libs/ng-dev';
-import { vi } from 'vitest';
+import { onTestFinished } from 'vitest';
 import { FakeTimerHarnessEnvironment } from './fake-timer-harness-environment';
 
 // overrides later it the list will take precedence
@@ -143,6 +143,15 @@ export class AngularContext {
    * 4. `this.cleanUp()`
    */
   async run(test: () => Promise<void> | void): Promise<void> {
+    onTestFinished(() => {
+      if (this.#isRunning) {
+        this.#finalCleanup();
+        throw new Error(
+          'The test finished prematurely. Did you `await` the call to `run()`?',
+        );
+      }
+    });
+
     this.#isRunning = true;
     vi.useFakeTimers();
     vi.setSystemTime(this.startTime);
@@ -154,9 +163,7 @@ export class AngularContext {
       try {
         await this.cleanUp();
       } finally {
-        vi.useRealTimers();
-        AngularContext.#current = undefined;
-        this.#isRunning = false;
+        this.#finalCleanup();
       }
     }
   }
@@ -254,4 +261,10 @@ export class AngularContext {
    */
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected async cleanUp(): Promise<void> {}
+
+  #finalCleanup(): void {
+    vi.useRealTimers();
+    AngularContext.#current = undefined;
+    this.#isRunning = false;
+  }
 }
