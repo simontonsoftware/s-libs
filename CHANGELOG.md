@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [22.0.0-next.1](https://github.com/simontonsoftware/s-libs/compare/v22.0.0-next.0...v22.0.0-next.1) (2026-06-28)
+
+### Features
+
+- **ng-vitest:** Gracefully handle forgetting to `await` a call to `AngularContext.run` ([50033a0](https://github.com/simontonsoftware/s-libs/commit/50033a00115ab4844a3938e2e16700459f85a74b))
+
 ## [22.0.0-next.0](https://github.com/simontonsoftware/s-libs/compare/v21.1.0...v22.0.0-next.0) (2026-06-24)
 
 ### ⚠ BREAKING CHANGES
