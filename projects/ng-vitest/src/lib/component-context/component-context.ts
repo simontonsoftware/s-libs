@@ -237,8 +237,6 @@ export class ComponentContext<T> extends AngularContext {
         inputBinding('styles', () => this.#wrapperStyles.state),
       ],
     });
-
-    // this.fixture.detectChanges();
     await this.tick();
   }
 
@@ -254,7 +252,9 @@ export class ComponentContext<T> extends AngularContext {
    * Performs any cleanup needed at the end of each test. This implementation destroys {@linkcode fixture} and calls the super implementation.
    */
   protected override async cleanUp(): Promise<void> {
-    this.fixture.destroy();
+    if (this.#isInitialized()) {
+      this.fixture.destroy();
+    }
     await super.cleanUp();
   }
 

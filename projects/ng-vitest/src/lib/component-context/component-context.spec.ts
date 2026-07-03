@@ -4,6 +4,7 @@ import {
   Component,
   Directive,
   effect,
+  ErrorHandler,
   InjectionToken,
   input,
   Input,
@@ -401,15 +402,18 @@ describe('ComponentContext', () => {
     it('destroys the fixture', async () => {
       const ctx = new ComponentContext(TestComponent);
       await ctx.run(noop);
-      // This was the test in Angular 13, and still fails if the fixture is not destroyed in 14
-      // ctx.getComponentInstance().name = 'Changed Guy';
-      // ctx.fixture.detectChanges();
-      // expect(ctx.fixture.nativeElement.textContent).not.toContain(
-      //   'Changed Guy',
-      // );
       expect(() => {
         ctx.getComponentInstance();
       }).toThrow();
+    });
+
+    it("is graceful if `fixture` doesn't initialize", async () => {
+      const notProvided = new InjectionToken('');
+      const ctx = new ComponentContext(TestComponent, {
+        providers: [{ provide: ErrorHandler, useExisting: notProvided }],
+      });
+      // Prod issue: this would throw an error during cleanup, masking the real error
+      await expect(ctx.run(noop)).rejects.toThrow('No provider found');
     });
   });
 
