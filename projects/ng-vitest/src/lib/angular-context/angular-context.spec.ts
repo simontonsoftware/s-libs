@@ -25,8 +25,9 @@ import { MatSnackBarHarness } from '@angular/material/snack-bar/testing';
 import { Deferred } from '@s-libs/js-core';
 import { MockErrorHandler } from '@s-libs/ng-dev';
 import { noop, Observable } from 'rxjs';
+import { TestContext } from 'vitest';
 import { ComponentContext } from '../component-context/component-context';
-import { AngularContext } from './angular-context';
+import { AngularContext, stubbableCleanerUpper } from './angular-context';
 import { FakeTimerHarnessEnvironment } from './fake-timer-harness-environment';
 
 describe('AngularContext', () => {
@@ -141,11 +142,20 @@ describe('AngularContext', () => {
         expect(() => {
           // eslint-disable-next-line no-new -- nothing more is needed for this test
           new AngularContext();
-        }).toThrow(
-          'There is already another AngularContext in use (or it was not cleaned up)',
-        );
+        }).toThrow('There is already another AngularContext in use');
       });
     });
+
+    it('is graceful with no `run()` (message & cleanup) (1)', runNoRunTest);
+    it('is graceful with no `run()` (message & cleanup) (2)', runNoRunTest);
+    async function runNoRunTest(ctx: TestContext): Promise<void> {
+      const cleanup = vi.spyOn(stubbableCleanerUpper, 'onTestFinished');
+      // eslint-disable-next-line no-new
+      new AngularContext();
+      expect(() => {
+        cleanup.mock.calls[0][0](ctx);
+      }).toThrow('The test finished prematurely. Did you call `run()`?');
+    }
   });
 
   describe('.run()', () => {
@@ -179,6 +189,8 @@ describe('AngularContext', () => {
     });
 
     describe('next test run', () => {
+      it('is OK when throwing an error during init (1)', runInitTest);
+      it('is OK when throwing an error during init (2)', runInitTest);
       async function runInitTest(): Promise<void> {
         class BadInitContext extends AngularContext {
           protected override async init(): Promise<void> {
@@ -190,6 +202,8 @@ describe('AngularContext', () => {
         await expect(ctx.run(noop)).rejects.toThrow('mess up init');
       }
 
+      it('is OK when throwing an error during cleanup (1)', runCleanupTest);
+      it('is OK when throwing an error during cleanup (2)', runCleanupTest);
       async function runCleanupTest(): Promise<void> {
         class NonCleanup extends AngularContext {
           protected override async cleanUp(): Promise<void> {
@@ -199,12 +213,6 @@ describe('AngularContext', () => {
         const ctx = new NonCleanup();
         await expect(ctx.run(noop)).rejects.toThrow('mess up cleanup');
       }
-
-      it('is OK when throwing an error during init', runInitTest);
-      it('is OK when throwing an error during init', runInitTest);
-
-      it('is OK when throwing an error during cleanup', runCleanupTest);
-      it('is OK when throwing an error during cleanup', runCleanupTest);
     });
   });
 

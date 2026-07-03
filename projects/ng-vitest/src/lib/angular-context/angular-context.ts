@@ -18,6 +18,8 @@ import { MockErrorHandler } from '@s-libs/ng-dev';
 import { onTestFinished } from 'vitest';
 import { FakeTimerHarnessEnvironment } from './fake-timer-harness-environment';
 
+export const stubbableCleanerUpper = { onTestFinished };
+
 // overrides later it the list will take precedence
 export function extendMetadata(
   ...allMetadata: TestModuleMetadata[]
@@ -105,7 +107,7 @@ export class AngularContext {
   constructor(moduleMetadata: TestModuleMetadata = {}) {
     assert(
       !AngularContext.#current,
-      'There is already another AngularContext in use (or it was not cleaned up)',
+      'There is already another AngularContext in use',
     );
     AngularContext.#current = this;
     TestBed.configureTestingModule(
@@ -123,6 +125,7 @@ export class AngularContext {
         { providers: [provideHttpClientTesting()] },
       ),
     );
+    this.#scheduleExtraCleanup();
   }
 
   /**
@@ -143,15 +146,6 @@ export class AngularContext {
    * 4. `this.cleanUp()`
    */
   async run(test: () => Promise<void> | void): Promise<void> {
-    onTestFinished(() => {
-      if (this.#isRunning) {
-        this.#finalCleanup();
-        throw new Error(
-          'The test finished prematurely. Did you `await` the call to `run()`?',
-        );
-      }
-    });
-
     this.#isRunning = true;
     vi.useFakeTimers();
     vi.setSystemTime(this.startTime);
@@ -261,6 +255,22 @@ export class AngularContext {
    */
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected async cleanUp(): Promise<void> {}
+
+  #scheduleExtraCleanup(): void {
+    stubbableCleanerUpper.onTestFinished(() => {
+      let failure: string | undefined;
+      if (this.#isRunning) {
+        failure =
+          'The test finished prematurely. Did you `await` the result of `run()`?';
+      } else if (AngularContext.#current) {
+        failure = 'The test finished prematurely. Did you call `run()`?';
+      }
+      this.#finalCleanup();
+      if (failure) {
+        throw new Error(failure);
+      }
+    });
+  }
 
   #finalCleanup(): void {
     vi.useRealTimers();
