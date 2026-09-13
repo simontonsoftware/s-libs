@@ -3,40 +3,214 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "app-state - build",
       "type": "npm",
-      "script": "start",
-      "isBackground": true,
-      "problemMatcher": {
-        "owner": "typescript",
-        "pattern": "$tsc",
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": {
-            "regexp": "Changes detected"
-          },
-          "endsPattern": {
-            "regexp": "bundle generation (complete|failed)"
-          }
-        }
-      }
+      "script": "build -- app-state",
+      "problemMatcher": []
     },
     {
+      "label": "app-state - test server",
       "type": "npm",
-      "script": "test",
-      "isBackground": true,
-      "problemMatcher": {
-        "owner": "typescript",
-        "pattern": "$tsc",
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": {
-            "regexp": "Changes detected"
-          },
-          "endsPattern": {
-            "regexp": "bundle generation (complete|failed)"
-          }
-        }
-      }
+      "script": "test -- app-state",
+      "problemMatcher": []
+    },
+    {
+      "label": "build-libs",
+      "type": "npm",
+      "script": "build-libs",
+      "problemMatcher": []
+    },
+    {
+      "label": "docs",
+      "type": "npm",
+      "script": "docs",
+      "problemMatcher": []
+    },
+    {
+      "label": "git-publish",
+      "type": "npm",
+      "script": "git-publish",
+      "problemMatcher": []
+    },
+    {
+      "label": "git-publish prerelease",
+      "type": "npm",
+      "script": "git-publish -- --prerelease next",
+      "problemMatcher": []
+    },
+    {
+      "label": "integration - start",
+      "type": "npm",
+      "script": "start -- integration",
+      "problemMatcher": []
+    },
+    {
+      "label": "integration - test server",
+      "type": "npm",
+      "script": "test -- integration",
+      "problemMatcher": []
+    },
+    {
+      "label": "js-core - build",
+      "type": "npm",
+      "script": "build -- js-core",
+      "problemMatcher": []
+    },
+    {
+      "label": "js-core - dtslint",
+      "type": "npm",
+      "script": "dtslint -- projects/js-core/src/typing-tests",
+      "problemMatcher": []
+    },
+    {
+      "label": "js-core - test server",
+      "type": "npm",
+      "script": "test -- js-core",
+      "problemMatcher": []
+    },
+    {
+      "label": "micro-dash sizes",
+      "type": "npm",
+      "script": "calc-micro-dash-sizes",
+      "problemMatcher": []
+    },
+    {
+      "label": "micro-dash - build",
+      "type": "npm",
+      "script": "build -- micro-dash",
+      "problemMatcher": []
+    },
+    {
+      "label": "micro-dash - dtslint",
+      "type": "npm",
+      "script": "dtslint -- projects/micro-dash/src/typing-tests",
+      "problemMatcher": []
+    },
+    {
+      "label": "micro-dash - test server",
+      "type": "npm",
+      "script": "test -- micro-dash",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-app-state - build",
+      "type": "npm",
+      "script": "build -- ng-app-state",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-app-state - test server",
+      "type": "npm",
+      "script": "test -- ng-app-state",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-core - build",
+      "type": "npm",
+      "script": "build -- ng-core",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-core - dtslint",
+      "type": "npm",
+      "script": "dtslint -- projects/ng-core/src/typing-tests",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-core - test server",
+      "type": "npm",
+      "script": "test -- ng-core",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-dev - build",
+      "type": "npm",
+      "script": "build -- ng-dev",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-dev - test server",
+      "type": "npm",
+      "script": "test -- ng-dev",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-jasmine - build",
+      "type": "npm",
+      "script": "build -- ng-jasmine",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-jasmine - test server",
+      "type": "npm",
+      "script": "test -- ng-jasmine",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-mat-core - build",
+      "type": "npm",
+      "script": "build -- ng-mat-core",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-mat-core - test server",
+      "type": "npm",
+      "script": "test -- ng-mat-core",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-vitest - build",
+      "type": "npm",
+      "script": "build -- ng-vitest",
+      "problemMatcher": []
+    },
+    {
+      "label": "ng-vitest - test server",
+      "type": "npm",
+      "script": "test -- ng-vitest",
+      "problemMatcher": []
+    },
+    {
+      "label": "npm-publish",
+      "type": "npm",
+      "script": "npm-publish",
+      "problemMatcher": []
+    },
+    {
+      "label": "npm-publish prerelease",
+      "type": "npm",
+      "script": "npm-publish -- --tag next",
+      "problemMatcher": []
+    },
+    {
+      "label": "rxjs-core - build",
+      "type": "npm",
+      "script": "build -- rxjs-core",
+      "problemMatcher": []
+    },
+    {
+      "label": "rxjs-core - dtslint",
+      "type": "npm",
+      "script": "dtslint -- projects/rxjs-core/src/typing-tests",
+      "problemMatcher": []
+    },
+    {
+      "label": "rxjs-core - test server",
+      "type": "npm",
+      "script": "test -- rxjs-core",
+      "problemMatcher": []
+    },
+    {
+      "label": "signal-store - build",
+      "type": "npm",
+      "script": "build -- signal-store",
+      "problemMatcher": []
+    },
+    {
+      "label": "signal-store - test server",
+      "type": "npm",
+      "script": "test -- signal-store",
+      "problemMatcher": []
     }
   ]
 }
