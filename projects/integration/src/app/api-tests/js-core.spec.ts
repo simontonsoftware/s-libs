@@ -1,5 +1,6 @@
 import {
   assert,
+  AsyncPersistence,
   Constructor,
   convertTime,
   createBuilder,
@@ -41,6 +42,10 @@ import { staticTest } from '@s-libs/ng-jasmine';
 import { expectTypeOf } from 'expect-type';
 
 describe('js-core', () => {
+  it('has AsyncPersistence', () => {
+    expect(AsyncPersistence).toBeDefined();
+  });
+
   it('has Constructor', () => {
     const constructor: Constructor<Date> = Date;
     expect(constructor).toBeDefined();

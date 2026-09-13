@@ -1,3 +1,4 @@
+export { AsyncPersistence } from './async-persistence';
 export {
   MigrationManager,
   type MigrateFunction,
