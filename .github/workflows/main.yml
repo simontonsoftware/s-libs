@@ -16,7 +16,7 @@ jobs:
       - uses: ./.github/actions/build
 
       - run: npm run lint -- --quiet
-      - run: npm run prettier-lint
+      - run: npm run format-check
 
       # build this to make sure no template compile errors crop up that the tests didn't catch
       - run: npm run build -- integration
