@@ -1,4 +1,4 @@
-import { staticTest } from '@s-libs/ng-jasmine';
+import { staticTest } from '@s-libs/ng-vitest';
 import { expectTypeOf } from 'expect-type';
 import { Constructor } from './constructor';
 
@@ -15,7 +15,9 @@ describe('Constructor', () => {
       class DateSomething extends mixInSomething(Date) {}
 
       expectTypeOf<DateSomething>().toExtend<Date>();
-      expectTypeOf<DateSomething>().toExtend<{ something: boolean }>();
+      expectTypeOf<DateSomething>().toExtend<{
+        something: boolean;
+      }>();
     });
   });
 });

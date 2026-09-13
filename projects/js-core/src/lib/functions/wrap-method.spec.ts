@@ -1,13 +1,13 @@
-import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-jasmine';
+import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-vitest';
 import { expectTypeOf } from 'expect-type';
 import { wrapMethod } from './wrap-method';
 
 describe('wrapMethod()', () => {
   it('replaces the method with a wrapped function', () => {
     const toReturn = Symbol('toReturn');
-    const method = jasmine.createSpy().and.returnValue(toReturn);
+    const method = vi.fn().mockReturnValue(toReturn);
     const object = { method };
-    const before = jasmine.createSpy<() => void>();
+    const before = vi.fn();
     const arg1 = Symbol('arg1');
     const arg2 = Symbol('arg2');
 
@@ -15,15 +15,15 @@ describe('wrapMethod()', () => {
     const returned = object.method(arg1, arg2);
 
     expect(returned).toBe(toReturn);
-    expect(before.calls.first().object).toBe(object);
+    expect(vi.mocked(before).mock.contexts[0]).toBe(object);
     expectSingleCallAndReset(before, arg1, arg2);
-    expect(method.calls.first().object).toBe(object);
+    expect(vi.mocked(method).mock.contexts[0]).toBe(object);
     expectSingleCallAndReset(method, arg1, arg2);
   });
 
   it('returns a function to reset', () => {
-    const method = jasmine.createSpy();
-    const before = jasmine.createSpy<() => void>();
+    const method = vi.fn();
+    const before = vi.fn();
     const object = { method };
     const unwrap = wrapMethod(object, 'method', { before });
 
@@ -38,8 +38,8 @@ describe('wrapMethod()', () => {
   });
 
   it('works for the HttpClient example in the docs', () => {
-    const httpGet = jasmine.createSpy();
-    const consoleLog = spyOn(console, 'log');
+    const httpGet = vi.fn();
+    const consoleLog = vi.spyOn(console, 'log').mockReturnValue(undefined);
     class HttpClient {
       get(url: string): void {
         httpGet(url);
@@ -62,7 +62,7 @@ describe('wrapMethod()', () => {
   });
 
   it('works for the console.error example in the docs', () => {
-    const consoleError = spyOn(console, 'error');
+    const consoleError = vi.spyOn(console, 'error').mockReturnValue(undefined);
     const unwrap = wrapMethod(console, 'error', {
       around(original, ...args): void {
         if (args[0].message !== 'something benign') {

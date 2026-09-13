@@ -1,4 +1,4 @@
-import { staticTest } from '@s-libs/ng-jasmine';
+import { staticTest } from '@s-libs/ng-vitest';
 import { expectTypeOf } from 'expect-type';
 import { getCombinations } from './get-combinations';
 

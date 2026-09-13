@@ -1,4 +1,4 @@
-import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
+import { expectSingleCallAndReset } from '@s-libs/ng-vitest';
 import { MagicalMap } from './magical-map';
 
 describe('MagicalMap', () => {
@@ -23,7 +23,7 @@ describe('MagicalMap', () => {
     });
 
     it('passes `key` to the creation hook', () => {
-      const create = jasmine.createSpy();
+      const create = vi.fn();
       const map = new MagicalMap<number, number>(create);
 
       map.get(12);
@@ -32,7 +32,7 @@ describe('MagicalMap', () => {
     });
 
     it('does not call creation hook for a value that already exsits', () => {
-      const create = jasmine.createSpy();
+      const create = vi.fn();
       const map = new MagicalMap<number, number>(create);
 
       map.set(12, 5);

@@ -1,6 +1,7 @@
 import { noop } from '@s-libs/micro-dash';
-import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-jasmine';
+import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-vitest';
 import { expectTypeOf } from 'expect-type';
+import type { Mock } from 'vitest';
 import { wrapFunction } from './wrap-function';
 
 describe('wrapFunction()', () => {
@@ -13,16 +14,16 @@ describe('wrapFunction()', () => {
   const aroundArg = Symbol('aroundArg');
   const aroundReturn = Symbol('aroundReturn');
 
-  let original: jasmine.Spy;
-  let around: jasmine.Spy;
-  let before: jasmine.Spy<(...args: any[]) => void>;
-  let transform: jasmine.Spy;
-  let after: jasmine.Spy<(...args: any[]) => void>;
+  let original: Mock;
+  let around: Mock;
+  let before: Mock;
+  let transform: Mock;
+  let after: Mock;
 
   beforeEach(() => {
-    original = jasmine.createSpy().and.returnValue(toReturn);
-    before = jasmine.createSpy();
-    around = jasmine.createSpy().and.callFake(
+    original = vi.fn().mockReturnValue(toReturn);
+    before = vi.fn();
+    around = vi.fn().mockImplementation(
       (
         // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         orig: Function,
@@ -32,42 +33,42 @@ describe('wrapFunction()', () => {
         aroundReturn,
       ],
     );
-    transform = jasmine.createSpy().and.returnValue(transformed);
-    after = jasmine.createSpy();
+    transform = vi.fn().mockReturnValue(transformed);
+    after = vi.fn();
   });
 
   function expectProperCallToOriginal(): void {
-    expect(original.calls.first().object).toBe(context);
+    expect(vi.mocked(original).mock.contexts[0]).toBe(context);
     expectSingleCallAndReset(original, arg1, arg2);
   }
 
   function expectProperCallToBefore(): void {
-    expect(before.calls.first().object).toBe(context);
+    expect(vi.mocked(before).mock.contexts[0]).toBe(context);
     expectSingleCallAndReset(before, arg1, arg2);
   }
 
   function expectProperCallToTransform(): void {
-    expect(transform.calls.first().object).toBe(context);
+    expect(vi.mocked(transform).mock.contexts[0]).toBe(context);
     expectSingleCallAndReset(transform, toReturn, arg1, arg2);
   }
 
   function expectProperCallToAfter(result: symbol): void {
-    expect(after.calls.first().object).toBe(context);
+    expect(vi.mocked(after).mock.contexts[0]).toBe(context);
     expectSingleCallAndReset(after, result, arg1, arg2);
   }
 
   function expectProperCallToAround(): void {
-    expect(around.calls.first().object).toBe(context);
+    expect(vi.mocked(around).mock.contexts[0]).toBe(context);
     expectSingleCallAndReset(around, original, arg1, arg2);
   }
 
   function expectAroundedCallToOriginal(): void {
-    expect(original.calls.first().object).toBe(aroundContext);
+    expect(vi.mocked(original).mock.contexts[0]).toBe(aroundContext);
     expectSingleCallAndReset(original, aroundArg, arg1, arg2);
   }
 
   function expectAroundedCallToTransform(): void {
-    expect(transform.calls.first().object).toBe(context);
+    expect(vi.mocked(transform).mock.contexts[0]).toBe(context);
     expectSingleCallAndReset(transform, [toReturn, aroundReturn], arg1, arg2);
   }
 
@@ -77,7 +78,9 @@ describe('wrapFunction()', () => {
     const returned = wrapped.call(context, arg1, arg2);
 
     expect(returned).toBe(toReturn);
-    expect(before).toHaveBeenCalledBefore(original);
+    expect(
+      Math.min(...vi.mocked(before).mock.invocationCallOrder),
+    ).toBeLessThan(Math.min(...vi.mocked(original).mock.invocationCallOrder));
     expectProperCallToOriginal();
     expectProperCallToBefore();
   });
@@ -98,7 +101,9 @@ describe('wrapFunction()', () => {
     const returned = wrapped.call(context, arg1, arg2);
 
     expect(returned).toBe(transformed);
-    expect(original).toHaveBeenCalledBefore(transform);
+    expect(
+      Math.min(...vi.mocked(original).mock.invocationCallOrder),
+    ).toBeLessThan(Math.min(...vi.mocked(transform).mock.invocationCallOrder));
     expectProperCallToOriginal();
     expectProperCallToTransform();
   });
@@ -109,7 +114,9 @@ describe('wrapFunction()', () => {
     const returned = wrapped.call(context, arg1, arg2);
 
     expect(returned).toBe(toReturn);
-    expect(original).toHaveBeenCalledBefore(after);
+    expect(
+      Math.min(...vi.mocked(original).mock.invocationCallOrder),
+    ).toBeLessThan(Math.min(...vi.mocked(after).mock.invocationCallOrder));
     expectProperCallToOriginal();
     expectProperCallToAfter(toReturn);
   });
@@ -134,9 +141,15 @@ describe('wrapFunction()', () => {
     const returned = wrapped.call(context, arg1, arg2);
 
     expect(returned).toBe(transformed);
-    expect(before).toHaveBeenCalledBefore(original);
-    expect(original).toHaveBeenCalledBefore(transform);
-    expect(transform).toHaveBeenCalledBefore(after);
+    expect(
+      Math.min(...vi.mocked(before).mock.invocationCallOrder),
+    ).toBeLessThan(Math.min(...vi.mocked(original).mock.invocationCallOrder));
+    expect(
+      Math.min(...vi.mocked(original).mock.invocationCallOrder),
+    ).toBeLessThan(Math.min(...vi.mocked(transform).mock.invocationCallOrder));
+    expect(
+      Math.min(...vi.mocked(transform).mock.invocationCallOrder),
+    ).toBeLessThan(Math.min(...vi.mocked(after).mock.invocationCallOrder));
     expectAroundedCallToOriginal();
     expectProperCallToBefore();
     expectProperCallToAround();

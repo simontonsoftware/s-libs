@@ -1,24 +1,31 @@
+import { staticTest } from '@s-libs/ng-vitest';
 import { PublicInterface } from './public-interface';
 
 describe('PublicInterface', () => {
   it('allows implementing a class without duplicating private stuff', () => {
-    class Service {
-      protected semiSecretState = 1;
-      private secretState = 2;
-      doStuff(): void {
-        console.log(this.secretState, this.semiSecretState);
-      }
-    }
+    staticTest(() => {
+      class Service {
+        protected semiSecretState = 1;
+        private secretState = 2;
+        #incrediblySecretState = 3;
 
-    class MockService implements PublicInterface<Service> {
-      doStuffWasCalled = false;
-      doStuff(): void {
-        this.doStuffWasCalled = true;
+        doStuff(): void {
+          console.log(
+            this.secretState,
+            this.semiSecretState,
+            this.#incrediblySecretState,
+          );
+        }
       }
-    }
 
-    // convince everybody that this test does something
-    new MockService().doStuff();
-    expect().nothing();
+      class MockService implements PublicInterface<Service> {
+        doStuffWasCalled = false;
+        doStuff(): void {
+          this.doStuffWasCalled = true;
+        }
+      }
+
+      new MockService().doStuff();
+    });
   });
 });

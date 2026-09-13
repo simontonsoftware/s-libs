@@ -8,12 +8,6 @@
   },
   "newProjectRoot": "projects",
   "schematics": {
-    "@schematics/angular:application": {
-      "testRunner": "karma"
-    },
-    "@schematics/angular:library": {
-      "testRunner": "karma"
-    },
     "angular-eslint:application": {
       "setParserOptionsProject": true
     },
@@ -158,10 +152,11 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "projects/js-core/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "browsers": ["chromium"],
+            "runnerConfig": true
           }
         },
         "lint": {

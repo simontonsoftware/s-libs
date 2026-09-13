@@ -1,4 +1,4 @@
-import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
+import { expectSingleCallAndReset, MockController } from '@s-libs/ng-vitest';
 import { MigrationManager, VersionedObject } from './migration-manager';
 import { Persistence } from './persistence';
 
@@ -35,7 +35,7 @@ describe('MigrationManager', () => {
       constructor(public _version: number) {}
     }
     class MessagingService {
-      show = jasmine.createSpy();
+      show = vi.fn();
     }
 
     /* eslint-disable @typescript-eslint/no-misused-spread */
@@ -158,11 +158,14 @@ describe('MigrationManager', () => {
       class State {
         constructor(public _version: number) {}
       }
-      const migration = jasmine.createSpy().and.returnValue(new State(2));
+      const migration = vi.fn().mockReturnValue(new State(2));
+      const controller = new MockController(migration);
+
       const migrater = new MigrationManager<State>();
       migrater.registerMigration(1, migration);
       migrater.upgrade(new State(1), 2);
-      expect(migration.calls.first().object).toBe(migrater);
+
+      expect(controller.expectOne(() => true).getContext()).toBe(migrater);
     });
   });
 
@@ -222,7 +225,7 @@ describe('MigrationManager', () => {
 
     it('receives the correct arguments', () => {
       const originalState = persistence.get();
-      const onError = jasmine.createSpy();
+      const onError = vi.fn();
       const migrater = new (class extends MigrationManager<MyData> {
         protected override onError = onError;
       })();

@@ -1,4 +1,4 @@
-import { expectCallsAndReset } from '@s-libs/ng-jasmine';
+import { expectCallsAndReset, staticTest } from '@s-libs/ng-vitest';
 import { expectTypeOf } from 'expect-type';
 import { EmptyObject } from '../interfaces';
 import { mapAsKeys } from './map-as-keys';
@@ -29,7 +29,7 @@ describe('mapAsKeys()', () => {
   });
 
   it('provides the right iteratee arguments', () => {
-    const spy = jasmine.createSpy();
+    const spy = vi.fn();
 
     mapAsKeys([1, 2], spy);
     expectCallsAndReset(spy, [1, 0], [2, 1]);
@@ -39,59 +39,75 @@ describe('mapAsKeys()', () => {
   });
 
   it('has fancy typing', () => {
-    expect().nothing();
+    staticTest(() => {
+      type A = number[];
+      type AorU = A | undefined;
+      type AorN = A | null;
+      const a = [] as A;
+      const aOrU = a as AorU;
+      const aOrN = a as AorN;
+      expectTypeOf(mapAsKeys(a, () => 'a')).toEqualTypeOf<
+        Record<number, string>
+      >();
+      expectTypeOf(mapAsKeys(aOrN, () => 'a')).toEqualTypeOf<
+        EmptyObject | Record<number, string>
+      >();
+      expectTypeOf(mapAsKeys(aOrU, () => 'a')).toEqualTypeOf<
+        EmptyObject | Record<number, string>
+      >();
 
-    type A = number[];
-    type AorU = A | undefined;
-    type AorN = A | null;
-    const a = [] as A;
-    const aOrU = a as AorU;
-    const aOrN = a as AorN;
-    expectTypeOf(mapAsKeys(a, () => 'a')).toEqualTypeOf<
-      Record<number, string>
-    >();
-    expectTypeOf(mapAsKeys(aOrN, () => 'a')).toEqualTypeOf<
-      EmptyObject | Record<number, string>
-    >();
-    expectTypeOf(mapAsKeys(aOrU, () => 'a')).toEqualTypeOf<
-      EmptyObject | Record<number, string>
-    >();
+      type B = Array<'a' | 2>;
+      type BorU = B | undefined;
+      type BorN = B | null;
+      const b = [] as B;
+      const bOrU = b as BorU;
+      const bOrN = b as BorN;
+      expectTypeOf(mapAsKeys(b, () => 'a')).toEqualTypeOf<{
+        a: string;
+        2: string;
+      }>();
+      expectTypeOf(mapAsKeys(bOrN, () => 0)).toEqualTypeOf<
+        | EmptyObject
+        | {
+            a: number;
+            2: number;
+          }
+      >();
+      expectTypeOf(mapAsKeys(bOrU, (): 2 => 2)).toEqualTypeOf<
+        | EmptyObject
+        | {
+            a: 2;
+            2: 2;
+          }
+      >();
 
-    type B = Array<'a' | 2>;
-    type BorU = B | undefined;
-    type BorN = B | null;
-    const b = [] as B;
-    const bOrU = b as BorU;
-    const bOrN = b as BorN;
-    expectTypeOf(mapAsKeys(b, () => 'a')).toEqualTypeOf<{
-      a: string;
-      2: string;
-    }>();
-    expectTypeOf(mapAsKeys(bOrN, () => 0)).toEqualTypeOf<
-      EmptyObject | { a: number; 2: number }
-    >();
-    expectTypeOf(mapAsKeys(bOrU, (): 2 => 2)).toEqualTypeOf<
-      EmptyObject | { a: 2; 2: 2 }
-    >();
-
-    interface O {
-      a: string;
-      b: number;
-    }
-    type OorU = O | undefined;
-    type OorN = O | null;
-    const o = {} as O;
-    const oOrU = o as OorU;
-    const oOrN = o as OorN;
-    expectTypeOf(mapAsKeys(o, () => true)).toEqualTypeOf<{
-      [x: string]: boolean;
-      [x: number]: boolean;
-    }>();
-    expectTypeOf(mapAsKeys(oOrU, () => true)).toEqualTypeOf<
-      EmptyObject | { [x: string]: boolean; [x: number]: boolean }
-    >();
-    expectTypeOf(mapAsKeys(oOrN, () => true)).toEqualTypeOf<
-      EmptyObject | { [x: string]: boolean; [x: number]: boolean }
-    >();
+      interface O {
+        a: string;
+        b: number;
+      }
+      type OorU = O | undefined;
+      type OorN = O | null;
+      const o = {} as O;
+      const oOrU = o as OorU;
+      const oOrN = o as OorN;
+      expectTypeOf(mapAsKeys(o, () => true)).toEqualTypeOf<{
+        [x: string]: boolean;
+        [x: number]: boolean;
+      }>();
+      expectTypeOf(mapAsKeys(oOrU, () => true)).toEqualTypeOf<
+        | EmptyObject
+        | {
+            [x: string]: boolean;
+            [x: number]: boolean;
+          }
+      >();
+      expectTypeOf(mapAsKeys(oOrN, () => true)).toEqualTypeOf<
+        | EmptyObject
+        | {
+            [x: string]: boolean;
+            [x: number]: boolean;
+          }
+      >();
+    });
   });
 });

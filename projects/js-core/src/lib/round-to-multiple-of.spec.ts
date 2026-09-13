@@ -22,13 +22,13 @@ describe('roundToMultiple()', () => {
   });
 
   it('works with negative values', () => {
-    expect(roundToMultipleOf(2, -0)).toBe(0);
-    expect(roundToMultipleOf(2, -1)).toBe(0);
+    expect(roundToMultipleOf(2, -0)).toBe(-0);
+    expect(roundToMultipleOf(2, -1)).toBe(-0);
     expect(roundToMultipleOf(2, -2)).toBe(-2);
     expect(roundToMultipleOf(2, -3)).toBe(-2);
     expect(roundToMultipleOf(2, -4)).toBe(-4);
 
-    expect(roundToMultipleOf(3, -1)).toBe(0);
+    expect(roundToMultipleOf(3, -1)).toBe(-0);
     expect(roundToMultipleOf(3, -2)).toBe(-3);
     expect(roundToMultipleOf(3, -3)).toBe(-3);
     expect(roundToMultipleOf(3, -4)).toBe(-3);

@@ -1,4 +1,4 @@
-import { expectCallsAndReset, staticTest } from '@s-libs/ng-jasmine';
+import { expectCallsAndReset, staticTest } from '@s-libs/ng-vitest';
 import { expectTypeOf } from 'expect-type';
 import { mapToObject } from './map-to-object';
 
@@ -27,7 +27,7 @@ describe('mapToObject()', () => {
   });
 
   it('provides the right iteratee arguments', () => {
-    const spy = jasmine.createSpy().and.returnValue(['a', 1]);
+    const spy = vi.fn().mockReturnValue(['a', 1]);
 
     mapToObject([1, 2], spy);
     expectCallsAndReset(spy, [1, 0], [2, 1]);

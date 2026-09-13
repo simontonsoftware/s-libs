@@ -1,63 +1,67 @@
-import { fakeAsync, tick } from '@angular/core/testing';
-import { expectSingleCallAndReset } from '@s-libs/ng-jasmine';
+import { expectSingleCallAndReset } from '@s-libs/ng-vitest';
+import type { Mock } from 'vitest';
 import { isDefined } from '../predicates';
 import { Debouncer } from './debouncer';
 
 describe('Debouncer', () => {
   let debouncer: Debouncer;
-  let spy: jasmine.Spy;
-
+  let spy: Mock;
   beforeEach(() => {
     debouncer = new Debouncer();
-    spy = jasmine.createSpy();
+    spy = vi.fn();
+
+    vi.useFakeTimers();
   });
 
-  it('defaults `wait` to 0', fakeAsync(() => {
+  it('defaults `wait` to 0', () => {
     debouncer.run(spy);
     expect(spy).not.toHaveBeenCalled();
 
-    tick(0);
+    vi.advanceTimersByTime(0);
     expectSingleCallAndReset(spy);
-  }));
+  });
 
-  it('can set a different timeout on each run', fakeAsync(() => {
+  it('can set a different timeout on each run', () => {
     debouncer.run(spy, 1000, 1);
-    tick(500);
+    vi.advanceTimersByTime(500);
+
     debouncer.run(spy, 0, 2);
     debouncer.run(spy, 1000, 3);
-    tick(500);
+    vi.advanceTimersByTime(500);
+
     debouncer.run(spy, 2000, 4);
     debouncer.run(spy, 50, 5);
-    tick(50);
-    expectSingleCallAndReset(spy, 5);
-  }));
+    vi.advanceTimersByTime(50);
 
-  it('can use a different function on each run', fakeAsync(() => {
-    const spy2 = jasmine.createSpy();
+    expectSingleCallAndReset(spy, 5);
+  });
+
+  it('can use a different function on each run', () => {
+    const spy2 = vi.fn();
 
     debouncer.run(spy, 10);
     debouncer.run(spy2, 10);
-    tick(10);
+    vi.advanceTimersByTime(10);
     expect(spy).not.toHaveBeenCalled();
     expectSingleCallAndReset(spy2);
 
     debouncer.run(spy);
-    tick(0);
+    vi.advanceTimersByTime(0);
     expectSingleCallAndReset(spy);
     expect(spy2).not.toHaveBeenCalled();
-  }));
+  });
 
   //
   // stolen from https://github.com/lodash/lodash
   //
 
-  it('should debounce a function', fakeAsync(() => {
+  it('should debounce a function', () => {
     debouncer.run(spy, 32);
     debouncer.run(spy, 32);
     debouncer.run(spy, 32);
     expect(spy).not.toHaveBeenCalled();
 
-    tick(128);
+    vi.advanceTimersByTime(128);
     expectSingleCallAndReset(spy);
 
     debouncer.run(spy, 32);
@@ -65,27 +69,27 @@ describe('Debouncer', () => {
     debouncer.run(spy, 32);
     expect(spy).not.toHaveBeenCalled();
 
-    tick(256);
+    vi.advanceTimersByTime(256);
     expectSingleCallAndReset(spy);
-  }));
+  });
 
-  it('should not immediately call `func` when `wait` is `0`', fakeAsync(() => {
+  it('should not immediately call `func` when `wait` is `0`', () => {
     debouncer.run(spy, 0);
     debouncer.run(spy, 0);
     expect(spy).not.toHaveBeenCalled();
 
-    tick(5);
+    vi.advanceTimersByTime(5);
     expectSingleCallAndReset(spy);
-  }));
+  });
 
-  it('should invoke the call with the correct arguments', fakeAsync(() => {
+  it('should invoke the call with the correct arguments', () => {
     debouncer.run(spy, 32, 'a');
     debouncer.run(spy, 32, 'b', 3);
-    tick(64);
+    vi.advanceTimersByTime(64);
     expectSingleCallAndReset(spy, 'b', 3);
-  }));
+  });
 
-  it('supports recursive calls', fakeAsync(() => {
+  it('supports recursive calls', () => {
     const queue = ['b', 'c'];
     const processed: string[] = [];
     function func(item: string): void {
@@ -99,21 +103,20 @@ describe('Debouncer', () => {
 
     debouncer.run(func, 32, 'a');
 
-    tick(256);
+    vi.advanceTimersByTime(256);
     expect(processed).toEqual(['a', 'b', 'c']);
-  }));
+  });
 
-  it('should support cancelling delayed calls', fakeAsync(() => {
+  it('should support cancelling delayed calls', () => {
     debouncer.run(spy, 32);
     debouncer.cancel();
 
-    tick(64);
+    vi.advanceTimersByTime(64);
     expect(spy).not.toHaveBeenCalled();
-  }));
+  });
 
-  it('should noop `cancel` when nothing is queued', fakeAsync(() => {
+  it('should noop `cancel` when nothing is queued', () => {
     debouncer.cancel();
-    tick(64);
-    expect().nothing();
-  }));
+    vi.advanceTimersByTime(64);
+  });
 });

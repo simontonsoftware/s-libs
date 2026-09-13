@@ -69,8 +69,14 @@ describe('createBuilder()', () => {
 
     it('accepts partials for both parameters', () => {
       const build = createBuilder<
-        { a: number; b: number },
-        { o1: boolean; o2: boolean }
+        {
+          a: number;
+          b: number;
+        },
+        {
+          o1: boolean;
+          o2: boolean;
+        }
       >(() => ({ a: 1, b: 2 }));
 
       expect(() => build({}, {})).not.toThrow();

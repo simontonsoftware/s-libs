@@ -24,18 +24,18 @@ describe('Persistence', () => {
 
   // this can happen in android webviews, where it's up to the embedding app to call `.setDomStorageEnabled()`
   it('gracefully handles when localStorage is null', () => {
-    spyOnProperty(window as any, 'localStorage').and.returnValue(null);
+    vi.stubGlobal('localStorage', null);
     const persistence = new Persistence('my key');
 
     expect(() => {
       persistence.put('ignored');
-    }).not.toThrowError();
+    }).not.toThrow();
 
     expect(persistence.get()).toBeUndefined();
 
     expect(() => {
       persistence.clear();
-    }).not.toThrowError();
+    }).not.toThrow();
   });
 
   describe('.put() & .get()', () => {
@@ -63,7 +63,11 @@ describe('Persistence', () => {
     it('can work with the data from custom classes', () => {
       class Custom {
         a = 1;
-        constructor(public b: { c: string }) {}
+        constructor(
+          public b: {
+            c: string;
+          },
+        ) {}
       }
       const value = new Custom({ c: 'hi' });
       const persistence = new Persistence<typeof value>(key);

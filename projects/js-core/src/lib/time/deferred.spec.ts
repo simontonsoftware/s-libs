@@ -1,4 +1,4 @@
-import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-jasmine';
+import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-vitest';
 import { Deferred } from './deferred';
 
 /* eslint-disable @typescript-eslint/no-floating-promises */
@@ -29,7 +29,7 @@ describe('Deferred', () => {
       deferred.reject('some error');
       try {
         await deferred.promise;
-        fail('should not reach here');
+        throw new Error('should not reach here');
       } catch (ex) {
         expect(ex).toBe('some error');
       }
@@ -37,14 +37,14 @@ describe('Deferred', () => {
 
     it('runs error callback on the micro queue', async () => {
       const deferred = new Deferred<boolean>();
-      const spy = jasmine.createSpy<(e: unknown) => void>();
+      const spy = vi.fn();
       deferred.promise.catch(spy);
 
       deferred.reject();
       expect(spy).not.toHaveBeenCalled();
       try {
         await deferred.promise;
-        fail('should not reach here');
+        throw new Error('should not reach here');
       } catch {
         expectSingleCallAndReset(spy, undefined);
       }
@@ -72,7 +72,7 @@ describe('Deferred', () => {
 
       try {
         await deferred.promise;
-        fail('should not reach here');
+        throw new Error('should not reach here');
       } catch {
         expect(deferred.isPending()).toBe(false);
       }

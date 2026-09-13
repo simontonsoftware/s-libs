@@ -1,3 +1,4 @@
+import { staticTest } from '@s-libs/ng-vitest';
 import { expectTypeOf } from 'expect-type';
 import { getArguments } from '../../test-helpers/test-utils';
 import { assert } from '../assert';
@@ -28,22 +29,22 @@ describe('isDefined()', () => {
   });
 
   it('has fancy typing', () => {
-    expect().nothing();
+    staticTest(() => {
+      const alwaysDefined = 'a';
+      const sometimesDefined = 'a' as string | undefined;
+      const neverDefined = 'a' as unknown as undefined;
 
-    const alwaysDefined = 'a';
-    const sometimesDefined = 'a' as string | undefined;
-    const neverDefined = 'a' as unknown as undefined;
+      expectTypeOf(isDefined(alwaysDefined)).toEqualTypeOf<boolean>();
+      expectTypeOf(isDefined(sometimesDefined)).toEqualTypeOf<boolean>();
+      expectTypeOf(isDefined(neverDefined)).toEqualTypeOf<boolean>();
 
-    expectTypeOf(isDefined(alwaysDefined)).toEqualTypeOf<boolean>();
-    expectTypeOf(isDefined(sometimesDefined)).toEqualTypeOf<boolean>();
-    expectTypeOf(isDefined(neverDefined)).toEqualTypeOf<boolean>();
+      assert(isDefined(alwaysDefined));
+      assert(isDefined(sometimesDefined));
+      assert(isDefined(neverDefined));
 
-    assert(isDefined(alwaysDefined));
-    assert(isDefined(sometimesDefined));
-    assert(isDefined(neverDefined));
-
-    expectTypeOf(alwaysDefined).toEqualTypeOf<string>();
-    expectTypeOf(sometimesDefined).toEqualTypeOf<string>();
-    expectTypeOf(neverDefined).toEqualTypeOf<never>();
+      expectTypeOf(alwaysDefined).toEqualTypeOf<string>();
+      expectTypeOf(sometimesDefined).toEqualTypeOf<string>();
+      expectTypeOf(neverDefined).toEqualTypeOf<never>();
+    });
   });
 });

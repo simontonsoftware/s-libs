@@ -1,4 +1,5 @@
 import { identity, isString } from '@s-libs/micro-dash';
+import { staticTest } from '@s-libs/ng-vitest';
 import { expectTypeOf } from 'expect-type';
 import { getArguments } from '../test-helpers/test-utils';
 import { assert } from './assert';
@@ -66,28 +67,28 @@ describe('assert()', () => {
   it('uses the provided message', () => {
     expect(() => {
       assert(false, 'my message');
-    }).toThrowError('my message');
+    }).toThrow('my message');
     expect(() => {
       assert(true, 'my message');
-    }).not.toThrowError();
+    }).not.toThrow();
   });
 
   it('does not require a message', () => {
     expect(() => {
       assert(false);
-    }).toThrowError('');
+    }).toThrow('');
     expect(() => {
       assert(true);
-    }).not.toThrowError();
+    }).not.toThrow();
   });
 
   it('has fancy typing', () => {
-    expect().nothing();
+    staticTest(() => {
+      const v = '' as Date | string;
+      expectTypeOf(identity(v)).toEqualTypeOf<Date | string>();
 
-    const v = '' as Date | string;
-    expectTypeOf(identity(v)).toEqualTypeOf<Date | string>();
-
-    assert(isString(v));
-    expectTypeOf(identity(v)).toEqualTypeOf<string>();
+      assert(isString(v));
+      expectTypeOf(identity(v)).toEqualTypeOf<string>();
+    });
   });
 });
