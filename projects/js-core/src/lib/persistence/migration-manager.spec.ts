@@ -147,7 +147,7 @@ describe('MigrationManager', () => {
       migrater.registerMigration(1, () => ({ _version: 1 }));
       expect(() => {
         migrater.upgrade(new State(1), 2);
-      }).toThrowError(
+      }).toThrow(
         'Migration from 1 set version to 1. That is not an upgrade...',
       );
     });

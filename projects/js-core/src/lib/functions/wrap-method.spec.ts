@@ -1,3 +1,4 @@
+import { noop } from '@s-libs/micro-dash';
 import { expectSingleCallAndReset, staticTest } from '@s-libs/ng-vitest';
 import { expectTypeOf } from 'expect-type';
 import { wrapMethod } from './wrap-method';
@@ -7,7 +8,7 @@ describe('wrapMethod()', () => {
     const toReturn = Symbol('toReturn');
     const method = vi.fn().mockReturnValue(toReturn);
     const object = { method };
-    const before = vi.fn();
+    const before = vi.fn(noop);
     const arg1 = Symbol('arg1');
     const arg2 = Symbol('arg2');
 
@@ -23,7 +24,7 @@ describe('wrapMethod()', () => {
 
   it('returns a function to reset', () => {
     const method = vi.fn();
-    const before = vi.fn();
+    const before = vi.fn(noop);
     const object = { method };
     const unwrap = wrapMethod(object, 'method', { before });
 

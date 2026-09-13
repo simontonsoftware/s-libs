@@ -51,10 +51,10 @@ describe('Encoding', () => {
     it('has a nice error for illegal input', () => {
       expect(() => {
         encoding.pushNaturalNumber(0.5);
-      }).toThrowError('value (0.5) must be a natural number');
+      }).toThrow('value (0.5) must be a natural number');
       expect(() => {
         encoding.pushNaturalNumber(-1);
-      }).toThrowError('value (-1) must be a natural number');
+      }).toThrow('value (-1) must be a natural number');
     });
   });
 
@@ -76,7 +76,7 @@ describe('Encoding', () => {
     it('has a nice error when value is not in options', () => {
       expect(() => {
         encoding.pushOption('a', ['b', 'c']);
-      }).toThrowError('value (a) not found in options');
+      }).toThrow('value (a) not found in options');
     });
 
     it('accepts readonly arrays', () => {
@@ -100,13 +100,13 @@ describe('Encoding', () => {
     it('has nice error messages for illegal input', () => {
       expect(() => {
         encoding.pushInteger(0.5, 1);
-      }).toThrowError('value (0.5) must be an integer');
+      }).toThrow('value (0.5) must be an integer');
       expect(() => {
         encoding.pushInteger(-1, 8);
-      }).toThrowError('value (-1) must be at least 0');
+      }).toThrow('value (-1) must be at least 0');
       expect(() => {
         encoding.pushInteger(5, 4);
-      }).toThrowError('value (5) must be at most 4');
+      }).toThrow('value (5) must be at most 4');
     });
   });
 
@@ -121,7 +121,7 @@ describe('Encoding', () => {
   it('has a nice error when pushing a character that is not in the alphabet', () => {
     expect(() => {
       encoding.setStringEncoding('ab', 'a');
-    }).toThrowError('value contains a character that is not in alphabet: b');
+    }).toThrow('value contains a character that is not in alphabet: b');
   });
 
   it('works for the example in the docs', () => {

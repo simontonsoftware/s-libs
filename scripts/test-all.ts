@@ -1,6 +1,6 @@
 import { buildableLibraries, runCommand } from './shared.ts';
 
-const vitestProjects = new Set(['ng-vitest']);
+const vitestProjects = new Set(['js-core', 'ng-vitest']);
 
 const testableProjects = [...buildableLibraries, 'integration'];
 for (const project of testableProjects) {

@@ -38,6 +38,6 @@ describe('getCombinations()', () => {
   it('gracefully handles a fractional length', () => {
     expect(() => {
       getCombinations([1, 2, 3], 1.5);
-    }).toThrowError('`length` must be a whole number');
+    }).toThrow('`length` must be a whole number');
   });
 });
