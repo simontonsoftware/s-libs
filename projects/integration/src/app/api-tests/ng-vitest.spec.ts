@@ -6,6 +6,7 @@ import {
   ComponentContext,
   ComponentHarnessSuperclass,
   createMockObject,
+  expectCallsAndReset,
   expectExactContents,
   expectRequest,
   expectSingleCallAndReset,
@@ -54,6 +55,10 @@ describe('ng-vitest', () => {
 
   it('has createMockObject()', () => {
     expect(createMockObject).toBeDefined();
+  });
+
+  it('has expectCallsAndReset()', () => {
+    expect(expectCallsAndReset).toBeDefined();
   });
 
   it('has expectExactContents()', () => {
