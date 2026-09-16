@@ -9,7 +9,6 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "moduleResolution": "bundler",
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "isolatedModules": true,
@@ -17,10 +16,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
-    "paths": {
-      "@s-libs/*": ["./dist/*"],
-      "ng-vitest": ["./dist/ng-vitest"]
-    },
+    "paths": { "@s-libs/*": ["./dist/*"] },
 
     //
     // Simonton Software additions
