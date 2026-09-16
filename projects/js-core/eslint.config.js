@@ -6,11 +6,7 @@ module.exports = defineConfig([
   ...rootConfig,
   {
     files: ['**/*.ts'],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-      },
-    },
+    languageOptions: { parserOptions: { projectService: true } },
     rules: {
       '@angular-eslint/directive-selector': [
         'error',

@@ -26,12 +26,6 @@ module.exports = defineConfig([
         { max: 25, skipBlankLines: true, skipComments: true },
       ],
       'max-nested-callbacks': ['error', { max: 2 }],
-
-      // I have not found good alternatives to `object` in the cases I've used it
-      '@typescript-eslint/ban-types': [
-        'error',
-        { types: { object: false }, extendDefaults: true },
-      ],
     },
   },
   {
