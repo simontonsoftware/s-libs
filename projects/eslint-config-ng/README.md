@@ -11,16 +11,19 @@ Follow these instructions to get all the community-recommended config from [`ESL
 
    ```js
    // @ts-check
-   const tseslint = require('typescript-eslint');
+   const { defineConfig } = require('eslint/config');
    const slibs = require('@s-libs/eslint-config-ng');
 
-   module.exports = tseslint.config(...slibs, {
-     files: ['**/*.ts'],
-     rules: {
-       '@angular-eslint/directive-selector': ['error', { type: 'attribute', prefix: 'app', style: 'camelCase' }],
-       '@angular-eslint/component-selector': ['error', { type: 'element', prefix: 'app', style: 'kebab-case' }],
+   module.exports = defineConfig([
+     ...slibs,
+     {
+       files: ['**/*.ts'],
+       rules: {
+         '@angular-eslint/directive-selector': ['error', { type: 'attribute', prefix: 'app', style: 'camelCase' }],
+         '@angular-eslint/component-selector': ['error', { type: 'element', prefix: 'app', style: 'kebab-case' }],
+       },
      },
-   });
+   ]);
    ```
 
 # Strict Config
@@ -34,17 +37,20 @@ Use these instructions for much stricter linting, start with the instructions ab
 
    ```js
    // @ts-check
-   const tseslint = require('typescript-eslint');
+   const { defineConfig } = require('eslint/config');
    const slibs = require('@s-libs/eslint-config-ng/strict');
 
-   module.exports = tseslint.config(...slibs, {
-     files: ['**/*.ts'],
-     languageOptions: { parserOptions: { projectService: true } },
-     rules: {
-       '@angular-eslint/directive-selector': ['error', { type: 'attribute', prefix: 'app', style: 'camelCase' }],
-       '@angular-eslint/component-selector': ['error', { type: 'element', prefix: 'app', style: 'kebab-case' }],
+   module.exports = defineConfig([
+     ...slibs,
+     {
+       files: ['**/*.ts'],
+       languageOptions: { parserOptions: { projectService: true } },
+       rules: {
+         '@angular-eslint/directive-selector': ['error', { type: 'attribute', prefix: 'app', style: 'camelCase' }],
+         '@angular-eslint/component-selector': ['error', { type: 'element', prefix: 'app', style: 'kebab-case' }],
+       },
      },
-   });
+   ]);
    ```
 
 **Warning:** the configs from underlying libraries is not as stable as the ones used for their "recommended" configs. It can change with minor version updates to the underlying libraries.
