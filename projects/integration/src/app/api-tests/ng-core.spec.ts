@@ -1,4 +1,5 @@
 import {
+  debounceWhileHandling,
   FormComponentSuperclass,
   InjectableSuperclass,
   LazyLoader,
@@ -23,6 +24,10 @@ describe('ng-core', () => {
 
   it('has WrappedControlSuperclass', () => {
     expect(WrappedControlSuperclass).toBeDefined();
+  });
+
+  it('has debounceWhileHandling', () => {
+    expect(debounceWhileHandling).toBeDefined();
   });
 
   it('has mixInInjectableSuperclass', () => {
