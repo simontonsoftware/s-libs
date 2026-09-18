@@ -344,10 +344,11 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "projects/ng-core/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "browsers": ["chromium"],
+            "runnerConfig": true
           }
         },
         "lint": {

@@ -1,7 +1,7 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AngularContext, ComponentContext } from '@s-libs/ng-jasmine';
+import { AngularContext, ComponentContext } from '@s-libs/ng-vitest';
 
 // These are disabled for spec files
 /* eslint-disable @typescript-eslint/no-unsafe-return */
@@ -40,14 +40,17 @@ export function findDirective<T>(ctx: ComponentContext<any>, type: Type<T>): T {
   return ctx.fixture.debugElement.query(By.directive(type)).componentInstance;
 }
 
-export function click(element: Element): void {
+export async function click(element: Element): Promise<void> {
   element.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  AngularContext.getCurrent()!.tick();
+  await AngularContext.getCurrent()!.tick();
 }
 
-export function setValue(input: HTMLInputElement, value: string): void {
+export async function setValue(
+  input: HTMLInputElement,
+  value: string,
+): Promise<void> {
   input.value = value;
   input.dispatchEvent(new Event('input', { bubbles: true }));
   input.dispatchEvent(new Event('change', { bubbles: true }));
-  AngularContext.getCurrent()!.tick();
+  await AngularContext.getCurrent()!.tick();
 }

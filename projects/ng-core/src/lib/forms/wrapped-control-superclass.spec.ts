@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ErrorHandler,
-  input,
-} from '@angular/core';
-import { flushMicrotasks } from '@angular/core/testing';
+import { Component, ErrorHandler, input, model, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -17,7 +11,7 @@ import { By } from '@angular/platform-browser';
 import { RootStore } from '@s-libs/app-state';
 import { keys, omit } from '@s-libs/micro-dash';
 import { NasModelModule } from '@s-libs/ng-app-state';
-import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-jasmine';
+import { ComponentContext, expectSingleCallAndReset } from '@s-libs/ng-vitest';
 import { EMPTY, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import {
@@ -33,7 +27,68 @@ import { provideValueAccessor } from './provide-value-accessor';
 import { WrappedControlSuperclass } from './wrapped-control-superclass';
 
 describe('WrappedControlSuperclass', () => {
-  it('adds ng-touched to the inner form control at the right time', () => {
+  @Component({
+    selector: `sl-passthrough-component`,
+    imports: [ReactiveFormsModule],
+    template: ` <input [formControl]="control" /> `,
+    providers: [provideValueAccessor(PassthroughComponent)],
+  })
+  class PassthroughComponent extends WrappedControlSuperclass<string> {
+    protected control = new FormControl();
+  }
+
+  function findInput(ctx: ComponentContext<unknown>): HTMLInputElement {
+    return find<HTMLInputElement>(ctx.fixture, 'input');
+  }
+
+  it('provides help for 2-way binding', async () => {
+    @Component({
+      imports: [FormsModule, PassthroughComponent],
+      template: `<sl-passthrough-component [(ngModel)]="string" />`,
+    })
+    class TestComponent {
+      readonly string = model('');
+    }
+
+    const ctx = new ComponentContext(TestComponent);
+    await ctx.run(async () => {
+      await ctx.assignInputs({ string: 'initial value' });
+      await ctx.tick();
+      expect(findInput(ctx).value).toBe('initial value');
+
+      await setValue(findInput(ctx), 'edited value');
+      expect(ctx.getComponentInstance().string()).toBe('edited value');
+    });
+  });
+
+  it('provides help for `onTouched`', async () => {
+    @Component({
+      imports: [FormsModule, PassthroughComponent],
+      template: `
+        <sl-passthrough-component
+          #stringControl="ngModel"
+          [(ngModel)]="string"
+        />
+
+        @if (stringControl.touched) {
+          <div>Touched!</div>
+        }
+      `,
+    })
+    class TestComponent {
+      readonly string = model('');
+    }
+
+    const ctx = new ComponentContext(TestComponent);
+    await ctx.run(async () => {
+      expect(ctx.fixture.nativeElement.innerText).not.toContain('Touched!');
+      findInput(ctx).dispatchEvent(new Event('blur'));
+      await ctx.tick();
+      expect(ctx.fixture.nativeElement.innerText).toContain('Touched!');
+    });
+  });
+
+  it('adds ng-touched to the inner form control at the right time', async () => {
     @Component({
       imports: [ReactiveFormsModule],
       template: `<input [formControl]="control" />`,
@@ -43,17 +98,47 @@ describe('WrappedControlSuperclass', () => {
     }
 
     const ctx = new ComponentContext(NgTouchedComponent);
-    ctx.run(() => {
+    await ctx.run(async () => {
       const debugElement = ctx.fixture.debugElement.query(By.css('input'));
       debugElement.triggerEventHandler('blur', {});
-      ctx.tick();
+      await ctx.tick();
 
       expect(debugElement.classes['ng-touched']).toBe(true);
     });
   });
 
+  it('provides help for `[disabled]`', async () => {
+    @Component({
+      imports: [FormsModule, PassthroughComponent],
+      template: `
+        <sl-passthrough-component ngModel [disabled]="shouldDisable()" />
+        <button (click)="shouldDisable.set(!shouldDisable())">
+          Toggle Disabled
+        </button>
+      `,
+    })
+    class TestComponent {
+      readonly shouldDisable = model(false);
+    }
+
+    const ctx = new ComponentContext(TestComponent);
+    await ctx.run(async () => {
+      const button = findButton(ctx.fixture, 'Toggle Disabled');
+      expect(findInput(ctx).disabled).toBe(false);
+
+      await ctx.assignInputs({ shouldDisable: true });
+      expect(findInput(ctx).disabled).toBe(true);
+
+      await click(button);
+      expect(findInput(ctx).disabled).toBe(false);
+
+      await click(button);
+      expect(findInput(ctx).disabled).toBe(true);
+    });
+  });
+
   // There is some kind of tricky timing issue when using NasModel and WrappedControlSuperclass that required moving a subscription from `ngOnInit()` to `constructor()` to fix.
-  it('catches the first incoming value from a nasModel', () => {
+  it('catches the first incoming value from a nasModel', async () => {
     @Component({
       selector: 'sl-wrapped-control',
       imports: [ReactiveFormsModule],
@@ -73,14 +158,60 @@ describe('WrappedControlSuperclass', () => {
     }
 
     const ctx = new ComponentContext(WrapperComponent);
-    ctx.run(() => {
+    await ctx.run(async () => {
       const el = ctx.fixture.nativeElement;
       expect(el.querySelector('input')!.value).toBe('initial value');
     });
   });
 
+  it('does not emit after an incoming change', async () => {
+    @Component({
+      imports: [FormsModule, PassthroughComponent],
+      template: `
+        <sl-passthrough-component
+          [disabled]="shouldDisable()"
+          [(ngModel)]="string"
+          (ngModelChange)="emissions = emissions + 1"
+        />
+        <button (click)="shouldDisable.set(!shouldDisable())">
+          Toggle Disabled
+        </button>
+      `,
+    })
+    class TestComponent {
+      emissions = 0;
+      readonly string = model('');
+      readonly shouldDisable = signal(false);
+    }
+
+    const ctx = new ComponentContext(TestComponent);
+    await ctx.run(async () => {
+      const button = findButton(ctx.fixture, 'Toggle Disabled');
+      expect(ctx.getComponentInstance().emissions).toBe(0);
+
+      await setValue(findInput(ctx), 'changed from within');
+      expect(ctx.getComponentInstance().emissions).toBe(1);
+
+      await ctx.assignInputs({ string: 'changed from without' });
+      expect(ctx.getComponentInstance().emissions).toBe(1);
+
+      await click(button);
+      await click(button);
+      expect(ctx.getComponentInstance().emissions).toBe(1);
+    });
+  });
+
+  it('has the right class hierarchy', async () => {
+    const ctx = new ComponentContext(PassthroughComponent);
+    await ctx.run(async () => {
+      const component = ctx.getComponentInstance();
+      expect(component instanceof InjectableSuperclass).toBe(true);
+      expect(component instanceof FormComponentSuperclass).toBe(true);
+    });
+  });
+
   describe('translating between inner and outer formats', () => {
-    it('allows setting up an observable to translate between inner and outer values', () => {
+    it('allows setting up an observable to translate between inner and outer values', async () => {
       @Component({
         selector: 'sl-observable-translation',
         imports: [ReactiveFormsModule],
@@ -121,23 +252,23 @@ describe('WrappedControlSuperclass', () => {
       }
 
       const ctx = new ComponentContext(WrapperComponent);
-      ctx.run(() => {
+      await ctx.run(async () => {
         const inputEl: HTMLInputElement = ctx.fixture.debugElement.query(
           By.css('input'),
         ).nativeElement;
         expect(inputEl.value).toBe('19');
 
-        setValue(inputEl, '6');
-        ctx.tick();
+        await setValue(inputEl, '6');
+        await ctx.tick();
         expect(ctx.getComponentInstance().valueOut).toBe(12);
 
-        setValue(inputEl, "you can't double me");
-        ctx.tick();
+        await setValue(inputEl, "you can't double me");
+        await ctx.tick();
         expect(ctx.getComponentInstance().valueOut).toBe(12);
       });
     });
 
-    it('gracefully handles an error in .innerToOuterValue()', () => {
+    it('gracefully handles an error in .innerToOuterValue()', async () => {
       @Component({
         selector: `sl-error-in`,
         imports: [ReactiveFormsModule],
@@ -145,7 +276,7 @@ describe('WrappedControlSuperclass', () => {
         providers: [provideValueAccessor(ErrorInComponent)],
       })
       class ErrorInComponent extends WrappedControlSuperclass<number> {
-        override outerToInnerValue = jasmine.createSpy();
+        override outerToInnerValue = vi.fn();
         protected control = new FormControl();
       }
 
@@ -154,14 +285,14 @@ describe('WrappedControlSuperclass', () => {
         template: `<sl-error-in [ngModel]="value()" />`,
       })
       class WrapperComponent {
-        readonly value = input.required<string>();
+        readonly value = input<string>();
       }
 
-      const handleError = jasmine.createSpy();
+      const handleError = vi.fn();
       const ctx = new ComponentContext(WrapperComponent, {
         providers: [{ provide: ErrorHandler, useValue: { handleError } }],
       });
-      ctx.run(async () => {
+      await ctx.run(async () => {
         const control: ErrorInComponent = ctx.fixture.debugElement.query(
           By.directive(ErrorInComponent),
         ).componentInstance;
@@ -170,18 +301,20 @@ describe('WrappedControlSuperclass', () => {
         ).nativeElement;
 
         const error = new Error();
-        control.outerToInnerValue.and.throwError(error);
-        ctx.assignInputs({ value: 'wont show' });
+        control.outerToInnerValue.mockImplementation(() => {
+          throw error;
+        });
+        await ctx.assignInputs({ value: 'wont show' });
         expectSingleCallAndReset(handleError, error);
         expect(inputEl.value).toBe('');
 
-        control.outerToInnerValue.and.returnValue('restored');
-        ctx.assignInputs({ value: 'will show' });
+        control.outerToInnerValue.mockReturnValue('restored');
+        await ctx.assignInputs({ value: 'will show' });
         expect(inputEl.value).toBe('restored');
       });
     });
 
-    it('gracefully handles an error in .outerToInnerValue()', () => {
+    it('gracefully handles an error in .outerToInnerValue()', async () => {
       @Component({
         selector: `sl-error-out`,
         imports: [ReactiveFormsModule],
@@ -189,7 +322,7 @@ describe('WrappedControlSuperclass', () => {
         providers: [provideValueAccessor(ErrorOutComponent)],
       })
       class ErrorOutComponent extends WrappedControlSuperclass<number> {
-        override innerToOuterValue = jasmine.createSpy();
+        override innerToOuterValue = vi.fn();
         protected control = new FormControl();
       }
 
@@ -201,11 +334,11 @@ describe('WrappedControlSuperclass', () => {
         value = 'initial value';
       }
 
-      const handleError = jasmine.createSpy();
+      const handleError = vi.fn();
       const ctx = new ComponentContext(WrapperComponent, {
         providers: [{ provide: ErrorHandler, useValue: { handleError } }],
       });
-      ctx.run(async () => {
+      await ctx.run(async () => {
         const wrapper = ctx.getComponentInstance();
         const control: ErrorOutComponent = ctx.fixture.debugElement.query(
           By.directive(ErrorOutComponent),
@@ -215,20 +348,22 @@ describe('WrappedControlSuperclass', () => {
         ).nativeElement;
 
         const error = new Error();
-        control.innerToOuterValue.and.throwError(error);
-        setValue(inputEl, 'wont show');
+        control.innerToOuterValue.mockImplementation(() => {
+          throw error;
+        });
+        await setValue(inputEl, 'wont show');
         expectSingleCallAndReset(handleError, error);
         expect(wrapper.value).toBe('initial value');
 
-        control.innerToOuterValue.and.returnValue('restored');
-        setValue(inputEl, 'will show');
+        control.innerToOuterValue.mockReturnValue('restored');
+        await setValue(inputEl, 'will show');
         expect(wrapper.value).toBe('restored');
       });
     });
   });
 
   describe('validation', () => {
-    it('works for simple transformations', () => {
+    it('works for simple transformations', async () => {
       @Component({
         selector: 'sl-inner',
         imports: [ReactiveFormsModule],
@@ -261,7 +396,7 @@ describe('WrappedControlSuperclass', () => {
       }
 
       const ctx = new ComponentContext(OuterComponent);
-      ctx.run(async () => {
+      await ctx.run(async () => {
         const outer = ctx.getComponentInstance();
         const inner = findDirective(ctx, InnerComponent);
         const inputEl = find<HTMLInputElement>(ctx.fixture, 'input');
@@ -269,13 +404,13 @@ describe('WrappedControlSuperclass', () => {
         expect(inner.control.errors).toBe(null);
         expect(outer.control.errors).toEqual({ required: true });
 
-        setValue(inputEl, '123');
+        await setValue(inputEl, '123');
         expect(keys(inner.control.errors)).toEqual(['maxlength']);
         expect(outer.control.errors).toBe(null);
       });
     });
 
-    it('works for complex transformations', () => {
+    it('works for complex transformations', async () => {
       @Component({
         selector: 'sl-inner',
         imports: [ReactiveFormsModule],
@@ -300,14 +435,14 @@ describe('WrappedControlSuperclass', () => {
       }
 
       const ctx = new ComponentContext(OuterComponent);
-      ctx.run(async () => {
+      await ctx.run(async () => {
         const outer = ctx.getComponentInstance();
         expect(outer.control.errors).toBe(null);
       });
     });
 
     describe('when there is an outer `NgControl`', () => {
-      it('does not sync with ancestor controls', () => {
+      it('does not sync with ancestor controls', async () => {
         @Component({
           selector: `sl-inner`,
           imports: [ReactiveFormsModule],
@@ -335,13 +470,13 @@ describe('WrappedControlSuperclass', () => {
         class OuterComponent {}
 
         const ctx = new ComponentContext(OuterComponent);
-        ctx.run(async () => {
+        await ctx.run(async () => {
           const innerControl = findDirective(ctx, InnerComponent).control;
           expect(innerControl.errors).toBe(null);
         });
       });
 
-      it('syncs with all types of NgControls (production bug)', () => {
+      it('syncs with all types of NgControls (production bug)', async () => {
         // It was not syncing properly with `FormControlName`: https://github.com/simontonsoftware/s-libs/issues/82
 
         @Component({
@@ -372,27 +507,27 @@ describe('WrappedControlSuperclass', () => {
         }
 
         const ctx = new ComponentContext(OuterComponent);
-        ctx.run(async () => {
-          const model = ctx.fixture.debugElement.query(
+        await ctx.run(async () => {
+          const byModel = ctx.fixture.debugElement.query(
             By.css('#model'),
           ).componentInstance;
-          const control = ctx.fixture.debugElement.query(
+          const byControl = ctx.fixture.debugElement.query(
             By.css('#control'),
           ).componentInstance;
-          const name = ctx.fixture.debugElement.query(
+          const byName = ctx.fixture.debugElement.query(
             By.css('#name'),
           ).componentInstance;
 
-          expect(model.control.errors).toEqual({ required: true });
-          expect(control.control.errors).toEqual({ required: true });
-          expect(name.control.errors).toEqual({ required: true });
+          expect(byModel.control.errors).toEqual({ required: true });
+          expect(byControl.control.errors).toEqual({ required: true });
+          expect(byName.control.errors).toEqual({ required: true });
         });
       });
     });
   });
 
   describe('doc example', () => {
-    it('works for the simple one', () => {
+    it('works for the simple one', async () => {
       // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv begin example
       @Component({
         imports: [ReactiveFormsModule],
@@ -405,13 +540,13 @@ describe('WrappedControlSuperclass', () => {
       // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ end example
 
       const ctx = new ComponentContext(StringComponent);
-      ctx.run(async () => {
-        setValue(find<HTMLInputElement>(ctx.fixture, 'input'), 'hi');
+      await ctx.run(async () => {
+        await setValue(find<HTMLInputElement>(ctx.fixture, 'input'), 'hi');
         expect(ctx.getComponentInstance().control.value).toBe('hi');
       });
     });
 
-    it('works for the one that modifies the value', () => {
+    it('works for the one that modifies the value', async () => {
       // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv begin example
       @Component({
         selector: 'sl-date',
@@ -444,25 +579,24 @@ describe('WrappedControlSuperclass', () => {
         template: `<sl-date [(ngModel)]="date" />`,
       })
       class TestComponent {
-        date = new Date();
+        readonly date = model(new Date());
       }
 
       const ctx = new ComponentContext(TestComponent);
-      ctx.run(async () => {
+      await ctx.run(async () => {
         const inputEl = find<HTMLInputElement>(ctx.fixture, 'input');
 
-        ctx.getComponentInstance().date = new Date('2018-09-03T21:00Z');
-        ctx.tick();
+        await ctx.assignInputs({ date: new Date('2018-09-03T21:00Z') });
         expect(inputEl.value).toBe('2018-09-03T21:00');
 
-        setValue(inputEl, '1980-11-04T10:00');
-        expect(ctx.getComponentInstance().date).toEqual(
+        await setValue(inputEl, '1980-11-04T10:00');
+        expect(ctx.getComponentInstance().date()).toEqual(
           new Date('1980-11-04T10:00Z'),
         );
       });
     });
 
-    it('works for the multiple inner components one', () => {
+    it('works for the multiple inner components one', async () => {
       // The idea for being able to wrap a form group came from github user A77AY: https://github.com/simontonsoftware/s-libs/pull/52
 
       // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv begin example
@@ -520,132 +654,17 @@ describe('WrappedControlSuperclass', () => {
       }
 
       const ctx = new ComponentContext(TestComponent);
-      ctx.run(async () => {
+      await ctx.run(async () => {
         const inputs = document.querySelectorAll('input');
         expect(inputs[0].value).toBe('Rinat');
         expect(inputs[1].value).toBe('Arsaev');
 
         expect(inputs[0].disabled).toBe(false);
         expect(inputs[1].disabled).toBe(false);
-        ctx.assignInputs({ disabled: true });
+        await ctx.assignInputs({ disabled: true });
         expect(inputs[0].disabled).toBe(true);
         expect(inputs[1].disabled).toBe(true);
       });
-    });
-  });
-});
-
-describe('WrappedControlSuperclass tests using an old style fixture', () => {
-  @Component({
-    selector: `sl-string-component`,
-    imports: [ReactiveFormsModule],
-    template: ` <input [formControl]="control" /> `,
-    providers: [provideValueAccessor(StringComponent)],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-  })
-  class StringComponent extends WrappedControlSuperclass<string> {
-    protected control = new FormControl();
-  }
-
-  @Component({
-    imports: [FormsModule, StringComponent],
-    template: `
-      <sl-string-component
-        #stringControl="ngModel"
-        [disabled]="shouldDisable"
-        [(ngModel)]="string"
-        (ngModelChange)="emissions = emissions + 1"
-      />
-      @if (stringControl.touched) {
-        <div>Touched!</div>
-      }
-      <button (click)="shouldDisable = !shouldDisable">Toggle Disabled</button>
-    `,
-  })
-  class TestComponent {
-    emissions = 0;
-    string = '';
-    shouldDisable = false;
-  }
-
-  class TestComponentContext extends ComponentContext<TestComponent> {
-    constructor() {
-      super(TestComponent);
-    }
-  }
-
-  let ctx: TestComponentContext;
-  beforeEach(() => {
-    ctx = new TestComponentContext();
-  });
-
-  function stringInput(): HTMLInputElement {
-    return find<HTMLInputElement>(ctx.fixture, 'sl-string-component input');
-  }
-
-  function toggleDisabledButton(): HTMLButtonElement {
-    return findButton(ctx.fixture, 'Toggle Disabled');
-  }
-
-  it('provides help for 2-way binding', () => {
-    ctx.run(() => {
-      ctx.getComponentInstance().string = 'initial value';
-      ctx.tick();
-      expect(stringInput().value).toBe('initial value');
-
-      setValue(stringInput(), 'edited value');
-      expect(ctx.getComponentInstance().string).toBe('edited value');
-    });
-  });
-
-  it('provides help for `onTouched`', () => {
-    ctx.run(() => {
-      expect(ctx.fixture.nativeElement.innerText).not.toContain('Touched!');
-      stringInput().dispatchEvent(new Event('blur'));
-      ctx.tick();
-      expect(ctx.fixture.nativeElement.innerText).toContain('Touched!');
-    });
-  });
-
-  it('provides help for `[disabled]`', () => {
-    ctx.run(() => {
-      ctx.getComponentInstance().shouldDisable = true;
-      ctx.tick();
-      expect(stringInput().disabled).toBe(true);
-
-      click(toggleDisabledButton());
-      expect(stringInput().disabled).toBe(false);
-
-      click(toggleDisabledButton());
-      expect(stringInput().disabled).toBe(true);
-    });
-  });
-
-  it('does not emit after an incoming change', () => {
-    ctx.run(() => {
-      expect(ctx.getComponentInstance().emissions).toBe(0);
-
-      setValue(stringInput(), 'changed from within');
-      expect(ctx.getComponentInstance().emissions).toBe(1);
-
-      ctx.getComponentInstance().string = 'changed from without';
-      ctx.fixture.detectChanges();
-      flushMicrotasks();
-      expect(ctx.getComponentInstance().emissions).toBe(1);
-
-      click(toggleDisabledButton());
-      click(toggleDisabledButton());
-      expect(ctx.getComponentInstance().emissions).toBe(1);
-    });
-  });
-
-  it('has the right class hierarchy', () => {
-    ctx.run(() => {
-      const component = ctx.fixture.debugElement.query(
-        By.directive(StringComponent),
-      ).componentInstance;
-      expect(component instanceof InjectableSuperclass).toBe(true);
-      expect(component instanceof FormComponentSuperclass).toBe(true);
     });
   });
 });

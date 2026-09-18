@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, model } from '@angular/core';
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ComponentContext } from '@s-libs/ng-jasmine';
+import { ComponentContext } from '@s-libs/ng-vitest';
 import { click, find, findButton } from '../../test-helpers';
 import { InjectableSuperclass } from '../injectable-superclass';
 import { FormComponentSuperclass } from './form-component-superclass';
@@ -65,38 +65,38 @@ describe('FormComponentSuperclass', () => {
     return findButton(ctx.fixture, 'Toggle Disabled');
   }
 
-  it('provides help for 2-way binding', () => {
-    ctx.assignInputs({ value: 15 });
-    ctx.run(() => {
+  it('provides help for 2-way binding', async () => {
+    await ctx.assignInputs({ value: 15 });
+    await ctx.run(async () => {
       expect(ctx.getComponentInstance().value()).toBe(15);
       expect(ctx.fixture.nativeElement.innerText).toContain('15');
 
-      click(incrementButton());
+      await click(incrementButton());
       expect(ctx.getComponentInstance().value()).toBe(16);
       expect(ctx.fixture.nativeElement.innerText).toContain('16');
     });
   });
 
-  it('provides help for `onTouched`', () => {
-    ctx.run(() => {
+  it('provides help for `onTouched`', async () => {
+    await ctx.run(async () => {
       expect(ctx.fixture.nativeElement.innerText).not.toContain('Touched!');
-      click(incrementButton());
+      await click(incrementButton());
       expect(ctx.fixture.nativeElement.innerText).toContain('Touched!');
     });
   });
 
-  it('provides help for `[disabled]`', () => {
-    ctx.assignInputs({ shouldDisable: true });
-    ctx.run(() => {
+  it('provides help for `[disabled]`', async () => {
+    await ctx.assignInputs({ shouldDisable: true });
+    await ctx.run(async () => {
       expect(incrementButton().disabled).toBe(true);
 
-      click(toggleDisabledButton());
+      await click(toggleDisabledButton());
       expect(incrementButton().disabled).toBe(false);
     });
   });
 
-  it('has the right class hierarchy', () => {
-    ctx.run(() => {
+  it('has the right class hierarchy', async () => {
+    await ctx.run(async () => {
       const counter = ctx.fixture.debugElement.query(
         By.directive(CounterComponent),
       ).componentInstance;

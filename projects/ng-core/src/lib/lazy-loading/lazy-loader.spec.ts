@@ -7,7 +7,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatDialogHarness } from '@angular/material/dialog/testing';
-import { AngularContext, staticTest } from '@s-libs/ng-jasmine';
+import { AngularContext, staticTest } from '@s-libs/ng-vitest';
 import { expectTypeOf } from 'expect-type';
 import { LazyLoader } from './lazy-loader';
 import { provideEagerLoading } from './provide-eager-loading';
@@ -30,7 +30,7 @@ describe('LazyLoader', () => {
     });
   });
 
-  it('can inject from the bundle', () => {
+  it('can inject from the bundle', async () => {
     @Injectable()
     class LazyService {}
     const bundle = {
@@ -41,14 +41,14 @@ describe('LazyLoader', () => {
     const ctx = new AngularContext({
       providers: [provideEagerLoading(loaderToken, bundle)],
     });
-    ctx.run(async () => {
+    await ctx.run(async () => {
       const loader = ctx.inject(loaderToken);
       expect(await loader.inject('LazyService')).toBeInstanceOf(LazyService);
     });
   });
 
   describe('.getToken()', () => {
-    it('works', () => {
+    it('works', async () => {
       @Injectable()
       class LazyService {}
       const bundle = { tokenMap: { LazyService } };
@@ -56,13 +56,13 @@ describe('LazyLoader', () => {
       const ctx = new AngularContext({
         providers: [provideEagerLoading(loaderToken, bundle)],
       });
-      ctx.run(async () => {
+      await ctx.run(async () => {
         const loader = ctx.inject(loaderToken);
         expect(await loader.getToken('LazyService')).toBe(LazyService);
       });
     });
 
-    it('works for the example in the docs', () => {
+    it('works for the example in the docs', async () => {
       // my-dialog.ts
       @Component({
         imports: [MatButtonModule, MatDialogModule],
@@ -90,7 +90,7 @@ describe('LazyLoader', () => {
       const ctx = new AngularContext({
         providers: [provideEagerLoading(dialogLoaderToken, dialogBundle)],
       });
-      ctx.run(async () => {
+      await ctx.run(async () => {
         // wherever you want to open the dialog
         const dialogLoader = ctx.inject(dialogLoaderToken);
         const matDialog = await dialogLoader.inject('MatDialog');
