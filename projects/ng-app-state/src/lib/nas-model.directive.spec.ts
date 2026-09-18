@@ -14,7 +14,6 @@ import { RootStore, Store } from '@s-libs/app-state';
 import { noop } from '@s-libs/micro-dash';
 import { ComponentContext } from '@s-libs/ng-jasmine';
 import { Subject } from 'rxjs';
-import { setValue } from '../../../ng-core/src/test-helpers';
 import {
   CityComponent,
   citySelectWithCustomCompareFnTemplate,
@@ -717,6 +716,13 @@ describe('NasModelDirective', () => {
         setValue(input, 'updated value');
       });
     }).not.toThrowError();
+
+    function setValue(input: HTMLInputElement, value: string): void {
+      input.value = value;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+      ctx.tick();
+    }
   });
 
   it('handles `null` for disabled (for async pipe compatibility)', () => {
