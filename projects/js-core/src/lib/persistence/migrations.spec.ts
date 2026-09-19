@@ -126,6 +126,7 @@ describe('Migrations', () => {
   });
 
   it('works for the example in the docs', () => {
+    /* eslint-disable camelcase */
     interface MyData extends VersionedObject {
       _version: number;
       key1: string;
@@ -134,11 +135,14 @@ describe('Migrations', () => {
     const oldData: any = { _version: 3, key_1: 'my string' };
 
     const migrations = new Migrations<MyData>(4);
-    migrations.register(3, (oldObject: any) => {
-      return { _version: 4, key1: oldObject.key_1 };
-    });
+    migrations.register(3, (oldObject: any) => ({
+      _version: 4,
+      key1: oldObject.key_1,
+    }));
 
     const newData = migrations.run(oldData);
     expect(newData).toEqual({ _version: 4, key1: 'my string' });
+
+    /* eslint-enable camelcase */
   });
 });
