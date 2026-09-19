@@ -3,6 +3,12 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Test: Current File",
+      "type": "npm",
+      "script": "test -- --include ${relativeFile}",
+      "problemMatcher": []
+    },
+    {
       "label": "app-state - build",
       "type": "npm",
       "script": "build -- app-state",
