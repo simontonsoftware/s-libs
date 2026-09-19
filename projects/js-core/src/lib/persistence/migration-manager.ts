@@ -1,17 +1,6 @@
 import { assert } from '../assert';
+import { MigrateFunction, VersionedObject } from './migrations';
 import { Persistence } from './persistence';
-
-/**
- * Objects that can be managed by `MigrationManager` must conform to this interface.
- */
-export interface VersionedObject {
-  _version: number;
-}
-
-/**
- * A migration that can be registered with `MigrationManager`. Note that the function does not need to migrate all the way to `targetVersion`, only to something higher than `source._version`. Usually a migration will only upgrade by 1.
- */
-export type MigrateFunction<T> = (source: T, targetVersion: number) => T;
 
 /**
  * Use to migrate "versioned objects" from an old version to the latest. This is useful e.g. when keeping state in `Persistence`, and you release a new version of your app that changes its format.

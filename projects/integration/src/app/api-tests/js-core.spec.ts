@@ -20,6 +20,7 @@ import {
   mapAsKeys,
   mapToObject,
   MigrationManager,
+  Migrations,
   Persistence,
   PublicInterface,
   randomString,
@@ -69,6 +70,10 @@ describe('js-core', () => {
 
   it('has MigrationManager', () => {
     expect(MigrationManager).toBeDefined();
+  });
+
+  it('has Migrations', () => {
+    expect(Migrations).toBeDefined();
   });
 
   it('has Persistence', () => {

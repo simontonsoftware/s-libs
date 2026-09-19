@@ -1,7 +1,8 @@
 export { AsyncPersistence } from './async-persistence';
+export { MigrationManager } from './migration-manager';
 export {
-  MigrationManager,
+  Migrations,
   type MigrateFunction,
   type VersionedObject,
-} from './migration-manager';
+} from './migrations';
 export { Persistence } from './persistence';

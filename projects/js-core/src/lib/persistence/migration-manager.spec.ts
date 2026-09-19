@@ -1,5 +1,6 @@
 import { expectSingleCallAndReset, MockController } from '@s-libs/ng-vitest';
-import { MigrationManager, VersionedObject } from './migration-manager';
+import { MigrationManager } from './migration-manager';
+import { VersionedObject } from './migrations';
 import { Persistence } from './persistence';
 
 describe('MigrationManager', () => {
