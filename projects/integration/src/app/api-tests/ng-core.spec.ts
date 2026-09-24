@@ -5,9 +5,14 @@ import {
   LazyLoader,
   mixInInjectableSuperclass,
   provideEagerLoading,
+  providePersistence,
   provideValueAccessor,
   WrappedControlSuperclass,
+  type PersistenceCodec,
+  type PersistenceConfig,
 } from '@s-libs/ng-core';
+import { staticTest } from '@s-libs/ng-vitest';
+import { expectTypeOf } from 'expect-type';
 
 describe('ng-core', () => {
   it('has FormComponentSuperclass', () => {
@@ -20,6 +25,18 @@ describe('ng-core', () => {
 
   it('has InjectableSuperclass', () => {
     expect(InjectableSuperclass).toBeDefined();
+  });
+
+  it('has PersistenceCodec', () => {
+    staticTest(() => {
+      expectTypeOf<PersistenceCodec<any, any>>();
+    });
+  });
+
+  it('has PersistenceConfig', () => {
+    staticTest(() => {
+      expectTypeOf<PersistenceConfig<any, any>>();
+    });
   });
 
   it('has WrappedControlSuperclass', () => {
@@ -36,6 +53,10 @@ describe('ng-core', () => {
 
   it('has provideEagerLoading', () => {
     expect(provideEagerLoading).toBeDefined();
+  });
+
+  it('has providePersistence', () => {
+    expect(providePersistence).toBeDefined();
   });
 
   it('has provideValueAccessor', () => {
